@@ -17,6 +17,16 @@ const auth = betterAuth({
       clientSecret: env.BETTER_AUTH_GITHUB_CLIENT_SECRET,
       redirectURI: 'http://localhost:3000/api/auth/callback/github',
     },
+    google: {
+      clientId: env.BETTER_AUTH_GOOGLE_CLIENT_ID,
+      clientSecret: env.BETTER_AUTH_GOOGLE_CLIENT_SECRET,
+      redirectURI: 'http://localhost:3000/api/auth/callback/google',
+    },
+  },
+  // Cookie session, persistent for 30 days with a 1-day sliding renewal on activity.
+  session: {
+    expiresIn: 60 * 60 * 24 * 30,
+    updateAge: 60 * 60 * 24,
   },
 });
 
