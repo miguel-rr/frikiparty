@@ -14,8 +14,8 @@ const IntroStep = () => (
           en vivo.
         </p>
         <p className="text-[#f4e6c6]/90 text-sm leading-relaxed">
-          Termina en un resumen de equipos — todavía no simula los partidos en
-          sí.
+          Después juega la fase de grupos y/o eliminatorias hasta tener un
+          campeón, partido a partido.
         </p>
       </div>
     </NoticeBoard>
