@@ -93,7 +93,11 @@
       "linter": {
         "rules": {
           "style": {
-            "noDefaultExport": "off"
+            // Next's file conventions are a framework contract: it requires a
+            // default export and statically analyses named ones like `metadata`,
+            // so these files can't follow the exports-last rule.
+            "noDefaultExport": "off",
+            "useExportsLast": "off"
           }
         }
       }
