@@ -4,18 +4,16 @@ import { skipToken } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { CaptainBudgetHud } from '@/app/simulator/_components/ui/captain-budget-hud';
-import { CountdownRing } from '@/app/simulator/_components/ui/countdown-ring';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
+import { CaptainBudgetHud } from '@/components/tournament/captain-budget-hud';
+import { CountdownRing } from '@/components/tournament/countdown-ring';
 import type { AuctionRoomPayload } from '@/lib/simulator/types';
 import { api } from '@/trpc/react';
 
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
-
 const AuctionRoomHostStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const code = state.auctionRoomCode;
   const [payload, setPayload] = useState<AuctionRoomPayload | null>(null);
   const [joinUrl, setJoinUrl] = useState('');
@@ -105,6 +103,7 @@ const AuctionRoomHostStep = () => {
         <CaptainBudgetHud
           budgets={auction?.budgets ?? {}}
           captainIds={captainIds}
+          getPlayerName={getPlayerName}
           rosters={auction?.rosters ?? {}}
         />
         <p className="text-muted text-xs">

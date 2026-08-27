@@ -1,10 +1,11 @@
+import type { AuctionRoomPayload } from '@/lib/simulator/types';
 import {
   applyBid,
   createAuctionState,
   resolveLockoutEnded,
   resolveLotTimeoutOnce,
-} from '@/lib/simulator/auction-resolution';
-import type { AuctionRoomPayload, Pots } from '@/lib/simulator/types';
+} from '@/lib/tournament/auction-resolution';
+import type { Pots } from '@/lib/tournament/types';
 import { createRoomRegistry } from '@/server/realtime/room-registry';
 
 type Room = {

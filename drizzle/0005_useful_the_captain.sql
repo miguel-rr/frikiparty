@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_player" ALTER COLUMN "slug" SET NOT NULL;

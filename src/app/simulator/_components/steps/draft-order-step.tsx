@@ -3,14 +3,12 @@
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { SegmentedControl } from '@/app/simulator/_components/ui/segmented-control';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { buildCaptainOrder } from '@/lib/simulator/draft';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
+import { buildCaptainOrder } from '@/lib/tournament/draft';
 
 const DraftOrderStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const captainIds = state.captainIds ?? [];
   const ranking = state.finalRanking ?? state.participantIds;
   const preview = state.captainOrderMethod

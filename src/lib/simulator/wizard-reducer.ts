@@ -1,57 +1,72 @@
+import type {
+  SimulatorPlayer,
+  WizardAction,
+  WizardState,
+  WizardStep,
+} from '@/lib/simulator/types';
 import {
   applyBid,
   createAuctionState,
   resolveLockoutEnded,
   resolveLotTimeoutOnce,
-} from '@/lib/simulator/auction-resolution';
+} from '@/lib/tournament/auction-resolution';
 import {
   buildBracket,
   getBracketChampion,
   getBracketFinalOrder,
   recordBracketGame,
-} from '@/lib/simulator/bracket-phase';
+} from '@/lib/tournament/bracket-phase';
 import {
   buildCaptainOrder,
   buildDraftOrder,
   getUndraftedPlayersInPot,
   hasPickedFromPot,
   resolveNextTurn,
-} from '@/lib/simulator/draft';
+} from '@/lib/tournament/draft';
 import {
   computeGroupStandings,
   generateGroupMatches,
-} from '@/lib/simulator/group-phase';
-import { recordGame } from '@/lib/simulator/match';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
-import { assignRandomWithinPots, generatePots } from '@/lib/simulator/pots';
+} from '@/lib/tournament/group-phase';
+import { recordGame } from '@/lib/tournament/match';
+import { assignRandomWithinPots, generatePots } from '@/lib/tournament/pots';
 import {
   combineBallotsToRanking,
   combineRankings,
   shuffle,
   simulateVoting,
   sortByHistoricalRanking,
-} from '@/lib/simulator/ranking';
+} from '@/lib/tournament/ranking';
 import type {
   AuctionState,
   DraftState,
   Phase,
   PhaseRuntime,
   Team,
-  WizardAction,
-  WizardState,
-  WizardStep,
-} from '@/lib/simulator/types';
+} from '@/lib/tournament/types';
 
-const createInitialState = (): WizardState => ({
+/** Defaults to 20 random real players (or all of them, if there aren't 20 yet). */
+const createInitialState = (players: SimulatorPlayer[]): WizardState => ({
   stepHistory: ['intro'],
-  participantIds: MOCK_PLAYERS.map((player) => player.id),
+  players,
+  participantIds: shuffle(players.map((player) => player.id)).slice(0, 20),
 });
 
-const getPlayerName = (playerId: string): string =>
-  MOCK_PLAYERS.find((player) => player.id === playerId)?.name ?? playerId;
+const getPlayerName = (players: SimulatorPlayer[], playerId: string): string =>
+  players.find((player) => player.id === playerId)?.name ?? playerId;
+
+// Real players don't carry historical rings in the simulator — it's a non-persistent
+// prototype, so every player starts even and historical ranking falls back to name order.
+const getPlayerRings = (_playerId: string): number => 0;
 
 const selectedPlayers = (state: WizardState) =>
-  MOCK_PLAYERS.filter((player) => state.participantIds.includes(player.id));
+  state.players
+    .filter((player) => state.participantIds.includes(player.id))
+    .map((player) => ({
+      ...player,
+      rings: 0,
+      individualRings: 0,
+      editionsPlayed: 0,
+    }));
 
 const computeNextStep = (state: WizardState): WizardStep => {
   const current = state.stepHistory.at(-1) ?? 'intro';
@@ -128,10 +143,14 @@ const buildRandomTeams = (
   return teams;
 };
 
-const buildTeamsFromDraft = (captainIds: string[], draft: DraftState): Team[] =>
+const buildTeamsFromDraft = (
+  players: SimulatorPlayer[],
+  captainIds: string[],
+  draft: DraftState,
+): Team[] =>
   captainIds.map((captainId, index) => ({
     id: `team-${index + 1}`,
-    name: `Equipo de ${getPlayerName(captainId)}`,
+    name: `Equipo de ${getPlayerName(players, captainId)}`,
     playerIds: [
       captainId,
       ...draft.picks
@@ -141,12 +160,13 @@ const buildTeamsFromDraft = (captainIds: string[], draft: DraftState): Team[] =>
   }));
 
 const buildTeamsFromAuction = (
+  players: SimulatorPlayer[],
   captainIds: string[],
   auction: AuctionState,
 ): Team[] =>
   captainIds.map((captainId, index) => ({
     id: `team-${index + 1}`,
-    name: `Equipo de ${getPlayerName(captainId)}`,
+    name: `Equipo de ${getPlayerName(players, captainId)}`,
     playerIds: [captainId, ...(auction.rosters[captainId] ?? [])],
   }));
 
@@ -198,6 +218,7 @@ const seedTeamsForPhase = (
       teams,
       previousPhase,
       ranking,
+      getPlayerRings,
     ).map((standing) => standing.teamId);
   }
   if (previousRuntime?.type === 'bracket') {
@@ -252,14 +273,18 @@ const applyAdvanceEffects = (state: WizardState): WizardState => {
   if (current === 'draft-simulation' && state.draft && state.captainIds) {
     return {
       ...state,
-      teams: buildTeamsFromDraft(state.captainIds, state.draft),
+      teams: buildTeamsFromDraft(state.players, state.captainIds, state.draft),
     };
   }
 
   if (current === 'auction-simulation' && state.auction && state.captainIds) {
     return {
       ...state,
-      teams: buildTeamsFromAuction(state.captainIds, state.auction),
+      teams: buildTeamsFromAuction(
+        state.players,
+        state.captainIds,
+        state.auction,
+      ),
     };
   }
 
@@ -286,7 +311,7 @@ const wizardReducer = (
     }
 
     case 'RESET':
-      return createInitialState();
+      return createInitialState(state.players);
 
     case 'SET_TOURNAMENT_BASICS':
       return { ...state, game: action.game };
@@ -538,7 +563,11 @@ const wizardReducer = (
       return {
         ...state,
         draft: action.draft,
-        teams: buildTeamsFromDraft(state.captainIds, action.draft),
+        teams: buildTeamsFromDraft(
+          state.players,
+          state.captainIds,
+          action.draft,
+        ),
       };
     }
 
@@ -550,7 +579,11 @@ const wizardReducer = (
       return {
         ...state,
         auction: action.auction,
-        teams: buildTeamsFromAuction(state.captainIds, action.auction),
+        teams: buildTeamsFromAuction(
+          state.players,
+          state.captainIds,
+          action.auction,
+        ),
       };
     }
 
@@ -628,6 +661,7 @@ const wizardReducer = (
             teams ?? [],
             currentPhase,
             state.finalRanking ?? state.participantIds,
+            getPlayerRings,
           )[0]?.teamId;
         } else if (runtime?.type === 'bracket') {
           champion = getBracketChampion(runtime.matches) ?? undefined;

@@ -2,7 +2,7 @@
 
 import { NoticeBoard } from '@/app/_components/notice-board';
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { PlayerChip } from '@/app/simulator/_components/ui/player-chip';
+import { PlayerChip } from '@/components/tournament/player-chip';
 
 const METHOD_LABELS: Record<string, string> = {
   random: 'Aleatorio total',
@@ -13,6 +13,8 @@ const METHOD_LABELS: Record<string, string> = {
 
 const SummaryStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const teams = state.teams ?? [];
   const methodLabel = state.teamFormationMethod
     ? (METHOD_LABELS[state.teamFormationMethod] ?? state.teamFormationMethod)
@@ -35,7 +37,7 @@ const SummaryStep = () => {
                 <ul className="flex flex-wrap gap-1.5">
                   {team.playerIds.map((playerId) => (
                     <li key={playerId}>
-                      <PlayerChip playerId={playerId} />
+                      <PlayerChip name={getPlayerName(playerId)} />
                     </li>
                   ))}
                 </ul>

@@ -1,0 +1,84 @@
+{
+  "_comment": "Una entrada por edición histórica. 'order' es opcional — solo hace falta si hubo más de una edición ese año (empieza en 1). 'venue' y 'mapsUrl' son opcionales — solo si conoces el nombre del sitio y/o su localización en Google Maps; omítelos si no lo sabes. 'winningTeam' es la lista de nombres del equipo campeón, tal cual deben quedar en player.name (si un nombre no coincide con un jugador ya existente, el script avisa en vez de crearlo). 'individualChampion' es opcional — solo en las ediciones donde también hubo torneo individual oficial ese mismo juego; es un único nombre, no una lista. Deja aquí solo lo que sepas con certeza: no hace falta fecha exacta ni nada más.",
+  "editions": [
+    {
+      "year": 2005,
+      "venue": "Andrés Mellado",
+      "winningTeam": ["Richar", "White", "Juanills"]
+    },
+    {
+      "year": 2009,
+      "venue": "Ávila",
+      "winningTeam": ["Richar", "White", "Juanills", "Bordallo"]
+    },
+    {
+      "year": 2010,
+      "venue": "Madrid",
+      "winningTeam": ["Richar", "Bordallo", "Cañete"]
+    },
+    {
+      "year": 2013,
+      "order": 1,
+      "venue": "Despedida Richar",
+      "winningTeam": ["Arsu", "Juanills"]
+    },
+    {
+      "year": 2013,
+      "order": 2,
+      "venue": "Las 7 encinas",
+      "mapsUrl": "https://maps.app.goo.gl/YfVAdkqmjfq88AeF9",
+      "winningTeam": ["Richar", "Bordallo", null]
+    },
+    {
+      "year": 2016,
+      "order": 2,
+      "venue": "Las 7 encinas",
+      "winningTeam": ["Arri", "White", null]
+    },
+    {
+      "year": 2017,
+      "venue": "Las abuelas",
+      "mapsUrl": "https://maps.app.goo.gl/L1hcjztYeLjU1GBU6",
+      "winningTeam": ["Arri", "Arsu", "White", "Porneich"]
+    },
+    {
+      "year": 2018,
+      "venue": "Las abuelas",
+      "winningTeam": ["Vinzont", "Juanills", "Cordente"]
+    },
+    {
+      "year": 2019,
+      "venue": "Las 7 encinas",
+      "winningTeam": ["Arri", "Cordente", "Palons"]
+    },
+    {
+      "year": 2021,
+      "venue": "Las abuelas",
+      "winningTeam": ["Richar", "Porneich", "Ambeloki"]
+    },
+    {
+      "year": 2022,
+      "venue": "Muerte en los caminos",
+      "winningTeam": ["Richar", "Juanills", "Valanton"]
+    },
+    {
+      "year": 2023,
+      "venue": "Alcaldesa",
+      "winningTeam": ["Arsu", "Arri", "Rober"],
+      "individualChampion": "Guille"
+    },
+    {
+      "year": 2024,
+      "venue": "XXX",
+      "winningTeam": ["Richar", "Cañete", "Ambeloki"],
+      "individualChampion": "Guille"
+    },
+    {
+      "year": 2025,
+      "venue": "El huertar de Valentín",
+      "mapsUrl": "https://maps.app.goo.gl/SDYsM4mFLSMN4W7k8",
+      "winningTeam": ["Richar", "Cañete", "Yura", "Pingus"],
+      "individualChampion": "Cordente"
+    }
+  ]
+}

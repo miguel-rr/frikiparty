@@ -1,19 +1,21 @@
 'use client';
 
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
+import type { SimulatorPlayer } from '@/lib/simulator/types';
 
 type EditableRankedListProps = {
   playerIds: string[];
+  players: SimulatorPlayer[];
   onChange: (next: string[]) => void;
 };
 
-const getPlayer = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id);
-
 const EditableRankedList = ({
   playerIds,
+  players,
   onChange,
 }: EditableRankedListProps) => {
+  const getPlayerName = (id: string) =>
+    players.find((player) => player.id === id)?.name ?? id;
+
   const move = (index: number, direction: -1 | 1) => {
     const target = index + direction;
     if (target < 0 || target >= playerIds.length) return;
@@ -28,7 +30,6 @@ const EditableRankedList = ({
   return (
     <ol className="flex flex-col gap-1.5">
       {playerIds.map((playerId, index) => {
-        const player = getPlayer(playerId);
         return (
           <li
             className="flex items-center gap-3 rounded-lg bg-panel-2 px-3 py-2 ring-1 ring-hair"
@@ -38,11 +39,7 @@ const EditableRankedList = ({
               {index + 1}
             </span>
             <span className="flex-1 font-semibold text-sm">
-              {player?.name ?? playerId}
-            </span>
-            <span className="font-mono text-[0.62rem] text-muted">
-              {player?.rings ?? 0} anillos · {player?.individualRings ?? 0}{' '}
-              indiv. · {player?.editionsPlayed ?? 0} ed.
+              {getPlayerName(playerId)}
             </span>
             <div className="flex gap-1">
               <button

@@ -160,6 +160,65 @@
       0 2px 5px rgba(0, 0, 0, 0.75),
       inset 0 -1px 2px rgba(0, 0, 0, 0.55);
   }
+
+  /* Game-achievement-style medal rims for a player's ranking position. */
+  .medal-gold {
+    background: conic-gradient(
+      from 220deg,
+      #fff3c4,
+      #eba63f 35%,
+      #a8721f 55%,
+      #eba63f 75%,
+      #fff3c4
+    );
+    box-shadow:
+      0 6px 16px -4px rgba(235, 166, 63, 0.55),
+      inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  }
+
+  .medal-silver {
+    background: conic-gradient(
+      from 220deg,
+      #f5f6fb,
+      #b7bfd1 35%,
+      #6d7488 55%,
+      #b7bfd1 75%,
+      #f5f6fb
+    );
+    box-shadow:
+      0 6px 16px -4px rgba(183, 191, 209, 0.5),
+      inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  }
+
+  .medal-bronze {
+    background: conic-gradient(
+      from 220deg,
+      #f2caa0,
+      #b1723c 35%,
+      #6e431f 55%,
+      #b1723c 75%,
+      #f2caa0
+    );
+    box-shadow:
+      0 6px 16px -4px rgba(177, 114, 60, 0.5),
+      inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  }
+
+  /* Same timber as .batten, for every position outside the podium. */
+  .medal-wood {
+    background-image:
+      repeating-linear-gradient(
+        90.5deg,
+        rgba(255, 236, 205, 0.06) 0px,
+        rgba(255, 236, 205, 0.06) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
+      linear-gradient(180deg, #7d5229 0%, #5c3a1a 48%, #46290f 100%);
+    box-shadow:
+      0 6px 16px -4px rgba(0, 0, 0, 0.55),
+      inset 0 1px 1px rgba(255, 222, 175, 0.25);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

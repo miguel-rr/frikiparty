@@ -2,7 +2,6 @@
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
 
 const MIN_PARTICIPANTS = 6;
 
@@ -28,7 +27,7 @@ const TournamentParticipantsStep = () => {
       </div>
 
       <ul className="grid gap-2 sm:grid-cols-2">
-        {MOCK_PLAYERS.map((player) => {
+        {state.players.map((player) => {
           const checked = state.participantIds.includes(player.id);
           return (
             <li key={player.id}>

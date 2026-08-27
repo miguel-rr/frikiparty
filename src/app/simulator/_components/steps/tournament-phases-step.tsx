@@ -6,7 +6,7 @@ import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { SegmentedControl } from '@/app/simulator/_components/ui/segmented-control';
 import { StepperInput } from '@/app/simulator/_components/ui/stepper-input';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import type { Phase } from '@/lib/simulator/types';
+import type { Phase } from '@/lib/tournament/types';
 
 const defaultGroupPhase = (id: string): Phase => ({
   id,

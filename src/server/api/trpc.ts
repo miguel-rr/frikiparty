@@ -69,7 +69,16 @@ const protectedProcedure = t.procedure
     });
   });
 
+// Verifies the session and requires an admin role.
+const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
+  if (ctx.session.user.role !== 'admin') {
+    throw new TRPCError({ code: 'FORBIDDEN' });
+  }
+  return next();
+});
+
 export {
+  adminProcedure,
   createCallerFactory,
   createTRPCContext,
   createTRPCRouter,

@@ -1,13 +1,15 @@
 'use client';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { PlayerChip } from '@/app/simulator/_components/ui/player-chip';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { computeBudget, computeMinBidsByPot } from '@/lib/simulator/auction';
+import { PlayerChip } from '@/components/tournament/player-chip';
+import { computeBudget, computeMinBidsByPot } from '@/lib/tournament/auction';
 import { api } from '@/trpc/react';
 
 const AuctionConfigStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const pots = state.pots ?? [];
   const captainIds = state.captainIds ?? [];
   const minBidByPot = computeMinBidsByPot(pots);
@@ -55,7 +57,7 @@ const AuctionConfigStep = () => {
         </p>
         <div className="flex flex-wrap gap-2">
           {captainIds.map((captainId) => (
-            <PlayerChip key={captainId} playerId={captainId} />
+            <PlayerChip key={captainId} name={getPlayerName(captainId)} />
           ))}
         </div>
       </div>

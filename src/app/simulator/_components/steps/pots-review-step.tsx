@@ -1,12 +1,14 @@
 'use client';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { PotBoard } from '@/app/simulator/_components/ui/pot-board';
 import { StepperInput } from '@/app/simulator/_components/ui/stepper-input';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
+import { PotBoard } from '@/components/tournament/pot-board';
 
 const PotsReviewStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const maxPlayersPerTeam = state.maxPlayersPerTeam ?? 4;
   const nextLabel =
     state.teamFormationMethod === 'pots-random'
@@ -44,6 +46,7 @@ const PotsReviewStep = () => {
 
       {state.pots ? (
         <PotBoard
+          getPlayerName={getPlayerName}
           onMove={(playerId, fromPotIndex, toPotIndex) =>
             dispatch({
               type: 'MOVE_PLAYER_BETWEEN_POTS',

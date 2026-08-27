@@ -2,19 +2,15 @@
 
 import { use, useEffect, useState } from 'react';
 
-import { BidControls } from '@/app/simulator/_components/ui/bid-controls';
-import { CaptainBudgetHud } from '@/app/simulator/_components/ui/captain-budget-hud';
-import { ClaimCaptainList } from '@/app/simulator/_components/ui/claim-captain-list';
-import { CountdownRing } from '@/app/simulator/_components/ui/countdown-ring';
-import { getEligibleBidders } from '@/lib/simulator/auction';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
+import { BidControls } from '@/components/tournament/bid-controls';
+import { CaptainBudgetHud } from '@/components/tournament/captain-budget-hud';
+import { ClaimCaptainList } from '@/components/tournament/claim-captain-list';
+import { CountdownRing } from '@/components/tournament/countdown-ring';
 import type { AuctionRoomPayload } from '@/lib/simulator/types';
+import { getEligibleBidders } from '@/lib/tournament/auction';
 import { api } from '@/trpc/react';
 
 const DEVICE_ID_KEY = 'frikiparty-device-id';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
 
 const useDeviceId = (): string | null => {
   const [deviceId, setDeviceId] = useState<string | null>(null);
@@ -37,6 +33,9 @@ const AuctionRoomPage = ({ params }: PageProps) => {
   const { code: rawCode } = use(params);
   const code = rawCode.toUpperCase();
   const deviceId = useDeviceId();
+  const { data: players } = api.player.list.useQuery();
+  const getPlayerName = (id: string) =>
+    players?.find((player) => player.id === id)?.name ?? id;
 
   const [payload, setPayload] = useState<AuctionRoomPayload | null>(null);
   api.auctionRoom.onUpdate.useSubscription({ code }, { onData: setPayload });
@@ -44,7 +43,7 @@ const AuctionRoomPage = ({ params }: PageProps) => {
   const claim = api.auctionRoom.claim.useMutation();
   const bid = api.auctionRoom.placeBid.useMutation();
 
-  if (!deviceId || !payload) {
+  if (!deviceId || !payload || !players) {
     return (
       <main className="mx-auto flex max-w-[520px] flex-col gap-4 px-4 py-12">
         <p className="text-muted text-sm">Conectando con la sala {code}…</p>
@@ -67,6 +66,7 @@ const AuctionRoomPage = ({ params }: PageProps) => {
         captainIds={unclaimedCaptainIds}
         claiming={claim.isPending}
         error={claim.error?.message}
+        getPlayerName={getPlayerName}
         onClaim={(captainId) => claim.mutate({ code, captainId, deviceId })}
       />
     );
@@ -146,6 +146,7 @@ const AuctionRoomPage = ({ params }: PageProps) => {
           activeCaptainId={myCaptainId}
           budgets={auction.budgets}
           captainIds={captainIds}
+          getPlayerName={getPlayerName}
           rosters={auction.rosters}
         />
       </div>

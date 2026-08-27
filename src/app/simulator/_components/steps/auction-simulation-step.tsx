@@ -1,21 +1,19 @@
 'use client';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { BidControls } from '@/app/simulator/_components/ui/bid-controls';
-import { CaptainBudgetHud } from '@/app/simulator/_components/ui/captain-budget-hud';
-import { CountdownRing } from '@/app/simulator/_components/ui/countdown-ring';
-import { PlayerChip } from '@/app/simulator/_components/ui/player-chip';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
 import { useAuctionClock } from '@/app/simulator/_components/use-auction-clock';
-import { getEligibleBidders } from '@/lib/simulator/auction';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
+import { BidControls } from '@/components/tournament/bid-controls';
+import { CaptainBudgetHud } from '@/components/tournament/captain-budget-hud';
+import { CountdownRing } from '@/components/tournament/countdown-ring';
+import { PlayerChip } from '@/components/tournament/player-chip';
+import { getEligibleBidders } from '@/lib/tournament/auction';
 
 const AuctionSimulationStep = () => {
   useAuctionClock();
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const auction = state.auction;
   const pots = state.pots ?? [];
   const captainIds = state.captainIds ?? [];
@@ -80,7 +78,7 @@ const AuctionSimulationStep = () => {
                 key={captainId}
               >
                 <PlayerChip
-                  playerId={captainId}
+                  name={getPlayerName(captainId)}
                   subtitle={`Presupuesto: ${auction.budgets[captainId] ?? 0}`}
                 />
                 <BidControls
@@ -101,6 +99,7 @@ const AuctionSimulationStep = () => {
       <CaptainBudgetHud
         budgets={auction.budgets}
         captainIds={captainIds}
+        getPlayerName={getPlayerName}
         rosters={auction.rosters}
       />
 

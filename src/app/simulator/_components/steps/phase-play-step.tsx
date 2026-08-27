@@ -3,21 +3,21 @@
 import { useState } from 'react';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { isBracketPhaseComplete } from '@/lib/simulator/bracket-phase';
+import { isBracketPhaseComplete } from '@/lib/tournament/bracket-phase';
 import {
   computeGroupStandings,
   isGroupPhaseComplete,
-} from '@/lib/simulator/group-phase';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
+} from '@/lib/tournament/group-phase';
 import type {
   BracketMatch,
   GroupPhase,
   Partido,
   Team,
-} from '@/lib/simulator/types';
+} from '@/lib/tournament/types';
 
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
+// Real players don't carry historical rings in the simulator — it's a non-persistent
+// prototype, so every player starts even.
+const getPlayerRings = (_id: string) => 0;
 
 const getTeamName = (teams: Team[], id: string | null) =>
   id ? (teams.find((team) => team.id === id)?.name ?? id) : 'Por determinar';
@@ -29,6 +29,7 @@ type MatchCardProps = {
   gamesToWin: number;
   partido: Partido | null;
   teams: Team[];
+  getPlayerName: (id: string) => string;
   onRecordGame: (
     matchId: string,
     winningTeamId: string,
@@ -43,6 +44,7 @@ const MatchCard = ({
   gamesToWin,
   partido,
   teams,
+  getPlayerName,
   onRecordGame,
 }: MatchCardProps) => {
   const [open, setOpen] = useState(false);
@@ -156,15 +158,23 @@ const GroupPhaseView = ({
   teams,
   ranking,
   phase,
+  getPlayerName,
   onRecordGame,
 }: {
   matches: Partido[];
   teams: Team[];
   ranking: string[];
   phase: GroupPhase;
+  getPlayerName: (id: string) => string;
   onRecordGame: MatchCardProps['onRecordGame'];
 }) => {
-  const standings = computeGroupStandings(matches, teams, phase, ranking);
+  const standings = computeGroupStandings(
+    matches,
+    teams,
+    phase,
+    ranking,
+    getPlayerRings,
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -199,6 +209,7 @@ const GroupPhaseView = ({
         {matches.map((match) => (
           <MatchCard
             gamesToWin={match.gamesToWin}
+            getPlayerName={getPlayerName}
             key={match.id}
             matchId={match.id}
             onRecordGame={onRecordGame}
@@ -216,10 +227,12 @@ const GroupPhaseView = ({
 const BracketPhaseView = ({
   matches,
   teams,
+  getPlayerName,
   onRecordGame,
 }: {
   matches: BracketMatch[];
   teams: Team[];
+  getPlayerName: (id: string) => string;
   onRecordGame: MatchCardProps['onRecordGame'];
 }) => {
   const rounds = [...new Set(matches.map((match) => match.round))].sort(
@@ -238,6 +251,7 @@ const BracketPhaseView = ({
             .map((match) => (
               <MatchCard
                 gamesToWin={match.partido?.gamesToWin ?? 1}
+                getPlayerName={getPlayerName}
                 key={match.id}
                 matchId={match.id}
                 onRecordGame={onRecordGame}
@@ -255,6 +269,8 @@ const BracketPhaseView = ({
 
 const PhasePlayStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const phaseIndex = state.currentPhaseIndex ?? 0;
   const phase = state.phases?.[phaseIndex];
   const runtime = state.phaseRuntimes?.[phaseIndex];
@@ -295,6 +311,7 @@ const PhasePlayStep = () => {
 
       {runtime.type === 'group' && phase.type === 'group' ? (
         <GroupPhaseView
+          getPlayerName={getPlayerName}
           matches={runtime.matches}
           onRecordGame={onRecordGame}
           phase={phase}
@@ -303,6 +320,7 @@ const PhasePlayStep = () => {
         />
       ) : runtime.type === 'bracket' ? (
         <BracketPhaseView
+          getPlayerName={getPlayerName}
           matches={runtime.matches}
           onRecordGame={onRecordGame}
           teams={teams}

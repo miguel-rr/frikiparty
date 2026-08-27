@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_venue" ADD COLUMN "photo_url" text;

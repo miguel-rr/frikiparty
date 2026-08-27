@@ -11,6 +11,17 @@ const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  user: {
+    additionalFields: {
+      // input: false stops signup/update requests from setting their own role.
+      role: {
+        type: 'string',
+        required: true,
+        defaultValue: 'user',
+        input: false,
+      },
+    },
+  },
   socialProviders: {
     github: {
       clientId: env.BETTER_AUTH_GITHUB_CLIENT_ID,

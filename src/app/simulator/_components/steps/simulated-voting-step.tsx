@@ -2,21 +2,24 @@
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
 import {
   combineBallotsToRanking,
   combineRankings,
   sortByHistoricalRanking,
-} from '@/lib/simulator/ranking';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
+} from '@/lib/tournament/ranking';
 
 const SimulatedVotingStep = () => {
   const { state, dispatch } = useSimulator();
-  const players = MOCK_PLAYERS.filter((player) =>
-    state.participantIds.includes(player.id),
-  );
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
+  const players = state.players
+    .filter((player) => state.participantIds.includes(player.id))
+    .map((player) => ({
+      ...player,
+      rings: 0,
+      individualRings: 0,
+      editionsPlayed: 0,
+    }));
 
   const preview = state.ballots
     ? (() => {

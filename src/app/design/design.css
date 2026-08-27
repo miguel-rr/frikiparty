@@ -1,0 +1,268 @@
+/* ─────────────────────────────────────────────────────────────
+   /design — standalone design proposal ("Middle-earth night").
+   Tailwind-first: layout, type, and color live as utilities in
+   the JSX (referencing the tokens below). This file only holds
+   what utilities can't express well — scoped tokens, keyframes,
+   and multi-pseudo-element ornaments. Scoped under .dsn so
+   nothing leaks into the live site; delete the folder to remove.
+   ───────────────────────────────────────────────────────────── */
+
+/* While previewing the proposal, hide the current site chrome. */
+body:has(.dsn) {
+  background: #0a0f0c;
+}
+body:has(.dsn) header:not(.dsn *) {
+  display: none;
+}
+
+.dsn {
+  --night: #0a0f0c;
+  --night-2: #0e1410;
+  --panel: #131b15;
+  --panel-2: #19231b;
+  --hair: #26352a;
+  --hair-gold: rgba(201, 165, 87, 0.28);
+  --parchment: #ece3cd;
+  --faded: #95a497;
+  --gold: #c9a557;
+  --gold-hi: #f0d48a;
+  --gold-dark: #8f6b2e;
+  --ember: #cf6a48;
+  --moss: #82b28f;
+  --silver: #aeb9c2;
+
+  background:
+    radial-gradient(
+      1100px 520px at 78% -8%,
+      rgba(201, 165, 87, 0.07),
+      transparent 62%
+    ),
+    radial-gradient(
+      880px 520px at 8% 14%,
+      rgba(130, 178, 143, 0.05),
+      transparent 60%
+    ),
+    var(--night);
+  color: var(--parchment);
+  font-family: var(--font-alegreya), "Segoe UI", system-ui, sans-serif;
+  /* Own stacking context so negative z-index children (the parallax
+     backdrop) paint above this background instead of under it. */
+  isolation: isolate;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.dsn ::selection {
+  background: rgba(201, 165, 87, 0.35);
+}
+.dsn :focus-visible {
+  border-radius: 3px;
+  outline: 2px solid var(--gold-hi);
+  outline-offset: 2px;
+}
+
+/* Type roles Tailwind has no utility for */
+.d-display {
+  font-family: var(--font-cinzel), Georgia, serif;
+  letter-spacing: 0.02em;
+}
+.d-gold-text {
+  background: linear-gradient(
+    180deg,
+    #f6e2a4 0%,
+    var(--gold) 55%,
+    var(--gold-dark) 115%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Divider: hairline with a ring at the center (double pseudo). */
+.d-divider {
+  align-items: center;
+  display: flex;
+  gap: 0.9rem;
+}
+.d-divider::before,
+.d-divider::after {
+  background: linear-gradient(90deg, transparent, var(--hair-gold));
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+.d-divider::after {
+  background: linear-gradient(90deg, var(--hair-gold), transparent);
+}
+
+/* Native select: custom chevron */
+.d-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23c9a557' stroke-width='2'/%3E%3C/svg%3E");
+  background-position: right 0.8rem center;
+  background-repeat: no-repeat;
+}
+
+/* Toggle: pseudo-element thumb */
+.d-toggle {
+  appearance: none;
+  background: var(--night-2);
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  cursor: pointer;
+  height: 1.55rem;
+  position: relative;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+  width: 2.8rem;
+}
+.d-toggle::after {
+  background: var(--faded);
+  border-radius: 999px;
+  content: "";
+  height: 1.05rem;
+  left: 0.22rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition:
+    left 180ms ease,
+    background-color 180ms ease;
+  width: 1.05rem;
+}
+.d-toggle:checked {
+  background: rgba(201, 165, 87, 0.25);
+  border-color: var(--gold);
+}
+.d-toggle:checked::after {
+  background: var(--gold-hi);
+  left: 1.45rem;
+}
+
+/* Panel background: the panel gradient plus a whisper of landscape —
+   ridgelines and a faint ring-moon in the panel's own tones, anchored to
+   the bottom edge. Deliberately at 2–3% opacity: texture, not picture. */
+.d-scape {
+  background-color: var(--panel);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 420'%3E%3Ccircle cx='956' cy='96' r='58' fill='none' stroke='%23ece3cd' stroke-opacity='.045' stroke-width='2'/%3E%3Ccircle cx='956' cy='96' r='43' fill='%23ece3cd' fill-opacity='.018'/%3E%3Cpath d='M0,252 L92,192 L184,242 L292,162 L402,236 L522,178 L642,241 L762,187 L882,246 L1002,197 L1102,241 L1200,207 V420 H0 Z' fill='%23ece3cd' fill-opacity='.028'/%3E%3Cpath d='M0,302 L142,237 L262,292 L402,227 L542,296 L682,242 L822,301 L962,252 L1092,301 L1200,267 V420 H0 Z' fill='%23ece3cd' fill-opacity='.022'/%3E%3Crect x='0' y='318' width='1200' height='26' fill='%23ece3cd' fill-opacity='.012'/%3E%3Cpath d='M0,356 L152,312 L302,351 L472,302 L642,353 L802,312 L982,356 L1200,320 V420 H0 Z' fill='%23060a07' fill-opacity='.2'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--panel-2), var(--panel) 70%);
+  background-position:
+    bottom center,
+    top left;
+  background-repeat: no-repeat;
+  background-size:
+    100% auto,
+    auto;
+}
+
+/* Gold coin (auction cost / budgets) */
+.d-coin {
+  align-items: center;
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--gold-hi),
+    var(--gold) 55%,
+    #8a682c
+  );
+  border: 1px solid rgba(240, 212, 138, 0.8);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  color: #211803;
+  display: inline-flex;
+  flex: none;
+  font-weight: 700;
+  justify-content: center;
+}
+
+/* Rarity gems (Hearthstone nod) */
+.d-gem {
+  border-radius: 999px;
+  box-shadow: 0 0 6px currentColor;
+  display: inline-block;
+  flex: none;
+  height: 0.55rem;
+  width: 0.55rem;
+}
+.d-gem-legendary {
+  background: radial-gradient(circle at 35% 30%, #ffd98a, #e08a2e 65%);
+  color: rgba(224, 138, 46, 0.7);
+}
+.d-gem-epic {
+  background: radial-gradient(circle at 35% 30%, #d3a8ee, #9c53c9 65%);
+  color: rgba(156, 83, 201, 0.7);
+}
+.d-gem-rare {
+  background: radial-gradient(circle at 35% 30%, #a8c8ee, #4a78c6 65%);
+  color: rgba(74, 120, 198, 0.6);
+}
+.d-gem-common {
+  background: radial-gradient(circle at 35% 30%, #d7dde2, #8b969e 65%);
+  color: transparent;
+}
+
+/* Ornamental gold corners (Hextech / WoW panel nod) */
+.d-corners {
+  position: relative;
+}
+.d-corners::before,
+.d-corners::after,
+.d-corners > .d-corner-b::before,
+.d-corners > .d-corner-b::after {
+  border: 1.5px solid var(--gold);
+  content: "";
+  height: 14px;
+  opacity: 0.75;
+  position: absolute;
+  width: 14px;
+}
+.d-corners::before {
+  border-bottom: none;
+  border-right: none;
+  border-top-left-radius: 6px;
+  left: -1px;
+  top: -1px;
+}
+.d-corners::after {
+  border-bottom: none;
+  border-left: none;
+  border-top-right-radius: 6px;
+  right: -1px;
+  top: -1px;
+}
+.d-corners > .d-corner-b::before {
+  border-bottom-left-radius: 6px;
+  border-right: none;
+  border-top: none;
+  bottom: -1px;
+  left: -1px;
+}
+.d-corners > .d-corner-b::after {
+  border-bottom-right-radius: 6px;
+  border-left: none;
+  border-top: none;
+  bottom: -1px;
+  right: -1px;
+}
+
+/* ── Hero ring (signature) ──────────────────────────────────── */
+
+.d-ring-wrap {
+  filter: drop-shadow(0 0 28px rgba(201, 165, 87, 0.22));
+}
+.d-ring-rotor {
+  animation: d-spin 90s linear infinite;
+  transform-origin: 160px 160px;
+}
+@keyframes d-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d-ring-rotor {
+    animation: none;
+  }
+}

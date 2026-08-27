@@ -2,13 +2,11 @@
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
 
 const CaptainsConfigStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const pots = state.pots ?? [];
   const captainIds = state.captainIds ?? [];
   const teamCount = state.teamCount ?? pots[0]?.length ?? 0;

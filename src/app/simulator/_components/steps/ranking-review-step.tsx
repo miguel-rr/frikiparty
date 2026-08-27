@@ -23,6 +23,7 @@ const RankingReviewStep = () => {
           dispatch({ type: 'SET_FINAL_RANKING', ranking: next })
         }
         playerIds={ranking}
+        players={state.players}
       />
 
       <WizardNav

@@ -1,16 +1,16 @@
+import type { DraftRoomPayload } from '@/lib/simulator/types';
 import {
   buildCaptainOrder,
   buildDraftOrder,
   getUndraftedPlayersInPot,
   hasPickedFromPot,
   resolveNextTurn,
-} from '@/lib/simulator/draft';
+} from '@/lib/tournament/draft';
 import type {
   CaptainOrderMethod,
   DraftMethod,
-  DraftRoomPayload,
   Pots,
-} from '@/lib/simulator/types';
+} from '@/lib/tournament/types';
 import { createRoomRegistry } from '@/server/realtime/room-registry';
 
 const { rooms, emitter, generateUniqueCode } =

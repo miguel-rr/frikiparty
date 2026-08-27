@@ -1,0 +1,52 @@
+import { PortraitCard } from '@/app/design/_components/portrait-card';
+import {
+  panelGold,
+  Section,
+  SectionHeader,
+  tag,
+} from '@/app/design/_components/shared';
+import {
+  CHAMPION_CARDS,
+  INDIVIDUAL_CARD,
+  LAST_EDITION,
+} from '@/app/design/fixtures';
+
+const Champions = () => (
+  <Section id="champions">
+    <SectionHeader
+      eyebrowText={LAST_EDITION.edition}
+      lead="Los nombres quedan grabados aquí; los anillos, en el escalafón."
+      title="Salón de los Campeones"
+    />
+    <div className="flex flex-col gap-10">
+      <div className={`${panelGold} d-corners flex flex-col gap-7 p-6 sm:p-8`}>
+        <div className="d-corner-b" />
+        <div className="flex flex-col items-center gap-3 text-center">
+          <span className={tag}>Campeones por equipos</span>
+          <p className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+            Sede: {LAST_EDITION.venue}
+          </p>
+        </div>
+        {/* Never an uneven 3+1: one column, 2+2, or (from lg) a single
+            centered row via flex. An odd trailing card centers itself. */}
+        <ul className="mx-auto grid max-w-[470px] grid-cols-1 place-items-center gap-5 sm:grid-cols-2 lg:flex lg:max-w-none lg:flex-wrap lg:justify-center sm:[&>li:last-child:nth-child(odd)]:col-span-2">
+          {CHAMPION_CARDS.map((card) => (
+            <li key={card.name}>
+              <PortraitCard card={card} className="w-[235px] sm:w-[195px]" />
+            </li>
+          ))}
+        </ul>
+        <p className="text-center text-(--faded) text-sm italic">
+          El equipo no tenía nombre; nadie olvidará a sus jugadores. Un anillo
+          más para cada uno.
+        </p>
+      </div>
+      <div className="flex flex-col items-center gap-4">
+        <span className={tag}>Campeón individual</span>
+        <PortraitCard card={INDIVIDUAL_CARD} className="w-[230px]" />
+      </div>
+    </div>
+  </Section>
+);
+
+export { Champions };

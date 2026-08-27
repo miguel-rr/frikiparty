@@ -3,20 +3,18 @@
 import { useState } from 'react';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { PlayerChip } from '@/app/simulator/_components/ui/player-chip';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
+import { PlayerChip } from '@/components/tournament/player-chip';
 import {
   getAvailablePotIndices,
   getUndraftedPlayersInPot,
   resolveNextTurn,
-} from '@/lib/simulator/draft';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
+} from '@/lib/tournament/draft';
 
 const DraftSimulationStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const [selectedPot, setSelectedPot] = useState<number | null>(null);
 
   const draft = state.draft;
@@ -95,7 +93,7 @@ const DraftSimulationStep = () => {
                   onClick={() => pick(selectedPot, playerId)}
                   type="button"
                 >
-                  <PlayerChip playerId={playerId} />
+                  <PlayerChip name={getPlayerName(playerId)} />
                 </button>
               ))}
             </div>
@@ -109,13 +107,13 @@ const DraftSimulationStep = () => {
             className="flex flex-col gap-2 rounded-xl bg-panel-2/60 p-3 ring-1 ring-hair"
             key={captainId}
           >
-            <PlayerChip playerId={captainId} />
+            <PlayerChip name={getPlayerName(captainId)} />
             <ul className="flex flex-wrap gap-1.5">
               {draft.picks
                 .filter((pickItem) => pickItem.captainId === captainId)
                 .map((pickItem) => (
                   <li key={pickItem.playerId}>
-                    <PlayerChip playerId={pickItem.playerId} />
+                    <PlayerChip name={getPlayerName(pickItem.playerId)} />
                   </li>
                 ))}
             </ul>

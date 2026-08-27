@@ -4,18 +4,16 @@ import { skipToken } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
-import { PlayerChip } from '@/app/simulator/_components/ui/player-chip';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
-import { resolveNextTurn } from '@/lib/simulator/draft';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
+import { PlayerChip } from '@/components/tournament/player-chip';
 import type { DraftRoomPayload } from '@/lib/simulator/types';
+import { resolveNextTurn } from '@/lib/tournament/draft';
 import { api } from '@/trpc/react';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
 
 const DraftRoomHostStep = () => {
   const { state, dispatch } = useSimulator();
+  const getPlayerName = (id: string) =>
+    state.players.find((player) => player.id === id)?.name ?? id;
   const code = state.draftRoomCode;
   const [payload, setPayload] = useState<DraftRoomPayload | null>(null);
   const [joinUrl, setJoinUrl] = useState('');
@@ -78,13 +76,13 @@ const DraftRoomHostStep = () => {
             className="flex flex-col gap-2 rounded-xl bg-panel-2/60 p-3 ring-1 ring-hair"
             key={captainId}
           >
-            <PlayerChip playerId={captainId} />
+            <PlayerChip name={getPlayerName(captainId)} />
             <ul className="flex flex-wrap gap-1.5">
               {(draft?.picks ?? [])
                 .filter((pick) => pick.captainId === captainId)
                 .map((pick) => (
                   <li key={pick.playerId}>
-                    <PlayerChip playerId={pick.playerId} />
+                    <PlayerChip name={getPlayerName(pick.playerId)} />
                   </li>
                 ))}
             </ul>

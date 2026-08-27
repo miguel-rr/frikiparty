@@ -6,6 +6,10 @@
     "useIgnoreFile": true,
     "clientKind": "git"
   },
+  "files": {
+    // drizzle-kit generates these; they're committed for migration history but not hand-formatted.
+    "includes": ["**", "!drizzle"]
+  },
   "assist": {
     "enabled": true,
     "actions": {

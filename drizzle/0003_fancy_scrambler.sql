@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_tournament" ALTER COLUMN "game_id" DROP NOT NULL;

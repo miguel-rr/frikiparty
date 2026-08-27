@@ -2,21 +2,17 @@
 
 import { use, useEffect, useState } from 'react';
 
-import { ClaimCaptainList } from '@/app/simulator/_components/ui/claim-captain-list';
-import { PlayerChip } from '@/app/simulator/_components/ui/player-chip';
+import { ClaimCaptainList } from '@/components/tournament/claim-captain-list';
+import { PlayerChip } from '@/components/tournament/player-chip';
+import type { DraftRoomPayload } from '@/lib/simulator/types';
 import {
   getAvailablePotIndices,
   getUndraftedPlayersInPot,
   resolveNextTurn,
-} from '@/lib/simulator/draft';
-import { MOCK_PLAYERS } from '@/lib/simulator/mock-data';
-import type { DraftRoomPayload } from '@/lib/simulator/types';
+} from '@/lib/tournament/draft';
 import { api } from '@/trpc/react';
 
 const DEVICE_ID_KEY = 'frikiparty-device-id';
-
-const getPlayerName = (id: string) =>
-  MOCK_PLAYERS.find((player) => player.id === id)?.name ?? id;
 
 const useDeviceId = (): string | null => {
   const [deviceId, setDeviceId] = useState<string | null>(null);
@@ -39,6 +35,9 @@ const DraftRoomPage = ({ params }: PageProps) => {
   const { code: rawCode } = use(params);
   const code = rawCode.toUpperCase();
   const deviceId = useDeviceId();
+  const { data: players } = api.player.list.useQuery();
+  const getPlayerName = (id: string) =>
+    players?.find((player) => player.id === id)?.name ?? id;
 
   const [payload, setPayload] = useState<DraftRoomPayload | null>(null);
   const [selectedPot, setSelectedPot] = useState<number | null>(null);
@@ -47,7 +46,7 @@ const DraftRoomPage = ({ params }: PageProps) => {
   const claim = api.draftRoom.claim.useMutation();
   const pick = api.draftRoom.pick.useMutation();
 
-  if (!deviceId || !payload) {
+  if (!deviceId || !payload || !players) {
     return (
       <main className="mx-auto flex max-w-[520px] flex-col gap-4 px-4 py-12">
         <p className="text-muted text-sm">Conectando con la sala {code}…</p>
@@ -67,6 +66,7 @@ const DraftRoomPage = ({ params }: PageProps) => {
         captainIds={unclaimedCaptainIds}
         claiming={claim.isPending}
         error={claim.error?.message}
+        getPlayerName={getPlayerName}
         onClaim={(captainId) => claim.mutate({ code, captainId, deviceId })}
       />
     );
@@ -138,7 +138,7 @@ const DraftRoomPage = ({ params }: PageProps) => {
                       onClick={() => submitPick(selectedPot, playerId)}
                       type="button"
                     >
-                      <PlayerChip playerId={playerId} />
+                      <PlayerChip name={getPlayerName(playerId)} />
                     </button>
                   ))}
                 </div>
@@ -168,13 +168,13 @@ const DraftRoomPage = ({ params }: PageProps) => {
               className="flex flex-col gap-2 rounded-xl bg-panel-2/60 p-3 ring-1 ring-hair"
               key={captainId}
             >
-              <PlayerChip playerId={captainId} />
+              <PlayerChip name={getPlayerName(captainId)} />
               <ul className="flex flex-wrap gap-1.5">
                 {draft.picks
                   .filter((pickItem) => pickItem.captainId === captainId)
                   .map((pickItem) => (
                     <li key={pickItem.playerId}>
-                      <PlayerChip playerId={pickItem.playerId} />
+                      <PlayerChip name={getPlayerName(pickItem.playerId)} />
                     </li>
                   ))}
               </ul>
