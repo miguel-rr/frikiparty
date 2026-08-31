@@ -4,7 +4,10 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { env } from '@/env';
 import { db } from '@/server/db';
 
+const baseURL = env.BETTER_AUTH_URL ?? 'http://localhost:3000';
+
 const auth = betterAuth({
+  baseURL,
   database: drizzleAdapter(db, {
     provider: 'pg', // or "pg" or "mysql"
   }),
@@ -26,12 +29,12 @@ const auth = betterAuth({
     github: {
       clientId: env.BETTER_AUTH_GITHUB_CLIENT_ID,
       clientSecret: env.BETTER_AUTH_GITHUB_CLIENT_SECRET,
-      redirectURI: 'http://localhost:3000/api/auth/callback/github',
+      redirectURI: `${baseURL}/api/auth/callback/github`,
     },
     google: {
       clientId: env.BETTER_AUTH_GOOGLE_CLIENT_ID,
       clientSecret: env.BETTER_AUTH_GOOGLE_CLIENT_SECRET,
-      redirectURI: 'http://localhost:3000/api/auth/callback/google',
+      redirectURI: `${baseURL}/api/auth/callback/google`,
     },
   },
   // Cookie session, persistent for 30 days with a 1-day sliding renewal on activity.
