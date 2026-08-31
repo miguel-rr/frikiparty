@@ -1,6 +1,6 @@
-import { RACE_EMBLEMS } from '@/app/design/_components/emblems';
-import { RingGlyph } from '@/app/design/_components/shared';
 import type { RankedPlayer } from '@/app/design/fixtures';
+import { RACE_EMBLEMS } from '@/components/theme/emblems';
+import { RingGlyph } from '@/components/theme/primitives';
 
 /**
  * Honor zone above the ranking table: hanging banners (gonfalons) in gold,

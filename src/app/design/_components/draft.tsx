@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
+import { DRAFT } from '@/app/design/fixtures';
 import {
   btn,
   PlayerBlazon,
@@ -10,8 +10,7 @@ import {
   Section,
   SectionHeader,
   tag,
-} from '@/app/design/_components/shared';
-import { DRAFT } from '@/app/design/fixtures';
+} from '@/components/theme/primitives';
 
 /**
  * Draft with its two real views (see core-logic, "Realizar un draft"):

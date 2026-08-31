@@ -1,4 +1,4 @@
-import { RACE_EMBLEMS } from '@/app/design/_components/emblems';
+import { RACE_EMBLEMS } from '@/components/theme/emblems';
 
 /**
  * The 11 primary playable factions of Age of the Ring v9.0 (the current

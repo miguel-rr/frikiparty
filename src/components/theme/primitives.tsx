@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { RACE_EMBLEMS, raceForPlayer } from '@/app/design/_components/emblems';
+import { RACE_EMBLEMS, raceForPlayer } from '@/components/theme/emblems';
 
 /**
  * Tailwind class recipes shared across the /design proposal sections.
@@ -24,7 +24,7 @@ const panelGold =
   'd-scape rounded-xl border border-(--hair-gold) shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066]';
 
 const eyebrow =
-  'font-mono text-[0.65rem] font-bold uppercase tracking-[0.35em] text-(--gold)';
+  'font-mono text-xl font-bold uppercase tracking-[0.35em] text-(--gold)';
 
 const label =
   'mb-1.5 block font-mono text-[0.62rem] font-bold uppercase tracking-[0.22em] text-(--faded)';
@@ -271,20 +271,18 @@ const CoinStack = ({ value }: { value: number }) => (
   </span>
 );
 
-const Footer = () => (
-  <footer className="flex flex-col items-center gap-5 px-4 pt-6 pb-14 text-center">
+const Footer = ({ note }: { note?: ReactNode }) => (
+  <footer className="flex flex-col items-center gap-5 px-4 pt-44 pb-10 text-center sm:pt-56">
     <Divider />
     <span className="d-display d-gold-text font-black text-xl tracking-[0.22em]">
       FRIKIPARTY
     </span>
     <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-[0.25em]">
-      Desde 2005 · 22 ediciones · Un solo Anillo
+      Desde 2005 reuniendo frikis frescos
     </p>
-    <p className="max-w-[52ch] text-(--faded) text-sm">
-      Propuesta de diseño — ruta <span className="font-mono">/design</span>.
-      Todos los datos son de muestra; esta página no escribe en la base de
-      datos.
-    </p>
+    {note ? (
+      <p className="max-w-[52ch] text-(--faded) text-sm">{note}</p>
+    ) : null}
     <p className="max-w-[52ch] font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.15em]">
       Emblemas de{' '}
       <a

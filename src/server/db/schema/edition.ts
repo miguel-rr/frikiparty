@@ -1,4 +1,11 @@
-import { integer, text, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
+import {
+  date,
+  integer,
+  text,
+  timestamp,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 import { createTable } from '@/server/db/schema/create-table';
 
@@ -9,6 +16,8 @@ const venue = createTable('venue', {
   mapsUrl: text('maps_url'),
   /** Representative photo of the house (one per venue, like mapsUrl). */
   photoUrl: text('photo_url'),
+  /** Resolved address for the keyless Google Maps embed (q= parameter). */
+  mapsEmbedQuery: text('maps_embed_query'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
@@ -20,6 +29,9 @@ const edition = createTable(
     year: integer('year').notNull(),
     order: integer('order').notNull().default(1),
     venueId: uuid('venue_id').references(() => venue.id),
+    // Nullable: unknown for most historical editions (only the year survives).
+    startsAt: date('starts_at'),
+    endsAt: date('ends_at'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
   },
   (table) => [unique().on(table.year, table.order)],

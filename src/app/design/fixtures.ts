@@ -10,6 +10,8 @@
  * houses), never teams.
  */
 
+import type { CardSpec } from '@/components/tournament/hearth-card';
+
 import historical from '../../../scripts/data/historical-editions.json';
 
 type RankedPlayer = {
@@ -205,21 +207,6 @@ const BRACKET: BracketFixture = [
     ],
   },
 ];
-
-/** Hearthstone-style card specs. Top-left gem = total rings; the rest is lore. */
-type CardSpec = {
-  name: string;
-  rings: number;
-  attack: number;
-  health: number;
-  rarity: 'common' | 'rare' | 'epic' | 'legendary';
-  ability?: string;
-  text: string;
-  /** Painted portrait under /public — see portrait-card.tsx for credits. */
-  portrait: string;
-  /** Vertical crop of the portrait in the art window (default: top). */
-  portraitAlign?: 'center' | 'top';
-};
 
 const CHAMPION_CARDS: CardSpec[] = [
   {
@@ -430,7 +417,7 @@ const DRAFT = {
   ],
 } as const;
 
-export type { BracketFixture, CardSpec, RankedPlayer, Standing, TeamFixture };
+export type { BracketFixture, RankedPlayer, Standing, TeamFixture };
 export {
   AUCTION,
   BRACKET,

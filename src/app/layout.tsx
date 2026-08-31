@@ -2,8 +2,10 @@ import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
 import {
+  Alegreya_Sans,
   Anton,
   Big_Shoulders_Stencil,
+  Cinzel,
   JetBrains_Mono,
   Manrope,
 } from 'next/font/google';
@@ -35,6 +37,21 @@ const jetbrains = JetBrains_Mono({
   variable: '--font-jetbrains',
 });
 
+// Night-theme faces (see src/styles/theme-night.css).
+const cinzel = Cinzel({
+  display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-cinzel',
+  weight: ['400', '700', '900'],
+});
+
+const alegreyaSans = Alegreya_Sans({
+  display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-alegreya',
+  weight: ['400', '500', '700', '800'],
+});
+
 // Next statically analyses this binding, so it must be a direct named export
 // rather than re-exported at the bottom of the file.
 export const metadata: Metadata = {
@@ -47,7 +64,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html
-      className={`${manrope.variable} ${anton.variable} ${stencil.variable} ${jetbrains.variable}`}
+      className={`${manrope.variable} ${anton.variable} ${stencil.variable} ${jetbrains.variable} ${cinzel.variable} ${alegreyaSans.variable}`}
       lang="es"
     >
       <body className="min-h-screen bg-tavern font-sans text-ink antialiased">

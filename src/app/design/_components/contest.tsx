@@ -1,3 +1,4 @@
+import { BRACKET, STANDINGS, TEAMS_BY_ID } from '@/app/design/fixtures';
 import {
   Meeple,
   panel,
@@ -7,8 +8,7 @@ import {
   tag,
   td,
   th,
-} from '@/app/design/_components/shared';
-import { BRACKET, STANDINGS, TEAMS_BY_ID } from '@/app/design/fixtures';
+} from '@/components/theme/primitives';
 
 /**
  * Teams have no names: a team IS its players (see .claude/core-logic.md).

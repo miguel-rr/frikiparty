@@ -1,21 +1,21 @@
 /* ─────────────────────────────────────────────────────────────
-   /design — standalone design proposal ("Middle-earth night").
+   Frikiparty "Middle-earth night" theme.
    Tailwind-first: layout, type, and color live as utilities in
    the JSX (referencing the tokens below). This file only holds
    what utilities can't express well — scoped tokens, keyframes,
-   and multi-pseudo-element ornaments. Scoped under .dsn so
-   nothing leaks into the live site; delete the folder to remove.
+   and multi-pseudo-element ornaments. Scoped under .theme-night — pages opt in by
+   wrapping their content in that class.
    ───────────────────────────────────────────────────────────── */
 
 /* While previewing the proposal, hide the current site chrome. */
-body:has(.dsn) {
+body:has(.theme-night) {
   background: #0a0f0c;
 }
-body:has(.dsn) header:not(.dsn *) {
+body:has(.theme-night) header:not(.theme-night *) {
   display: none;
 }
 
-.dsn {
+.theme-night {
   --night: #0a0f0c;
   --night-2: #0e1410;
   --panel: #131b15;
@@ -52,10 +52,10 @@ body:has(.dsn) header:not(.dsn *) {
   overflow-x: clip;
 }
 
-.dsn ::selection {
+.theme-night ::selection {
   background: rgba(201, 165, 87, 0.35);
 }
-.dsn :focus-visible {
+.theme-night :focus-visible {
   border-radius: 3px;
   outline: 2px solid var(--gold-hi);
   outline-offset: 2px;

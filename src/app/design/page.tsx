@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { Alegreya_Sans, Cinzel } from 'next/font/google';
 
+import { HomeAwaitingHero } from '@/app/_components/home-hero';
 import { Champions } from '@/app/design/_components/champions';
 import { Contest } from '@/app/design/_components/contest';
 import { Draft } from '@/app/design/_components/draft';
@@ -8,26 +8,15 @@ import { EditMode } from '@/app/design/_components/edit-mode';
 import { Hero } from '@/app/design/_components/hero';
 import { Auction } from '@/app/design/_components/market';
 import { MatchDetail } from '@/app/design/_components/match-detail';
-import { ParallaxBackground } from '@/app/design/_components/parallax-bg';
 import { Ranking } from '@/app/design/_components/ranking';
-import { BlazonDefs, Divider, Footer } from '@/app/design/_components/shared';
-import { TopNav } from '@/app/design/_components/top-nav';
-
-import './design.css';
-
-const cinzel = Cinzel({
-  display: 'swap',
-  subsets: ['latin'],
-  variable: '--font-cinzel',
-  weight: ['400', '700', '900'],
-});
-
-const alegreyaSans = Alegreya_Sans({
-  display: 'swap',
-  subsets: ['latin'],
-  variable: '--font-alegreya',
-  weight: ['400', '500', '700', '800'],
-});
+import { TopNav } from '@/components/layout/top-nav';
+import { ParallaxBackground } from '@/components/theme/parallax-bg';
+import {
+  BlazonDefs,
+  Divider,
+  Footer,
+  tag,
+} from '@/components/theme/primitives';
 
 export const metadata: Metadata = {
   robots: { index: false },
@@ -35,13 +24,21 @@ export const metadata: Metadata = {
 };
 
 const DesignPage = () => (
-  <div
-    className={`dsn ${cinzel.variable} ${alegreyaSans.variable} text-[1.0625rem] leading-relaxed`}
-  >
+  <div className="theme-night text-[1.0625rem] leading-relaxed">
     <BlazonDefs />
     <ParallaxBackground />
     <TopNav />
     <Hero />
+    <Divider />
+    <div className="flex flex-col">
+      <div className="mx-auto flex items-center gap-3 px-4 pt-12">
+        <span className={tag}>Estado de espera</span>
+        <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.15em]">
+          La home cuando no hay edición convocada
+        </span>
+      </div>
+      <HomeAwaitingHero />
+    </div>
     <div className="bg-(--night-2)">
       <Champions />
     </div>
@@ -56,7 +53,15 @@ const DesignPage = () => (
     <Draft />
     <Divider />
     <EditMode />
-    <Footer />
+    <Footer
+      note={
+        <>
+          Propuesta de diseño — ruta <span className="font-mono">/design</span>.
+          Todos los datos son de muestra; esta página no escribe en la base de
+          datos.
+        </>
+      }
+    />
   </div>
 );
 

@@ -1,4 +1,4 @@
-import { PortraitCard } from '@/app/design/_components/portrait-card';
+import { AUCTION, LOT_CARD } from '@/app/design/fixtures';
 import {
   btn,
   CoinStack,
@@ -7,8 +7,8 @@ import {
   Section,
   SectionHeader,
   tag,
-} from '@/app/design/_components/shared';
-import { AUCTION, LOT_CARD } from '@/app/design/fixtures';
+} from '@/components/theme/primitives';
+import { PortraitCard } from '@/components/tournament/portrait-card';
 
 /** The current lot: the player's card, up for auction. */
 const LotCard = () => (

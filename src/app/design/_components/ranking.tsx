@@ -1,4 +1,4 @@
-import { HonorPodium } from '@/app/design/_components/honor-podium';
+import { RANKING } from '@/app/design/fixtures';
 import {
   btn,
   Gem,
@@ -10,8 +10,8 @@ import {
   SectionHeader,
   td,
   th,
-} from '@/app/design/_components/shared';
-import { RANKING } from '@/app/design/fixtures';
+} from '@/components/theme/primitives';
+import { HonorPodium } from '@/components/tournament/honor-podium';
 
 const RingsCell = ({
   individualRings,

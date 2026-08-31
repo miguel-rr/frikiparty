@@ -21,8 +21,8 @@ import { useEffect, useRef } from 'react';
  */
 const LAYER_MOTION = [
   { ease: 26, tail: 10, direction: -1 },
-  { ease: 64, tail: 24, direction: -1 },
-  { ease: 118, tail: 42, direction: -1 },
+  { ease: 64, tail: 36, direction: -1 },
+  { ease: 118, tail: 52, direction: -1 },
   { ease: 95, tail: 30, direction: 1 },
 ] as const;
 

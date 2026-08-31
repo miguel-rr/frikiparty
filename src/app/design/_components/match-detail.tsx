@@ -1,14 +1,14 @@
 import { TeamNames } from '@/app/design/_components/contest';
-import { FACTIONS, type FactionId } from '@/app/design/_components/factions';
-import { RANK_MOTIFS } from '@/app/design/_components/honor-podium';
+import { MATCH_DETAIL, TEAMS_BY_ID } from '@/app/design/fixtures';
 import {
   Meeple,
   panel,
   Section,
   SectionHeader,
   tag,
-} from '@/app/design/_components/shared';
-import { MATCH_DETAIL, TEAMS_BY_ID } from '@/app/design/fixtures';
+} from '@/components/theme/primitives';
+import { RANK_MOTIFS } from '@/components/tournament/honor-podium';
+import { FACTIONS, type FactionId } from '@/lib/tournament/factions';
 
 /**
  * Drill-down of one partido: its partidas, one per row. Each side shows the
@@ -76,14 +76,14 @@ const FactionSide = ({
         return (
           <li
             className={`flex items-center justify-between gap-3 ${
-              mirrored ? 'sm:flex-row-reverse' : ''
+              mirrored ? '' : 'sm:flex-row-reverse'
             }`}
             key={player}
           >
             <span className="font-bold text-sm">{player}</span>
             <span
               className={`flex items-center gap-1.5 ${
-                mirrored ? 'sm:flex-row-reverse' : ''
+                mirrored ? '' : 'sm:flex-row-reverse'
               }`}
             >
               <span className="font-bold font-mono text-(--gold) text-[0.58rem] uppercase tracking-[0.15em]">

@@ -1,6 +1,9 @@
-import { raceForPlayer } from '@/app/design/_components/emblems';
-import { SCENES, TERRAIN_PATHS } from '@/app/design/_components/hearth-card';
-import type { CardSpec } from '@/app/design/fixtures';
+import { raceForPlayer } from '@/components/theme/emblems';
+import {
+  type CardSpec,
+  SCENES,
+  TERRAIN_PATHS,
+} from '@/components/tournament/hearth-card';
 
 /**
  * Hearthstone-style card with a painted portrait in the art window.

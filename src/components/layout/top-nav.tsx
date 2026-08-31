@@ -1,21 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
-import { btn } from '@/app/design/_components/shared';
+import { btn } from '@/components/theme/primitives';
 
-const NAV_LINKS = [
+type NavLink = { href: string; text: string };
+
+const DEFAULT_LINKS: NavLink[] = [
   { href: '#champions', text: 'Ediciones' },
   { href: '#ranking', text: 'Ranking' },
   { href: '#contest', text: 'Torneo' },
   { href: '#auction', text: 'El Pifouds' },
-] as const;
+];
 
 const navLinkClass =
   'd-display font-bold text-[0.78rem] text-(--faded) uppercase tracking-[0.18em] transition-colors hover:text-(--gold-hi)';
 
 /** Sticky nav; below md the links live behind a hamburger dropdown. */
-const TopNav = () => {
+const TopNav = ({
+  authSlot,
+  links = DEFAULT_LINKS,
+}: {
+  authSlot?: ReactNode;
+  links?: NavLink[];
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <nav className="sticky top-0 z-40 border-(--hair) border-b bg-[#0a0f0cd1] backdrop-blur-md">
@@ -27,16 +35,18 @@ const TopNav = () => {
           FRIKIPARTY
         </a>
         <div className="hidden items-center gap-7 md:flex">
-          {NAV_LINKS.map(({ href, text }) => (
+          {links.map(({ href, text }) => (
             <a className={navLinkClass} href={href} key={href}>
               {text}
             </a>
           ))}
         </div>
         <div className="flex items-center gap-2.5">
-          <a className={`${btn.primary} px-4 py-1.5 text-sm`} href="#top">
-            Entrar
-          </a>
+          {authSlot ?? (
+            <a className={`${btn.primary} px-4 py-1.5 text-sm`} href="#top">
+              Entrar
+            </a>
+          )}
           <button
             aria-expanded={open}
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
@@ -73,7 +83,7 @@ const TopNav = () => {
       {open ? (
         <div className="border-(--hair) border-t bg-[#0d1310f2] md:hidden">
           <div className="mx-auto flex max-w-[1180px] flex-col px-4 sm:px-6">
-            {NAV_LINKS.map(({ href, text }) => (
+            {links.map(({ href, text }) => (
               <a
                 className={`${navLinkClass} border-(--hair) border-b py-3.5 last:border-b-0`}
                 href={href}

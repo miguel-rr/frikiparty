@@ -1,24 +1,62 @@
-import { NextEvent } from '@/app/_components/next-event';
-import { NoticeBoard } from '@/app/_components/notice-board';
+import Link from 'next/link';
 
-// Placeholder until the tournament schema lands — see .claude/data-model.md
-const NEXT_EVENT = {
-  edition: 'Edición XXIII',
-  dates: '18–19 octubre 2026',
-  venue: 'Refugio de Gredos, Ávila',
-  teams: 6,
-  players: 22,
-  href: '/ediciones/xxiii',
-};
+import { HomeChampions } from '@/app/_components/home-champions';
+import { HomeAwaitingHero, HomeHero } from '@/app/_components/home-hero';
+import { UserMenu } from '@/app/_components/user-menu';
+import { TopNav } from '@/components/layout/top-nav';
+import { ParallaxBackground } from '@/components/theme/parallax-bg';
+import { BlazonDefs, btn, Footer } from '@/components/theme/primitives';
+import { getSession } from '@/server/better-auth/server';
+import { api } from '@/trpc/server';
 
-const Home = () => {
+const NAV_LINKS = [
+  { href: '/ranking', text: 'Ranking' },
+  { href: '/ediciones', text: 'Ediciones' },
+  { href: '/pifouds', text: 'El Pifouds' },
+];
+
+const HomePage = async () => {
+  const [nextEdition, champions, ranking, session] = await Promise.all([
+    api.edition.next(),
+    api.edition.latestChampions(),
+    api.player.historicalRanking(),
+    getSession(),
+  ]);
+  const ringsByName = Object.fromEntries(
+    ranking.map((player) => [
+      player.name,
+      player.rings + player.individualRings,
+    ]),
+  );
+
   return (
-    <main className="mx-auto flex max-w-[1180px] flex-col gap-8 px-4 py-8 sm:px-8">
-      <NoticeBoard title="¡PRÓXIMO EVENTO!">
-        <NextEvent {...NEXT_EVENT} />
-      </NoticeBoard>
-    </main>
+    <div className="theme-night text-[1.0625rem] leading-relaxed">
+      <BlazonDefs />
+      <ParallaxBackground />
+      <TopNav
+        authSlot={
+          session ? (
+            <UserMenu label={session.user.name || session.user.email} />
+          ) : (
+            <Link
+              className={`${btn.primary} px-4 py-1.5 text-sm`}
+              href="/login"
+            >
+              Entrar
+            </Link>
+          )
+        }
+        links={NAV_LINKS}
+      />
+      {nextEdition ? <HomeHero edition={nextEdition} /> : <HomeAwaitingHero />}
+      {champions ? (
+        <div className="bg-(--night-2)">
+          <HomeChampions champions={champions} ringsByName={ringsByName} />
+        </div>
+      ) : null}
+      <Footer />
+    </div>
   );
 };
 
-export default Home;
+export default HomePage;

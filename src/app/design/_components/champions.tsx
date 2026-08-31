@@ -1,15 +1,15 @@
-import { PortraitCard } from '@/app/design/_components/portrait-card';
-import {
-  panelGold,
-  Section,
-  SectionHeader,
-  tag,
-} from '@/app/design/_components/shared';
 import {
   CHAMPION_CARDS,
   INDIVIDUAL_CARD,
   LAST_EDITION,
 } from '@/app/design/fixtures';
+import {
+  panelGold,
+  Section,
+  SectionHeader,
+  tag,
+} from '@/components/theme/primitives';
+import { PortraitCard } from '@/components/tournament/portrait-card';
 
 const Champions = () => (
   <Section id="champions">

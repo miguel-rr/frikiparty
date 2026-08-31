@@ -2,8 +2,22 @@ import {
   RACE_EMBLEMS,
   type Race,
   raceForPlayer,
-} from '@/app/design/_components/emblems';
-import type { CardSpec } from '@/app/design/fixtures';
+} from '@/components/theme/emblems';
+
+/** Player card spec. Top-left gem = total rings; the rest is lore. */
+type CardSpec = {
+  name: string;
+  rings: number;
+  attack: number;
+  health: number;
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  ability?: string;
+  text: string;
+  /** Painted portrait under /public — see portrait-card.tsx for credits. */
+  portrait: string;
+  /** Vertical crop of the portrait in the art window (default: top). */
+  portraitAlign?: 'center' | 'top';
+};
 
 /**
  * Hearthstone-style player card, fully drawn in SVG. Layout: rings gem
@@ -392,4 +406,5 @@ const HearthCard = ({
   );
 };
 
+export type { CardSpec };
 export { HearthCard, SCENES, TERRAIN_PATHS };

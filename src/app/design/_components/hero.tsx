@@ -1,13 +1,13 @@
-import { RACE_EMBLEMS } from '@/app/design/_components/emblems';
-import { eyebrow, tag } from '@/app/design/_components/shared';
 import { NEXT_EVENT } from '@/app/design/fixtures';
+import { RACE_EMBLEMS } from '@/components/theme/emblems';
+import { tag } from '@/components/theme/primitives';
 
 const INSCRIPTION =
   'UNA EDICIÓN PARA GOBERNARLAS A TODAS · UNA EDICIÓN PARA ENCONTRARLOS · UNA EDICIÓN PARA ATRAERLOS A TODOS Y EN LAS TINIEBLAS ATARLOS · ';
 
 /** Signature element: the One Ring with a rotating inscription. */
 const HeroRing = () => (
-  <div className="d-ring-wrap relative w-[min(80vw,440px)] lg:w-[460px]">
+  <div className="d-ring-wrap relative w-[min(80vw,440px)] lg:w-105">
     <svg className="block w-full" role="img" viewBox="0 0 320 320">
       <title>{NEXT_EVENT.edition}</title>
       <defs>
@@ -58,7 +58,9 @@ const HeroRing = () => (
       </g>
     </svg>
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 lg:gap-3">
-      <span className={eyebrow}>Edición</span>
+      <span className="font-bold font-mono text-(--gold) text-[1.15rem] uppercase tracking-[0.35em] lg:text-[1.3rem]">
+        Edición
+      </span>
       <span className="d-display d-gold-text font-black text-7xl lg:text-8xl">
         {NEXT_EVENT.year}
       </span>
@@ -77,7 +79,7 @@ const HeroRing = () => (
 const VenueCard = () => (
   <a
     aria-label={`Cómo llegar a ${NEXT_EVENT.venue} (Google Maps)`}
-    className="group relative block w-full max-w-2xl overflow-hidden rounded-xl border border-(--hair-gold) shadow-[0_12px_30px_rgba(0,0,0,0.4)] transition-shadow hover:shadow-[0_0_24px_rgba(201,165,87,0.25)]"
+    className="group relative mt-8 block w-full max-w-2xl overflow-hidden rounded-xl border border-(--hair-gold) shadow-[0_12px_30px_rgba(0,0,0,0.4)] transition-shadow hover:shadow-[0_0_24px_rgba(201,165,87,0.25)]"
     href={NEXT_EVENT.mapsUrl}
     rel="noreferrer"
     target="_blank"

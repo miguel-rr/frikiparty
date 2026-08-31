@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-import { FACTIONS, type FactionId } from '@/app/design/_components/factions';
+import { MATCH_DETAIL, TEAMS } from '@/app/design/fixtures';
 import {
   btn,
   input,
@@ -12,8 +11,8 @@ import {
   Section,
   SectionHeader,
   tag,
-} from '@/app/design/_components/shared';
-import { MATCH_DETAIL, TEAMS } from '@/app/design/fixtures';
+} from '@/components/theme/primitives';
+import { FACTIONS, type FactionId } from '@/lib/tournament/factions';
 
 /**
  * Organizer-only controls, live specimens: segmented controls, steppers and
