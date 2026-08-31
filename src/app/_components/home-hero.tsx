@@ -1,5 +1,6 @@
-import { eyebrow, tag } from '@/components/theme/primitives';
+import { tag } from '@/components/theme/primitives';
 import { TheRing } from '@/components/theme/ring';
+import { formatDateRange, formatShortDateRange } from '@/lib/dates';
 
 type NextEdition = {
   year: number;
@@ -9,48 +10,6 @@ type NextEdition = {
   venueMapsUrl: string | null;
   venuePhotoUrl: string | null;
   venueMapsEmbedQuery: string | null;
-};
-
-const MONTHS = [
-  'enero',
-  'febrero',
-  'marzo',
-  'abril',
-  'mayo',
-  'junio',
-  'julio',
-  'agosto',
-  'septiembre',
-  'octubre',
-  'noviembre',
-  'diciembre',
-] as const;
-
-const parts = (iso: string) => {
-  const [year = 0, month = 1, day = 1] = iso.split('-').map(Number);
-  return { year, month, day };
-};
-
-/** "12–15 de noviembre de 2026" (or cross-month "30 de octubre – 2 de noviembre de 2026"). */
-const formatRange = (startsAt: string, endsAt: string) => {
-  const a = parts(startsAt);
-  const b = parts(endsAt);
-  const month = (m: number) => MONTHS[m - 1] ?? '';
-  if (a.month === b.month) {
-    return `${a.day}–${b.day} de ${month(a.month)} de ${b.year}`;
-  }
-  return `${a.day} de ${month(a.month)} – ${b.day} de ${month(b.month)} de ${b.year}`;
-};
-
-/** "12–15 NOV 2026" for the ring center. */
-const formatShortRange = (startsAt: string, endsAt: string) => {
-  const a = parts(startsAt);
-  const b = parts(endsAt);
-  const month = (m: number) => (MONTHS[m - 1] ?? '').slice(0, 3).toUpperCase();
-  if (a.month === b.month) {
-    return `${a.day}–${b.day} ${month(a.month)} ${b.year}`;
-  }
-  return `${a.day} ${month(a.month)} – ${b.day} ${month(b.month)} ${b.year}`;
 };
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -151,7 +110,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
           </span>
           {hasDates ? (
             <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.25em] lg:text-[0.7rem]">
-              {formatShortRange(
+              {formatShortDateRange(
                 edition.startsAt as string,
                 edition.endsAt as string,
               )}
@@ -176,7 +135,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
           </h1>
           <p className="max-w-[52ch] text-(--faded) text-lg">
             {hasDates
-              ? `${formatRange(edition.startsAt as string, edition.endsAt as string)} · `
+              ? `${formatDateRange(edition.startsAt as string, edition.endsAt as string)} · `
               : null}
             {edition.venueName}. Age of the Ring, juegos de mesa hasta las
             tantas y cuentas pendientes desde 2005.
@@ -200,8 +159,10 @@ const HomeAwaitingHero = () => (
         title="Próxima edición por convocar"
         tone="ash"
       >
-        <span className={eyebrow}>Próxima edición</span>
-        <span className="d-display font-black text-(--silver) text-3xl uppercase tracking-wide lg:text-4xl">
+        <span className="font-bold font-mono text-(--gold) text-[0.72rem] uppercase tracking-[0.3em] lg:text-[0.8rem]">
+          Próxima edición
+        </span>
+        <span className="d-display font-black text-(--silver) text-[1.35rem] uppercase tracking-wide sm:text-2xl lg:text-3xl">
           Por convocar
         </span>
       </TheRing>

@@ -51,7 +51,7 @@ Términos del dominio, para que no haya ambigüedad de nombres al hablar de esto
 
 - El ranking ordena a los jugadores por un criterio: número de anillos en su posesión.
 - En caso de empate a anillos, se usan los anillos individuales para desempatar.
-- Si el empate persiste, se ordenará por número de ediciones en las que el jugador ha participado (de mayor a menor).
+- Si el empate persiste, los jugadores comparten puesto (no existe el dato de "ediciones jugadas" y no se utilizará nunca en el proyecto; para dar un orden estable en listados se usa el nombre alfabéticamente).
 
 ### Equipos y su configuración
 

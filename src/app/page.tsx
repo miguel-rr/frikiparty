@@ -1,64 +1,35 @@
-import Link from 'next/link';
-
 import { HomeChampions } from '@/app/_components/home-champions';
 import { HomeAwaitingHero, HomeHero } from '@/app/_components/home-hero';
-import { UserMenu } from '@/app/_components/user-menu';
-import { TopNav } from '@/components/layout/top-nav';
-import { ParallaxBackground } from '@/components/theme/parallax-bg';
-import { BlazonDefs, btn, Footer } from '@/components/theme/primitives';
-import { siteFlags } from '@/lib/site-flags';
-import { getSession } from '@/server/better-auth/server';
+import { SiteShell } from '@/components/layout/site-shell';
 import { api } from '@/trpc/server';
 
-const NAV_LINKS = [
-  { href: '/ranking', text: 'Ranking' },
-  { href: '/ediciones', text: 'Ediciones' },
-  { href: '/pifouds', text: 'El Pifouds' },
-];
-
 const HomePage = async () => {
-  const [nextEdition, champions, ranking, session] = await Promise.all([
+  const [nextEdition, champions, ranking] = await Promise.all([
     api.edition.next(),
     api.edition.latestChampions(),
     api.player.historicalRanking(),
-    getSession(),
   ]);
-  const ringsByName = Object.fromEntries(
+  const playersByName = Object.fromEntries(
     ranking.map((player) => [
       player.name,
-      { rings: player.rings, individualRings: player.individualRings },
+      {
+        rings: player.rings,
+        individualRings: player.individualRings,
+        cardPortrait: player.cardPortrait,
+        cardLore: player.cardLore,
+      },
     ]),
   );
 
   return (
-    <div className="theme-night text-[1.0625rem] leading-relaxed">
-      <BlazonDefs />
-      <ParallaxBackground />
-      <TopNav
-        authSlot={
-          siteFlags.auth ? (
-            session ? (
-              <UserMenu label={session.user.name || session.user.email} />
-            ) : (
-              <Link
-                className={`${btn.primary} px-4 py-1.5 text-sm`}
-                href="/login"
-              >
-                Entrar
-              </Link>
-            )
-          ) : null
-        }
-        links={siteFlags.navigation ? NAV_LINKS : []}
-      />
+    <SiteShell>
       {nextEdition ? <HomeHero edition={nextEdition} /> : <HomeAwaitingHero />}
       {champions ? (
         <div className="bg-(--night-2)">
-          <HomeChampions champions={champions} ringsByName={ringsByName} />
+          <HomeChampions champions={champions} playersByName={playersByName} />
         </div>
       ) : null}
-      <Footer />
-    </div>
+    </SiteShell>
   );
 };
 

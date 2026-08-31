@@ -60,7 +60,6 @@ const tournamentRankingSnapshot = createTable(
     position: integer('position').notNull(),
     rings: integer('rings').notNull(),
     individualRings: integer('individual_rings').notNull(),
-    editionsPlayed: integer('editions_played').notNull(),
   },
   (table) => [
     unique().on(table.tournamentId, table.playerId),

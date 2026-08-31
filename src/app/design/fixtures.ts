@@ -11,14 +11,9 @@
  */
 
 import type { CardSpec } from '@/components/tournament/hearth-card';
+import type { RankedPlayer } from '@/lib/tournament/ranking';
 
 import historical from '../../../scripts/data/historical-editions.json';
-
-type RankedPlayer = {
-  name: string;
-  rings: number;
-  individualRings: number;
-};
 
 /** A team is just its players plus a board-game token color for the UI. */
 type TeamFixture = {

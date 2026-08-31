@@ -1,68 +1,59 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
+import { btn, input, label } from '@/components/theme/primitives';
+import type { CardSpec } from '@/components/tournament/hearth-card';
+import { PortraitCard } from '@/components/tournament/portrait-card';
+import {
+  cardSpecFor,
+  LORE_OPTIONS,
+  PORTRAIT_OPTIONS,
+  portraitPath,
+} from '@/lib/tournament/card-lore';
 import { api } from '@/trpc/react';
-
-type Title = {
-  year: number;
-  order: number;
-  game: string | null;
-  type: 'team' | 'individual';
-};
 
 type PlayerProfileProps = {
   id: string;
   name: string;
   bio: string | null;
+  /** The card dealt server-side for this visit (saved choices already applied). */
+  card: CardSpec;
+  cardPortrait: string | null;
+  cardLore: string | null;
   rings: number;
   individualRings: number;
-  position: number | null;
-  titles: Title[];
+  /** Richar: his line never rotates, so the card picker is hidden. */
+  pinnedLore: boolean;
   canEdit: boolean;
+  /** Server-rendered stats and palmarés, shown under the header column. */
+  children?: ReactNode;
 };
 
-const titleLabel = (title: Title) => {
-  const edition = `Edición ${title.year}${title.order > 1 ? ` #${title.order}` : ''}`;
-  const kind =
-    title.type === 'team' ? 'Campeón por equipos' : 'Campeón individual';
-  const game = title.game ?? 'AotR/BotME';
-  return `${edition} — ${kind} (${game})`;
-};
-
-const MEDAL_CLASS_BY_POSITION: Record<number, string> = {
-  1: 'medal-gold',
-  2: 'medal-silver',
-  3: 'medal-bronze',
-};
-
-/** Game-achievement-style badge: gold/silver/bronze for the podium, wood for everyone else. */
-const RankBadge = ({ position }: { position: number }) => (
-  <div
-    className={`grid size-16 shrink-0 place-items-center rounded-full p-[3px] ${
-      MEDAL_CLASS_BY_POSITION[position] ?? 'medal-wood'
-    }`}
-  >
-    <div className="grid size-full place-items-center rounded-full bg-ground">
-      <span className="font-display text-ink text-lg">{position}º</span>
-    </div>
-  </div>
-);
-
+/**
+ * Card + name/bio header with inline editing for the linked user (or an
+ * admin). The pickers preview instantly on the card: Guardar persists the
+ * choice, Cancelar restores whatever this visit had dealt.
+ */
 const PlayerProfile = ({
   id,
   name: initialName,
   bio: initialBio,
+  card,
+  cardPortrait: initialPortrait,
+  cardLore: initialLore,
   rings,
   individualRings,
-  position,
-  titles,
+  pinnedLore,
   canEdit,
+  children,
 }: PlayerProfileProps) => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio ?? '');
+  const [portrait, setPortrait] = useState(initialPortrait ?? '');
+  const [lore, setLore] = useState(initialLore ?? '');
   const router = useRouter();
 
   // The page is a Server Component, so a client-side query cache invalidation
@@ -77,120 +68,147 @@ const PlayerProfile = ({
   const cancel = () => {
     setName(initialName);
     setBio(initialBio ?? '');
+    setPortrait(initialPortrait ?? '');
+    setLore(initialLore ?? '');
     setEditing(false);
   };
 
+  const selectedLore = LORE_OPTIONS.find((pair) => pair.ability === lore);
+
+  // Live preview while editing: chosen portrait/lore apply instantly; when a
+  // choice is cleared back to automatic, fall back to the player's defaults
+  // (portrait) or keep this visit's dealt line (lore) until saved.
+  const defaults = cardSpecFor({ name: initialName, rings, individualRings });
+  const previewCard: CardSpec = editing
+    ? {
+        ...card,
+        portrait: portrait ? portraitPath(portrait) : defaults.portrait,
+        ability: pinnedLore
+          ? card.ability
+          : (selectedLore?.ability ?? card.ability),
+        text: pinnedLore ? card.text : (selectedLore?.text ?? card.text),
+      }
+    : card;
+
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="flex items-center gap-4">
-          {position !== null ? <RankBadge position={position} /> : null}
-          <span className="grid size-16 shrink-0 place-items-center rounded-full bg-amber font-bold font-mono text-2xl text-ground">
-            {initialName.charAt(0).toUpperCase()}
-          </span>
-          <div>
+    <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-start">
+      <PortraitCard card={previewCard} className="w-[250px] shrink-0" />
+      <div className="flex min-w-0 flex-1 flex-col gap-7">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-wrap items-start justify-between gap-4">
             {editing ? (
               <input
-                className="rounded-lg bg-panel-2 px-3 py-1.5 font-display text-2xl uppercase tracking-tight ring-1 ring-hair focus:outline-none focus:ring-amber sm:text-3xl"
+                className={`${input} max-w-sm font-bold text-2xl`}
                 onChange={(event) => setName(event.target.value)}
                 value={name}
               />
             ) : (
-              <h1 className="font-display text-3xl uppercase tracking-tight sm:text-4xl">
+              <h1 className="d-display d-gold-text font-black text-4xl uppercase tracking-wide sm:text-5xl">
                 {initialName}
               </h1>
             )}
-            <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5">
-              <span className="font-mono text-muted text-sm uppercase tracking-widest">
-                {rings} {rings === 1 ? 'anillo' : 'anillos'}
-              </span>
-              {individualRings > 0 ? (
-                <span className="font-mono text-[0.65rem] text-muted/60 uppercase tracking-widest">
-                  {individualRings}{' '}
-                  {individualRings === 1
-                    ? 'anillo individual'
-                    : 'anillos individuales'}
-                </span>
+            {canEdit && !editing ? (
+              <button
+                className={`${btn.secondary} px-4 py-1.5 text-sm`}
+                onClick={() => setEditing(true)}
+                type="button"
+              >
+                Editar
+              </button>
+            ) : null}
+          </div>
+
+          {editing ? (
+            <div className="flex flex-col gap-4">
+              <div>
+                <span className={label}>Bio</span>
+                <textarea
+                  className={`${input} min-h-32`}
+                  onChange={(event) => setBio(event.target.value)}
+                  value={bio}
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <span className={label}>Ilustración</span>
+                  <select
+                    className={`${input} d-select py-1.5 pr-9 text-sm`}
+                    onChange={(event) => setPortrait(event.target.value)}
+                    value={portrait}
+                  >
+                    <option value="">Automática</option>
+                    {PORTRAIT_OPTIONS.map((option) => (
+                      <option key={option.key} value={option.key}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {pinnedLore ? null : (
+                  <div>
+                    <span className={label}>Carta</span>
+                    <select
+                      className={`${input} d-select py-1.5 pr-9 text-sm`}
+                      onChange={(event) => setLore(event.target.value)}
+                      value={lore}
+                    >
+                      <option value="">
+                        Aleatoria (cambia en cada visita)
+                      </option>
+                      {LORE_OPTIONS.map((pair) => (
+                        <option key={pair.ability} value={pair.ability}>
+                          {pair.ability}
+                        </option>
+                      ))}
+                    </select>
+                    {selectedLore ? (
+                      <p className="mt-1.5 text-(--faded) text-xs italic">
+                        {selectedLore.text}
+                      </p>
+                    ) : null}
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  className={btn.primary}
+                  disabled={update.isPending || name.trim().length === 0}
+                  onClick={() =>
+                    update.mutate({
+                      id,
+                      name,
+                      bio: bio.trim().length > 0 ? bio : null,
+                      cardPortrait: portrait.length > 0 ? portrait : null,
+                      cardLore: lore.length > 0 ? lore : null,
+                    })
+                  }
+                  type="button"
+                >
+                  {update.isPending ? 'Guardando…' : 'Guardar'}
+                </button>
+                <button
+                  className={btn.secondary}
+                  disabled={update.isPending}
+                  onClick={cancel}
+                  type="button"
+                >
+                  Cancelar
+                </button>
+              </div>
+              {update.error ? (
+                <p className="text-(--ember) text-xs">{update.error.message}</p>
               ) : null}
             </div>
-          </div>
+          ) : (
+            <p className="whitespace-pre-wrap text-(--parchment)">
+              {initialBio ?? (
+                <span className="text-(--faded)">Sin biografía.</span>
+              )}
+            </p>
+          )}
         </div>
-
-        {canEdit && !editing ? (
-          <button
-            className="rounded-full bg-panel-2 px-4 py-2 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
-            onClick={() => setEditing(true)}
-            type="button"
-          >
-            Editar
-          </button>
-        ) : null}
+        {children}
       </div>
-
-      {editing ? (
-        <div className="flex flex-col gap-3">
-          <label className="flex flex-col gap-1.5">
-            <span className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
-              Bio
-            </span>
-            <textarea
-              className="min-h-32 rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair focus:outline-none focus:ring-amber"
-              onChange={(event) => setBio(event.target.value)}
-              value={bio}
-            />
-          </label>
-
-          <div className="flex gap-2">
-            <button
-              className="rounded-full bg-amber px-5 py-2 font-extrabold text-ground text-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-              disabled={update.isPending || name.trim().length === 0}
-              onClick={() =>
-                update.mutate({
-                  id,
-                  name,
-                  bio: bio.trim().length > 0 ? bio : null,
-                })
-              }
-              type="button"
-            >
-              {update.isPending ? 'Guardando…' : 'Guardar'}
-            </button>
-            <button
-              className="rounded-full bg-panel-2 px-5 py-2 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
-              disabled={update.isPending}
-              onClick={cancel}
-              type="button"
-            >
-              Cancelar
-            </button>
-          </div>
-          {update.error ? (
-            <p className="text-foe text-xs">{update.error.message}</p>
-          ) : null}
-        </div>
-      ) : (
-        <p className="whitespace-pre-wrap text-sm">
-          {initialBio ?? <span className="text-muted">Sin biografía.</span>}
-        </p>
-      )}
-
-      {titles.length > 0 ? (
-        <div className="flex flex-col gap-2">
-          <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
-            Títulos
-          </p>
-          <ul className="flex flex-col gap-1.5">
-            {titles.map((title) => (
-              <li
-                className="rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair"
-                key={`${title.year}-${title.order}-${title.type}`}
-              >
-                {titleLabel(title)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
     </div>
   );
 };

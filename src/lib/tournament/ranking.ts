@@ -1,15 +1,34 @@
 import type { Ballot, Player } from '@/lib/tournament/types';
 
-/** rings -> individualRings -> editionsPlayed -> alphabetical fallback. */
-const sortByHistoricalRanking = (players: Player[]): string[] =>
+/** Minimal shape needed to rank and display a player historically. */
+type RankedPlayer = { name: string; rings: number; individualRings: number };
+
+type RingCounts = Pick<RankedPlayer, 'rings' | 'individualRings'>;
+
+/** Core-logic tie-break: individual rings decide equal ring counts. */
+const outranks = (a: RingCounts, b: RingCounts) =>
+  a.rings > b.rings ||
+  (a.rings === b.rings && a.individualRings > b.individualRings);
+
+/**
+ * Standard "1224" competition positions: full ties share a number, the next
+ * distinct value skips ahead. Order-independent (counts outranking players),
+ * so sorted and unsorted inputs give the same result.
+ */
+const competitionPositions = <T extends RingCounts>(players: T[]): number[] =>
+  players.map(
+    (player) => players.filter((other) => outranks(other, player)).length + 1,
+  );
+
+/** rings -> individualRings -> alphabetical fallback (stable display order). */
+const sortByHistoricalRanking = <T extends RankedPlayer & { id: string }>(
+  players: T[],
+): string[] =>
   [...players]
     .sort((a, b) => {
       if (b.rings !== a.rings) return b.rings - a.rings;
       if (b.individualRings !== a.individualRings) {
         return b.individualRings - a.individualRings;
-      }
-      if (b.editionsPlayed !== a.editionsPlayed) {
-        return b.editionsPlayed - a.editionsPlayed;
       }
       return a.name.localeCompare(b.name, 'es');
     })
@@ -97,6 +116,9 @@ const combineRankings = (
 export {
   combineBallotsToRanking,
   combineRankings,
+  competitionPositions,
+  outranks,
+  type RankedPlayer,
   shuffle,
   simulateVoting,
   sortByHistoricalRanking,

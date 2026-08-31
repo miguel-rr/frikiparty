@@ -18,7 +18,6 @@ const SimulatedVotingStep = () => {
       ...player,
       rings: 0,
       individualRings: 0,
-      editionsPlayed: 0,
     }));
 
   const preview = state.ballots

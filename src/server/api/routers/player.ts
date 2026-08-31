@@ -2,7 +2,10 @@ import { TRPCError } from '@trpc/server';
 import { asc, eq, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { sortByHistoricalRanking } from '@/lib/tournament/ranking';
+import {
+  competitionPositions,
+  sortByHistoricalRanking,
+} from '@/lib/tournament/ranking';
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -15,18 +18,20 @@ type RankingRow = {
   id: string;
   name: string;
   slug: string;
+  card_portrait: string | null;
+  card_lore: string | null;
   rings: number;
   individual_rings: number;
-  editions_played: number;
 };
 
 type RankedPlayer = {
   id: string;
   name: string;
   slug: string;
+  cardPortrait: string | null;
+  cardLore: string | null;
   rings: number;
   individualRings: number;
-  editionsPlayed: number;
 };
 
 type TitleRow = {
@@ -37,7 +42,7 @@ type TitleRow = {
 };
 
 /**
- * rings/individualRings/editionsPlayed are derived, never stored — see
+ * rings/individualRings are derived, never stored — see
  * .claude/data-model.md. A win is a team_member row; whether it counts as a
  * "ring" or an "individual ring" is derived from that team's size (1 =
  * individual tournament, since a team is just "players grouped for a
@@ -57,34 +62,28 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
       FROM frikiparty_team_member tm
       JOIN team_sizes ts ON ts.team_id = tm.team_id
       WHERE tm.player_id IS NOT NULL
-    ),
-    editions AS (
-      SELECT tm.player_id, count(DISTINCT tr.edition_id)::int AS editions_played
-      FROM frikiparty_team_member tm
-      JOIN frikiparty_tournament tr ON tr.id = tm.tournament_id
-      WHERE tm.player_id IS NOT NULL
-      GROUP BY tm.player_id
     )
     SELECT
       p.id,
       p.name,
       p.slug,
+      p.card_portrait,
+      p.card_lore,
       coalesce(sum(CASE WHEN w.size > 1 THEN 1 ELSE 0 END), 0)::int AS rings,
-      coalesce(sum(CASE WHEN w.size = 1 THEN 1 ELSE 0 END), 0)::int AS individual_rings,
-      coalesce(max(e.editions_played), 0)::int AS editions_played
+      coalesce(sum(CASE WHEN w.size = 1 THEN 1 ELSE 0 END), 0)::int AS individual_rings
     FROM frikiparty_player p
     LEFT JOIN wins w ON w.player_id = p.id
-    LEFT JOIN editions e ON e.player_id = p.id
-    GROUP BY p.id, p.name, p.slug
+    GROUP BY p.id, p.name, p.slug, p.card_portrait, p.card_lore
   `)) as unknown as RankingRow[];
 
   return rows.map((row) => ({
     id: row.id,
     name: row.name,
     slug: row.slug,
+    cardPortrait: row.card_portrait,
+    cardLore: row.card_lore,
     rings: row.rings,
     individualRings: row.individual_rings,
-    editionsPlayed: row.editions_played,
   }));
 };
 
@@ -157,11 +156,12 @@ const playerRouter = createTRPCRouter({
         fetchRankedPlayers(ctx.db),
         fetchTitles(ctx.db, row.id),
       ]);
-      const ranked = allRanked.find((p) => p.id === row.id) ?? null;
-      // Standard "1224" competition ranking: ties on rings share a place,
-      // and the next distinct rings value skips ahead accordingly.
+      const rankedIndex = allRanked.findIndex((p) => p.id === row.id);
+      const ranked = rankedIndex >= 0 ? allRanked[rankedIndex] : null;
+      // Shared "1224" competition positions (individual rings break ties),
+      // so the profile matches the podium and the ranking table.
       const position = ranked
-        ? 1 + allRanked.filter((p) => p.rings > ranked.rings).length
+        ? (competitionPositions(allRanked)[rankedIndex] ?? null)
         : null;
 
       return {
@@ -169,9 +169,10 @@ const playerRouter = createTRPCRouter({
         slug: row.slug,
         name: row.name,
         bio: row.bio,
+        cardPortrait: row.cardPortrait,
+        cardLore: row.cardLore,
         rings: ranked?.rings ?? 0,
         individualRings: ranked?.individualRings ?? 0,
-        editionsPlayed: ranked?.editionsPlayed ?? 0,
         position,
         titles,
         canEdit: canEditPlayer(ctx.session?.user, row.userId),
@@ -184,6 +185,8 @@ const playerRouter = createTRPCRouter({
         id: z.string().uuid(),
         name: z.string().trim().min(1).optional(),
         bio: z.string().trim().max(4000).nullable().optional(),
+        cardPortrait: z.string().trim().max(64).nullable().optional(),
+        cardLore: z.string().trim().max(120).nullable().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

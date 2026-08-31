@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_tournament_ranking_snapshot" DROP COLUMN "editions_played";

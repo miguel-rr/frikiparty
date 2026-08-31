@@ -243,7 +243,10 @@ const Meeple = ({ color, size = 15 }: { color: string; size?: number }) => (
 
 type Rarity = 'legendary' | 'epic' | 'rare' | 'common';
 
-const Gem = ({ rarity }: { rarity: Rarity }) => (
+/** Gems also come in podium metals, matching the honor banners. */
+type GemTone = Rarity | 'silver' | 'bronze';
+
+const Gem = ({ rarity }: { rarity: GemTone }) => (
   <span aria-hidden className={`d-gem d-gem-${rarity}`} />
 );
 

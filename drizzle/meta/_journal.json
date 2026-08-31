@@ -57,6 +57,27 @@
       "when": 1788175004388,
       "tag": "0007_mushy_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1788184774293,
+      "tag": "0008_public_shriek",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1788185336432,
+      "tag": "0009_great_justin_hammer",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1788185349598,
+      "tag": "0010_sweet_carmella_unuscione",
+      "breakpoints": true
     }
   ]
 }

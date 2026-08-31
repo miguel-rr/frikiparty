@@ -5,7 +5,7 @@ import {
   tag,
 } from '@/components/theme/primitives';
 import { PortraitCard } from '@/components/tournament/portrait-card';
-import { dealCardSpecs } from '@/lib/tournament/card-lore';
+import { type CardIdentity, dealCardSpecs } from '@/lib/tournament/card-lore';
 
 type Champions = {
   year: number;
@@ -14,13 +14,15 @@ type Champions = {
   individualChampion: string | null;
 };
 
+type PlayerCardData = Omit<CardIdentity, 'name'>;
+
 /** Hall of champions of the latest recorded edition, straight from the DB. */
 const HomeChampions = ({
   champions,
-  ringsByName,
+  playersByName,
 }: {
   champions: Champions;
-  ringsByName: Record<string, { rings: number; individualRings: number }>;
+  playersByName: Record<string, PlayerCardData>;
 }) => {
   // One deal for the whole section: no ability/text repeats between cards.
   const cards = dealCardSpecs(
@@ -29,8 +31,9 @@ const HomeChampions = ({
       ...(champions.individualChampion ? [champions.individualChampion] : []),
     ].map((name) => ({
       name,
-      rings: ringsByName[name]?.rings ?? 0,
-      individualRings: ringsByName[name]?.individualRings ?? 0,
+      rings: 0,
+      individualRings: 0,
+      ...playersByName[name],
     })),
   );
   const individualCard = champions.individualChampion

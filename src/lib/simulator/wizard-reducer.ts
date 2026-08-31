@@ -65,7 +65,6 @@ const selectedPlayers = (state: WizardState) =>
       ...player,
       rings: 0,
       individualRings: 0,
-      editionsPlayed: 0,
     }));
 
 const computeNextStep = (state: WizardState): WizardStep => {

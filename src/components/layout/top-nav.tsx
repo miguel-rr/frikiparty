@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { type ReactNode, useState } from 'react';
 
 import { btn } from '@/components/theme/primitives';
@@ -35,18 +36,18 @@ const TopNav = ({
       {/* Symmetric flex-1 flanks keep the link row truly centered no matter how wide the auth area is. */}
       <div className="mx-auto flex max-w-[1180px] items-center gap-4 px-4 py-3 sm:px-6">
         <div className="flex flex-1 items-center">
-          <a
+          <Link
             className="d-display d-gold-text font-black text-lg tracking-[0.18em]"
-            href="#top"
+            href="/"
           >
             FRIKIPARTY
-          </a>
+          </Link>
         </div>
         <div className="hidden items-center gap-7 md:flex">
           {links.map(({ href, text }) => (
-            <a className={navLinkClass} href={href} key={href}>
+            <Link className={navLinkClass} href={href} key={href}>
               {text}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="flex flex-1 items-center justify-end gap-2.5">
@@ -96,14 +97,14 @@ const TopNav = ({
         <div className="border-(--hair) border-t bg-[#0d1310f2] md:hidden">
           <div className="mx-auto flex max-w-[1180px] flex-col px-4 sm:px-6">
             {links.map(({ href, text }) => (
-              <a
+              <Link
                 className={`${navLinkClass} border-(--hair) border-b py-3.5 last:border-b-0`}
                 href={href}
                 key={href}
                 onClick={() => setOpen(false)}
               >
                 {text}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

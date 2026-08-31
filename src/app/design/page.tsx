@@ -9,6 +9,7 @@ import { Champions } from '@/app/design/_components/champions';
 import { Contest } from '@/app/design/_components/contest';
 import { Draft } from '@/app/design/_components/draft';
 import { EditMode } from '@/app/design/_components/edit-mode';
+import { EditionCardProposals } from '@/app/design/_components/edition-card-proposals';
 import { Hero } from '@/app/design/_components/hero';
 import { Auction } from '@/app/design/_components/market';
 import { MatchDetail } from '@/app/design/_components/match-detail';
@@ -48,6 +49,8 @@ const DesignPage = () => (
     </div>
     <Divider />
     <CardGallery />
+    <Divider />
+    <EditionCardProposals />
     <Divider />
     <Ranking />
     <Divider />

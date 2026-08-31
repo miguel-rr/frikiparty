@@ -15,6 +15,10 @@ const siteFlags = {
   auth: !isProduction,
   /** Section/page links in the top nav. */
   navigation: !isProduction,
+  /** Themed pages hidden (404) in production until launch. */
+  editionsPage: !isProduction,
+  playersPage: !isProduction,
+  rankingPage: !isProduction,
 } as const;
 
 export { siteFlags };

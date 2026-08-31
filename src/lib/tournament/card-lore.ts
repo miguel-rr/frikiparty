@@ -15,69 +15,62 @@ import type { CardSpec } from '@/components/tournament/hearth-card';
  * trophies.
  */
 
-const PORTRAITS_BY_RACE: Record<Race, string[]> = {
-  archer: [
-    '/design/portraits/marksman.webp',
-    '/design/portraits/longbowman.webp',
-  ],
-  dwarf: ['/design/portraits/dwarf.webp', '/design/portraits/runemaster.webp'],
-  elf: ['/design/portraits/elf.webp', '/design/portraits/elf-lord.webp'],
-  ent: ['/design/portraits/wose.webp'],
-  hobbit: ['/design/portraits/thief.webp'],
-  king: ['/design/portraits/king.webp', '/design/portraits/marshal.webp'],
-  ranger: ['/design/portraits/huntsman.webp'],
-  rohirrim: ['/design/portraits/rider.webp'],
-  warrior: ['/design/portraits/guard.webp'],
-  wizard: [
-    '/design/portraits/wizard.webp',
-    '/design/portraits/mage-white.webp',
-  ],
+/** Every available portrait, keyed by file basename, with a Spanish label for pickers. */
+const PORTRAIT_LABELS: Record<string, string> = {
+  dwarf: 'Enano',
+  'elf-lord': 'Señor élfico',
+  elf: 'Elfo',
+  guard: 'Guardia real',
+  huntsman: 'Montaraz',
+  king: 'Rey',
+  longbowman: 'Arquero',
+  'mage-white': 'Mago blanco',
+  marksman: 'Tirador élfico',
+  marshal: 'Mariscal',
+  rider: 'Jinete',
+  runemaster: 'Maestro rúnico',
+  thief: 'Hobbit',
+  wizard: 'Mago',
+  wose: 'Ente',
 };
 
-const FALLBACK_PORTRAIT = '/design/portraits/huntsman.webp';
+const portraitPath = (key: string) => `/design/portraits/${key}.webp`;
 
-/** Fixed portraits for the faces everyone knows; the rest hash into their race pool. */
+const PORTRAITS_BY_RACE: Record<Race, string[]> = {
+  archer: ['marksman', 'longbowman'],
+  dwarf: ['dwarf', 'runemaster'],
+  elf: ['elf', 'elf-lord'],
+  ent: ['wose'],
+  hobbit: ['thief'],
+  king: ['king', 'marshal'],
+  ranger: ['huntsman'],
+  rohirrim: ['rider'],
+  warrior: ['guard'],
+  wizard: ['wizard', 'mage-white'],
+};
+
+const FALLBACK_PORTRAIT_KEY = 'huntsman';
+
+/** Curated defaults for the faces everyone knows; a DB choice overrides, the rest hash into their race pool. */
 const PLAYER_PORTRAITS: Record<string, string> = {
-  Cañete: '/design/portraits/dwarf.webp',
-  Cordente: '/design/portraits/thief.webp',
-  Pingus: '/design/portraits/huntsman.webp',
-  Richar: '/design/portraits/king.webp',
-  White: '/design/portraits/wizard.webp',
-  Yura: '/design/portraits/elf.webp',
+  Cañete: 'dwarf',
+  Cordente: 'thief',
+  Pingus: 'huntsman',
+  Richar: 'king',
+  White: 'wizard',
+  Yura: 'elf',
 };
 
 type Lore = Partial<Pick<CardSpec, 'attack' | 'health'>> &
   Pick<CardSpec, 'ability' | 'text'>;
 
-/** Never rotates: these lines ARE the player. */
+/** Never rotates and can't be overridden: this line IS the player. */
 const PINNED_LORE: Record<string, Lore> = {
-  Cordente: {
-    attack: 5,
-    health: 5,
-    ability: 'Sigilo',
-    text: 'Nadie le vio venir en el torneo individual; el anillo ya estaba en su bolsillo.',
-  },
-  Pingus: {
-    attack: 3,
-    health: 9,
-    ability: 'Último aliento',
-    text: 'Propone otra partida a las tres de la mañana.',
-  },
   Richar: {
     attack: 9,
     health: 9,
     ability: 'Grito de batalla',
     text: 'Añade un anillo a tu mano.',
-  },
-  Valanton: {
-    ability: 'Corazón de la Comarca',
-    text: 'Hasta el jugador más pequeño puede cambiar el curso de una final.',
-  },
-  White: {
-    attack: 7,
-    health: 7,
-    ability: 'Grito de batalla',
-    text: 'Un mago nunca llega tarde a una final.',
   },
 };
 
@@ -376,7 +369,26 @@ const LORE_DECK: LorePair[] = [
     ability: 'Volea',
     text: 'Marca a su presa al empezar la partida; el resto es papeleo.',
   },
+  // Leyendas del concilio (antes fijadas a jugadores concretos)
+  {
+    ability: 'Sigilo',
+    text: 'Nadie le vio venir en el torneo individual; el anillo ya estaba en su bolsillo.',
+  },
+  {
+    ability: 'Último aliento',
+    text: 'Propone otra partida a las tres de la mañana.',
+  },
+  {
+    ability: 'Corazón de la Comarca',
+    text: 'Hasta el jugador más pequeño puede cambiar el curso de una final.',
+  },
+  {
+    ability: 'Puntual como un mago',
+    text: 'Un mago nunca llega tarde a una final.',
+  },
 ];
+
+const LORE_BY_ABILITY = new Map(LORE_DECK.map((pair) => [pair.ability, pair]));
 
 const GENERIC_TEXT: Record<Race, string> = {
   archer: 'Alcance: golpea desde la última fila de la mesa.',
@@ -412,27 +424,45 @@ const rarityFor = (totalRings: number): CardSpec['rarity'] => {
   return 'common';
 };
 
-const portraitFor = (name: string, race: Race) => {
+/** Chosen (DB) portrait wins, then the curated map, then the race pool by name hash. */
+const portraitFor = (name: string, race: Race, chosen?: string | null) => {
+  if (chosen && PORTRAIT_LABELS[chosen]) {
+    return portraitPath(chosen);
+  }
   const fixed = PLAYER_PORTRAITS[name];
   if (fixed) {
-    return fixed;
+    return portraitPath(fixed);
   }
   const pool = PORTRAITS_BY_RACE[race];
-  return pool[hashName(name) % pool.length] ?? FALLBACK_PORTRAIT;
+  return portraitPath(
+    pool[hashName(name) % pool.length] ?? FALLBACK_PORTRAIT_KEY,
+  );
+};
+
+/** A player's card inputs: real ring counts plus their stored card choices. */
+type CardIdentity = {
+  name: string;
+  rings: number;
+  individualRings?: number;
+  /** Portrait key from PORTRAIT_LABELS, or null/undefined for the default. */
+  cardPortrait?: string | null;
+  /** Ability of a LORE_DECK pair to fix, or null/undefined for a random deal. */
+  cardLore?: string | null;
 };
 
 /**
- * Deterministic card for one player: fixed portrait/stats/rarity, pinned
- * lore if they have it, race-generic text otherwise (no randomness).
+ * Deterministic card for one player: portrait/stats/rarity never change;
+ * the lore comes from the pin (Richar), the player's stored choice, or the
+ * race-generic fallback. No randomness — use dealCardSpecs for deck deals.
  * Rarity counts both ring kinds; the card shows them separately.
  */
-const cardSpecFor = (
-  name: string,
-  rings: number,
-  individualRings = 0,
-): CardSpec => {
+const cardSpecFor = (identity: CardIdentity): CardSpec => {
+  const { name, rings, individualRings = 0 } = identity;
   const race = raceForPlayer(name);
   const pinned = PINNED_LORE[name];
+  const chosen = identity.cardLore
+    ? LORE_BY_ABILITY.get(identity.cardLore)
+    : undefined;
   const hash = hashName(name);
   return {
     name,
@@ -441,9 +471,9 @@ const cardSpecFor = (
     attack: pinned?.attack ?? 3 + (hash % 7),
     health: pinned?.health ?? 3 + (Math.floor(hash / 7) % 7),
     rarity: rarityFor(rings + individualRings),
-    ability: pinned?.ability,
-    text: pinned?.text ?? GENERIC_TEXT[race],
-    portrait: portraitFor(name, race),
+    ability: pinned?.ability ?? chosen?.ability,
+    text: pinned?.text ?? chosen?.text ?? GENERIC_TEXT[race],
+    portrait: portraitFor(name, race, identity.cardPortrait),
   };
 };
 
@@ -459,18 +489,23 @@ const shuffled = <T>(items: T[]): T[] => {
 };
 
 /**
- * Deals cards for a group of players: pinned players keep their lines,
- * everyone else draws ability+text from a freshly shuffled deck, without
- * repeats within the group. Different on every render — call it once per
- * page section so a page never repeats a pair.
+ * Deals cards for a group of players: pinned (Richar) and stored choices
+ * keep their lines, everyone else draws ability+text from a freshly
+ * shuffled deck, without repeats within the group. Different on every
+ * render — call it once per page section so a page never repeats a pair.
  */
-const dealCardSpecs = (
-  players: { name: string; rings: number; individualRings?: number }[],
-): CardSpec[] => {
-  const deck = shuffled(LORE_DECK);
+const dealCardSpecs = (players: CardIdentity[]): CardSpec[] => {
+  const fixedAbilities = new Set(
+    players
+      .map((player) => player.cardLore)
+      .filter((ability): ability is string => Boolean(ability)),
+  );
+  const deck = shuffled(
+    LORE_DECK.filter((pair) => !fixedAbilities.has(pair.ability)),
+  );
   return players.map((player) => {
-    const base = cardSpecFor(player.name, player.rings, player.individualRings);
-    if (PINNED_LORE[player.name]) {
+    const base = cardSpecFor(player);
+    if (PINNED_LORE[player.name] || player.cardLore) {
       return base;
     }
     const pair = deck.pop();
@@ -478,4 +513,24 @@ const dealCardSpecs = (
   });
 };
 
-export { cardSpecFor, dealCardSpecs };
+/** True when this player's ability+text never rotate and can't be chosen. */
+const hasPinnedLore = (name: string) => Boolean(PINNED_LORE[name]);
+
+/** Options for the profile pickers, alphabetically by visible label. */
+const LORE_OPTIONS = [...LORE_DECK].sort((a, b) =>
+  a.ability.localeCompare(b.ability, 'es'),
+);
+
+const PORTRAIT_OPTIONS = Object.entries(PORTRAIT_LABELS)
+  .map(([key, label]) => ({ key, label }))
+  .sort((a, b) => a.label.localeCompare(b.label, 'es'));
+
+export {
+  type CardIdentity,
+  cardSpecFor,
+  dealCardSpecs,
+  hasPinnedLore,
+  LORE_OPTIONS,
+  PORTRAIT_OPTIONS,
+  portraitPath,
+};

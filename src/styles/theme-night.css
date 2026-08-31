@@ -193,6 +193,15 @@ body:has(.theme-night) header:not(.theme-night *) {
   background: radial-gradient(circle at 35% 30%, #d3a8ee, #9c53c9 65%);
   color: rgba(156, 83, 201, 0.7);
 }
+/* Podium metals, matching the honor banners (dsn-metal-* gradients). */
+.d-gem-silver {
+  background: radial-gradient(circle at 35% 30%, #eef2f6, #a8b4c0 65%);
+  color: rgba(168, 180, 192, 0.7);
+}
+.d-gem-bronze {
+  background: radial-gradient(circle at 35% 30%, #eebe92, #b0714a 65%);
+  color: rgba(176, 113, 74, 0.7);
+}
 .d-gem-rare {
   background: radial-gradient(circle at 35% 30%, #a8c8ee, #4a78c6 65%);
   color: rgba(74, 120, 198, 0.6);

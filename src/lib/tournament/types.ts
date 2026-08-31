@@ -30,7 +30,6 @@ type Player = {
   name: string;
   rings: number;
   individualRings: number;
-  editionsPlayed: number;
 };
 
 type Ballot = {
