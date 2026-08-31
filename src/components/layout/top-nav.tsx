@@ -32,13 +32,16 @@ const TopNav = ({
   const hasLinks = links.length > 0;
   return (
     <nav className="sticky top-0 z-40 border-(--hair) border-b bg-[#0a0f0cd1] backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a
-          className="d-display d-gold-text font-black text-lg tracking-[0.18em]"
-          href="#top"
-        >
-          FRIKIPARTY
-        </a>
+      {/* Symmetric flex-1 flanks keep the link row truly centered no matter how wide the auth area is. */}
+      <div className="mx-auto flex max-w-[1180px] items-center gap-4 px-4 py-3 sm:px-6">
+        <div className="flex flex-1 items-center">
+          <a
+            className="d-display d-gold-text font-black text-lg tracking-[0.18em]"
+            href="#top"
+          >
+            FRIKIPARTY
+          </a>
+        </div>
         <div className="hidden items-center gap-7 md:flex">
           {links.map(({ href, text }) => (
             <a className={navLinkClass} href={href} key={href}>
@@ -46,7 +49,7 @@ const TopNav = ({
             </a>
           ))}
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-1 items-center justify-end gap-2.5">
           {authSlot === undefined ? (
             <a className={`${btn.primary} px-4 py-1.5 text-sm`} href="#top">
               Entrar

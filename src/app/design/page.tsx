@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 
+// Re-render per request so the card lore deck reshuffles on every reload.
+export const dynamic = 'force-dynamic';
+
 import { HomeAwaitingHero } from '@/app/_components/home-hero';
+import { CardGallery } from '@/app/design/_components/card-gallery';
 import { Champions } from '@/app/design/_components/champions';
 import { Contest } from '@/app/design/_components/contest';
 import { Draft } from '@/app/design/_components/draft';
@@ -42,6 +46,8 @@ const DesignPage = () => (
     <div className="bg-(--night-2)">
       <Champions />
     </div>
+    <Divider />
+    <CardGallery />
     <Divider />
     <Ranking />
     <Divider />

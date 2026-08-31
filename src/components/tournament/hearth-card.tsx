@@ -7,7 +7,10 @@ import {
 /** Player card spec. Top-left gem = total rings; the rest is lore. */
 type CardSpec = {
   name: string;
+  /** Team-tournament rings (top-left gem). */
   rings: number;
+  /** Individual-tournament rings (top-right solitaire band; hidden at 0). */
+  individualRings?: number;
   attack: number;
   health: number;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';

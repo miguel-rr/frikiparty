@@ -26,7 +26,7 @@ const HomePage = async () => {
   const ringsByName = Object.fromEntries(
     ranking.map((player) => [
       player.name,
-      player.rings + player.individualRings,
+      { rings: player.rings, individualRings: player.individualRings },
     ]),
   );
 

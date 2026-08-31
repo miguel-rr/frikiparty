@@ -76,7 +76,11 @@ const PortraitCard = ({
       role="img"
       viewBox="0 0 250 360"
     >
-      <title>{`${card.name} — ${card.rings} anillos`}</title>
+      <title>
+        {`${card.name} — ${card.rings} anillos${
+          card.individualRings ? ` · ${card.individualRings} individuales` : ''
+        }`}
+      </title>
       <defs>
         <clipPath id={clipId}>
           <ellipse cx="125" cy="107" rx="88" ry="74" />
@@ -261,6 +265,52 @@ const PortraitCard = ({
         strokeWidth="1.5"
       />
       <StatNumber size={27} value={card.rings} x={32} y={45} />
+
+      {/* Individual rings — hollow "solitaire" band with a crown gem (top-right) */}
+      <g>
+        <circle
+          cx="218"
+          cy="36"
+          fill="#1a1208"
+          r="23"
+          stroke="#0d0a05"
+          strokeWidth="2.5"
+        />
+        <circle
+          cx="218"
+          cy="36"
+          fill="none"
+          r="16"
+          stroke="url(#dsn-ring-gem)"
+          strokeWidth="5"
+        />
+        <circle
+          cx="218"
+          cy="36"
+          fill="none"
+          opacity="0.9"
+          r="16"
+          stroke="#f6e2a4"
+          strokeDasharray="7 94"
+          strokeLinecap="round"
+          strokeWidth="4"
+        />
+        <circle
+          cx="218"
+          cy="20"
+          fill="#c9a557"
+          r="4.2"
+          stroke="#0d0a05"
+          strokeWidth="1.5"
+        />
+        <circle cx="218" cy="20" fill="#f6e2a4" r="2.2" />
+        <StatNumber
+          size={19}
+          value={card.individualRings ?? 0}
+          x={218}
+          y={43}
+        />
+      </g>
 
       {/* Attack / stamina gems */}
       <circle

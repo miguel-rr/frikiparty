@@ -140,7 +140,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
     <section className="relative overflow-hidden" id="top">
       <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-24 sm:px-6 lg:gap-7 lg:pt-8">
         <TheRing
-          className="w-[min(80vw,440px)] lg:w-[460px]"
+          className="w-[min(80vw,440px)] lg:w-105"
           title={`Edición ${edition.year}`}
         >
           <span className="font-bold font-mono text-(--gold) text-[1.15rem] uppercase tracking-[0.35em] lg:text-[1.3rem]">
@@ -196,7 +196,7 @@ const HomeAwaitingHero = () => (
   <section className="relative overflow-hidden" id="top">
     <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-24 sm:px-6 lg:gap-7 lg:pt-8">
       <TheRing
-        className="w-[min(80vw,440px)] opacity-90 lg:w-[460px]"
+        className="w-[min(80vw,440px)] opacity-90 lg:w-105"
         title="Próxima edición por convocar"
         tone="ash"
       >

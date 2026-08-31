@@ -56,8 +56,15 @@ const alegreyaSans = Alegreya_Sans({
 // rather than re-exported at the bottom of the file.
 export const metadata: Metadata = {
   title: 'Frikiparty',
-  description:
-    'Torneo anual de Age of the Ring por equipos. Ediciones, ranking y clasificaciones en directo.',
+  description: 'Reuniendo frikis frescos desde 2005',
+  openGraph: {
+    title: 'Frikiparty',
+    description: 'Reuniendo frikis frescos desde 2005',
+    siteName: 'Frikiparty',
+    locale: 'es_ES',
+    type: 'website',
+    url: 'https://frikiparty.com',
+  },
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
