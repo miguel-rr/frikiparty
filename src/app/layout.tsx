@@ -55,6 +55,7 @@ const alegreyaSans = Alegreya_Sans({
 // Next statically analyses this binding, so it must be a direct named export
 // rather than re-exported at the bottom of the file.
 export const metadata: Metadata = {
+  metadataBase: new URL('https://frikiparty.com'),
   title: 'Frikiparty',
   description: 'Reuniendo frikis frescos desde 2005',
   openGraph: {
@@ -64,8 +65,19 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     type: 'website',
     url: 'https://frikiparty.com',
+    images: [
+      { url: '/og-image.jpg', width: 1200, height: 630, alt: 'Frikiparty' },
+    ],
   },
-  icons: [{ rel: 'icon', url: '/favicon.ico' }],
+  twitter: { card: 'summary_large_image' },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/ring-icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+    ],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
+  },
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {

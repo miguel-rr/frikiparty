@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- The One Ring: dark gold band, glowing inscription. -->
+  <defs>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9a557"/>
+      <stop offset="0.45" stop-color="#7a5c20"/>
+      <stop offset="1" stop-color="#3a2b0b"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="0.35" cy="0.3" r="0.9">
+      <stop offset="0" stop-color="#f0d48a" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#f0d48a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <path id="script" d="M32,13 a19,19 0 1,1 -0.01,0" fill="none"/>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="#100b04"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="url(#band)" stroke-width="11"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="url(#sheen)" stroke-width="11"/>
+  <circle cx="32" cy="32" r="28.6" fill="none" stroke="#241a08" stroke-width="1.4"/>
+  <circle cx="32" cy="32" r="17.4" fill="none" stroke="#241a08" stroke-width="1.4"/>
+  <g filter="url(#glow)">
+    <text fill="#ffdc8f" font-family="Georgia, 'Times New Roman', serif" font-size="6" font-style="italic" letter-spacing="0.4">
+      <textPath href="#script" lengthAdjust="spacingAndGlyphs" textLength="117">Una edición para gobernarlas a todas ·</textPath>
+    </text>
+  </g>
+</svg>
