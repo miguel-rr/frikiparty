@@ -302,7 +302,16 @@ const Footer = ({ note }: { note?: ReactNode }) => (
       >
         Battle for Wesnoth
       </a>{' '}
-      · GPLv2+ / CC BY-SA 4.0
+      · GPLv2+ / CC BY-SA 4.0 — Anillo de{' '}
+      <a
+        className="underline hover:text-(--gold)"
+        href="https://commons.wikimedia.org/wiki/File:One_Ring_Blender_Render.png"
+        rel="noreferrer"
+        target="_blank"
+      >
+        Peter J. Yost
+      </a>{' '}
+      · CC BY-SA 4.0
     </p>
   </footer>
 );
