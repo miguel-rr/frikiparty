@@ -6,6 +6,7 @@ import { UserMenu } from '@/app/_components/user-menu';
 import { TopNav } from '@/components/layout/top-nav';
 import { ParallaxBackground } from '@/components/theme/parallax-bg';
 import { BlazonDefs, btn, Footer } from '@/components/theme/primitives';
+import { siteFlags } from '@/lib/site-flags';
 import { getSession } from '@/server/better-auth/server';
 import { api } from '@/trpc/server';
 
@@ -35,18 +36,20 @@ const HomePage = async () => {
       <ParallaxBackground />
       <TopNav
         authSlot={
-          session ? (
-            <UserMenu label={session.user.name || session.user.email} />
-          ) : (
-            <Link
-              className={`${btn.primary} px-4 py-1.5 text-sm`}
-              href="/login"
-            >
-              Entrar
-            </Link>
-          )
+          siteFlags.auth ? (
+            session ? (
+              <UserMenu label={session.user.name || session.user.email} />
+            ) : (
+              <Link
+                className={`${btn.primary} px-4 py-1.5 text-sm`}
+                href="/login"
+              >
+                Entrar
+              </Link>
+            )
+          ) : null
         }
-        links={NAV_LINKS}
+        links={siteFlags.navigation ? NAV_LINKS : []}
       />
       {nextEdition ? <HomeHero edition={nextEdition} /> : <HomeAwaitingHero />}
       {champions ? (

@@ -20,6 +20,8 @@ const env = createEnv({
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
+    // Injected by Vercel; absent in local dev. Drives site-flags.ts.
+    VERCEL_ENV: z.enum(['development', 'preview', 'production']).optional(),
   },
 
   client: {
@@ -38,6 +40,7 @@ const env = createEnv({
       process.env.BETTER_AUTH_GOOGLE_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    VERCEL_ENV: process.env.VERCEL_ENV,
   },
   // Set SKIP_ENV_VALIDATION for Docker builds where env vars aren't available at build time.
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,

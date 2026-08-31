@@ -16,7 +16,11 @@ const DEFAULT_LINKS: NavLink[] = [
 const navLinkClass =
   'd-display font-bold text-[0.78rem] text-(--faded) uppercase tracking-[0.18em] transition-colors hover:text-(--gold-hi)';
 
-/** Sticky nav; below md the links live behind a hamburger dropdown. */
+/**
+ * Sticky nav; below md the links live behind a hamburger dropdown.
+ * `links={[]}` hides the link row and the hamburger; `authSlot={null}`
+ * hides the auth area entirely (undefined keeps the default "Entrar").
+ */
 const TopNav = ({
   authSlot,
   links = DEFAULT_LINKS,
@@ -25,6 +29,7 @@ const TopNav = ({
   links?: NavLink[];
 }) => {
   const [open, setOpen] = useState(false);
+  const hasLinks = links.length > 0;
   return (
     <nav className="sticky top-0 z-40 border-(--hair) border-b bg-[#0a0f0cd1] backdrop-blur-md">
       <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
@@ -42,42 +47,46 @@ const TopNav = ({
           ))}
         </div>
         <div className="flex items-center gap-2.5">
-          {authSlot ?? (
+          {authSlot === undefined ? (
             <a className={`${btn.primary} px-4 py-1.5 text-sm`} href="#top">
               Entrar
             </a>
+          ) : (
+            authSlot
           )}
-          <button
-            aria-expanded={open}
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-            className="grid size-9 place-items-center rounded-full border border-(--hair) text-(--gold) transition-colors hover:border-(--hair-gold) md:hidden"
-            onClick={() => setOpen((value) => !value)}
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              fill="none"
-              height="16"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              viewBox="0 0 16 16"
-              width="16"
+          {hasLinks ? (
+            <button
+              aria-expanded={open}
+              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+              className="grid size-9 place-items-center rounded-full border border-(--hair) text-(--gold) transition-colors hover:border-(--hair-gold) md:hidden"
+              onClick={() => setOpen((value) => !value)}
+              type="button"
             >
-              {open ? (
-                <>
-                  <path d="M3 3l10 10" />
-                  <path d="M13 3L3 13" />
-                </>
-              ) : (
-                <>
-                  <path d="M2 4h12" />
-                  <path d="M2 8h12" />
-                  <path d="M2 12h12" />
-                </>
-              )}
-            </svg>
-          </button>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeWidth="2"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                {open ? (
+                  <>
+                    <path d="M3 3l10 10" />
+                    <path d="M13 3L3 13" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M2 4h12" />
+                    <path d="M2 8h12" />
+                    <path d="M2 12h12" />
+                  </>
+                )}
+              </svg>
+            </button>
+          ) : null}
         </div>
       </div>
       {open ? (
