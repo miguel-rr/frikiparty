@@ -92,6 +92,13 @@
       "when": 1788273445727,
       "tag": "0012_living_retro_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1788287046406,
+      "tag": "0013_red_maginty",
+      "breakpoints": true
     }
   ]
 }

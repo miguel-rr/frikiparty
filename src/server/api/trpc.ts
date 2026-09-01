@@ -16,6 +16,8 @@ const createTRPCContext = async (opts: { headers: Headers }) => {
   };
 };
 
+type TRPCContext = Awaited<ReturnType<typeof createTRPCContext>>;
+
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
@@ -84,4 +86,5 @@ export {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
+  type TRPCContext,
 };

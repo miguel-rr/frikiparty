@@ -10,7 +10,6 @@ import {
   panelGold,
   RingGlyph,
   Section,
-  tag,
 } from '@/components/theme/primitives';
 import { BracketBoard } from '@/components/tournament/bracket-board';
 import { RANK_MOTIFS } from '@/components/tournament/honor-podium';
@@ -135,14 +134,15 @@ const PlayerRow = ({ player }: { player: EditionPlayer }) => (
   </li>
 );
 
+/** Inside the box and centred on its rows, so it adds no height either. */
 const VictoryLaurel = ({ mirrored }: { mirrored: boolean }) => (
   <svg
-    aria-hidden="true"
-    className={`absolute -top-2.5 size-7 drop-shadow-[0_0_8px_rgba(201,165,87,0.6)] ${
-      mirrored ? '-left-2.5' : '-right-2.5'
+    className={`absolute top-1/2 size-6 -translate-y-1/2 drop-shadow-[0_0_8px_rgba(201,165,87,0.6)] ${
+      mirrored ? 'left-4' : 'right-4'
     }`}
     viewBox="0 0 512 512"
   >
+    <title>Vencedor</title>
     <path d={RANK_MOTIFS.bronze} fill="url(#dsn-blazon-rim)" />
   </svg>
 );
@@ -365,17 +365,42 @@ const SoloHonours = ({
   </div>
 );
 
+/**
+ * Placement seal. It rides the header line, absolutely positioned, so a
+ * decorated team is exactly as tall as an undecorated one and the grid
+ * keeps its rhythm.
+ */
+const PlacementMedal = ({ metal }: { metal: 'gold' | 'silver' }) => (
+  <svg
+    className={`absolute top-1/2 right-0 size-6 -translate-y-1/2 ${
+      metal === 'gold'
+        ? 'drop-shadow-[0_0_8px_rgba(201,165,87,0.6)]'
+        : 'drop-shadow-[0_0_8px_rgba(174,185,194,0.45)]'
+    }`}
+    viewBox="0 0 512 512"
+  >
+    <title>{metal === 'gold' ? 'Campeones' : 'Finalistas'}</title>
+    <path
+      d={RANK_MOTIFS.bronze}
+      fill={
+        metal === 'gold' ? 'url(#dsn-blazon-rim)' : 'url(#dsn-metal-silver)'
+      }
+    />
+  </svg>
+);
+
 const TeamPanel = ({ team }: { team: EditionTeam }) => {
   const champions = team.finalPosition === 1;
   const finalists = team.finalPosition === 2;
   return (
     <div className={`${champions ? panelGold : panel} flex flex-col gap-3 p-5`}>
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="relative">
         <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
           {teamHandle(team)}
         </span>
-        {champions ? <span className={tag}>Campeones</span> : null}
-        {finalists ? <span className={tag}>Finalistas</span> : null}
+        {champions || finalists ? (
+          <PlacementMedal metal={champions ? 'gold' : 'silver'} />
+        ) : null}
       </div>
       <ul className="flex flex-col gap-2.5">
         {team.players.map((player, index) => (
@@ -438,13 +463,19 @@ const EditionPage = async ({ params }: PageProps) => {
               {edition.label}
             </h1>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              {edition.venueName && edition.venueSlug ? (
-                <Link
-                  className="font-bold font-mono text-(--parchment) text-[0.68rem] uppercase tracking-[0.22em] transition-colors hover:text-(--gold-hi)"
-                  href={`/venues/${edition.venueSlug}`}
-                >
-                  {edition.venueName}
-                </Link>
+              {edition.venueName ? (
+                edition.venueSlug && edition.venueIsPlace ? (
+                  <Link
+                    className="font-bold font-mono text-(--parchment) text-[0.68rem] uppercase tracking-[0.22em] transition-colors hover:text-(--gold-hi)"
+                    href={`/venues/${edition.venueSlug}`}
+                  >
+                    {edition.venueName}
+                  </Link>
+                ) : (
+                  <span className="font-bold font-mono text-(--parchment) text-[0.68rem] uppercase tracking-[0.22em]">
+                    {edition.venueName}
+                  </span>
+                )
               ) : null}
               {edition.startsAt && edition.endsAt ? (
                 <span className="font-bold font-mono text-(--faded) text-[0.68rem] uppercase tracking-[0.22em]">

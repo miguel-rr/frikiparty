@@ -1,4 +1,5 @@
 import {
+  boolean,
   date,
   integer,
   text,
@@ -20,6 +21,11 @@ const venue = createTable('venue', {
   photoUrl: text('photo_url'),
   /** Resolved address for the keyless Google Maps embed (q= parameter). */
   mapsEmbedQuery: text('maps_embed_query'),
+  /** Free text about the house: how it was, anecdotes, why we moved on. */
+  description: text('description'),
+  // Some historical "venues" are labels rather than houses ("Madrid", a
+  // farewell party): they stay for the record but get no page of their own.
+  isPlace: boolean('is_place').notNull().default(true),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

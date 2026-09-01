@@ -2,7 +2,11 @@ import { TRPCError } from '@trpc/server';
 import { and, asc, eq, gte, isNotNull, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import {
+  createTRPCRouter,
+  publicProcedure,
+  type TRPCContext,
+} from '@/server/api/trpc';
 import { edition, venue } from '@/server/db/schema';
 
 type ChampionRow = {
@@ -18,6 +22,7 @@ type EditionListRow = {
   ends_at: string | null;
   venue_name: string | null;
   venue_slug: string | null;
+  venue_is_place: boolean | null;
   champion_name: string | null;
   champion_slug: string | null;
   team_size: number | null;
@@ -42,6 +47,8 @@ type EditionListItem = {
   endsAt: string | null;
   venueName: string | null;
   venueSlug: string | null;
+  /** Null when the edition has no venue; false for labels without a page. */
+  venueIsPlace: boolean | null;
   teamChampions: ChampionRef[];
   individualChampion: ChampionRef | null;
   status: 'upcoming' | 'live' | 'past';
@@ -137,6 +144,91 @@ const editionStatus = (
   return 'past';
 };
 
+/**
+ * Every edition, newest first, with its venue and champions — the
+ * /editions chronicle and, filtered, a venue's history. One query;
+ * champions grouped in TS afterwards (team_size > 1 = team title, = 1 =
+ * individual). Champions whose player we never recorded (player_id null)
+ * are kept as anonymous refs — the team had that many members even if we
+ * can't name them all.
+ */
+const listEditions = async (
+  db: TRPCContext['db'],
+): Promise<EditionListItem[]> => {
+  const rows = (await db.execute(sql`
+    WITH team_sizes AS (
+      SELECT team_id, count(*)::int AS size
+      FROM frikiparty_team_member
+      GROUP BY team_id
+    ),
+    champions AS (
+      SELECT tr.edition_id, p.name, p.slug, ts.size AS team_size
+      FROM frikiparty_tournament tr
+      JOIN frikiparty_team t ON t.tournament_id = tr.id
+      JOIN frikiparty_team_member tm ON tm.team_id = t.id
+      JOIN team_sizes ts ON ts.team_id = t.id
+      LEFT JOIN frikiparty_player p ON p.id = tm.player_id
+      WHERE t.final_position = 1
+    )
+    SELECT
+      e.id, e.year, e."order", e.starts_at, e.ends_at,
+      v.name AS venue_name, v.slug AS venue_slug, v.is_place AS venue_is_place,
+      c.name AS champion_name, c.slug AS champion_slug, c.team_size
+    FROM frikiparty_edition e
+    LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
+    LEFT JOIN champions c ON c.edition_id = e.id
+    ORDER BY e.year DESC, e."order" DESC, c.team_size DESC, c.name ASC
+  `)) as unknown as EditionListRow[];
+
+  const today = new Date().toISOString().slice(0, 10);
+  const editionsById = new Map<string, EditionListItem>();
+  for (const row of rows) {
+    let item = editionsById.get(row.id);
+    if (!item) {
+      item = {
+        id: row.id,
+        year: row.year,
+        order: row.order,
+        label: String(row.year),
+        slug: row.order > 1 ? `${row.year}-${row.order}` : String(row.year),
+        startsAt: row.starts_at,
+        endsAt: row.ends_at,
+        venueName: row.venue_name,
+        venueSlug: row.venue_slug,
+        venueIsPlace: row.venue_is_place,
+        teamChampions: [],
+        individualChampion: null,
+        status: editionStatus(row.starts_at, row.ends_at, today),
+      };
+      editionsById.set(row.id, item);
+    }
+    if (row.team_size !== null) {
+      const champion = {
+        name: row.champion_name,
+        slug: row.champion_slug,
+      };
+      if (row.team_size > 1) {
+        item.teamChampions.push(champion);
+      } else {
+        item.individualChampion = champion;
+      }
+    }
+  }
+
+  const items = [...editionsById.values()];
+  const editionsPerYear = new Map<number, number>();
+  for (const item of items) {
+    editionsPerYear.set(item.year, (editionsPerYear.get(item.year) ?? 0) + 1);
+  }
+  for (const item of items) {
+    if (item.order > 1 || (editionsPerYear.get(item.year) ?? 0) > 1) {
+      const ordinal = ROMAN_ORDINALS[item.order - 1] ?? String(item.order);
+      item.label = `${item.year} · ${ordinal}`;
+    }
+  }
+  return items;
+};
+
 const editionRouter = createTRPCRouter({
   /**
    * The upcoming (or currently running) edition: the first one whose end
@@ -153,6 +245,8 @@ const editionRouter = createTRPCRouter({
         startsAt: edition.startsAt,
         endsAt: edition.endsAt,
         venueName: venue.name,
+        venueSlug: venue.slug,
+        venueIsPlace: venue.isPlace,
         venueMapsUrl: venue.mapsUrl,
         venuePhotoUrl: venue.photoUrl,
         venueMapsEmbedQuery: venue.mapsEmbedQuery,
@@ -165,86 +259,7 @@ const editionRouter = createTRPCRouter({
     return row ?? null;
   }),
 
-  /**
-   * Every edition, newest first, with its venue and champions — the
-   * /editions chronicle. One query; champions grouped in TS afterwards
-   * (team_size > 1 = team title, = 1 = individual). Champions whose player
-   * we never recorded (player_id null) are kept as anonymous refs — the team
-   * had that many members even if we can't name them all.
-   */
-  list: publicProcedure.query(async ({ ctx }): Promise<EditionListItem[]> => {
-    const rows = (await ctx.db.execute(sql`
-      WITH team_sizes AS (
-        SELECT team_id, count(*)::int AS size
-        FROM frikiparty_team_member
-        GROUP BY team_id
-      ),
-      champions AS (
-        SELECT tr.edition_id, p.name, p.slug, ts.size AS team_size
-        FROM frikiparty_tournament tr
-        JOIN frikiparty_team t ON t.tournament_id = tr.id
-        JOIN frikiparty_team_member tm ON tm.team_id = t.id
-        JOIN team_sizes ts ON ts.team_id = t.id
-        LEFT JOIN frikiparty_player p ON p.id = tm.player_id
-        WHERE t.final_position = 1
-      )
-      SELECT
-        e.id, e.year, e."order", e.starts_at, e.ends_at,
-        v.name AS venue_name, v.slug AS venue_slug,
-        c.name AS champion_name, c.slug AS champion_slug, c.team_size
-      FROM frikiparty_edition e
-      LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
-      LEFT JOIN champions c ON c.edition_id = e.id
-      ORDER BY e.year DESC, e."order" DESC, c.team_size DESC, c.name ASC
-    `)) as unknown as EditionListRow[];
-
-    const today = new Date().toISOString().slice(0, 10);
-    const editionsById = new Map<string, EditionListItem>();
-    for (const row of rows) {
-      let item = editionsById.get(row.id);
-      if (!item) {
-        item = {
-          id: row.id,
-          year: row.year,
-          order: row.order,
-          label: String(row.year),
-          slug: row.order > 1 ? `${row.year}-${row.order}` : String(row.year),
-          startsAt: row.starts_at,
-          endsAt: row.ends_at,
-          venueName: row.venue_name,
-          venueSlug: row.venue_slug,
-          teamChampions: [],
-          individualChampion: null,
-          status: editionStatus(row.starts_at, row.ends_at, today),
-        };
-        editionsById.set(row.id, item);
-      }
-      if (row.team_size !== null) {
-        const champion = {
-          name: row.champion_name,
-          slug: row.champion_slug,
-        };
-        if (row.team_size > 1) {
-          item.teamChampions.push(champion);
-        } else {
-          item.individualChampion = champion;
-        }
-      }
-    }
-
-    const items = [...editionsById.values()];
-    const editionsPerYear = new Map<number, number>();
-    for (const item of items) {
-      editionsPerYear.set(item.year, (editionsPerYear.get(item.year) ?? 0) + 1);
-    }
-    for (const item of items) {
-      if (item.order > 1 || (editionsPerYear.get(item.year) ?? 0) > 1) {
-        const ordinal = ROMAN_ORDINALS[item.order - 1] ?? String(item.order);
-        item.label = `${item.year} · ${ordinal}`;
-      }
-    }
-    return items;
-  }),
+  list: publicProcedure.query(({ ctx }) => listEditions(ctx.db)),
 
   /**
    * One edition in full detail: venue, every recorded team of its official
@@ -266,6 +281,7 @@ const editionRouter = createTRPCRouter({
           endsAt: edition.endsAt,
           venueName: venue.name,
           venueSlug: venue.slug,
+          venueIsPlace: venue.isPlace,
         })
         .from(edition)
         .leftJoin(venue, eq(edition.venueId, venue.id))
@@ -448,6 +464,7 @@ const editionRouter = createTRPCRouter({
         endsAt: row.endsAt,
         venueName: row.venueName,
         venueSlug: row.venueSlug,
+        venueIsPlace: row.venueIsPlace,
         sceneIndex: meta?.scene_index ?? 0,
         teamTournament,
         individualTournament,
@@ -511,4 +528,4 @@ const editionRouter = createTRPCRouter({
   }),
 });
 
-export { editionRouter };
+export { type EditionListItem, editionRouter, listEditions };

@@ -19,6 +19,8 @@ const siteFlags = {
   editionsPage: !isProduction,
   playersPage: !isProduction,
   rankingPage: !isProduction,
+  /** /venues and /venues/<slug>; the index is reachable by URL only. */
+  venuesPage: !isProduction,
 } as const;
 
 export { siteFlags };

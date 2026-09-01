@@ -17,6 +17,10 @@ const btn = {
   danger: `${btnBase} border border-[#cf6a4873] px-6 py-2.5 text-(--ember) hover:bg-[#cf6a481f]`,
 } as const;
 
+/** Quiet gold text link ("Cómo llegar →"): an action without a button. */
+const linkGold =
+  'whitespace-nowrap font-bold text-(--gold) text-sm transition-colors hover:text-(--gold-hi)';
+
 const panel =
   'd-scape rounded-xl border border-(--hair) shadow-[inset_0_1px_0_#f0d48a0d,0_12px_30px_#00000059]';
 
@@ -354,6 +358,7 @@ export {
   Gem,
   input,
   label,
+  linkGold,
   Meeple,
   PlayerBlazon,
   panel,

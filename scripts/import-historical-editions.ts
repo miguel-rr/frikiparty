@@ -62,6 +62,13 @@ type RoundSpec = {
 /** Bracket rounds in order — the last one is the final. */
 type KnockoutSpec = { rounds: RoundSpec[] };
 
+type VenueSpec = {
+  name: string;
+  description?: string;
+  /** false = a label, not a house (no page of its own). Defaults to true. */
+  isPlace?: boolean;
+};
+
 type HistoricalEdition = {
   year: number;
   order?: number;
@@ -109,8 +116,9 @@ const sameMembers = (a: string[], b: string[]) =>
 
 const main = async () => {
   const path = join(import.meta.dirname, 'data/historical-editions.json');
-  const { editions } = JSON.parse(readFileSync(path, 'utf-8')) as {
+  const { editions, venues = [] } = JSON.parse(readFileSync(path, 'utf-8')) as {
     editions: HistoricalEdition[];
+    venues?: VenueSpec[];
   };
 
   // Fail loudly instead of silently creating a player — the whole point of
@@ -813,6 +821,36 @@ const main = async () => {
           'individual',
         );
       }
+    }
+  }
+
+  // --- Venue details. The web editor is the source of truth for venues:
+  // this pass only fills blanks (fresh database) and warns on divergence
+  // instead of overwriting hand-edited values.
+  console.log('\nVenues');
+  for (const spec of venues) {
+    const [row] = await db
+      .select()
+      .from(venue)
+      .where(eq(venue.name, spec.name));
+    if (!row) {
+      warn(`venue "${spec.name}" is not used by any edition — skipped`);
+      continue;
+    }
+    const description = spec.description?.trim() || null;
+    if (description && row.description === null) {
+      await db.update(venue).set({ description }).where(eq(venue.id, row.id));
+      record(`venue "${spec.name}": description filled in`);
+    } else if (description && description !== row.description) {
+      warn(
+        `venue "${spec.name}": description differs from the JSON — kept the DB one (edited on the web)`,
+      );
+    }
+    const isPlace = spec.isPlace ?? true;
+    if (isPlace !== row.isPlace) {
+      warn(
+        `venue "${spec.name}": isPlace differs from the JSON (db=${row.isPlace}) — kept the DB one`,
+      );
     }
   }
 
