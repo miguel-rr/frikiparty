@@ -118,7 +118,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
   const remaining = hasDates ? daysUntil(edition.startsAt as string) : null;
   return (
     <section className="relative overflow-hidden" id="top">
-      <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-24 sm:px-6 lg:gap-7 lg:pt-8">
+      <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-12 sm:px-6 lg:gap-7 lg:pt-8 lg:pb-14">
         <TheRing
           className="w-[min(80vw,440px)] lg:w-105"
           title={`Edición ${edition.year}`}
@@ -144,11 +144,14 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
           ) : null}
         </TheRing>
         <div className="flex flex-col items-center gap-7 text-center lg:gap-5">
-          <span className={tag}>
+          <Link
+            className={`${tag} transition-colors hover:border-(--gold) hover:text-(--gold-hi)`}
+            href={`/editions/${edition.year}`}
+          >
             {live
               ? `La edición ${edition.year} está en juego`
               : `Concilio anual · Edición ${edition.year}`}
-          </span>
+          </Link>
           <h1 className="d-display font-black text-[clamp(2.1rem,4.6vw,3.6rem)] uppercase leading-[1.08]">
             La Comunidad
             <br />
@@ -158,10 +161,20 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
             {hasDates
               ? `${formatDateRange(edition.startsAt as string, edition.endsAt as string)} · `
               : null}
-            {edition.venueName}. Age of the Ring, juegos de mesa hasta las
-            tantas y cuentas pendientes desde 2005.
+            {edition.venueSlug && edition.venueIsPlace ? (
+              <Link
+                className="text-(--parchment) transition-colors hover:text-(--gold-hi)"
+                href={`/venues/${edition.venueSlug}`}
+              >
+                {edition.venueName}
+              </Link>
+            ) : (
+              edition.venueName
+            )}
+            . Age of the Ring, juegos de mesa hasta las tantas y cuentas
+            pendientes desde 2005.
           </p>
-          <div className="mt-5 flex w-full justify-center lg:mt-7">
+          <div className="mt-9 flex w-full justify-center lg:mt-12">
             <VenueCard edition={edition} />
           </div>
         </div>

@@ -479,7 +479,8 @@ const getNextEdition = async (db: TRPCContext['db']) => {
  */
 const getLatestChampions = async (db: TRPCContext['db']) => {
   const latest = (await db.execute(sql`
-    SELECT e.id, e.year, v.name AS venue_name
+    SELECT e.id, e.year, v.name AS venue_name,
+      v.slug AS venue_slug, v.is_place AS venue_is_place
     FROM frikiparty_edition e
     LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
     WHERE EXISTS (
@@ -491,7 +492,13 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
     )
     ORDER BY e.year DESC, e."order" DESC
     LIMIT 1
-  `)) as unknown as { id: string; year: number; venue_name: string | null }[];
+  `)) as unknown as {
+    id: string;
+    year: number;
+    venue_name: string | null;
+    venue_slug: string | null;
+    venue_is_place: boolean | null;
+  }[];
 
   const latestEdition = latest[0];
   if (!latestEdition) {
@@ -517,6 +524,8 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
   return {
     year: latestEdition.year,
     venueName: latestEdition.venue_name,
+    venueSlug: latestEdition.venue_slug,
+    venueIsPlace: latestEdition.venue_is_place,
     teamChampions: rows
       .filter((row) => row.team_size > 1 && row.name)
       .map((row) => row.name as string),

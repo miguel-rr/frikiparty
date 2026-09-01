@@ -273,7 +273,49 @@
   }
 }
 
+/* Beacon flames (design proposal A): a small, uneven breathing. */
+.d-flicker {
+  animation: d-flicker 1.7s ease-in-out infinite;
+}
+@keyframes d-flicker {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  38% {
+    opacity: 0.82;
+    transform: scaleY(0.94) scaleX(1.04);
+  }
+  62% {
+    opacity: 0.94;
+    transform: scaleY(1.05);
+  }
+}
+
+/* Ithildin (design proposal B): mithril tracing that breathes moonlight. */
+.d-ithildin {
+  filter: drop-shadow(0 0 6px rgba(174, 185, 194, 0.55));
+}
+.d-ithildin-glow {
+  animation: d-ithildin 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(220, 230, 238, 0.8));
+}
+@keyframes d-ithildin {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .d-flicker,
+  .d-ithildin-glow {
+    animation: none;
+  }
   .d-ring-rotor {
     animation: none;
   }

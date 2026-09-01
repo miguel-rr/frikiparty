@@ -22,6 +22,7 @@ const HomePage = async () => {
     ranking.map((player) => [
       player.name,
       {
+        slug: player.slug,
         rings: player.rings,
         individualRings: player.individualRings,
         cardPortrait: player.cardPortrait,

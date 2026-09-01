@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { RACE_EMBLEMS, raceForPlayer } from '@/components/theme/emblems';
@@ -46,15 +47,27 @@ const td = 'border-b border-(--hair) px-3 py-2.5 align-middle';
 
 const SectionHeader = ({
   eyebrowText,
+  eyebrowHref,
   title,
   lead,
 }: {
   eyebrowText: string;
+  /** Turns the eyebrow into a link (e.g. "Edición 2025" → its page). */
+  eyebrowHref?: string;
   title: string;
   lead?: string;
 }) => (
   <div className="flex flex-col items-center gap-3 text-center">
-    <span className={eyebrow}>{eyebrowText}</span>
+    {eyebrowHref ? (
+      <Link
+        className={`${eyebrow} transition-colors hover:text-(--gold-hi)`}
+        href={eyebrowHref}
+      >
+        {eyebrowText}
+      </Link>
+    ) : (
+      <span className={eyebrow}>{eyebrowText}</span>
+    )}
     <h2 className="d-display font-bold text-3xl uppercase sm:text-4xl">
       {title}
     </h2>

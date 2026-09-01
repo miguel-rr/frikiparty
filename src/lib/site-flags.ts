@@ -19,6 +19,8 @@ const siteFlags = {
   editionsPage: !isProduction,
   playersPage: !isProduction,
   rankingPage: !isProduction,
+  /** Tournament page: countdown while waiting, live view when playing. */
+  pifoudsPage: !isProduction,
   /** /venues and /venues/<slug>; the index is reachable by URL only. */
   venuesPage: !isProduction,
 } as const;

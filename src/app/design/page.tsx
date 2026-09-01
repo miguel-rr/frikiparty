@@ -13,6 +13,7 @@ import { EditionCardProposals } from '@/app/design/_components/edition-card-prop
 import { Hero } from '@/app/design/_components/hero';
 import { Auction } from '@/app/design/_components/market';
 import { MatchDetail } from '@/app/design/_components/match-detail';
+import { Pifouds } from '@/app/design/_components/pifouds';
 import { Ranking } from '@/app/design/_components/ranking';
 import { TopNav } from '@/components/layout/top-nav';
 import { ParallaxBackground } from '@/components/theme/parallax-bg';
@@ -53,6 +54,8 @@ const DesignPage = () => (
     <EditionCardProposals />
     <Divider />
     <Ranking />
+    <Divider />
+    <Pifouds />
     <Divider />
     <Contest />
     <MatchDetail />
