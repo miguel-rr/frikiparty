@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { type ReactNode, useState } from 'react';
 
+import { useSessionUser } from '@/components/layout/auth-slot';
 import { btn, input, label } from '@/components/theme/primitives';
 import type { CardSpec } from '@/components/tournament/hearth-card';
 import { PortraitCard } from '@/components/tournament/portrait-card';
@@ -26,7 +27,8 @@ type PlayerProfileProps = {
   individualRings: number;
   /** Richar: his line never rotates, so the card picker is hidden. */
   pinnedLore: boolean;
-  canEdit: boolean;
+  /** Linked user who owns the profile; edit rights resolve client-side. */
+  ownerUserId: string | null;
   /** Server-rendered stats and palmarés, shown under the header column. */
   children?: ReactNode;
 };
@@ -46,9 +48,14 @@ const PlayerProfile = ({
   rings,
   individualRings,
   pinnedLore,
-  canEdit,
+  ownerUserId,
   children,
 }: PlayerProfileProps) => {
+  // Session read on the client so the page itself is built statically;
+  // player.update re-checks permissions server-side anyway.
+  const { user } = useSessionUser();
+  const canEdit =
+    user !== undefined && (user.role === 'admin' || user.id === ownerUserId);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio ?? '');

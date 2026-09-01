@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { useSessionUser } from '@/components/layout/auth-slot';
 import { btn, input, label, panelGold } from '@/components/theme/primitives';
 import { api } from '@/trpc/react';
 
@@ -26,6 +27,8 @@ type VenueEditorProps = {
  */
 const VenueEditor = ({ venue }: VenueEditorProps) => {
   const router = useRouter();
+  // Client-side gate so the page stays static; the mutation re-checks.
+  const { user } = useSessionUser();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(venue.name);
   const [description, setDescription] = useState(venue.description ?? '');
@@ -60,6 +63,10 @@ const VenueEditor = ({ venue }: VenueEditorProps) => {
     setIsPlace(true);
     setEditing(false);
   };
+
+  if (user?.role !== 'admin') {
+    return null;
+  }
 
   if (!editing) {
     return (

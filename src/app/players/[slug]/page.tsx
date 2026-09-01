@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server';
 import { notFound } from 'next/navigation';
 
 import { PlayerProfile } from '@/app/players/[slug]/_components/player-profile';
@@ -17,11 +16,22 @@ import {
   dealCardSpecs,
   hasPinnedLore,
 } from '@/lib/tournament/card-lore';
-import { api } from '@/trpc/server';
+import { getPlayerProfile } from '@/server/api/routers/player';
+import { db } from '@/server/db';
+import { player as playerTable } from '@/server/db/schema';
 
 type PlayerPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+/**
+ * A couple dozen players: build every profile up front and refresh via
+ * revalidatePath from player.update. New slugs still render on demand.
+ */
+export const generateStaticParams = async () =>
+  (await db.select({ slug: playerTable.slug }).from(playerTable)).map(
+    ({ slug }) => ({ slug }),
+  );
 
 type Title = {
   year: number;
@@ -56,12 +66,10 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
   }
   const { slug } = await params;
 
-  const player = await api.player.bySlug({ slug }).catch((error) => {
-    if (error instanceof TRPCError && error.code === 'NOT_FOUND') {
-      notFound();
-    }
-    throw error;
-  });
+  const player = await getPlayerProfile(db, slug);
+  if (!player) {
+    notFound();
+  }
 
   // A one-card deal: fixed choices (or Richar's pin) hold; otherwise the
   // lore rotates on every visit, like drawing a fresh card from the deck.
@@ -81,13 +89,13 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
           <div className="mx-auto w-full max-w-4xl">
             <PlayerProfile
               bio={player.bio}
-              canEdit={player.canEdit}
               card={card}
               cardLore={player.cardLore}
               cardPortrait={player.cardPortrait}
               id={player.id}
               individualRings={player.individualRings}
               name={player.name}
+              ownerUserId={player.ownerUserId}
               pinnedLore={hasPinnedLore(player.name)}
               rings={player.rings}
             >

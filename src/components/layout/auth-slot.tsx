@@ -1,0 +1,37 @@
+'use client';
+
+import Link from 'next/link';
+import { UserMenu } from '@/app/_components/user-menu';
+import { btn } from '@/components/theme/primitives';
+import { authClient } from '@/server/better-auth/client';
+
+/**
+ * The session resolves client-side on purpose: pages stay statically
+ * built (no headers() on the server) and the auth corner hydrates in.
+ * `role` is a better-auth additional field the client types don't carry.
+ */
+const useSessionUser = () => {
+  const { data, isPending } = authClient.useSession();
+  const user = data?.user as
+    | { id: string; name: string | null; email: string; role?: string }
+    | undefined;
+  return { user, isPending };
+};
+
+const AuthSlot = () => {
+  const { user, isPending } = useSessionUser();
+  if (isPending) {
+    // Placeholder with the button's height so the nav doesn't jump.
+    return <span aria-hidden className="h-[34px]" />;
+  }
+  if (user) {
+    return <UserMenu label={user.name || user.email} />;
+  }
+  return (
+    <Link className={`${btn.primary} px-4 py-1.5 text-sm`} href="/login">
+      Entrar
+    </Link>
+  );
+};
+
+export { AuthSlot, useSessionUser };

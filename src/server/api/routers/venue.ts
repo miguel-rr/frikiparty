@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { eq, ne } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { slugify } from '@/lib/slug';
@@ -8,6 +9,7 @@ import {
   adminProcedure,
   createTRPCRouter,
   publicProcedure,
+  type TRPCContext,
 } from '@/server/api/trpc';
 import { venue } from '@/server/db/schema';
 
@@ -35,6 +37,33 @@ const uniqueSlug = async (
   return candidate;
 };
 
+/**
+ * One venue with every edition held there (newest first). Pure query (no
+ * session) so the page can be built statically. Labels that aren't a real
+ * place ("Madrid", a farewell party) have no page: null, like unknown slugs.
+ */
+const getVenue = async (db: TRPCContext['db'], slug: string) => {
+  const [row] = await db.select().from(venue).where(eq(venue.slug, slug));
+  if (!row?.isPlace) {
+    return null;
+  }
+  // sceneIndex = position in the full newest-first timeline, so each card
+  // wears the same painted scene it has on /editions.
+  const editions = (await listEditions(db))
+    .map((edition, sceneIndex) => ({ ...edition, sceneIndex }))
+    .filter((edition) => edition.venueSlug === row.slug);
+  return {
+    id: row.id,
+    name: row.name,
+    slug: row.slug,
+    description: row.description,
+    mapsUrl: row.mapsUrl,
+    mapsEmbedQuery: row.mapsEmbedQuery,
+    photoUrl: row.photoUrl,
+    editions,
+  };
+};
+
 const venueRouter = createTRPCRouter({
   /**
    * Every venue, most-used first, with the editions held there. Labels
@@ -46,60 +75,42 @@ const venueRouter = createTRPCRouter({
       ctx.db.select().from(venue),
       listEditions(ctx.db),
     ]);
-    return venues
-      .map((row) => ({
-        id: row.id,
-        name: row.name,
-        slug: row.slug,
-        isPlace: row.isPlace,
-        photoUrl: row.photoUrl,
-        mapsUrl: row.mapsUrl,
-        description: row.description,
-        editions: editions
-          .filter((edition) => edition.venueSlug === row.slug)
-          .map((edition) => ({
-            id: edition.id,
-            label: edition.label,
-            slug: edition.slug,
-          })),
-      }))
-      .sort(
-        (a, b) =>
-          b.editions.length - a.editions.length ||
-          a.name.localeCompare(b.name, 'es'),
-      );
+    return (
+      venues
+        .map((row) => ({
+          id: row.id,
+          name: row.name,
+          slug: row.slug,
+          isPlace: row.isPlace,
+          photoUrl: row.photoUrl,
+          mapsUrl: row.mapsUrl,
+          description: row.description,
+          editions: editions
+            .filter((edition) => edition.venueSlug === row.slug)
+            .map((edition) => ({
+              id: edition.id,
+              label: edition.label,
+              slug: edition.slug,
+            })),
+        }))
+        // Real venues first, then by usage; the non-places close the list.
+        .sort(
+          (a, b) =>
+            Number(b.isPlace) - Number(a.isPlace) ||
+            b.editions.length - a.editions.length ||
+            a.name.localeCompare(b.name, 'es'),
+        )
+    );
   }),
 
-  /**
-   * One venue with every edition held there (newest first). Labels that
-   * aren't a real place ("Madrid", a farewell party) have no page: 404.
-   */
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      const [row] = await ctx.db
-        .select()
-        .from(venue)
-        .where(eq(venue.slug, input.slug));
-      if (!row?.isPlace) {
+      const found = await getVenue(ctx.db, input.slug);
+      if (!found) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
-      // sceneIndex = position in the full newest-first timeline, so each
-      // card wears the same painted scene it has on /editions.
-      const editions = (await listEditions(ctx.db))
-        .map((edition, sceneIndex) => ({ ...edition, sceneIndex }))
-        .filter((edition) => edition.venueSlug === row.slug);
-      return {
-        id: row.id,
-        name: row.name,
-        slug: row.slug,
-        description: row.description,
-        mapsUrl: row.mapsUrl,
-        mapsEmbedQuery: row.mapsEmbedQuery,
-        photoUrl: row.photoUrl,
-        editions,
-        canEdit: ctx.session?.user.role === 'admin',
-      };
+      return found;
     }),
 
   /**
@@ -141,8 +152,18 @@ const venueRouter = createTRPCRouter({
       if (!updated) {
         throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
       }
+      // The venue pages are built statically: rebuild everything the name,
+      // photo or flag can appear on. Few records — carpet revalidation is fine.
+      revalidatePath(`/venues/${current.slug}`);
+      if (updated.slug !== current.slug) {
+        revalidatePath(`/venues/${updated.slug}`);
+      }
+      revalidatePath('/venues');
+      revalidatePath('/editions');
+      revalidatePath('/editions/[slug]', 'page');
+      revalidatePath('/');
       return updated;
     }),
 });
 
-export { venueRouter };
+export { getVenue, venueRouter };

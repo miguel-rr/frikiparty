@@ -121,11 +121,13 @@ type BracketRow = {
   game_winner_team_id: string | null;
 };
 
-/** "2025" or "2013-2" (order > 1). */
-const parseEditionSlug = (slug: string): { year: number; order: number } => {
+/** "2025" or "2013-2" (order > 1); null when it isn't an edition slug. */
+const parseEditionSlug = (
+  slug: string,
+): { year: number; order: number } | null => {
   const match = /^(\d{4})(?:-(\d+))?$/.exec(slug);
   if (!match) {
-    throw new TRPCError({ code: 'NOT_FOUND' });
+    return null;
   }
   return { year: Number(match[1]), order: match[2] ? Number(match[2]) : 1 };
 };
@@ -229,6 +231,217 @@ const listEditions = async (
   return items;
 };
 
+/**
+ * One edition in full detail: venue, every recorded team of its official
+ * tournaments (with captains and final positions), the formation pots and
+ * the knockout rounds when known. Pure query (no session) so the page can
+ * be built statically; null when the slug doesn't match an edition.
+ */
+const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
+  const parsed = parseEditionSlug(slug);
+  if (!parsed) {
+    return null;
+  }
+  const { year, order } = parsed;
+  const [row] = await db
+    .select({
+      id: edition.id,
+      year: edition.year,
+      order: edition.order,
+      startsAt: edition.startsAt,
+      endsAt: edition.endsAt,
+      venueName: venue.name,
+      venueSlug: venue.slug,
+      venueIsPlace: venue.isPlace,
+    })
+    .from(edition)
+    .leftJoin(venue, eq(edition.venueId, venue.id))
+    .where(and(eq(edition.year, year), eq(edition.order, order)));
+  if (!row) {
+    return null;
+  }
+
+  const [meta] = (await db.execute(sql`
+    SELECT
+      (SELECT count(*)::int FROM frikiparty_edition e2
+        WHERE e2.year > ${year} OR (e2.year = ${year} AND e2."order" > ${order})
+      ) AS scene_index,
+      (SELECT count(*)::int FROM frikiparty_edition e3 WHERE e3.year = ${year}) AS editions_in_year
+  `)) as unknown as { scene_index: number; editions_in_year: number }[];
+  const label =
+    order > 1 || (meta?.editions_in_year ?? 1) > 1
+      ? `${year} · ${ROMAN_ORDINALS[order - 1] ?? order}`
+      : String(year);
+
+  const teamRows = (await db.execute(sql`
+    WITH team_sizes AS (
+      SELECT team_id, count(*)::int AS size
+      FROM frikiparty_team_member
+      GROUP BY team_id
+    )
+    SELECT
+      tr.id AS tournament_id, t.id AS team_id, t.final_position,
+      tm.is_captain, p.name, p.slug, ts.size
+    FROM frikiparty_tournament tr
+    JOIN frikiparty_team t ON t.tournament_id = tr.id
+    JOIN frikiparty_team_member tm ON tm.team_id = t.id
+    JOIN team_sizes ts ON ts.team_id = t.id
+    LEFT JOIN frikiparty_player p ON p.id = tm.player_id
+    WHERE tr.edition_id = ${row.id} AND tr.is_official
+    ORDER BY t.final_position ASC NULLS LAST, tm.is_captain DESC, p.name ASC
+  `)) as unknown as TeamRow[];
+
+  const tournaments = new Map<string, EditionTournament>();
+  const teamsById = new Map<string, EditionTeam>();
+  const sizeByTournament = new Map<string, number>();
+  for (const teamRow of teamRows) {
+    let tournament = tournaments.get(teamRow.tournament_id);
+    if (!tournament) {
+      tournament = { id: teamRow.tournament_id, teams: [], rounds: [] };
+      tournaments.set(teamRow.tournament_id, tournament);
+    }
+    sizeByTournament.set(
+      teamRow.tournament_id,
+      Math.max(sizeByTournament.get(teamRow.tournament_id) ?? 0, teamRow.size),
+    );
+    let team = teamsById.get(teamRow.team_id);
+    if (!team) {
+      team = {
+        id: teamRow.team_id,
+        finalPosition: teamRow.final_position,
+        players: [],
+      };
+      teamsById.set(teamRow.team_id, team);
+      tournament.teams.push(team);
+    }
+    team.players.push({
+      name: teamRow.name,
+      slug: teamRow.slug,
+      isCaptain: teamRow.is_captain,
+    });
+  }
+
+  // Every bracket match, grouped into rounds. Old editions only kept the
+  // final (a single round); newer ones have the whole knockout.
+  const bracketRows = (await db.execute(sql`
+    SELECT
+      ph.tournament_id, m.id AS match_id, m.round_index,
+      c.games_to_win_match, m.team_a_id, m.team_b_id, m.winner_team_id,
+      g.game_number, g.winner_team_id AS game_winner_team_id
+    FROM frikiparty_match m
+    JOIN frikiparty_phase ph ON ph.id = m.phase_id
+    JOIN frikiparty_tournament tr ON tr.id = ph.tournament_id
+    LEFT JOIN frikiparty_match_game g ON g.match_id = m.id
+    LEFT JOIN frikiparty_phase_bracket_round_config c
+      ON c.phase_id = ph.id AND c.round_index = m.round_index
+    WHERE tr.edition_id = ${row.id} AND ph.type = 'bracket'
+    ORDER BY ph.tournament_id, m.round_index ASC, m.id, g.game_number ASC
+  `)) as unknown as BracketRow[];
+  const matchesById = new Map<string, EditionMatch>();
+  for (const bracketRow of bracketRows) {
+    const tournament = tournaments.get(bracketRow.tournament_id);
+    if (!tournament) continue;
+    let bracketMatch = matchesById.get(bracketRow.match_id);
+    if (!bracketMatch) {
+      bracketMatch = {
+        id: bracketRow.match_id,
+        teamAId: bracketRow.team_a_id,
+        teamBId: bracketRow.team_b_id,
+        winnerTeamId: bracketRow.winner_team_id,
+        games: [],
+      };
+      matchesById.set(bracketRow.match_id, bracketMatch);
+      const roundIndex = bracketRow.round_index ?? 1;
+      let round = tournament.rounds.find(
+        (candidate) => candidate.roundIndex === roundIndex,
+      );
+      if (!round) {
+        round = {
+          roundIndex,
+          gamesToWinMatch: bracketRow.games_to_win_match,
+          matches: [],
+        };
+        tournament.rounds.push(round);
+      }
+      round.matches.push(bracketMatch);
+    }
+    if (bracketRow.game_number !== null) {
+      bracketMatch.games.push({
+        gameNumber: bracketRow.game_number,
+        winnerTeamId: bracketRow.game_winner_team_id,
+      });
+    }
+  }
+  for (const tournament of tournaments.values()) {
+    tournament.rounds.sort((a, b) => a.roundIndex - b.roundIndex);
+    for (const round of tournament.rounds) {
+      for (const bracketMatch of round.matches) {
+        bracketMatch.games.sort((a, b) => a.gameNumber - b.gameNumber);
+      }
+    }
+    // Read top to bottom: each match sits where its winner shows up in
+    // the next round, so the semifinal feeding the final's top side
+    // comes first. Matches whose winner didn't go through stay last.
+    for (let index = tournament.rounds.length - 2; index >= 0; index -= 1) {
+      const round = tournament.rounds[index];
+      const next = tournament.rounds[index + 1];
+      if (!round || !next) continue;
+      const nextTeams = next.matches.flatMap((nextMatch) => [
+        nextMatch.teamAId,
+        nextMatch.teamBId,
+      ]);
+      const seat = (bracketMatch: EditionMatch) => {
+        const position = nextTeams.indexOf(bracketMatch.winnerTeamId);
+        return position === -1 ? Number.MAX_SAFE_INTEGER : position;
+      };
+      round.matches.sort((a, b) => seat(a) - seat(b));
+    }
+  }
+
+  const teamTournament =
+    [...tournaments.values()].find(
+      (t) => (sizeByTournament.get(t.id) ?? 0) > 1,
+    ) ?? null;
+  const individualTournament =
+    [...tournaments.values()].find(
+      (t) => (sizeByTournament.get(t.id) ?? 0) === 1,
+    ) ?? null;
+
+  const potRows = teamTournament
+    ? ((await db.execute(sql`
+        SELECT fp.pot_index, p.name, p.slug
+        FROM frikiparty_team_formation_pot_player fp
+        JOIN frikiparty_player p ON p.id = fp.player_id
+        WHERE fp.tournament_id = ${teamTournament.id}
+        ORDER BY fp.pot_index ASC, p.name ASC
+      `)) as unknown as PotRow[])
+    : [];
+  const potsByIndex = new Map<number, { name: string; slug: string }[]>();
+  for (const potRow of potRows) {
+    const pot = potsByIndex.get(potRow.pot_index) ?? [];
+    pot.push({ name: potRow.name, slug: potRow.slug });
+    potsByIndex.set(potRow.pot_index, pot);
+  }
+
+  return {
+    id: row.id,
+    year: row.year,
+    order: row.order,
+    label,
+    startsAt: row.startsAt,
+    endsAt: row.endsAt,
+    venueName: row.venueName,
+    venueSlug: row.venueSlug,
+    venueIsPlace: row.venueIsPlace,
+    sceneIndex: meta?.scene_index ?? 0,
+    teamTournament,
+    individualTournament,
+    pots: [...potsByIndex.entries()]
+      .sort(([a], [b]) => a - b)
+      .map(([potIndex, players]) => ({ potIndex, players })),
+  };
+};
+
 const editionRouter = createTRPCRouter({
   /**
    * The upcoming (or currently running) edition: the first one whose end
@@ -271,207 +484,11 @@ const editionRouter = createTRPCRouter({
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      const { year, order } = parseEditionSlug(input.slug);
-      const [row] = await ctx.db
-        .select({
-          id: edition.id,
-          year: edition.year,
-          order: edition.order,
-          startsAt: edition.startsAt,
-          endsAt: edition.endsAt,
-          venueName: venue.name,
-          venueSlug: venue.slug,
-          venueIsPlace: venue.isPlace,
-        })
-        .from(edition)
-        .leftJoin(venue, eq(edition.venueId, venue.id))
-        .where(and(eq(edition.year, year), eq(edition.order, order)));
-      if (!row) {
+      const detail = await getEditionDetail(ctx.db, input.slug);
+      if (!detail) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
-
-      const [meta] = (await ctx.db.execute(sql`
-        SELECT
-          (SELECT count(*)::int FROM frikiparty_edition e2
-            WHERE e2.year > ${year} OR (e2.year = ${year} AND e2."order" > ${order})
-          ) AS scene_index,
-          (SELECT count(*)::int FROM frikiparty_edition e3 WHERE e3.year = ${year}) AS editions_in_year
-      `)) as unknown as { scene_index: number; editions_in_year: number }[];
-      const label =
-        order > 1 || (meta?.editions_in_year ?? 1) > 1
-          ? `${year} · ${ROMAN_ORDINALS[order - 1] ?? order}`
-          : String(year);
-
-      const teamRows = (await ctx.db.execute(sql`
-        WITH team_sizes AS (
-          SELECT team_id, count(*)::int AS size
-          FROM frikiparty_team_member
-          GROUP BY team_id
-        )
-        SELECT
-          tr.id AS tournament_id, t.id AS team_id, t.final_position,
-          tm.is_captain, p.name, p.slug, ts.size
-        FROM frikiparty_tournament tr
-        JOIN frikiparty_team t ON t.tournament_id = tr.id
-        JOIN frikiparty_team_member tm ON tm.team_id = t.id
-        JOIN team_sizes ts ON ts.team_id = t.id
-        LEFT JOIN frikiparty_player p ON p.id = tm.player_id
-        WHERE tr.edition_id = ${row.id} AND tr.is_official
-        ORDER BY t.final_position ASC NULLS LAST, tm.is_captain DESC, p.name ASC
-      `)) as unknown as TeamRow[];
-
-      const tournaments = new Map<string, EditionTournament>();
-      const teamsById = new Map<string, EditionTeam>();
-      const sizeByTournament = new Map<string, number>();
-      for (const teamRow of teamRows) {
-        let tournament = tournaments.get(teamRow.tournament_id);
-        if (!tournament) {
-          tournament = { id: teamRow.tournament_id, teams: [], rounds: [] };
-          tournaments.set(teamRow.tournament_id, tournament);
-        }
-        sizeByTournament.set(
-          teamRow.tournament_id,
-          Math.max(
-            sizeByTournament.get(teamRow.tournament_id) ?? 0,
-            teamRow.size,
-          ),
-        );
-        let team = teamsById.get(teamRow.team_id);
-        if (!team) {
-          team = {
-            id: teamRow.team_id,
-            finalPosition: teamRow.final_position,
-            players: [],
-          };
-          teamsById.set(teamRow.team_id, team);
-          tournament.teams.push(team);
-        }
-        team.players.push({
-          name: teamRow.name,
-          slug: teamRow.slug,
-          isCaptain: teamRow.is_captain,
-        });
-      }
-
-      // Every bracket match, grouped into rounds. Old editions only kept the
-      // final (a single round); newer ones have the whole knockout.
-      const bracketRows = (await ctx.db.execute(sql`
-        SELECT
-          ph.tournament_id, m.id AS match_id, m.round_index,
-          c.games_to_win_match, m.team_a_id, m.team_b_id, m.winner_team_id,
-          g.game_number, g.winner_team_id AS game_winner_team_id
-        FROM frikiparty_match m
-        JOIN frikiparty_phase ph ON ph.id = m.phase_id
-        JOIN frikiparty_tournament tr ON tr.id = ph.tournament_id
-        LEFT JOIN frikiparty_match_game g ON g.match_id = m.id
-        LEFT JOIN frikiparty_phase_bracket_round_config c
-          ON c.phase_id = ph.id AND c.round_index = m.round_index
-        WHERE tr.edition_id = ${row.id} AND ph.type = 'bracket'
-        ORDER BY ph.tournament_id, m.round_index ASC, m.id, g.game_number ASC
-      `)) as unknown as BracketRow[];
-      const matchesById = new Map<string, EditionMatch>();
-      for (const bracketRow of bracketRows) {
-        const tournament = tournaments.get(bracketRow.tournament_id);
-        if (!tournament) continue;
-        let bracketMatch = matchesById.get(bracketRow.match_id);
-        if (!bracketMatch) {
-          bracketMatch = {
-            id: bracketRow.match_id,
-            teamAId: bracketRow.team_a_id,
-            teamBId: bracketRow.team_b_id,
-            winnerTeamId: bracketRow.winner_team_id,
-            games: [],
-          };
-          matchesById.set(bracketRow.match_id, bracketMatch);
-          const roundIndex = bracketRow.round_index ?? 1;
-          let round = tournament.rounds.find(
-            (candidate) => candidate.roundIndex === roundIndex,
-          );
-          if (!round) {
-            round = {
-              roundIndex,
-              gamesToWinMatch: bracketRow.games_to_win_match,
-              matches: [],
-            };
-            tournament.rounds.push(round);
-          }
-          round.matches.push(bracketMatch);
-        }
-        if (bracketRow.game_number !== null) {
-          bracketMatch.games.push({
-            gameNumber: bracketRow.game_number,
-            winnerTeamId: bracketRow.game_winner_team_id,
-          });
-        }
-      }
-      for (const tournament of tournaments.values()) {
-        tournament.rounds.sort((a, b) => a.roundIndex - b.roundIndex);
-        for (const round of tournament.rounds) {
-          for (const bracketMatch of round.matches) {
-            bracketMatch.games.sort((a, b) => a.gameNumber - b.gameNumber);
-          }
-        }
-        // Read top to bottom: each match sits where its winner shows up in
-        // the next round, so the semifinal feeding the final's top side
-        // comes first. Matches whose winner didn't go through stay last.
-        for (let index = tournament.rounds.length - 2; index >= 0; index -= 1) {
-          const round = tournament.rounds[index];
-          const next = tournament.rounds[index + 1];
-          if (!round || !next) continue;
-          const nextTeams = next.matches.flatMap((nextMatch) => [
-            nextMatch.teamAId,
-            nextMatch.teamBId,
-          ]);
-          const seat = (bracketMatch: EditionMatch) => {
-            const position = nextTeams.indexOf(bracketMatch.winnerTeamId);
-            return position === -1 ? Number.MAX_SAFE_INTEGER : position;
-          };
-          round.matches.sort((a, b) => seat(a) - seat(b));
-        }
-      }
-
-      const teamTournament =
-        [...tournaments.values()].find(
-          (t) => (sizeByTournament.get(t.id) ?? 0) > 1,
-        ) ?? null;
-      const individualTournament =
-        [...tournaments.values()].find(
-          (t) => (sizeByTournament.get(t.id) ?? 0) === 1,
-        ) ?? null;
-
-      const potRows = teamTournament
-        ? ((await ctx.db.execute(sql`
-            SELECT fp.pot_index, p.name, p.slug
-            FROM frikiparty_team_formation_pot_player fp
-            JOIN frikiparty_player p ON p.id = fp.player_id
-            WHERE fp.tournament_id = ${teamTournament.id}
-            ORDER BY fp.pot_index ASC, p.name ASC
-          `)) as unknown as PotRow[])
-        : [];
-      const potsByIndex = new Map<number, { name: string; slug: string }[]>();
-      for (const potRow of potRows) {
-        const pot = potsByIndex.get(potRow.pot_index) ?? [];
-        pot.push({ name: potRow.name, slug: potRow.slug });
-        potsByIndex.set(potRow.pot_index, pot);
-      }
-
-      return {
-        id: row.id,
-        year: row.year,
-        order: row.order,
-        label,
-        startsAt: row.startsAt,
-        endsAt: row.endsAt,
-        venueName: row.venueName,
-        venueSlug: row.venueSlug,
-        venueIsPlace: row.venueIsPlace,
-        sceneIndex: meta?.scene_index ?? 0,
-        teamTournament,
-        individualTournament,
-        pots: [...potsByIndex.entries()]
-          .sort(([a], [b]) => a - b)
-          .map(([potIndex, players]) => ({ potIndex, players })),
-      };
+      return detail;
     }),
 
   /**
@@ -528,4 +545,4 @@ const editionRouter = createTRPCRouter({
   }),
 });
 
-export { type EditionListItem, editionRouter, listEditions };
+export { type EditionListItem, editionRouter, getEditionDetail, listEditions };

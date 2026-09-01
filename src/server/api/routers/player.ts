@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { asc, eq, sql } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import {
@@ -10,6 +11,7 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
+  type TRPCContext,
 } from '@/server/api/trpc';
 import type { db as Db } from '@/server/db';
 import { player } from '@/server/db/schema';
@@ -126,6 +128,45 @@ const canEditPlayer = (
   sessionUser !== undefined &&
   (sessionUser.role === 'admin' || sessionUser.id === playerUserId);
 
+/**
+ * A player's public profile. Pure query (no session) so the page can be
+ * built statically; who may edit is decided client-side from ownerUserId.
+ */
+const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
+  const [row] = await db.select().from(player).where(eq(player.slug, slug));
+  if (!row) {
+    return null;
+  }
+
+  const [allRanked, titles] = await Promise.all([
+    fetchRankedPlayers(db),
+    fetchTitles(db, row.id),
+  ]);
+  const rankedIndex = allRanked.findIndex((p) => p.id === row.id);
+  const ranked = rankedIndex >= 0 ? allRanked[rankedIndex] : null;
+  // Shared "1224" competition positions (individual rings break ties),
+  // so the profile matches the podium and the ranking table.
+  const position = ranked
+    ? (competitionPositions(allRanked)[rankedIndex] ?? null)
+    : null;
+
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    bio: row.bio,
+    cardPortrait: row.cardPortrait,
+    cardLore: row.cardLore,
+    rings: ranked?.rings ?? 0,
+    individualRings: ranked?.individualRings ?? 0,
+    position,
+    titles,
+    // The edit gate resolves client-side (see PlayerProfile) so the
+    // page itself can be built statically.
+    ownerUserId: row.userId,
+  };
+};
+
 const playerRouter = createTRPCRouter({
   list: publicProcedure.query(({ ctx }) =>
     ctx.db
@@ -148,39 +189,11 @@ const playerRouter = createTRPCRouter({
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      const [row] = await ctx.db
-        .select()
-        .from(player)
-        .where(eq(player.slug, input.slug));
-      if (!row) {
+      const profile = await getPlayerProfile(ctx.db, input.slug);
+      if (!profile) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
-
-      const [allRanked, titles] = await Promise.all([
-        fetchRankedPlayers(ctx.db),
-        fetchTitles(ctx.db, row.id),
-      ]);
-      const rankedIndex = allRanked.findIndex((p) => p.id === row.id);
-      const ranked = rankedIndex >= 0 ? allRanked[rankedIndex] : null;
-      // Shared "1224" competition positions (individual rings break ties),
-      // so the profile matches the podium and the ranking table.
-      const position = ranked
-        ? (competitionPositions(allRanked)[rankedIndex] ?? null)
-        : null;
-
-      return {
-        id: row.id,
-        slug: row.slug,
-        name: row.name,
-        bio: row.bio,
-        cardPortrait: row.cardPortrait,
-        cardLore: row.cardLore,
-        rings: ranked?.rings ?? 0,
-        individualRings: ranked?.individualRings ?? 0,
-        position,
-        titles,
-        canEdit: canEditPlayer(ctx.session?.user, row.userId),
-      };
+      return profile;
     }),
 
   update: protectedProcedure
@@ -210,9 +223,20 @@ const playerRouter = createTRPCRouter({
         .update(player)
         .set(changes)
         .where(eq(player.id, id))
-        .returning({ id: player.id, name: player.name, bio: player.bio });
+        .returning({
+          id: player.id,
+          slug: player.slug,
+          name: player.name,
+          bio: player.bio,
+        });
+      // Statically built pages that show the player's name or card.
+      if (updated) {
+        revalidatePath(`/players/${updated.slug}`);
+        revalidatePath('/editions/[slug]', 'page');
+        revalidatePath('/venues/[slug]', 'page');
+      }
       return updated;
     }),
 });
 
-export { playerRouter };
+export { getPlayerProfile, playerRouter };

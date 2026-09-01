@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -17,9 +16,11 @@ import { type GameView, MatchPanel } from '@/components/tournament/match-games';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
-import { api } from '@/trpc/server';
+import { getEditionDetail } from '@/server/api/routers/edition';
+import { db } from '@/server/db';
+import { edition as editionTable } from '@/server/db/schema';
 
-type EditionDetail = Awaited<ReturnType<typeof api.edition.bySlug>>;
+type EditionDetail = NonNullable<Awaited<ReturnType<typeof getEditionDetail>>>;
 type EditionTeam = NonNullable<
   EditionDetail['teamTournament']
 >['teams'][number];
@@ -74,6 +75,20 @@ const bracketFormat = (rounds: EditionRound[]) => {
 };
 
 type PageProps = { params: Promise<{ slug: string }> };
+
+/**
+ * One page per edition, built up front (the chronicle rarely changes) and
+ * refreshed via revalidatePath when venues or players are edited. New
+ * slugs still render on demand.
+ */
+export const generateStaticParams = async () =>
+  (
+    await db
+      .select({ year: editionTable.year, order: editionTable.order })
+      .from(editionTable)
+  ).map(({ year, order }) => ({
+    slug: order > 1 ? `${year}-${order}` : String(year),
+  }));
 
 export const generateMetadata = async ({
   params,
@@ -424,12 +439,10 @@ const EditionPage = async ({ params }: PageProps) => {
     notFound();
   }
   const { slug } = await params;
-  const edition = await api.edition.bySlug({ slug }).catch((error) => {
-    if (error instanceof TRPCError && error.code === 'NOT_FOUND') {
-      notFound();
-    }
-    throw error;
-  });
+  const edition = await getEditionDetail(db, slug);
+  if (!edition) {
+    notFound();
+  }
 
   const teamTournament = edition.teamTournament;
   const individualTournament = edition.individualTournament;

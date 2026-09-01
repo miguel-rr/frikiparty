@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -14,19 +13,29 @@ import {
 import { EditionCard } from '@/components/tournament/edition-card';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
-import { api } from '@/trpc/server';
+import { getVenue } from '@/server/api/routers/venue';
+import { db } from '@/server/db';
+import { venue as venueTable } from '@/server/db/schema';
 
 type PageProps = { params: Promise<{ slug: string }> };
+
+/**
+ * Few venues, rarely edited: build every page up front and refresh via
+ * revalidatePath from venue.update. New slugs still render on demand.
+ */
+export const generateStaticParams = async () => {
+  const rows = await db
+    .select({ slug: venueTable.slug, isPlace: venueTable.isPlace })
+    .from(venueTable);
+  return rows.filter((row) => row.isPlace).map(({ slug }) => ({ slug }));
+};
 
 export const generateMetadata = async ({
   params,
 }: PageProps): Promise<Metadata> => {
   const { slug } = await params;
-  const name = await api.venue
-    .bySlug({ slug })
-    .then((venue) => venue.name)
-    .catch(() => null);
-  return { title: `${name ?? 'Sede'} — Frikiparty` };
+  const found = await getVenue(db, slug);
+  return { title: `${found?.name ?? 'Sede'} — Frikiparty` };
 };
 
 const label =
@@ -40,12 +49,10 @@ const VenuePage = async ({ params }: PageProps) => {
     notFound();
   }
   const { slug } = await params;
-  const venue = await api.venue.bySlug({ slug }).catch((error) => {
-    if (error instanceof TRPCError && error.code === 'NOT_FOUND') {
-      notFound();
-    }
-    throw error;
-  });
+  const venue = await getVenue(db, slug);
+  if (!venue) {
+    notFound();
+  }
 
   const mapSrc = venue.mapsEmbedQuery
     ? `https://maps.google.com/maps?q=${encodeURIComponent(venue.mapsEmbedQuery)}&z=13&output=embed`
@@ -129,7 +136,7 @@ const VenuePage = async ({ params }: PageProps) => {
             </div>
           </div>
 
-          {venue.canEdit ? <VenueEditor venue={venue} /> : null}
+          <VenueEditor venue={venue} />
 
           {venue.description ? (
             <p className="mx-auto max-w-[62ch] whitespace-pre-line text-center text-(--parchment) leading-relaxed">
