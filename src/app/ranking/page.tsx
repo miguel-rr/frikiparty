@@ -9,7 +9,8 @@ import {
   RingLegend,
 } from '@/components/tournament/ranking-table';
 import { siteFlags } from '@/lib/site-flags';
-import { api } from '@/trpc/server';
+import { getHistoricalRanking } from '@/server/api/routers/player';
+import { db } from '@/server/db';
 
 export const metadata: Metadata = { title: 'Ranking — Frikiparty' };
 
@@ -17,7 +18,7 @@ const RankingPage = async () => {
   if (!siteFlags.rankingPage) {
     notFound();
   }
-  const ranking = await api.player.historicalRanking();
+  const ranking = await getHistoricalRanking(db);
 
   return (
     <SiteShell>

@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 import { SimulatorApp } from '@/app/simulator/_components/simulator-app';
 import { SiteShell } from '@/components/layout/site-shell';
-import { api } from '@/trpc/server';
+import { listPlayers } from '@/server/api/routers/player';
+import { db } from '@/server/db';
 
 export const metadata: Metadata = {
   title: 'Simulador de torneo — Frikiparty',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const SimulatorPage = async () => {
-  const players = await api.player.list();
+  const players = await listPlayers(db);
   return (
     <SiteShell footerNote="Simulador: nada de lo que pase aquí se guarda.">
       <SimulatorApp players={players} />

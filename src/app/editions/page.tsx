@@ -10,15 +10,20 @@ import {
 import { EditionCard } from '@/components/tournament/edition-card';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex } from '@/lib/tournament/edition-scenes';
-import { api } from '@/trpc/server';
+import { listEditions } from '@/server/api/routers/edition';
+import { db } from '@/server/db';
 
 export const metadata: Metadata = { title: 'Ediciones — Frikiparty' };
+
+// Built statically; each card's upcoming/live/past status depends on
+// today's date, so the page re-renders hourly (plus on-demand from edits).
+export const revalidate = 3600;
 
 const EditionsPage = async () => {
   if (!siteFlags.editionsPage) {
     notFound();
   }
-  const editions = await api.edition.list();
+  const editions = await listEditions(db);
 
   return (
     <SiteShell>

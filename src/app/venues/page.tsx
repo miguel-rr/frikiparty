@@ -10,7 +10,8 @@ import {
   tag,
 } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
-import { api } from '@/trpc/server';
+import { listVenues } from '@/server/api/routers/venue';
+import { db } from '@/server/db';
 
 export const metadata: Metadata = {
   title: 'Sedes — Frikiparty',
@@ -25,7 +26,7 @@ const VenuesPage = async () => {
   if (!siteFlags.venuesPage) {
     notFound();
   }
-  const venues = await api.venue.list();
+  const venues = await listVenues(db);
 
   return (
     <SiteShell>

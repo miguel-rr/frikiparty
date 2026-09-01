@@ -167,23 +167,28 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
   };
 };
 
+/** Pure queries (no session) so pages can be built statically. */
+const listPlayers = (db: TRPCContext['db']) =>
+  db
+    .select({ id: player.id, name: player.name })
+    .from(player)
+    .orderBy(asc(player.name));
+
+const getHistoricalRanking = (db: TRPCContext['db']) =>
+  fetchRankedPlayers(db).then((players) => {
+    const byId = new Map(players.map((p) => [p.id, p]));
+    return sortByHistoricalRanking(players).map((id) => {
+      const p = byId.get(id);
+      if (!p) throw new Error(`Ranking produced unknown player id ${id}`);
+      return p;
+    });
+  });
+
 const playerRouter = createTRPCRouter({
-  list: publicProcedure.query(({ ctx }) =>
-    ctx.db
-      .select({ id: player.id, name: player.name })
-      .from(player)
-      .orderBy(asc(player.name)),
-  ),
+  list: publicProcedure.query(({ ctx }) => listPlayers(ctx.db)),
 
   historicalRanking: publicProcedure.query(({ ctx }) =>
-    fetchRankedPlayers(ctx.db).then((players) => {
-      const byId = new Map(players.map((p) => [p.id, p]));
-      return sortByHistoricalRanking(players).map((id) => {
-        const p = byId.get(id);
-        if (!p) throw new Error(`Ranking produced unknown player id ${id}`);
-        return p;
-      });
-    }),
+    getHistoricalRanking(ctx.db),
   ),
 
   bySlug: publicProcedure
@@ -234,9 +239,14 @@ const playerRouter = createTRPCRouter({
         revalidatePath(`/players/${updated.slug}`);
         revalidatePath('/editions/[slug]', 'page');
         revalidatePath('/venues/[slug]', 'page');
+        revalidatePath('/');
+        revalidatePath('/ranking');
+        revalidatePath('/editions');
+        revalidatePath('/venues');
+        revalidatePath('/simulator');
       }
       return updated;
     }),
 });
 
-export { getPlayerProfile, playerRouter };
+export { getHistoricalRanking, getPlayerProfile, listPlayers, playerRouter };

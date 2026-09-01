@@ -64,44 +64,46 @@ const getVenue = async (db: TRPCContext['db'], slug: string) => {
   };
 };
 
+/**
+ * Every venue, most-used first, with the editions held there. Labels that
+ * aren't a place are included (the index is where they get fixed) but
+ * flagged so the UI doesn't link them. Pure query.
+ */
+const listVenues = async (db: TRPCContext['db']) => {
+  const [venues, editions] = await Promise.all([
+    db.select().from(venue),
+    listEditions(db),
+  ]);
+  return (
+    venues
+      .map((row) => ({
+        id: row.id,
+        name: row.name,
+        slug: row.slug,
+        isPlace: row.isPlace,
+        photoUrl: row.photoUrl,
+        mapsUrl: row.mapsUrl,
+        description: row.description,
+        editions: editions
+          .filter((edition) => edition.venueSlug === row.slug)
+          .map((edition) => ({
+            id: edition.id,
+            label: edition.label,
+            slug: edition.slug,
+          })),
+      }))
+      // Real venues first, then by usage; the non-places close the list.
+      .sort(
+        (a, b) =>
+          Number(b.isPlace) - Number(a.isPlace) ||
+          b.editions.length - a.editions.length ||
+          a.name.localeCompare(b.name, 'es'),
+      )
+  );
+};
+
 const venueRouter = createTRPCRouter({
-  /**
-   * Every venue, most-used first, with the editions held there. Labels
-   * that aren't a place are included (the index is where they get fixed)
-   * but flagged so the UI doesn't link them.
-   */
-  list: publicProcedure.query(async ({ ctx }) => {
-    const [venues, editions] = await Promise.all([
-      ctx.db.select().from(venue),
-      listEditions(ctx.db),
-    ]);
-    return (
-      venues
-        .map((row) => ({
-          id: row.id,
-          name: row.name,
-          slug: row.slug,
-          isPlace: row.isPlace,
-          photoUrl: row.photoUrl,
-          mapsUrl: row.mapsUrl,
-          description: row.description,
-          editions: editions
-            .filter((edition) => edition.venueSlug === row.slug)
-            .map((edition) => ({
-              id: edition.id,
-              label: edition.label,
-              slug: edition.slug,
-            })),
-        }))
-        // Real venues first, then by usage; the non-places close the list.
-        .sort(
-          (a, b) =>
-            Number(b.isPlace) - Number(a.isPlace) ||
-            b.editions.length - a.editions.length ||
-            a.name.localeCompare(b.name, 'es'),
-        )
-    );
-  }),
+  list: publicProcedure.query(({ ctx }) => listVenues(ctx.db)),
 
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
@@ -166,4 +168,4 @@ const venueRouter = createTRPCRouter({
     }),
 });
 
-export { getVenue, venueRouter };
+export { getVenue, listVenues, venueRouter };
