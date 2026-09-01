@@ -60,8 +60,11 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
     wins AS (
       SELECT tm.player_id, ts.size
       FROM frikiparty_team_member tm
+      JOIN frikiparty_team t ON t.id = tm.team_id
       JOIN team_sizes ts ON ts.team_id = tm.team_id
-      WHERE tm.player_id IS NOT NULL
+      -- Champions only. Fallback semantics: with a full phase/match record
+      -- this should derive from results instead (not implemented yet).
+      WHERE tm.player_id IS NOT NULL AND t.final_position = 1
     )
     SELECT
       p.id,
@@ -87,7 +90,7 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
   }));
 };
 
-/** One row per official tournament this player's team won (team wins and individual wins alike). */
+/** One row per official tournament this player's team WON (final_position 1; team and individual alike). */
 const fetchTitles = async (db: typeof Db, playerId: string) => {
   const rows = (await db.execute(sql`
     SELECT
@@ -100,10 +103,11 @@ const fetchTitles = async (db: typeof Db, playerId: string) => {
         WHERE tm2.team_id = tm.team_id
       ) AS team_size
     FROM frikiparty_team_member tm
+    JOIN frikiparty_team t ON t.id = tm.team_id
     JOIN frikiparty_tournament tr ON tr.id = tm.tournament_id
     JOIN frikiparty_edition e ON e.id = tr.edition_id
     LEFT JOIN frikiparty_game g ON g.id = tr.game_id
-    WHERE tm.player_id = ${playerId}
+    WHERE tm.player_id = ${playerId} AND t.final_position = 1
     ORDER BY e.year DESC, e."order" DESC
   `)) as unknown as TitleRow[];
 

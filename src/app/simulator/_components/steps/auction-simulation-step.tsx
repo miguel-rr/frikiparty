@@ -27,10 +27,10 @@ const AuctionSimulationStep = () => {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-2xl uppercase tracking-tight">
+        <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
           Subasta
         </h2>
-        <p className="font-mono text-muted text-xs">
+        <p className="font-mono text-(--faded) text-xs">
           Lote {Math.min(auction.currentLotIndex + 1, auction.lots.length)} /{' '}
           {auction.lots.length}
         </p>
@@ -39,10 +39,10 @@ const AuctionSimulationStep = () => {
       {isClosed ? (
         <p className="font-semibold text-sm">Subasta terminada.</p>
       ) : currentLot ? (
-        <div className="flex flex-col gap-4 rounded-xl bg-panel-2 p-4 ring-1 ring-hair">
+        <div className="flex flex-col gap-4 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+              <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
                 Bombo {currentLot.potIndex + 1}
               </p>
               <p className="font-bold text-xl">
@@ -63,18 +63,18 @@ const AuctionSimulationStep = () => {
           {auction.currentBid ? (
             <p className="text-sm">
               Puja actual:{' '}
-              <span className="font-bold text-amber">
+              <span className="font-bold text-(--gold)">
                 {auction.currentBid.amount}
               </span>
             </p>
           ) : (
-            <p className="text-muted text-sm">Sin pujas todavía.</p>
+            <p className="text-(--faded) text-sm">Sin pujas todavía.</p>
           )}
 
           <div className="flex flex-col gap-3">
             {captainIds.map((captainId) => (
               <div
-                className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-panel px-3 py-2 ring-1 ring-hair"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-(--panel) px-3 py-2 ring-(--hair) ring-1"
                 key={captainId}
               >
                 <PlayerChip

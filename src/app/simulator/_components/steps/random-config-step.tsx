@@ -17,10 +17,10 @@ const RandomConfigStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Aleatorio total
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         {state.participantIds.length} jugadores se repartirán al azar entre los
         equipos.
       </p>

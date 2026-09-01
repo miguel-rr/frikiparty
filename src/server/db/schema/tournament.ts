@@ -29,7 +29,9 @@ const tournament = createTable('tournament', {
   isOfficial: boolean('is_official').notNull(),
   gameVersionId: uuid('game_version_id').references(() => gameVersion.id),
   model: text('model').$type<'classic' | 'swiss'>(),
-  // Only populated when isOfficial + a votación/combinado ranking source was used.
+  // The ordered ranking actually used to build teams whenever it differs
+  // from the historical one: votación/combinado results, or a hand-adjusted
+  // order after manual tie-breaks.
   teamRankingSnapshot: uuid('team_ranking_snapshot').array(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

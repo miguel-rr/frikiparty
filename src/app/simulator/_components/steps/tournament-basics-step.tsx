@@ -61,12 +61,12 @@ const TournamentBasicsStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         El torneo
       </h2>
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
           ¿Oficial o no oficial?
         </p>
         <SegmentedControl
@@ -82,7 +82,7 @@ const TournamentBasicsStep = () => {
       {game?.kind === 'official' ? (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+            <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
               Juego
             </p>
             <SegmentedControl
@@ -97,11 +97,11 @@ const TournamentBasicsStep = () => {
             />
           </div>
           <label className="flex flex-col gap-2">
-            <span className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+            <span className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
               Versión exacta
             </span>
             <input
-              className="rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair focus:outline-none focus:ring-amber"
+              className="rounded-lg bg-(--panel-2) px-3 py-2 text-sm ring-(--hair) ring-1 focus:outline-none focus:ring-(--gold)"
               onChange={(event) =>
                 dispatch({
                   type: 'SET_TOURNAMENT_BASICS',
@@ -117,7 +117,7 @@ const TournamentBasicsStep = () => {
 
       {game?.kind === 'unofficial' ? (
         <div className="flex flex-col gap-3">
-          <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
             Juego
           </p>
           <SegmentedControl
@@ -135,13 +135,13 @@ const TournamentBasicsStep = () => {
           />
           <div className="flex gap-2">
             <input
-              className="flex-1 rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair focus:outline-none focus:ring-amber"
+              className="flex-1 rounded-lg bg-(--panel-2) px-3 py-2 text-sm ring-(--hair) ring-1 focus:outline-none focus:ring-(--gold)"
               onChange={(event) => setNewGame(event.target.value)}
               placeholder="Añadir otro juego…"
               value={newGame}
             />
             <button
-              className="rounded-lg bg-panel-2 px-4 py-2 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
+              className="rounded-lg bg-(--panel-2) px-4 py-2 font-semibold text-sm ring-(--hair) ring-1 transition-colors hover:bg-(--hair)"
               onClick={addUnofficialGame}
               type="button"
             >

@@ -183,7 +183,8 @@ const BlazonDefs = () => (
 
 /**
  * Heraldic shield with the player's race emblem (see emblems.ts for the
- * artwork credits). Replaces the old initial-circle avatar.
+ * artwork credits). Replaces the old initial-circle avatar. A null name is
+ * a player we never recorded: the shield bears a question mark instead.
  */
 const PlayerBlazon = ({
   champion = false,
@@ -191,7 +192,7 @@ const PlayerBlazon = ({
   size = 'md',
 }: {
   champion?: boolean;
-  name: string;
+  name: string | null;
   size?: keyof typeof BLAZON_SIZES;
 }) => (
   <svg
@@ -200,7 +201,7 @@ const PlayerBlazon = ({
       champion
         ? 'drop-shadow-[0_0_14px_rgba(201,165,87,0.45)]'
         : 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)]'
-    }`}
+    } ${name === null ? 'opacity-65 saturate-50' : ''}`}
     viewBox="0 0 100 116"
   >
     <path
@@ -217,11 +218,26 @@ const PlayerBlazon = ({
       strokeWidth="1.5"
       transform="translate(50 58) scale(0.88) translate(-50 -58)"
     />
-    <path
-      d={RACE_EMBLEMS[raceForPlayer(name)]}
-      fill="url(#dsn-blazon-emblem)"
-      transform="translate(22 26) scale(0.109375)"
-    />
+    {name === null ? (
+      <text
+        dominantBaseline="central"
+        fill="url(#dsn-blazon-emblem)"
+        fontFamily="var(--font-cinzel), Georgia, serif"
+        fontSize="52"
+        fontWeight="900"
+        textAnchor="middle"
+        x="50"
+        y="54"
+      >
+        ?
+      </text>
+    ) : (
+      <path
+        d={RACE_EMBLEMS[raceForPlayer(name)]}
+        fill="url(#dsn-blazon-emblem)"
+        transform="translate(22 26) scale(0.109375)"
+      />
+    )}
   </svg>
 );
 

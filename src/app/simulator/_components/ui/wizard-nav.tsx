@@ -1,6 +1,7 @@
 'use client';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
+import { btn } from '@/components/theme/primitives';
 
 type WizardNavProps = {
   nextLabel?: string;
@@ -28,7 +29,7 @@ const WizardNav = ({
     <div className="flex items-center justify-between gap-3 pt-2">
       {!hideBack && canGoBack ? (
         <button
-          className="rounded-full bg-panel-2 px-5 py-2.5 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
+          className={`${btn.secondary} px-5 py-2 text-sm`}
           onClick={() => dispatch({ type: 'BACK' })}
           type="button"
         >
@@ -38,7 +39,7 @@ const WizardNav = ({
         <span />
       )}
       <button
-        className="rounded-full bg-amber px-6 py-2.5 font-extrabold text-ground text-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        className={`${btn.primary} px-6 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40`}
         disabled={nextDisabled}
         onClick={handleNext}
         type="button"

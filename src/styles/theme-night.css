@@ -7,14 +7,6 @@
    wrapping their content in that class.
    ───────────────────────────────────────────────────────────── */
 
-/* While previewing the proposal, hide the current site chrome. */
-body:has(.theme-night) {
-  background: #0a0f0c;
-}
-body:has(.theme-night) header:not(.theme-night *) {
-  display: none;
-}
-
 .theme-night {
   --night: #0a0f0c;
   --night-2: #0e1410;
@@ -50,6 +42,17 @@ body:has(.theme-night) header:not(.theme-night *) {
   isolation: isolate;
   min-height: 100vh;
   overflow-x: clip;
+}
+
+/* Chrome paints autofilled fields light blue; keep them in the theme. */
+.theme-night input:-webkit-autofill,
+.theme-night input:-webkit-autofill:hover,
+.theme-night input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--parchment);
+  box-shadow: 0 0 0 1000px var(--night-2) inset;
+  caret-color: var(--parchment);
+  /* The only way to keep the UA background from flashing back in. */
+  transition: background-color 9999s ease-in-out 0s;
 }
 
 .theme-night ::selection {

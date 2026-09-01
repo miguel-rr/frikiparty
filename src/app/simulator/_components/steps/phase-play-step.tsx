@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
+import { btn } from '@/components/theme/primitives';
 import { isBracketPhaseComplete } from '@/lib/tournament/bracket-phase';
 import {
   computeGroupStandings,
@@ -67,20 +68,20 @@ const MatchCard = ({
     setFactions((prev) => ({ ...prev, [playerId]: value }));
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl bg-panel-2 p-4 ring-1 ring-hair">
+    <div className="flex flex-col gap-3 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1">
       <div className="flex items-center justify-between gap-3">
         <p className="font-semibold text-sm">
           {getTeamName(teams, teamAId)}{' '}
-          <span className="font-mono text-amber">{winsA}</span>
+          <span className="font-mono text-(--gold)">{winsA}</span>
           {' – '}
-          <span className="font-mono text-amber">{winsB}</span>{' '}
+          <span className="font-mono text-(--gold)">{winsB}</span>{' '}
           {getTeamName(teams, teamBId)}{' '}
-          <span className="font-mono text-[0.6rem] text-muted">
+          <span className="font-mono text-(--faded) text-[0.6rem]">
             (a {gamesToWin})
           </span>
         </p>
         {winnerTeamId ? (
-          <span className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+          <span className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
             Ganó {getTeamName(teams, winnerTeamId)}
           </span>
         ) : null}
@@ -89,7 +90,7 @@ const MatchCard = ({
       {!winnerTeamId && canPlay ? (
         <>
           <button
-            className="self-start rounded-full bg-panel px-4 py-1.5 font-semibold text-xs ring-1 ring-hair transition-colors hover:bg-hair"
+            className={`${btn.secondary} self-start px-4 py-1.5 text-xs`}
             onClick={() => setOpen((value) => !value)}
             type="button"
           >
@@ -102,7 +103,7 @@ const MatchCard = ({
                 {[teamA, teamB].map((team) =>
                   team ? (
                     <div className="flex flex-col gap-1.5" key={team.id}>
-                      <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+                      <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
                         {team.name}
                       </p>
                       {team.playerIds.map((playerId) => (
@@ -112,7 +113,7 @@ const MatchCard = ({
                         >
                           <span>{getPlayerName(playerId)}</span>
                           <input
-                            className="w-32 rounded bg-panel px-2 py-1 text-xs ring-1 ring-hair focus:outline-none focus:ring-amber"
+                            className="w-32 rounded bg-(--panel) px-2 py-1 text-xs ring-(--hair) ring-1 focus:outline-none focus:ring-(--gold)"
                             onChange={(event) =>
                               setFaction(playerId, event.target.value)
                             }
@@ -128,7 +129,7 @@ const MatchCard = ({
               <div className="flex gap-2">
                 {teamAId ? (
                   <button
-                    className="rounded-full bg-amber px-4 py-2 font-extrabold text-ground text-xs transition-opacity hover:opacity-90"
+                    className={`${btn.primary} px-4 py-1.5 text-xs`}
                     onClick={() => record(teamAId)}
                     type="button"
                   >
@@ -137,7 +138,7 @@ const MatchCard = ({
                 ) : null}
                 {teamBId ? (
                   <button
-                    className="rounded-full bg-amber px-4 py-2 font-extrabold text-ground text-xs transition-opacity hover:opacity-90"
+                    className={`${btn.primary} px-4 py-1.5 text-xs`}
                     onClick={() => record(teamBId)}
                     type="button"
                   >
@@ -179,22 +180,22 @@ const GroupPhaseView = ({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
           Clasificación
         </p>
         <ol className="flex flex-col gap-1.5">
           {standings.map((standing, index) => (
             <li
-              className="flex items-center gap-3 rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair"
+              className="flex items-center gap-3 rounded-lg bg-(--panel-2) px-3 py-2 text-sm ring-(--hair) ring-1"
               key={standing.teamId}
             >
-              <span className="w-6 font-mono text-muted text-xs">
+              <span className="w-6 font-mono text-(--faded) text-xs">
                 {index + 1}
               </span>
               <span className="flex-1 font-semibold">
                 {getTeamName(teams, standing.teamId)}
               </span>
-              <span className="font-mono text-muted text-xs">
+              <span className="font-mono text-(--faded) text-xs">
                 {standing.wins}V {standing.losses}D
               </span>
             </li>
@@ -203,7 +204,7 @@ const GroupPhaseView = ({
       </div>
 
       <div className="flex flex-col gap-3">
-        <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
           Partidos
         </p>
         {matches.map((match) => (
@@ -243,7 +244,7 @@ const BracketPhaseView = ({
     <div className="flex flex-col gap-6">
       {rounds.map((round) => (
         <div className="flex flex-col gap-3" key={round}>
-          <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
             {round === 0 ? 'Play-in' : `Ronda ${round}`}
           </p>
           {matches
@@ -301,10 +302,10 @@ const PhasePlayStep = () => {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-2xl uppercase tracking-tight">
+        <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
           Fase {phaseIndex + 1} de {totalPhases}
         </h2>
-        <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
           {phase.type === 'group' ? 'Grupo' : 'Eliminatoria'}
         </p>
       </div>
@@ -328,7 +329,7 @@ const PhasePlayStep = () => {
       ) : null}
 
       <button
-        className="self-start rounded-full bg-amber px-6 py-2.5 font-extrabold text-ground text-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        className={`${btn.primary} self-start px-6 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40`}
         disabled={!complete}
         onClick={() => {
           dispatch({ type: 'ADVANCE_PHASE' });

@@ -9,10 +9,10 @@ const TournamentModelStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Modelo de competición
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         Clásico son fases (grupos y/o eliminatorias). Suizo elimina por número
         de derrotas y empareja ronda a ronda.
       </p>

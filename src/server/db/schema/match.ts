@@ -63,6 +63,9 @@ const matchGame = createTable('match_game', {
     .references(() => match.id),
   winnerTeamId: uuid('winner_team_id').references(() => team.id),
   map: text('map'),
+  // 1-based order within the match for hand-entered results ("ganaron la
+  // primera"); live games can rely on playedAt instead, so it's nullable.
+  gameNumber: integer('game_number'),
   // Determines order when present; nullable for hand-entered results without an exact time.
   playedAt: timestamp('played_at'),
 });

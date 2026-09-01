@@ -26,6 +26,7 @@ import { TournamentModelStep } from '@/app/simulator/_components/steps/tournamen
 import { TournamentParticipantsStep } from '@/app/simulator/_components/steps/tournament-participants-step';
 import { TournamentPhasesStep } from '@/app/simulator/_components/steps/tournament-phases-step';
 import { TournamentSwissStep } from '@/app/simulator/_components/steps/tournament-swiss-step';
+import { RingGlyph } from '@/components/theme/primitives';
 import type { WizardStep } from '@/lib/simulator/types';
 
 const STEP_COMPONENTS: Record<WizardStep, ComponentType> = {
@@ -60,10 +61,10 @@ const WizardShell = () => {
   const StepComponent = STEP_COMPONENTS[current];
 
   return (
-    <main className="mx-auto flex max-w-[760px] flex-col gap-6 px-4 py-8 sm:px-8">
+    <main className="mx-auto flex w-full max-w-[760px] flex-col gap-6 px-4 py-10 sm:px-6 sm:py-14">
       {current !== 'intro' ? (
-        <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
-          Paso {state.stepHistory.length}
+        <p className="flex items-center gap-2 font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+          <RingGlyph size={11} /> Paso {state.stepHistory.length}
         </p>
       ) : null}
       <StepComponent />

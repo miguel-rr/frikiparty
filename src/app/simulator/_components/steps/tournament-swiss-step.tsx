@@ -23,7 +23,9 @@ const TournamentSwissStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">Suizo</h2>
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
+        Suizo
+      </h2>
 
       <StepperInput
         label="Derrotas para quedar eliminado"
@@ -39,7 +41,7 @@ const TournamentSwissStep = () => {
       />
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
           Criterio de emparejamiento
         </p>
         <SegmentedControl

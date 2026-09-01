@@ -17,7 +17,7 @@ const DraftOrderStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Orden de elección
       </h2>
 
@@ -38,10 +38,10 @@ const DraftOrderStep = () => {
         <ol className="flex flex-col gap-1.5">
           {preview.map((captainId, index) => (
             <li
-              className="flex items-center gap-3 rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair"
+              className="flex items-center gap-3 rounded-lg bg-(--panel-2) px-3 py-2 text-sm ring-(--hair) ring-1"
               key={captainId}
             >
-              <span className="w-6 font-mono text-muted text-xs">
+              <span className="w-6 font-mono text-(--faded) text-xs">
                 {index + 1}
               </span>
               <span className="font-semibold">{getPlayerName(captainId)}</span>
@@ -50,7 +50,7 @@ const DraftOrderStep = () => {
         </ol>
       ) : null}
       {state.captainOrderMethod === 'full-random' ? (
-        <p className="text-muted text-xs">
+        <p className="text-(--faded) text-xs">
           Con aleatorio total el orden se vuelve a sortear en cada ronda, así
           que este es solo un ejemplo.
         </p>

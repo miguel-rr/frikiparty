@@ -3,6 +3,7 @@
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { SegmentedControl } from '@/app/simulator/_components/ui/segmented-control';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
+import { btn } from '@/components/theme/primitives';
 import { api } from '@/trpc/react';
 
 const DraftMethodStep = () => {
@@ -22,10 +23,10 @@ const DraftMethodStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Método de draft
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         Serpiente invierte el orden cada ronda. Lineal mantiene siempre el mismo
         orden.
       </p>
@@ -42,7 +43,7 @@ const DraftMethodStep = () => {
       {state.draftMethod ? (
         <div className="flex flex-col gap-2">
           <button
-            className="self-start rounded-full bg-panel-2 px-5 py-2.5 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair disabled:cursor-not-allowed disabled:opacity-40"
+            className={`${btn.secondary} self-start px-5 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40`}
             disabled={createRoom.isPending || !canCreateRoom}
             onClick={() =>
               state.pots &&
@@ -62,7 +63,7 @@ const DraftMethodStep = () => {
             {createRoom.isPending ? 'Creando sala…' : 'Con varios móviles →'}
           </button>
           {createRoom.error ? (
-            <p className="text-foe text-xs">{createRoom.error.message}</p>
+            <p className="text-(--ember) text-xs">{createRoom.error.message}</p>
           ) : null}
         </div>
       ) : null}

@@ -2,13 +2,13 @@ import { BRACKET, STANDINGS, TEAMS_BY_ID } from '@/app/design/fixtures';
 import {
   Meeple,
   panel,
-  RingGlyph,
   Section,
   SectionHeader,
   tag,
   td,
   th,
 } from '@/components/theme/primitives';
+import { BracketBoard } from '@/components/tournament/bracket-board';
 
 /**
  * Teams have no names: a team IS its players (see .claude/core-logic.md).
@@ -33,27 +33,6 @@ const TeamNames = ({
     </span>
   );
 };
-
-const MatchRow = ({
-  score,
-  teamId,
-  winner,
-}: {
-  score: number | null;
-  teamId: string;
-  winner: boolean;
-}) => (
-  <div
-    className={`flex items-center justify-between gap-3 px-3.5 py-2.5 ${
-      winner
-        ? 'bg-linear-to-r from-[#c9a5571f] to-transparent font-extrabold text-(--gold-hi)'
-        : 'text-(--faded)'
-    }`}
-  >
-    <TeamNames className="text-sm" teamId={teamId} />
-    <span className="font-bold font-mono">{score ?? '–'}</span>
-  </div>
-);
 
 const Standings = () => (
   <div className={`${panel} flex flex-col`}>
@@ -142,64 +121,40 @@ const Standings = () => (
   </div>
 );
 
-const CHAMPION_TEAM_ID = 'team-richar';
+/** Colors follow the order teams enter the bracket, seeds first. */
+const BRACKET_TEAM_IDS: string[] = [
+  ...new Set(
+    BRACKET.flatMap((round) =>
+      round.matches.flatMap((match) => [match.teamAId, match.teamBId]),
+    ),
+  ),
+];
 
-const Bracket = () => {
-  const champions = TEAMS_BY_ID[CHAMPION_TEAM_ID];
-  return (
-    <div className={`${panel} flex flex-col`}>
-      <div className="flex flex-wrap items-center justify-between gap-3 border-(--hair) border-b px-5 py-4">
-        <h3 className="d-display font-bold text-lg uppercase">Eliminatorias</h3>
-        <span className={tag}>Al mejor de 3</span>
-      </div>
-      <div className="overflow-x-auto p-5">
-        <div className="grid min-w-[640px] auto-cols-fr grid-flow-col items-center gap-5">
-          {BRACKET.map((round) => (
-            <div className="flex flex-col gap-4" key={round.round}>
-              <span className="text-center font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
-                {round.round}
-              </span>
-              {round.matches.map((match) => {
-                const decided = match.scoreA !== null && match.scoreB !== null;
-                const aWins =
-                  decided && (match.scoreA ?? 0) > (match.scoreB ?? 0);
-                return (
-                  <div
-                    className="divide-y divide-(--hair) overflow-hidden rounded-lg border border-(--hair) bg-(--night-2)"
-                    key={`${match.teamAId}-${match.teamBId}`}
-                  >
-                    <MatchRow
-                      score={match.scoreA}
-                      teamId={match.teamAId}
-                      winner={decided && aWins}
-                    />
-                    <MatchRow
-                      score={match.scoreB}
-                      teamId={match.teamBId}
-                      winner={decided && !aWins}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-          <div className="flex flex-col items-center gap-3">
-            <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
-              Campeones
-            </span>
-            <div className="flex flex-col items-center gap-2 rounded-lg border border-(--hair-gold) bg-linear-to-b from-[#c9a55721] to-transparent px-5 py-4 text-center">
-              <Meeple color={champions?.color ?? '#8b969e'} size={26} />
-              <span className="d-display d-gold-text font-black text-base uppercase leading-snug">
-                {champions?.players.join(' · ')}
-              </span>
-              <RingGlyph size={16} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+/** The proposal's bracket is the shared board fed with the fixture data. */
+const Bracket = () => (
+  <BracketBoard
+    rounds={BRACKET.map((round) => ({
+      matches: round.matches.map((match) => ({
+        id: `${match.teamAId}-${match.teamBId}`,
+        teamAId: match.teamAId,
+        teamBId: match.teamBId,
+        winnerTeamId:
+          (match.scoreA ?? 0) > (match.scoreB ?? 0)
+            ? match.teamAId
+            : match.teamBId,
+        scoreA: match.scoreA,
+        scoreB: match.scoreB,
+      })),
+    }))}
+    tagText="Al mejor de 3"
+    teams={BRACKET_TEAM_IDS.map((teamId) => ({
+      id: teamId,
+      players: TEAMS_BY_ID[teamId]?.players ?? [],
+      color: TEAMS_BY_ID[teamId]?.color,
+    }))}
+    title="Eliminatorias"
+  />
+);
 
 const Contest = () => (
   <Section id="contest">

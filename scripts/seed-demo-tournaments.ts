@@ -194,7 +194,10 @@ async function main() {
   // --- Editions ------------------------------------------------------------
   const [gredosVenue] = await db
     .insert(venue)
-    .values({ name: 'Refugio de Gredos, Ávila' })
+    .values({
+      name: 'Refugio de Gredos, Ávila',
+      slug: slugify('Refugio de Gredos, Ávila'),
+    })
     .returning({ id: venue.id });
   if (!gredosVenue) throw new Error('Failed to insert venue');
   const [edition2025] = await db

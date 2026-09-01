@@ -9,10 +9,10 @@ const RankingSourceStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Origen del ranking
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         Este ranking decide el orden con el que se generan los bombos.
       </p>
 
@@ -28,7 +28,7 @@ const RankingSourceStep = () => {
 
       {state.rankingSource === 'combined' ? (
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+          <span className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
             Peso del ranking histórico: {state.historicalWeight ?? 50}%
           </span>
           <input

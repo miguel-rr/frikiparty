@@ -37,33 +37,33 @@ const AuctionRoomHostStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Subasta en varios móviles
       </h2>
 
-      <div className="flex flex-col items-center gap-2 rounded-xl bg-panel-2 p-6 ring-1 ring-hair">
-        <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+      <div className="flex flex-col items-center gap-2 rounded-xl bg-(--panel-2) p-6 ring-(--hair) ring-1">
+        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
           Código para unirse
         </p>
-        <p className="font-bold font-mono text-5xl text-amber tracking-widest">
+        <p className="font-bold font-mono text-(--gold) text-5xl tracking-widest">
           {code}
         </p>
         {joinUrl ? (
-          <p className="break-all text-center font-mono text-muted text-xs">
+          <p className="break-all text-center font-mono text-(--faded) text-xs">
             {joinUrl}
           </p>
         ) : null}
       </div>
 
       {!payload ? (
-        <p className="text-muted text-sm">Esperando a que empiece…</p>
+        <p className="text-(--faded) text-sm">Esperando a que empiece…</p>
       ) : isClosed ? (
         <p className="font-semibold text-sm">Subasta terminada.</p>
       ) : currentLot ? (
-        <div className="flex flex-col gap-4 rounded-xl bg-panel-2 p-4 ring-1 ring-hair">
+        <div className="flex flex-col gap-4 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+              <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
                 Bombo {currentLot.potIndex + 1}
               </p>
               <p className="font-bold text-xl">
@@ -86,18 +86,18 @@ const AuctionRoomHostStep = () => {
           {auction?.currentBid ? (
             <p className="text-sm">
               Puja actual:{' '}
-              <span className="font-bold text-amber">
+              <span className="font-bold text-(--gold)">
                 {auction.currentBid.amount}
               </span>
             </p>
           ) : (
-            <p className="text-muted text-sm">Sin pujas todavía.</p>
+            <p className="text-(--faded) text-sm">Sin pujas todavía.</p>
           )}
         </div>
       ) : null}
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
           Capitanes
         </p>
         <CaptainBudgetHud
@@ -106,7 +106,7 @@ const AuctionRoomHostStep = () => {
           getPlayerName={getPlayerName}
           rosters={auction?.rosters ?? {}}
         />
-        <p className="text-muted text-xs">
+        <p className="text-(--faded) text-xs">
           Reclamados: {Object.keys(claims).length} / {captainIds.length}
         </p>
       </div>

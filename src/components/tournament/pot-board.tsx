@@ -12,24 +12,24 @@ const PotBoard = ({ pots, getPlayerName, onMove }: PotBoardProps) => (
   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
     {pots.map((pot, potIndex) => (
       <div
-        className="flex flex-col gap-2 rounded-xl bg-panel-2 p-3 ring-1 ring-hair"
+        className="flex flex-col gap-2 rounded-xl bg-(--panel-2) p-3 ring-(--hair) ring-1"
         // biome-ignore lint/suspicious/noArrayIndexKey: pot tiers are positionally fixed, only their members move.
         key={`pot-${potIndex}`}
       >
-        <p className="font-bold font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+        <p className="font-bold font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
           Bombo {potIndex + 1}
           {potIndex === 0 ? ' · Cabezas de serie' : ''}
         </p>
         <ul className="flex flex-col gap-1.5">
           {pot.map((playerId) => (
             <li
-              className="flex items-center justify-between gap-2 rounded-lg bg-panel px-2.5 py-1.5 text-sm ring-1 ring-hair"
+              className="flex items-center justify-between gap-2 rounded-lg bg-(--panel) px-2.5 py-1.5 text-sm ring-(--hair) ring-1"
               key={playerId}
             >
               <span className="font-semibold">{getPlayerName(playerId)}</span>
               <div className="flex gap-1">
                 <button
-                  className="grid size-6 place-items-center rounded-full bg-panel-2 text-xs ring-1 ring-hair transition-colors hover:bg-hair disabled:opacity-30"
+                  className="grid size-6 place-items-center rounded-full bg-(--panel-2) text-xs ring-(--hair) ring-1 transition-colors hover:bg-(--hair) disabled:opacity-30"
                   disabled={potIndex === 0}
                   onClick={() => onMove(playerId, potIndex, potIndex - 1)}
                   type="button"
@@ -37,7 +37,7 @@ const PotBoard = ({ pots, getPlayerName, onMove }: PotBoardProps) => (
                   ←
                 </button>
                 <button
-                  className="grid size-6 place-items-center rounded-full bg-panel-2 text-xs ring-1 ring-hair transition-colors hover:bg-hair disabled:opacity-30"
+                  className="grid size-6 place-items-center rounded-full bg-(--panel-2) text-xs ring-(--hair) ring-1 transition-colors hover:bg-(--hair) disabled:opacity-30"
                   disabled={potIndex === pots.length - 1}
                   onClick={() => onMove(playerId, potIndex, potIndex + 1)}
                   type="button"

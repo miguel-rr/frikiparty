@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import { btn } from '@/components/theme/primitives';
 import { authClient } from '@/server/better-auth/client';
 
 type UserMenuProps = {
@@ -10,7 +11,7 @@ type UserMenuProps = {
 
 /**
  * Only the sign-out action needs to be interactive. The session itself is
- * resolved on the server so the header renders identically on both sides.
+ * resolved on the server so the nav renders identically on both sides.
  */
 const UserMenu = ({ label }: UserMenuProps) => {
   const router = useRouter();
@@ -22,12 +23,12 @@ const UserMenu = ({ label }: UserMenuProps) => {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-amber font-bold font-mono text-ground text-xs">
+      <span className="grid size-8 shrink-0 place-items-center rounded-full border border-(--hair-gold) bg-linear-to-b from-(--gold-hi) to-(--gold-dark) font-bold font-mono text-[#211803] text-xs">
         {label.charAt(0).toUpperCase()}
       </span>
-      <span className="font-bold text-sm">{label}</span>
+      <span className="hidden font-bold text-sm sm:inline">{label}</span>
       <button
-        className="rounded-full bg-panel-2 px-4 py-2 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
+        className={`${btn.secondary} px-4 py-1.5 text-sm`}
         onClick={handleSignOut}
         type="button"
       >

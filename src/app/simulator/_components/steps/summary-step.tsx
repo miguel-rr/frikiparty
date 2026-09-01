@@ -1,7 +1,8 @@
 'use client';
 
-import { NoticeBoard } from '@/app/_components/notice-board';
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
+import { StepPanel } from '@/app/simulator/_components/ui/step-panel';
+import { btn } from '@/components/theme/primitives';
 import { PlayerChip } from '@/components/tournament/player-chip';
 
 const METHOD_LABELS: Record<string, string> = {
@@ -22,35 +23,30 @@ const SummaryStep = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <NoticeBoard title="EQUIPOS LISTOS">
-        <div className="board flex flex-col gap-4 rounded-b-[5px] px-6 py-8 sm:px-11 sm:py-10">
-          <p className="text-[#f4e6c6]/90 text-sm">
-            Método: <span className="font-bold">{methodLabel}</span>
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {teams.map((team) => (
-              <div
-                className="flex flex-col gap-2 rounded-lg bg-[rgba(0,0,0,0.25)] p-3"
-                key={team.id}
-              >
-                <p className="font-bold text-[#f4e6c6] text-sm">{team.name}</p>
-                <ul className="flex flex-wrap gap-1.5">
-                  {team.playerIds.map((playerId) => (
-                    <li key={playerId}>
-                      <PlayerChip name={getPlayerName(playerId)} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+      <StepPanel tagText={methodLabel} title="Equipos listos">
+        <div className="grid gap-3 sm:grid-cols-2">
+          {teams.map((team) => (
+            <div
+              className="flex flex-col gap-2 rounded-lg border border-(--hair) bg-(--night-2) p-3"
+              key={team.id}
+            >
+              <p className="font-bold text-sm">{team.name}</p>
+              <ul className="flex flex-wrap gap-1.5">
+                {team.playerIds.map((playerId) => (
+                  <li key={playerId}>
+                    <PlayerChip name={getPlayerName(playerId)} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      </NoticeBoard>
+      </StepPanel>
 
       <div className="flex flex-wrap gap-3">
         {state.phases && state.phases.length > 0 ? (
           <button
-            className="rounded-full bg-amber px-5 py-2.5 font-extrabold text-ground text-sm transition-opacity hover:opacity-90"
+            className={`${btn.primary} px-5 py-2 text-sm`}
             onClick={() => {
               dispatch({ type: 'START_TOURNAMENT' });
               dispatch({ type: 'ADVANCE' });
@@ -60,12 +56,12 @@ const SummaryStep = () => {
             Empezar torneo →
           </button>
         ) : (
-          <p className="text-muted text-xs">
+          <p className="text-(--faded) text-xs">
             La simulación de fases suizo todavía no está disponible.
           </p>
         )}
         <button
-          className="rounded-full bg-panel-2 px-5 py-2.5 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
+          className={`${btn.secondary} px-5 py-2 text-sm`}
           onClick={() => dispatch({ type: 'RESET' })}
           type="button"
         >

@@ -10,10 +10,10 @@ const RankingReviewStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Revisar ranking
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         Este orden se usará para generar los bombos. Puedes ajustarlo a mano
         antes de darlo por definitivo.
       </p>

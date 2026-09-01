@@ -22,14 +22,14 @@ const CaptainBudgetHud = ({
       <div
         className={`flex flex-col gap-2 rounded-xl p-3 ring-1 transition-colors ${
           captainId === activeCaptainId
-            ? 'bg-panel-2 ring-amber'
-            : 'bg-panel-2/60 ring-hair'
+            ? 'bg-(--panel-2) ring-(--gold)'
+            : 'bg-(--panel-2)/60 ring-(--hair)'
         }`}
         key={captainId}
       >
         <div className="flex items-center justify-between gap-2">
           <PlayerChip name={getPlayerName(captainId)} />
-          <span className="font-bold font-mono text-amber text-sm">
+          <span className="font-bold font-mono text-(--gold) text-sm">
             {budgets[captainId] ?? 0}
           </span>
         </div>

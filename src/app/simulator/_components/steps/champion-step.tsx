@@ -1,7 +1,8 @@
 'use client';
 
-import { NoticeBoard } from '@/app/_components/notice-board';
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
+import { StepPanel } from '@/app/simulator/_components/ui/step-panel';
+import { btn, RingGlyph } from '@/components/theme/primitives';
 import { PlayerChip } from '@/components/tournament/player-chip';
 
 const ChampionStep = () => {
@@ -12,11 +13,12 @@ const ChampionStep = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <NoticeBoard title="TENEMOS CAMPEÓN">
-        <div className="board flex flex-col items-center gap-4 rounded-b-[5px] px-6 py-10 sm:px-11">
+      <StepPanel gold title="Tenemos campeón">
+        <div className="flex flex-col items-center gap-4 py-4">
           {champion ? (
             <>
-              <p className="font-bold font-display text-3xl text-[#f4e6c6] uppercase tracking-tight">
+              <RingGlyph size={34} />
+              <p className="d-display d-gold-text font-black text-3xl uppercase tracking-wide">
                 {champion.name}
               </p>
               <ul className="flex flex-wrap justify-center gap-1.5">
@@ -28,15 +30,13 @@ const ChampionStep = () => {
               </ul>
             </>
           ) : (
-            <p className="text-[#f4e6c6]/90 text-sm">
-              Sin campeón determinado.
-            </p>
+            <p className="text-(--faded) text-sm">Sin campeón determinado.</p>
           )}
         </div>
-      </NoticeBoard>
+      </StepPanel>
 
       <button
-        className="self-start rounded-full bg-panel-2 px-5 py-2.5 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
+        className={`${btn.secondary} self-start px-5 py-2 text-sm`}
         onClick={() => dispatch({ type: 'RESET' })}
         type="button"
       >

@@ -18,6 +18,10 @@ const team = createTable('team', {
     .notNull()
     .references(() => tournament.id),
   name: text('name'),
+  // Historical FALLBACK only (1 = champions, 2 = runners-up, null = unknown):
+  // when a tournament has its full phase/match record, final standings must
+  // be derived from results instead; read this column only when they can't.
+  finalPosition: integer('final_position'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

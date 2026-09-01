@@ -2,6 +2,7 @@
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
+import { btn } from '@/components/theme/primitives';
 import { PlayerChip } from '@/components/tournament/player-chip';
 import { computeBudget, computeMinBidsByPot } from '@/lib/tournament/auction';
 import { api } from '@/trpc/react';
@@ -24,10 +25,10 @@ const AuctionConfigStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Antes de subastar
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         El bombo 1 (capitanes) no se subasta. El resto empieza por el mejor
         bombo y baja hasta el peor; dentro de cada bombo el orden es aleatorio.
       </p>
@@ -36,14 +37,14 @@ const AuctionConfigStep = () => {
         {pots.map((pot, potIndex) =>
           potIndex === 0 ? null : (
             <div
-              className="flex items-center justify-between rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair"
+              className="flex items-center justify-between rounded-lg bg-(--panel-2) px-3 py-2 text-sm ring-(--hair) ring-1"
               // biome-ignore lint/suspicious/noArrayIndexKey: pot tiers are positionally fixed, only their members move.
               key={`pot-${potIndex}`}
             >
               <span className="font-semibold">
                 Bombo {potIndex + 1} ({pot.length} jugadores)
               </span>
-              <span className="font-mono text-amber">
+              <span className="font-mono text-(--gold)">
                 Precio mínimo: {minBidByPot[potIndex]}
               </span>
             </div>
@@ -52,7 +53,7 @@ const AuctionConfigStep = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
           Presupuesto por capitán: {budget}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -64,7 +65,7 @@ const AuctionConfigStep = () => {
 
       <div className="flex flex-col gap-2">
         <button
-          className="self-start rounded-full bg-panel-2 px-5 py-2.5 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair disabled:cursor-not-allowed disabled:opacity-40"
+          className={`${btn.secondary} self-start px-5 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40`}
           disabled={createRoom.isPending}
           onClick={() => createRoom.mutate({ pots, captainIds })}
           type="button"
@@ -72,7 +73,7 @@ const AuctionConfigStep = () => {
           {createRoom.isPending ? 'Creando sala…' : 'Con varios móviles →'}
         </button>
         {createRoom.error ? (
-          <p className="text-foe text-xs">{createRoom.error.message}</p>
+          <p className="text-(--ember) text-xs">{createRoom.error.message}</p>
         ) : null}
       </div>
 

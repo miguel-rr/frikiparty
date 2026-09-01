@@ -41,7 +41,9 @@ const TournamentPhasesStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">Fases</h2>
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
+        Fases
+      </h2>
 
       <StepperInput
         label="Número de fases"
@@ -54,10 +56,10 @@ const TournamentPhasesStep = () => {
       <div className="flex flex-col gap-4">
         {phases.map((phase, index) => (
           <div
-            className="flex flex-col gap-4 rounded-xl bg-panel-2 p-4 ring-1 ring-hair"
+            className="flex flex-col gap-4 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1"
             key={phase.id}
           >
-            <p className="font-bold font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+            <p className="font-bold font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
               Fase {index + 1}
             </p>
 
@@ -80,7 +82,7 @@ const TournamentPhasesStep = () => {
             {phase.type === 'group' ? (
               <>
                 <div className="flex flex-col gap-2">
-                  <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+                  <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
                     Rondas
                   </p>
                   <SegmentedControl
@@ -104,7 +106,7 @@ const TournamentPhasesStep = () => {
                   value={phase.gamesToWinMatch}
                 />
                 <div className="flex flex-col gap-2">
-                  <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+                  <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
                     Desempate
                   </p>
                   <SegmentedControl

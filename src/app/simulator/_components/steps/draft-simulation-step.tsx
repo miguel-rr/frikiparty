@@ -47,10 +47,10 @@ const DraftSimulationStep = () => {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-2xl uppercase tracking-tight">
+        <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
           Draft
         </h2>
-        <p className="font-mono text-muted text-xs">
+        <p className="font-mono text-(--faded) text-xs">
           Pick {draft.picks.length} / {draft.turnQueue.length}
         </p>
       </div>
@@ -60,7 +60,7 @@ const DraftSimulationStep = () => {
       ) : (
         <p className="text-sm">
           Turno de{' '}
-          <span className="font-bold text-amber">
+          <span className="font-bold text-(--gold)">
             {getPlayerName(currentCaptain ?? '')}
           </span>
         </p>
@@ -73,8 +73,8 @@ const DraftSimulationStep = () => {
               <button
                 className={`rounded-full px-4 py-2 font-semibold text-sm ring-1 transition-colors ${
                   selectedPot === potIndex
-                    ? 'bg-amber text-ground ring-amber'
-                    : 'bg-panel-2 ring-hair hover:bg-hair'
+                    ? 'bg-(--gold) text-[#211803] ring-(--gold)'
+                    : 'bg-(--panel-2) ring-(--hair) hover:bg-(--hair)'
                 }`}
                 key={potIndex}
                 onClick={() => setSelectedPot(potIndex)}
@@ -104,7 +104,7 @@ const DraftSimulationStep = () => {
       <div className="grid gap-3 sm:grid-cols-2">
         {captainIds.map((captainId) => (
           <div
-            className="flex flex-col gap-2 rounded-xl bg-panel-2/60 p-3 ring-1 ring-hair"
+            className="flex flex-col gap-2 rounded-xl bg-(--panel-2)/60 p-3 ring-(--hair) ring-1"
             key={captainId}
           >
             <PlayerChip name={getPlayerName(captainId)} />

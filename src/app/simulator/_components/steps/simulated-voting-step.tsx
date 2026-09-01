@@ -2,6 +2,7 @@
 
 import { useSimulator } from '@/app/simulator/_components/simulator-context';
 import { WizardNav } from '@/app/simulator/_components/ui/wizard-nav';
+import { btn } from '@/components/theme/primitives';
 import {
   combineBallotsToRanking,
   combineRankings,
@@ -38,16 +39,16 @@ const SimulatedVotingStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Votación
       </h2>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         Cada participante ordena al resto de mejor a peor. Como esto es un
         simulador de un solo usuario, las papeletas se generan automáticamente.
       </p>
 
       <button
-        className="self-start rounded-full bg-panel-2 px-5 py-2.5 font-semibold text-sm ring-1 ring-hair transition-colors hover:bg-hair"
+        className={`${btn.secondary} self-start px-5 py-2 text-sm`}
         onClick={() => dispatch({ type: 'GENERATE_BALLOTS' })}
         type="button"
       >
@@ -58,10 +59,10 @@ const SimulatedVotingStep = () => {
         <ol className="flex flex-col gap-1.5">
           {preview.map((playerId, index) => (
             <li
-              className="flex items-center gap-3 rounded-lg bg-panel-2 px-3 py-2 text-sm ring-1 ring-hair"
+              className="flex items-center gap-3 rounded-lg bg-(--panel-2) px-3 py-2 text-sm ring-(--hair) ring-1"
               key={playerId}
             >
-              <span className="w-6 font-mono text-muted text-xs">
+              <span className="w-6 font-mono text-(--faded) text-xs">
                 {index + 1}
               </span>
               <span className="font-semibold">{getPlayerName(playerId)}</span>

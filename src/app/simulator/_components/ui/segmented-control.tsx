@@ -1,5 +1,7 @@
 'use client';
 
+import { btn } from '@/components/theme/primitives';
+
 type SegmentedControlOption<T extends string> = {
   value: T;
   label: string;
@@ -19,11 +21,9 @@ const SegmentedControl = <T extends string>({
   <div className="flex flex-wrap gap-2">
     {options.map((option) => (
       <button
-        className={`rounded-full px-4 py-2 font-semibold text-sm ring-1 transition-colors ${
-          value === option.value
-            ? 'bg-amber text-ground ring-amber'
-            : 'bg-panel-2 text-ink ring-hair hover:bg-hair'
-        }`}
+        className={`${
+          value === option.value ? btn.primary : btn.secondary
+        } px-4 py-1.5 text-sm`}
         key={option.value}
         onClick={() => onChange(option.value)}
         type="button"

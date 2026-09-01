@@ -32,10 +32,10 @@ const EditableRankedList = ({
       {playerIds.map((playerId, index) => {
         return (
           <li
-            className="flex items-center gap-3 rounded-lg bg-panel-2 px-3 py-2 ring-1 ring-hair"
+            className="flex items-center gap-3 rounded-lg bg-(--panel-2) px-3 py-2 ring-(--hair) ring-1"
             key={playerId}
           >
-            <span className="w-6 shrink-0 font-mono text-muted text-xs">
+            <span className="w-6 shrink-0 font-mono text-(--faded) text-xs">
               {index + 1}
             </span>
             <span className="flex-1 font-semibold text-sm">
@@ -43,7 +43,7 @@ const EditableRankedList = ({
             </span>
             <div className="flex gap-1">
               <button
-                className="grid size-6 place-items-center rounded-full bg-panel font-bold text-xs ring-1 ring-hair transition-colors hover:bg-hair disabled:opacity-30"
+                className="grid size-6 place-items-center rounded-full bg-(--panel) font-bold text-xs ring-(--hair) ring-1 transition-colors hover:bg-(--hair) disabled:opacity-30"
                 disabled={index === 0}
                 onClick={() => move(index, -1)}
                 type="button"
@@ -51,7 +51,7 @@ const EditableRankedList = ({
                 ↑
               </button>
               <button
-                className="grid size-6 place-items-center rounded-full bg-panel font-bold text-xs ring-1 ring-hair transition-colors hover:bg-hair disabled:opacity-30"
+                className="grid size-6 place-items-center rounded-full bg-(--panel) font-bold text-xs ring-(--hair) ring-1 transition-colors hover:bg-(--hair) disabled:opacity-30"
                 disabled={index === playerIds.length - 1}
                 onClick={() => move(index, 1)}
                 type="button"

@@ -13,6 +13,8 @@ import { createTable } from '@/server/db/schema/create-table';
 const venue = createTable('venue', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: text('name').notNull(),
+  /** URL identity for /venues/<slug>; derived from the name (see lib/slug). */
+  slug: text('slug').notNull().unique(),
   mapsUrl: text('maps_url'),
   /** Representative photo of the house (one per venue, like mapsUrl). */
   photoUrl: text('photo_url'),

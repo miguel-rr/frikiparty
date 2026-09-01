@@ -18,10 +18,10 @@ const TournamentParticipantsStep = () => {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-2xl uppercase tracking-tight">
+        <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
           Participantes
         </h2>
-        <p className="font-mono text-muted text-xs">
+        <p className="font-mono text-(--faded) text-xs">
           {state.participantIds.length} jugadores
         </p>
       </div>
@@ -34,8 +34,8 @@ const TournamentParticipantsStep = () => {
               <label
                 className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm ring-1 transition-colors ${
                   checked
-                    ? 'bg-panel-2 ring-hair'
-                    : 'bg-panel-2/40 text-muted ring-hair/50'
+                    ? 'bg-(--panel-2) ring-(--hair)'
+                    : 'bg-(--panel-2)/40 text-(--faded) ring-(--hair)/50'
                 }`}
               >
                 <span className="font-semibold">{player.name}</span>
@@ -52,7 +52,7 @@ const TournamentParticipantsStep = () => {
       </ul>
 
       {state.participantIds.length < MIN_PARTICIPANTS ? (
-        <p className="text-foe text-xs">
+        <p className="text-(--ember) text-xs">
           Hacen falta al menos {MIN_PARTICIPANTS} jugadores.
         </p>
       ) : null}

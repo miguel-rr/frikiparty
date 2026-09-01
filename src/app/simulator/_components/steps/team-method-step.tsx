@@ -39,7 +39,7 @@ const TeamMethodStep = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="font-display text-2xl uppercase tracking-tight">
+      <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
         Formación de equipos
       </h2>
 
@@ -48,8 +48,8 @@ const TeamMethodStep = () => {
           <button
             className={`flex flex-col gap-1.5 rounded-xl p-4 text-left ring-1 transition-colors ${
               state.teamFormationMethod === method.value
-                ? 'bg-panel-2 ring-amber'
-                : 'bg-panel-2/60 ring-hair hover:bg-panel-2'
+                ? 'bg-(--panel-2) ring-(--gold)'
+                : 'bg-(--panel-2)/60 ring-(--hair) hover:bg-(--panel-2)'
             }`}
             key={method.value}
             onClick={() =>
@@ -58,7 +58,7 @@ const TeamMethodStep = () => {
             type="button"
           >
             <span className="font-bold text-sm">{method.title}</span>
-            <span className="text-muted text-xs leading-relaxed">
+            <span className="text-(--faded) text-xs leading-relaxed">
               {method.description}
             </span>
           </button>

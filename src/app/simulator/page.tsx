@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { SimulatorApp } from '@/app/simulator/_components/simulator-app';
+import { SiteShell } from '@/components/layout/site-shell';
 import { api } from '@/trpc/server';
 
 export const metadata: Metadata = {
@@ -11,7 +12,11 @@ export const metadata: Metadata = {
 
 const SimulatorPage = async () => {
   const players = await api.player.list();
-  return <SimulatorApp players={players} />;
+  return (
+    <SiteShell footerNote="Simulador: nada de lo que pase aquí se guarda.">
+      <SimulatorApp players={players} />
+    </SiteShell>
+  );
 };
 
 export default SimulatorPage;

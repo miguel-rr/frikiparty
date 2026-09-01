@@ -1,5 +1,6 @@
 'use client';
 
+import { btn } from '@/components/theme/primitives';
 import { getMinNextBid } from '@/lib/tournament/auction';
 import type { AuctionState } from '@/lib/tournament/types';
 
@@ -18,7 +19,7 @@ const BidControls = ({ auction, disabled, onBid }: BidControlsProps) => {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <button
-        className="rounded-full bg-amber px-4 py-2 font-extrabold text-ground text-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        className={`${btn.primary} px-4 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-40`}
         disabled={disabled}
         onClick={() => onBid(minBid)}
         type="button"
@@ -27,7 +28,7 @@ const BidControls = ({ auction, disabled, onBid }: BidControlsProps) => {
       </button>
       {RAISES.map((raise) => (
         <button
-          className="rounded-full bg-panel-2 px-4 py-2 font-bold text-sm ring-1 ring-hair transition-colors hover:bg-hair disabled:cursor-not-allowed disabled:opacity-40"
+          className={`${btn.secondary} px-4 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-40`}
           disabled={disabled}
           key={raise}
           onClick={() => onBid(base + raise)}

@@ -21,14 +21,14 @@ const CaptainsConfigStep = () => {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-2xl uppercase tracking-tight">
+        <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
           Capitanes
         </h2>
-        <p className="font-mono text-muted text-xs">
+        <p className="font-mono text-(--faded) text-xs">
           {captainIds.length} / {teamCount}
         </p>
       </div>
-      <p className="text-muted text-sm">
+      <p className="text-(--faded) text-sm">
         Por defecto son los jugadores del bombo 1 (cabezas de serie). Puedes
         cambiarlos, pero tiene que haber exactamente uno por equipo.
       </p>
@@ -39,7 +39,7 @@ const CaptainsConfigStep = () => {
           // biome-ignore lint/suspicious/noArrayIndexKey: pot tiers are positionally fixed, only their members move.
           key={`pot-${potIndex}`}
         >
-          <p className="font-mono text-[0.6rem] text-muted uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
             Bombo {potIndex + 1}
           </p>
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -50,8 +50,8 @@ const CaptainsConfigStep = () => {
                   <label
                     className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm ring-1 transition-colors ${
                       checked
-                        ? 'bg-panel-2 ring-amber'
-                        : 'bg-panel-2/40 ring-hair'
+                        ? 'bg-(--panel-2) ring-(--gold)'
+                        : 'bg-(--panel-2)/40 ring-(--hair)'
                     }`}
                   >
                     <span className="font-semibold">
