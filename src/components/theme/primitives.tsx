@@ -380,6 +380,7 @@ export {
   rarityForPosition,
   Section,
   SectionHeader,
+  SHIELD_PATH,
   tag,
   td,
   th,

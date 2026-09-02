@@ -77,12 +77,15 @@ const TeamSide = ({
 const BracketBoard = ({
   footer,
   rounds,
+  showChampions = true,
   teams,
   title,
   tagText,
 }: {
   footer?: string;
   rounds: BracketRound[];
+  /** Off when a champions banner already crowns the page (redundant). */
+  showChampions?: boolean;
   teams: BracketTeam[];
   title?: string;
   tagText?: string;
@@ -145,7 +148,7 @@ const BracketBoard = ({
               ))}
             </div>
           ))}
-          {champions ? (
+          {showChampions && champions ? (
             <div className="flex flex-col items-center gap-3">
               <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
                 Campeones

@@ -253,75 +253,116 @@ const FinalFaceoff = ({
 };
 
 /** The team final rendered partida a partida with the shared MatchGames. */
-const TeamFinalPanel = ({
+/**
+ * "Campeones de la edición" strip: laurel, winning team, who fell in the
+ * final and the score when partidas are recorded. The final panel uses it
+ * as its header; the bracket shows it standalone on top, so the champion
+ * is visible without scrolling the rounds (a real issue on mobile).
+ */
+/** The team's players, linked, with anonymous seats kept visible. */
+const TeamNames = ({ team }: { team: EditionTeam | undefined }) => (
+  <>
+    {(team?.players ?? []).map((player, index) => (
+      <span key={player.slug ?? `unknown-${index}`}>
+        {index > 0 ? ' · ' : null}
+        {player.name && player.slug ? (
+          <Link
+            className="transition-colors hover:text-(--gold-hi)"
+            href={`/players/${player.slug}`}
+          >
+            {player.name}
+          </Link>
+        ) : (
+          <span className="text-(--faded) italic">Desconocido</span>
+        )}
+      </span>
+    ))}
+  </>
+);
+
+/**
+ * The one champions header every edition shares: laurel, the winning
+ * players themselves (a team IS its players), and — when the final is on
+ * record — who fell in it and the score. Editions where only the champion
+ * survived in the annals render just the first half.
+ */
+const ChampionsBanner = ({
+  champions,
   final,
   teams,
 }: {
-  final: EditionFinal;
+  champions: EditionTeam;
+  final?: EditionFinal | null;
   teams: EditionTeam[];
 }) => {
-  const teamA = teams.find((team) => team.id === final.teamAId);
-  const teamB = teams.find((team) => team.id === final.teamBId);
-  const winsA = final.games.filter(
-    (game) => game.winnerTeamId === final.teamAId,
-  ).length;
-  const winsB = final.games.filter(
-    (game) => game.winnerTeamId === final.teamBId,
-  ).length;
-  const games: GameView[] = final.games.map((game) => ({
-    sideA: (teamA?.players ?? []).map((player) => ({ name: player.name })),
-    sideB: (teamB?.players ?? []).map((player) => ({ name: player.name })),
+  const wins = (teamId: string | null) =>
+    final?.games.filter((game) => game.winnerTeamId === teamId).length ?? 0;
+  const winnerIsA = final?.winnerTeamId === final?.teamAId;
+  const loser = final
+    ? teams.find(
+        (team) => team.id === (winnerIsA ? final.teamBId : final.teamAId),
+      )
+    : undefined;
+  const winnerWins = final
+    ? wins(winnerIsA ? final.teamAId : final.teamBId)
+    : 0;
+  const loserWins = final ? wins(winnerIsA ? final.teamBId : final.teamAId) : 0;
+  return (
+    <div className={`${panelGold} px-5 py-4`}>
+      <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:gap-x-6 sm:text-left">
+        <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+          <svg
+            aria-hidden="true"
+            className="size-11 flex-none drop-shadow-[0_0_10px_rgba(201,165,87,0.5)]"
+            viewBox="0 0 512 512"
+          >
+            <path d={RANK_MOTIFS.bronze} fill="url(#dsn-blazon-rim)" />
+          </svg>
+          <div className="flex flex-col items-center gap-0.5 sm:items-start">
+            <span className="font-bold font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.22em]">
+              Campeones de la edición
+            </span>
+            <span className="d-display d-gold-text font-black text-xl tracking-wide sm:text-2xl">
+              <TeamNames team={champions} />
+            </span>
+            {loser ? (
+              <span className="text-(--faded) text-sm">
+                vencieron en la final a <TeamNames team={loser} />
+              </span>
+            ) : null}
+          </div>
+        </div>
+        {/* The score is the count of partidas won: with no partida record
+            (older editions) there's nothing to show. */}
+        {final && final.games.length > 0 ? (
+          <div className="d-display d-gold-text font-black text-5xl tracking-wide">
+            {winnerWins} – {loserWins}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+
+/**
+ * The final's partidas as MatchGames rows. The champions always take the
+ * left side, so the running score reads towards the header's result.
+ */
+const finalGames = (final: EditionFinal, teams: EditionTeam[]): GameView[] => {
+  const leftId = final.winnerTeamId ?? final.teamAId;
+  const rightId = leftId === final.teamAId ? final.teamBId : final.teamAId;
+  const left = teams.find((team) => team.id === leftId);
+  const right = teams.find((team) => team.id === rightId);
+  return final.games.map((game) => ({
+    sideA: (left?.players ?? []).map((player) => ({ name: player.name })),
+    sideB: (right?.players ?? []).map((player) => ({ name: player.name })),
     winner:
-      game.winnerTeamId === final.teamAId
+      game.winnerTeamId === leftId
         ? 'A'
-        : game.winnerTeamId === final.teamBId
+        : game.winnerTeamId === rightId
           ? 'B'
           : null,
   }));
-  const winnerIsA = final.winnerTeamId === final.teamAId;
-  const winner = winnerIsA ? teamA : teamB;
-  const loser = winnerIsA ? teamB : teamA;
-  const winnerWins = winnerIsA ? winsA : winsB;
-  const loserWins = winnerIsA ? winsB : winsA;
-  return (
-    <MatchPanel
-      games={games}
-      header={
-        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:gap-x-6 sm:text-left">
-          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
-            <svg
-              aria-hidden="true"
-              className="size-11 flex-none drop-shadow-[0_0_10px_rgba(201,165,87,0.5)]"
-              viewBox="0 0 512 512"
-            >
-              <path d={RANK_MOTIFS.bronze} fill="url(#dsn-blazon-rim)" />
-            </svg>
-            <div className="flex flex-col items-center gap-0.5 sm:items-start">
-              <span className="font-bold font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.22em]">
-                Campeones de la edición
-              </span>
-              <span className="d-display d-gold-text font-black text-2xl tracking-wide sm:text-3xl">
-                {teamHandle(winner)}
-              </span>
-              <span className="text-(--faded) text-sm">
-                venció en la final al{' '}
-                {captainOf(loser)
-                  ? `equipo de ${captainOf(loser)?.name}`
-                  : 'equipo rival'}
-              </span>
-            </div>
-          </div>
-          {/* The score is the count of partidas won: with no partida record
-              (older editions) there's nothing to show. */}
-          {final.games.length > 0 ? (
-            <div className="d-display d-gold-text font-black text-5xl tracking-wide">
-              {winnerWins} – {loserWins}
-            </div>
-          ) : null}
-        </div>
-      }
-    />
-  );
 };
 
 /**
@@ -448,6 +489,9 @@ const EditionPage = async ({ params }: PageProps) => {
   const individualTournament = edition.individualTournament;
   const hasRoster = (teamTournament?.teams.length ?? 0) > 1;
   const teamRounds = teamTournament?.rounds ?? [];
+  const teamChampions = teamTournament?.teams.find(
+    (team) => team.finalPosition === 1,
+  );
   const teamFinal = finalOf(teamRounds);
   const individualRounds = individualTournament?.rounds ?? [];
   const individualFinal = finalOf(individualRounds);
@@ -498,28 +542,47 @@ const EditionPage = async ({ params }: PageProps) => {
             </div>
           </div>
 
-          {teamTournament && hasRoster && teamFinal ? (
+          {/* Always the same march, whatever each edition remembers:
+              champions → final → bracket → (group phase, when it exists) →
+              teams → pots → individual championship. */}
+          {teamTournament && teamChampions ? (
             <div className="flex flex-col gap-5">
               <span className={label}>
-                <RingGlyph size={13} />{' '}
-                {isBracket(teamRounds)
-                  ? 'Las eliminatorias'
-                  : 'La final por equipos'}
+                <RingGlyph size={13} /> Campeonato por equipos
               </span>
-              {isBracket(teamRounds) ? (
-                <BracketBoard
-                  rounds={bracketRounds(teamRounds)}
-                  tagText={bracketFormat(teamRounds)}
-                  teams={bracketTeams(teamTournament.teams)}
-                />
-              ) : (
-                <TeamFinalPanel
-                  final={teamFinal}
-                  teams={teamTournament.teams}
-                />
-              )}
+              <ChampionsBanner
+                champions={teamChampions}
+                final={teamFinal}
+                teams={teamTournament.teams}
+              />
             </div>
           ) : null}
+
+          {teamTournament && teamFinal && teamFinal.games.length > 0 ? (
+            <div className="flex flex-col gap-5">
+              <span className={label}>
+                <RingGlyph size={13} /> La final
+              </span>
+              <MatchPanel games={finalGames(teamFinal, teamTournament.teams)} />
+            </div>
+          ) : null}
+
+          {teamTournament && isBracket(teamRounds) ? (
+            <div className="flex flex-col gap-5">
+              <span className={label}>
+                <RingGlyph size={13} /> Las eliminatorias
+              </span>
+              <BracketBoard
+                rounds={bracketRounds(teamRounds)}
+                showChampions={false}
+                tagText={bracketFormat(teamRounds)}
+                teams={bracketTeams(teamTournament.teams)}
+              />
+            </div>
+          ) : null}
+
+          {/* "La fase de grupos" slots in here once group-stage data exists
+              (2026 onwards): same label pattern, league table component. */}
 
           {hasRoster && teamTournament ? (
             <div className="flex flex-col gap-5">
@@ -570,21 +633,10 @@ const EditionPage = async ({ params }: PageProps) => {
             </div>
           ) : null}
 
-          {!hasRoster && teamTournament?.teams[0] ? (
-            <div className="mx-auto w-full max-w-md">
-              <TeamPanel team={teamTournament.teams[0]} />
-            </div>
-          ) : null}
-
           {individualTournament && individualChampionTeam ? (
             <div className="flex flex-col gap-5">
               <span className={label}>
-                <RingGlyph size={11} tone="solitaire" />{' '}
-                {isBracket(individualRounds)
-                  ? 'Las eliminatorias individuales'
-                  : individualFinal
-                    ? 'La final individual'
-                    : 'El torneo individual'}
+                <RingGlyph size={11} tone="solitaire" /> Campeonato individual
               </span>
               {isBracket(individualRounds) ? (
                 <BracketBoard

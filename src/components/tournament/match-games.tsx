@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { panel } from '@/components/theme/primitives';
-import { RANK_MOTIFS } from '@/components/tournament/honor-podium';
+import { panel, RingGlyph, SHIELD_PATH } from '@/components/theme/primitives';
 import { FACTIONS, type FactionId } from '@/lib/tournament/factions';
 
 /**
@@ -33,46 +32,109 @@ const FactionEmblem = ({ id, size = 44 }: { id: FactionId; size?: number }) => (
   </svg>
 );
 
-/** Victory laurels (the podium's laurel motif, struck in gold). */
-const VictoryLaurel = ({ mirrored }: { mirrored: boolean }) => (
+/**
+ * One team's side of a partida, crowned by an endgame-style VICTORIA /
+ * DERROTA banner (the way the game itself calls it); on mobile the running
+ * score rides the winner's banner line. The decisive partida — the one
+ * that closes the final — gets the loud treatment: bigger VICTORIA and a
+ * solid-gold score. Boxed on sm+; flat inside the mobile partida card.
+ */
+/** The deciding score, borne on the same escutcheon the players carry. */
+const ScoreBlazon = ({ score }: { score: string }) => (
   <svg
-    aria-hidden="true"
-    className={`absolute -top-2.5 size-7 drop-shadow-[0_0_8px_rgba(201,165,87,0.6)] ${
-      mirrored ? '-left-2.5' : '-right-2.5'
-    }`}
-    viewBox="0 0 512 512"
+    aria-label={score}
+    className="w-9 flex-none drop-shadow-[0_0_10px_rgba(201,165,87,0.45)]"
+    role="img"
+    viewBox="0 0 100 116"
   >
-    <title>Vencedor de la partida</title>
-    <path d={RANK_MOTIFS.bronze} fill="url(#dsn-blazon-rim)" />
+    <path
+      d={SHIELD_PATH}
+      fill="url(#dsn-blazon-field)"
+      stroke="url(#dsn-blazon-rim)"
+      strokeWidth="5"
+    />
+    <text
+      fill="var(--gold-hi)"
+      fontFamily="var(--font-jetbrains), monospace"
+      fontSize="34"
+      fontWeight="700"
+      textAnchor="middle"
+      x="50"
+      y="70"
+    >
+      {score.replace(/\s/g, '')}
+    </text>
   </svg>
 );
 
-/**
- * One team's side of a partida: every player with the faction THEY fielded
- * (factions belong to players, not teams — see .claude/core-logic.md),
- * when it's known.
- */
 const GameSide = ({
+  decisive = false,
   mirrored = false,
   players,
+  score,
   winner,
 }: {
+  /** This partida settled the match. */
+  decisive?: boolean;
   mirrored?: boolean;
   players: GameSidePlayer[];
+  /** Running score chip, shown on this side's banner (mobile only). */
+  score?: string;
   winner: boolean;
 }) => (
   <div
-    className={`relative rounded-lg border p-4 ${
+    className={`relative rounded-md p-3.5 sm:rounded-lg sm:border sm:p-4 ${
       winner
-        ? `border-(--gold) shadow-[0_0_16px_rgba(201,165,87,0.14)] ${
+        ? `sm:border-(--gold) sm:shadow-[0_0_16px_rgba(201,165,87,0.14)] ${
             mirrored
               ? 'bg-linear-to-l from-[#c9a55724] to-transparent'
               : 'bg-linear-to-r from-[#c9a55724] to-transparent'
           }`
-        : 'border-(--hair) bg-(--night-2) opacity-55 saturate-50'
+        : 'opacity-55 saturate-50 sm:border-(--hair) sm:bg-(--night-2)'
     }`}
   >
-    {winner ? <VictoryLaurel mirrored={mirrored} /> : null}
+    <div className="mb-2.5 flex items-center gap-2.5">
+      <span
+        aria-hidden
+        className={`h-px flex-1 ${winner ? 'bg-(--hair-gold)' : 'bg-(--hair)'}`}
+      />
+      {winner && decisive ? (
+        <span className="hidden sm:block">
+          <RingGlyph size={15} />
+        </span>
+      ) : null}
+      <span
+        className={`d-display font-black uppercase ${
+          winner
+            ? decisive
+              ? 'd-gold-text text-base tracking-[0.35em] drop-shadow-[0_0_12px_rgba(240,212,138,0.5)] sm:text-lg'
+              : 'd-gold-text text-sm tracking-[0.35em] drop-shadow-[0_0_10px_rgba(201,165,87,0.4)]'
+            : 'text-(--silver) text-sm tracking-[0.35em]'
+        }`}
+      >
+        {winner ? 'Victoria' : 'Derrota'}
+      </span>
+      {winner && decisive ? (
+        <span className="hidden sm:block">
+          <RingGlyph size={15} />
+        </span>
+      ) : null}
+      {score ? (
+        decisive ? (
+          <span className="sm:hidden">
+            <ScoreBlazon score={score} />
+          </span>
+        ) : (
+          <span className="whitespace-nowrap rounded-full border border-(--hair-gold) bg-(--night) px-2.5 py-0.5 font-bold font-mono text-(--gold) text-[0.65rem] tabular-nums tracking-[0.15em] sm:hidden">
+            {score}
+          </span>
+        )
+      ) : null}
+      <span
+        aria-hidden
+        className={`h-px flex-1 ${winner ? 'bg-(--hair-gold)' : 'bg-(--hair)'}`}
+      />
+    </div>
     <ul className="flex flex-col gap-2">
       {players.map((player, index) => (
         <li
@@ -106,26 +168,58 @@ const GameSide = ({
   </div>
 );
 
-const MatchGames = ({ games }: { games: GameView[] }) => (
-  <ol className="flex flex-col gap-8 p-5 sm:gap-4">
-    {games.map((game, index) => (
-      <li
-        className="grid grid-cols-1 items-stretch gap-2.5 sm:grid-cols-[1fr_auto_1fr] sm:gap-4"
-        key={`partida-${String(index)}`}
-      >
-        <GameSide players={game.sideA} winner={game.winner === 'A'} />
-        {/* Mobile: header of the pair (rules either side); sm+: center column */}
-        <div className="order-first flex items-center justify-center gap-3 font-bold font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.2em] sm:order-none sm:w-16 sm:flex-col sm:gap-1">
-          <span aria-hidden className="h-px flex-1 bg-(--hair) sm:hidden" />
-          <span>Partida</span>
-          <span className="text-(--gold) text-sm">{index + 1}</span>
-          <span aria-hidden className="h-px flex-1 bg-(--hair) sm:hidden" />
-        </div>
-        <GameSide mirrored players={game.sideB} winner={game.winner === 'B'} />
-      </li>
-    ))}
-  </ol>
-);
+const MatchGames = ({ games }: { games: GameView[] }) => {
+  // Running score after each partida — it rides the winner's banner on
+  // mobile and the centre column on sm+, telling the story ("0–1, 1–1,
+  // 2–1") instead of just numbering the games. The last decided partida
+  // is the one that closes the match: its VICTORIA and score go loud.
+  let winsA = 0;
+  let winsB = 0;
+  const rows = games.map((game) => {
+    winsA += game.winner === 'A' ? 1 : 0;
+    winsB += game.winner === 'B' ? 1 : 0;
+    return { game, score: `${winsA} – ${winsB}` };
+  });
+  return (
+    <ol className="flex flex-col gap-7 p-5 sm:gap-4">
+      {/* Mobile: each partida is its own card. sm+: the classic
+          three-column row (side, score, side) with no extra chrome. */}
+      {rows.map(({ game, score }, index) => {
+        const decisive =
+          index === rows.length - 1 && game.winner !== null && rows.length > 1;
+        return (
+          <li
+            className="relative grid grid-cols-1 items-stretch gap-1.5 rounded-lg border border-(--hair) bg-[#0c120e80] px-2.5 py-2.5 sm:grid-cols-[1fr_auto_1fr] sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0"
+            key={`partida-${String(index)}`}
+          >
+            <GameSide
+              decisive={decisive}
+              players={game.sideA}
+              score={game.winner === 'A' ? score : undefined}
+              winner={game.winner === 'A'}
+            />
+            <div
+              className={`hidden tabular-nums sm:flex sm:w-16 sm:items-center sm:justify-center sm:self-stretch ${
+                decisive
+                  ? 'd-display d-gold-text font-black text-xl tracking-wide drop-shadow-[0_0_10px_rgba(240,212,138,0.45)]'
+                  : 'font-bold font-mono text-(--gold) text-sm'
+              }`}
+            >
+              {score}
+            </div>
+            <GameSide
+              decisive={decisive}
+              mirrored
+              players={game.sideB}
+              score={game.winner === 'B' ? score : undefined}
+              winner={game.winner === 'B'}
+            />
+          </li>
+        );
+      })}
+    </ol>
+  );
+};
 
 /**
  * Panel wrapper for a match: a dynamic header slot (each page composes its
@@ -139,10 +233,13 @@ const MatchPanel = ({
 }: {
   footer?: ReactNode;
   games: GameView[];
-  header: ReactNode;
+  /** Optional: pages with their own section label above skip it. */
+  header?: ReactNode;
 }) => (
   <div className={`${panel} flex flex-col`}>
-    <div className="border-(--hair) border-b px-5 py-4">{header}</div>
+    {header ? (
+      <div className="border-(--hair) border-b px-5 py-4">{header}</div>
+    ) : null}
     {/* Historical matches may have a known winner but no partida record. */}
     {games.length > 0 ? <MatchGames games={games} /> : null}
     {footer ? (
