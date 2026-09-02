@@ -58,7 +58,7 @@ const HomeChampions = ({
   return (
     <Section id="champions">
       <RingDivider />
-      <SectionHeader title="Los Portadores de los Anillos" />
+      <SectionHeader title="Los Portadores del Anillo" />
       <div className="flex flex-col items-center gap-9">
         <div className="relative isolate w-full">
           {/* The Ring, faint behind the hand */}
