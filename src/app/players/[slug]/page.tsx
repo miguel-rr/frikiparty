@@ -99,26 +99,28 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
               ownerUserId={player.ownerUserId}
               pinnedLore={Boolean(player.cardAbility)}
               rings={player.rings}
-            >
-              <div className="flex flex-col gap-3">
-                {player.position !== null ? (
+              stats={
+                <div className="flex flex-col gap-3">
+                  {player.position !== null ? (
+                    <StatRow
+                      text={`Nº ${player.position} del escalafón histórico`}
+                    >
+                      <Gem rarity={rarityForPosition(player.position)} />
+                    </StatRow>
+                  ) : null}
                   <StatRow
-                    text={`Nº ${player.position} del escalafón histórico`}
+                    text={`${player.rings} ${player.rings === 1 ? 'anillo' : 'anillos'} por equipos`}
                   >
-                    <Gem rarity={rarityForPosition(player.position)} />
+                    <RingGlyph size={15} />
                   </StatRow>
-                ) : null}
-                <StatRow
-                  text={`${player.rings} ${player.rings === 1 ? 'anillo' : 'anillos'} por equipos`}
-                >
-                  <RingGlyph size={15} />
-                </StatRow>
-                <StatRow
-                  text={`${player.individualRings} ${player.individualRings === 1 ? 'anillo individual' : 'anillos individuales'}`}
-                >
-                  <RingGlyph size={12} tone="solitaire" />
-                </StatRow>
-              </div>
+                  <StatRow
+                    text={`${player.individualRings} ${player.individualRings === 1 ? 'anillo individual' : 'anillos individuales'}`}
+                  >
+                    <RingGlyph size={12} tone="solitaire" />
+                  </StatRow>
+                </div>
+              }
+            >
               {player.titles.length > 0 ? (
                 <div className="flex flex-col gap-3">
                   <span className={tag}>Palmarés</span>

@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 import { HomeAwaitingHero } from '@/app/_components/home-hero';
+import { BioFrames } from '@/app/design/_components/bio-frames';
 import { CardGallery } from '@/app/design/_components/card-gallery';
 import { Champions } from '@/app/design/_components/champions';
 import { Contest } from '@/app/design/_components/contest';
@@ -56,6 +57,7 @@ const DesignPage = () => (
     <Ranking />
     <Divider />
     <Council />
+    <BioFrames />
     <Divider />
     <Contest />
     <MatchDetail />
