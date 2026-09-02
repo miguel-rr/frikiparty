@@ -9,7 +9,10 @@ import {
   RingLegend,
 } from '@/components/tournament/ranking-table';
 import { siteFlags } from '@/lib/site-flags';
-import { getHistoricalRanking } from '@/server/api/routers/player';
+import {
+  getHistoricalRanking,
+  listRingTitles,
+} from '@/server/api/routers/player';
 import { db } from '@/server/db';
 
 export const metadata: Metadata = { title: 'Ranking — Frikiparty' };
@@ -18,7 +21,14 @@ const RankingPage = async () => {
   if (!siteFlags.rankingPage) {
     notFound();
   }
-  const ranking = await getHistoricalRanking(db);
+  const [ranking, ringTitles] = await Promise.all([
+    getHistoricalRanking(db),
+    listRingTitles(db),
+  ]);
+  const rows = ranking.map((player) => ({
+    ...player,
+    titles: ringTitles.get(player.id) ?? [],
+  }));
 
   return (
     <SiteShell>
@@ -32,7 +42,7 @@ const RankingPage = async () => {
           {ranking.length > 0 ? (
             <>
               <HonorPodium players={ranking} />
-              <RankingTable players={ranking} />
+              <RankingTable players={rows} />
               <RingLegend />
             </>
           ) : (

@@ -167,6 +167,78 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
   };
 };
 
+const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
+
+/** One won ring, with everything the ranking tooltip needs. */
+type RingTitle = {
+  type: 'team' | 'individual';
+  /** "2025" or "2013 · II". */
+  label: string;
+  /** Edition page slug: "2025" or "2013-2". */
+  slug: string;
+  venueName: string | null;
+  /** Winning roster, unknown seats as '???'. */
+  members: string[];
+};
+
+type RingTitleRow = {
+  player_id: string;
+  year: number;
+  order: number;
+  venue_name: string | null;
+  team_size: number;
+  members: string[];
+};
+
+/**
+ * Every ring ever won, per player, oldest first — so the nth team ring in
+ * a player's count is the nth entry here. Pure query for the static
+ * ranking page.
+ */
+const listRingTitles = async (
+  db: typeof Db,
+): Promise<Map<string, RingTitle[]>> => {
+  const rows = (await db.execute(sql`
+    SELECT
+      tm.player_id, e.year, e."order",
+      v.name AS venue_name,
+      (
+        SELECT count(*)::int FROM frikiparty_team_member tm2
+        WHERE tm2.team_id = tm.team_id
+      ) AS team_size,
+      (
+        SELECT array_agg(coalesce(p2.name, '???') ORDER BY p2.name)
+        FROM frikiparty_team_member tm3
+        LEFT JOIN frikiparty_player p2 ON p2.id = tm3.player_id
+        WHERE tm3.team_id = tm.team_id
+      ) AS members
+    FROM frikiparty_team_member tm
+    JOIN frikiparty_team t ON t.id = tm.team_id
+    JOIN frikiparty_tournament tr ON tr.id = tm.tournament_id
+    JOIN frikiparty_edition e ON e.id = tr.edition_id
+    LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
+    WHERE tm.player_id IS NOT NULL AND t.final_position = 1
+    ORDER BY e.year ASC, e."order" ASC
+  `)) as unknown as RingTitleRow[];
+
+  const byPlayer = new Map<string, RingTitle[]>();
+  for (const row of rows) {
+    const titles = byPlayer.get(row.player_id) ?? [];
+    titles.push({
+      type: row.team_size > 1 ? 'team' : 'individual',
+      label:
+        row.order > 1
+          ? `${row.year} · ${ROMAN_ORDINALS[row.order - 1] ?? row.order}`
+          : String(row.year),
+      slug: row.order > 1 ? `${row.year}-${row.order}` : String(row.year),
+      venueName: row.venue_name,
+      members: row.members,
+    });
+    byPlayer.set(row.player_id, titles);
+  }
+  return byPlayer;
+};
+
 /** Pure queries (no session) so pages can be built statically. */
 const listPlayers = (db: TRPCContext['db']) =>
   db
@@ -249,4 +321,11 @@ const playerRouter = createTRPCRouter({
     }),
 });
 
-export { getHistoricalRanking, getPlayerProfile, listPlayers, playerRouter };
+export {
+  getHistoricalRanking,
+  getPlayerProfile,
+  listPlayers,
+  listRingTitles,
+  playerRouter,
+  type RingTitle,
+};

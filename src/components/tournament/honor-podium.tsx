@@ -1,6 +1,11 @@
+import Link from 'next/link';
 import { RACE_EMBLEMS } from '@/components/theme/emblems';
 import { RingGlyph } from '@/components/theme/primitives';
+
 import type { RankedPlayer } from '@/lib/tournament/ranking';
+
+/** The historical ranking rows carry the profile slug on top of the counts. */
+type PodiumPlayer = RankedPlayer & { slug?: string };
 
 /**
  * Honor zone above the ranking table: hanging banners (gonfalons) in gold,
@@ -114,7 +119,7 @@ const Banner = ({ metal, position }: { metal: Metal; position: number }) => (
   </svg>
 );
 
-type PodiumGroup = { position: number; players: RankedPlayer[] };
+type PodiumGroup = { position: number; players: PodiumPlayer[] };
 
 /** One banner per position; every tied name listed beneath it. */
 const Honoree = ({
@@ -138,16 +143,24 @@ const Honoree = ({
       } ${className}`}
     >
       <Banner metal={metal} position={group.position} />
-      {group.players.map((player) => (
-        <span
-          className={`d-display font-bold uppercase leading-tight ${
-            first ? 'd-gold-text text-2xl' : `text-lg ${METAL_TEXT[metal]}`
-          }`}
-          key={player.name}
-        >
-          {player.name}
-        </span>
-      ))}
+      {group.players.map((player) => {
+        const nameClass = `d-display font-bold uppercase leading-tight ${
+          first ? 'd-gold-text text-2xl' : `text-lg ${METAL_TEXT[metal]}`
+        }`;
+        return player.slug ? (
+          <Link
+            className={`${nameClass} transition-opacity hover:opacity-80`}
+            href={`/players/${player.slug}`}
+            key={player.name}
+          >
+            {player.name}
+          </Link>
+        ) : (
+          <span className={nameClass} key={player.name}>
+            {player.name}
+          </span>
+        );
+      })}
       <span className="flex items-center gap-1">
         {Array.from({ length: rings }, (_, i) => (
           <RingGlyph key={`t-${String(i)}`} size={first ? 14 : 12} />
@@ -168,7 +181,7 @@ const Honoree = ({
  * Groups a ranked list into shared positions (individual rings break ring
  * ties, per core-logic); returns the first three groups.
  */
-const buildPodiumGroups = (players: RankedPlayer[]): PodiumGroup[] => {
+const buildPodiumGroups = (players: PodiumPlayer[]): PodiumGroup[] => {
   const groups: PodiumGroup[] = [];
   for (const [index, player] of players.entries()) {
     const previous = players[index - 1];
@@ -190,7 +203,7 @@ const buildPodiumGroups = (players: RankedPlayer[]): PodiumGroup[] => {
   return groups;
 };
 
-const HonorPodium = ({ players }: { players: RankedPlayer[] }) => {
+const HonorPodium = ({ players }: { players: PodiumPlayer[] }) => {
   const [first, second, third] = buildPodiumGroups(players);
   return (
     <div className="grid grid-cols-2 items-end justify-items-center gap-x-4 gap-y-9 py-4 sm:flex sm:items-start sm:justify-center sm:gap-12">
