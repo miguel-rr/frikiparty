@@ -77,9 +77,9 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
     rings: player.rings,
     individualRings: player.individualRings,
     cardPortrait: player.cardPortrait,
-    cardLore: player.cardLore,
     cardAbility: player.cardAbility,
     cardAbilityText: player.cardAbilityText,
+    isLeader: player.position === 1,
   };
   const card = dealCardSpecs([identity])[0] ?? cardSpecFor(identity);
 
@@ -91,13 +91,13 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
             <PlayerProfile
               bio={player.bio}
               card={card}
-              cardLore={player.cardLore}
+              cardAbility={player.cardAbility}
+              cardAbilityText={player.cardAbilityText}
               cardPortrait={player.cardPortrait}
               id={player.id}
               individualRings={player.individualRings}
               name={player.name}
               ownerUserId={player.ownerUserId}
-              pinnedLore={Boolean(player.cardAbility)}
               rings={player.rings}
               stats={
                 <div className="flex flex-col gap-3">

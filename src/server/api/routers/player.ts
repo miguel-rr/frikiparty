@@ -21,7 +21,6 @@ type RankingRow = {
   name: string;
   slug: string;
   card_portrait: string | null;
-  card_lore: string | null;
   card_ability: string | null;
   card_ability_text: string | null;
   rings: number;
@@ -33,7 +32,6 @@ type RankedPlayer = {
   name: string;
   slug: string;
   cardPortrait: string | null;
-  cardLore: string | null;
   rings: number;
   individualRings: number;
   cardAbility: string | null;
@@ -81,14 +79,13 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
       p.name,
       p.slug,
       p.card_portrait,
-      p.card_lore,
       p.card_ability,
       p.card_ability_text,
       coalesce(sum(CASE WHEN w.size > 1 THEN 1 ELSE 0 END), 0)::int AS rings,
       coalesce(sum(CASE WHEN w.size = 1 THEN 1 ELSE 0 END), 0)::int AS individual_rings
     FROM frikiparty_player p
     LEFT JOIN wins w ON w.player_id = p.id
-    GROUP BY p.id, p.name, p.slug, p.card_portrait, p.card_lore, p.card_ability, p.card_ability_text
+    GROUP BY p.id, p.name, p.slug, p.card_portrait, p.card_ability, p.card_ability_text
   `)) as unknown as RankingRow[];
 
   return rows.map((row) => ({
@@ -96,7 +93,6 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
     name: row.name,
     slug: row.slug,
     cardPortrait: row.card_portrait,
-    cardLore: row.card_lore,
     cardAbility: row.card_ability,
     cardAbilityText: row.card_ability_text,
     rings: row.rings,
@@ -193,7 +189,6 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
     name: row.name,
     bio: row.bio,
     cardPortrait: row.cardPortrait,
-    cardLore: row.cardLore,
     cardAbility: row.cardAbility,
     cardAbilityText: row.cardAbilityText,
     rings: ranked?.rings ?? 0,
@@ -319,7 +314,8 @@ const playerRouter = createTRPCRouter({
         name: z.string().trim().min(1).optional(),
         bio: z.string().trim().max(4000).nullable().optional(),
         cardPortrait: z.string().trim().max(64).nullable().optional(),
-        cardLore: z.string().trim().max(120).nullable().optional(),
+        cardAbility: z.string().trim().max(80).nullable().optional(),
+        cardAbilityText: z.string().trim().max(300).nullable().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -332,6 +328,16 @@ const playerRouter = createTRPCRouter({
       }
       if (!canEditPlayer(ctx.session.user, row.userId)) {
         throw new TRPCError({ code: 'FORBIDDEN' });
+      }
+
+      // A curated attack always travels whole: name and definition
+      // together, or neither.
+      if (
+        (input.cardAbility === undefined) !==
+          (input.cardAbilityText === undefined) ||
+        (input.cardAbility === null) !== (input.cardAbilityText === null)
+      ) {
+        throw new TRPCError({ code: 'BAD_REQUEST' });
       }
 
       const { id, ...changes } = input;

@@ -13,6 +13,8 @@ type CardSpec = {
   individualRings?: number;
   attack: number;
   health: number;
+  /** True for the ranking leader: the initial 9/9 never randomizes. */
+  pinnedStats?: boolean;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   ability?: string;
   text: string;

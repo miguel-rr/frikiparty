@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import { raceForPlayer } from '@/components/theme/emblems';
 import {
   type CardSpec,
@@ -61,6 +65,28 @@ const PortraitCard = ({
   card: CardSpec;
   className?: string;
 }) => {
+  // Easter egg: tapping either bottom gem rerolls it to a random value.
+  const [attackShown, setAttackShown] = useState<number | null>(null);
+  const [healthShown, setHealthShown] = useState<number | null>(null);
+  const reroll = (current: number) => {
+    let next = current;
+    while (next === current) {
+      next = 1 + Math.floor(Math.random() * 9);
+    }
+    return next;
+  };
+
+  // Fate deals fresh stats on every visit — client-side after hydration,
+  // so the statically built page (and its HTML) never changes.
+  const pinnedStats = card.pinnedStats === true;
+  useEffect(() => {
+    if (pinnedStats) {
+      return;
+    }
+    setAttackShown(1 + Math.floor(Math.random() * 9));
+    setHealthShown(1 + Math.floor(Math.random() * 9));
+  }, [pinnedStats]);
+
   const race = raceForPlayer(card.name);
   const scene = SCENES[race];
   const legendary = card.rarity === 'legendary';
@@ -312,25 +338,51 @@ const PortraitCard = ({
         />
       </g>
 
-      {/* Attack / stamina gems */}
-      <circle
-        cx="32"
-        cy="326"
-        fill="url(#dsn-stat-ember)"
-        r="22"
-        stroke="#0d0a05"
-        strokeWidth="2.5"
-      />
-      <StatNumber value={card.attack} x={32} y={334} />
-      <circle
-        cx="218"
-        cy="326"
-        fill="url(#dsn-stat-moss)"
-        r="22"
-        stroke="#0d0a05"
-        strokeWidth="2.5"
-      />
-      <StatNumber value={card.health} x={218} y={334} />
+      {/* Attack / stamina gems — tap one and fate rerolls it */}
+      {/* biome-ignore lint/a11y/useSemanticElements: SVG has no button element */}
+      <g
+        className="cursor-pointer focus:outline-none"
+        onClick={() => setAttackShown((value) => reroll(value ?? card.attack))}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            setAttackShown((value) => reroll(value ?? card.attack));
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      >
+        <circle
+          cx="32"
+          cy="326"
+          fill="url(#dsn-stat-ember)"
+          r="22"
+          stroke="#0d0a05"
+          strokeWidth="2.5"
+        />
+        <StatNumber value={attackShown ?? card.attack} x={32} y={334} />
+      </g>
+      {/* biome-ignore lint/a11y/useSemanticElements: SVG has no button element */}
+      <g
+        className="cursor-pointer focus:outline-none"
+        onClick={() => setHealthShown((value) => reroll(value ?? card.health))}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            setHealthShown((value) => reroll(value ?? card.health));
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      >
+        <circle
+          cx="218"
+          cy="326"
+          fill="url(#dsn-stat-moss)"
+          r="22"
+          stroke="#0d0a05"
+          strokeWidth="2.5"
+        />
+        <StatNumber value={healthShown ?? card.health} x={218} y={334} />
+      </g>
     </svg>
   );
 };

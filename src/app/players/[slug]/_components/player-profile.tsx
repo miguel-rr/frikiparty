@@ -10,7 +10,6 @@ import type { CardSpec } from '@/components/tournament/hearth-card';
 import { PortraitCard } from '@/components/tournament/portrait-card';
 import {
   cardSpecFor,
-  LORE_OPTIONS,
   PORTRAIT_OPTIONS,
   portraitPath,
 } from '@/lib/tournament/card-lore';
@@ -23,11 +22,10 @@ type PlayerProfileProps = {
   /** The card dealt server-side for this visit (saved choices already applied). */
   card: CardSpec;
   cardPortrait: string | null;
-  cardLore: string | null;
+  cardAbility: string | null;
+  cardAbilityText: string | null;
   rings: number;
   individualRings: number;
-  /** Richar: his line never rotates, so the card picker is hidden. */
-  pinnedLore: boolean;
   /** Linked user who owns the profile; edit rights resolve client-side. */
   ownerUserId: string | null;
   /** Quick stats (ranking position, rings) shown beside the card. */
@@ -47,10 +45,10 @@ const PlayerProfile = ({
   bio: initialBio,
   card,
   cardPortrait: initialPortrait,
-  cardLore: initialLore,
+  cardAbility: initialAbility,
+  cardAbilityText: initialAbilityText,
   rings,
   individualRings,
-  pinnedLore,
   ownerUserId,
   stats,
   children,
@@ -64,7 +62,8 @@ const PlayerProfile = ({
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio ?? '');
   const [portrait, setPortrait] = useState(initialPortrait ?? '');
-  const [lore, setLore] = useState(initialLore ?? '');
+  const [abilityName, setAbilityName] = useState(initialAbility ?? '');
+  const [abilityText, setAbilityText] = useState(initialAbilityText ?? '');
   const router = useRouter();
 
   // The page is a Server Component, so a client-side query cache invalidation
@@ -80,24 +79,24 @@ const PlayerProfile = ({
     setName(initialName);
     setBio(initialBio ?? '');
     setPortrait(initialPortrait ?? '');
-    setLore(initialLore ?? '');
+    setAbilityName(initialAbility ?? '');
+    setAbilityText(initialAbilityText ?? '');
     setEditing(false);
   };
 
-  const selectedLore = LORE_OPTIONS.find((pair) => pair.ability === lore);
+  // Name and definition travel together: exactly one filled is invalid.
+  const attackIncomplete =
+    (abilityName.trim() === '') !== (abilityText.trim() === '');
 
-  // Live preview while editing: chosen portrait/lore apply instantly; when a
-  // choice is cleared back to automatic, fall back to the player's defaults
-  // (portrait) or keep this visit's dealt line (lore) until saved.
+  // Live preview while editing: portrait and the typed attack apply to the
+  // card instantly; cleared fields fall back to the automatic defaults.
   const defaults = cardSpecFor({ name: initialName, rings, individualRings });
   const previewCard: CardSpec = editing
     ? {
         ...card,
         portrait: portrait ? portraitPath(portrait) : defaults.portrait,
-        ability: pinnedLore
-          ? card.ability
-          : (selectedLore?.ability ?? card.ability),
-        text: pinnedLore ? card.text : (selectedLore?.text ?? card.text),
+        ability: abilityName.trim() === '' ? undefined : abilityName,
+        text: abilityText.trim() === '' ? defaults.text : abilityText,
       }
     : card;
 
@@ -138,8 +137,9 @@ const PlayerProfile = ({
               <div>
                 <span className={label}>Bio</span>
                 <textarea
-                  className={`${input} min-h-32`}
+                  className={`${input} min-h-44 font-serif text-[1.02rem] leading-relaxed`}
                   onChange={(event) => setBio(event.target.value)}
+                  placeholder="La crónica del jugador, al tono del Libro Rojo…"
                   value={bio}
                 />
               </div>
@@ -159,42 +159,55 @@ const PlayerProfile = ({
                     ))}
                   </select>
                 </div>
-                {pinnedLore ? null : (
-                  <div>
-                    <span className={label}>Carta</span>
-                    <select
-                      className={`${input} d-select py-1.5 pr-9 text-sm`}
-                      onChange={(event) => setLore(event.target.value)}
-                      value={lore}
-                    >
-                      <option value="">
-                        Aleatoria (cambia en cada visita)
-                      </option>
-                      {LORE_OPTIONS.map((pair) => (
-                        <option key={pair.ability} value={pair.ability}>
-                          {pair.ability}
-                        </option>
-                      ))}
-                    </select>
-                    {selectedLore ? (
-                      <p className="mt-1.5 text-(--faded) text-xs italic">
-                        {selectedLore.text}
-                      </p>
-                    ) : null}
-                  </div>
-                )}
+                <div>
+                  <span className={label}>Ataque · nombre</span>
+                  <input
+                    className={input}
+                    maxLength={80}
+                    onChange={(event) => setAbilityName(event.target.value)}
+                    placeholder="Grito de batalla"
+                    value={abilityName}
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <span className={label}>Ataque · definición</span>
+                  <input
+                    className={input}
+                    maxLength={300}
+                    onChange={(event) => setAbilityText(event.target.value)}
+                    placeholder="Añade un anillo a tu mano."
+                    value={abilityText}
+                  />
+                  {attackIncomplete ? (
+                    <p className="mt-1.5 text-(--ember) text-xs">
+                      El ataque necesita nombre y definición — o ninguno de los
+                      dos.
+                    </p>
+                  ) : null}
+                </div>
               </div>
               <div className="flex gap-2">
                 <button
                   className={btn.primary}
-                  disabled={update.isPending || name.trim().length === 0}
+                  disabled={
+                    update.isPending ||
+                    name.trim().length === 0 ||
+                    attackIncomplete
+                  }
                   onClick={() =>
                     update.mutate({
                       id,
                       name,
                       bio: bio.trim().length > 0 ? bio : null,
                       cardPortrait: portrait.length > 0 ? portrait : null,
-                      cardLore: lore.length > 0 ? lore : null,
+                      cardAbility:
+                        abilityName.trim().length > 0
+                          ? abilityName.trim()
+                          : null,
+                      cardAbilityText:
+                        abilityText.trim().length > 0
+                          ? abilityText.trim()
+                          : null,
                     })
                   }
                   type="button"

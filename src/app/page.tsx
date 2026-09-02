@@ -19,16 +19,16 @@ const HomePage = async () => {
     getHistoricalRanking(db),
   ]);
   const playersByName = Object.fromEntries(
-    ranking.map((player) => [
+    ranking.map((player, index) => [
       player.name,
       {
         slug: player.slug,
         rings: player.rings,
         individualRings: player.individualRings,
         cardPortrait: player.cardPortrait,
-        cardLore: player.cardLore,
         cardAbility: player.cardAbility,
         cardAbilityText: player.cardAbilityText,
+        isLeader: index === 0,
       },
     ]),
   );
