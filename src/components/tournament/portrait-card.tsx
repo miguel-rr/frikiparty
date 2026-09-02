@@ -342,9 +342,16 @@ const PortraitCard = ({
       {/* biome-ignore lint/a11y/useSemanticElements: SVG has no button element */}
       <g
         className="cursor-pointer focus:outline-none"
-        onClick={() => setAttackShown((value) => reroll(value ?? card.attack))}
+        onClick={(event) => {
+          // The card may live inside a link; a reroll is not a navigation.
+          event.preventDefault();
+          event.stopPropagation();
+          setAttackShown((value) => reroll(value ?? card.attack));
+        }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            event.stopPropagation();
             setAttackShown((value) => reroll(value ?? card.attack));
           }
         }}
@@ -364,9 +371,16 @@ const PortraitCard = ({
       {/* biome-ignore lint/a11y/useSemanticElements: SVG has no button element */}
       <g
         className="cursor-pointer focus:outline-none"
-        onClick={() => setHealthShown((value) => reroll(value ?? card.health))}
+        onClick={(event) => {
+          // The card may live inside a link; a reroll is not a navigation.
+          event.preventDefault();
+          event.stopPropagation();
+          setHealthShown((value) => reroll(value ?? card.health));
+        }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            event.stopPropagation();
             setHealthShown((value) => reroll(value ?? card.health));
           }
         }}

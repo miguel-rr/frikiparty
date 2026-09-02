@@ -479,7 +479,7 @@ const getNextEdition = async (db: TRPCContext['db']) => {
  */
 const getLatestChampions = async (db: TRPCContext['db']) => {
   const latest = (await db.execute(sql`
-    SELECT e.id, e.year, v.name AS venue_name,
+    SELECT e.id, e.year, e."order", v.name AS venue_name,
       v.slug AS venue_slug, v.is_place AS venue_is_place
     FROM frikiparty_edition e
     LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
@@ -495,6 +495,7 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
   `)) as unknown as {
     id: string;
     year: number;
+    order: number;
     venue_name: string | null;
     venue_slug: string | null;
     venue_is_place: boolean | null;
@@ -523,6 +524,10 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
 
   return {
     year: latestEdition.year,
+    editionSlug:
+      latestEdition.order > 1
+        ? `${latestEdition.year}-${latestEdition.order}`
+        : String(latestEdition.year),
     venueName: latestEdition.venue_name,
     venueSlug: latestEdition.venue_slug,
     venueIsPlace: latestEdition.venue_is_place,

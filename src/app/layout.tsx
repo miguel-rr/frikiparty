@@ -29,6 +29,9 @@ const alegreyaSans = Alegreya_Sans({
 // Next statically analyses this binding, so it must be a direct named export
 // rather than re-exported at the bottom of the file.
 export const metadata: Metadata = {
+  // The whole site stays out of search engines: every page inherits this
+  // noindex (crawling itself stays allowed so bots can actually read it).
+  robots: { index: false, follow: false },
   metadataBase: new URL('https://frikiparty.com'),
   title: 'Frikiparty',
   description: 'Reuniendo frikis frescos desde 2005',

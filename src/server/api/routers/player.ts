@@ -358,6 +358,7 @@ const playerRouter = createTRPCRouter({
         revalidatePath('/venues/[slug]', 'page');
         revalidatePath('/');
         revalidatePath('/ranking');
+        revalidatePath('/champions');
         revalidatePath('/editions');
         revalidatePath('/venues');
         revalidatePath('/simulator');

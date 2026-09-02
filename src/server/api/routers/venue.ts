@@ -165,6 +165,7 @@ const venueRouter = createTRPCRouter({
       revalidatePath('/editions/[slug]', 'page');
       revalidatePath('/');
       revalidatePath('/council');
+      revalidatePath('/champions');
       return updated;
     }),
 });
