@@ -20,6 +20,10 @@ const player = createTable('player', {
   // map or race pool for the portrait, a random lore-deck deal for the text).
   cardPortrait: text('card_portrait'),
   cardLore: text('card_lore'),
+  // A personal, curated ability (bold name + definition). When set it IS
+  // the player's line: it never rotates and the lore picker hides.
+  cardAbility: text('card_ability'),
+  cardAbilityText: text('card_ability_text'),
   bio: text('bio'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

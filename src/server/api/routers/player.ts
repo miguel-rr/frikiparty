@@ -22,6 +22,8 @@ type RankingRow = {
   slug: string;
   card_portrait: string | null;
   card_lore: string | null;
+  card_ability: string | null;
+  card_ability_text: string | null;
   rings: number;
   individual_rings: number;
 };
@@ -34,6 +36,8 @@ type RankedPlayer = {
   cardLore: string | null;
   rings: number;
   individualRings: number;
+  cardAbility: string | null;
+  cardAbilityText: string | null;
 };
 
 type TitleRow = {
@@ -78,11 +82,13 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
       p.slug,
       p.card_portrait,
       p.card_lore,
+      p.card_ability,
+      p.card_ability_text,
       coalesce(sum(CASE WHEN w.size > 1 THEN 1 ELSE 0 END), 0)::int AS rings,
       coalesce(sum(CASE WHEN w.size = 1 THEN 1 ELSE 0 END), 0)::int AS individual_rings
     FROM frikiparty_player p
     LEFT JOIN wins w ON w.player_id = p.id
-    GROUP BY p.id, p.name, p.slug, p.card_portrait, p.card_lore
+    GROUP BY p.id, p.name, p.slug, p.card_portrait, p.card_lore, p.card_ability, p.card_ability_text
   `)) as unknown as RankingRow[];
 
   return rows.map((row) => ({
@@ -91,6 +97,8 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
     slug: row.slug,
     cardPortrait: row.card_portrait,
     cardLore: row.card_lore,
+    cardAbility: row.card_ability,
+    cardAbilityText: row.card_ability_text,
     rings: row.rings,
     individualRings: row.individual_rings,
   }));
@@ -186,6 +194,8 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
     bio: row.bio,
     cardPortrait: row.cardPortrait,
     cardLore: row.cardLore,
+    cardAbility: row.cardAbility,
+    cardAbilityText: row.cardAbilityText,
     rings: ranked?.rings ?? 0,
     individualRings: ranked?.individualRings ?? 0,
     position,

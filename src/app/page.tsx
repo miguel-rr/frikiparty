@@ -27,6 +27,8 @@ const HomePage = async () => {
         individualRings: player.individualRings,
         cardPortrait: player.cardPortrait,
         cardLore: player.cardLore,
+        cardAbility: player.cardAbility,
+        cardAbilityText: player.cardAbilityText,
       },
     ]),
   );

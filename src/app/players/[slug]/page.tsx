@@ -13,11 +13,7 @@ import {
   tag,
 } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
-import {
-  cardSpecFor,
-  dealCardSpecs,
-  hasPinnedLore,
-} from '@/lib/tournament/card-lore';
+import { cardSpecFor, dealCardSpecs } from '@/lib/tournament/card-lore';
 import { getPlayerProfile } from '@/server/api/routers/player';
 import { db } from '@/server/db';
 import { player as playerTable } from '@/server/db/schema';
@@ -82,6 +78,8 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
     individualRings: player.individualRings,
     cardPortrait: player.cardPortrait,
     cardLore: player.cardLore,
+    cardAbility: player.cardAbility,
+    cardAbilityText: player.cardAbilityText,
   };
   const card = dealCardSpecs([identity])[0] ?? cardSpecFor(identity);
 
@@ -99,7 +97,7 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
               individualRings={player.individualRings}
               name={player.name}
               ownerUserId={player.ownerUserId}
-              pinnedLore={hasPinnedLore(player.name)}
+              pinnedLore={Boolean(player.cardAbility)}
               rings={player.rings}
             >
               <div className="flex flex-col gap-3">

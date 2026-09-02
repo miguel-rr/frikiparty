@@ -1,0 +1,163 @@
+{
+  "richar": {
+    "name": "Richar",
+    "bio": "Cuando el concilio no era aún concilio sino un puñado de caminantes, él ya estaba allí, alzando la primera hoguera. Los elfos lo llaman Ruifindel, y en él no brilla la estrella del favorito: los augures nunca pronuncian su nombre, y sin embargo todos los caminos terminan en su corona. Pues tal es su don — no acaudilla a los grandes, sino que hace grandes a cuantos marchan bajo su estandarte, y el pastor que cabalga a su lado carga como un caballero de la Marca. Se cuenta que una vez los días se le negaron, y le bastó uno solo: entre el alba y el ocaso cupo entera su victoria. Habla poco, como hablan los sabios, y su silencio pesa más en el consejo que muchas voces juntas. Dos hermanos salieron de la misma casa: a él lo siguió la gloria, y al otro lo sigue una sombra que aún no tiene fin.",
+    "portrait": "king",
+    "ability": "Grito de batalla",
+    "abilityText": "Añade un anillo a tu mano."
+  },
+  "guille": {
+    "name": "Guille",
+    "bio": "De la misma casa que Ruifindel salió Mawer, el menor, y los sabios aún discuten cuál de los dos nació con el mayor don. Nadie ríe más alto ni rehúsa menos partidas: donde él tiende la mano hay juego, y donde hay juego suele vencer. Es también de los que velan los grimorios nuevos antes de cada concilio, para que, al llegar las huestes, los rituales ya estén dispuestos. Se prepara como se preparan los reyes para la guerra, y cada año los augures lo coronan antes de la primera tirada. Ahí comienza su tragedia. Pues cuando lucha solo ningún poder se le resiste — sus gemas dan fe —, mas el anillo que el concilio de verdad codicia huye de su mano como agua entre los dedos: cuantas finales alcanzó, todas las vio perderse, contra toda razón y contra todo pronóstico. Los elfos no hallan falta alguna en él; por eso a lo suyo lo llaman maldición. Y en las noches largas se murmura que la sombra que sigue a su casa aún no ha encontrado su fin.",
+    "portrait": "elf-lord",
+    "ability": "La maldición del Señalado",
+    "abilityText": "Los augurios lo coronan al alba, pero ningún crepúsculo lo ha visto rey."
+  },
+  "juanills": {
+    "name": "Juanills",
+    "bio": "Otro de los que alzaron la primera hoguera, y columna del concilio desde entonces. Mora lejos, en tierras a las que ningún palantír alcanza y donde las nuevas del mundo llegan tarde o no llegan; mas cuando arden las almenaras, jamás ha faltado a la llamada. Otros brazos son hoy más celebrados en las canciones; los anillos, sin embargo, siguen encontrando el camino a su mano, y nadie sabe decir cómo. Cuentan que sus guerras las gana antes de la primera tirada, en la hora oscura de los pactos: que susurra su propia pequeñez por los pasillos hasta que el reparto lo abriga con los fuertes. Él lo llama malas lenguas; sus anillos guardan silencio. En la batalla, lo que un día tuvo aún lo retiene: cede terreno sin quebrarse, y si el mediodía lo encuentra en pie, ay de quien tenga enfrente. El destino gusta de anudarlo a Vinzont, y entre los dos hablan una lengua que nadie más comprende.",
+    "portrait": "runemaster",
+    "ability": "Lengua de Serpiente",
+    "abilityText": "Sus batallas se ganan en la antesala, al oído de los reyes."
+  },
+  "arri": {
+    "name": "Arri",
+    "bio": "Cuando junto al fuego se nombra a los grandes, su nombre nunca tarda en sonar. Hubo un tiempo en que los anillos acudían a su mano como aves al reclamo; luego vinieron mareas esquivas, y su nombre faltó en las coronaciones. Que nadie lo dé por acabado: en su fragua arde desde entonces un fuego terco, y la espada que fue rota se está reforjando — ahora estudia cada linaje, cada arma y cada sendero que antes ganaba a puro coraje, pues ningún caminante marchó nunca con más hambre. Jamás rehúsa una partida: es de los que velan hasta el alba y aún reclaman una última antes de que cante el gallo. En la guerra carga el primero, mas nunca pierde de vista a los suyos, y a quien marcha a su lado lo instruye como un maestro de armas. Y cuídese quien lo enfrente en las horas largas: cuanto más vieja es la noche, más hondo ahínca los pies.",
+    "portrait": "huntsman",
+    "ability": "La espada reforjada",
+    "abilityText": "Cada derrota afila el próximo amanecer."
+  },
+  "white": {
+    "name": "White",
+    "bio": "De los que alzaron la primera hoguera, y en los pergaminos lo nombran la Mano Blanca. Llegó de unas islas lejanas del Poniente, y hubo un tiempo en que su palabra pesaba como la de los primeros de la orden: los anillos lo sabían, y lo buscaban. Hace años que le esquivan, y su nombre desciende despacio en las voces del concilio; mas algo que una vez fue muy grande pelea dentro de él por volver, y aún no ha dicho su última palabra. Cuando combate, el mundo a sus flancos deja de existir: los ojos clavados en la batalla y la lengua entre los dientes, como si empujara la partida con la mandíbula. No es descuido hacia los suyos; es que arde demasiado cerca del fuego para mirar a otro lado. Ya no se le rinde la vieja reverencia, pero repárese en esto: nadie se atreve a darlo por muerto. Los sabios saben que no conviene molestar a un dragón dormido.",
+    "portrait": "mage-white",
+    "ability": "Dragón dormido",
+    "abilityText": "Quien lo dé por muerto, que se acerque a comprobarlo."
+  },
+  "arsu": {
+    "name": "Arsu",
+    "bio": "Del Norte llegó, de tierras altas y gentes recias, y desde los primeros días marcha con el concilio. Nunca reclamó ser el mejor, y sin embargo jamás bajó de los altos puestos: es de los primeros nombres que los capitanes ruegan a la suerte — cuando la suerte no lo corona capitán a él. En la batalla es una carga que no conoce pausa, siempre adelante y siempre eficaz; cierto que, cuando carga, el fragor le tapa a veces los cuernos de auxilio de los suyos — mas su socorro llega siempre por el mismo camino: derribando el flanco que tenía delante. Ama la otra guerra, la de los pactos de la antesala donde muchos juran que se deciden las contiendas, y allí su voz es de las que más pesan y la última en apagarse. En la mesa se entrega como en la guerra: pregunta cuanto hay que preguntar, defiende cada idea con celo de orfebre, y sus turnos, largos como los inviernos del Norte, son la medida de cuánto le importa el juego. Los que han compartido su fuego lo saben: mejor una discusión con él que una velada sin él.",
+    "portrait": "marshal",
+    "ability": "Voz de hierro",
+    "abilityText": "En los pactos de la antesala jamás fue vencido."
+  },
+  "bordallo": {
+    "name": "Bordallo",
+    "bio": "De él hablan más los anales que las voces, y los anales son elocuentes: pocas campañas le bastaron para ceñir anillos que otros persiguen media vida. Mente aguda donde las haya, de las que ven el tablero entero mientras los demás miran una casilla. Un día los caminos lo llevaron lejos del concilio, como a veces hacen los caminos, y su silla aguarda vacía desde entonces. Ningún adivino dice si las mareas lo traerán de vuelta; pero cuando se cuentan las viejas batallas, su nombre aún se pronuncia con respeto.",
+    "portrait": "guard",
+    "ability": "El Ausente",
+    "abilityText": "Sus batallas ya están escritas; los anales las guardan."
+  },
+  "canete": {
+    "name": "Cañete",
+    "bio": "Hay guerreros que son acero y guerreros que son hoguera, y él es de los segundos: donde se sienta, el concilio entero se arrima a calentarse. Ninguna empresa le parece mala si cabe en una mesa — convocadlo al torneo o a la más humilde escaramuza de sobremesa, y acudirá riendo. Viene de la vieja escuela: conoce estos juegos como los herreros conocen el metal, y aunque los pergaminos del Anillo no sean los que más ha estudiado, siempre planta batalla. Su arte es el del oficio: con cada partida crece, halla la estrategia y la pule como se pule una gema, hasta que brilla. En la guerra ataca con saña y defiende con lealtad, y marcha con trolls, fiel a una vieja cofradía que no fundó él, pero que nadie honra mejor. Nunca lo llamaron el más grande, pero cuando los capitanes eligen, su nombre suena siempre pronto, y cada año más alto. Los augures ven venir el día en que le entreguen un estandarte; ninguno ve el día en que lo devuelva.",
+    "portrait": "dwarf",
+    "ability": "Piedra de afilar",
+    "abilityText": "La primera partida lo estudia; la segunda lo teme; la tercera lo corona."
+  },
+  "cordente": {
+    "name": "Cordente",
+    "bio": "No estuvo entre los primeros fuegos: llegó después, sin heraldos ni canción — nadie esperaba gran cosa — y muy pronto hubo que aprender su nombre. Al principio su fuerza era un secreto, y sacó de ello buen provecho; hoy ya no engaña a nadie: todos saben que ninguno llega al concilio con más batallas estudiadas ni más senderos andados. Es la consistencia hecha guerrero: su bando puede caer, mas rara vez por su flanco. Si un defecto se le conoce, y es pequeño, es que a veces su espada mira más al frente que a los costados. Su estrella y la de Mawer se cruzan una y otra vez, como si el cielo gustara de enfrentarlas, y hay gemas que dan cuenta de esos duelos. Cuando el destino, en lugar de cruzarlas, las puso bajo un mismo estandarte, cuentan que hasta las águilas bajaron a mirar — mas contra cierta sombra no bastan dos estrellas juntas. Los cantares van todavía por detrás de sus hechos, y en ese desfase habita su fortuna: los grandes ejércitos le abren sitio, y ninguna final le queda lejos. El día que los cantares lo alcancen, será él quien reparta los estandartes — y ya no habrá otro modo.",
+    "portrait": "marshal",
+    "ability": "Flanco inexpugnable",
+    "abilityText": "Su bando puede caer; jamás por su lado."
+  },
+  "ambeloki": {
+    "name": "Ambeloki",
+    "bio": "Ninguna crónica recuerda su llegada; las mesas viejas lo dan por suyo, como las raíces dan por suya la tierra. Es de los que callan: gasta las palabras con avaricia de dragón y deja que hablen sus estandartes. Allí donde queda un campo de batalla desatendido, él lo reclama sin ruido y conversa a solas con la guerra: pasa las horas quietas repasando los linajes de cada lanza y el temple de cada hoja, midiendo sus huestes contra adversarios que solo él ve. En el combate pide lo que piden las montañas: tiempo. Frágil como la escarcha en sus primeras horas, quien lo deja respirar descubre tarde que la escarcha era glaciar — no marcha hasta que su hueste cubre el horizonte, y entonces nada la detiene. Ni la derrota ni la gloria le mueven el gesto; si algo lo distrae, son músicas que nadie más oye. Y una ley antigua gobierna su historia: en algún lugar, Vinzont proclama ser mejor que él, y semejante afrenta solo se lava con acero. Se buscan siempre, en el torneo y fuera de él, y los sabios lo tienen dicho: ningún concilio se cierra de verdad hasta que esos dos cruzan las armas.",
+    "portrait": "wizard",
+    "ability": "Paciencia de glaciar",
+    "abilityText": "Dejadlo respirar y lamentadlo: la escarcha se hace glaciar."
+  },
+  "porneich": {
+    "name": "Porneich",
+    "bio": "Los más viejos juran que ya estaba allí cuando se encendieron los primeros fuegos, y nadie ha sabido desmentirlo. Camina por el mundo a su propio paso, envuelto en volutas de la mejor hierba de la Comarca, de la que es catador antiguo y devoto — y si a veces sus ojos miran reinos que nadie más distingue, es el precio de tan honda sabiduría. Del arte de la estrategia lo conoce todo, en mesas y en artes más arcanas, y de cien saberes más: pocos morrales guardan tanto mundo. Suyo es además un oficio que nadie le disputa: otear los grimorios nuevos y decidir qué guerra se combatirá — fue él quien trajo al concilio el credo del Anillo que hoy todos profesan, y cuando las huestes llegan a la sede, los rituales ya están dispuestos, porque él veló para que así fuera. Sus trenzas y su sonrisa se reconocen desde lejos. Conoció tiempos de mayor gloria, pero dentro le arde algo que no se apaga: aún tiene tardes de relámpago en las que nadie puede tocarlo, aunque se alternen con nieblas — la hierba cobra sus diezmos — que alguna vez salieron caras. Todo lo compensa con creces: no hay mano más abierta ni maestro más paciente, siempre presto a ayudar, compartir y enseñar. Imprescindible, lo llaman todos; y los prudentes añaden en voz baja: nadie sabe el día en que volverá a ceñir un anillo.",
+    "portrait": "wizard",
+    "ability": "Anillos de humo",
+    "abilityText": "Nadie sabe cuál será el próximo: si de humo o de oro."
+  },
+  "palons": {
+    "name": "Palons",
+    "bio": "De viejas llanuras del norte trae el nombre, de un reino de campos que fue cuna de reyes. Su silla aguardó vacía muchos inviernos — conocía a todos cuando ardieron los primeros fuegos, mas los caminos lo trajeron tarde —; el día que al fin la ocupó, pareció que siempre hubiera estado allí, y ya nadie concibe el concilio sin él. Grande como un oso y manso como ninguno, guerreó en cien guerras parecidas antes de conocer esta, y ese oficio viejo lo sostiene donde otros necesitan grimorios: es de los metales que se templan al fuego lento, y la contienda que avanza siempre lo encuentra más fuerte. Su brazo busca el ataque, su oído a los compañeros y su corazón a los trolls — cofradía que fundó Chete y en la que marcha junto a Cañete —, sin desdeñar las volutas de la hierba de la Comarca. Cuando el concilio se rinde al sueño, él sigue en pie junto a las brasas, velando batallas propias o ajenas, que ambas le saben a gloria. Y algo más dirá esta piedra que los demás callan: suya es la mano que escribe el Libro Rojo — estas mismas crónicas donde todos viven.",
+    "portrait": "dwarf",
+    "ability": "Vigilia junto al fuego",
+    "abilityText": "Mientras quede una batalla que mirar, no habrá amanecer."
+  },
+  "pingus": {
+    "name": "Pingus",
+    "bio": "Su historia se cuenta en una sola noche, y aún sobra vino. Llegó de tierras de otra lengua, invitado para completar la mesnada, y los sorteos lo arrojaron donde arrojan siempre a los desconocidos: al final de la fila. Mas el forastero traía en su equipaje reliquias de guerras antiguas, y quien supo mirarlas entendió que aquel hombre había batallado mucho antes de cruzar nuestra puerta. Nadie sabe si ya conocía nuestro arte o si lo aprendió mientras lo jugaba: eligió unas pocas armas, las afiló hasta que cortaron como ninguna, y con ellas sirvió a su bando en cada contienda hasta que el anillo fue suyo. Luego los caminos se lo llevaron como lo trajeron, y no ha vuelto. Quizá regrese un día; quizá su leyenda quede escrita tal como está — y sería la más limpia de todas: jamás jugó el torneo sin ganarlo.",
+    "portrait": "marksman",
+    "ability": "Pocas armas, bien afiladas",
+    "abilityText": "No aprendió todo el arte: solo la parte que corta."
+  },
+  "rober": {
+    "name": "Rober",
+    "bio": "El mar lo trajo, como trae el mar sus mejores regalos: sin aviso. Venía de la otra orilla del mundo, de donde el sol se marcha cuando aquí amanece, y sin embargo su lengua ya era la nuestra — señal, dicen los sabios, de que esta mesa lo esperaba desde antiguo. Es de los que dan antes de que se les pida: su brazo, su tiempo y su hacienda están siempre al servicio del fuego común, y por eso toda puerta se le abre sola. En el arte de la guerra no nació el más diestro, pero el desaliento no figura en su lengua: piedra a piedra asienta su ciudadela, lento y seguro como crecen las murallas. Frágil aún si la tormenta llega pronto, ay de quien lo deje en pie hasta tarde: sus cimientos son más hondos con cada invierno, y su espada, menos amable. Ninguna derrota le ha quitado las ganas de la siguiente batalla, y para el torneo — o para cualquier empresa que el concilio trame — su nombre responde el primero. En otros reinos, dicen, lo saludan con nombre de rey de crónicas ajenas; aquí sabemos que el suyo se está escribiendo todavía.",
+    "portrait": "guard",
+    "ability": "Bien común",
+    "abilityText": "Da antes de que se le pida; por eso toda puerta se le abre."
+  },
+  "valanton": {
+    "name": "Valanton",
+    "bio": "Viene del poniente, de las tierras donde el mundo se acaba y el mar muerde los acantilados, y ya estaba cuando ardieron los primeros fuegos. Ningún encantamiento lo puede como el de un buen juego: cuando uno lo atrapa, cruza a otro reino del que no oye llamadas ni ve pasar las horas, y quien lo haya visto así sabe que la leyenda no exagera. De esa devoción salió su oficio: es de la vieja escuela de los guerreros de mil guerras, los que no estudian grimorios y aun así plantan cara a cualquiera, y por eso su nombre corre pronto de boca en boca cuando los capitanes arman sus huestes. Infatigable en la fiesta como en la guerra, jamás abandona el salón antes que nadie: pelea contra el sueño como contra un ejército más, y algunas noches el sueño gana la última guardia y lo encuentra caído junto al fuego, con las botas puestas. Y guarda un arte más, que despliega en ocasiones señaladas para regocijo general: el de los fogones — pues cuando él cocina, el concilio entero cena como cenan los reyes.",
+    "portrait": "huntsman",
+    "ability": "Con las botas puestas",
+    "abilityText": "Solo el sueño lo ha derrotado, y nunca antes del alba."
+  },
+  "vinzont": {
+    "name": "Vinzont",
+    "bio": "Todo comienza en él. Antes de que el concilio sea concilio, cuando no hay aún fecha ni fortaleza ni estandartes, alguien enciende la primera chispa — y ese alguien lleva siempre el mismo nombre. No es casual: en su casa el concilio es cosa de sangre, pues de ella salió también el que dicta la ley. Negocia, convoca, dispone; y aunque luego reparta encargos, ninguna edición se habría alzado sin sus primeros pasos, ni se recuerda ninguna que él no se empeñara en hacer memorable. Su voz llena los salones: risas que se oyen desde el camino, gritos de batalla, historias que crecen con cada invierno. En la guerra fue siempre bien considerado, aunque los anillos se le han hecho rogar: otro guerrero dormido que conoció mejores mareas y que, cuando nadie lo espera, saca la garra y desborda cualquier profecía. Gusta de anunciar sus victorias antes de librarlas, y a veces la batalla no ha leído el anuncio: es capaz de la genialidad que se canta durante años, y de la caída que también. Sostiene con Ambeloki un pleito eterno que ningún juez ha sabido cerrar, y con Juanills, cuando el destino los une, habla esa lengua que nadie más entiende. Pero quien lo haya visto al final de una edición bien cerrada, mirando al concilio disfrutar de lo que él puso en marcha, sabe cuál es su verdadero anillo.",
+    "portrait": "rider",
+    "ability": "La primera chispa",
+    "abilityText": "Suya es la mano que prende las almenaras: cuando arden, nadie falta."
+  },
+  "yura": {
+    "name": "Yura",
+    "bio": "Del este vino cuando era apenas un brote, y los bosques fríos de su cuna ya solo perviven en su nombre. Quien lo encuentra por primera vez oye truenos: gruñe como los robles viejos cuando el viento los despierta, y discute con el apetito con que otros banquetean. Que nadie se deje engañar por la tormenta, que es de las que riegan: bajo la corteza de espino corre savia de oro, y quienes la conocen no la cambiarían por ningún jardín en flor. Su senda de guerra sube y no ha dejado de subir: donde otros astros oscilan, el suyo solo conoce un camino, y la corona que un día alcanzó tiene aire de primera piedra. Aprendió a gobernar graneros y ciudades antes que ejércitos, y ese arte del buen gobierno, en el que pocos se le acercan, alimenta sin descanso su ascenso. En el campo escucha más de lo que habla, y hay algo que toda la mesa sabe: su ejército entero vale menos, para él, que un solo compañero cercado — y lo ha demostrado. Cuando calla el acero, humean los fogones, y allí también se le canta.",
+    "portrait": "elf",
+    "ability": "Buen gobierno",
+    "abilityText": "Gana las guerras como se llenan los graneros: sin prisa y sin hueco."
+  },
+  "armonds": {
+    "name": "Armonds",
+    "bio": "Es el más viejo de los fuegos: cuando el primero de nosotros llegó, él ya estaba sentado. Abuelo del concilio entero, comparte sangre con Vinzont: de una misma casa salieron el que prende las almenaras y el que dicta la ley — convocar y juzgar quedaron en familia. Jamás se le ha visto con las manos quietas — siempre baraja, mueve, mezcla o sopesa algo, pues el vicio es en él una forma de sabiduría. Recorrió mil juegos y en todos dejó fama; años de naipes en mesas de humo le enseñaron lo que no enseñan los grimorios, y a ningún tablero se le ha oído decirle que no. En la guerra es valor seguro: quizá no el filo más brillante, nunca el más romo. Su corazón pertenece a los hijos de Durin — con Glóin y los suyos ha librado batallas que aún se cantan, y pocas cosas le encienden los ojos como una buena carga de barbas y hachas. Mas su verdadero trono está antes de la primera tirada: el concilio entero peregrina hasta su consejo para dar forma a cada torneo, ninguna voz pesa como la suya, y ninguna noticia es cierta hasta que su mano la deja escrita. Él es la ley y el único tribunal: cuando dos aceros disputan, su fallo cierra la disputa, y nadie apela. Viene siempre de lejos, de las tierras del levante donde madruga el sol — y sin embargo, de algún modo, siempre llegó el primero.",
+    "portrait": "runemaster",
+    "ability": "Tinta de ley",
+    "abilityText": "Nada es cierto hasta que su mano lo escribe."
+  },
+  "chete": {
+    "name": "Chete",
+    "bio": "De los que encendieron la primera hoguera, y de cuantos se sentaron a ella, pocos nombres se pronuncian con más cariño. Su carisma no tuvo igual: puso nombre a media mesa, y esos bautismos son ahora eternos — hay quien ya solo existe tal como él lo llamó. Fundó la cofradía del troll que otros aún mantienen viva, y fue de los más grandes con las armas; pero la fortuna, que reparte sin explicarse, nunca quiso sellar su gloria con un anillo: es, junto a Mawer, la otra gran corona que jamás llegó a posarse. Hace años que los vientos no lo traen. Alguna vez brilló una luz en el horizonte, y el mar volvió a cerrarse; su silla, sin embargo, se guarda siempre, y ningún ausente pesa tanto en las canciones. Los sabios afirman una cosa más, y nadie la discute: si cruzara mañana la puerta, con las manos frías de tantos inviernos sin guerra, los augures volverían a escribirlo entre los primeros — porque hay talentos que el tiempo no sabe gastar. Se le echa de menos. Cada año, en cada fuego.",
+    "portrait": "elf-lord",
+    "ability": "Padre de nombres",
+    "abilityText": "Sus bautismos viven más que los anillos."
+  },
+  "erimo": {
+    "name": "Erimo",
+    "bio": "Piedra angular es, aunque el mar se empeñe en guardárselo. Vive en islas brumosas del norte, y cuando él no puede acudir, acuden sus palabras: llegan con las aves, preguntando por cada batalla, y sus comentarios — que no tienen igual — adornan la crónica de cada edición como si la hubiera vivido junto al fuego. De piel besada por soles lejanos y sonrisa sin ocaso, toda hoguera lo quiere cerca: con él presente, el aburrimiento no encuentra silla. En la guerra tiene un arte que solo es suyo: una calma hecha de pequeñas tormentas, que si se la quiebran temprano puede venirse abajo, mas si se la deja madurar… nadie sabe aún de qué es capaz, y esa es exactamente su arma. Combate con el corazón a la vista — no hay yelmo que le tape el ánimo, y jugar a su lado o en su contra es leerle el alma —, pura pasión, pura fiesta. Por eso, cuando los vientos soplan de cara y cruza al fin la puerta, la edición entera asciende de rango: se vuelve épica por decreto. El concilio lo sabe, y por eso cada año reza, espera, y guarda vino para celebrar su llegada.",
+    "portrait": "longbowman",
+    "ability": "Palabras que cruzan el mar",
+    "abilityText": "Aunque él no llegue, su voz jamás falta."
+  },
+  "gusnik": {
+    "name": "Gusnik",
+    "bio": "Su historia comenzó como empiezan las buenas leyendas: un día, el que mora en tierras sin palantír bajó de sus montes con un desconocido al lado, y el concilio hizo sitio a la mesa. Pocos inviernos lleva entre nosotros, y ya nadie lo trata como al forastero: llegó sin canción y se labró el respeto a hierro, desde la primera guardia. Incansable y estudioso, pelea cada batalla como quien rinde cuentas ante los reyes, ansioso por demostrar que merece la silla. Nadie sabe aún si su camino junto al fuego será largo; corto, ya no puede ser — su huella está hecha. Y los tratantes avisan a quien quiera oír: los sorteos lo siguen tasando barato, y ese error es un tesoro, porque su hueste gana con él más de lo que los pergaminos prometen. Si sigue acudiendo a la llamada, dicen los augures, no sería extraño que un anillo terminara buscándole la mano.",
+    "portrait": "marksman",
+    "ability": "Respeto a hierro",
+    "abilityText": "No trajo canción; se la está forjando."
+  },
+  "ita": {
+    "name": "Ita",
+    "bio": "Su nombre delata su cuna: tierras del sur, de sol viejo y viñas generosas, y algo de aquel sol se trajo consigo, porque a su alrededor siempre calienta. Los archivos dudan sobre cuándo cruzó por primera vez nuestra puerta; los fuegos recientes, en cambio, ya no se conciben sin él. En la guerra pertenece a esa estirpe que las canciones descuidan y los campamentos adoran: nunca el estandarte más temido, siempre uno que pelea hasta el final — lo intenta todo, planta cara a cualquiera, y más de un grande ha sudado para doblegarlo. Pero su verdadero oficio empieza donde acaban las batallas: no hay empresa a la que no se apunte, ni carga que no ofrezca llevar, ni corro donde su risa no encuentre sitio. Amigo del alma para algunos, bienvenido para todos: cuando él se sienta, la hoguera da más luz con la misma leña. Los anales miden anillos; para medir compañía aún no se ha inventado la vara — y es una lástima, porque tendría su nombre grabado.",
+    "portrait": "rider",
+    "ability": "Sol del sur",
+    "abilityText": "Donde se sienta, la hoguera calienta el doble."
+  },
+  "periko": {
+    "name": "Periko",
+    "bio": "La amistad lo unió al concilio mucho antes que la guerra: era de los nuestros junto al fuego cuando aún no empuñaba estandarte, y solo tarde quiso también la batalla — como si primero hubiera aprendido lo importante. Desde entonces, pocos dicen sí tan rápido: no hay plan, marcha ni locura a la que no se sume, y toda empresa mejora en el momento en que él aparece. En el campo su cota es corta y su corazón, desmedido: pelea con lo que tiene y lo entrega entero, sin guardarse una sola flecha para el camino de vuelta. Caerá o no caerá, pero jamás por no intentarlo — y los capitanes saben que esa entrega no se enseña ni se compra. Los sabios discuten cuánto puede crecer un guerrero que empezó tarde; los que han marchado a su lado no discuten nada: con uno así al hombro, cualquier noche se cruza mejor.",
+    "portrait": "longbowman",
+    "ability": "Sin flechas de vuelta",
+    "abilityText": "Lo entrega todo; el regreso ya se verá."
+  }
+}

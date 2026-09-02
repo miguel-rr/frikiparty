@@ -61,17 +61,9 @@ const PLAYER_PORTRAITS: Record<string, string> = {
   Yura: 'elf',
 };
 
-type Lore = Partial<Pick<CardSpec, 'attack' | 'health'>> &
-  Pick<CardSpec, 'ability' | 'text'>;
-
-/** Never rotates and can't be overridden: this line IS the player. */
-const PINNED_LORE: Record<string, Lore> = {
-  Richar: {
-    attack: 9,
-    health: 9,
-    ability: 'Grito de batalla',
-    text: 'Añade un anillo a tu mano.',
-  },
+/** Curated card stats for emblematic players; abilities live in the DB. */
+const PINNED_STATS: Record<string, Pick<CardSpec, 'attack' | 'health'>> = {
+  Richar: { attack: 9, health: 9 },
 };
 
 type LorePair = { ability: string; text: string };
@@ -448,6 +440,8 @@ type CardIdentity = {
   cardPortrait?: string | null;
   /** Ability of a LORE_DECK pair to fix, or null/undefined for a random deal. */
   cardLore?: string | null;
+  cardAbility?: string | null;
+  cardAbilityText?: string | null;
 };
 
 /**
@@ -459,7 +453,7 @@ type CardIdentity = {
 const cardSpecFor = (identity: CardIdentity): CardSpec => {
   const { name, rings, individualRings = 0 } = identity;
   const race = raceForPlayer(name);
-  const pinned = PINNED_LORE[name];
+  const pinned = PINNED_STATS[name];
   const chosen = identity.cardLore
     ? LORE_BY_ABILITY.get(identity.cardLore)
     : undefined;
@@ -471,8 +465,9 @@ const cardSpecFor = (identity: CardIdentity): CardSpec => {
     attack: pinned?.attack ?? 3 + (hash % 7),
     health: pinned?.health ?? 3 + (Math.floor(hash / 7) % 7),
     rarity: rarityFor(rings + individualRings),
-    ability: pinned?.ability ?? chosen?.ability,
-    text: pinned?.text ?? chosen?.text ?? GENERIC_TEXT[race],
+    // A curated personal ability (stored in the DB) beats everything else.
+    ability: identity.cardAbility ?? chosen?.ability,
+    text: identity.cardAbilityText ?? chosen?.text ?? GENERIC_TEXT[race],
     portrait: portraitFor(name, race, identity.cardPortrait),
   };
 };
@@ -505,16 +500,13 @@ const dealCardSpecs = (players: CardIdentity[]): CardSpec[] => {
   );
   return players.map((player) => {
     const base = cardSpecFor(player);
-    if (PINNED_LORE[player.name] || player.cardLore) {
+    if (player.cardAbility || player.cardLore) {
       return base;
     }
     const pair = deck.pop();
     return pair ? { ...base, ability: pair.ability, text: pair.text } : base;
   });
 };
-
-/** True when this player's ability+text never rotate and can't be chosen. */
-const hasPinnedLore = (name: string) => Boolean(PINNED_LORE[name]);
 
 /** Options for the profile pickers, alphabetically by visible label. */
 const LORE_OPTIONS = [...LORE_DECK].sort((a, b) =>
@@ -529,7 +521,6 @@ export {
   type CardIdentity,
   cardSpecFor,
   dealCardSpecs,
-  hasPinnedLore,
   LORE_OPTIONS,
   PORTRAIT_OPTIONS,
   portraitPath,
