@@ -164,7 +164,7 @@ const venueRouter = createTRPCRouter({
       revalidatePath('/editions');
       revalidatePath('/editions/[slug]', 'page');
       revalidatePath('/');
-      revalidatePath('/pifouds');
+      revalidatePath('/council');
       return updated;
     }),
 });

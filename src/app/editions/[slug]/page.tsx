@@ -13,10 +13,12 @@ import {
 import { BracketBoard } from '@/components/tournament/bracket-board';
 import { RANK_MOTIFS } from '@/components/tournament/honor-podium';
 import { type GameView, MatchPanel } from '@/components/tournament/match-games';
+import { VenueShowcase } from '@/components/venue/venue-showcase';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
 import { getEditionDetail } from '@/server/api/routers/edition';
+import { getVenue } from '@/server/api/routers/venue';
 import { db } from '@/server/db';
 import { edition as editionTable } from '@/server/db/schema';
 
@@ -484,6 +486,12 @@ const EditionPage = async ({ params }: PageProps) => {
   if (!edition) {
     notFound();
   }
+  // An upcoming edition has no tournaments yet: the page presents the
+  // venue instead of the chronicle.
+  const upcomingVenue =
+    !edition.teamTournament && edition.venueSlug && edition.venueIsPlace
+      ? await getVenue(db, edition.venueSlug)
+      : null;
 
   const teamTournament = edition.teamTournament;
   const individualTournament = edition.individualTournament;
@@ -541,6 +549,31 @@ const EditionPage = async ({ params }: PageProps) => {
               ) : null}
             </div>
           </div>
+
+          {upcomingVenue ? (
+            <div className="flex flex-col gap-5">
+              <span className={label}>
+                <RingGlyph size={13} /> La sede
+              </span>
+              <VenueShowcase
+                isPlace={edition.venueIsPlace}
+                mapsEmbedQuery={upcomingVenue.mapsEmbedQuery}
+                mapsUrl={upcomingVenue.mapsUrl}
+                name={upcomingVenue.name}
+                photoUrl={upcomingVenue.photoUrl}
+                slug={upcomingVenue.slug}
+              />
+              {upcomingVenue.description ? (
+                <p className="mx-auto max-w-[62ch] whitespace-pre-line text-center text-(--parchment) leading-relaxed">
+                  {upcomingVenue.description}
+                </p>
+              ) : null}
+              <p className="text-center text-(--faded) text-sm italic">
+                La próxima cita del concilio. Los campeones aún están por
+                forjar.
+              </p>
+            </div>
+          ) : null}
 
           {/* Always the same march, whatever each edition remembers:
               champions → final → bracket → (group phase, when it exists) →
@@ -634,7 +667,8 @@ const EditionPage = async ({ params }: PageProps) => {
           ) : null}
 
           {individualTournament && individualChampionTeam ? (
-            <div className="flex flex-col gap-5">
+            // Anchored so an individual ring on /ranking lands right here.
+            <div className="flex scroll-mt-24 flex-col gap-5" id="individual">
               <span className={label}>
                 <RingGlyph size={11} tone="solitaire" /> Campeonato individual
               </span>
@@ -661,7 +695,7 @@ const EditionPage = async ({ params }: PageProps) => {
             </div>
           ) : null}
 
-          {!hasRoster ? (
+          {!hasRoster && teamChampions ? (
             <p className="mx-auto max-w-[52ch] text-center text-(--faded) text-sm italic">
               De esta edición solo los campeones quedaron escritos en los
               anales. El resto se perdió en la Cuenta Larga.

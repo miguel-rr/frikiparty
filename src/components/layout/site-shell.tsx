@@ -15,7 +15,7 @@ import { siteFlags } from '@/lib/site-flags';
 const NAV_LINKS = [
   { href: '/ranking', text: 'Ranking' },
   { href: '/editions', text: 'Ediciones' },
-  { href: '/pifouds', text: 'El Pifouds' },
+  { href: '/council', text: 'El Concilio' },
 ];
 
 const SiteShell = ({

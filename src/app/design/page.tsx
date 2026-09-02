@@ -7,13 +7,13 @@ import { HomeAwaitingHero } from '@/app/_components/home-hero';
 import { CardGallery } from '@/app/design/_components/card-gallery';
 import { Champions } from '@/app/design/_components/champions';
 import { Contest } from '@/app/design/_components/contest';
+import { Council } from '@/app/design/_components/council';
 import { Draft } from '@/app/design/_components/draft';
 import { EditMode } from '@/app/design/_components/edit-mode';
 import { EditionCardProposals } from '@/app/design/_components/edition-card-proposals';
 import { Hero } from '@/app/design/_components/hero';
 import { Auction } from '@/app/design/_components/market';
 import { MatchDetail } from '@/app/design/_components/match-detail';
-import { Pifouds } from '@/app/design/_components/pifouds';
 import { Ranking } from '@/app/design/_components/ranking';
 import { TopNav } from '@/components/layout/top-nav';
 import { ParallaxBackground } from '@/components/theme/parallax-bg';
@@ -55,7 +55,7 @@ const DesignPage = () => (
     <Divider />
     <Ranking />
     <Divider />
-    <Pifouds />
+    <Council />
     <Divider />
     <Contest />
     <MatchDetail />

@@ -1,16 +1,15 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
-
+import { DurinDoor } from '@/components/council/durin-door';
 import { SiteShell } from '@/components/layout/site-shell';
-import { DurinDoor } from '@/components/pifouds/durin-door';
-import { linkGold, tag } from '@/components/theme/primitives';
+import { tag } from '@/components/theme/primitives';
+import { VenueShowcase } from '@/components/venue/venue-showcase';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
 import { getNextEdition } from '@/server/api/routers/edition';
 import { db } from '@/server/db';
 
-export const metadata: Metadata = { title: 'El Pifouds — Frikiparty' };
+export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
 
 // Built statically; which edition is next depends on today's date, so the
 // page re-renders hourly (plus on-demand from venue edits).
@@ -23,8 +22,8 @@ const formatOpeningDay = (iso: string) =>
     month: 'long',
   });
 
-const PifoudsPage = async () => {
-  if (!siteFlags.pifoudsPage) {
+const CouncilPage = async () => {
+  if (!siteFlags.councilPage) {
     notFound();
   }
   const edition = await getNextEdition(db);
@@ -38,52 +37,43 @@ const PifoudsPage = async () => {
             should hang right under the nav. */}
         <section
           className="mx-auto flex w-full max-w-[1180px] flex-col gap-10 px-4 pt-4 pb-14 sm:px-6 sm:pt-5 sm:pb-16"
-          id="pifouds"
+          id="council"
         >
           <div className="flex flex-col items-center gap-8">
             <DurinDoor target={target} />
+            {edition?.startsAt && edition.endsAt ? (
+              <span className="d-display -mt-3 text-(--silver) text-xl uppercase tracking-[0.24em] [text-shadow:0_0_14px_rgba(190,205,220,0.35)] sm:-mt-4 sm:text-2xl">
+                {formatDateRange(edition.startsAt, edition.endsAt)}
+              </span>
+            ) : null}
             {edition ? (
               <span className="font-bold font-mono text-(--gold) text-base uppercase tracking-[0.4em] sm:text-xl">
                 Edición {edition.year}
               </span>
             ) : (
-              <span className={tag}>El Pifouds · En espera</span>
+              <span className={tag}>El Concilio · En espera</span>
             )}
             {edition?.startsAt ? (
               <div className="flex flex-col items-center gap-2 text-center">
                 <p className="max-w-[46ch] text-(--faded)">
                   La puerta se abre al mediodía del{' '}
-                  {formatOpeningDay(edition.startsAt)}. Contraseña:{' '}
-                  <span className="font-bold text-(--silver) italic">
-                    mellon
-                  </span>{' '}
-                  — o presentarse en{' '}
-                  {edition.venueSlug && edition.venueIsPlace ? (
-                    <Link
-                      className="font-bold text-(--parchment) transition-colors hover:text-(--gold-hi)"
-                      href={`/venues/${edition.venueSlug}`}
-                    >
-                      {edition.venueName}
-                    </Link>
-                  ) : (
-                    <span className="font-bold">{edition.venueName}</span>
-                  )}
-                  .
+                  {formatOpeningDay(edition.startsAt)}.
                 </p>
-                {edition.endsAt ? (
-                  <p className="font-bold font-mono text-(--faded) text-[0.68rem] uppercase tracking-[0.22em]">
-                    {formatDateRange(edition.startsAt, edition.endsAt)}
-                  </p>
-                ) : null}
-                {edition.venueMapsUrl ? (
-                  <a
-                    className={linkGold}
-                    href={edition.venueMapsUrl}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Cómo llegar →
-                  </a>
+                <p className="font-bold text-lg">
+                  <span className="text-(--parchment)">Contraseña:</span>{' '}
+                  <span className="text-(--silver) italic">mellon</span>
+                </p>
+                {edition.venueName ? (
+                  <div className="mt-6 w-full max-w-2xl text-left">
+                    <VenueShowcase
+                      isPlace={edition.venueIsPlace}
+                      mapsEmbedQuery={edition.venueMapsEmbedQuery}
+                      mapsUrl={edition.venueMapsUrl}
+                      name={edition.venueName}
+                      photoUrl={edition.venuePhotoUrl}
+                      slug={edition.venueSlug}
+                    />
+                  </div>
                 ) : null}
               </div>
             ) : (
@@ -99,4 +89,4 @@ const PifoudsPage = async () => {
   );
 };
 
-export default PifoudsPage;
+export default CouncilPage;

@@ -11,7 +11,7 @@ const DEFAULT_LINKS: NavLink[] = [
   { href: '#champions', text: 'Ediciones' },
   { href: '#ranking', text: 'Ranking' },
   { href: '#contest', text: 'Torneo' },
-  { href: '#auction', text: 'El Pifouds' },
+  { href: '#auction', text: 'El Concilio' },
 ];
 
 const navLinkClass =

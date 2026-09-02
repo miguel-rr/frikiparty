@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * The Doors of Durin, traced in ithildin: the /pifouds waiting state. A
+ * The Doors of Durin, traced in ithildin: the /council waiting state. A
  * live countdown to noon of the event's first day is carved inside the
  * arch; when the hour arrives the door "opens" (MELLON), and with no
  * edition announced the tracing dims and the stars keep quiet.

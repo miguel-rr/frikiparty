@@ -1,7 +1,7 @@
 'use client';
 
 import { NEXT_EVENT } from '@/app/design/fixtures';
-import { DurinDoor, two, useCountdown } from '@/components/pifouds/durin-door';
+import { DurinDoor, two, useCountdown } from '@/components/council/durin-door';
 import {
   linkGold,
   RingGlyph,
@@ -11,7 +11,7 @@ import {
 } from '@/components/theme/primitives';
 
 /**
- * Waiting-state proposals for /pifouds: no tournament running, so the page
+ * Waiting-state proposals for /council: no tournament running, so the page
  * announces the next event and counts down to noon of day one. Three art
  * directions on the same content — fire (the beacons), ithildin (Durin's
  * door) and parchment (the Red Book) — sharing one live countdown.
@@ -91,7 +91,7 @@ const BeaconsProposal = () => {
       </div>
       <div className="flex flex-col items-center gap-3">
         <span className="font-bold font-mono text-(--ember) text-[0.66rem] uppercase tracking-[0.35em]">
-          El Pifouds · Edición 2026
+          El Concilio · Edición 2026
         </span>
         <h3 className="d-display d-gold-text max-w-[22ch] font-black text-4xl uppercase tracking-wide sm:text-5xl">
           Las almenaras están encendidas
@@ -225,10 +225,10 @@ const RedBookProposal = () => {
 
 /* ────────────────────────────────── Section ─────────────────────────────── */
 
-const Pifouds = () => (
-  <Section id="pifouds">
+const Council = () => (
+  <Section id="council">
     <SectionHeader
-      eyebrowText="El Pifouds · En espera"
+      eyebrowText="El Concilio · En espera"
       lead="La página del torneo cuando aún no se juega: anuncia la próxima cita y cuenta atrás hasta el mediodía del primer día. Tres direcciones sobre el mismo contenido."
       title="La Víspera"
     />
@@ -258,4 +258,4 @@ const Pifouds = () => (
   </Section>
 );
 
-export { Pifouds };
+export { Council };
