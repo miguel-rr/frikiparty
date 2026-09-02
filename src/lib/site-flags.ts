@@ -11,18 +11,21 @@ const stage = env.VERCEL_ENV ?? 'development';
 const isProduction = stage === 'production';
 
 const siteFlags = {
-  /** "Entrar" button and user menu in the top nav. */
+  /**
+   * "Entrar" button and user menu in the top nav. Hidden in production —
+   * /login itself stays reachable by URL for those who know the way in.
+   */
   auth: !isProduction,
   /** Section/page links in the top nav. */
-  navigation: !isProduction,
-  /** Themed pages hidden (404) in production until launch. */
-  editionsPage: !isProduction,
-  playersPage: !isProduction,
-  rankingPage: !isProduction,
+  navigation: true,
+  /** Themed pages, live everywhere since the 2026-09 launch. */
+  editionsPage: true,
+  playersPage: true,
+  rankingPage: true,
   /** Tournament page: countdown while waiting, live view when playing. */
-  councilPage: !isProduction,
+  councilPage: true,
   /** /venues and /venues/<slug>; the index is reachable by URL only. */
-  venuesPage: !isProduction,
+  venuesPage: true,
 } as const;
 
 export { siteFlags };
