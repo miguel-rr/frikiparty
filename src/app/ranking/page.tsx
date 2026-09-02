@@ -34,11 +34,7 @@ const RankingPage = async () => {
     <SiteShell>
       <main>
         <Section id="ranking">
-          <SectionHeader
-            eyebrowText="Ranking histórico · Desde 2005"
-            lead="Cada campeonato forja un anillo de oro: alianza por equipos, solitario con gema en el individual. El solitario desempata; a empate total, mismo puesto."
-            title="El Escalafón"
-          />
+          <SectionHeader eyebrowText="Ranking histórico" title="El Escalafón" />
           {ranking.length > 0 ? (
             <>
               <HonorPodium players={ranking} />

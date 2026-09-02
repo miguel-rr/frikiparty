@@ -77,11 +77,11 @@ const ArchContent = ({
           fontWeight="700"
           letterSpacing="3"
           x="230"
-          y="330"
+          y="305"
         >
           AÚN SIN FECHA
         </text>
-        <text fill="#8b99a6" fontSize="14" letterSpacing="5" x="230" y="378">
+        <text fill="#8b99a6" fontSize="14" letterSpacing="5" x="230" y="353">
           LAS ESTRELLAS CALLAN
         </text>
       </g>
@@ -96,7 +96,7 @@ const ArchContent = ({
   if (open) {
     return (
       <g fontFamily={mono} textAnchor="middle">
-        <text fill="#dce6ee" fontSize="15" letterSpacing="6" x="230" y="290">
+        <text fill="#dce6ee" fontSize="15" letterSpacing="6" x="230" y="265">
           LA PUERTA ESTÁ ABIERTA
         </text>
         <text
@@ -107,11 +107,11 @@ const ArchContent = ({
           fontWeight="900"
           letterSpacing="6"
           x="230"
-          y="386"
+          y="361"
         >
           MELLON
         </text>
-        <text fill="#8b99a6" fontSize="14" letterSpacing="5" x="230" y="434">
+        <text fill="#8b99a6" fontSize="14" letterSpacing="5" x="230" y="409">
           EL CONCILIO ESTÁ REUNIDO
         </text>
       </g>
@@ -119,7 +119,7 @@ const ArchContent = ({
   }
   return (
     <g fontFamily={mono} textAnchor="middle">
-      <text fill="#dce6ee" fontSize="16" letterSpacing="6" x="230" y="268">
+      <text fill="#dce6ee" fontSize="16" letterSpacing="6" x="230" y="238">
         FALTAN
       </text>
       <text
@@ -129,14 +129,14 @@ const ArchContent = ({
         fontSize="104"
         fontWeight="900"
         x="230"
-        y="380"
+        y="350"
       >
         {left ? left.days : '——'}
       </text>
-      <text fill="#aeb9c2" fontSize="15" letterSpacing="5" x="230" y="414">
+      <text fill="#aeb9c2" fontSize="15" letterSpacing="5" x="230" y="384">
         DÍAS
       </text>
-      <text fill="#8b99a6" fontSize="20" letterSpacing="3" x="230" y="470">
+      <text fill="#8b99a6" fontSize="20" letterSpacing="3" x="230" y="440">
         {left
           ? `${two(left.hours)}:${two(left.minutes)}:${two(left.seconds)}`
           : '——:——:——'}
@@ -149,18 +149,18 @@ const DurinDoor = ({ target }: { target: string | null }) => {
   const left = useCountdown(target);
   return (
     <div
-      className={`relative w-[min(88vw,460px)] lg:w-[560px] xl:w-[640px] ${target ? '' : 'opacity-60 saturate-50'}`}
+      className={`relative w-[min(88vw,460px)] lg:w-[540px] xl:w-[568px] ${target ? '' : 'opacity-60 saturate-50'}`}
     >
-      <svg className="block w-full" role="img" viewBox="0 18 460 542">
+      <svg className="block w-full" role="img" viewBox="0 18 460 492">
         <title>La Puerta de Durin</title>
         <defs>
           <path
-            d="M74 520 V236 C74 116 156 62 230 62 C304 62 386 116 386 236 V520"
+            d="M74 470 V236 C74 116 156 62 230 62 C304 62 386 116 386 236 V470"
             id="dsn-door-arch-path"
           />
           {/* Parallel rail ~18px outside the arch, so the inscription floats clear of the stroke. */}
           <path
-            d="M56 520 V232 C56 104 150 44 230 44 C310 44 404 104 404 232 V520"
+            d="M56 470 V232 C56 104 150 44 230 44 C310 44 404 104 404 232 V470"
             id="dsn-door-text-path"
           />
         </defs>
@@ -174,24 +174,24 @@ const DurinDoor = ({ target }: { target: string | null }) => {
           {/* Arch, threshold, inner arch and the seam of the two doors */}
           <use href="#dsn-door-arch-path" />
           <path
-            d="M96 520 V240 C96 132 168 84 230 84 C292 84 364 132 364 240 V520"
+            d="M96 470 V240 C96 132 168 84 230 84 C292 84 364 132 364 240 V470"
             opacity="0.55"
           />
-          <path d="M60 520 H400" />
+          <path d="M60 470 H400" />
           <path
             className="d-ithildin-glow"
-            d="M230 106 V520"
+            d="M230 106 V470"
             opacity="0.4"
             strokeDasharray="2 7"
             strokeWidth="1.5"
           />
           {/* The two holly trees, stylised */}
           <path
-            d="M74 470 C50 430 44 380 58 330 M58 330 C40 336 34 348 30 362 M58 330 C64 310 60 288 52 272 M52 272 C38 276 30 286 26 298 M52 272 C58 252 70 240 84 232"
+            d="M74 442 C52 406 46 364 58 322 M58 322 C40 328 34 340 30 354 M58 322 C64 304 60 284 52 268 M52 268 C38 272 30 282 26 294 M52 268 C58 250 70 238 84 230"
             opacity="0.8"
           />
           <path
-            d="M386 470 C410 430 416 380 402 330 M402 330 C420 336 426 348 430 362 M402 330 C396 310 400 288 408 272 M408 272 C422 276 430 286 434 298 M408 272 C402 252 390 240 376 232"
+            d="M386 442 C408 406 414 364 402 322 M402 322 C420 328 426 340 430 354 M402 322 C396 304 400 284 408 268 M408 268 C422 272 430 282 434 294 M408 268 C402 250 390 238 376 230"
             opacity="0.8"
           />
           {/* Crown over the anvil-star */}
