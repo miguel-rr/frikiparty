@@ -91,3 +91,13 @@ Complementa la sección 7 de `data-model.md`; donde difieren, manda este doc.
 
 Cada fase cierra con `pnpm run typecheck` y `pnpm run check`; commit y
 deploy siempre con confirmación previa.
+
+## Login (2026-09-03)
+
+Solo social: Google y Microsoft (tenant `common`: Outlook/Hotmail/Live y
+cuentas de trabajo). Contraseña desactivada, GitHub configurado pero sin
+botón. Ambos proveedores son de confianza para la vinculación por correo (un
+correo, un usuario). El botón de Microsoft solo aparece con sus dos
+variables; el **secreto de Azure caduca en septiembre de 2028** (24 meses):
+regenerarlo en Azure > App registrations > Frikiparty > Certificates &
+secrets y actualizar `BETTER_AUTH_MICROSOFT_CLIENT_SECRET` en Vercel.
