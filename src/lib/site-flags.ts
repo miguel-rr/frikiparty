@@ -26,6 +26,8 @@ const siteFlags = {
   councilPage: true,
   /** /venues and /venues/<slug>; the index is reachable by URL only. */
   venuesPage: true,
+  /** /archive (Los Archivos, the whole library). Admins always get in. */
+  archivePublic: false,
 } as const;
 
 export { siteFlags };

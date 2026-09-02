@@ -116,14 +116,24 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                 </button>
               ) : null}
               {role === 'admin' ? (
-                <Link
-                  className={item}
-                  href="/admin/players"
-                  onClick={() => setOpen(false)}
-                  role="menuitem"
-                >
-                  Jugadores
-                </Link>
+                <>
+                  <Link
+                    className={item}
+                    href="/archive"
+                    onClick={() => setOpen(false)}
+                    role="menuitem"
+                  >
+                    Los Archivos
+                  </Link>
+                  <Link
+                    className={item}
+                    href="/admin/players"
+                    onClick={() => setOpen(false)}
+                    role="menuitem"
+                  >
+                    Jugadores
+                  </Link>
+                </>
               ) : null}
               <button
                 className={item}

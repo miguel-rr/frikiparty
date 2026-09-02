@@ -27,6 +27,13 @@ const media = createTable('media', {
   thumbnailKey: text('thumbnail_key'),
   // Screen-sized webp (images) or the full-size poster frame (video).
   displayKey: text('display_key'),
+  // Video only: an H.264/AAC mp4 rendition made server-side when the
+  // original's codec or container isn't playable everywhere (HEVC, .mov).
+  // Null means the original plays as is — or hasn't been checked yet.
+  playbackKey: text('playback_key'),
+  // Video only: 'converting' while the rendition is being made in the
+  // background, 'failed' when it couldn't be (the original stays served).
+  playbackStatus: text('playback_status').$type<'converting' | 'failed'>(),
   caption: text('caption'),
   description: text('description'),
   width: integer('width'),

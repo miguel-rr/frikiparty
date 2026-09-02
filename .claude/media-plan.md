@@ -1,7 +1,17 @@
 # Multimedia ("Los Archivos") — plan de acción
 
-**Status: fases 1 y 2 hechas (2026-09-02), fase 3 en curso.** Alcance y
-decisiones cerradas con Miguel el 2026-09-02. Bucket `frikiparty-media`
+**Status: las cinco fases implementadas (2026-09-02).** Alcance y
+decisiones cerradas con Miguel el 2026-09-02. Verificado en navegador:
+subida de foto (renditions + orientación EXIF), subida de vídeo, galerías
+en jugador/edición/sede, lightbox, `/archive/<id>`, `/archive` con tabla,
+edición y borrado (también en R2). **Sin verificar**: captura del póster en el navegador (la pestaña
+automatizada no carga medios); probar desde móvil en preview. `next.config.js` lleva
+`serverExternalPackages: ['ffmpeg-static']` y `outputFileTracingIncludes`
+para que el binario viaje a Vercel (verificado en dev: el paso en segundo
+plano desde la interfaz termina con póster y `playback.mp4`). Pendiente
+comprobar en la preview que el binario llegó. Migraciones 0015 y 0016
+pendientes en prod. El selector de partido no está en el formulario (solo 7 partidos
+en toda la historia); el modelo lo soporta para el modo torneo en vivo. Bucket `frikiparty-media`
 verificado (put, presigned put, lectura pública, borrado); variables en
 `.env` y en Vercel (prod/preview/dev). Migración 0015 aplicada en dev.
 Pendiente: `media.frikiparty.com` (mover DNS de Vercel a Cloudflare) y
@@ -10,9 +20,15 @@ Complementa la sección 7 de `data-model.md`; donde difieren, manda este doc.
 
 ## Decisiones
 
-- **Contenido**: fotos y clips de vídeo de móvil. Los vídeos se suben tal cual
-  y se reproducen con `<video>` nativo, sin transcodificar (riesgo asumido:
-  HEVC de iPhone puede no reproducirse en Chrome/Android/Windows).
+- **Contenido**: fotos y clips de vídeo de móvil. El original se guarda
+  siempre. Tras catalogar, un paso en segundo plano (`next/server` `after`)
+  con `ffmpeg-static` saca el póster si el navegador no lo capturó, lee
+  dimensiones y duración, y **solo si el códec/contenedor no se reproduce en
+  todas partes** (HEVC, .mov…) genera `playback.mp4` (720p H.264 + AAC,
+  faststart) que la ficha usa en lugar del original. Límite: 400 MB y
+  200 s de conversión (Hobby corta a 300 s); si falla queda
+  `playbackStatus = 'failed'` y el admin puede "Reintentar conversión".
+  Plan B si se acumulan fallos: Cloudflare Stream.
 - **Almacenamiento**: Cloudflare R2, bucket público, claves con uuid para que
   la URL no sea adivinable (`media/<uuid>/original.<ext>`, `thumb.webp`,
   `display.webp`, y para vídeo `poster.jpg`). Se sirve desde el subdominio

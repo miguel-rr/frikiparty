@@ -1,6 +1,7 @@
 import {
   DeleteObjectsCommand,
   GetObjectCommand,
+  HeadObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
@@ -54,6 +55,29 @@ const putObject = async (
   );
 };
 
+/** Size and type of an object, or null when nothing was uploaded under that key. */
+const headObject = async (
+  key: string,
+): Promise<{ size: number; contentType: string | null } | null> => {
+  try {
+    const result = await r2.send(
+      new HeadObjectCommand({ Bucket: env.R2_BUCKET_NAME, Key: key }),
+    );
+    return {
+      size: result.ContentLength ?? 0,
+      contentType: result.ContentType ?? null,
+    };
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      (error.name === 'NotFound' || error.name === 'NoSuchKey')
+    ) {
+      return null;
+    }
+    throw error;
+  }
+};
+
 const getObject = async (key: string): Promise<Buffer> => {
   const result = await r2.send(
     new GetObjectCommand({ Bucket: env.R2_BUCKET_NAME, Key: key }),
@@ -76,4 +100,11 @@ const deleteObjects = async (keys: string[]): Promise<void> => {
   );
 };
 
-export { deleteObjects, getObject, presignUpload, publicUrl, putObject };
+export {
+  deleteObjects,
+  getObject,
+  headObject,
+  presignUpload,
+  publicUrl,
+  putObject,
+};

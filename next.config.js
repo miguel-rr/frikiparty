@@ -5,6 +5,15 @@
 import './src/env.js';
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  // ffmpeg-static resolves its binary from its own package directory, so it
+  // must load from node_modules rather than be bundled.
+  serverExternalPackages: ['ffmpeg-static'],
+  // The binary's path is built dynamically, which defeats file tracing:
+  // include it by hand in the tRPC function that runs the video pass.
+  outputFileTracingIncludes: {
+    '/api/trpc/[trpc]': ['./node_modules/ffmpeg-static/ffmpeg'],
+  },
+};
 
 export default config;

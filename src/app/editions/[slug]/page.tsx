@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { SiteShell } from '@/components/layout/site-shell';
+import { ArchiveSection } from '@/components/media/archive-section';
 import {
   PlayerBlazon,
   panel,
@@ -18,6 +19,7 @@ import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
 import { getEditionDetail } from '@/server/api/routers/edition';
+import { listMediaForEdition } from '@/server/api/routers/media-queries';
 import { getVenue } from '@/server/api/routers/venue';
 import { db } from '@/server/db';
 import { edition as editionTable } from '@/server/db/schema';
@@ -493,6 +495,8 @@ const EditionPage = async ({ params }: PageProps) => {
       ? await getVenue(db, edition.venueSlug)
       : null;
 
+  const archive = await listMediaForEdition(db, edition.id);
+
   const teamTournament = edition.teamTournament;
   const individualTournament = edition.individualTournament;
   const hasRoster = (teamTournament?.teams.length ?? 0) > 1;
@@ -701,6 +705,12 @@ const EditionPage = async ({ params }: PageProps) => {
               anales. El resto se perdió en la Cuenta Larga.
             </p>
           ) : null}
+
+          <ArchiveSection
+            items={archive}
+            subject={`de la edición ${edition.label}`}
+            target={{ editionId: edition.id }}
+          />
         </Section>
       </main>
     </SiteShell>

@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 
 import { PlayerProfile } from '@/app/players/[slug]/_components/player-profile';
 import { SiteShell } from '@/components/layout/site-shell';
+import { ArchiveSection } from '@/components/media/archive-section';
 import {
   Gem,
   panel,
@@ -14,6 +15,7 @@ import {
 } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
 import { cardSpecFor, dealCardSpecs } from '@/lib/tournament/card-lore';
+import { listMediaForPlayer } from '@/server/api/routers/media-queries';
 import { getPlayerProfile } from '@/server/api/routers/player';
 import { db } from '@/server/db';
 import { player as playerTable } from '@/server/db/schema';
@@ -82,6 +84,7 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
     isLeader: player.position === 1,
   };
   const card = dealCardSpecs([identity])[0] ?? cardSpecFor(identity);
+  const archive = await listMediaForPlayer(db, player.id);
 
   return (
     <SiteShell>
@@ -209,6 +212,15 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
                 </div>
               ) : null}
             </PlayerProfile>
+          </div>
+          {/* Extra air above Los Archivos: the palmarés sits inside the
+              profile block, so the section gap alone reads too tight. */}
+          <div className="mt-6 sm:mt-10">
+            <ArchiveSection
+              items={archive}
+              subject={`de ${player.name}`}
+              target={{ playerId: player.id }}
+            />
           </div>
         </Section>
       </main>
