@@ -1,16 +1,17 @@
 import Link from 'next/link';
 
+import { BearersFan } from '@/components/champions/bearers-fan';
 import {
-  panelGold,
-  Section,
-  SectionHeader,
-  tag,
-} from '@/components/theme/primitives';
+  LoneStarDivider,
+  RingDivider,
+} from '@/components/theme/ornament-dividers';
+import { Section, SectionHeader } from '@/components/theme/primitives';
 import { PortraitCard } from '@/components/tournament/portrait-card';
 import { type CardIdentity, dealCardSpecs } from '@/lib/tournament/card-lore';
 
 type Champions = {
   year: number;
+  editionSlug: string;
   venueName: string | null;
   venueSlug: string | null;
   venueIsPlace: boolean | null;
@@ -20,7 +21,12 @@ type Champions = {
 
 type PlayerCardData = Omit<CardIdentity, 'name'> & { slug?: string };
 
-/** Hall of champions of the latest recorded edition, straight from the DB. */
+/**
+ * The antechamber to /champions: the reigning fan holds the spotlight over
+ * a faint photographic Ring, the edition info shrinks to the eyebrow, the
+ * solitaire champion gets a one-line mention, and a gilded door invites
+ * into the full hall.
+ */
 const HomeChampions = ({
   champions,
   playersByName,
@@ -28,7 +34,6 @@ const HomeChampions = ({
   champions: Champions;
   playersByName: Record<string, PlayerCardData>;
 }) => {
-  // One deal for the whole section: no ability/text repeats between cards.
   const cards = dealCardSpecs(
     [
       ...champions.teamChampions,
@@ -44,80 +49,40 @@ const HomeChampions = ({
     ? cards[cards.length - 1]
     : undefined;
   const teamCards = champions.individualChampion ? cards.slice(0, -1) : cards;
+  const slugByName = Object.fromEntries(
+    Object.entries(playersByName).map(([name, data]) => [name, data.slug]),
+  );
+  const soloSlug = champions.individualChampion
+    ? playersByName[champions.individualChampion]?.slug
+    : undefined;
   return (
     <Section id="champions">
-      <SectionHeader
-        eyebrowHref={`/editions/${champions.year}`}
-        eyebrowText={`Edición ${champions.year}`}
-        lead="Los nombres quedan grabados aquí; los anillos, en el escalafón."
-        title="Salón de los Campeones"
-      />
-      <div className="flex flex-col gap-10">
-        <div
-          className={`${panelGold} d-corners flex flex-col gap-7 p-6 sm:p-8`}
-        >
-          <div className="d-corner-b" />
-          <div className="flex flex-col items-center gap-3 text-center">
-            <span className={tag}>Campeones por equipos</span>
-            {champions.venueName ? (
-              <p className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
-                Sede:{' '}
-                {champions.venueSlug && champions.venueIsPlace ? (
-                  <Link
-                    className="transition-colors hover:text-(--gold)"
-                    href={`/venues/${champions.venueSlug}`}
-                  >
-                    {champions.venueName}
-                  </Link>
-                ) : (
-                  champions.venueName
-                )}
-              </p>
-            ) : null}
-          </div>
-          {/* Never an uneven 3+1: one column, 2+2, or (from lg) a centered row. */}
-          <ul className="mx-auto grid max-w-[470px] grid-cols-1 place-items-center gap-5 sm:grid-cols-2 lg:flex lg:max-w-none lg:flex-wrap lg:justify-center sm:[&>li:last-child:nth-child(odd)]:col-span-2">
-            {teamCards.map((card) => {
-              const slug = playersByName[card.name]?.slug;
-              return (
-                <li key={card.name}>
-                  {slug ? (
-                    <Link
-                      className="block transition-transform hover:-translate-y-1"
-                      href={`/players/${slug}`}
-                    >
-                      <PortraitCard
-                        card={card}
-                        className="w-[235px] sm:w-[195px]"
-                      />
-                    </Link>
-                  ) : (
-                    <PortraitCard
-                      card={card}
-                      className="w-[235px] sm:w-[195px]"
-                    />
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          <p className="text-center text-(--faded) text-sm italic">
-            El equipo no tenía nombre; nadie olvidará a sus jugadores. Un anillo
-            más para cada uno.
-          </p>
+      <RingDivider />
+      <SectionHeader title="Los Portadores de los Anillos" />
+      <div className="flex flex-col items-center gap-9">
+        <div className="relative isolate w-full">
+          {/* The Ring, faint behind the hand */}
+          {/* biome-ignore lint/performance/noImgElement: decorative local asset, no next/image needed */}
+          <img
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 w-[min(480px,105vw)] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.07] mix-blend-screen [mask-image:radial-gradient(circle,black_48%,transparent_70%)] lg:opacity-[0.12]"
+            src="/icon-512.png"
+          />
+          <BearersFan cards={teamCards} compact slugByName={slugByName} />
         </div>
+        {individualCard ? <LoneStarDivider /> : null}
         {individualCard ? (
-          <div className="flex flex-col items-center gap-4">
-            <span className={tag}>Campeón individual</span>
-            {playersByName[individualCard.name]?.slug ? (
+          <div className="flex flex-col items-center gap-5">
+            {soloSlug ? (
               <Link
-                className="block transition-transform hover:-translate-y-1"
-                href={`/players/${playersByName[individualCard.name]?.slug}`}
+                className="block rotate-[-2deg] drop-shadow-[0_14px_20px_rgba(0,0,0,0.55)] transition-transform duration-300 hover:translate-y-[-8px] hover:rotate-0"
+                href={`/players/${soloSlug}`}
               >
-                <PortraitCard card={individualCard} className="w-[230px]" />
+                <PortraitCard card={individualCard} className="w-[190px]" />
               </Link>
             ) : (
-              <PortraitCard card={individualCard} className="w-[230px]" />
+              <PortraitCard card={individualCard} className="w-[190px]" />
             )}
           </div>
         ) : null}

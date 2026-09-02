@@ -518,8 +518,12 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
     JOIN frikiparty_team_member tm ON tm.team_id = t.id
     JOIN team_sizes ts ON ts.team_id = t.id
     LEFT JOIN frikiparty_player p ON p.id = tm.player_id
+    LEFT JOIN frikiparty_team_formation_pot_player pp
+      ON pp.tournament_id = tm.tournament_id AND pp.player_id = tm.player_id
     WHERE tr.edition_id = ${latestEdition.id} AND t.final_position = 1
-    ORDER BY ts.size DESC, p.name ASC
+    -- Bearers march in draw order: pot by pot (captains first); without
+    -- pot records, the historical import's insertion order stands in.
+    ORDER BY ts.size DESC, pp.pot_index ASC NULLS LAST, tm.created_at ASC
   `)) as unknown as ChampionRow[];
 
   return {

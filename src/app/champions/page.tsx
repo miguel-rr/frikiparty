@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { RingVeil } from '@/app/champions/_components/ring-veil';
+import { TreasuryBackdrop } from '@/app/champions/_components/treasury-backdrop';
+import { BearersFan } from '@/components/champions/bearers-fan';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
   RingGlyph,
@@ -36,7 +38,7 @@ const ChampionsPage = async () => {
 
   if (!champions) {
     return (
-      <SiteShell>
+      <SiteShell backdrop={<TreasuryBackdrop />}>
         <main>
           <Section id="champions">
             <SectionHeader
@@ -85,10 +87,9 @@ const ChampionsPage = async () => {
   const teamCards = champions.individualChampion ? cards.slice(0, -1) : cards;
 
   const countWord = COUNT_WORDS[teamCards.length] ?? String(teamCards.length);
-  const center = (teamCards.length - 1) / 2;
 
   return (
-    <SiteShell>
+    <SiteShell backdrop={<TreasuryBackdrop />}>
       <main>
         <Section id="champions">
           <SectionHeader
@@ -141,35 +142,15 @@ const ChampionsPage = async () => {
                   </textPath>
                 </text>
               </svg>
-              <ul className="mx-auto grid w-full max-w-[520px] grid-cols-1 place-items-center gap-5 sm:grid-cols-2 lg:flex lg:max-w-none lg:items-start lg:justify-center lg:gap-0 lg:pt-4 sm:[&>li:last-child:nth-child(odd)]:col-span-2">
-                {teamCards.map((card, index) => {
-                  const slug = playersByName[card.name]?.slug;
-                  const offset = index - center;
-                  const body = (
-                    <PortraitCard card={card} className="w-full lg:w-[215px]" />
-                  );
-                  return (
-                    <li
-                      className="w-full max-w-[235px] lg:-mx-3 lg:w-auto lg:max-w-none lg:transition-transform lg:duration-300 lg:hover:z-20 lg:[transform:var(--fan)] lg:hover:[transform:translateY(-18px)]"
-                      key={card.name}
-                      style={{
-                        ['--fan' as string]: `rotate(${offset * 4.5}deg) translateY(${offset * offset * 12}px)`,
-                      }}
-                    >
-                      {slug ? (
-                        <Link
-                          className="block drop-shadow-[0_14px_20px_rgba(0,0,0,0.55)]"
-                          href={`/players/${slug}`}
-                        >
-                          {body}
-                        </Link>
-                      ) : (
-                        body
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+              <BearersFan
+                cards={teamCards}
+                slugByName={Object.fromEntries(
+                  Object.entries(playersByName).map(([name, data]) => [
+                    name,
+                    data.slug,
+                  ]),
+                )}
+              />
               {/* The ground the hand casts its shadow on */}
               <span
                 aria-hidden="true"

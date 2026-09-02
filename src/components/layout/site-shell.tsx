@@ -20,15 +20,18 @@ const NAV_LINKS = [
 ];
 
 const SiteShell = ({
+  backdrop,
   children,
   footerNote,
 }: {
+  /** Page-wide backdrop; defaults to the mountain parallax. */
+  backdrop?: ReactNode;
   children: ReactNode;
   footerNote?: ReactNode;
 }) => (
   <div className="theme-night text-[1.0625rem] leading-relaxed">
     <BlazonDefs />
-    <ParallaxBackground />
+    {backdrop ?? <ParallaxBackground />}
     <TopNav
       authSlot={siteFlags.auth ? <AuthSlot /> : null}
       links={siteFlags.navigation ? NAV_LINKS : []}

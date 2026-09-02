@@ -57,23 +57,25 @@ const SectionHeader = ({
   title,
   lead,
 }: {
-  eyebrowText: string;
+  eyebrowText?: string;
   /** Turns the eyebrow into a link (e.g. "Edición 2025" → its page). */
   eyebrowHref?: string;
   title: string;
   lead?: string;
 }) => (
   <div className="flex flex-col items-center gap-3 text-center">
-    {eyebrowHref ? (
-      <Link
-        className={`${eyebrow} transition-colors hover:text-(--gold-hi)`}
-        href={eyebrowHref}
-      >
-        {eyebrowText}
-      </Link>
-    ) : (
-      <span className={eyebrow}>{eyebrowText}</span>
-    )}
+    {eyebrowText ? (
+      eyebrowHref ? (
+        <Link
+          className={`${eyebrow} transition-colors hover:text-(--gold-hi)`}
+          href={eyebrowHref}
+        >
+          {eyebrowText}
+        </Link>
+      ) : (
+        <span className={eyebrow}>{eyebrowText}</span>
+      )
+    ) : null}
     <h2 className="d-display font-bold text-3xl uppercase sm:text-4xl">
       {title}
     </h2>

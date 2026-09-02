@@ -25,88 +25,6 @@ const daysUntil = (iso: string) => {
   return Math.round((target.getTime() - today.getTime()) / DAY_MS);
 };
 
-/**
- * Venue card: photo + tinted map link to Google Maps; the name links to the
- * venue's own page (when it's a real house) and "Cómo llegar" to Maps again.
- */
-const VenueCard = ({ edition }: { edition: NextEdition }) => {
-  const mapSrc = edition.venueMapsEmbedQuery
-    ? `https://maps.google.com/maps?q=${encodeURIComponent(edition.venueMapsEmbedQuery)}&z=13&output=embed`
-    : null;
-  const venueLabel = edition.venueName ?? 'la sede';
-  const media = (
-    <div className="grid grid-cols-1 sm:grid-cols-2">
-      {edition.venuePhotoUrl ? (
-        // biome-ignore lint/performance/noImgElement: remote host not allow-listed in next.config for next/image yet
-        <img
-          alt={`Fotografía de ${edition.venueName ?? 'la sede'}`}
-          className="h-40 w-full object-cover sm:h-52"
-          src={edition.venuePhotoUrl}
-        />
-      ) : (
-        <div className="flex h-40 w-full flex-col items-center justify-center gap-2 bg-[radial-gradient(circle_at_50%_35%,#22301f,var(--night-2)_80%)] sm:h-52">
-          <span className="font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.2em]">
-            Foto de la sede
-          </span>
-        </div>
-      )}
-      {mapSrc ? (
-        <iframe
-          className="pointer-events-none h-44 w-full border-0 opacity-90 contrast-[0.92] grayscale-[0.4] sepia-[0.25] sm:h-52"
-          loading="lazy"
-          src={mapSrc}
-          tabIndex={-1}
-          title={`Mapa de ${edition.venueName ?? 'la sede'}`}
-        />
-      ) : null}
-    </div>
-  );
-  return (
-    <div className="relative w-full max-w-2xl overflow-hidden rounded-xl border border-(--hair-gold) shadow-[0_12px_30px_rgba(0,0,0,0.4)]">
-      {edition.venueMapsUrl ? (
-        <a
-          aria-label={`Cómo llegar a ${venueLabel} (Google Maps)`}
-          className="group block transition-opacity hover:opacity-90"
-          href={edition.venueMapsUrl}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {media}
-        </a>
-      ) : (
-        media
-      )}
-      <div className="flex items-center justify-between gap-3 border-(--hair-gold) border-t bg-(--panel) px-4 py-3">
-        <span className="font-bold text-sm leading-snug">
-          <span className="font-mono text-(--gold) text-[0.58rem] uppercase tracking-[0.22em]">
-            Sede:{' '}
-          </span>
-          {edition.venueSlug && edition.venueIsPlace ? (
-            <Link
-              className="transition-colors hover:text-(--gold-hi)"
-              href={`/venues/${edition.venueSlug}`}
-            >
-              {edition.venueName}
-            </Link>
-          ) : (
-            edition.venueName
-          )}
-        </span>
-        {edition.venueMapsUrl ? (
-          <a
-            className={linkGold}
-            href={edition.venueMapsUrl}
-            rel="noreferrer"
-            target="_blank"
-          >
-            Cómo llegar →
-          </a>
-        ) : null}
-      </div>
-    </div>
-  );
-};
-
 /** Hero for an announced (or running) edition. */
 const HomeHero = ({ edition }: { edition: NextEdition }) => {
   const hasDates = edition.startsAt !== null && edition.endsAt !== null;
@@ -148,7 +66,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
         <div className="flex flex-col items-center gap-7 text-center lg:gap-5">
           <Link
             className={`${tag} transition-colors hover:border-(--gold) hover:text-(--gold-hi)`}
-            href={`/editions/${edition.year}`}
+            href="/council"
           >
             {live
               ? `La edición ${edition.year} está en juego`
@@ -176,9 +94,16 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
             . Age of the Ring, juegos de mesa hasta las tantas y cuentas
             pendientes desde 2005.
           </p>
-          <div className="mt-9 flex w-full justify-center lg:mt-12">
-            <VenueCard edition={edition} />
-          </div>
+          {edition.venueMapsUrl ? (
+            <a
+              className={linkGold}
+              href={edition.venueMapsUrl}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Cómo llegar →
+            </a>
+          ) : null}
         </div>
       </div>
       <HeroRidge />
