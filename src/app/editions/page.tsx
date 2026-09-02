@@ -29,11 +29,7 @@ const EditionsPage = async () => {
     <SiteShell>
       <main>
         <Section id="editions">
-          <SectionHeader
-            eyebrowText="Crónica · Desde 2005"
-            lead="Cada año, una casa rural, un torneo y un puñado de anillos. Esta es la cuenta de todas las ediciones del concilio."
-            title="Las Ediciones"
-          />
+          <SectionHeader eyebrowText="Crónica" title="Las Ediciones" />
           {editions.length > 0 ? (
             <ol className="relative mx-auto flex w-full max-w-3xl flex-col gap-8 border-(--hair-gold) border-l pl-6 sm:pl-10">
               {editions.map((edition, index) => (

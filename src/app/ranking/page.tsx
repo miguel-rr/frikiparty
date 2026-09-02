@@ -34,7 +34,7 @@ const RankingPage = async () => {
     <SiteShell>
       <main>
         <Section id="ranking">
-          <SectionHeader eyebrowText="Ranking histórico" title="El Escalafón" />
+          <SectionHeader eyebrowText="El Escalafón" title="Ranking histórico" />
           {ranking.length > 0 ? (
             <>
               <HonorPodium players={ranking} />
