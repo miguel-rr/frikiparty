@@ -115,7 +115,7 @@ const select = `${input} appearance-none`;
  */
 const UploadSheet = ({ target }: { target: UploadTarget }) => {
   const { user } = useSessionUser();
-  const permission = api.media.uploadPermission.useQuery(undefined, {
+  const permission = api.media.access.useQuery(undefined, {
     enabled: user !== undefined,
   });
   const [open, setOpen] = useState(false);

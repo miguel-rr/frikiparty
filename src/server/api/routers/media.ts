@@ -1,12 +1,15 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, inArray, isNotNull, or, sql } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
+import { and, asc, eq, isNotNull, or, sql } from 'drizzle-orm';
 import { after } from 'next/server';
 import sharp from 'sharp';
 import { z } from 'zod';
 
 import { listEditions } from '@/server/api/routers/edition';
-import { getPlayerForUser } from '@/server/api/routers/player';
+import {
+  listMediaForEdition,
+  listMediaForPlayer,
+  listMediaForVenue,
+} from '@/server/api/routers/media-queries';
 import {
   adminProcedure,
   createTRPCRouter,
@@ -14,14 +17,13 @@ import {
   type TRPCContext,
 } from '@/server/api/trpc';
 import {
-  edition,
   media,
   mediaAssociation,
   mediaTag,
   player,
   tournament,
-  venue,
 } from '@/server/db/schema';
+import { resolveArchiveAccess } from '@/server/media/access';
 import { processVideo } from '@/server/media/process-video';
 import {
   deleteObjects,
@@ -66,28 +68,16 @@ const mediaKeys = (id: string, contentType: UploadType) => ({
 const mediaTypeOf = (contentType: UploadType) =>
   contentType.startsWith('video/') ? ('video' as const) : ('image' as const);
 
-/**
- * Who may upload: admins and editors always; anyone else only once their
- * account has claimed a player (see player.linkByCode).
- */
-const resolveUploader = async (ctx: {
-  db: TRPCContext['db'];
-  session: { user: { id: string; role: string } };
-}) => {
-  const linkedPlayer = await getPlayerForUser(ctx.db, ctx.session.user.id);
-  const { role } = ctx.session.user;
-  if (role !== 'admin' && role !== 'editor' && !linkedPlayer) {
+/** Reading and uploading share one rule (see resolveArchiveAccess). */
+const archiveProcedure = protectedProcedure.use(async ({ ctx, next }) => {
+  const access = await resolveArchiveAccess(ctx.db, ctx.session.user);
+  if (!access.allowed) {
     throw new TRPCError({
       code: 'FORBIDDEN',
-      message: 'Vincula tu jugador antes de subir archivos.',
+      message: 'Vincula tu jugador para entrar en Los Archivos.',
     });
   }
-  return { userId: ctx.session.user.id, playerId: linkedPlayer?.id ?? null };
-};
-
-const uploaderProcedure = protectedProcedure.use(async ({ ctx, next }) => {
-  const uploader = await resolveUploader(ctx);
-  return next({ ctx: { ...ctx, uploader } });
+  return next({ ctx: { ...ctx, uploader: { userId: ctx.session.user.id } } });
 });
 
 type TournamentKindRow = {
@@ -159,62 +149,6 @@ const renditionOf = (source: Buffer, size: number) =>
     .webp({ quality: 82 })
     .toBuffer({ resolveWithObject: true });
 
-/** Static pages that show the affected galleries. */
-const revalidateGalleries = async (
-  db: TRPCContext['db'],
-  playerIds: string[],
-  editionId: string | null,
-  mediaId?: string,
-) => {
-  if (mediaId) {
-    revalidatePath(`/archive/${mediaId}`);
-  }
-  const players = await db
-    .select({ slug: player.slug })
-    .from(player)
-    .where(inArray(player.id, playerIds));
-  for (const row of players) {
-    revalidatePath(`/players/${row.slug}`);
-  }
-  if (editionId) {
-    const [row] = await db
-      .select({
-        year: edition.year,
-        order: edition.order,
-        venueSlug: venue.slug,
-      })
-      .from(edition)
-      .leftJoin(venue, eq(venue.id, edition.venueId))
-      .where(eq(edition.id, editionId));
-    if (row) {
-      revalidatePath(
-        `/editions/${row.order > 1 ? `${row.year}-${row.order}` : row.year}`,
-      );
-      if (row.venueSlug) {
-        revalidatePath(`/venues/${row.venueSlug}`);
-      }
-    }
-  }
-  revalidatePath('/archive');
-};
-
-/** The player/edition/tournament links of a file, as the editor form sees them. */
-const currentLinks = async (db: TRPCContext['db'], mediaId: string) => {
-  const rows = await db
-    .select({
-      playerId: mediaAssociation.playerId,
-      editionId: mediaAssociation.editionId,
-      tournamentId: mediaAssociation.tournamentId,
-    })
-    .from(mediaAssociation)
-    .where(eq(mediaAssociation.mediaId, mediaId));
-  return {
-    playerIds: rows.flatMap((row) => (row.playerId ? [row.playerId] : [])),
-    editionId: rows.find((row) => row.editionId)?.editionId ?? null,
-    tournamentId: rows.find((row) => row.tournamentId)?.tournamentId ?? null,
-  };
-};
-
 const assertTournamentInEdition = async (
   db: TRPCContext['db'],
   tournamentId: string | null,
@@ -252,24 +186,36 @@ const loadEditable = async (
 };
 
 const mediaRouter = createTRPCRouter({
-  /** Whether the signed-in user may upload, and their own player to preselect. */
-  uploadPermission: protectedProcedure.query(async ({ ctx }) => {
-    try {
-      const uploader = await resolveUploader(ctx);
-      return { allowed: true as const, playerId: uploader.playerId };
-    } catch {
-      return { allowed: false as const, playerId: null };
-    }
-  }),
+  /** Whether the signed-in user may see and feed the archive. */
+  access: protectedProcedure.query(({ ctx }) =>
+    resolveArchiveAccess(ctx.db, ctx.session.user),
+  ),
 
-  uploadContext: uploaderProcedure.query(({ ctx }) => getUploadContext(ctx.db)),
+  /** Everything tagged to one player, edition or venue (derived, see media-queries). */
+  gallery: archiveProcedure
+    .input(
+      z.union([
+        z.object({ playerId: z.string().uuid() }),
+        z.object({ editionId: z.string().uuid() }),
+        z.object({ venueId: z.string().uuid() }),
+      ]),
+    )
+    .query(({ ctx, input }) =>
+      'playerId' in input
+        ? listMediaForPlayer(ctx.db, input.playerId)
+        : 'editionId' in input
+          ? listMediaForEdition(ctx.db, input.editionId)
+          : listMediaForVenue(ctx.db, input.venueId),
+    ),
+
+  uploadContext: archiveProcedure.query(({ ctx }) => getUploadContext(ctx.db)),
 
   /**
    * Reserves an id and signs the direct browser → R2 uploads (the original
    * and, for video, the poster frame the browser captures). Nothing is
    * written to the database until `finalize` confirms the objects exist.
    */
-  presign: uploaderProcedure
+  presign: archiveProcedure
     .input(z.object({ contentType: uploadTypeSchema }))
     .mutation(async ({ input }) => {
       const id = crypto.randomUUID();
@@ -288,7 +234,7 @@ const mediaRouter = createTRPCRouter({
    * display) generated server-side from the original or the poster, then
    * the row and its associations. At least one player, always.
    */
-  finalize: uploaderProcedure
+  finalize: archiveProcedure
     .input(
       z.object({
         id: z.string().uuid(),
@@ -383,19 +329,10 @@ const mediaRouter = createTRPCRouter({
           .values(targets.map((target) => ({ mediaId: input.id, ...target })));
       });
 
-      await revalidateGalleries(ctx.db, input.playerIds, input.editionId);
       if (type === 'video') {
         // Poster fallback, real metadata and the H.264 rendition happen
-        // after the response; the galleries re-render when it's done.
-        after(async () => {
-          await processVideo(ctx.db, input.id, keys);
-          await revalidateGalleries(
-            ctx.db,
-            input.playerIds,
-            input.editionId,
-            input.id,
-          );
-        });
+        // after the response; galleries pick them up on their next fetch.
+        after(() => processVideo(ctx.db, input.id, keys));
       }
       return { id: input.id };
     }),
@@ -416,17 +353,7 @@ const mediaRouter = createTRPCRouter({
         .set({ playbackStatus: 'converting' })
         .where(eq(media.id, input.id));
       const keys = mediaKeys(input.id, row.mimeType as UploadType);
-      const links = await currentLinks(ctx.db, input.id);
-      after(async () => {
-        await processVideo(ctx.db, input.id, keys);
-        await revalidateGalleries(
-          ctx.db,
-          links.playerIds,
-          links.editionId,
-          input.id,
-        );
-      });
-      revalidatePath(`/archive/${input.id}`);
+      after(() => processVideo(ctx.db, input.id, keys));
       return { id: input.id };
     }),
 
@@ -456,7 +383,6 @@ const mediaRouter = createTRPCRouter({
         input.tournamentId,
         input.editionId,
       );
-      const before = await currentLinks(ctx.db, input.id);
 
       await ctx.db.transaction(async (tx) => {
         await tx
@@ -490,16 +416,6 @@ const mediaRouter = createTRPCRouter({
           .values(targets.map((target) => ({ mediaId: input.id, ...target })));
       });
 
-      // Pages it used to be on and pages it is on now.
-      await revalidateGalleries(
-        ctx.db,
-        [...new Set([...before.playerIds, ...input.playerIds])],
-        before.editionId,
-        input.id,
-      );
-      if (input.editionId && input.editionId !== before.editionId) {
-        await revalidateGalleries(ctx.db, [], input.editionId);
-      }
       return { id: input.id };
     }),
 
@@ -508,7 +424,6 @@ const mediaRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { row } = await loadEditable(ctx, input.id);
-      const links = await currentLinks(ctx.db, input.id);
       await ctx.db.transaction(async (tx) => {
         await tx
           .delete(mediaAssociation)
@@ -524,12 +439,6 @@ const mediaRouter = createTRPCRouter({
         keys.display,
         keys.playback,
       ]);
-      await revalidateGalleries(
-        ctx.db,
-        links.playerIds,
-        links.editionId,
-        input.id,
-      );
       return { id: input.id };
     }),
 });

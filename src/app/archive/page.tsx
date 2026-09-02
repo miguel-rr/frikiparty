@@ -8,6 +8,7 @@ import { siteFlags } from '@/lib/site-flags';
 import { listAllMedia } from '@/server/api/routers/media-queries';
 import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
+import { resolveArchiveAccess } from '@/server/media/access';
 
 export const metadata: Metadata = { title: 'Los Archivos — Frikiparty' };
 
@@ -15,13 +16,15 @@ export const metadata: Metadata = { title: 'Los Archivos — Frikiparty' };
 export const dynamic = 'force-dynamic';
 
 /**
- * The whole library. Admins always get in; everyone else only once the
- * archivePublic flag opens the doors. Non-admins get a 404 meanwhile.
+ * The whole library. Admins always get in; other archive members only
+ * once the archiveForMembers flag opens the doors; anyone else gets a 404,
+ * so the page doesn't advertise itself.
  */
 const ArchivePage = async () => {
   const session = await getSession();
-  const isAdmin = session?.user.role === 'admin';
-  if (!isAdmin && !siteFlags.archivePublic) {
+  const access = await resolveArchiveAccess(db, session?.user);
+  const { isAdmin } = access;
+  if (!isAdmin && !(access.allowed && siteFlags.archiveForMembers)) {
     notFound();
   }
   const items = await listAllMedia(db);

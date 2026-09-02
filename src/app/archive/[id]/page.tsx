@@ -6,17 +6,32 @@ import { SiteShell } from '@/components/layout/site-shell';
 import { MediaFigure } from '@/components/media/media-figure';
 import { Section } from '@/components/theme/primitives';
 import { getMediaItem } from '@/server/api/routers/media-queries';
+import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
+import { resolveArchiveAccess } from '@/server/media/access';
 
 type PageProps = { params: Promise<{ id: string }> };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+// Reads the session (archive gate), so it renders on demand.
+export const dynamic = 'force-dynamic';
+
+/** Null unless the id is well-formed and the visitor may see the archive. */
+const loadItem = async (id: string) => {
+  if (!UUID.test(id)) {
+    return null;
+  }
+  const session = await getSession();
+  const access = await resolveArchiveAccess(db, session?.user);
+  return access.allowed ? getMediaItem(db, id) : null;
+};
+
 export const generateMetadata = async ({
   params,
 }: PageProps): Promise<Metadata> => {
   const { id } = await params;
-  const item = UUID.test(id) ? await getMediaItem(db, id) : null;
+  const item = await loadItem(id);
   return {
     title: `${item?.caption ?? 'Los Archivos'} — Frikiparty`,
     openGraph: item?.displayUrl ? { images: [item.displayUrl] } : undefined,
@@ -24,12 +39,12 @@ export const generateMetadata = async ({
 };
 
 /**
- * Shareable page for one file. Rendered on demand (ids are unbounded) and
- * cached until media.update/remove revalidates it.
+ * Shareable page for one file — shareable among members: anyone without
+ * archive access gets the same 404 an unknown id would.
  */
 const ArchiveItemPage = async ({ params }: PageProps) => {
   const { id } = await params;
-  const item = UUID.test(id) ? await getMediaItem(db, id) : null;
+  const item = await loadItem(id);
   if (!item) {
     notFound();
   }

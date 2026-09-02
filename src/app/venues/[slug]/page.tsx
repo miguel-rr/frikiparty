@@ -14,7 +14,6 @@ import {
 import { EditionCard } from '@/components/tournament/edition-card';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
-import { listMediaForVenue } from '@/server/api/routers/media-queries';
 import { getVenue } from '@/server/api/routers/venue';
 import { db } from '@/server/db';
 import { venue as venueTable } from '@/server/db/schema';
@@ -55,7 +54,6 @@ const VenuePage = async ({ params }: PageProps) => {
   if (!venue) {
     notFound();
   }
-  const archive = await listMediaForVenue(db, venue.id);
 
   const mapSrc = venue.mapsEmbedQuery
     ? `https://maps.google.com/maps?q=${encodeURIComponent(venue.mapsEmbedQuery)}&z=13&output=embed`
@@ -169,7 +167,10 @@ const VenuePage = async ({ params }: PageProps) => {
               Ninguna edición se ha celebrado aquí todavía.
             </p>
           )}
-          <ArchiveSection items={archive} subject={`de ${venue.name}`} />
+          <ArchiveSection
+            subject={`de ${venue.name}`}
+            target={{ venueId: venue.id }}
+          />
         </Section>
       </main>
     </SiteShell>

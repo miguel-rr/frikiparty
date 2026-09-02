@@ -57,6 +57,12 @@ Complementa la sección 7 de `data-model.md`; donde difieren, manda este doc.
 - **Permisos de edición**: quien subió puede cambiar título y asociaciones
   (y etiquetas cuando tengan UI); el resto solo admin. Borrado: quien subió o
   admin, y borra también en R2. Sin moderación.
+- **Acceso**: todo lo del archivo (galerías, `/archive/<id>`, `/archive`,
+  API) exige sesión con acceso: admin, editor o cuenta vinculada a un
+  jugador. Anónimos no ven ni el bloque. Como las páginas de jugador,
+  edición y sede son estáticas, `ArchiveSection` es cliente: resuelve
+  `media.access` y solo entonces pide `media.gallery`; las rutas `/archive`
+  son dinámicas y comprueban la sesión en servidor (404 si no).
 - **Galería** al final de las páginas de edición, jugador y sede: mosaico +
   lightbox con anterior/siguiente. Cada archivo tiene URL en `/archive/<id>`.
 - **/archive, "Los Archivos"**: galería completa con vista de tabla para

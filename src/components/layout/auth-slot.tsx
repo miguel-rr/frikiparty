@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { UserMenu } from '@/app/_components/user-menu';
 import { btn } from '@/components/theme/primitives';
 import { authClient } from '@/server/better-auth/client';
@@ -20,6 +21,12 @@ const useSessionUser = () => {
 
 const AuthSlot = () => {
   const { user, isPending } = useSessionUser();
+  // Entrar remembers where you were: /login sends you back there afterwards.
+  const pathname = usePathname();
+  const loginHref =
+    pathname && pathname !== '/login'
+      ? `/login?next=${encodeURIComponent(pathname)}`
+      : '/login';
   if (isPending) {
     // Placeholder with the button's height so the nav doesn't jump.
     return <span aria-hidden className="h-[34px]" />;
@@ -30,7 +37,7 @@ const AuthSlot = () => {
     );
   }
   return (
-    <Link className={btn.outline} href="/login">
+    <Link className={btn.outline} href={loginHref}>
       Entrar
     </Link>
   );

@@ -15,7 +15,6 @@ import {
 } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
 import { cardSpecFor, dealCardSpecs } from '@/lib/tournament/card-lore';
-import { listMediaForPlayer } from '@/server/api/routers/media-queries';
 import { getPlayerProfile } from '@/server/api/routers/player';
 import { db } from '@/server/db';
 import { player as playerTable } from '@/server/db/schema';
@@ -84,7 +83,6 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
     isLeader: player.position === 1,
   };
   const card = dealCardSpecs([identity])[0] ?? cardSpecFor(identity);
-  const archive = await listMediaForPlayer(db, player.id);
 
   return (
     <SiteShell>
@@ -217,7 +215,6 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
               profile block, so the section gap alone reads too tight. */}
           <div className="mt-6 sm:mt-10">
             <ArchiveSection
-              items={archive}
               subject={`de ${player.name}`}
               target={{ playerId: player.id }}
             />

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { LoginForm } from '@/app/login/_components/login-form';
 import { SiteShell } from '@/components/layout/site-shell';
@@ -16,7 +17,10 @@ const LoginPage = () => (
           title="Entrar"
         />
         <div className="flex justify-center">
-          <LoginForm />
+          {/* The form reads ?next=; Suspense keeps the page statically built. */}
+          <Suspense>
+            <LoginForm />
+          </Suspense>
         </div>
       </Section>
     </main>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { type FormEvent, useState } from 'react';
 
 import { btn, input, label, panel } from '@/components/theme/primitives';
@@ -25,8 +25,18 @@ const GitHubMark = () => (
   </svg>
 );
 
+/**
+ * Where to land after signing in: the `next` query param when it's a
+ * local path (never another host, never /login itself), else the home.
+ */
+const safeNext = (raw: string | null) =>
+  raw?.startsWith('/') && !raw.startsWith('//') && !raw.startsWith('/login')
+    ? raw
+    : '/';
+
 const LoginForm = () => {
   const router = useRouter();
+  const next = safeNext(useSearchParams().get('next'));
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +50,7 @@ const LoginForm = () => {
     const { error: signInError } = await authClient.signIn.email({
       email,
       password,
-      callbackURL: '/',
+      callbackURL: next,
     });
 
     setIsSubmitting(false);
@@ -50,12 +60,12 @@ const LoginForm = () => {
       return;
     }
 
-    router.push('/');
+    router.push(next);
     router.refresh();
   };
 
   const handleSocialSignIn = (provider: 'google' | 'github') => {
-    void authClient.signIn.social({ provider, callbackURL: '/' });
+    void authClient.signIn.social({ provider, callbackURL: next });
   };
 
   return (

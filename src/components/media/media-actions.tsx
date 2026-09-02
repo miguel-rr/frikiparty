@@ -39,19 +39,25 @@ const MediaActions = ({
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
+  const utils = api.useUtils();
   const isAdmin = user?.role === 'admin';
   const canEdit =
     user !== undefined && (isAdmin || user.id === item.uploadedByUserId);
 
+  // Galleries are client queries and /archive pages are dynamic: refresh both.
+  const refresh = () => {
+    utils.media.gallery.invalidate();
+    router.refresh();
+  };
   const reprocess = api.media.reprocessVideo.useMutation({
-    onSuccess: () => router.refresh(),
+    onSuccess: refresh,
   });
   const remove = api.media.remove.useMutation({
     onSuccess: () => {
       if (removedHref) {
         router.push(removedHref);
       }
-      router.refresh();
+      refresh();
       onRemoved?.();
     },
   });
@@ -66,7 +72,7 @@ const MediaActions = ({
         item={item}
         onDone={() => {
           setEditing(false);
-          router.refresh();
+          refresh();
         }}
       />
     );
