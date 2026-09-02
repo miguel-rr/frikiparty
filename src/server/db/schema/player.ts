@@ -16,6 +16,9 @@ const player = createTable('player', {
   userId: text('user_id')
     .references(() => user.id)
     .unique(),
+  // One-time code an admin hands to the person so they can claim this
+  // player from their user menu; cleared once consumed (see player.linkByCode).
+  linkCode: text('link_code').unique(),
   // Chosen card identity; null means "let the card system decide" (curated
   // map or race pool for the portrait, a random lore-deck deal for the text).
   cardPortrait: text('card_portrait'),

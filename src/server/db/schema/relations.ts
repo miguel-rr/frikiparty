@@ -96,6 +96,7 @@ const tagRelations = relations(tag, ({ many }) => ({
 
 const venueRelations = relations(venue, ({ many }) => ({
   editions: many(edition),
+  mediaAssociations: many(mediaAssociation),
 }));
 
 const editionRelations = relations(edition, ({ many, one }) => ({
@@ -385,6 +386,10 @@ const mediaAssociationRelations = relations(mediaAssociation, ({ one }) => ({
   player: one(player, {
     fields: [mediaAssociation.playerId],
     references: [player.id],
+  }),
+  venue: one(venue, {
+    fields: [mediaAssociation.venueId],
+    references: [venue.id],
   }),
 }));
 

@@ -25,7 +25,9 @@ const AuthSlot = () => {
     return <span aria-hidden className="h-[34px]" />;
   }
   if (user) {
-    return <UserMenu label={user.name || user.email} />;
+    return (
+      <UserMenu label={user.name || user.email} role={user.role ?? 'user'} />
+    );
   }
   return (
     <Link className={btn.outline} href="/login">

@@ -1,8 +1,9 @@
 import { TRPCError } from '@trpc/server';
-import { asc, eq, sql } from 'drizzle-orm';
+import { and, asc, eq, isNull, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
+import { generateLinkCode, normalizeLinkCode } from '@/lib/link-code';
 import {
   competitionPositions,
   sortByHistoricalRanking,
@@ -14,7 +15,7 @@ import {
   type TRPCContext,
 } from '@/server/api/trpc';
 import type { db as Db } from '@/server/db';
-import { player } from '@/server/db/schema';
+import { player, user } from '@/server/db/schema';
 
 type RankingRow = {
   id: string;
@@ -290,6 +291,45 @@ const getHistoricalRanking = (db: TRPCContext['db']) =>
     });
   });
 
+/**
+ * Every player with either the account that claimed them or the code an
+ * admin can hand out. Codes are minted lazily here for unclaimed players
+ * that still lack one, so the admin list is always complete. Admin-only
+ * (the caller gates it) — codes are secrets.
+ */
+const listPlayersForAdmin = async (db: TRPCContext['db']) => {
+  const missing = await db
+    .select({ id: player.id })
+    .from(player)
+    .where(and(isNull(player.userId), isNull(player.linkCode)));
+  for (const row of missing) {
+    await db
+      .update(player)
+      .set({ linkCode: generateLinkCode() })
+      .where(eq(player.id, row.id));
+  }
+  return db
+    .select({
+      id: player.id,
+      name: player.name,
+      slug: player.slug,
+      linkCode: player.linkCode,
+      user: { name: user.name, email: user.email, role: user.role },
+    })
+    .from(player)
+    .leftJoin(user, eq(user.id, player.userId))
+    .orderBy(asc(player.name));
+};
+
+/** The player claimed by this user, if any. */
+const getPlayerForUser = async (db: TRPCContext['db'], userId: string) => {
+  const [row] = await db
+    .select({ id: player.id, slug: player.slug, name: player.name })
+    .from(player)
+    .where(eq(player.userId, userId));
+  return row ?? null;
+};
+
 const playerRouter = createTRPCRouter({
   list: publicProcedure.query(({ ctx }) => listPlayers(ctx.db)),
 
@@ -305,6 +345,50 @@ const playerRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
       return profile;
+    }),
+
+  /** The signed-in user's own player, or null while unlinked. */
+  mine: protectedProcedure.query(({ ctx }) =>
+    getPlayerForUser(ctx.db, ctx.session.user.id),
+  ),
+
+  /**
+   * Claims a player with the one-time code an admin handed out. The code
+   * is consumed on success; a user can hold exactly one player and a
+   * player exactly one user.
+   */
+  linkByCode: protectedProcedure
+    .input(z.object({ code: z.string().trim().min(1).max(20) }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      if (await getPlayerForUser(ctx.db, userId)) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'Tu cuenta ya está vinculada a un jugador.',
+        });
+      }
+      const code = normalizeLinkCode(input.code);
+      const [target] = await ctx.db
+        .select({ id: player.id, slug: player.slug, userId: player.userId })
+        .from(player)
+        .where(eq(player.linkCode, code));
+      if (!target || target.userId) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Ese código no corresponde a ningún jugador.',
+        });
+      }
+      const [linked] = await ctx.db
+        .update(player)
+        .set({ userId, linkCode: null })
+        .where(and(eq(player.id, target.id), isNull(player.userId)))
+        .returning({ id: player.id, slug: player.slug, name: player.name });
+      if (!linked) {
+        throw new TRPCError({ code: 'CONFLICT' });
+      }
+      // The profile page bakes in who may edit it.
+      revalidatePath(`/players/${linked.slug}`);
+      return linked;
     }),
 
   update: protectedProcedure
@@ -369,8 +453,10 @@ const playerRouter = createTRPCRouter({
 
 export {
   getHistoricalRanking,
+  getPlayerForUser,
   getPlayerProfile,
   listPlayers,
+  listPlayersForAdmin,
   listRingTitles,
   playerRouter,
   type RingTitle,
