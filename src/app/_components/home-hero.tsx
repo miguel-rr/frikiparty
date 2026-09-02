@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { linkGold, tag } from '@/components/theme/primitives';
+import { linkGold, pageWidth, tag } from '@/components/theme/primitives';
 import { TheRing } from '@/components/theme/ring';
 import { formatDateRange, formatShortDateRange } from '@/lib/dates';
 
@@ -118,7 +118,9 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
   const remaining = hasDates ? daysUntil(edition.startsAt as string) : null;
   return (
     <section className="relative overflow-hidden" id="top">
-      <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-12 sm:px-6 lg:gap-7 lg:pt-8 lg:pb-14">
+      <div
+        className={`${pageWidth} flex flex-col items-center gap-12 pt-14 pb-12 lg:gap-7 lg:pt-8 lg:pb-14`}
+      >
         <TheRing
           className="w-[min(80vw,440px)] lg:w-105"
           title={`Edición ${edition.year}`}
@@ -187,7 +189,9 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
 /** Resting state: no upcoming edition announced — the beacons are unlit. */
 const HomeAwaitingHero = () => (
   <section className="relative overflow-hidden" id="top">
-    <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-24 sm:px-6 lg:gap-7 lg:pt-8">
+    <div
+      className={`${pageWidth} flex flex-col items-center gap-12 pt-14 pb-24 lg:gap-7 lg:pt-8`}
+    >
       <TheRing
         className="w-[min(80vw,440px)] opacity-90 lg:w-105"
         title="Próxima edición por convocar"

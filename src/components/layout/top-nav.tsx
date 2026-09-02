@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, useState } from 'react';
 
-import { btn } from '@/components/theme/primitives';
+import { btn, pageWidth } from '@/components/theme/primitives';
 
 type NavLink = { href: string; text: string };
 
@@ -41,7 +41,7 @@ const TopNav = ({
   return (
     <nav className="sticky top-0 z-40 border-(--hair) border-b bg-[#0a0f0cd1] backdrop-blur-md">
       {/* Symmetric flex-1 flanks keep the link row truly centered no matter how wide the auth area is. */}
-      <div className="mx-auto flex max-w-[1180px] items-center gap-4 px-4 py-3 sm:px-6">
+      <div className={`${pageWidth} flex items-center gap-4 py-3`}>
         <div className="flex flex-1 items-center">
           <Link
             className="d-display d-gold-text font-black text-lg tracking-[0.18em]"
@@ -71,7 +71,7 @@ const TopNav = ({
         </div>
         <div className="flex flex-1 items-center justify-end gap-2.5">
           {authSlot === undefined ? (
-            <a className={`${btn.primary} px-4 py-1.5 text-sm`} href="#top">
+            <a className={btn.outline} href="#top">
               Entrar
             </a>
           ) : (
@@ -114,7 +114,7 @@ const TopNav = ({
       </div>
       {open ? (
         <div className="border-(--hair) border-t bg-[#0d1310f2] md:hidden">
-          <div className="mx-auto flex max-w-[1180px] flex-col px-4 sm:px-6">
+          <div className={`${pageWidth} flex flex-col`}>
             {links.map(({ href, text }) => {
               const active = isActivePath(pathname, href);
               return (

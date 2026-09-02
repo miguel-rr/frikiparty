@@ -98,124 +98,130 @@ const PlayerProfile = ({
     : card;
 
   return (
-    <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-start">
-      <PortraitCard card={previewCard} className="w-[250px] shrink-0" />
-      <div className="flex min-w-0 flex-1 flex-col gap-7">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            {editing ? (
-              <input
-                className={`${input} max-w-sm font-bold text-2xl`}
-                onChange={(event) => setName(event.target.value)}
-                value={name}
-              />
-            ) : (
-              <h1 className="d-display d-gold-text font-black text-4xl uppercase tracking-wide sm:text-5xl">
-                {initialName}
-              </h1>
-            )}
-            {canEdit && !editing ? (
-              <button
-                className={`${btn.secondary} px-4 py-1.5 text-sm`}
-                onClick={() => setEditing(true)}
-                type="button"
-              >
-                Editar
-              </button>
-            ) : null}
-          </div>
-
-          {editing ? (
-            <div className="flex flex-col gap-4">
-              <div>
-                <span className={label}>Bio</span>
-                <textarea
-                  className={`${input} min-h-32`}
-                  onChange={(event) => setBio(event.target.value)}
-                  value={bio}
+    // Card and header share a row; stats and palmarés span the full
+    // container width below, like tables on every other page.
+    <div className="flex flex-col gap-10">
+      <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-start">
+        <PortraitCard card={previewCard} className="w-[250px] shrink-0" />
+        <div className="flex min-w-0 flex-1 flex-col gap-7">
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              {editing ? (
+                <input
+                  className={`${input} max-w-sm font-bold text-2xl`}
+                  onChange={(event) => setName(event.target.value)}
+                  value={name}
                 />
-              </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              ) : (
+                <h1 className="d-display d-gold-text font-black text-4xl uppercase tracking-wide sm:text-5xl">
+                  {initialName}
+                </h1>
+              )}
+              {canEdit && !editing ? (
+                <button
+                  className={`${btn.secondary} px-4 py-1.5 text-sm`}
+                  onClick={() => setEditing(true)}
+                  type="button"
+                >
+                  Editar
+                </button>
+              ) : null}
+            </div>
+
+            {editing ? (
+              <div className="flex flex-col gap-4">
                 <div>
-                  <span className={label}>Ilustración</span>
-                  <select
-                    className={`${input} d-select py-1.5 pr-9 text-sm`}
-                    onChange={(event) => setPortrait(event.target.value)}
-                    value={portrait}
-                  >
-                    <option value="">Automática</option>
-                    {PORTRAIT_OPTIONS.map((option) => (
-                      <option key={option.key} value={option.key}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
+                  <span className={label}>Bio</span>
+                  <textarea
+                    className={`${input} min-h-32`}
+                    onChange={(event) => setBio(event.target.value)}
+                    value={bio}
+                  />
                 </div>
-                {pinnedLore ? null : (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <span className={label}>Carta</span>
+                    <span className={label}>Ilustración</span>
                     <select
                       className={`${input} d-select py-1.5 pr-9 text-sm`}
-                      onChange={(event) => setLore(event.target.value)}
-                      value={lore}
+                      onChange={(event) => setPortrait(event.target.value)}
+                      value={portrait}
                     >
-                      <option value="">
-                        Aleatoria (cambia en cada visita)
-                      </option>
-                      {LORE_OPTIONS.map((pair) => (
-                        <option key={pair.ability} value={pair.ability}>
-                          {pair.ability}
+                      <option value="">Automática</option>
+                      {PORTRAIT_OPTIONS.map((option) => (
+                        <option key={option.key} value={option.key}>
+                          {option.label}
                         </option>
                       ))}
                     </select>
-                    {selectedLore ? (
-                      <p className="mt-1.5 text-(--faded) text-xs italic">
-                        {selectedLore.text}
-                      </p>
-                    ) : null}
                   </div>
+                  {pinnedLore ? null : (
+                    <div>
+                      <span className={label}>Carta</span>
+                      <select
+                        className={`${input} d-select py-1.5 pr-9 text-sm`}
+                        onChange={(event) => setLore(event.target.value)}
+                        value={lore}
+                      >
+                        <option value="">
+                          Aleatoria (cambia en cada visita)
+                        </option>
+                        {LORE_OPTIONS.map((pair) => (
+                          <option key={pair.ability} value={pair.ability}>
+                            {pair.ability}
+                          </option>
+                        ))}
+                      </select>
+                      {selectedLore ? (
+                        <p className="mt-1.5 text-(--faded) text-xs italic">
+                          {selectedLore.text}
+                        </p>
+                      ) : null}
+                    </div>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    className={btn.primary}
+                    disabled={update.isPending || name.trim().length === 0}
+                    onClick={() =>
+                      update.mutate({
+                        id,
+                        name,
+                        bio: bio.trim().length > 0 ? bio : null,
+                        cardPortrait: portrait.length > 0 ? portrait : null,
+                        cardLore: lore.length > 0 ? lore : null,
+                      })
+                    }
+                    type="button"
+                  >
+                    {update.isPending ? 'Guardando…' : 'Guardar'}
+                  </button>
+                  <button
+                    className={btn.secondary}
+                    disabled={update.isPending}
+                    onClick={cancel}
+                    type="button"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+                {update.error ? (
+                  <p className="text-(--ember) text-xs">
+                    {update.error.message}
+                  </p>
+                ) : null}
+              </div>
+            ) : (
+              <p className="whitespace-pre-wrap text-(--parchment)">
+                {initialBio ?? (
+                  <span className="text-(--faded)">Sin biografía.</span>
                 )}
-              </div>
-              <div className="flex gap-2">
-                <button
-                  className={btn.primary}
-                  disabled={update.isPending || name.trim().length === 0}
-                  onClick={() =>
-                    update.mutate({
-                      id,
-                      name,
-                      bio: bio.trim().length > 0 ? bio : null,
-                      cardPortrait: portrait.length > 0 ? portrait : null,
-                      cardLore: lore.length > 0 ? lore : null,
-                    })
-                  }
-                  type="button"
-                >
-                  {update.isPending ? 'Guardando…' : 'Guardar'}
-                </button>
-                <button
-                  className={btn.secondary}
-                  disabled={update.isPending}
-                  onClick={cancel}
-                  type="button"
-                >
-                  Cancelar
-                </button>
-              </div>
-              {update.error ? (
-                <p className="text-(--ember) text-xs">{update.error.message}</p>
-              ) : null}
-            </div>
-          ) : (
-            <p className="whitespace-pre-wrap text-(--parchment)">
-              {initialBio ?? (
-                <span className="text-(--faded)">Sin biografía.</span>
-              )}
-            </p>
-          )}
+              </p>
+            )}
+          </div>
         </div>
-        {children}
       </div>
+      {children}
     </div>
   );
 };

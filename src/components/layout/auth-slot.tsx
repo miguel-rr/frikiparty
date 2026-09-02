@@ -28,7 +28,7 @@ const AuthSlot = () => {
     return <UserMenu label={user.name || user.email} />;
   }
   return (
-    <Link className={`${btn.primary} px-4 py-1.5 text-sm`} href="/login">
+    <Link className={btn.outline} href="/login">
       Entrar
     </Link>
   );

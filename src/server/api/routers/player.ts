@@ -41,6 +41,10 @@ type TitleRow = {
   order: number;
   game: string | null;
   team_size: number;
+  members: { name: string; slug: string | null }[];
+  title_venue_name: string | null;
+  title_venue_slug: string | null;
+  title_venue_is_place: boolean | null;
 };
 
 /**
@@ -99,16 +103,35 @@ const fetchTitles = async (db: typeof Db, playerId: string) => {
       e.year,
       e."order",
       g.name AS game,
+      v.name AS title_venue_name,
+      v.slug AS title_venue_slug,
+      v.is_place AS title_venue_is_place,
       (
         SELECT count(*)::int
         FROM frikiparty_team_member tm2
         WHERE tm2.team_id = tm.team_id
-      ) AS team_size
+      ) AS team_size,
+      (
+        SELECT coalesce(
+          json_agg(
+            json_build_object(
+              'name', coalesce(p2.name, '???'),
+              'slug', p2.slug
+            )
+            ORDER BY coalesce(p2.name, '???')
+          ),
+          '[]'::json
+        )
+        FROM frikiparty_team_member tm3
+        LEFT JOIN frikiparty_player p2 ON p2.id = tm3.player_id
+        WHERE tm3.team_id = tm.team_id
+      ) AS members
     FROM frikiparty_team_member tm
     JOIN frikiparty_team t ON t.id = tm.team_id
     JOIN frikiparty_tournament tr ON tr.id = tm.tournament_id
     JOIN frikiparty_edition e ON e.id = tr.edition_id
     LEFT JOIN frikiparty_game g ON g.id = tr.game_id
+    LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
     WHERE tm.player_id = ${playerId} AND t.final_position = 1
     ORDER BY e.year DESC, e."order" DESC
   `)) as unknown as TitleRow[];
@@ -118,6 +141,12 @@ const fetchTitles = async (db: typeof Db, playerId: string) => {
     order: row.order,
     game: row.game,
     type: row.team_size > 1 ? ('team' as const) : ('individual' as const),
+    members: row.members,
+    // Edition page slug: "2025" or "2013-2".
+    editionSlug: row.order > 1 ? `${row.year}-${row.order}` : String(row.year),
+    venueName: row.title_venue_name,
+    venueSlug: row.title_venue_slug,
+    venueIsPlace: row.title_venue_is_place,
   }));
 };
 

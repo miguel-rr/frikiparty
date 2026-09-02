@@ -70,6 +70,11 @@
   letter-spacing: 0.02em;
 }
 .d-gold-text {
+  /* Diacritics (Ñ, Ó) overshoot the line box; background-clip: text only
+     paints inside it, decapitating them. Padding grows the painted area,
+     the negative margin gives the space back to the layout. */
+  padding-block: 0.15em;
+  margin-block: -0.15em;
   background: linear-gradient(
     180deg,
     #f6e2a4 0%,

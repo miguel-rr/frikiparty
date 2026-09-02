@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { DurinDoor } from '@/components/council/durin-door';
 import { SiteShell } from '@/components/layout/site-shell';
-import { tag } from '@/components/theme/primitives';
+import { pageWidth, tag } from '@/components/theme/primitives';
 import { VenueShowcase } from '@/components/venue/venue-showcase';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
@@ -36,7 +36,7 @@ const CouncilPage = async () => {
         {/* Shared Section metrics, minus most of the top padding: the door
             should hang right under the nav. */}
         <section
-          className="mx-auto flex w-full max-w-[1180px] flex-col gap-10 px-4 pt-4 pb-14 sm:px-6 sm:pt-5 sm:pb-16"
+          className={`${pageWidth} flex flex-col gap-10 pt-4 pb-14 sm:pt-5 sm:pb-16`}
           id="council"
         >
           <div className="flex flex-col items-center gap-8">

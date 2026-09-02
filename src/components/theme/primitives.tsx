@@ -16,6 +16,12 @@ const btn = {
   secondary: `${btnBase} border border-(--hair) bg-(--panel-2) px-6 py-2.5 text-(--parchment) hover:border-(--hair-gold) hover:text-(--gold-hi)`,
   ghost: `${btnBase} border border-transparent px-4 py-2 text-(--faded) hover:text-(--parchment)`,
   danger: `${btnBase} border border-[#cf6a4873] px-6 py-2.5 text-(--ember) hover:bg-[#cf6a481f]`,
+  /**
+   * Quiet gold-rimmed capsule for chrome actions (the nav's "Entrar"):
+   * hairline border and the nav's own display type instead of the loud
+   * solid-gold CTA, which stays reserved for real form actions.
+   */
+  outline: `${btnBase} d-display border border-(--hair-gold) bg-[#141a15b3] px-4 py-1.5 font-bold text-[0.72rem] text-(--gold) uppercase tracking-[0.18em] hover:border-[#c9a557a6] hover:text-(--gold-hi) hover:shadow-[0_0_14px_rgba(201,165,87,0.22)]`,
 } as const;
 
 /** Quiet gold text link ("Cómo llegar →"): an action without a button. */
@@ -352,9 +358,17 @@ const Footer = ({ note }: { note?: ReactNode }) => (
   </footer>
 );
 
+/**
+ * The one content width for the whole site: an intermediate 1024px cap
+ * with 16px side margins on phones and 24px from sm up. Every page
+ * container (Section, the nav rows, home hero, /council) composes this
+ * so margins stay identical everywhere.
+ */
+const pageWidth = 'mx-auto w-full max-w-5xl px-4 sm:px-6';
+
 const Section = ({ children, id }: { children: ReactNode; id?: string }) => (
   <section
-    className="mx-auto flex w-full max-w-[1180px] scroll-mt-20 flex-col gap-10 px-4 py-14 sm:px-6 sm:py-16"
+    className={`${pageWidth} flex scroll-mt-20 flex-col gap-10 py-14 sm:py-16`}
     id={id}
   >
     {children}
@@ -374,6 +388,7 @@ export {
   linkGold,
   Meeple,
   PlayerBlazon,
+  pageWidth,
   panel,
   panelGold,
   RingGlyph,

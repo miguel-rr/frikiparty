@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Fragment } from 'react';
 
 import { PlayerProfile } from '@/app/players/[slug]/_components/player-profile';
 import { SiteShell } from '@/components/layout/site-shell';
@@ -55,7 +57,8 @@ const StatRow = ({
   text: string;
 }) => (
   <div className="flex items-center gap-3">
-    {children}
+    {/* Fixed icon slot so every line of text starts at the same x. */}
+    <span className="flex w-5 shrink-0 justify-center">{children}</span>
     <span className="text-(--faded) text-sm">{text}</span>
   </div>
 );
@@ -86,7 +89,7 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
     <SiteShell>
       <main>
         <Section id="player">
-          <div className="mx-auto w-full max-w-4xl">
+          <div className="w-full">
             <PlayerProfile
               bio={player.bio}
               card={card}
@@ -126,25 +129,78 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
                   >
                     {player.titles.map((title) => (
                       <li
-                        className="flex flex-wrap items-center gap-3 px-4 py-3"
+                        className="flex flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:py-3"
                         key={`${title.year}-${title.order}-${title.type}`}
                       >
-                        <span className="d-display w-20 font-black text-(--gold-hi)">
-                          {editionLabel(title)}
-                        </span>
-                        <span className="flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+                        {/* Year and venue travel together on the left; on
+                            phones the game shares the year's line. */}
+                        <div className="flex items-baseline justify-between gap-3 sm:block sm:w-40 sm:shrink-0">
+                          <div className="flex min-w-0 flex-col gap-0.5">
+                            <Link
+                              className="d-display font-black text-(--gold-hi) transition-colors hover:text-(--gold)"
+                              href={`/editions/${title.editionSlug}${
+                                title.type === 'individual' ? '#individual' : ''
+                              }`}
+                            >
+                              {editionLabel(title)}
+                            </Link>
+                            {title.venueName ? (
+                              <span className="text-(--faded) text-[0.78rem] italic leading-snug">
+                                {title.venueSlug && title.venueIsPlace ? (
+                                  <Link
+                                    className="transition-colors hover:text-(--gold-hi)"
+                                    href={`/venues/${title.venueSlug}`}
+                                  >
+                                    {title.venueName}
+                                  </Link>
+                                ) : (
+                                  title.venueName
+                                )}
+                              </span>
+                            ) : null}
+                          </div>
+                          <span className="shrink-0 text-(--faded) text-xs sm:hidden">
+                            {title.game ?? 'AotR/BotME'}
+                          </span>
+                        </div>
+                        <span className="flex min-w-0 items-start gap-1.5 font-bold font-mono text-(--parchment) text-[0.66rem] uppercase leading-relaxed tracking-[0.18em] sm:items-center">
                           {title.type === 'team' ? (
                             <>
-                              <RingGlyph size={13} /> Por equipos
+                              <span className="mt-[2px] shrink-0 sm:mt-0">
+                                <RingGlyph size={13} />
+                              </span>{' '}
+                              <span>
+                                {title.members.map((member, index) => (
+                                  <Fragment
+                                    key={`${title.year}-${title.order}-${member.slug ?? index}`}
+                                  >
+                                    {index > 0 ? ' · ' : null}
+                                    {member.slug ? (
+                                      <Link
+                                        className="transition-colors hover:text-(--gold-hi)"
+                                        href={`/players/${member.slug}`}
+                                      >
+                                        {member.name === '???'
+                                          ? 'Desconocido'
+                                          : member.name}
+                                      </Link>
+                                    ) : (
+                                      'Desconocido'
+                                    )}
+                                  </Fragment>
+                                ))}
+                              </span>
                             </>
                           ) : (
                             <>
-                              <RingGlyph size={11} tone="solitaire" />{' '}
-                              Individual
+                              <span className="mt-[3px] shrink-0 sm:mt-0">
+                                <RingGlyph size={11} tone="solitaire" />
+                              </span>{' '}
+                              En solitario
                             </>
                           )}
                         </span>
-                        <span className="ml-auto text-(--faded) text-sm">
+                        <span className="ml-auto hidden shrink-0 text-(--faded) text-sm sm:block">
                           {title.game ?? 'AotR/BotME'}
                         </span>
                       </li>
