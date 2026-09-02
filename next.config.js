@@ -10,9 +10,13 @@ const config = {
   // must load from node_modules rather than be bundled.
   serverExternalPackages: ['ffmpeg-static'],
   // The binary's path is built dynamically, which defeats file tracing:
-  // include it by hand in the tRPC function that runs the video pass.
+  // include it by hand in the tRPC function that runs the video pass. The
+  // real pnpm path, not the node_modules symlink — Vercel rejects function
+  // packages built from symlinked directories.
   outputFileTracingIncludes: {
-    '/api/trpc/[trpc]': ['./node_modules/ffmpeg-static/ffmpeg'],
+    '/api/trpc/[trpc]': [
+      './node_modules/.pnpm/ffmpeg-static@*/node_modules/ffmpeg-static/ffmpeg',
+    ],
   },
 };
 
