@@ -13,8 +13,9 @@ type UserMenuProps = {
   role: string;
 };
 
+// Right-aligned like the avatar the menu hangs from.
 const item =
-  'block w-full cursor-pointer px-4 py-2 text-left text-(--faded) text-sm transition-colors hover:bg-[#c9a5570f] hover:text-(--gold-hi)';
+  'block w-full cursor-pointer px-4 py-2 text-right text-(--faded) text-sm transition-colors hover:bg-[#c9a5570f] hover:text-(--gold-hi)';
 
 /**
  * The signed-in corner: just the initial in a gold ring. The dropdown
@@ -27,7 +28,11 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const mine = api.player.mine.useQuery(undefined, { enabled: open });
+  // Fetched as soon as the menu mounts (the user is signed in), not when
+  // it opens: by the time anyone clicks, the answer is almost always here.
+  const mine = api.player.mine.useQuery(undefined, {
+    staleTime: 5 * 60 * 1000,
+  });
 
   // Close on outside click or Escape, like any well-behaved menu.
   useEffect(() => {
@@ -82,7 +87,7 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
           className="absolute top-[calc(100%+10px)] right-0 z-50 w-60 rounded-lg border border-(--hair-gold) bg-(--panel-2) py-1.5 shadow-[0_14px_30px_rgba(0,0,0,0.5)]"
           role="menu"
         >
-          <p className="truncate px-4 pt-2 pb-1.5 font-bold text-(--parchment) text-sm">
+          <p className="truncate px-4 pt-2 pb-1.5 text-right font-bold text-(--parchment) text-sm">
             {label}
           </p>
           <div className="mx-2 my-1 h-px bg-(--hair)" />
@@ -96,6 +101,8 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
             />
           ) : (
             <>
+              {/* The player slot always takes its row, so the entries
+                  below never jump once the answer arrives. */}
               {mine.data ? (
                 <Link
                   className={item}
@@ -114,7 +121,14 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                 >
                   Vincular jugador
                 </button>
-              ) : null}
+              ) : (
+                <span
+                  aria-hidden
+                  className={`${item} cursor-default text-(--hair-gold)`}
+                >
+                  …
+                </span>
+              )}
               {role === 'admin' ? (
                 <>
                   <Link

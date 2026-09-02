@@ -1,9 +1,8 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { type FormEvent, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
-import { btn, input, label, panel } from '@/components/theme/primitives';
+import { btn, panel } from '@/components/theme/primitives';
 import { authClient } from '@/server/better-auth/client';
 
 /** Brand marks for the social buttons — currentColor so they follow the theme. */
@@ -16,10 +15,11 @@ const GoogleMark = () => (
   </svg>
 );
 
-const GitHubMark = () => (
+/** The four-tile Microsoft mark, single colour. */
+const MicrosoftMark = () => (
   <svg aria-hidden="true" height="16" viewBox="0 0 24 24" width="16">
     <path
-      d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+      d="M3 3h8.5v8.5H3zm9.5 0H21v8.5h-8.5zM3 12.5h8.5V21H3zm9.5 0H21V21h-8.5z"
       fill="currentColor"
     />
   </svg>
@@ -34,109 +34,43 @@ const safeNext = (raw: string | null) =>
     ? raw
     : '/';
 
-const LoginForm = () => {
-  const router = useRouter();
+/**
+ * Social sign-in only. Google always; Microsoft (Outlook, Hotmail, Live)
+ * once its Azure app is configured. GitHub stays wired server-side for
+ * old sessions but has no button.
+ */
+const LoginForm = ({ microsoft }: { microsoft: boolean }) => {
   const next = safeNext(useSearchParams().get('next'));
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleEmailSignIn = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
-
-    const { error: signInError } = await authClient.signIn.email({
-      email,
-      password,
-      callbackURL: next,
-    });
-
-    setIsSubmitting(false);
-
-    if (signInError) {
-      setError(signInError.message ?? 'No se pudo iniciar sesión.');
-      return;
-    }
-
-    router.push(next);
-    router.refresh();
-  };
-
-  const handleSocialSignIn = (provider: 'google' | 'github') => {
+  const signIn = (provider: 'google' | 'microsoft') => {
     void authClient.signIn.social({ provider, callbackURL: next });
   };
 
   return (
-    <div className={`${panel} flex w-full max-w-sm flex-col gap-6 p-6 sm:p-8`}>
-      <form className="flex flex-col gap-4" onSubmit={handleEmailSignIn}>
-        <div>
-          <label className={label} htmlFor="login-email">
-            Correo
-          </label>
-          <input
-            autoComplete="email"
-            className={input}
-            id="login-email"
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="tu@correo.com"
-            required
-            type="email"
-            value={email}
-          />
-        </div>
-        <div>
-          <label className={label} htmlFor="login-password">
-            Contraseña
-          </label>
-          <input
-            autoComplete="current-password"
-            className={input}
-            id="login-password"
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="••••••••"
-            required
-            type="password"
-            value={password}
-          />
-        </div>
-        {error ? (
-          <p className="text-(--ember) text-sm" role="alert">
-            {error}
-          </p>
-        ) : null}
-        <button
-          className={`${btn.primary} w-full`}
-          disabled={isSubmitting}
-          type="submit"
-        >
-          {isSubmitting ? 'Entrando…' : 'Entrar'}
-        </button>
-      </form>
-
-      <div className="flex items-center gap-3">
-        <span aria-hidden className="h-px flex-1 bg-(--hair)" />
-        <span className="text-(--faded) text-xs italic">o bien</span>
-        <span aria-hidden className="h-px flex-1 bg-(--hair)" />
-      </div>
-
-      <div className="flex flex-col gap-2.5">
+    <div
+      className={`${panel} flex w-full max-w-sm flex-col gap-2.5 p-6 sm:p-8`}
+    >
+      <button
+        className={`${btn.primary} w-full`}
+        onClick={() => signIn('google')}
+        type="button"
+      >
+        <GoogleMark /> Continuar con Google
+      </button>
+      {microsoft ? (
         <button
           className={`${btn.secondary} w-full`}
-          onClick={() => handleSocialSignIn('google')}
+          onClick={() => signIn('microsoft')}
           type="button"
         >
-          <GoogleMark /> Continuar con Google
+          <MicrosoftMark /> Continuar con Microsoft
         </button>
-        <button
-          className={`${btn.secondary} w-full`}
-          onClick={() => handleSocialSignIn('github')}
-          type="button"
-        >
-          <GitHubMark /> Continuar con GitHub
-        </button>
-      </div>
+      ) : null}
+      <p className="mt-2 text-center text-(--faded) text-xs">
+        {microsoft
+          ? 'Vale cualquier cuenta de Outlook, Hotmail o Live.'
+          : 'Solo con Google por ahora.'}
+      </p>
     </div>
   );
 };

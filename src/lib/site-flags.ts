@@ -1,21 +1,13 @@
-import { env } from '@/env';
-
 /**
- * Central visibility switches per deployment stage. Preview and local dev
- * show everything in progress; production only what's ready. Flipping a
- * flag is a commit, so features go live exactly when develop is promoted
- * to main — no dashboard state to keep in sync.
+ * Central visibility switches. Flipping a flag is a commit, so features go
+ * live exactly when develop is promoted to main — no dashboard state to
+ * keep in sync. To gate something to preview only again, derive it from
+ * `env.VERCEL_ENV` (set by Vercel; absent in local dev).
  */
 
-const stage = env.VERCEL_ENV ?? 'development';
-const isProduction = stage === 'production';
-
 const siteFlags = {
-  /**
-   * "Entrar" button and user menu in the top nav. Hidden in production —
-   * /login itself stays reachable by URL for those who know the way in.
-   */
-  auth: !isProduction,
+  /** "Entrar" button and user menu in the top nav, live everywhere since Los Archivos. */
+  auth: true,
   /** Section/page links in the top nav. */
   navigation: true,
   /** Themed pages, live everywhere since the 2026-09 launch. */

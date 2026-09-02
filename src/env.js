@@ -16,6 +16,9 @@ const env = createEnv({
     BETTER_AUTH_GITHUB_CLIENT_SECRET: z.string(),
     BETTER_AUTH_GOOGLE_CLIENT_ID: z.string(),
     BETTER_AUTH_GOOGLE_CLIENT_SECRET: z.string(),
+    // Optional: the Microsoft button (Outlook/Hotmail) only shows when both are set.
+    BETTER_AUTH_MICROSOFT_CLIENT_ID: z.string().optional(),
+    BETTER_AUTH_MICROSOFT_CLIENT_SECRET: z.string().optional(),
     DATABASE_URL: z.string().url(),
     // Cloudflare R2 (S3-compatible) — user-uploaded photos and videos.
     R2_ACCOUNT_ID: z.string(),
@@ -45,6 +48,10 @@ const env = createEnv({
     BETTER_AUTH_GOOGLE_CLIENT_ID: process.env.BETTER_AUTH_GOOGLE_CLIENT_ID,
     BETTER_AUTH_GOOGLE_CLIENT_SECRET:
       process.env.BETTER_AUTH_GOOGLE_CLIENT_SECRET,
+    BETTER_AUTH_MICROSOFT_CLIENT_ID:
+      process.env.BETTER_AUTH_MICROSOFT_CLIENT_ID,
+    BETTER_AUTH_MICROSOFT_CLIENT_SECRET:
+      process.env.BETTER_AUTH_MICROSOFT_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
     R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
