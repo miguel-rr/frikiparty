@@ -77,14 +77,16 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
     ) : item.type === 'document' ? (
       // Typographic tile: no rendition exists for a document, so the
       // velvet carries the mark, the format and the title instead.
-      <span className="grid size-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#1c2a20,#0a0f0c_70%)] p-3">
-        <span className="flex flex-col items-center gap-2 text-center">
-          <DocumentGlyph />
-          <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
+      <span className="grid size-full place-items-center overflow-hidden bg-[radial-gradient(circle_at_50%_40%,#1c2a20,#0a0f0c_70%)] p-2 sm:p-3">
+        <span className="flex min-w-0 max-w-full flex-col items-center gap-1.5 text-center sm:gap-2">
+          <DocumentGlyph size="size-7 sm:size-9" />
+          <span className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-2xl sm:text-2xs">
             {documentLabel(item.mimeType)}
           </span>
           {item.caption ? (
-            <span className="d-display line-clamp-3 text-(--parchment) text-sm uppercase leading-snug">
+            // One line with an ellipsis on a phone's small tile; up to
+            // three lines from sm, breaking long file-name words.
+            <span className="d-display sm:wrap-anywhere block w-full truncate text-(--parchment) text-xs uppercase leading-snug sm:line-clamp-3 sm:whitespace-normal sm:text-sm">
               {item.caption}
             </span>
           ) : null}

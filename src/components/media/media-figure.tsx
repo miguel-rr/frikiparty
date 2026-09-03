@@ -26,8 +26,13 @@ const formatDuration = (seconds: number) => {
  * URL. Nothing is converted on our side.
  */
 const DocumentPreview = ({ item }: { item: MediaItem }) => (
+  // On a phone the viewer takes the file's own shape (a landscape slide, a
+  // portrait page) instead of a 70vh box with black bands; from sm it gets
+  // the same height as photos and videos.
   <iframe
-    className="h-[70vh] w-full border-0 bg-white sm:h-[74vh]"
+    className={`w-full border-0 bg-white sm:aspect-auto sm:h-[74vh] ${
+      isPdf(item.mimeType) ? 'aspect-3/4' : 'aspect-16/10'
+    }`}
     src={
       isPdf(item.mimeType)
         ? // No thumbnail rail: the page itself gets the width.
