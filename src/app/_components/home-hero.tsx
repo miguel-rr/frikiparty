@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { DaysUntil } from '@/app/_components/days-until';
 import { linkGold, pageWidth, tag } from '@/components/theme/primitives';
 import { TheRing } from '@/components/theme/ring';
 import { formatDateRange, formatShortDateRange } from '@/lib/dates';
@@ -16,15 +17,6 @@ type NextEdition = {
   venueMapsEmbedQuery: string | null;
 };
 
-const DAY_MS = 24 * 60 * 60 * 1000;
-
-const daysUntil = (iso: string) => {
-  const target = new Date(`${iso}T00:00:00`);
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  return Math.round((target.getTime() - today.getTime()) / DAY_MS);
-};
-
 /** Hero for an announced (or running) edition. */
 const HomeHero = ({ edition }: { edition: NextEdition }) => {
   const hasDates = edition.startsAt !== null && edition.endsAt !== null;
@@ -33,7 +25,6 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
     hasDates &&
     (edition.startsAt as string) <= today &&
     today <= (edition.endsAt as string);
-  const remaining = hasDates ? daysUntil(edition.startsAt as string) : null;
   return (
     <section className="relative overflow-hidden" id="top">
       <div
@@ -57,10 +48,11 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
               )}
             </span>
           ) : null}
-          {!live && remaining !== null && remaining > 0 ? (
-            <span className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-3xl lg:text-2xs">
-              Faltan {remaining} días
-            </span>
+          {!live && hasDates ? (
+            <DaysUntil
+              className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-3xl lg:text-2xs"
+              startsAt={edition.startsAt as string}
+            />
           ) : null}
         </TheRing>
         <div className="flex flex-col items-center gap-7 text-center lg:gap-5">

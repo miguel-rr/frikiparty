@@ -4,6 +4,7 @@ import { DurinDoor } from '@/components/council/durin-door';
 import { SiteShell } from '@/components/layout/site-shell';
 import { pageWidth, tag } from '@/components/theme/primitives';
 import { VenueShowcase } from '@/components/venue/venue-showcase';
+import { openingInstant } from '@/lib/countdown';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
 import { getNextEdition } from '@/server/api/routers/edition';
@@ -28,7 +29,7 @@ const CouncilPage = async () => {
   }
   const edition = await getNextEdition(db);
   // The fire is lit at noon of day one.
-  const target = edition?.startsAt ? `${edition.startsAt}T12:00:00` : null;
+  const target = edition?.startsAt ? openingInstant(edition.startsAt) : null;
 
   return (
     <SiteShell>

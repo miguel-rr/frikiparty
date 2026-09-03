@@ -1,7 +1,7 @@
 'use client';
 
 import { NEXT_EVENT } from '@/app/design/fixtures';
-import { DurinDoor, two, useCountdown } from '@/components/council/durin-door';
+import { DurinDoor, two } from '@/components/council/durin-door';
 import {
   linkGold,
   RingGlyph,
@@ -9,6 +9,7 @@ import {
   SectionHeader,
   tag,
 } from '@/components/theme/primitives';
+import { useCountdown } from '@/lib/use-countdown';
 
 /**
  * Waiting-state proposals for /council: no tournament running, so the page

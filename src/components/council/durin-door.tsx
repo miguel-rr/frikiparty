@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import type { Remaining } from '@/lib/countdown';
+import { useCountdown } from '@/lib/use-countdown';
 
 /**
  * The Doors of Durin, traced in ithildin: the /council waiting state. A
@@ -8,42 +9,6 @@ import { useEffect, useState } from 'react';
  * arch; when the hour arrives the door "opens" (MELLON), and with no
  * edition announced the tracing dims and the stars keep quiet.
  */
-
-type Remaining = {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-};
-
-const remainingTo = (target: Date): Remaining => {
-  const ms = Math.max(0, target.getTime() - Date.now());
-  const total = Math.floor(ms / 1000);
-  return {
-    days: Math.floor(total / 86400),
-    hours: Math.floor((total % 86400) / 3600),
-    minutes: Math.floor((total % 3600) / 60),
-    seconds: total % 60,
-  };
-};
-
-/**
- * Ticks once per second, client-only: null until mounted so the static
- * markup (dashes) never mismatches a moving clock.
- */
-const useCountdown = (targetIso: string | null): Remaining | null => {
-  const [left, setLeft] = useState<Remaining | null>(null);
-  useEffect(() => {
-    if (!targetIso) {
-      return;
-    }
-    const target = new Date(targetIso);
-    setLeft(remainingTo(target));
-    const timer = setInterval(() => setLeft(remainingTo(target)), 1000);
-    return () => clearInterval(timer);
-  }, [targetIso]);
-  return left;
-};
 
 const two = (value: number) => String(value).padStart(2, '0');
 
@@ -230,4 +195,4 @@ const DurinDoor = ({ target }: { target: string | null }) => {
   );
 };
 
-export { DurinDoor, two, useCountdown };
+export { DurinDoor, two };
