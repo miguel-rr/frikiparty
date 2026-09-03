@@ -226,4 +226,4 @@ const BioParchment = ({ text }: { text: string }) => (
   </div>
 );
 
-export { BioParchment };
+export { BioParchment, WaxSeal };
