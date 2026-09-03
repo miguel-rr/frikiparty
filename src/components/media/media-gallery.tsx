@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
+import { isTypingTarget } from '@/components/media/arrow-key-nav';
 import { formatDuration, MediaFigure } from '@/components/media/media-figure';
 import type { MediaItem } from '@/server/api/routers/media-queries';
 
@@ -123,6 +124,9 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenId(null);
+      } else if (isTypingTarget(event)) {
+        // Arrows move the caret in a comment or the editor, not the file.
+        return;
       } else if (event.key === 'ArrowRight') {
         step(1);
       } else if (event.key === 'ArrowLeft') {

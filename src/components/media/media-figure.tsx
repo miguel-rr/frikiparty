@@ -25,12 +25,18 @@ const chipLink =
 const MediaFigure = ({
   item,
   priority = false,
+  editing = false,
+  doneHref,
   onRemoved,
   removedHref,
 }: {
   item: MediaItem;
   /** Eager-load the picture (the standalone page). */
   priority?: boolean;
+  /** Open with the editor already unfolded (the list's Editar button). */
+  editing?: boolean;
+  /** Where saving or cancelling that edit leads (back to the list). */
+  doneHref?: string;
   /** After a delete: close the lightbox… */
   onRemoved?: () => void;
   /** …or leave for this page (the standalone /archive/<id> route). */
@@ -100,6 +106,8 @@ const MediaFigure = ({
           target={{ mediaId: item.id }}
         />
         <MediaActions
+          doneHref={doneHref}
+          editing={editing}
           item={item}
           onRemoved={onRemoved}
           removedHref={removedHref}

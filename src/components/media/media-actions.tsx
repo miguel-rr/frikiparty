@@ -25,10 +25,16 @@ const quiet =
  */
 const MediaActions = ({
   item,
+  editing: initialEditing = false,
+  doneHref,
   onRemoved,
   removedHref,
 }: {
   item: MediaItem;
+  /** Start with the editor open (the visitor already asked to edit). */
+  editing?: boolean;
+  /** After saving or cancelling, go here instead of folding the editor. */
+  doneHref?: string;
   /** Called after a successful delete (close the lightbox). */
   onRemoved?: () => void;
   /** Where to go after a delete when there's no lightbox to close. */
@@ -36,7 +42,7 @@ const MediaActions = ({
 }) => {
   const { user } = useSessionUser();
   const router = useRouter();
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(initialEditing);
   const [confirming, setConfirming] = useState(false);
 
   const utils = api.useUtils();
@@ -71,6 +77,10 @@ const MediaActions = ({
         isAdmin={isAdmin}
         item={item}
         onDone={() => {
+          if (doneHref) {
+            router.push(doneHref);
+            return;
+          }
           setEditing(false);
           refresh();
         }}

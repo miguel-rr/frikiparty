@@ -12,6 +12,7 @@ import {
 } from '@/components/media/gallery-toolbar';
 import { MediaGallery, PlayGlyph } from '@/components/media/media-gallery';
 import { panelGold, td, th } from '@/components/theme/primitives';
+import { archiveItemHref } from '@/lib/media/archive-links';
 import {
   applyGalleryView,
   countByType,
@@ -93,6 +94,8 @@ const ArchiveBrowser = ({
     () => countByType(items, view.query),
     [items, view.query],
   );
+  // Rows carry the view along so the file page can walk the list and come back.
+  const context = { view, table: mode === 'table' };
 
   if (items.length === 0) {
     return null;
@@ -131,7 +134,7 @@ const ArchiveBrowser = ({
         <GalleryEmpty onReset={() => setView(DEFAULT_VIEW)} />
       ) : mode === 'table' ? (
         <div className={`${panelGold} overflow-x-auto`}>
-          <table className="w-full min-w-[58rem] border-collapse text-sm">
+          <table className="w-full min-w-[62rem] border-collapse whitespace-nowrap text-sm">
             <thead>
               <tr>
                 <th className={th}> </th>
@@ -144,6 +147,7 @@ const ArchiveBrowser = ({
                 <th className={th}>Likes</th>
                 <th className={th}>Coment.</th>
                 <th className={th}>Peso</th>
+                <th className={th}> </th>
               </tr>
             </thead>
             <tbody>
@@ -152,7 +156,7 @@ const ArchiveBrowser = ({
                   <td className={`${td} w-16`}>
                     <Link
                       className="relative block size-12 overflow-hidden rounded-md border border-(--hair) bg-(--night)"
-                      href={`/archive/${item.id}`}
+                      href={archiveItemHref(item.id, context)}
                     >
                       {item.thumbnailUrl ? (
                         // biome-ignore lint/performance/noImgElement: R2 host is not in next.config remotePatterns
@@ -173,7 +177,7 @@ const ArchiveBrowser = ({
                   <td className={td}>
                     <Link
                       className="font-bold text-(--parchment) transition-colors hover:text-(--gold-hi)"
-                      href={`/archive/${item.id}`}
+                      href={archiveItemHref(item.id, context)}
                     >
                       {item.caption ?? (
                         <span className="font-normal text-(--faded) italic">
@@ -224,6 +228,14 @@ const ArchiveBrowser = ({
                   </td>
                   <td className={`${td} font-mono text-(--faded) text-xs`}>
                     {formatSize(item.fileSize)}
+                  </td>
+                  <td className={`${td} text-right`}>
+                    <Link
+                      className="inline-flex rounded-full border border-(--hair) px-3 py-1 font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.18em] transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+                      href={archiveItemHref(item.id, context, { edit: true })}
+                    >
+                      Editar
+                    </Link>
                   </td>
                 </tr>
               ))}

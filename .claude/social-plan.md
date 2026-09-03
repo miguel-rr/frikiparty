@@ -74,3 +74,18 @@ Implementado y verificado en navegador con filas temporales (ya borradas).
   defecto, escrita con `replaceState` (sin recarga) y leída al montar. La
   tabla es de admin: otros usuarios con `view=table` ven la galería.
 - **Lightbox por id**: sigue al archivo abierto aunque un like lo reordene.
+
+## Edición en lote desde /archive (2026-09-03)
+
+- La tabla admin tiene un botón **Editar** por fila que abre
+  `/archive/<id>?from=archive&edit=1&<vista>` con el editor desplegado;
+  Guardar o Cancelar devuelven a `/archive` con la misma vista. Borrar
+  también vuelve a la lista.
+- Con `from=archive`, la página del archivo muestra **Anterior · n / total
+  · Volver · Siguiente** en el orden de la lista (mismos parámetros) y
+  responde a ← → (`ArrowKeyNav`), salvo cuando el foco está en un campo de
+  texto. El lightbox comparte esa guarda (`isTypingTarget`).
+- Enlaces compartidos o el «Enlace» del lightbox no llevan `from`, así que
+  no muestran navegación. Los enlaces se construyen en
+  `src/lib/media/archive-links.ts`.
+- El enlace «← edición» que había sobre la foto se quitó.
