@@ -92,29 +92,37 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
 );
 
 /**
- * Grid of tiles opening a lightbox with previous/next. The lightbox is
- * local state; the plaque links to /archive/<id> for a shareable URL.
+ * Grid of tiles opening a lightbox with previous/next over the list as
+ * given (already sorted and filtered by the caller). The open file is
+ * tracked by id, not position: a like can re-sort the list under a
+ * lightbox sorted by likes, and the figure must stay on the same photo.
+ * The plaque links to /archive/<id> for a shareable URL.
  */
 const MediaGallery = ({ items }: { items: MediaItem[] }) => {
-  const [index, setIndex] = useState<number | null>(null);
-  const current = index === null ? null : (items[index] ?? null);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const index = openId === null ? -1 : items.findIndex((i) => i.id === openId);
+  const current = index === -1 ? null : (items[index] ?? null);
 
   const step = useCallback(
-    (delta: number) =>
-      setIndex((value) =>
-        value === null ? null : (value + delta + items.length) % items.length,
-      ),
-    [items.length],
+    (delta: number) => {
+      if (index === -1) {
+        return;
+      }
+      setOpenId(
+        items[(index + delta + items.length) % items.length]?.id ?? null,
+      );
+    },
+    [index, items],
   );
 
   useEffect(() => {
-    if (index === null) {
+    if (current === null) {
       return;
     }
     document.body.style.overflow = 'hidden';
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setIndex(null);
+        setOpenId(null);
       } else if (event.key === 'ArrowRight') {
         step(1);
       } else if (event.key === 'ArrowLeft') {
@@ -126,13 +134,13 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
       document.body.style.overflow = '';
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, [index, step]);
+  }, [current, step]);
 
   return (
     <>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-5">
-        {items.map((item, position) => (
-          <Tile item={item} key={item.id} onOpen={() => setIndex(position)} />
+        {items.map((item) => (
+          <Tile item={item} key={item.id} onOpen={() => setOpenId(item.id)} />
         ))}
       </div>
       {current ? (
@@ -143,7 +151,7 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
         >
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
             <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
-              {(index ?? 0) + 1} / {items.length}
+              {index + 1} / {items.length}
             </span>
             <div className="flex items-center gap-2">
               <Link
@@ -155,7 +163,7 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
               <button
                 aria-label="Cerrar"
                 className="grid size-9 cursor-pointer place-items-center rounded-full border border-(--hair) text-(--faded) transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
-                onClick={() => setIndex(null)}
+                onClick={() => setOpenId(null)}
                 type="button"
               >
                 ✕
@@ -187,7 +195,7 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
               <MediaFigure
                 item={current}
                 key={current.id}
-                onRemoved={() => setIndex(null)}
+                onRemoved={() => setOpenId(null)}
               />
             </div>
           </div>

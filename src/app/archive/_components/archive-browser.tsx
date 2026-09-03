@@ -1,10 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 
+import {
+  GalleryEmpty,
+  GalleryToolbar,
+  group,
+  segment,
+} from '@/components/media/gallery-toolbar';
 import { MediaGallery, PlayGlyph } from '@/components/media/media-gallery';
 import { panelGold, td, th } from '@/components/theme/primitives';
+import {
+  applyGalleryView,
+  countByType,
+  DEFAULT_VIEW,
+  type GalleryView,
+  paramsFromView,
+  viewFromParams,
+} from '@/lib/media/gallery-view';
 import type { MediaItem } from '@/server/api/routers/media-queries';
 
 const formatSize = (bytes: number | null) =>
@@ -24,17 +39,35 @@ const formatDate = (iso: string) =>
 const cellLink =
   'text-(--faded) transition-colors hover:text-(--gold-hi) hover:underline';
 
-const toggle = (active: boolean) =>
-  `cursor-pointer rounded-full px-3.5 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.18em] transition-colors ${
-    active
-      ? 'bg-[#c9a55726] text-(--gold-hi)'
-      : 'text-(--faded) hover:text-(--parchment)'
-  }`;
+/**
+ * The view lives in the URL (?sort=&type=&q=) so a filtered archive can
+ * be shared and survives a trip into a file's page. Read once on mount,
+ * written back with replaceState so typing never reloads the page.
+ */
+const useUrlView = () => {
+  const params = useSearchParams();
+  const [view, setView] = useState<GalleryView>(() =>
+    viewFromParams({
+      sort: params.get('sort') ?? undefined,
+      type: params.get('type') ?? undefined,
+      q: params.get('q') ?? undefined,
+    }),
+  );
+  useEffect(() => {
+    const query = paramsFromView(view).toString();
+    const url = `${window.location.pathname}${query ? `?${query}` : ''}`;
+    if (url !== `${window.location.pathname}${window.location.search}`) {
+      window.history.replaceState(window.history.state, '', url);
+    }
+  }, [view]);
+  return [view, setView] as const;
+};
 
 /**
  * Gallery of everything, and for admins a table view that shows the
- * catalogue at a glance: thumbnail, title, who, when, how heavy. Each row
- * links to the file's page, where it can be edited or removed.
+ * catalogue at a glance: thumbnail, title, who, when, how heavy. Both
+ * views show the same sorted and filtered list. Each row links to the
+ * file's page, where it can be edited or removed.
  */
 const ArchiveBrowser = ({
   isAdmin,
@@ -43,34 +76,50 @@ const ArchiveBrowser = ({
   isAdmin: boolean;
   items: MediaItem[];
 }) => {
-  const [view, setView] = useState<'gallery' | 'table'>('gallery');
+  const [mode, setMode] = useState<'gallery' | 'table'>('gallery');
+  const [view, setView] = useUrlView();
+  const visible = useMemo(() => applyGalleryView(items, view), [items, view]);
+  const counts = useMemo(
+    () => countByType(items, view.query),
+    [items, view.query],
+  );
 
   if (items.length === 0) {
     return null;
   }
   return (
     <div className="flex flex-col gap-5">
-      {isAdmin ? (
-        <div className="flex justify-end">
-          <div className="inline-flex rounded-full border border-(--hair) p-0.5">
-            <button
-              className={toggle(view === 'gallery')}
-              onClick={() => setView('gallery')}
-              type="button"
-            >
-              Galería
-            </button>
-            <button
-              className={toggle(view === 'table')}
-              onClick={() => setView('table')}
-              type="button"
-            >
-              Tabla
-            </button>
-          </div>
-        </div>
-      ) : null}
-      {view === 'table' ? (
+      <GalleryToolbar
+        counts={counts}
+        onChange={setView}
+        trailing={
+          isAdmin ? (
+            <fieldset className={group}>
+              <legend className="sr-only">Vista</legend>
+              <button
+                aria-pressed={mode === 'gallery'}
+                className={segment(mode === 'gallery')}
+                onClick={() => setMode('gallery')}
+                type="button"
+              >
+                Galería
+              </button>
+              <button
+                aria-pressed={mode === 'table'}
+                className={segment(mode === 'table')}
+                onClick={() => setMode('table')}
+                type="button"
+              >
+                Tabla
+              </button>
+            </fieldset>
+          ) : null
+        }
+        view={view}
+      />
+      {visible.length === 0 ? (
+        <GalleryEmpty onReset={() => setView(DEFAULT_VIEW)} />
+      ) : mode === 'table' ? (
         <div className={`${panelGold} overflow-x-auto`}>
           <table className="w-full min-w-[58rem] border-collapse text-sm">
             <thead>
@@ -88,7 +137,7 @@ const ArchiveBrowser = ({
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => (
+              {visible.map((item) => (
                 <tr className="hover:bg-[#c9a5570a]" key={item.id}>
                   <td className={`${td} w-16`}>
                     <Link
@@ -172,7 +221,7 @@ const ArchiveBrowser = ({
           </table>
         </div>
       ) : (
-        <MediaGallery items={items} />
+        <MediaGallery items={visible} />
       )}
     </div>
   );

@@ -36,6 +36,8 @@ type MediaRow = {
   edition_order: number | null;
   editions_in_year: number | null;
   tournament_id: string | null;
+  venue_name: string | null;
+  venue_slug: string | null;
 };
 
 type MediaItem = {
@@ -64,6 +66,8 @@ type MediaItem = {
   players: { id: string; name: string; slug: string }[];
   edition: { id: string; label: string; slug: string } | null;
   tournamentId: string | null;
+  /** Explicit venue link or, failing that, the edition's house. */
+  venue: { name: string; slug: string } | null;
 };
 
 const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
@@ -105,6 +109,10 @@ const toItem = (row: MediaRow): MediaItem => ({
         }
       : null,
   tournamentId: row.tournament_id,
+  venue:
+    row.venue_name && row.venue_slug
+      ? { name: row.venue_name, slug: row.venue_slug }
+      : null,
 });
 
 /**
@@ -153,11 +161,16 @@ const fetchMediaItems = async (
       ) AS players,
       e.id AS edition_id, e.year AS edition_year, e."order" AS edition_order,
       (SELECT count(*)::int FROM frikiparty_edition e2 WHERE e2.year = e.year) AS editions_in_year,
-      (SELECT eo.tournament_id FROM edition_of eo WHERE eo.media_id = p.id AND eo.tournament_id IS NOT NULL LIMIT 1) AS tournament_id
+      (SELECT eo.tournament_id FROM edition_of eo WHERE eo.media_id = p.id AND eo.tournament_id IS NOT NULL LIMIT 1) AS tournament_id,
+      v.name AS venue_name, v.slug AS venue_slug
     FROM picked p
     LEFT JOIN "user" u ON u.id = p.uploaded_by_user_id
     LEFT JOIN frikiparty_edition e ON e.id = (
       SELECT eo.edition_id FROM edition_of eo WHERE eo.media_id = p.id LIMIT 1
+    )
+    LEFT JOIN frikiparty_venue v ON v.id = coalesce(
+      (SELECT a.venue_id FROM frikiparty_media_association a WHERE a.media_id = p.id AND a.venue_id IS NOT NULL LIMIT 1),
+      e.venue_id
     )
     ORDER BY p.created_at DESC
   `)) as unknown as MediaRow[];

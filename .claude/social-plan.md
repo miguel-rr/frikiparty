@@ -55,3 +55,21 @@ ficha cuando sobre.
 
 Cada fase cerró con `pnpm run typecheck` y `pnpm run check`; commit y
 deploy siempre con confirmación previa.
+
+## Galería: orden, filtro y búsqueda (2026-09-03)
+
+Implementado y verificado en navegador con filas temporales (ya borradas).
+
+- **Orden**: likes (defecto), comentarios, recientes; sentido fijo, empates
+  por fecha reciente. **Tipo**: todos, fotos, vídeos, con recuento de lo
+  que deja pasar el texto. **Búsqueda**: instantánea, sin acentos, todas las
+  palabras deben aparecer en título, descripción, jugadores, sede o
+  edición. Todo en cliente (`src/lib/media/gallery-view.ts`, funciones
+  puras); el corte a servidor sería mover esas funciones a la consulta.
+- **`MediaItem.venue`**: explícita o la de la edición, para la búsqueda.
+- **Barra** (`GalleryToolbar`): en `/archive` siempre, con el toggle
+  Galería/Tabla del admin integrado; en jugador, edición y sede a partir de
+  6 archivos. Sin resultados: mensaje con «Ver todo».
+- **URL solo en `/archive`**: `?sort=&type=&q=`, sin valores por defecto,
+  escrita con `replaceState` (sin recarga) y leída al montar.
+- **Lightbox por id**: sigue al archivo abierto aunque un like lo reordene.
