@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
 import { btn, input, label } from '@/components/theme/primitives';
+import { ASPIRANTS_ANCHOR } from '@/lib/council';
 import { authClient } from '@/server/better-auth/client';
 import { api } from '@/trpc/react';
 
@@ -27,6 +28,7 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
   const [linking, setLinking] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   // Fetched as soon as the menu mounts (the user is signed in), not when
   // it opens: by the time anyone clicks, the answer is almost always here.
@@ -45,8 +47,32 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
     utils.edition.confirmedPlayers.invalidate();
     router.refresh();
   };
+  // Confirming takes you to the table with your card already on it: the
+  // fresh list is fetched into the cache first, so the roster mounts (or
+  // re-renders, if you're on /council already) with it, then the page
+  // scrolls to the anchor.
   const confirmAttendance = api.edition.confirmMyAttendance.useMutation({
-    onSuccess: settleAttendance,
+    onSuccess: async () => {
+      attendance.refetch();
+      const editionId = attendance.data?.editionId;
+      if (editionId) {
+        // staleTime 0: the client's default (30s) would hand back the
+        // pre-confirmation list when the table was refetched recently.
+        await utils.edition.confirmedPlayers.fetch(
+          { editionId },
+          { staleTime: 0 },
+        );
+      }
+      setOpen(false);
+      if (pathname === '/council') {
+        // The table is already live here; a refresh would only rewrite
+        // the URL and drop the anchor we just set.
+        scrollToAspirants();
+        return;
+      }
+      router.push(`/council#${ASPIRANTS_ANCHOR}`);
+      router.refresh();
+    },
   });
   const withdrawAttendance = api.edition.withdrawMyAttendance.useMutation({
     onSuccess: settleAttendance,
@@ -217,6 +243,30 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
       ) : null}
     </div>
   );
+};
+
+/** Breathing room between the sticky nav and the table's eyebrow. */
+const ASPIRANTS_SCROLL_GAP = 40;
+
+/**
+ * Glide to the aspirants table when already on /council. Done by hand
+ * rather than pushing the hash: Next's hash navigation jumps instantly,
+ * and its landing spot leaves the eyebrow under the sticky nav. The URL
+ * still gets the anchor, via replaceState so nothing jumps.
+ */
+const scrollToAspirants = () => {
+  const target = document.getElementById(ASPIRANTS_ANCHOR);
+  if (!target) {
+    return;
+  }
+  const navHeight = document.querySelector('nav')?.offsetHeight ?? 0;
+  const top =
+    target.getBoundingClientRect().top +
+    window.scrollY -
+    navHeight -
+    ASPIRANTS_SCROLL_GAP;
+  window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+  window.history.replaceState(window.history.state, '', `#${ASPIRANTS_ANCHOR}`);
 };
 
 /** Second line under an attendance entry: which edition it is about. */

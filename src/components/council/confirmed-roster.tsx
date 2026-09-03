@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 import { SHIELD_PATH } from '@/components/theme/primitives';
 import { PortraitCard } from '@/components/tournament/portrait-card';
-import { confirmedCountSentence } from '@/lib/council';
+import { ASPIRANTS_ANCHOR, confirmedCountSentence } from '@/lib/council';
 import { dealCardSpecs } from '@/lib/tournament/card-lore';
 import type { ConfirmedPlayer } from '@/server/api/routers/edition';
 import { api } from '@/trpc/react';
@@ -167,10 +168,18 @@ const EmptyTable = () => (
         ),
       )}
     </ul>
-    <p className="max-w-[46ch] text-center text-(--faded) text-sm italic">
-      Los primeros asientos esperan. Confirma el tuyo desde tu menú de jugador.
-    </p>
+    <SeatHint>Los primeros asientos esperan.</SeatHint>
   </>
+);
+
+/**
+ * The nudge under the table, empty or not: how a player gets a seat. The
+ * lead-in changes with the occasion; the instruction is always the same.
+ */
+const SeatHint = ({ children }: { children: ReactNode }) => (
+  <p className="max-w-[46ch] text-center text-(--faded) text-sm italic">
+    {children} Confirma el tuyo desde tu menú de jugador.
+  </p>
 );
 
 /**
@@ -200,7 +209,8 @@ const ConfirmedRoster = ({
   return (
     <section
       aria-labelledby="council-roster"
-      className="flex w-full flex-col items-center gap-7"
+      className="flex w-full scroll-mt-24 flex-col items-center gap-7"
+      id={ASPIRANTS_ANCHOR}
     >
       <div className="flex flex-col items-center gap-2 text-center">
         <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
@@ -248,6 +258,9 @@ const ConfirmedRoster = ({
           );
         })}
       </ul>
+      {players.length > 0 ? (
+        <SeatHint>Aún quedan asientos libres en la mesa.</SeatHint>
+      ) : null}
     </section>
   );
 };

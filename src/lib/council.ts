@@ -1,7 +1,11 @@
 /**
- * Council wording shared by server and client components — kept out of
- * the roster (a client module) so static pages can call it at build time.
+ * Council wording and anchors shared by server and client components —
+ * kept out of the roster (a client module) so static pages can use them
+ * at build time.
  */
+
+/** Fragment id of the aspirants table on /council. */
+const ASPIRANTS_ANCHOR = 'aspirantes';
 
 const NUMBER_WORDS = [
   '',
@@ -35,4 +39,4 @@ const confirmedCountSentence = (count: number, tail: string) => {
     : `${number} jugadores han confirmado ${tail}`;
 };
 
-export { confirmedCountSentence };
+export { ASPIRANTS_ANCHOR, confirmedCountSentence };
