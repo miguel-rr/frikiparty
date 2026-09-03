@@ -79,9 +79,17 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
       {/* The artwork takes whatever the footer leaves, never less than a
           portrait's worth; cards in a grid row share one height. */}
       <div
-        className="flex min-h-56 flex-1 flex-col justify-between p-5 sm:min-h-64"
+        className="relative flex min-h-56 flex-1 flex-col justify-between p-5 sm:min-h-64"
         style={artStyle(edition)}
       >
+        {/* The whole artwork opens the edition; the label link below is the
+            one keyboard users reach, so this cover stays out of the tab order. */}
+        <Link
+          aria-hidden
+          className="absolute inset-0 z-10"
+          href={`/editions/${edition.slug}`}
+          tabIndex={-1}
+        />
         <header className="flex items-start justify-end">
           {edition.individual && !running ? (
             <span className="grid place-items-center rounded-full bg-(--night)/80 p-1.5">
@@ -89,9 +97,11 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
             </span>
           ) : null}
         </header>
-        <div className="flex flex-col gap-1">
+        {/* Sits above the cover link, so only the texts themselves take the
+            pointer: the rest of the row falls through to the edition. */}
+        <div className="pointer-events-none relative z-20 flex flex-col items-start gap-1">
           <Link
-            className="d-display d-gold-text font-black text-5xl tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-opacity hover:opacity-80"
+            className="d-display d-gold-text pointer-events-auto font-black text-5xl tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-opacity hover:opacity-80"
             href={`/editions/${edition.slug}`}
           >
             {edition.label}
@@ -99,7 +109,7 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
           {edition.venueName ? (
             edition.venueSlug && edition.venueIsPlace ? (
               <Link
-                className="font-bold font-mono text-(--parchment) text-2xs uppercase tracking-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition-colors hover:text-(--gold-hi)"
+                className="pointer-events-auto font-bold font-mono text-(--parchment) text-2xs uppercase tracking-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition-colors hover:text-(--gold-hi)"
                 href={`/venues/${edition.venueSlug}`}
               >
                 {edition.venueName}
