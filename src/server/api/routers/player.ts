@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, isNull, sql } from 'drizzle-orm';
+import { and, asc, eq, isNotNull, isNull, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -9,6 +9,7 @@ import {
   sortByHistoricalRanking,
 } from '@/lib/tournament/ranking';
 import {
+  adminProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
@@ -323,11 +324,43 @@ const listPlayersForAdmin = async (db: TRPCContext['db']) => {
       name: player.name,
       slug: player.slug,
       linkCode: player.linkCode,
-      user: { name: user.name, email: user.email, role: user.role },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     })
     .from(player)
     .leftJoin(user, eq(user.id, player.userId))
     .orderBy(asc(player.name));
+};
+
+/**
+ * Accounts that signed in but never claimed a player, oldest first, plus
+ * the players still free to be claimed — the admin matches them by hand.
+ */
+const listUnlinkedUsers = async (db: TRPCContext['db']) => {
+  const [users, freePlayers] = await Promise.all([
+    db
+      .select({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+      })
+      .from(user)
+      .leftJoin(player, eq(player.userId, user.id))
+      .where(isNull(player.id))
+      .orderBy(asc(user.createdAt)),
+    db
+      .select({ id: player.id, name: player.name })
+      .from(player)
+      .where(isNull(player.userId))
+      .orderBy(asc(player.name)),
+  ]);
+  return { users, freePlayers };
 };
 
 /** The player claimed by this user, if any. */
@@ -400,6 +433,82 @@ const playerRouter = createTRPCRouter({
       return linked;
     }),
 
+  /** Admin: link an account to a free player by hand, no code involved. */
+  linkUser: adminProcedure
+    .input(z.object({ userId: z.string().min(1), playerId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      if (await getPlayerForUser(ctx.db, input.userId)) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'Esa cuenta ya tiene jugador.',
+        });
+      }
+      const [linked] = await ctx.db
+        .update(player)
+        .set({ userId: input.userId, linkCode: null })
+        .where(and(eq(player.id, input.playerId), isNull(player.userId)))
+        .returning({ slug: player.slug, name: player.name });
+      if (!linked) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'Ese jugador ya está vinculado a otra cuenta.',
+        });
+      }
+      revalidatePath(`/players/${linked.slug}`);
+      return linked;
+    }),
+
+  /**
+   * Admin: change an account's role. Admins can't demote themselves, so
+   * the site can never end up without one.
+   */
+  setUserRole: adminProcedure
+    .input(
+      z.object({
+        userId: z.string().min(1),
+        role: z.enum(['user', 'editor', 'admin']),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (input.userId === ctx.session.user.id && input.role !== 'admin') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'No puedes quitarte el rol de admin a ti mismo.',
+        });
+      }
+      const [updated] = await ctx.db
+        .update(user)
+        .set({ role: input.role })
+        .where(eq(user.id, input.userId))
+        .returning({ id: user.id, role: user.role });
+      if (!updated) {
+        throw new TRPCError({ code: 'NOT_FOUND' });
+      }
+      return updated;
+    }),
+
+  /**
+   * Admin: detach the account from a player. The player gets a fresh code
+   * so it can be claimed again; the account keeps its role and history.
+   */
+  unlinkUser: adminProcedure
+    .input(z.object({ playerId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const [unlinked] = await ctx.db
+        .update(player)
+        .set({ userId: null, linkCode: generateLinkCode() })
+        .where(and(eq(player.id, input.playerId), isNotNull(player.userId)))
+        .returning({ slug: player.slug, name: player.name });
+      if (!unlinked) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Ese jugador no tiene ninguna cuenta vinculada.',
+        });
+      }
+      revalidatePath(`/players/${unlinked.slug}`);
+      return unlinked;
+    }),
+
   update: protectedProcedure
     .input(
       z.object({
@@ -467,6 +576,7 @@ export {
   listPlayers,
   listPlayersForAdmin,
   listRingTitles,
+  listUnlinkedUsers,
   playerRouter,
   type RingTitle,
 };

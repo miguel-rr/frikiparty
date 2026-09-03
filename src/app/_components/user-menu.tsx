@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
-import { btn, input } from '@/components/theme/primitives';
+import { btn, input, label } from '@/components/theme/primitives';
 import { authClient } from '@/server/better-auth/client';
 import { api } from '@/trpc/react';
 
@@ -84,15 +84,20 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
       </button>
       {open ? (
         <div
-          className="absolute top-[calc(100%+10px)] right-0 z-50 w-60 rounded-lg border border-(--hair-gold) bg-(--panel-2) py-1.5 shadow-[0_14px_30px_rgba(0,0,0,0.5)]"
+          className={`absolute top-[calc(100%+10px)] right-0 z-50 rounded-lg border border-(--hair-gold) bg-(--panel-2) py-1.5 shadow-[0_14px_30px_rgba(0,0,0,0.5)] ${linking ? 'w-72' : 'w-60'}`}
           role="menu"
         >
-          <p className="truncate px-4 pt-2 pb-1.5 text-right font-bold text-(--parchment) text-sm">
-            {label}
-          </p>
-          <div className="mx-2 my-1 h-px bg-(--hair)" />
+          {linking ? null : (
+            <>
+              <p className="truncate px-4 pt-2 pb-1.5 text-right font-bold text-(--parchment) text-sm">
+                {label}
+              </p>
+              <div className="mx-2 my-1 h-px bg-(--hair)" />
+            </>
+          )}
           {linking ? (
             <LinkPlayerForm
+              onCancel={() => setLinking(false)}
               onDone={() => {
                 setLinking(false);
                 mine.refetch();
@@ -165,8 +170,14 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
   );
 };
 
-/** Code entry inside the dropdown: one field, one button, the error inline. */
-const LinkPlayerForm = ({ onDone }: { onDone: () => void }) => {
+/** Code entry inside the dropdown: a labelled field, Vincular and a way back. */
+const LinkPlayerForm = ({
+  onCancel,
+  onDone,
+}: {
+  onCancel: () => void;
+  onDone: () => void;
+}) => {
   const [code, setCode] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const link = api.player.linkByCode.useMutation({ onSuccess: onDone });
@@ -184,31 +195,55 @@ const LinkPlayerForm = ({ onDone }: { onDone: () => void }) => {
   };
 
   return (
-    <form className="flex flex-col gap-2 px-3 py-2" onSubmit={handleSubmit}>
-      <p className="text-(--faded) text-xs">
-        Introduce el código que te ha dado el admin.
-      </p>
-      <input
-        aria-label="Código de jugador"
-        autoCapitalize="characters"
-        autoComplete="off"
-        className={`${input} font-mono text-sm uppercase tracking-[0.18em]`}
-        onChange={(event) => setCode(event.target.value)}
-        placeholder="XXXX-XXXX"
-        ref={inputRef}
-        spellCheck={false}
-        value={code}
-      />
-      {link.error ? (
-        <p className="text-(--ember) text-xs">{link.error.message}</p>
-      ) : null}
-      <button
-        className={`${btn.primary} px-4 py-1.5 text-sm`}
-        disabled={link.isPending || !code.trim()}
-        type="submit"
-      >
-        {link.isPending ? 'Vinculando…' : 'Vincular'}
-      </button>
+    <form
+      className="flex flex-col gap-4 px-4 pt-2 pb-3"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col gap-1.5">
+        <span className="font-bold text-(--parchment) text-sm">
+          Vincular jugador
+        </span>
+        <p className="text-(--faded) text-xs leading-snug">
+          Introduce el código que te ha dado el admin.
+        </p>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label className={label} htmlFor="link-player-code">
+          Código
+        </label>
+        <input
+          autoCapitalize="characters"
+          autoComplete="off"
+          className={`${input} text-center font-mono text-base uppercase tracking-[0.25em]`}
+          id="link-player-code"
+          onChange={(event) => setCode(event.target.value)}
+          placeholder="XXXX-XXXX"
+          ref={inputRef}
+          spellCheck={false}
+          value={code}
+        />
+        {link.error ? (
+          <p className="text-(--ember) text-xs leading-snug">
+            {link.error.message}
+          </p>
+        ) : null}
+      </div>
+      <div className="flex items-center justify-between gap-2">
+        <button
+          className={`${btn.ghost} px-3 py-1.5 text-sm`}
+          onClick={onCancel}
+          type="button"
+        >
+          Cancelar
+        </button>
+        <button
+          className={`${btn.primary} px-5 py-1.5 text-sm`}
+          disabled={link.isPending || !code.trim()}
+          type="submit"
+        >
+          {link.isPending ? 'Vinculando…' : 'Vincular'}
+        </button>
+      </div>
     </form>
   );
 };

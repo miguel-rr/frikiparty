@@ -3,17 +3,22 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CopyCodeButton } from '@/app/admin/players/_components/copy-code-button';
+import { LinkUserRow } from '@/app/admin/players/_components/link-user-row';
+import { RoleSelect } from '@/app/admin/players/_components/role-select';
+import { UnlinkButton } from '@/app/admin/players/_components/unlink-button';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
   panelGold,
   Section,
   SectionHeader,
-  tag,
   td,
   th,
 } from '@/components/theme/primitives';
 import { formatLinkCode } from '@/lib/link-code';
-import { listPlayersForAdmin } from '@/server/api/routers/player';
+import {
+  listPlayersForAdmin,
+  listUnlinkedUsers,
+} from '@/server/api/routers/player';
 import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
 
@@ -32,7 +37,11 @@ const AdminPlayersPage = async () => {
   if (session?.user.role !== 'admin') {
     notFound();
   }
-  const players = await listPlayersForAdmin(db);
+  const selfId = session.user.id;
+  const [players, unlinked] = await Promise.all([
+    listPlayersForAdmin(db),
+    listUnlinkedUsers(db),
+  ]);
   const linked = players.filter((row) => row.user !== null).length;
 
   return (
@@ -73,9 +82,15 @@ const AdminPlayersPage = async () => {
                           <span className="text-(--faded) text-xs">
                             {row.user.email}
                           </span>
-                          {row.user.role !== 'user' ? (
-                            <span className={tag}>{row.user.role}</span>
-                          ) : null}
+                          <RoleSelect
+                            isSelf={row.user.id === selfId}
+                            role={row.user.role}
+                            userId={row.user.id}
+                          />
+                          <UnlinkButton
+                            playerId={row.id}
+                            playerName={row.name}
+                          />
                         </span>
                       ) : (
                         <span className="text-(--faded)">Sin vincular</span>
@@ -92,6 +107,66 @@ const AdminPlayersPage = async () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Accounts that signed in but never claimed a player: the
+              admin can match them here without handing out a code. */}
+          <div className="mt-6 flex flex-col gap-4">
+            <div className="flex flex-col gap-1">
+              <h2 className="d-display font-bold text-(--parchment) text-xl uppercase">
+                Cuentas sin jugador
+              </h2>
+              <p className="text-(--faded) text-sm">
+                {unlinked.users.length === 0
+                  ? 'Todas las cuentas registradas tienen ya su jugador.'
+                  : 'Han entrado en la web pero no han introducido ningún código. Elige a quién corresponde cada una.'}
+              </p>
+            </div>
+            {unlinked.users.length > 0 ? (
+              <div className={`${panelGold} overflow-x-auto`}>
+                <table className="w-full min-w-[36rem] border-collapse text-sm">
+                  <thead>
+                    <tr>
+                      <th className={th}>Cuenta</th>
+                      <th className={th}>Desde</th>
+                      <th className={th}>Jugador</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {unlinked.users.map((account) => (
+                      <tr key={account.id}>
+                        <td className={td}>
+                          <span className="flex flex-wrap items-center gap-2">
+                            <span className="font-bold text-(--parchment)">
+                              {account.name}
+                            </span>
+                            <span className="text-(--faded) text-xs">
+                              {account.email}
+                            </span>
+                            <RoleSelect
+                              isSelf={account.id === selfId}
+                              role={account.role}
+                              userId={account.id}
+                            />
+                          </span>
+                        </td>
+                        <td
+                          className={`${td} font-mono text-(--faded) text-xs`}
+                        >
+                          {account.createdAt.toLocaleDateString('es-ES')}
+                        </td>
+                        <td className={td}>
+                          <LinkUserRow
+                            freePlayers={unlinked.freePlayers}
+                            userId={account.id}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
           </div>
         </Section>
       </main>
