@@ -234,7 +234,8 @@ const ConfirmedRoster = ({
         </p>
       </div>
       {players.length === 0 ? <EmptyTable /> : null}
-      <ul className="flex w-full flex-wrap justify-center gap-x-3 gap-y-5 sm:gap-x-5 sm:gap-y-7">
+      {/* d-roster (theme-night.css) keeps the rows balanced by card count. */}
+      <ul className="d-roster flex w-full flex-wrap justify-center gap-x-3 gap-y-5 sm:gap-x-5 sm:gap-y-7">
         {cards.map((card, index) => {
           const slug = slugByName.get(card.name);
           const body = <PortraitCard card={card} className="w-full" />;

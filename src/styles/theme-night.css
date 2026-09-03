@@ -325,3 +325,49 @@
     animation: none;
   }
 }
+
+/*
+ * Los aspirantes (/council): balanced rows. Left alone, flex-wrap fills
+ * the first row and leaves the remainder hanging — six cards as 5 + 1.
+ * These quantity queries (:has + :nth-child(n):last-child) cap the
+ * table at the column count that splits evenly (3 + 3, 4 + 3, 4 + 4 + 3…)
+ * for what each breakpoint fits per row: 3 cards from sm, 4 from md,
+ * 5 from lg. Counts not listed already wrap evenly. Cards are 10rem
+ * wide from sm and 11rem from lg, with 1.25rem gaps (see the roster).
+ */
+.d-roster {
+  --roster-card: 10rem;
+  --roster-gap: 1.25rem;
+}
+
+@media (min-width: 40rem) and (max-width: 47.999rem) {
+  .d-roster:has(> :nth-child(4):last-child) {
+    max-width: calc(2 * var(--roster-card) + var(--roster-gap));
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+  .d-roster:has(> :nth-child(5):last-child),
+  .d-roster:has(> :nth-child(6):last-child),
+  .d-roster:has(> :nth-child(9):last-child) {
+    max-width: calc(3 * var(--roster-card) + 2 * var(--roster-gap));
+  }
+}
+
+@media (min-width: 64rem) {
+  .d-roster {
+    --roster-card: 11rem;
+  }
+
+  .d-roster:has(> :nth-child(6):last-child) {
+    max-width: calc(3 * var(--roster-card) + 2 * var(--roster-gap));
+  }
+
+  .d-roster:has(> :nth-child(7):last-child),
+  .d-roster:has(> :nth-child(8):last-child),
+  .d-roster:has(> :nth-child(11):last-child),
+  .d-roster:has(> :nth-child(12):last-child),
+  .d-roster:has(> :nth-child(16):last-child) {
+    max-width: calc(4 * var(--roster-card) + 3 * var(--roster-gap));
+  }
+}
