@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { SiteShell } from '@/components/layout/site-shell';
@@ -48,30 +47,19 @@ const ArchiveItemPage = async ({ params }: PageProps) => {
   if (!item) {
     notFound();
   }
-  const back = item.edition
-    ? { href: `/editions/${item.edition.slug}`, text: item.edition.label }
+  // Where a delete leaves the visitor: the edition, else the first player.
+  const removedHref = item.edition
+    ? `/editions/${item.edition.slug}`
     : item.players[0]
-      ? { href: `/players/${item.players[0].slug}`, text: item.players[0].name }
-      : null;
+      ? `/players/${item.players[0].slug}`
+      : '/archive';
 
   return (
     <SiteShell>
       <main>
         <Section id="archive-item">
           <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
-            {back ? (
-              <Link
-                className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em] transition-colors hover:text-(--gold)"
-                href={back.href}
-              >
-                ← {back.text}
-              </Link>
-            ) : null}
-            <MediaFigure
-              item={item}
-              priority
-              removedHref={back?.href ?? '/archive'}
-            />
+            <MediaFigure item={item} priority removedHref={removedHref} />
           </div>
         </Section>
       </main>
