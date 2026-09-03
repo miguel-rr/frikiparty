@@ -4,6 +4,7 @@ import { after } from 'next/server';
 import sharp from 'sharp';
 import { z } from 'zod';
 
+import { archiveProcedure } from '@/server/api/archive-procedure';
 import { listEditions } from '@/server/api/routers/edition';
 import {
   listMediaForEdition,
@@ -67,18 +68,6 @@ const mediaKeys = (id: string, contentType: UploadType) => ({
 
 const mediaTypeOf = (contentType: UploadType) =>
   contentType.startsWith('video/') ? ('video' as const) : ('image' as const);
-
-/** Reading and uploading share one rule (see resolveArchiveAccess). */
-const archiveProcedure = protectedProcedure.use(async ({ ctx, next }) => {
-  const access = await resolveArchiveAccess(ctx.db, ctx.session.user);
-  if (!access.allowed) {
-    throw new TRPCError({
-      code: 'FORBIDDEN',
-      message: 'Vincula tu jugador para entrar en Los Archivos.',
-    });
-  }
-  return next({ ctx: { ...ctx, uploader: { userId: ctx.session.user.id } } });
-});
 
 type TournamentKindRow = {
   id: string;
@@ -202,10 +191,10 @@ const mediaRouter = createTRPCRouter({
     )
     .query(({ ctx, input }) =>
       'playerId' in input
-        ? listMediaForPlayer(ctx.db, input.playerId)
+        ? listMediaForPlayer(ctx.db, input.playerId, ctx.session.user.id)
         : 'editionId' in input
-          ? listMediaForEdition(ctx.db, input.editionId)
-          : listMediaForVenue(ctx.db, input.venueId),
+          ? listMediaForEdition(ctx.db, input.editionId, ctx.session.user.id)
+          : listMediaForVenue(ctx.db, input.venueId, ctx.session.user.id),
     ),
 
   uploadContext: archiveProcedure.query(({ ctx }) => getUploadContext(ctx.db)),
@@ -317,7 +306,7 @@ const mediaRouter = createTRPCRouter({
           height,
           durationSeconds: input.durationSeconds,
           fileSize: original.size,
-          uploadedByUserId: ctx.uploader.userId,
+          uploadedByUserId: ctx.session.user.id,
         });
         const targets = [
           ...input.playerIds.map((playerId) => ({ playerId })),

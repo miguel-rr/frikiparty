@@ -49,6 +49,33 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
     ) : (
       <span className="grid size-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#1c2a20,#0a0f0c_70%)]" />
     )}
+    {item.likeCount > 0 || item.commentCount > 0 ? (
+      <span className="pointer-events-none absolute bottom-1.5 left-1.5 flex items-center gap-1.5 rounded bg-[#0a0f0ccc] px-1.5 py-0.5 font-mono text-(--parchment) text-[0.6rem]">
+        {item.likeCount > 0 ? (
+          <span className="inline-flex items-center gap-0.5">
+            <span aria-hidden="true" className="text-(--gold)">
+              ♥
+            </span>
+            <span className="sr-only">Me gusta: </span>
+            {item.likeCount}
+          </span>
+        ) : null}
+        {item.commentCount > 0 ? (
+          <span className="inline-flex items-center gap-0.5">
+            <svg
+              aria-hidden="true"
+              className="size-2.5 text-(--gold)"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M2 2h12v9H6l-3.5 3V11H2z" />
+            </svg>
+            <span className="sr-only">Comentarios: </span>
+            {item.commentCount}
+          </span>
+        ) : null}
+      </span>
+    ) : null}
     {item.type === 'video' ? (
       <>
         <span className="pointer-events-none absolute inset-0 grid place-items-center">

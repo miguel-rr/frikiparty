@@ -16,6 +16,7 @@ import {
   phaseGroupConfig,
 } from '@/server/db/schema/phase';
 import { player } from '@/server/db/schema/player';
+import { comment, like } from '@/server/db/schema/social';
 import {
   auction,
   auctionBid,
@@ -38,6 +39,8 @@ const userRelations = relations(user, ({ many, one }) => ({
   player: one(player, { fields: [user.id], references: [player.userId] }),
   uploadedMedia: many(media),
   uploadedSaveFiles: many(matchGameSaveFile),
+  likes: many(like),
+  comments: many(comment),
 }));
 
 const accountRelations = relations(account, ({ one }) => ({
@@ -62,6 +65,8 @@ const playerRelations = relations(player, ({ many, one }) => ({
   auctionBids: many(auctionBid),
   matchGamePlayerFactions: many(matchGamePlayerFaction),
   mediaAssociations: many(mediaAssociation),
+  likes: many(like),
+  comments: many(comment),
 }));
 
 const gameRelations = relations(game, ({ many }) => ({
@@ -103,6 +108,8 @@ const editionRelations = relations(edition, ({ many, one }) => ({
   venue: one(venue, { fields: [edition.venueId], references: [venue.id] }),
   tournaments: many(tournament),
   mediaAssociations: many(mediaAssociation),
+  likes: many(like),
+  comments: many(comment),
 }));
 
 const tournamentRelations = relations(tournament, ({ many, one }) => ({
@@ -360,6 +367,8 @@ const mediaRelations = relations(media, ({ many, one }) => ({
   }),
   associations: many(mediaAssociation),
   tags: many(mediaTag),
+  likes: many(like),
+  comments: many(comment),
 }));
 
 const mediaAssociationRelations = relations(mediaAssociation, ({ one }) => ({
@@ -398,17 +407,36 @@ const mediaTagRelations = relations(mediaTag, ({ one }) => ({
   tag: one(tag, { fields: [mediaTag.tagId], references: [tag.id] }),
 }));
 
+const likeRelations = relations(like, ({ one }) => ({
+  user: one(user, { fields: [like.userId], references: [user.id] }),
+  media: one(media, { fields: [like.mediaId], references: [media.id] }),
+  edition: one(edition, { fields: [like.editionId], references: [edition.id] }),
+  player: one(player, { fields: [like.playerId], references: [player.id] }),
+}));
+
+const commentRelations = relations(comment, ({ one }) => ({
+  user: one(user, { fields: [comment.userId], references: [user.id] }),
+  media: one(media, { fields: [comment.mediaId], references: [media.id] }),
+  edition: one(edition, {
+    fields: [comment.editionId],
+    references: [edition.id],
+  }),
+  player: one(player, { fields: [comment.playerId], references: [player.id] }),
+}));
+
 export {
   accountRelations,
   auctionBidRelations,
   auctionLotRelations,
   auctionRelations,
+  commentRelations,
   draftPickRelations,
   draftRelations,
   editionRelations,
   factionRelations,
   gameRelations,
   gameVersionRelations,
+  likeRelations,
   matchGamePlayerFactionRelations,
   matchGameRelations,
   matchGameSaveFileRelations,

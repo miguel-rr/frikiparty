@@ -27,7 +27,7 @@ const ArchivePage = async () => {
   if (!isAdmin && !(access.allowed && siteFlags.archiveForMembers)) {
     notFound();
   }
-  const items = await listAllMedia(db);
+  const items = await listAllMedia(db, session?.user.id ?? null);
   const photos = items.filter((item) => item.type === 'image').length;
   const videos = items.length - photos;
 

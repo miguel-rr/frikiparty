@@ -286,7 +286,7 @@ const listRingTitles = async (
 /** Pure queries (no session) so pages can be built statically. */
 const listPlayers = (db: TRPCContext['db']) =>
   db
-    .select({ id: player.id, name: player.name })
+    .select({ id: player.id, name: player.name, slug: player.slug })
     .from(player)
     .orderBy(asc(player.name));
 

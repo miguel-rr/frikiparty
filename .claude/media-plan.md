@@ -22,6 +22,7 @@ rate limit y la falta de caché no importan. No volver a proponerlo. Si
 algún día hiciera falta, la vía sería un segundo dominio gestionado en
 Cloudflare, nunca un proxy por Vercel (ancho de banda).
 Complementa la sección 7 de `data-model.md`; donde difieren, manda este doc.
+Likes y comentarios sobre los archivos: ver `social-plan.md` (2026-09-03).
 
 ## Decisiones
 
@@ -74,7 +75,7 @@ Complementa la sección 7 de `data-model.md`; donde difieren, manda este doc.
   admins (thumbnail + datos clave). Solo admins de momento, flag en
   `site-flags.ts` para abrirla más adelante. Nada en la home.
 - **Fuera de esta versión**: etiquetas libres (tabla queda sin UI), fecha de
-  toma (se ordena por subida), replays, comentarios/likes, descarga masiva,
+  toma (se ordena por subida), replays, descarga masiva,
   transcodificación, foto real de jugador (el retrato pintado se queda),
   importación masiva (no debe condicionar la UX).
 

@@ -3,6 +3,7 @@ import { draftRoomRouter } from '@/server/api/routers/draft-room';
 import { editionRouter } from '@/server/api/routers/edition';
 import { mediaRouter } from '@/server/api/routers/media';
 import { playerRouter } from '@/server/api/routers/player';
+import { socialRouter } from '@/server/api/routers/social';
 import { venueRouter } from '@/server/api/routers/venue';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
@@ -12,6 +13,7 @@ const appRouter = createTRPCRouter({
   edition: editionRouter,
   media: mediaRouter,
   player: playerRouter,
+  social: socialRouter,
   venue: venueRouter,
 });
 

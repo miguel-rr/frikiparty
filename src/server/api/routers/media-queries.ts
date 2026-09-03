@@ -27,6 +27,9 @@ type MediaRow = {
   created_at: Date;
   uploaded_by_user_id: string | null;
   uploader_name: string | null;
+  like_count: number;
+  comment_count: number;
+  liked_by_me: boolean;
   players: { id: string; name: string; slug: string }[];
   edition_id: string | null;
   edition_year: number | null;
@@ -54,6 +57,10 @@ type MediaItem = {
   createdAt: string;
   uploadedByUserId: string | null;
   uploaderName: string | null;
+  likeCount: number;
+  commentCount: number;
+  /** Whether the viewer passed to the query has liked it; false without one. */
+  likedByMe: boolean;
   players: { id: string; name: string; slug: string }[];
   edition: { id: string; label: string; slug: string } | null;
   tournamentId: string | null;
@@ -79,6 +86,9 @@ const toItem = (row: MediaRow): MediaItem => ({
   createdAt: new Date(row.created_at).toISOString(),
   uploadedByUserId: row.uploaded_by_user_id,
   uploaderName: row.uploader_name,
+  likeCount: row.like_count,
+  commentCount: row.comment_count,
+  likedByMe: row.liked_by_me,
   players: row.players,
   edition:
     row.edition_id && row.edition_year && row.edition_order
@@ -99,12 +109,14 @@ const toItem = (row: MediaRow): MediaItem => ({
 
 /**
  * Full rows for a set of media ids (or every row when `ids` is null),
- * newest first, with the tagged players and the edition. The edition
- * comes from the explicit edition link or, failing that, the tournament's.
+ * newest first, with the tagged players, the edition and the like and
+ * comment counts. The edition comes from the explicit edition link or,
+ * failing that, the tournament's. `viewerUserId` only decides `likedByMe`.
  */
 const fetchMediaItems = async (
   db: TRPCContext['db'],
   ids: string[] | null,
+  viewerUserId: string | null,
 ): Promise<MediaItem[]> => {
   if (ids !== null && ids.length === 0) {
     return [];
@@ -126,6 +138,13 @@ const fetchMediaItems = async (
       p.playback_key, p.playback_status, p.caption, p.description, p.width, p.height, p.duration_seconds,
       p.file_size, p.created_at, p.uploaded_by_user_id,
       u.name AS uploader_name,
+      (SELECT count(*)::int FROM frikiparty_like l WHERE l.media_id = p.id) AS like_count,
+      (SELECT count(*)::int FROM frikiparty_comment c WHERE c.media_id = p.id) AS comment_count,
+      ${
+        viewerUserId === null
+          ? sql`false`
+          : sql`EXISTS (SELECT 1 FROM frikiparty_like l WHERE l.media_id = p.id AND l.user_id = ${viewerUserId})`
+      } AS liked_by_me,
       (
         SELECT coalesce(json_agg(json_build_object('id', pl.id, 'name', pl.name, 'slug', pl.slug) ORDER BY pl.name), '[]'::json)
         FROM frikiparty_media_association a
@@ -150,7 +169,11 @@ type IdRow = { id: string };
 const idsOf = (rows: IdRow[]) => rows.map((row) => row.id);
 
 /** Everything tagged with the player. */
-const listMediaForPlayer = async (db: TRPCContext['db'], playerId: string) =>
+const listMediaForPlayer = async (
+  db: TRPCContext['db'],
+  playerId: string,
+  viewerUserId: string | null,
+) =>
   fetchMediaItems(
     db,
     idsOf(
@@ -159,13 +182,18 @@ const listMediaForPlayer = async (db: TRPCContext['db'], playerId: string) =>
         WHERE player_id = ${playerId}
       `)) as unknown as IdRow[],
     ),
+    viewerUserId,
   );
 
 /**
  * Everything of the edition, derived: tagged to the edition itself, to
  * one of its tournaments, or to a match or game inside them.
  */
-const listMediaForEdition = async (db: TRPCContext['db'], editionId: string) =>
+const listMediaForEdition = async (
+  db: TRPCContext['db'],
+  editionId: string,
+  viewerUserId: string | null,
+) =>
   fetchMediaItems(
     db,
     idsOf(
@@ -186,10 +214,15 @@ const listMediaForEdition = async (db: TRPCContext['db'], editionId: string) =>
           OR tr3.edition_id = ${editionId}
       `)) as unknown as IdRow[],
     ),
+    viewerUserId,
   );
 
 /** The house itself, plus everything from the editions held there. */
-const listMediaForVenue = async (db: TRPCContext['db'], venueId: string) =>
+const listMediaForVenue = async (
+  db: TRPCContext['db'],
+  venueId: string,
+  viewerUserId: string | null,
+) =>
   fetchMediaItems(
     db,
     idsOf(
@@ -204,12 +237,17 @@ const listMediaForVenue = async (db: TRPCContext['db'], venueId: string) =>
           OR e2.venue_id = ${venueId}
       `)) as unknown as IdRow[],
     ),
+    viewerUserId,
   );
 
-const listAllMedia = (db: TRPCContext['db']) => fetchMediaItems(db, null);
+const listAllMedia = (db: TRPCContext['db'], viewerUserId: string | null) =>
+  fetchMediaItems(db, null, viewerUserId);
 
-const getMediaItem = async (db: TRPCContext['db'], id: string) =>
-  (await fetchMediaItems(db, [id]))[0] ?? null;
+const getMediaItem = async (
+  db: TRPCContext['db'],
+  id: string,
+  viewerUserId: string | null,
+) => (await fetchMediaItems(db, [id], viewerUserId))[0] ?? null;
 
 export {
   getMediaItem,

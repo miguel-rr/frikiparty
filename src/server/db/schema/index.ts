@@ -6,5 +6,6 @@ export * from '@/server/db/schema/media';
 export * from '@/server/db/schema/phase';
 export * from '@/server/db/schema/player';
 export * from '@/server/db/schema/relations';
+export * from '@/server/db/schema/social';
 export * from '@/server/db/schema/team';
 export * from '@/server/db/schema/tournament';

@@ -72,7 +72,7 @@ const ArchiveBrowser = ({
       ) : null}
       {view === 'table' ? (
         <div className={`${panelGold} overflow-x-auto`}>
-          <table className="w-full min-w-[52rem] border-collapse text-sm">
+          <table className="w-full min-w-[58rem] border-collapse text-sm">
             <thead>
               <tr>
                 <th className={th}> </th>
@@ -82,6 +82,8 @@ const ArchiveBrowser = ({
                 <th className={th}>Edición</th>
                 <th className={th}>Subido por</th>
                 <th className={th}>Fecha</th>
+                <th className={th}>Likes</th>
+                <th className={th}>Coment.</th>
                 <th className={th}>Peso</th>
               </tr>
             </thead>
@@ -154,6 +156,12 @@ const ArchiveBrowser = ({
                   </td>
                   <td className={`${td} font-mono text-(--faded) text-xs`}>
                     {formatDate(item.createdAt)}
+                  </td>
+                  <td className={`${td} font-mono text-(--faded) text-xs`}>
+                    {item.likeCount}
+                  </td>
+                  <td className={`${td} font-mono text-(--faded) text-xs`}>
+                    {item.commentCount}
                   </td>
                   <td className={`${td} font-mono text-(--faded) text-xs`}>
                     {formatSize(item.fileSize)}

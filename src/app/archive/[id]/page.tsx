@@ -24,7 +24,7 @@ const loadItem = async (id: string) => {
   }
   const session = await getSession();
   const access = await resolveArchiveAccess(db, session?.user);
-  return access.allowed ? getMediaItem(db, id) : null;
+  return access.allowed ? getMediaItem(db, id, session?.user.id ?? null) : null;
 };
 
 export const generateMetadata = async ({

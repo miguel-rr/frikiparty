@@ -3,14 +3,9 @@
 import Link from 'next/link';
 
 import { MediaActions } from '@/components/media/media-actions';
+import { CommentThread } from '@/components/social/comment-thread';
+import { LikeButton } from '@/components/social/like-button';
 import type { MediaItem } from '@/server/api/routers/media-queries';
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
 
 const formatDuration = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
@@ -23,8 +18,9 @@ const chipLink =
 
 /**
  * One archived file at full size with its plaque: the image or video on
- * top, then caption, who appears, which edition, and who brought it.
- * Shared by the gallery lightbox and the /archive/<id> page.
+ * top, then caption, who appears and which edition; then the likes and
+ * the comment thread. Shared by the gallery lightbox and
+ * the /archive/<id> page.
  */
 const MediaFigure = ({
   item,
@@ -97,18 +93,19 @@ const MediaFigure = ({
           </Link>
         ))}
       </div>
-      <p className="text-(--faded) text-xs">
-        {item.uploaderName ? `Lo trajo ${item.uploaderName} · ` : ''}
-        {formatDate(item.createdAt)}
-        {item.type === 'video' && item.durationSeconds
-          ? ` · ${formatDuration(item.durationSeconds)}`
-          : ''}
-      </p>
-      <MediaActions
-        item={item}
-        onRemoved={onRemoved}
-        removedHref={removedHref}
-      />
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <LikeButton
+          likeCount={item.likeCount}
+          likedByMe={item.likedByMe}
+          target={{ mediaId: item.id }}
+        />
+        <MediaActions
+          item={item}
+          onRemoved={onRemoved}
+          removedHref={removedHref}
+        />
+      </div>
+      <CommentThread target={{ mediaId: item.id }} />
     </figcaption>
   </figure>
 );
