@@ -183,7 +183,7 @@ const MediaEditor = ({
     });
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl border border-(--hair-gold) bg-(--night-2) p-4">
+    <div className="flex w-full flex-col gap-4 rounded-xl border border-(--hair-gold) bg-(--night-2) p-4">
       <div className="flex flex-col">
         <label className={label} htmlFor={`caption-${item.id}`}>
           Título
