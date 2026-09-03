@@ -208,12 +208,12 @@ const BioParchment = ({ text }: { text: string }) => (
           >
             {index === 0 ? (
               <span
-                className={`${almendraDisplay.className} -mr-1 inline-block align-baseline text-[#8f2f1f] text-[4rem] leading-[0.72] [text-shadow:0_0_1px_rgba(143,47,31,0.55)]`}
+                className={`${almendraDisplay.className} -mr-2 inline-block align-baseline text-[#8f2f1f] text-[4rem] leading-[0.72] [text-shadow:0_0_1px_rgba(143,47,31,0.55)]`}
               >
                 {paragraph.charAt(0)}
               </span>
             ) : (
-              <span className="mr-[0.04rem] text-[#8f2f1f] text-[1.35em] leading-none [text-shadow:0_0_1px_rgba(143,47,31,0.45)]">
+              <span className="-mr-[0.04rem] text-[#8f2f1f] text-[1.35em] leading-none [text-shadow:0_0_1px_rgba(143,47,31,0.45)]">
                 {paragraph.charAt(0)}
               </span>
             )}
