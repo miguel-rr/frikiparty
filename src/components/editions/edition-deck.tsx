@@ -58,7 +58,13 @@ const SolitaireRule = () => (
  * gold rim, the painted scene as artwork, the year on the name ribbon and
  * the champions' faces where a card keeps its stats.
  */
-const DeckCard = ({ edition }: { edition: EditionView }) => {
+const DeckCard = ({
+  edition,
+  showVenue,
+}: {
+  edition: EditionView;
+  showVenue: boolean;
+}) => {
   const running = edition.status !== 'past';
   const lost = !running && edition.champions.length === 0;
   return (
@@ -106,7 +112,7 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
           >
             {edition.label}
           </Link>
-          {edition.venueName ? (
+          {showVenue && edition.venueName ? (
             edition.venueSlug && edition.venueIsPlace ? (
               <Link
                 className="pointer-events-auto font-bold font-mono text-(--parchment) text-2xs uppercase tracking-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition-colors hover:text-(--gold-hi)"
@@ -178,11 +184,17 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
  * artwork, the year the ribbon, the champions sit in the text box. The
  * grid trades the timeline's line for a wall you can take in at once.
  */
-const EditionDeck = ({ editions }: { editions: EditionView[] }) => (
+const EditionDeck = ({
+  editions,
+  showVenue = true,
+}: {
+  editions: EditionView[];
+  showVenue?: boolean;
+}) => (
   <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {editions.map((edition) => (
       <li key={edition.id}>
-        <DeckCard edition={edition} />
+        <DeckCard edition={edition} showVenue={showVenue} />
       </li>
     ))}
   </ul>

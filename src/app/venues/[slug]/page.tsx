@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { VenueEditor } from '@/app/venues/[slug]/_components/venue-editor';
+import { EditionsView } from '@/components/editions/editions-view';
 import { SiteShell } from '@/components/layout/site-shell';
 import { ArchiveSection } from '@/components/media/archive-section';
 import {
@@ -11,9 +12,11 @@ import {
   Section,
   tag,
 } from '@/components/theme/primitives';
-import { EditionCard } from '@/components/tournament/edition-card';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
+import { buildEditionViews } from '@/lib/tournament/edition-view';
+import { listEditions } from '@/server/api/routers/edition';
+import { getHistoricalRanking } from '@/server/api/routers/player';
 import { getVenue } from '@/server/api/routers/venue';
 import { db } from '@/server/db';
 import { venue as venueTable } from '@/server/db/schema';
@@ -54,6 +57,16 @@ const VenuePage = async ({ params }: PageProps) => {
   if (!venue) {
     notFound();
   }
+  // The chronicle's own deck, filtered to this house: views are built
+  // from the full list first so each card keeps the scene it wears on
+  // /editions (scenes go by position in the whole timeline).
+  const [allEditions, players] = await Promise.all([
+    listEditions(db),
+    getHistoricalRanking(db),
+  ]);
+  const editions = buildEditionViews(allEditions, players).filter(
+    (edition) => edition.venueSlug === venue.slug,
+  );
 
   const mapSrc = venue.mapsEmbedQuery
     ? `https://maps.google.com/maps?q=${encodeURIComponent(venue.mapsEmbedQuery)}&z=13&output=embed`
@@ -145,22 +158,12 @@ const VenuePage = async ({ params }: PageProps) => {
             </p>
           ) : null}
 
-          {venue.editions.length > 0 ? (
+          {editions.length > 0 ? (
             <div className="flex flex-col gap-5">
               <span className={label}>
                 <RingGlyph size={13} /> Las ediciones en esta casa
               </span>
-              <ol className="mx-auto flex w-full max-w-3xl flex-col gap-8">
-                {venue.editions.map((edition) => (
-                  <li key={edition.id}>
-                    <EditionCard
-                      edition={edition}
-                      scene={sceneForIndex(edition.sceneIndex)}
-                      showVenue={false}
-                    />
-                  </li>
-                ))}
-              </ol>
+              <EditionsView editions={editions} showVenue={false} />
             </div>
           ) : (
             <p className="text-center text-(--faded) text-sm italic">

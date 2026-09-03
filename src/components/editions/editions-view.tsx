@@ -21,7 +21,14 @@ const toggle = (active: boolean) =>
  * for when twenty years of scrolling is too much (phones, mostly). The
  * choice is remembered per browser; the server always renders the cards.
  */
-const EditionsView = ({ editions }: { editions: EditionView[] }) => {
+const EditionsView = ({
+  editions,
+  showVenue = true,
+}: {
+  editions: EditionView[];
+  /** Off on a venue's own page, where every card would name the same house. */
+  showVenue?: boolean;
+}) => {
   const [view, setView] = useState<View>('cards');
 
   useEffect(() => {
@@ -70,9 +77,9 @@ const EditionsView = ({ editions }: { editions: EditionView[] }) => {
         </fieldset>
       </div>
       {view === 'list' ? (
-        <EditionList editions={editions} />
+        <EditionList editions={editions} showVenue={showVenue} />
       ) : (
-        <EditionDeck editions={editions} />
+        <EditionDeck editions={editions} showVenue={showVenue} />
       )}
     </div>
   );

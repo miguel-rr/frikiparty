@@ -13,7 +13,13 @@ const eyebrow = 'font-mono text-(--faded) text-2xs uppercase tracking-2xl';
  * individual champion pinned right. Same information as the cards, a
  * fraction of the scroll.
  */
-const EditionList = ({ editions }: { editions: EditionView[] }) => (
+const EditionList = ({
+  editions,
+  showVenue = true,
+}: {
+  editions: EditionView[];
+  showVenue?: boolean;
+}) => (
   <ol className="divide-y divide-(--hair) border-(--hair-gold) border-y">
     {editions.map((edition) => {
       const running = edition.status !== 'past';
@@ -32,7 +38,7 @@ const EditionList = ({ editions }: { editions: EditionView[] }) => (
             >
               {edition.label}
             </Link>
-            {edition.venueName ? (
+            {showVenue && edition.venueName ? (
               edition.venueSlug && edition.venueIsPlace ? (
                 <Link
                   className={`${eyebrow} transition-colors hover:text-(--gold)`}
