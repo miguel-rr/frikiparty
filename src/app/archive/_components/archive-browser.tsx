@@ -23,20 +23,6 @@ import {
 } from '@/lib/media/gallery-view';
 import type { MediaItem } from '@/server/api/routers/media-queries';
 
-const formatSize = (bytes: number | null) =>
-  bytes === null
-    ? '—'
-    : bytes >= 1024 * 1024
-      ? `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-      : `${Math.max(1, Math.round(bytes / 1024))} KB`;
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString('es-ES', {
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
-  });
-
 const cellLink =
   'text-(--faded) transition-colors hover:text-(--gold-hi) hover:underline';
 
@@ -77,7 +63,7 @@ const useUrlView = (tableAllowed: boolean) => {
 
 /**
  * Gallery of everything, and for admins a table view that shows the
- * catalogue at a glance: thumbnail, title, who, when, how heavy. Both
+ * catalogue at a glance: thumbnail, title, who, likes, comments. Both
  * views show the same sorted and filtered list. Each row links to the
  * file's page, where it can be edited or removed.
  */
@@ -134,7 +120,7 @@ const ArchiveBrowser = ({
         <GalleryEmpty onReset={() => setView(DEFAULT_VIEW)} />
       ) : mode === 'table' ? (
         <div className={`${panelGold} overflow-x-auto`}>
-          <table className="w-full min-w-[62rem] border-collapse whitespace-nowrap text-sm">
+          <table className="w-full border-collapse text-sm">
             <thead>
               <tr>
                 <th className={th}> </th>
@@ -143,10 +129,8 @@ const ArchiveBrowser = ({
                 <th className={th}>Jugadores</th>
                 <th className={th}>Edición</th>
                 <th className={th}>Subido por</th>
-                <th className={th}>Fecha</th>
                 <th className={th}>Likes</th>
                 <th className={th}>Coment.</th>
-                <th className={th}>Peso</th>
                 <th className={th}> </th>
               </tr>
             </thead>
@@ -218,16 +202,10 @@ const ArchiveBrowser = ({
                     {item.uploaderName ?? '—'}
                   </td>
                   <td className={`${td} font-mono text-(--faded) text-xs`}>
-                    {formatDate(item.createdAt)}
-                  </td>
-                  <td className={`${td} font-mono text-(--faded) text-xs`}>
                     {item.likeCount}
                   </td>
                   <td className={`${td} font-mono text-(--faded) text-xs`}>
                     {item.commentCount}
-                  </td>
-                  <td className={`${td} font-mono text-(--faded) text-xs`}>
-                    {formatSize(item.fileSize)}
                   </td>
                   <td className={`${td} text-right`}>
                     <Link
