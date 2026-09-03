@@ -9,7 +9,12 @@ import {
 } from '@/components/media/gallery-toolbar';
 import { MediaGallery } from '@/components/media/media-gallery';
 import { UploadSheet } from '@/components/media/upload-sheet';
-import { RingGlyph } from '@/components/theme/primitives';
+import {
+  Divider,
+  PlayerBlazon,
+  panelGold,
+  RingGlyph,
+} from '@/components/theme/primitives';
 import {
   applyGalleryView,
   countByType,
@@ -61,7 +66,26 @@ const ArchiveSection = ({
   );
 
   if (!access.data?.allowed) {
-    return null;
+    // Signed in but without a claimed player: a quiet nudge, with no
+    // heading and no word of what's behind it. Anonymous visitors and
+    // the unresolved state get nothing at all.
+    return user && access.data ? (
+      <div className="flex w-full flex-col gap-8">
+        <Divider />
+        <div
+          className={`${panelGold} mx-auto flex w-full max-w-xl flex-col items-center gap-3 px-6 py-7 text-center`}
+        >
+          <PlayerBlazon name={null} size="lg" />
+          <p className="d-display d-gold-text font-bold text-xl uppercase tracking-wide">
+            Vincula tu jugador
+          </p>
+          <p className="max-w-[40ch] text-(--parchment)">
+            Hazlo desde tu menú de usuario para ver todo el contenido de esta
+            página.
+          </p>
+        </div>
+      </div>
+    ) : null;
   }
   const canUpload = !('venueId' in target);
 
