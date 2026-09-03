@@ -39,12 +39,16 @@ const formatDate = (iso: string) =>
 const cellLink =
   'text-(--faded) transition-colors hover:text-(--gold-hi) hover:underline';
 
+type Mode = 'gallery' | 'table';
+
 /**
- * The view lives in the URL (?sort=&type=&q=) so a filtered archive can
- * be shared and survives a trip into a file's page. Read once on mount,
- * written back with replaceState so typing never reloads the page.
+ * The view lives in the URL (?sort=&type=&q=&view=) so a filtered archive
+ * can be shared and survives a refresh or a trip into a file's page. Read
+ * once on mount, written back with replaceState so typing never reloads
+ * the page. Defaults stay out of the address; the table is admin-only,
+ * so anyone else opening a `view=table` link lands on the gallery.
  */
-const useUrlView = () => {
+const useUrlView = (tableAllowed: boolean) => {
   const params = useSearchParams();
   const [view, setView] = useState<GalleryView>(() =>
     viewFromParams({
@@ -53,14 +57,21 @@ const useUrlView = () => {
       q: params.get('q') ?? undefined,
     }),
   );
+  const [mode, setMode] = useState<Mode>(() =>
+    tableAllowed && params.get('view') === 'table' ? 'table' : 'gallery',
+  );
   useEffect(() => {
-    const query = paramsFromView(view).toString();
+    const search = paramsFromView(view);
+    if (mode === 'table') {
+      search.set('view', 'table');
+    }
+    const query = search.toString();
     const url = `${window.location.pathname}${query ? `?${query}` : ''}`;
     if (url !== `${window.location.pathname}${window.location.search}`) {
       window.history.replaceState(window.history.state, '', url);
     }
-  }, [view]);
-  return [view, setView] as const;
+  }, [view, mode]);
+  return { view, setView, mode, setMode };
 };
 
 /**
@@ -76,8 +87,7 @@ const ArchiveBrowser = ({
   isAdmin: boolean;
   items: MediaItem[];
 }) => {
-  const [mode, setMode] = useState<'gallery' | 'table'>('gallery');
-  const [view, setView] = useUrlView();
+  const { view, setView, mode, setMode } = useUrlView(isAdmin);
   const visible = useMemo(() => applyGalleryView(items, view), [items, view]);
   const counts = useMemo(
     () => countByType(items, view.query),

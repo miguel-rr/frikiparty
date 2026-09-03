@@ -70,6 +70,7 @@ Implementado y verificado en navegador con filas temporales (ya borradas).
 - **Barra** (`GalleryToolbar`): en `/archive` siempre, con el toggle
   Galería/Tabla del admin integrado; en jugador, edición y sede a partir de
   6 archivos. Sin resultados: mensaje con «Ver todo».
-- **URL solo en `/archive`**: `?sort=&type=&q=`, sin valores por defecto,
-  escrita con `replaceState` (sin recarga) y leída al montar.
+- **URL solo en `/archive`**: `?sort=&type=&q=&view=table`, sin valores por
+  defecto, escrita con `replaceState` (sin recarga) y leída al montar. La
+  tabla es de admin: otros usuarios con `view=table` ven la galería.
 - **Lightbox por id**: sigue al archivo abierto aunque un like lo reordene.
