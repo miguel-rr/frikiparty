@@ -168,7 +168,7 @@ const canEditPlayer = (
 
 /**
  * A player's public profile. Pure query (no session) so the page can be
- * built statically; who may edit is decided client-side from ownerUserId.
+ * built statically; who may edit is resolved client-side via player.mine.
  */
 const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
   const [row] = await db.select().from(player).where(eq(player.slug, slug));
@@ -202,7 +202,6 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
     titles,
     // The edit gate resolves client-side (see PlayerProfile) so the
     // page itself can be built statically.
-    ownerUserId: row.userId,
   };
 };
 
@@ -428,8 +427,6 @@ const playerRouter = createTRPCRouter({
       if (!linked) {
         throw new TRPCError({ code: 'CONFLICT' });
       }
-      // The profile page bakes in who may edit it.
-      revalidatePath(`/players/${linked.slug}`);
       return linked;
     }),
 
@@ -454,7 +451,6 @@ const playerRouter = createTRPCRouter({
           message: 'Ese jugador ya está vinculado a otra cuenta.',
         });
       }
-      revalidatePath(`/players/${linked.slug}`);
       return linked;
     }),
 
@@ -505,7 +501,6 @@ const playerRouter = createTRPCRouter({
           message: 'Ese jugador no tiene ninguna cuenta vinculada.',
         });
       }
-      revalidatePath(`/players/${unlinked.slug}`);
       return unlinked;
     }),
 

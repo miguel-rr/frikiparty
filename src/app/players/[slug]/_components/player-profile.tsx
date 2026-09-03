@@ -26,8 +26,6 @@ type PlayerProfileProps = {
   cardAbilityText: string | null;
   rings: number;
   individualRings: number;
-  /** Linked user who owns the profile; edit rights resolve client-side. */
-  ownerUserId: string | null;
   /** Quick stats (ranking position, rings) shown beside the card. */
   stats?: ReactNode;
   /** Server-rendered palmarés, shown under the chronicle. */
@@ -49,15 +47,20 @@ const PlayerProfile = ({
   cardAbilityText: initialAbilityText,
   rings,
   individualRings,
-  ownerUserId,
   stats,
   children,
 }: PlayerProfileProps) => {
-  // Session read on the client so the page itself is built statically;
-  // player.update re-checks permissions server-side anyway.
+  // The page is built statically, so ownership is resolved live on the
+  // client: the session for the role, player.mine for the linked player.
+  // Nothing baked into the HTML can go stale; player.update re-checks
+  // permissions server-side anyway.
   const { user } = useSessionUser();
+  const mine = api.player.mine.useQuery(undefined, {
+    enabled: user !== undefined,
+    staleTime: 5 * 60 * 1000,
+  });
   const canEdit =
-    user !== undefined && (user.role === 'admin' || user.id === ownerUserId);
+    user !== undefined && (user.role === 'admin' || mine.data?.id === id);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio ?? '');

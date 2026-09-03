@@ -2,7 +2,7 @@
 
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
-  httpBatchStreamLink,
+  httpBatchLink,
   httpSubscriptionLink,
   loggerLink,
   splitLink,
@@ -52,7 +52,12 @@ const TRPCReactProvider = (props: { children: React.ReactNode }) => {
             transformer: SuperJSON,
             url: getBaseUrl() + '/api/trpc',
           }),
-          false: httpBatchStreamLink({
+          // Batched but NOT streamed: Next collects a route handler's
+          // pending revalidatePath() calls the moment the handler returns
+          // its Response. The streaming link returns the Response before
+          // the procedures finish, so any revalidation a mutation issues
+          // is silently dropped and the static pages never refresh.
+          false: httpBatchLink({
             transformer: SuperJSON,
             url: getBaseUrl() + '/api/trpc',
             headers: () => {

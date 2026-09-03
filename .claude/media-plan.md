@@ -14,8 +14,13 @@ pendientes en prod. El selector de partido no está en el formulario (solo 7 par
 en toda la historia); el modelo lo soporta para el modo torneo en vivo. Bucket `frikiparty-media`
 verificado (put, presigned put, lectura pública, borrado); variables en
 `.env` y en Vercel (prod/preview/dev). Migración 0015 aplicada en dev.
-Pendiente: `media.frikiparty.com` (mover DNS de Vercel a Cloudflare) y
-aplicar 0015 en prod al promocionar.
+**`media.frikiparty.com` descartado (2026-09-03)**: Cloudflare solo
+conecta un dominio propio a R2 si la zona vive en su cuenta, y Miguel no
+quiere mover los nameservers de `frikiparty.com` fuera de Vercel. El
+archivo se sirve desde `r2.dev` de forma definitiva; a esta escala el
+rate limit y la falta de caché no importan. No volver a proponerlo. Si
+algún día hiciera falta, la vía sería un segundo dominio gestionado en
+Cloudflare, nunca un proxy por Vercel (ancho de banda).
 Complementa la sección 7 de `data-model.md`; donde difieren, manda este doc.
 
 ## Decisiones

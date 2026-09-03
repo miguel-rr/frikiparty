@@ -98,7 +98,6 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
               id={player.id}
               individualRings={player.individualRings}
               name={player.name}
-              ownerUserId={player.ownerUserId}
               rings={player.rings}
               stats={
                 <div className="flex flex-col gap-3">
