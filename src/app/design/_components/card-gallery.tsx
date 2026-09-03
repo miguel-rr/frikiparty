@@ -50,7 +50,7 @@ const CardGallery = () => {
         <ul className="flex flex-wrap justify-center gap-5">
           {cards.map((card) => (
             <li key={card.name}>
-              <PortraitCard card={card} className="w-[195px]" />
+              <PortraitCard card={card} className="w-48.75" />
             </li>
           ))}
         </ul>

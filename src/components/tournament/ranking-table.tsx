@@ -48,7 +48,7 @@ const RingMark = ({
     >
       <RingGlyph size={size} tone={tone} />
       <span className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 hidden w-max max-w-64 -translate-x-1/2 flex-col gap-1 rounded-lg border border-(--hair-gold) bg-(--night) px-3.5 py-2.5 text-left shadow-[0_10px_28px_rgba(0,0,0,0.65)] group-hover:flex">
-        <span className="whitespace-nowrap font-bold font-mono text-(--gold) text-[0.62rem] uppercase tracking-[0.18em]">
+        <span className="whitespace-nowrap font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
           {title.label}
           {title.venueName ? ` · ${title.venueName}` : ''}
         </span>
@@ -134,7 +134,7 @@ const TreasuryGround = () => (
     {/* biome-ignore lint/performance/noImgElement: decorative local asset, no next/image needed */}
     <img
       alt=""
-      className="absolute top-1/2 left-1/2 w-[min(760px,92%)] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.13] mix-blend-screen [mask-image:radial-gradient(circle,black_45%,transparent_70%)]"
+      className="absolute top-1/2 left-1/2 w-[min(760px,92%)] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-13 mix-blend-screen [mask-image:radial-gradient(circle,black_45%,transparent_70%)]"
       src="/icon-512.png"
     />
     <div className="absolute inset-0 shadow-[inset_0_0_120px_30px_rgba(0,0,0,0.45)]" />
@@ -172,7 +172,7 @@ const RankingTable = ({
   return (
     <div className="relative isolate overflow-x-auto rounded-xl border border-(--hair-gold) shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066] sm:overflow-visible">
       <TreasuryGround />
-      <table className="w-full border-collapse sm:min-w-[480px]">
+      <table className="w-full border-collapse sm:min-w-120">
         <thead>
           <tr>
             <th className={`${th} w-16`}>#</th>
@@ -191,7 +191,7 @@ const RankingTable = ({
               <tr
                 className={
                   leader
-                    ? 'bg-linear-to-r from-[#c9a5571a] to-transparent shadow-[inset_3px_0_0_var(--gold)]'
+                    ? 'bg-linear-to-r from-(--gold)/10 to-transparent shadow-[inset_3px_0_0_var(--gold)]'
                     : undefined
                 }
                 key={player.name}
@@ -252,7 +252,7 @@ const RankingTable = ({
 };
 
 const RingLegend = () => (
-  <div className="flex flex-wrap items-center gap-5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+  <div className="flex flex-wrap items-center gap-5 font-mono text-(--faded) text-2xs uppercase tracking-2xl">
     <span className="flex items-center gap-1.5">
       <RingGlyph size={13} /> Campeonato por equipos
     </span>

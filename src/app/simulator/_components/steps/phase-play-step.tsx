@@ -76,12 +76,12 @@ const MatchCard = ({
           {' – '}
           <span className="font-mono text-(--gold)">{winsB}</span>{' '}
           {getTeamName(teams, teamBId)}{' '}
-          <span className="font-mono text-(--faded) text-[0.6rem]">
+          <span className="font-mono text-(--faded) text-2xs">
             (a {gamesToWin})
           </span>
         </p>
         {winnerTeamId ? (
-          <span className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+          <span className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
             Ganó {getTeamName(teams, winnerTeamId)}
           </span>
         ) : null}
@@ -103,7 +103,7 @@ const MatchCard = ({
                 {[teamA, teamB].map((team) =>
                   team ? (
                     <div className="flex flex-col gap-1.5" key={team.id}>
-                      <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+                      <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
                         {team.name}
                       </p>
                       {team.playerIds.map((playerId) => (
@@ -180,7 +180,7 @@ const GroupPhaseView = ({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           Clasificación
         </p>
         <ol className="flex flex-col gap-1.5">
@@ -204,7 +204,7 @@ const GroupPhaseView = ({
       </div>
 
       <div className="flex flex-col gap-3">
-        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           Partidos
         </p>
         {matches.map((match) => (
@@ -244,7 +244,7 @@ const BracketPhaseView = ({
     <div className="flex flex-col gap-6">
       {rounds.map((round) => (
         <div className="flex flex-col gap-3" key={round}>
-          <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
             {round === 0 ? 'Play-in' : `Ronda ${round}`}
           </p>
           {matches
@@ -305,7 +305,7 @@ const PhasePlayStep = () => {
         <h2 className="d-display font-bold text-2xl uppercase tracking-wide">
           Fase {phaseIndex + 1} de {totalPhases}
         </h2>
-        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           {phase.type === 'group' ? 'Grupo' : 'Eliminatoria'}
         </p>
       </div>

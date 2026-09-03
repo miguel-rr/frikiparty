@@ -66,7 +66,7 @@ const HomeChampions = ({
           <img
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 w-[min(480px,105vw)] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.07] mix-blend-screen [mask-image:radial-gradient(circle,black_48%,transparent_70%)] lg:opacity-[0.12]"
+            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 w-[min(480px,105vw)] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-7 mix-blend-screen [mask-image:radial-gradient(circle,black_48%,transparent_70%)] lg:opacity-12"
             src="/icon-512.png"
           />
           <BearersFan cards={teamCards} compact slugByName={slugByName} />
@@ -76,13 +76,13 @@ const HomeChampions = ({
           <div className="flex flex-col items-center gap-5">
             {soloSlug ? (
               <Link
-                className="block rotate-[-2deg] drop-shadow-[0_14px_20px_rgba(0,0,0,0.55)] transition-transform duration-300 hover:translate-y-[-8px] hover:rotate-0"
+                className="block -rotate-2 drop-shadow-[0_14px_20px_rgba(0,0,0,0.55)] transition-transform duration-300 hover:-translate-y-2 hover:rotate-0"
                 href={`/players/${soloSlug}`}
               >
-                <PortraitCard card={individualCard} className="w-[190px]" />
+                <PortraitCard card={individualCard} className="w-47.5" />
               </Link>
             ) : (
-              <PortraitCard card={individualCard} className="w-[190px]" />
+              <PortraitCard card={individualCard} className="w-47.5" />
             )}
           </div>
         ) : null}

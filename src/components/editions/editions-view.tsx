@@ -10,9 +10,9 @@ type View = 'cards' | 'list';
 const STORAGE_KEY = 'frikiparty:editions-view';
 
 const toggle = (active: boolean) =>
-  `cursor-pointer rounded-full px-3.5 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.18em] transition-colors ${
+  `cursor-pointer rounded-full px-3.5 py-1 font-mono text-2xs font-bold uppercase tracking-2xl transition-colors ${
     active
-      ? 'bg-[#c9a55726] text-(--gold-hi)'
+      ? 'bg-(--gold)/15 text-(--gold-hi)'
       : 'text-(--faded) hover:text-(--parchment)'
   }`;
 

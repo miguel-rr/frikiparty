@@ -42,12 +42,12 @@ const CouncilPage = async () => {
           <div className="flex flex-col items-center gap-8">
             <DurinDoor target={target} />
             {edition?.startsAt && edition.endsAt ? (
-              <span className="d-display -mt-3 text-(--silver) text-xl uppercase tracking-[0.24em] [text-shadow:0_0_14px_rgba(190,205,220,0.35)] sm:-mt-4 sm:text-2xl">
+              <span className="d-display -mt-3 text-(--silver) text-xl uppercase tracking-3xl [text-shadow:0_0_14px_rgba(190,205,220,0.35)] sm:-mt-4 sm:text-2xl">
                 {formatDateRange(edition.startsAt, edition.endsAt)}
               </span>
             ) : null}
             {edition ? (
-              <span className="font-bold font-mono text-(--gold) text-base uppercase tracking-[0.4em] sm:text-xl">
+              <span className="font-bold font-mono text-(--gold) text-base uppercase tracking-5xl sm:text-xl">
                 Edición {edition.year}
               </span>
             ) : (

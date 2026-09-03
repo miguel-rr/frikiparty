@@ -29,7 +29,7 @@ const ProposalLabel = ({
 }) => (
   <div className="flex flex-wrap items-center gap-3">
     <span className={tag}>{text}</span>
-    <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.15em]">
+    <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
       {caption}
     </span>
   </div>
@@ -90,7 +90,7 @@ const BeaconsProposal = () => {
         ))}
       </div>
       <div className="flex flex-col items-center gap-3">
-        <span className="font-bold font-mono text-(--ember) text-[0.66rem] uppercase tracking-[0.35em]">
+        <span className="font-bold font-mono text-(--ember) text-2xs uppercase tracking-5xl">
           El Concilio · Edición 2026
         </span>
         <h3 className="d-display d-gold-text max-w-[22ch] font-black text-4xl uppercase tracking-wide sm:text-5xl">
@@ -117,7 +117,7 @@ const BeaconsProposal = () => {
               <span className="d-display d-gold-text font-black text-5xl tabular-nums sm:text-6xl">
                 {slot.value}
               </span>
-              <span className="font-bold font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.3em]">
+              <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-4xl">
                 {slot.label}
               </span>
             </div>
@@ -154,7 +154,7 @@ const RedBookProposal = () => {
   return (
     <div className="flex flex-col items-center gap-6 py-6">
       <div
-        className="relative w-full max-w-xl rotate-[-0.6deg] rounded-[4px] px-8 py-9 text-[#2a2013] shadow-[0_18px_40px_rgba(0,0,0,0.55)] sm:px-12 sm:py-11"
+        className="relative w-full max-w-xl rotate-[-0.6deg] rounded-sm px-8 py-9 text-[#2a2013] shadow-[0_18px_40px_rgba(0,0,0,0.55)] sm:px-12 sm:py-11"
         style={{
           backgroundImage:
             'radial-gradient(120% 90% at 50% 8%, #f6ecd2 0%, #ead9b0 58%, #d8c294 100%)',
@@ -162,17 +162,17 @@ const RedBookProposal = () => {
       >
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[4px] opacity-40 mix-blend-multiply"
+          className="pointer-events-none absolute inset-0 rounded-sm opacity-40 mix-blend-multiply"
           style={{
             backgroundImage:
               "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23p)' opacity='0.5'/%3E%3C/svg%3E\")",
           }}
         />
         <div className="relative flex flex-col gap-5">
-          <span className="text-center font-bold font-mono text-[#8f2f1f] text-[0.6rem] uppercase tracking-[0.35em]">
+          <span className="text-center font-bold font-mono text-2xs text-[#8f2f1f] uppercase tracking-5xl">
             De la cuenta de los días
           </span>
-          <p className="text-justify font-serif text-[1.05rem] leading-relaxed">
+          <p className="text-justify font-serif text-base leading-relaxed">
             <span
               className="float-left mt-1 mr-3 border-2 border-[#8f2f1f] px-2.5 py-1 font-black text-5xl text-[#8f2f1f]"
               style={{ fontFamily: 'var(--font-cinzel), Georgia, serif' }}
@@ -191,7 +191,7 @@ const RedBookProposal = () => {
           </p>
           <div className="flex items-end justify-between gap-4 border-[#8f2f1f]/30 border-t pt-4">
             <div className="flex flex-col">
-              <span className="font-mono text-[#6b5335] text-[0.58rem] uppercase tracking-[0.22em]">
+              <span className="font-mono text-3xs text-[#6b5335] uppercase tracking-2xl">
                 Continuación del Libro Rojo · T.C. 2026
               </span>
               <span className="font-bold font-mono text-[#8f2f1f] text-sm tabular-nums">

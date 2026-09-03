@@ -51,10 +51,10 @@ export const generateMetadata = async ({
 };
 
 const navLink =
-  'inline-flex items-center gap-1.5 rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em] transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)';
+  'inline-flex items-center gap-1.5 rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)';
 
 const navLinkOff =
-  'inline-flex items-center gap-1.5 rounded-full border border-(--hair) px-3 py-1.5 font-mono text-[0.62rem] text-[#95a4978c] uppercase tracking-[0.18em]';
+  'inline-flex items-center gap-1.5 rounded-full border border-(--hair) px-3 py-1.5 font-mono text-2xs text-(--faded)/55 uppercase tracking-2xl';
 
 /**
  * Shareable page for one file — shareable among members: anyone without

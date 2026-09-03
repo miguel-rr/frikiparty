@@ -101,7 +101,7 @@ export const generateMetadata = async ({
 };
 
 const label =
-  'flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]';
+  'flex items-center gap-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 /** Only a captain we can name is useful as a team handle. */
 const captainOf = (team: EditionTeam | undefined) =>
@@ -145,7 +145,7 @@ const PlayerRow = ({ player }: { player: EditionPlayer }) => (
       </span>
     )}
     {player.isCaptain ? (
-      <span className="font-bold font-mono text-(--gold) text-[0.55rem] uppercase tracking-[0.2em]">
+      <span className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-2xl">
         Capitán
       </span>
     ) : null}
@@ -179,8 +179,8 @@ const FinalSide = ({
       winner
         ? `border-(--gold) shadow-[0_0_16px_rgba(201,165,87,0.14)] ${
             mirrored
-              ? 'bg-linear-to-l from-[#c9a55724] to-transparent'
-              : 'bg-linear-to-r from-[#c9a55724] to-transparent'
+              ? 'bg-linear-to-l from-(--gold)/14 to-transparent'
+              : 'bg-linear-to-r from-(--gold)/14 to-transparent'
           }`
         : 'border-(--hair) bg-(--night-2) opacity-60 saturate-50'
     }`}
@@ -232,7 +232,7 @@ const FinalFaceoff = ({
           {final.games.length > 0 ? (
             `${winsA} – ${winsB}`
           ) : (
-            <span className="font-mono text-(--faded) text-xs uppercase tracking-[0.2em]">
+            <span className="font-mono text-(--faded) text-xs uppercase tracking-2xl">
               vs
             </span>
           )}
@@ -243,7 +243,7 @@ const FinalFaceoff = ({
         <ul className="flex flex-col items-center gap-1.5">
           {final.games.map((game) => (
             <li
-              className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-[0.18em]"
+              className="font-mono text-(--faded) text-2xs uppercase tracking-2xl"
               key={game.gameNumber}
             >
               Partida {game.gameNumber} · victoria {sideName(game.winnerTeamId)}
@@ -322,7 +322,7 @@ const ChampionsBanner = ({
             <path d={RANK_MOTIFS.bronze} fill="url(#dsn-blazon-rim)" />
           </svg>
           <div className="flex flex-col items-center gap-0.5 sm:items-start">
-            <span className="font-bold font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.22em]">
+            <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
               Campeones de la edición
             </span>
             <span className="d-display d-gold-text font-black text-xl tracking-wide sm:text-2xl">
@@ -382,7 +382,7 @@ const SoloHonour = ({
   title: string;
 }) => (
   <div className="flex flex-col items-center gap-2">
-    <span className="flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+    <span className="flex items-center gap-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl">
       <RingGlyph size={11} tone={champion ? 'solitaire' : 'gold'} /> {title}
     </span>
     <PlayerBlazon
@@ -454,7 +454,7 @@ const TeamPanel = ({ team }: { team: EditionTeam }) => {
   return (
     <div className={`${champions ? panelGold : panel} flex flex-col gap-3 p-5`}>
       <div className="relative">
-        <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+        <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
           {teamHandle(team)}
         </span>
         {champions || finalists ? (
@@ -520,7 +520,7 @@ const EditionPage = async ({ params }: PageProps) => {
             style={sceneStyle(sceneForIndex(edition.sceneIndex))}
           >
             <Link
-              className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em] transition-colors hover:text-(--gold)"
+              className="font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:text-(--gold)"
               href="/editions"
             >
               ← Todas las ediciones
@@ -532,19 +532,19 @@ const EditionPage = async ({ params }: PageProps) => {
               {edition.venueName ? (
                 edition.venueSlug && edition.venueIsPlace ? (
                   <Link
-                    className="font-bold font-mono text-(--parchment) text-[0.68rem] uppercase tracking-[0.22em] transition-colors hover:text-(--gold-hi)"
+                    className="font-bold font-mono text-(--parchment) text-xs uppercase tracking-2xl transition-colors hover:text-(--gold-hi)"
                     href={`/venues/${edition.venueSlug}`}
                   >
                     {edition.venueName}
                   </Link>
                 ) : (
-                  <span className="font-bold font-mono text-(--parchment) text-[0.68rem] uppercase tracking-[0.22em]">
+                  <span className="font-bold font-mono text-(--parchment) text-xs uppercase tracking-2xl">
                     {edition.venueName}
                   </span>
                 )
               ) : null}
               {edition.startsAt && edition.endsAt ? (
-                <span className="font-bold font-mono text-(--faded) text-[0.68rem] uppercase tracking-[0.22em]">
+                <span className="font-bold font-mono text-(--faded) text-xs uppercase tracking-2xl">
                   {formatDateRange(edition.startsAt, edition.endsAt)}
                 </span>
               ) : null}
@@ -642,7 +642,7 @@ const EditionPage = async ({ params }: PageProps) => {
                     className={`${panel} flex flex-col gap-3 p-5`}
                     key={pot.potIndex}
                   >
-                    <span className="font-bold font-mono text-(--gold) text-[0.62rem] uppercase tracking-[0.22em]">
+                    <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
                       {POT_NAMES[pot.potIndex] ?? `Bombo ${pot.potIndex + 1}`}
                     </span>
                     <ul className="flex flex-col gap-2">

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { Author } from '@/server/api/routers/social';
 
 const SIZES = {
-  sm: 'size-7 text-[0.6rem]',
+  sm: 'size-7 text-2xs',
   md: 'size-9 text-xs',
 } as const;
 
@@ -20,7 +20,7 @@ const AuthorMedallion = ({
   size?: keyof typeof SIZES;
 }) => (
   <span
-    className={`relative block ${SIZES[size]} shrink-0 rounded-full p-[1.5px] ${
+    className={`relative block ${SIZES[size]} shrink-0 rounded-full p-0.5 ${
       author.portrait
         ? 'bg-[conic-gradient(from_200deg,#8f6b2e,#f0d48a_22%,#c9a557_45%,#6e5223_68%,#f0d48a_88%,#8f6b2e)] shadow-[0_2px_8px_rgba(0,0,0,0.6)]'
         : 'bg-(--hair-gold)'

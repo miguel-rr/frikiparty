@@ -66,7 +66,7 @@ const TournamentBasicsStep = () => {
       </h2>
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           ¿Oficial o no oficial?
         </p>
         <SegmentedControl
@@ -82,7 +82,7 @@ const TournamentBasicsStep = () => {
       {game?.kind === 'official' ? (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+            <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
               Juego
             </p>
             <SegmentedControl
@@ -97,7 +97,7 @@ const TournamentBasicsStep = () => {
             />
           </div>
           <label className="flex flex-col gap-2">
-            <span className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+            <span className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
               Versión exacta
             </span>
             <input
@@ -117,7 +117,7 @@ const TournamentBasicsStep = () => {
 
       {game?.kind === 'unofficial' ? (
         <div className="flex flex-col gap-3">
-          <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
             Juego
           </p>
           <SegmentedControl

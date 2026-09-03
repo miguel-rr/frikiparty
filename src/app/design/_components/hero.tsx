@@ -58,13 +58,13 @@ const HeroRing = () => (
       </g>
     </svg>
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 lg:gap-3">
-      <span className="font-bold font-mono text-(--gold) text-[1.15rem] uppercase tracking-[0.35em] lg:text-[1.3rem]">
+      <span className="font-bold font-mono text-(--gold) text-lg uppercase tracking-5xl lg:text-xl">
         Edición
       </span>
       <span className="d-display d-gold-text font-black text-7xl lg:text-8xl">
         {NEXT_EVENT.year}
       </span>
-      <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.25em] lg:text-[0.7rem]">
+      <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-3xl lg:text-xs">
         {NEXT_EVENT.shortDates}
       </span>
     </div>
@@ -101,13 +101,13 @@ const VenueCard = () => (
           >
             <path d={RACE_EMBLEMS.hobbit} fill="url(#dsn-blazon-emblem)" />
           </svg>
-          <span className="font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.2em]">
+          <span className="font-mono text-(--faded) text-3xs uppercase tracking-2xl">
             Foto de la sede
           </span>
         </div>
       )}
       <iframe
-        className="pointer-events-none h-44 w-full border-0 opacity-90 contrast-[0.92] grayscale-[0.4] sepia-[0.25] sm:h-52"
+        className="pointer-events-none h-44 w-full border-0 opacity-90 contrast-92 grayscale-40 sepia-25 sm:h-52"
         loading="lazy"
         src={NEXT_EVENT.mapsEmbedUrl}
         tabIndex={-1}
@@ -116,7 +116,7 @@ const VenueCard = () => (
     </div>
     <div className="flex items-center justify-between gap-3 border-(--hair-gold) border-t bg-(--panel) px-4 py-3">
       <span className="font-bold text-sm leading-snug">
-        <span className="font-mono text-(--gold) text-[0.58rem] uppercase tracking-[0.22em]">
+        <span className="font-mono text-(--gold) text-3xs uppercase tracking-2xl">
           Sede:{' '}
         </span>
         {NEXT_EVENT.venue} · {NEXT_EVENT.venueArea}
@@ -130,7 +130,7 @@ const VenueCard = () => (
 
 const Hero = () => (
   <section className="relative overflow-hidden" id="top">
-    <div className="mx-auto flex max-w-[880px] flex-col items-center gap-12 px-4 pt-14 pb-24 sm:px-6 lg:gap-7 lg:pt-8">
+    <div className="mx-auto flex max-w-220 flex-col items-center gap-12 px-4 pt-14 pb-24 sm:px-6 lg:gap-7 lg:pt-8">
       <HeroRing />
       <div className="flex flex-col items-center gap-7 text-center lg:gap-5">
         <span className={tag}>Concilio anual · {NEXT_EVENT.edition}</span>

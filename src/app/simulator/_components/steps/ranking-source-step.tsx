@@ -28,7 +28,7 @@ const RankingSourceStep = () => {
 
       {state.rankingSource === 'combined' ? (
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+          <span className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
             Peso del ranking histórico: {state.historicalWeight ?? 50}%
           </span>
           <input

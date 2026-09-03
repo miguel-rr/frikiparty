@@ -16,7 +16,7 @@ const DEFAULT_LINKS: NavLink[] = [
 ];
 
 const navLinkClass =
-  'd-display font-bold text-[0.78rem] uppercase tracking-[0.18em] transition-colors hover:text-(--gold-hi)';
+  'd-display font-bold text-xs uppercase tracking-2xl transition-colors hover:text-(--gold-hi)';
 
 /** Route links light up on their own section, subpages included. */
 const isActivePath = (pathname: string, href: string) =>
@@ -39,12 +39,12 @@ const TopNav = ({
   const pathname = usePathname();
   const hasLinks = links.length > 0;
   return (
-    <nav className="sticky top-0 z-40 border-(--hair) border-b bg-[#0a0f0cd1] backdrop-blur-md">
+    <nav className="sticky top-0 z-40 border-(--hair) border-b bg-(--night)/82 backdrop-blur-md">
       {/* Symmetric flex-1 flanks keep the link row truly centered no matter how wide the auth area is. */}
       <div className={`${pageWidth} flex items-center gap-4 py-3`}>
         <div className="flex flex-1 items-center">
           <Link
-            className="d-display d-gold-text font-black text-lg tracking-[0.18em]"
+            className="d-display d-gold-text font-black text-lg tracking-2xl"
             href="/"
           >
             FRIKIPARTY

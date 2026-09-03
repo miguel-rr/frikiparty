@@ -14,7 +14,7 @@ const PlayerChip = ({ name, subtitle }: PlayerChipProps) => {
       <div className="min-w-0">
         <p className="truncate font-semibold text-sm">{name}</p>
         {subtitle ? (
-          <p className="truncate font-mono text-(--faded) text-[0.6rem]">
+          <p className="truncate font-mono text-(--faded) text-2xs">
             {subtitle}
           </p>
         ) : null}

@@ -44,7 +44,7 @@ const DraftRoomHostStep = () => {
       </h2>
 
       <div className="flex flex-col items-center gap-2 rounded-xl bg-(--panel-2) p-6 ring-(--hair) ring-1">
-        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           Código para unirse
         </p>
         <p className="font-bold font-mono text-(--gold) text-5xl tracking-widest">

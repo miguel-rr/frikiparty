@@ -43,14 +43,14 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
           className="w-[min(80vw,440px)] lg:w-105"
           title={`Edición ${edition.year}`}
         >
-          <span className="font-bold font-mono text-(--gold) text-[1.15rem] uppercase tracking-[0.35em] lg:text-[1.3rem]">
+          <span className="font-bold font-mono text-(--gold) text-lg uppercase tracking-5xl lg:text-xl">
             Edición
           </span>
           <span className="d-display d-gold-text font-black text-7xl lg:text-8xl">
             {edition.year}
           </span>
           {hasDates ? (
-            <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.25em] lg:text-[0.7rem]">
+            <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-3xl lg:text-xs">
               {formatShortDateRange(
                 edition.startsAt as string,
                 edition.endsAt as string,
@@ -58,7 +58,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
             </span>
           ) : null}
           {!live && remaining !== null && remaining > 0 ? (
-            <span className="font-bold font-mono text-(--gold) text-[0.58rem] uppercase tracking-[0.25em] lg:text-[0.64rem]">
+            <span className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-3xl lg:text-2xs">
               Faltan {remaining} días
             </span>
           ) : null}
@@ -122,10 +122,10 @@ const HomeAwaitingHero = () => (
         title="Próxima edición por convocar"
         tone="ash"
       >
-        <span className="font-bold font-mono text-(--gold) text-[0.72rem] uppercase tracking-[0.3em] lg:text-[0.8rem]">
+        <span className="font-bold font-mono text-(--gold) text-xs uppercase tracking-4xl lg:text-xs">
           Próxima edición
         </span>
-        <span className="d-display font-black text-(--silver) text-[1.35rem] uppercase tracking-wide sm:text-2xl lg:text-3xl">
+        <span className="d-display font-black text-(--silver) text-xl uppercase tracking-wide sm:text-2xl lg:text-3xl">
           Por convocar
         </span>
       </TheRing>

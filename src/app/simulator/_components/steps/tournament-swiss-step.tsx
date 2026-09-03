@@ -41,7 +41,7 @@ const TournamentSwissStep = () => {
       />
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           Criterio de emparejamiento
         </p>
         <SegmentedControl

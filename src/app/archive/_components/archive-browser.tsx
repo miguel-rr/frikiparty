@@ -136,7 +136,7 @@ const ArchiveBrowser = ({
             </thead>
             <tbody>
               {visible.map((item) => (
-                <tr className="hover:bg-[#c9a5570a]" key={item.id}>
+                <tr className="hover:bg-(--gold)/4" key={item.id}>
                   <td className={`${td} w-16`}>
                     <Link
                       className="relative block size-12 overflow-hidden rounded-md border border-(--hair) bg-(--night)"
@@ -209,7 +209,7 @@ const ArchiveBrowser = ({
                   </td>
                   <td className={`${td} text-right`}>
                     <Link
-                      className="inline-flex rounded-full border border-(--hair) px-3 py-1 font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.18em] transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+                      className="inline-flex rounded-full border border-(--hair) px-3 py-1 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
                       href={archiveItemHref(item.id, context, { edit: true })}
                     >
                       Editar

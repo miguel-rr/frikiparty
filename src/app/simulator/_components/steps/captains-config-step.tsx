@@ -39,7 +39,7 @@ const CaptainsConfigStep = () => {
           // biome-ignore lint/suspicious/noArrayIndexKey: pot tiers are positionally fixed, only their members move.
           key={`pot-${potIndex}`}
         >
-          <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
             Bombo {potIndex + 1}
           </p>
           <ul className="grid gap-2 sm:grid-cols-2">

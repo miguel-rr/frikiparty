@@ -40,7 +40,7 @@ const AuctionRoom = ({ code: rawCode }: { code: string }) => {
 
   if (!deviceId || !payload || !players) {
     return (
-      <main className="mx-auto flex max-w-[520px] flex-col gap-4 px-4 py-12">
+      <main className="mx-auto flex max-w-130 flex-col gap-4 px-4 py-12">
         <p className="text-(--faded) text-sm">Conectando con la sala {code}…</p>
       </main>
     );
@@ -68,7 +68,7 @@ const AuctionRoom = ({ code: rawCode }: { code: string }) => {
   }
 
   return (
-    <main className="mx-auto flex max-w-[520px] flex-col gap-6 px-4 py-12">
+    <main className="mx-auto flex max-w-130 flex-col gap-6 px-4 py-12">
       <h1 className="d-display font-bold text-2xl uppercase tracking-wide">
         {myCaptainId ? `Eres ${getPlayerName(myCaptainId)}` : 'Subasta'}
       </h1>
@@ -81,7 +81,7 @@ const AuctionRoom = ({ code: rawCode }: { code: string }) => {
         <div className="flex flex-col gap-4 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+              <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
                 Bombo {currentLot.potIndex + 1}
               </p>
               <p className="font-bold text-xl">
@@ -134,7 +134,7 @@ const AuctionRoom = ({ code: rawCode }: { code: string }) => {
       ) : null}
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+        <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
           Capitanes
         </p>
         <CaptainBudgetHud

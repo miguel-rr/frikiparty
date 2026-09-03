@@ -176,8 +176,8 @@ const MentionComposer = ({
               aria-selected={index === selected}
               className={`w-full cursor-pointer px-3 py-1.5 text-left text-sm transition-colors ${
                 index === selected
-                  ? 'bg-[#c9a55726] text-(--gold-hi)'
-                  : 'text-(--parchment) hover:bg-[#c9a55714]'
+                  ? 'bg-(--gold)/15 text-(--gold-hi)'
+                  : 'text-(--parchment) hover:bg-(--gold)/8'
               }`}
               key={player.id}
               onMouseDown={(event) => {

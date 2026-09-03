@@ -75,7 +75,7 @@ const ParchmentFilters = () => (
 /** Molten sealing wax, garnet, stamped with the Ring. */
 const WaxSeal = () => (
   <div
-    className="absolute right-8 -bottom-3 rotate-[-7deg] sm:right-14"
+    className="absolute right-8 -bottom-3 -rotate-7 sm:right-14"
     style={{
       filter:
         'url(#dsn-bio-wax) drop-shadow(0 7px 9px rgba(0,0,0,0.5)) drop-shadow(0 2px 3px rgba(0,0,0,0.45))',
@@ -91,7 +91,7 @@ const WaxSeal = () => (
       }}
     />
     <div
-      className="relative size-[100px]"
+      className="relative size-25"
       style={{
         borderRadius: '46% 54% 57% 43% / 53% 45% 55% 47%',
         backgroundImage:
@@ -101,7 +101,7 @@ const WaxSeal = () => (
       }}
     >
       <div
-        className="absolute inset-[13px] rounded-full"
+        className="absolute inset-3.25 rounded-full"
         style={{
           backgroundImage:
             'radial-gradient(75% 75% at 46% 40%, #7d1622 0%, #641020 55%, #4a0a14 100%)',
@@ -203,7 +203,7 @@ const BioParchment = ({ text }: { text: string }) => (
       <div className="relative flex flex-col gap-4 px-7 py-9 pb-16 sm:px-11 sm:py-10 sm:pb-16">
         {bioParagraphs(text).map((paragraph, index) => (
           <p
-            className={`${imFell.className} hyphens-auto text-[#2b2113] text-[1.05rem] leading-relaxed sm:text-justify`}
+            className={`${imFell.className} hyphens-auto text-[#2b2113] text-base leading-relaxed sm:text-justify`}
             key={paragraph.slice(0, 16)}
           >
             {index === 0 ? (

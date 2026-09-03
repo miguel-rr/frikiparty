@@ -29,7 +29,7 @@ const ProposalLabel = ({
 }) => (
   <div className="flex flex-wrap items-center gap-3">
     <span className={tag}>{text}</span>
-    <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.15em]">
+    <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
       {caption}
     </span>
   </div>
@@ -47,7 +47,7 @@ const InkProse = () => (
   <div className="flex flex-col gap-4">
     {SAMPLE.map((paragraph, index) => (
       <p
-        className={`${imFell.className} hyphens-auto text-[#2b2113] text-[1.05rem] leading-relaxed sm:text-justify`}
+        className={`${imFell.className} hyphens-auto text-[#2b2113] text-base leading-relaxed sm:text-justify`}
         key={paragraph.slice(0, 16)}
       >
         {index === 0 ? (
@@ -77,7 +77,7 @@ const Prose = () => (
       >
         {index === 0 ? (
           <>
-            <span className="d-display mr-2.5 inline-block border-(--hair-gold) border-2 bg-[#c9a5570f] px-2 pt-1.5 pb-1 align-baseline font-black text-(--gold) text-5xl leading-[0.75]">
+            <span className="d-display mr-2.5 inline-block border-(--hair-gold) border-2 bg-(--gold)/6 px-2 pt-1.5 pb-1 align-baseline font-black text-(--gold) text-5xl leading-[0.75]">
               {paragraph.charAt(0)}
             </span>
             {paragraph.slice(1)}
@@ -118,7 +118,7 @@ const ParchmentSkin = () => (
 const FolioProposal = () => (
   <div className="mx-auto w-full max-w-2xl">
     <div
-      className="relative rotate-[-0.5deg] rounded-[3px] px-8 py-9 shadow-[0_2px_3px_rgba(0,0,0,0.35),0_18px_44px_rgba(0,0,0,0.55)] sm:px-12 sm:py-10"
+      className="relative rotate-[-0.5deg] rounded-sm px-8 py-9 shadow-[0_2px_3px_rgba(0,0,0,0.35),0_18px_44px_rgba(0,0,0,0.55)] sm:px-12 sm:py-10"
       style={{
         backgroundImage:
           'radial-gradient(115% 90% at 50% 6%, #f4ead0 0%, #e7d6ac 55%, #d3bc8d 100%)',
@@ -127,10 +127,10 @@ const FolioProposal = () => (
       <ParchmentSkin />
       <div className="relative flex flex-col gap-5">
         <div className="flex items-baseline justify-between border-[#8f2f1f]/35 border-b pb-2">
-          <span className="font-bold font-mono text-[#8f2f1f] text-[0.6rem] uppercase tracking-[0.32em]">
+          <span className="font-bold font-mono text-2xs text-[#8f2f1f] uppercase tracking-4xl">
             De los grandes del concilio
           </span>
-          <span className="font-mono text-[#7a5c33] text-[0.6rem] tracking-[0.2em]">
+          <span className="font-mono text-2xs text-[#7a5c33] tracking-2xl">
             · fol. 121 ·
           </span>
         </div>

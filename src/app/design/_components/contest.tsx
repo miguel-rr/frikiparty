@@ -47,7 +47,7 @@ const Standings = () => (
         return (
           <li
             className={`flex items-center gap-2.5 border-(--hair) border-b px-4 py-3 ${
-              index < 4 ? 'bg-linear-to-r from-[#c9a5570d] to-transparent' : ''
+              index < 4 ? 'bg-linear-to-r from-(--gold)/5 to-transparent' : ''
             }`}
             key={row.teamId}
           >
@@ -68,7 +68,7 @@ const Standings = () => (
       })}
     </ul>
     <div className="hidden overflow-x-auto sm:block">
-      <table className="w-full min-w-[460px] border-collapse">
+      <table className="w-full min-w-115 border-collapse">
         <thead>
           <tr>
             <th className={th}>Equipo</th>
@@ -82,7 +82,7 @@ const Standings = () => (
             <tr
               className={
                 index < 4
-                  ? 'bg-linear-to-r from-[#c9a5570d] to-transparent'
+                  ? 'bg-linear-to-r from-(--gold)/5 to-transparent'
                   : undefined
               }
               key={row.teamId}
@@ -115,7 +115,7 @@ const Standings = () => (
         </tbody>
       </table>
     </div>
-    <p className="px-5 py-3.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+    <p className="px-5 py-3.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl">
       Los cuatro primeros cruzan a semifinales
     </p>
   </div>

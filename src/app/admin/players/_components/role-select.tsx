@@ -39,7 +39,7 @@ const RoleSelect = ({
     <span className="inline-flex items-center gap-2">
       <select
         aria-label="Rol"
-        className={`appearance-none rounded-full border px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-[0.2em] transition-colors focus:outline-none ${
+        className={`appearance-none rounded-full border px-2.5 py-1 font-mono text-2xs uppercase tracking-2xl transition-colors focus:outline-none ${
           role === 'user'
             ? 'border-(--hair) bg-(--night-2) text-(--faded) hover:border-(--hair-gold)'
             : 'border-(--hair-gold) bg-(--night-2) text-(--gold) hover:border-(--gold)'

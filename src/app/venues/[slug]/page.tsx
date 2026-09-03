@@ -40,7 +40,7 @@ export const generateMetadata = async ({
 };
 
 const label =
-  'flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]';
+  'flex items-center gap-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 const editionsCount = (count: number) =>
   count === 1 ? '1 edición' : `${count} ediciones`;
@@ -83,14 +83,14 @@ const VenuePage = async ({ params }: PageProps) => {
                   className="flex h-56 w-full items-end px-6 pb-5 sm:h-72"
                   style={sceneStyle(coverScene)}
                 >
-                  <span className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.22em] drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
+                  <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
                     {coverScene.alt}
                   </span>
                 </div>
               )}
               {mapSrc ? (
                 <iframe
-                  className="pointer-events-none h-56 w-full border-0 opacity-90 contrast-[0.92] grayscale-[0.4] sepia-[0.25] sm:h-72"
+                  className="pointer-events-none h-56 w-full border-0 opacity-90 contrast-92 grayscale-40 sepia-25 sm:h-72"
                   loading="lazy"
                   src={mapSrc}
                   tabIndex={-1}
@@ -102,7 +102,7 @@ const VenuePage = async ({ params }: PageProps) => {
               <div className="flex flex-col gap-3">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className={tag}>Sede</span>
-                  <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+                  <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
                     {editionsCount(venue.editions.length)}
                   </span>
                 </div>

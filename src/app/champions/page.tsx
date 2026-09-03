@@ -114,7 +114,7 @@ const ChampionsPage = async () => {
               {/* The inscription, bent like the writing on the Ring */}
               <svg
                 aria-hidden="true"
-                className="mx-auto hidden w-full max-w-[680px] text-(--gold) lg:-mb-16 lg:block"
+                className="mx-auto hidden w-full max-w-170 text-(--gold) lg:-mb-16 lg:block"
                 role="presentation"
                 viewBox="0 0 680 110"
               >
@@ -158,10 +158,10 @@ const ChampionsPage = async () => {
               />
               <div
                 aria-hidden
-                className="d-divider hidden w-full max-w-[520px] px-6 lg:block"
+                className="d-divider hidden w-full max-w-130 px-6 lg:block"
               />
               {edition?.venueName ? (
-                <p className="hidden font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em] lg:block">
+                <p className="hidden font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl lg:block">
                   {edition.venueSlug && edition.venueIsPlace ? (
                     <Link
                       className="transition-colors hover:text-(--gold)"
@@ -192,55 +192,52 @@ const ChampionsPage = async () => {
                 />
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute top-[52%] left-1/2 -z-10 hidden -translate-x-1/2 -translate-y-1/2 opacity-[0.06] lg:block"
+                  className="pointer-events-none absolute top-[52%] left-1/2 -z-10 hidden -translate-x-1/2 -translate-y-1/2 opacity-6 lg:block"
                 >
                   <RingGlyph size={400} tone="solitaire" />
                 </span>
-                <p className="d-display flex items-center gap-4 text-center font-bold text-[#dce6ee] text-[0.8rem] uppercase tracking-[0.28em] [text-shadow:0_0_12px_rgba(190,205,220,0.35)]">
+                <p className="d-display flex items-center gap-4 text-center font-bold text-[#dce6ee] text-xs uppercase tracking-4xl [text-shadow:0_0_12px_rgba(190,205,220,0.35)]">
                   <span
                     aria-hidden="true"
-                    className="hidden h-px w-12 bg-[#aeb9c2]/40 sm:block"
+                    className="hidden h-px w-12 bg-(--silver)/40 sm:block"
                   />
                   · Y un nombre para alzarse solo ·
                   <span
                     aria-hidden="true"
-                    className="hidden h-px w-12 bg-[#aeb9c2]/40 sm:block"
+                    className="hidden h-px w-12 bg-(--silver)/40 sm:block"
                   />
                 </p>
                 {playersByName[individualCard.name]?.slug ? (
                   <Link
-                    className="block rotate-[-2deg] drop-shadow-[0_16px_24px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:translate-y-[-10px] hover:rotate-0"
+                    className="block -rotate-2 drop-shadow-[0_16px_24px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:-translate-y-2.5 hover:rotate-0"
                     href={`/players/${playersByName[individualCard.name]?.slug}`}
                   >
-                    <PortraitCard card={individualCard} className="w-[245px]" />
+                    <PortraitCard card={individualCard} className="w-61.25" />
                   </Link>
                 ) : (
-                  <PortraitCard card={individualCard} className="w-[245px]" />
+                  <PortraitCard card={individualCard} className="w-61.25" />
                 )}
               </div>
             ) : null}
             {/* Mobile colophon: the gathering's seal closes the page. */}
             {edition?.venueName ? (
               <div className="flex flex-col items-center gap-4 lg:hidden">
-                <div
-                  aria-hidden
-                  className="d-divider w-full max-w-[420px] px-6"
-                />
+                <div aria-hidden className="d-divider w-full max-w-105 px-6" />
                 <div className="flex flex-col items-center gap-1.5 text-center">
                   {edition.venueSlug && edition.venueIsPlace ? (
                     <Link
-                      className="d-display d-gold-text font-black text-xl tracking-[0.08em] transition-opacity hover:opacity-80"
+                      className="d-display d-gold-text font-black text-xl tracking-widest transition-opacity hover:opacity-80"
                       href={`/venues/${edition.venueSlug}`}
                     >
                       {edition.venueName}
                     </Link>
                   ) : (
-                    <span className="d-display d-gold-text font-black text-xl tracking-[0.08em]">
+                    <span className="d-display d-gold-text font-black text-xl tracking-widest">
                       {edition.venueName}
                     </span>
                   )}
                   {edition.startsAt && edition.endsAt ? (
-                    <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.24em]">
+                    <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-3xl">
                       {formatDateRange(edition.startsAt, edition.endsAt)}
                     </span>
                   ) : null}

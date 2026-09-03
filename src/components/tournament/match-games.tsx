@@ -87,8 +87,8 @@ const GameSide = ({
       winner
         ? `sm:border-(--gold) sm:shadow-[0_0_16px_rgba(201,165,87,0.14)] ${
             mirrored
-              ? 'bg-linear-to-l from-[#c9a55724] to-transparent'
-              : 'bg-linear-to-r from-[#c9a55724] to-transparent'
+              ? 'bg-linear-to-l from-(--gold)/14 to-transparent'
+              : 'bg-linear-to-r from-(--gold)/14 to-transparent'
           }`
         : 'opacity-55 saturate-50 sm:border-(--hair) sm:bg-(--night-2)'
     }`}
@@ -107,9 +107,9 @@ const GameSide = ({
         className={`d-display font-black uppercase ${
           winner
             ? decisive
-              ? 'd-gold-text text-base tracking-[0.35em] drop-shadow-[0_0_12px_rgba(240,212,138,0.5)] sm:text-lg'
-              : 'd-gold-text text-sm tracking-[0.35em] drop-shadow-[0_0_10px_rgba(201,165,87,0.4)]'
-            : 'text-(--silver) text-sm tracking-[0.35em]'
+              ? 'd-gold-text text-base tracking-5xl drop-shadow-[0_0_12px_rgba(240,212,138,0.5)] sm:text-lg'
+              : 'd-gold-text text-sm tracking-5xl drop-shadow-[0_0_10px_rgba(201,165,87,0.4)]'
+            : 'text-(--silver) text-sm tracking-5xl'
         }`}
       >
         {winner ? 'Victoria' : 'Derrota'}
@@ -125,7 +125,7 @@ const GameSide = ({
             <ScoreBlazon score={score} />
           </span>
         ) : (
-          <span className="whitespace-nowrap rounded-full border border-(--hair-gold) bg-(--night) px-2.5 py-0.5 font-bold font-mono text-(--gold) text-[0.65rem] tabular-nums tracking-[0.15em] sm:hidden">
+          <span className="whitespace-nowrap rounded-full border border-(--hair-gold) bg-(--night) px-2.5 py-0.5 font-bold font-mono text-(--gold) text-2xs tabular-nums tracking-xl sm:hidden">
             {score}
           </span>
         )
@@ -156,7 +156,7 @@ const GameSide = ({
                 mirrored ? '' : 'sm:flex-row-reverse'
               }`}
             >
-              <span className="font-bold font-mono text-(--gold) text-[0.58rem] uppercase tracking-[0.15em]">
+              <span className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-xl">
                 {FACTIONS[player.faction].name}
               </span>
               <FactionEmblem id={player.faction} size={20} />
@@ -243,7 +243,7 @@ const MatchPanel = ({
     {/* Historical matches may have a known winner but no partida record. */}
     {games.length > 0 ? <MatchGames games={games} /> : null}
     {footer ? (
-      <p className="border-(--hair) border-t px-5 py-3.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+      <p className="border-(--hair) border-t px-5 py-3.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl">
         {footer}
       </p>
     ) : null}

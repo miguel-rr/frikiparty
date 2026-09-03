@@ -29,7 +29,7 @@ const formatDateTime = (iso: string) =>
   });
 
 const quiet =
-  'cursor-pointer rounded-full px-2 py-0.5 font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.16em] transition-colors hover:text-(--gold-hi)';
+  'cursor-pointer rounded-full px-2 py-0.5 font-mono text-(--faded) text-3xs uppercase tracking-xl transition-colors hover:text-(--gold-hi)';
 
 /** Plain text with line breaks; mentions become links to the player. */
 const CommentBody = ({ body }: { body: string }) => (
@@ -114,7 +114,7 @@ const Composer = ({
             Cancelar
           </button>
         ) : null}
-        <span className="text-(--faded) text-[0.65rem]">
+        <span className="text-(--faded) text-2xs">
           @ para mencionar · Ctrl+Enter para enviar
         </span>
         {error ? <span className="text-(--ember) text-xs">{error}</span> : null}
@@ -172,7 +172,7 @@ const CommentThread = ({ target }: { target: SocialTarget }) => {
       aria-label="Comentarios"
       className="flex flex-col gap-4 border-(--hair) border-t pt-4"
     >
-      <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+      <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
         Comentarios
         {comments.length > 0 ? (
           <span className="text-(--gold)"> · {comments.length}</span>
@@ -194,7 +194,7 @@ const CommentThread = ({ target }: { target: SocialTarget }) => {
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                     <AuthorName author={item.author} className="text-sm" />
-                    <span className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.12em]">
+                    <span className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
                       {formatDateTime(item.createdAt)}
                       {item.editedAt ? ' · editado' : ''}
                     </span>

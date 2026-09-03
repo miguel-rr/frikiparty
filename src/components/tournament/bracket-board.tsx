@@ -62,7 +62,7 @@ const TeamSide = ({
   <div
     className={`flex items-center justify-between gap-3 px-3.5 py-2.5 ${
       winner
-        ? 'bg-linear-to-r from-[#c9a5571f] to-transparent font-extrabold text-(--gold-hi)'
+        ? 'bg-linear-to-r from-(--gold)/12 to-transparent font-extrabold text-(--gold-hi)'
         : 'text-(--faded)'
     }`}
   >
@@ -112,13 +112,13 @@ const BracketBoard = ({
         </div>
       ) : null}
       <div className="overflow-x-auto p-5">
-        <div className="grid min-w-[640px] auto-cols-fr grid-flow-col items-center gap-5">
+        <div className="grid min-w-160 auto-cols-fr grid-flow-col items-center gap-5">
           {rounds.map((round, index) => (
             <div
               className="flex flex-col gap-4"
               key={roundLabel(rounds.length - 1 - index)}
             >
-              <span className="text-center font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+              <span className="text-center font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
                 {roundLabel(rounds.length - 1 - index)}
               </span>
               {round.matches.map((match) => (
@@ -150,10 +150,10 @@ const BracketBoard = ({
           ))}
           {showChampions && champions ? (
             <div className="flex flex-col items-center gap-3">
-              <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+              <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
                 Campeones
               </span>
-              <div className="flex flex-col items-center gap-2 rounded-lg border border-(--hair-gold) bg-linear-to-b from-[#c9a55721] to-transparent px-5 py-4 text-center">
+              <div className="flex flex-col items-center gap-2 rounded-lg border border-(--hair-gold) bg-linear-to-b from-(--gold)/13 to-transparent px-5 py-4 text-center">
                 <Meeple
                   color={colorById.get(champions.id) ?? '#8b969e'}
                   size={26}
@@ -168,7 +168,7 @@ const BracketBoard = ({
         </div>
       </div>
       {footer ? (
-        <p className="border-(--hair) border-t px-5 py-3.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+        <p className="border-(--hair) border-t px-5 py-3.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl">
           {footer}
         </p>
       ) : null}

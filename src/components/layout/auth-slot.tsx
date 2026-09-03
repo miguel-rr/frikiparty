@@ -29,7 +29,7 @@ const AuthSlot = () => {
       : '/login';
   if (isPending) {
     // Placeholder with the button's height so the nav doesn't jump.
-    return <span aria-hidden className="h-[34px]" />;
+    return <span aria-hidden className="h-8.5" />;
   }
   if (user) {
     return (

@@ -145,7 +145,7 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
                               {editionLabel(title)}
                             </Link>
                             {title.venueName ? (
-                              <span className="text-(--faded) text-[0.78rem] italic leading-snug">
+                              <span className="text-(--faded) text-xs italic leading-snug">
                                 {title.venueSlug && title.venueIsPlace ? (
                                   <Link
                                     className="transition-colors hover:text-(--gold-hi)"
@@ -163,10 +163,10 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
                             {title.game ?? 'AotR/BotME'}
                           </span>
                         </div>
-                        <span className="flex min-w-0 items-start gap-1.5 font-bold font-mono text-(--parchment) text-[0.66rem] uppercase leading-relaxed tracking-[0.18em] sm:items-center">
+                        <span className="flex min-w-0 items-start gap-1.5 font-bold font-mono text-(--parchment) text-2xs uppercase leading-relaxed tracking-2xl sm:items-center">
                           {title.type === 'team' ? (
                             <>
-                              <span className="mt-[2px] shrink-0 sm:mt-0">
+                              <span className="mt-0.5 shrink-0 sm:mt-0">
                                 <RingGlyph size={13} />
                               </span>{' '}
                               <span>
@@ -193,7 +193,7 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
                             </>
                           ) : (
                             <>
-                              <span className="mt-[3px] shrink-0 sm:mt-0">
+                              <span className="mt-0.75 shrink-0 sm:mt-0">
                                 <RingGlyph size={11} tone="solitaire" />
                               </span>{' '}
                               En solitario

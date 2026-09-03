@@ -6,4 +6,16 @@
 @theme {
   --font-sans: var(--font-alegreya), "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Two steps below text-xs (12px) for the mono caps labels. No
+     line-height companion on purpose: they inherit it like body text. */
+  --text-2xs: 0.625rem;
+  --text-3xs: 0.5625rem;
+
+  /* Letter-spacing ladder past tracking-widest (0.1em) for uppercase labels. */
+  --tracking-xl: 0.15em;
+  --tracking-2xl: 0.2em;
+  --tracking-3xl: 0.25em;
+  --tracking-4xl: 0.3em;
+  --tracking-5xl: 0.35em;
 }

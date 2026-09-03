@@ -9,14 +9,14 @@ import type { MediaItem } from '@/server/api/routers/media-queries';
 import { api } from '@/trpc/react';
 
 const chip = (active: boolean) =>
-  `cursor-pointer rounded-full border px-3 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.16em] transition-colors ${
+  `cursor-pointer rounded-full border px-3 py-1 font-mono text-2xs font-bold uppercase tracking-xl transition-colors ${
     active
-      ? 'border-(--gold) bg-[#c9a55726] text-(--gold-hi)'
+      ? 'border-(--gold) bg-(--gold)/15 text-(--gold-hi)'
       : 'border-(--hair) text-(--faded) hover:border-(--hair-gold) hover:text-(--parchment)'
   }`;
 
 const quiet =
-  'cursor-pointer rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em] transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)';
+  'cursor-pointer rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)';
 
 /**
  * Editar / Eliminar for the file's uploader or an admin, with the inline
@@ -128,7 +128,7 @@ const MediaActions = ({
         </>
       ) : (
         <button
-          className={`${quiet} hover:border-[#cf6a4873] hover:text-(--ember)`}
+          className={`${quiet} hover:border-(--ember)/45 hover:text-(--ember)`}
           onClick={() => setConfirming(true)}
           type="button"
         >

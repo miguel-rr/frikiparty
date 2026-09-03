@@ -149,7 +149,7 @@ const DurinDoor = ({ target }: { target: string | null }) => {
   const left = useCountdown(target);
   return (
     <div
-      className={`relative w-[min(88vw,460px)] lg:w-[540px] xl:w-[568px] ${target ? '' : 'opacity-60 saturate-50'}`}
+      className={`relative w-[min(88vw,460px)] lg:w-135 xl:w-142 ${target ? '' : 'opacity-60 saturate-50'}`}
     >
       <svg className="block w-full" role="img" viewBox="0 18 460 492">
         <title>La Puerta de Durin</title>

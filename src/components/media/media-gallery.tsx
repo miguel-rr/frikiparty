@@ -43,7 +43,7 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
       // biome-ignore lint/performance/noImgElement: R2 host is not in next.config remotePatterns; thumbnails are pre-sized
       <img
         alt=""
-        className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        className="size-full object-cover transition-transform duration-500 group-hover:scale-104"
         loading="lazy"
         src={item.thumbnailUrl}
       />
@@ -51,7 +51,7 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
       <span className="grid size-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#1c2a20,#0a0f0c_70%)]" />
     )}
     {item.likeCount > 0 || item.commentCount > 0 ? (
-      <span className="pointer-events-none absolute bottom-1.5 left-1.5 flex items-center gap-1.5 rounded bg-[#0a0f0ccc] px-1.5 py-0.5 font-mono text-(--parchment) text-[0.6rem]">
+      <span className="pointer-events-none absolute bottom-1.5 left-1.5 flex items-center gap-1.5 rounded bg-(--night)/80 px-1.5 py-0.5 font-mono text-(--parchment) text-2xs">
         {item.likeCount > 0 ? (
           <span className="inline-flex items-center gap-0.5">
             <span aria-hidden="true" className="text-(--gold)">
@@ -83,7 +83,7 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
           <PlayGlyph />
         </span>
         {item.durationSeconds ? (
-          <span className="pointer-events-none absolute right-1.5 bottom-1.5 rounded bg-[#0a0f0ccc] px-1.5 py-0.5 font-mono text-(--parchment) text-[0.6rem]">
+          <span className="pointer-events-none absolute right-1.5 bottom-1.5 rounded bg-(--night)/80 px-1.5 py-0.5 font-mono text-(--parchment) text-2xs">
             {formatDuration(item.durationSeconds)}
           </span>
         ) : null}
@@ -150,16 +150,16 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
       {current ? (
         <div
           aria-modal
-          className="fixed inset-0 z-[100] flex flex-col bg-[#05080699] backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex flex-col bg-[#05080699] backdrop-blur-sm"
           role="dialog"
         >
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
-            <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+            <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
               {index + 1} / {items.length}
             </span>
             <div className="flex items-center gap-2">
               <Link
-                className="rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em] transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+                className="rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
                 href={`/archive/${current.id}`}
               >
                 Enlace
@@ -179,7 +179,7 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
               <>
                 <button
                   aria-label="Anterior"
-                  className="fixed top-1/2 left-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-[#0a0f0ccc] text-(--gold) transition-colors hover:text-(--gold-hi) sm:left-4"
+                  className="fixed top-1/2 left-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-(--night)/80 text-(--gold) transition-colors hover:text-(--gold-hi) sm:left-4"
                   onClick={() => step(-1)}
                   type="button"
                 >
@@ -187,7 +187,7 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
                 </button>
                 <button
                   aria-label="Siguiente"
-                  className="fixed top-1/2 right-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-[#0a0f0ccc] text-(--gold) transition-colors hover:text-(--gold-hi) sm:right-4"
+                  className="fixed top-1/2 right-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-(--night)/80 text-(--gold) transition-colors hover:text-(--gold-hi) sm:right-4"
                   onClick={() => step(1)}
                   type="button"
                 >

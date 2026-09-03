@@ -12,16 +12,16 @@ const btnBase =
   'inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-extrabold transition active:translate-y-px';
 
 const btn = {
-  primary: `${btnBase} border border-[#f0d48a99] bg-linear-to-b from-(--gold-hi) via-(--gold) to-[#a8843c] px-6 py-2.5 text-[#211803] shadow-[0_4px_18px_rgba(201,165,87,0.25)] hover:brightness-105`,
+  primary: `${btnBase} border border-(--gold-hi)/60 bg-linear-to-b from-(--gold-hi) via-(--gold) to-[#a8843c] px-6 py-2.5 text-[#211803] shadow-[0_4px_18px_rgba(201,165,87,0.25)] hover:brightness-105`,
   secondary: `${btnBase} border border-(--hair) bg-(--panel-2) px-6 py-2.5 text-(--parchment) hover:border-(--hair-gold) hover:text-(--gold-hi)`,
   ghost: `${btnBase} border border-transparent px-4 py-2 text-(--faded) hover:text-(--parchment)`,
-  danger: `${btnBase} border border-[#cf6a4873] px-6 py-2.5 text-(--ember) hover:bg-[#cf6a481f]`,
+  danger: `${btnBase} border border-(--ember)/45 px-6 py-2.5 text-(--ember) hover:bg-(--ember)/12`,
   /**
    * Quiet gold-rimmed capsule for chrome actions (the nav's "Entrar"):
    * hairline border and the nav's own display type instead of the loud
    * solid-gold CTA, which stays reserved for real form actions.
    */
-  outline: `${btnBase} d-display border border-(--hair-gold) bg-[#141a15b3] px-4 py-1.5 font-bold text-[0.72rem] text-(--gold) uppercase tracking-[0.18em] hover:border-[#c9a557a6] hover:text-(--gold-hi) hover:shadow-[0_0_14px_rgba(201,165,87,0.22)]`,
+  outline: `${btnBase} d-display border border-(--hair-gold) bg-[#141a15b3] px-4 py-1.5 font-bold text-xs text-(--gold) uppercase tracking-2xl hover:border-(--gold)/65 hover:text-(--gold-hi) hover:shadow-[0_0_14px_rgba(201,165,87,0.22)]`,
 } as const;
 
 /** Quiet gold text link ("Cómo llegar →"): an action without a button. */
@@ -35,19 +35,19 @@ const panelGold =
   'd-scape rounded-xl border border-(--hair-gold) shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066]';
 
 const eyebrow =
-  'font-mono text-xl font-bold uppercase tracking-[0.35em] text-(--gold)';
+  'font-mono text-xl font-bold uppercase tracking-5xl text-(--gold)';
 
 const label =
-  'mb-1.5 block font-mono text-[0.62rem] font-bold uppercase tracking-[0.22em] text-(--faded)';
+  'mb-1.5 block font-mono text-2xs font-bold uppercase tracking-2xl text-(--faded)';
 
 const input =
-  'w-full rounded-lg border border-(--hair) bg-(--night-2) px-3.5 py-2 text-(--parchment) transition-colors placeholder:text-[#95a4978c] hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
+  'w-full rounded-lg border border-(--hair) bg-(--night-2) px-3.5 py-2 text-(--parchment) transition-colors placeholder:text-(--faded)/55 hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
 
 const tag =
-  'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-(--hair-gold) px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.22em] text-(--gold)';
+  'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-(--hair-gold) px-2.5 py-1 font-mono text-2xs font-bold uppercase tracking-2xl text-(--gold)';
 
 const th =
-  'border-b border-(--hair-gold) px-3 py-2.5 text-left font-mono text-[0.6rem] font-bold uppercase tracking-[0.22em] text-(--faded)';
+  'border-b border-(--hair-gold) px-3 py-2.5 text-left font-mono text-2xs font-bold uppercase tracking-2xl text-(--faded)';
 
 const td = 'border-b border-(--hair) px-3 py-2.5 align-middle';
 
@@ -125,16 +125,16 @@ const RingGlyph = ({
 );
 
 const Divider = () => (
-  <div aria-hidden className="d-divider mx-auto w-full max-w-[520px] px-6">
+  <div aria-hidden className="d-divider mx-auto w-full max-w-130 px-6">
     <RingGlyph size={18} />
   </div>
 );
 
 const BLAZON_SIZES = {
-  sm: 'w-[30px]',
-  md: 'w-[42px]',
-  lg: 'w-[70px]',
-  xl: 'w-[116px]',
+  sm: 'w-7.5',
+  md: 'w-10.5',
+  lg: 'w-17.5',
+  xl: 'w-29',
 } as const;
 
 const SHIELD_PATH =
@@ -222,7 +222,7 @@ const PlayerBlazon = ({
 }) => (
   <svg
     aria-hidden="true"
-    className={`aspect-[100/116] flex-none ${BLAZON_SIZES[size]} ${
+    className={`aspect-100/116 flex-none ${BLAZON_SIZES[size]} ${
       champion
         ? 'drop-shadow-[0_0_14px_rgba(201,165,87,0.45)]'
         : 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)]'
@@ -318,16 +318,16 @@ const CoinStack = ({ value }: { value: number }) => (
 const Footer = ({ note }: { note?: ReactNode }) => (
   <footer className="flex flex-col items-center gap-5 px-4 pt-44 pb-10 text-center sm:pt-56">
     <Divider />
-    <span className="d-display d-gold-text font-black text-xl tracking-[0.22em]">
+    <span className="d-display d-gold-text font-black text-xl tracking-2xl">
       FRIKIPARTY
     </span>
-    <p className="font-mono text-(--faded) text-[0.65rem] uppercase tracking-[0.25em]">
+    <p className="font-mono text-(--faded) text-2xs uppercase tracking-3xl">
       Desde 2005 reuniendo frikis frescos
     </p>
     {note ? (
       <p className="max-w-[52ch] text-(--faded) text-sm">{note}</p>
     ) : null}
-    <p className="max-w-[52ch] font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.15em]">
+    <p className="max-w-[52ch] font-mono text-(--faded) text-2xs uppercase tracking-xl">
       Emblemas de{' '}
       <a
         className="underline hover:text-(--gold)"

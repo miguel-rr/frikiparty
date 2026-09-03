@@ -50,7 +50,7 @@ const CountdownRing = ({ endsAt, durationMs, label }: CountdownRingProps) => {
       </svg>
       <div>
         {label ? (
-          <p className="font-mono text-(--faded) text-[0.58rem] uppercase tracking-widest">
+          <p className="font-mono text-(--faded) text-3xs uppercase tracking-widest">
             {label}
           </p>
         ) : null}

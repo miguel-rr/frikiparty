@@ -15,7 +15,7 @@ type UserMenuProps = {
 
 // Right-aligned like the avatar the menu hangs from.
 const item =
-  'block w-full cursor-pointer px-4 py-2 text-right text-(--faded) text-sm transition-colors hover:bg-[#c9a5570f] hover:text-(--gold-hi)';
+  'block w-full cursor-pointer px-4 py-2 text-right text-(--faded) text-sm transition-colors hover:bg-(--gold)/6 hover:text-(--gold-hi)';
 
 /**
  * The signed-in corner: just the initial in a gold ring. The dropdown
@@ -214,7 +214,7 @@ const LinkPlayerForm = ({
         <input
           autoCapitalize="characters"
           autoComplete="off"
-          className={`${input} text-center font-mono text-base uppercase tracking-[0.25em]`}
+          className={`${input} text-center font-mono text-base uppercase tracking-3xl`}
           id="link-player-code"
           onChange={(event) => setCode(event.target.value)}
           placeholder="XXXX-XXXX"

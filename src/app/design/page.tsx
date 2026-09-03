@@ -40,7 +40,7 @@ const DesignPage = () => (
     <div className="flex flex-col">
       <div className="mx-auto flex items-center gap-3 px-4 pt-12">
         <span className={tag}>Estado de espera</span>
-        <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.15em]">
+        <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
           La home cuando no hay edición convocada
         </span>
       </div>

@@ -99,9 +99,9 @@ const putWithProgress = (
   });
 
 const chip = (active: boolean) =>
-  `cursor-pointer rounded-full border px-3 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.16em] transition-colors ${
+  `cursor-pointer rounded-full border px-3 py-1 font-mono text-2xs font-bold uppercase tracking-xl transition-colors ${
     active
-      ? 'border-(--gold) bg-[#c9a55726] text-(--gold-hi)'
+      ? 'border-(--gold) bg-(--gold)/15 text-(--gold-hi)'
       : 'border-(--hair) text-(--faded) hover:border-(--hair-gold) hover:text-(--parchment)'
   }`;
 
@@ -316,13 +316,13 @@ const UploadDialog = ({
   return (
     <div
       aria-modal
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-[#05080699] backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-100 flex items-end justify-center bg-[#05080699] backdrop-blur-sm sm:items-center sm:p-6"
       role="dialog"
     >
-      <div className="d-scape flex max-h-[100dvh] w-full max-w-2xl flex-col rounded-t-2xl border border-(--hair-gold) shadow-[0_-10px_40px_#000000a6] sm:max-h-[90vh] sm:rounded-2xl">
+      <div className="d-scape flex max-h-dvh w-full max-w-2xl flex-col rounded-t-2xl border border-(--hair-gold) shadow-[0_-10px_40px_#000000a6] sm:max-h-[90vh] sm:rounded-2xl">
         <header className="flex items-center justify-between gap-4 border-(--hair) border-b px-5 py-4">
           <div>
-            <p className="font-bold font-mono text-(--gold) text-[0.62rem] uppercase tracking-[0.3em]">
+            <p className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-4xl">
               Los Archivos
             </p>
             <h2 className="d-display font-bold text-(--parchment) text-xl uppercase">
@@ -378,7 +378,7 @@ const UploadDialog = ({
                           src={entry.previewUrl}
                         />
                       ) : (
-                        <span className="font-bold font-mono text-(--faded) text-[0.55rem] uppercase tracking-[0.2em]">
+                        <span className="font-bold font-mono text-(--faded) text-3xs uppercase tracking-2xl">
                           Vídeo
                         </span>
                       )}

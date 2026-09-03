@@ -131,7 +131,7 @@ const PlayerProfile = ({
       </div>
       <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:gap-10">
         <div className="flex shrink-0 flex-col items-center gap-6 sm:items-start">
-          <PortraitCard card={previewCard} className="w-[250px] shrink-0" />
+          <PortraitCard card={previewCard} className="w-62.5 shrink-0" />
           {stats}
         </div>
         <div className="min-w-0 flex-1">
@@ -140,7 +140,7 @@ const PlayerProfile = ({
               <div>
                 <span className={label}>Bio</span>
                 <textarea
-                  className={`${input} min-h-44 font-serif text-[1.02rem] leading-relaxed`}
+                  className={`${input} min-h-44 font-serif text-base leading-relaxed`}
                   onChange={(event) => setBio(event.target.value)}
                   placeholder="La crónica del jugador, al tono del Libro Rojo…"
                   value={bio}

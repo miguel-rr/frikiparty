@@ -13,8 +13,8 @@ import { PortraitCard } from '@/components/tournament/portrait-card';
 /** The current lot: the player's card, up for auction. */
 const LotCard = () => (
   <div className="flex flex-col items-center gap-3">
-    <PortraitCard card={LOT_CARD} className="w-[225px]" />
-    <span className="font-bold font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.2em]">
+    <PortraitCard card={LOT_CARD} className="w-56.25" />
+    <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
       Lote {AUCTION.lotNumber}/{AUCTION.totalLots} — {AUCTION.pot}
     </span>
   </div>
@@ -51,7 +51,7 @@ const CountdownRing = () => {
           {AUCTION.secondsLeft.toFixed(1)}
         </span>
       </div>
-      <span className="font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.2em]">
+      <span className="font-mono text-(--faded) text-3xs uppercase tracking-2xl">
         para el cierre
       </span>
     </div>
@@ -74,7 +74,7 @@ const Auction = () => (
       <div className="flex flex-col justify-center gap-7">
         <div className="flex flex-wrap items-center justify-center gap-8 lg:justify-start">
           <div className="flex flex-col items-center gap-1 lg:items-start">
-            <span className="font-bold font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.25em]">
+            <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-3xl">
               Puja actual
             </span>
             <span className="flex items-baseline gap-2">
@@ -122,7 +122,7 @@ const Auction = () => (
                 ) : null}
               </span>
               <CoinStack value={captain.budget} />
-              <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.15em]">
+              <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
                 {captain.roster.length > 0
                   ? captain.roster.join(' · ')
                   : 'Sin fichajes'}

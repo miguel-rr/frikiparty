@@ -17,7 +17,7 @@ const ClaimCaptainList = ({
   error,
   onClaim,
 }: ClaimCaptainListProps) => (
-  <main className="mx-auto flex max-w-[520px] flex-col gap-6 px-4 py-12">
+  <main className="mx-auto flex max-w-130 flex-col gap-6 px-4 py-12">
     <h1 className="d-display font-bold text-2xl uppercase tracking-wide">
       ¿Quién eres?
     </h1>

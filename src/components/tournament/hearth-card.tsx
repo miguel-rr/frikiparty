@@ -199,7 +199,7 @@ const HearthCard = ({
   return (
     <svg
       aria-label={`Carta de ${card.name}`}
-      className={`aspect-[250/360] ${
+      className={`aspect-250/360 ${
         legendary
           ? 'drop-shadow-[0_0_18px_rgba(201,165,87,0.4)]'
           : 'drop-shadow-[0_10px_18px_rgba(0,0,0,0.55)]'

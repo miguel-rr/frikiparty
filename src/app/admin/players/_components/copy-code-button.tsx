@@ -25,13 +25,13 @@ const CopyCodeButton = ({ code }: { code: string }) => {
 
   return (
     <button
-      className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-(--hair) px-2.5 py-1 font-mono text-(--gold) text-sm tracking-[0.18em] transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+      className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-(--hair) px-2.5 py-1 font-mono text-(--gold) text-sm tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
       onClick={handleCopy}
       title="Copiar código"
       type="button"
     >
       {code}
-      <span className="font-sans text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+      <span className="font-sans text-(--faded) text-2xs uppercase tracking-2xl">
         {copied ? 'Copiado' : 'Copiar'}
       </span>
     </button>

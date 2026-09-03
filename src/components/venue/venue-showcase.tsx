@@ -43,7 +43,7 @@ const VenueShowcase = ({
         ) : null}
         {mapSrc ? (
           <iframe
-            className="pointer-events-none h-44 w-full border-0 opacity-90 contrast-[0.92] grayscale-[0.4] sepia-[0.25] sm:h-56"
+            className="pointer-events-none h-44 w-full border-0 opacity-90 contrast-92 grayscale-40 sepia-25 sm:h-56"
             loading="lazy"
             src={mapSrc}
             tabIndex={-1}

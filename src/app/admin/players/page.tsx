@@ -54,7 +54,7 @@ const AdminPlayersPage = async () => {
             title="Jugadores"
           />
           <div className={`${panelGold} mt-10 overflow-x-auto`}>
-            <table className="w-full min-w-[36rem] border-collapse text-sm">
+            <table className="w-full min-w-144 border-collapse text-sm">
               <thead>
                 <tr>
                   <th className={th}>Jugador</th>
@@ -124,7 +124,7 @@ const AdminPlayersPage = async () => {
             </div>
             {unlinked.users.length > 0 ? (
               <div className={`${panelGold} overflow-x-auto`}>
-                <table className="w-full min-w-[36rem] border-collapse text-sm">
+                <table className="w-full min-w-144 border-collapse text-sm">
                   <thead>
                     <tr>
                       <th className={th}>Cuenta</th>

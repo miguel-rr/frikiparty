@@ -59,7 +59,7 @@ const TournamentPhasesStep = () => {
             className="flex flex-col gap-4 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1"
             key={phase.id}
           >
-            <p className="font-bold font-mono text-(--faded) text-[0.65rem] uppercase tracking-widest">
+            <p className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-widest">
               Fase {index + 1}
             </p>
 
@@ -82,7 +82,7 @@ const TournamentPhasesStep = () => {
             {phase.type === 'group' ? (
               <>
                 <div className="flex flex-col gap-2">
-                  <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+                  <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
                     Rondas
                   </p>
                   <SegmentedControl
@@ -106,7 +106,7 @@ const TournamentPhasesStep = () => {
                   value={phase.gamesToWinMatch}
                 />
                 <div className="flex flex-col gap-2">
-                  <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+                  <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
                     Desempate
                   </p>
                   <SegmentedControl

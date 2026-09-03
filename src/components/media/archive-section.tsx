@@ -19,7 +19,7 @@ import {
 import { api } from '@/trpc/react';
 
 const label =
-  'flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]';
+  'flex items-center gap-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 /** Below this many files the toolbar would be noise. */
 const TOOLBAR_FROM = 6;

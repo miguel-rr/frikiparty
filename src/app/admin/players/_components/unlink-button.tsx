@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { api } from '@/trpc/react';
 
 const quiet =
-  'cursor-pointer rounded-full border border-(--hair) px-2.5 py-1 font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.18em] transition-colors hover:border-[#cf6a4873] hover:text-(--ember)';
+  'cursor-pointer rounded-full border border-(--hair) px-2.5 py-1 font-mono text-(--faded) text-3xs uppercase tracking-2xl transition-colors hover:border-(--ember)/45 hover:text-(--ember)';
 
 /**
  * Detach an account from its player, confirming in place. The player gets
@@ -48,7 +48,7 @@ const UnlinkButton = ({
         ¿Soltar la cuenta de {playerName}?
       </span>
       <button
-        className={`${quiet} border-[#cf6a4873] text-(--ember)`}
+        className={`${quiet} border-(--ember)/45 text-(--ember)`}
         disabled={unlink.isPending}
         onClick={() => unlink.mutate({ playerId })}
         type="button"

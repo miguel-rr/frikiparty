@@ -12,9 +12,9 @@ import {
 
 /** One capsule of a segmented control (also used by the admin's Galería/Tabla). */
 const segment = (active: boolean) =>
-  `cursor-pointer whitespace-nowrap rounded-full px-3 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.18em] transition-colors ${
+  `cursor-pointer whitespace-nowrap rounded-full px-3 py-1 font-mono text-2xs font-bold uppercase tracking-2xl transition-colors ${
     active
-      ? 'bg-[#c9a55726] text-(--gold-hi)'
+      ? 'bg-(--gold)/15 text-(--gold-hi)'
       : 'text-(--faded) hover:text-(--parchment)'
   }`;
 
@@ -51,7 +51,7 @@ const GalleryToolbar = ({
         >
           {TYPE_LABELS[type]}
           <span
-            className={`ml-1.5 font-normal ${view.type === type ? 'text-(--gold)' : 'text-[#95a4978c]'}`}
+            className={`ml-1.5 font-normal ${view.type === type ? 'text-(--gold)' : 'text-(--faded)/55'}`}
           >
             {counts[type]}
           </span>
@@ -86,7 +86,7 @@ const GalleryToolbar = ({
         <path d="m20 20-3.5-3.5" strokeLinecap="round" />
       </svg>
       <input
-        className="w-full rounded-full border border-(--hair) bg-(--night-2) py-1.5 pr-8 pl-9 text-(--parchment) text-sm transition-colors placeholder:text-[#95a4978c] hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none"
+        className="w-full rounded-full border border-(--hair) bg-(--night-2) py-1.5 pr-8 pl-9 text-(--parchment) text-sm transition-colors placeholder:text-(--faded)/55 hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none"
         onChange={(event) => onChange({ ...view, query: event.target.value })}
         placeholder="Buscar título, jugador, sede, edición…"
         type="text"

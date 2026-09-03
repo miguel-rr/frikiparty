@@ -16,7 +16,7 @@ const PotBoard = ({ pots, getPlayerName, onMove }: PotBoardProps) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: pot tiers are positionally fixed, only their members move.
         key={`pot-${potIndex}`}
       >
-        <p className="font-bold font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+        <p className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-widest">
           Bombo {potIndex + 1}
           {potIndex === 0 ? ' · Cabezas de serie' : ''}
         </p>

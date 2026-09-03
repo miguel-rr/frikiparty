@@ -127,7 +127,7 @@ const ParallaxBackground = () => {
       >
         {SETTING_STARS.map((star) => (
           <span
-            className="absolute rounded-full bg-[#ece3cd]"
+            className="absolute rounded-full bg-(--parchment)"
             key={`set-${star.left}-${star.top}`}
             style={{
               height: star.size,
@@ -141,14 +141,14 @@ const ParallaxBackground = () => {
       </div>
       {/* Layer 0 — high stars, drifting slowly upward */}
       <div
-        className="absolute inset-x-0 top-[-50px] bottom-0"
+        className="absolute inset-x-0 -top-12.5 bottom-0"
         ref={(node) => {
           layerRefs.current[0] = node;
         }}
       >
         {STARS.map((star) => (
           <span
-            className="absolute rounded-full bg-[#ece3cd]"
+            className="absolute rounded-full bg-(--parchment)"
             key={`${star.left}-${star.top}`}
             style={{
               height: star.size,
@@ -163,14 +163,14 @@ const ParallaxBackground = () => {
 
       {/* Layer 1 — far ridge, parchment whisper */}
       <div
-        className="absolute inset-x-0 bottom-[-100px]"
+        className="absolute inset-x-0 -bottom-25"
         ref={(node) => {
           layerRefs.current[1] = node;
         }}
       >
         <svg
           aria-hidden="true"
-          className="block h-[300px] w-full"
+          className="block h-75 w-full"
           preserveAspectRatio="none"
           viewBox="0 0 1440 300"
         >
@@ -184,14 +184,14 @@ const ParallaxBackground = () => {
 
       {/* Layer 2 — near ridge with pines, a shade above the night */}
       <div
-        className="absolute inset-x-0 bottom-[-170px]"
+        className="absolute inset-x-0 -bottom-42.5"
         ref={(node) => {
           layerRefs.current[2] = node;
         }}
       >
         <svg
           aria-hidden="true"
-          className="block h-[360px] w-full"
+          className="block h-90 w-full"
           preserveAspectRatio="none"
           viewBox="0 0 1440 340"
         >

@@ -61,9 +61,9 @@ const WizardShell = () => {
   const StepComponent = STEP_COMPONENTS[current];
 
   return (
-    <main className="mx-auto flex w-full max-w-[760px] flex-col gap-6 px-4 py-10 sm:px-6 sm:py-14">
+    <main className="mx-auto flex w-full max-w-190 flex-col gap-6 px-4 py-10 sm:px-6 sm:py-14">
       {current !== 'intro' ? (
-        <p className="flex items-center gap-2 font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+        <p className="flex items-center gap-2 font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
           <RingGlyph size={11} /> Paso {state.stepHistory.length}
         </p>
       ) : null}

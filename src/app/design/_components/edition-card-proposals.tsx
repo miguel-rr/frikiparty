@@ -27,14 +27,14 @@ const sceneStyle = ({ file, position }: SceneSpec) => ({
 });
 
 const label =
-  'flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]';
+  'flex items-center gap-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 const CardHeader = () => (
   <div className="flex flex-wrap items-center gap-3">
     <span className="d-display d-gold-text font-black text-2xl tracking-wide">
       2025
     </span>
-    <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+    <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
       Sede: El huertar de Valentín
     </span>
   </div>
@@ -62,10 +62,7 @@ const VariantA = () => (
         {/* 2-per-row below sm (odd last one centered) — never a ragged 3+1. */}
         <ul className="grid grid-cols-2 justify-items-center gap-x-7 gap-y-4 sm:flex sm:flex-wrap sm:justify-center [&>li:last-child:nth-child(odd)]:col-span-2">
           {CHAMPIONS.map((name) => (
-            <li
-              className="flex w-[70px] flex-col items-center gap-2"
-              key={name}
-            >
+            <li className="flex w-17.5 flex-col items-center gap-2" key={name}>
               <PlayerBlazon name={name} size="lg" />
               <span className={`font-bold text-sm ${nameShadow}`}>{name}</span>
             </li>
@@ -76,7 +73,7 @@ const VariantA = () => (
         <span className={label}>
           <RingGlyph size={11} tone="solitaire" /> Campeón individual
         </span>
-        <div className="flex w-[70px] flex-col items-center gap-2">
+        <div className="flex w-17.5 flex-col items-center gap-2">
           <PlayerBlazon champion name={INDIVIDUAL} size="lg" />
           <span className={`font-bold text-(--gold-hi) text-sm ${nameShadow}`}>
             {INDIVIDUAL}

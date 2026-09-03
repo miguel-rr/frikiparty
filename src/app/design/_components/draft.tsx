@@ -78,11 +78,11 @@ const PotsGrid = ({ forCaptain }: { forCaptain?: string }) => {
             key={pot.label}
           >
             <div className="flex flex-col gap-1">
-              <span className="font-bold font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.2em]">
+              <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
                 {pot.label}
               </span>
               <span
-                className={`font-mono text-[0.58rem] uppercase tracking-[0.15em] ${
+                className={`font-mono text-3xs uppercase tracking-xl ${
                   forCaptain
                     ? locked
                       ? 'text-(--ember)'
@@ -108,14 +108,14 @@ const PotsGrid = ({ forCaptain }: { forCaptain?: string }) => {
                     <span
                       className={`text-sm ${
                         taken
-                          ? 'text-(--faded) line-through decoration-[#cf6a4899]'
+                          ? 'text-(--faded) line-through decoration-(--ember)/60'
                           : 'font-bold'
                       }`}
                     >
                       {player.name}
                     </span>
                     {taken ? (
-                      <span className="font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.12em]">
+                      <span className="font-mono text-(--faded) text-3xs uppercase tracking-widest">
                         → {player.pickedBy}
                       </span>
                     ) : highlight ? (
@@ -126,7 +126,7 @@ const PotsGrid = ({ forCaptain }: { forCaptain?: string }) => {
                         Elegir
                       </button>
                     ) : locked ? null : (
-                      <span className="rounded-full border border-[#82b28f66] px-2 py-0.5 font-mono text-(--moss) text-[0.55rem] uppercase tracking-[0.15em]">
+                      <span className="rounded-full border border-(--moss)/40 px-2 py-0.5 font-mono text-(--moss) text-3xs uppercase tracking-xl">
                         Libre
                       </span>
                     )}
@@ -144,7 +144,7 @@ const PotsGrid = ({ forCaptain }: { forCaptain?: string }) => {
 /** How the five teams are shaping up — closes both views. */
 const TeamsSummary = () => (
   <div className="flex flex-col gap-3">
-    <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+    <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
       Así van los equipos
     </span>
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -161,7 +161,7 @@ const TeamsSummary = () => (
             <PlayerBlazon name={captain} size="sm" />
             <div className="flex flex-col">
               <span className="font-bold text-sm">{captain}</span>
-              <span className="font-mono text-(--gold) text-[0.55rem] uppercase tracking-[0.18em]">
+              <span className="font-mono text-(--gold) text-3xs uppercase tracking-2xl">
                 Capitán
               </span>
             </div>
@@ -176,13 +176,13 @@ const TeamsSummary = () => (
                 }`}
                 key={potNumber}
               >
-                <span className="font-bold font-mono text-(--gold) text-[0.55rem] tracking-[0.1em]">
+                <span className="font-bold font-mono text-(--gold) text-3xs tracking-widest">
                   B{potNumber}
                 </span>
                 {player ? (
                   <span className="font-bold">{player}</span>
                 ) : (
-                  <span className="font-mono text-[0.62rem] uppercase tracking-[0.12em]">
+                  <span className="font-mono text-2xs uppercase tracking-widest">
                     Pendiente
                   </span>
                 )}
@@ -198,7 +198,7 @@ const TeamsSummary = () => (
 /** Round order strip: past turns show the player each captain took. */
 const RoundOrder = () => (
   <div className="flex flex-col gap-3">
-    <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+    <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
       Orden de la ronda {DRAFT.round} · {DRAFT.methodLabel}
     </span>
     {/* Mobile: numbered vertical list (a wrapped arrow-chain reads broken);
@@ -220,7 +220,7 @@ const RoundOrder = () => (
             <span
               className={`flex flex-1 items-center gap-2 rounded-full border py-1 pr-3.5 pl-1.5 sm:flex-none ${
                 onClock
-                  ? 'border-(--gold) bg-[#c9a55726] font-extrabold text-(--gold-hi)'
+                  ? 'border-(--gold) bg-(--gold)/15 font-extrabold text-(--gold-hi)'
                   : pick
                     ? 'border-(--hair) bg-(--panel-2) opacity-70'
                     : 'border-(--hair) bg-(--panel-2)'
@@ -230,11 +230,11 @@ const RoundOrder = () => (
               <span className="flex flex-col leading-tight">
                 <span>{captain}</span>
                 {pick ? (
-                  <span className="font-mono text-(--moss) text-[0.55rem] tracking-[0.08em]">
+                  <span className="font-mono text-(--moss) text-3xs tracking-widest">
                     ✓ {pick}
                   </span>
                 ) : (
-                  <span className="font-mono text-(--faded) text-[0.55rem] uppercase tracking-[0.08em]">
+                  <span className="font-mono text-(--faded) text-3xs uppercase tracking-widest">
                     {onClock ? 'Al reloj' : 'Espera'}
                   </span>
                 )}
@@ -266,10 +266,10 @@ const CaptainView = () => {
         <PotsGrid forCaptain={captain} />
         <aside className="flex h-fit flex-col gap-3 rounded-lg border border-(--hair) bg-(--night-2) p-4">
           <div className="flex flex-col gap-1">
-            <span className="font-bold font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.2em]">
+            <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
               Ranking del torneo
             </span>
-            <span className="font-mono text-(--faded) text-[0.58rem] uppercase tracking-[0.12em]">
+            <span className="font-mono text-(--faded) text-3xs uppercase tracking-widest">
               Definitivo — con él se formaron los bombos
             </span>
           </div>
@@ -277,7 +277,7 @@ const CaptainView = () => {
             {DRAFT.ranking.map((name, index) => (
               <li className="break-inside-avoid" key={name}>
                 {POT_STARTS.has(index) ? (
-                  <div className="mt-2 mb-1 border-(--hair) border-t pt-1.5 font-mono text-(--faded) text-[0.55rem] uppercase tracking-[0.18em] first:mt-0 first:border-t-0 first:pt-0">
+                  <div className="mt-2 mb-1 border-(--hair) border-t pt-1.5 font-mono text-(--faded) text-3xs uppercase tracking-2xl first:mt-0 first:border-t-0 first:pt-0">
                     {POT_STARTS.get(index)}
                   </div>
                 ) : null}
@@ -332,7 +332,7 @@ const Draft = () => {
       <div className="flex flex-col items-center gap-2.5">
         <fieldset
           aria-label="Cambiar de vista"
-          className="inline-flex gap-0.5 rounded-full border border-(--hair) bg-(--night-2) p-[3px]"
+          className="inline-flex gap-0.5 rounded-full border border-(--hair) bg-(--night-2) p-0.75"
         >
           {VIEWS.map(({ id, label }) => (
             <button
@@ -349,7 +349,7 @@ const Draft = () => {
             </button>
           ))}
         </fieldset>
-        <span className="font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.15em]">
+        <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
           {view === 'captain'
             ? `Lo que ve ${DRAFT.captainView} en su turno`
             : 'Lo que ve el resto del grupo'}

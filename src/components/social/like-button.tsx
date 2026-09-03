@@ -12,7 +12,7 @@ import { api } from '@/trpc/react';
 const HeartGlyph = ({ filled }: { filled: boolean }) => (
   <svg
     aria-hidden="true"
-    className={`size-[1.05rem] transition-transform duration-300 ${filled ? 'scale-110' : ''}`}
+    className={`size-4.25 transition-transform duration-300 ${filled ? 'scale-110' : ''}`}
     fill={filled ? '#e8c877' : 'none'}
     stroke="currentColor"
     strokeWidth="1.6"
@@ -67,9 +67,9 @@ const LikeButton = ({
         <button
           aria-label={state.liked ? 'Quitar el me gusta' : 'Me gusta'}
           aria-pressed={state.liked}
-          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.18em] transition-colors ${
+          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-2xs uppercase tracking-2xl transition-colors ${
             state.liked
-              ? 'border-(--gold) bg-[#c9a55726] text-(--gold-hi)'
+              ? 'border-(--gold) bg-(--gold)/15 text-(--gold-hi)'
               : 'border-(--hair) text-(--faded) hover:border-(--hair-gold) hover:text-(--gold-hi)'
           }`}
           disabled={toggle.isPending}
@@ -82,7 +82,7 @@ const LikeButton = ({
         {state.count > 0 ? (
           <button
             aria-expanded={showLikers}
-            className="cursor-pointer rounded-full px-2 py-1 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em] transition-colors hover:text-(--gold-hi)"
+            className="cursor-pointer rounded-full px-2 py-1 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:text-(--gold-hi)"
             onClick={() => setShowLikers((value) => !value)}
             type="button"
           >

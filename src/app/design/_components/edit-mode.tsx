@@ -36,7 +36,7 @@ const Segmented = ({
 }) => (
   <fieldset
     aria-label={name}
-    className="inline-flex max-w-full flex-wrap gap-0.5 rounded-full border border-(--hair) bg-(--night-2) p-[3px]"
+    className="inline-flex max-w-full flex-wrap gap-0.5 rounded-full border border-(--hair) bg-(--night-2) p-0.75"
   >
     {options.map((option) => (
       <button
@@ -110,7 +110,7 @@ const FactionSideEditor = ({
   sideId: string;
 }) => (
   <div className="flex flex-col gap-2.5">
-    <span className="flex items-center gap-2 font-bold font-mono text-(--faded) text-[0.6rem] uppercase tracking-[0.18em]">
+    <span className="flex items-center gap-2 font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
       <Meeple color={color} size={13} />
       Facción de cada jugador
     </span>
@@ -151,7 +151,7 @@ const ScoreRecorder = () => {
   return (
     <div className="flex h-fit flex-col gap-5 rounded-lg border border-(--hair) bg-(--night-2) p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="font-bold font-mono text-(--gold) text-[0.62rem] uppercase tracking-[0.2em]">
+        <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
           Partida 3 · Semifinal
         </span>
         <span className={tag}>En juego</span>
@@ -242,7 +242,7 @@ const EditMode = () => {
             <span className={label}>Partidas para ganar el partido</span>
             <Stepper initial={2} />
           </div>
-          <div className="flex max-w-[300px] flex-col gap-3.5">
+          <div className="flex max-w-75 flex-col gap-3.5">
             <Toggle initial text="Liga a ida y vuelta" />
             <Toggle initial={false} text="Torneo individual paralelo" />
           </div>

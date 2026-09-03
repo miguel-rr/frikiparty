@@ -14,7 +14,7 @@ const formatDuration = (seconds: number) => {
 };
 
 const chipLink =
-  'inline-flex items-center rounded-full border border-(--hair-gold) px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.2em] text-(--gold) transition-colors hover:border-(--gold) hover:text-(--gold-hi)';
+  'inline-flex items-center rounded-full border border-(--hair-gold) px-2.5 py-1 font-mono text-2xs font-bold uppercase tracking-2xl text-(--gold) transition-colors hover:border-(--gold) hover:text-(--gold-hi)';
 
 /**
  * One archived file at full size with its plaque: the image or video on

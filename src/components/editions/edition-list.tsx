@@ -5,8 +5,7 @@ import { tag } from '@/components/theme/primitives';
 import { formatDateRange } from '@/lib/dates';
 import type { EditionView } from '@/lib/tournament/edition-view';
 
-const eyebrow =
-  'font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]';
+const eyebrow = 'font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 /**
  * The list view: one line per edition, the whole chronicle on a screen.
@@ -23,7 +22,7 @@ const EditionList = ({ editions }: { editions: EditionView[] }) => (
           // The champions column is exactly four 4rem cells, so the rule
           // before the individual champion sits one column gap after the
           // fourth face and one padding before the solitaire: equidistant.
-          className="grid grid-cols-[6.5rem_1fr] gap-x-3 py-4 transition-colors hover:bg-[#c9a55708] sm:grid-cols-[10rem_16rem_1fr] sm:items-center sm:gap-x-6"
+          className="grid grid-cols-[6.5rem_1fr] gap-x-3 py-4 transition-colors hover:bg-(--gold)/3 sm:grid-cols-[10rem_16rem_1fr] sm:items-center sm:gap-x-6"
           key={edition.id}
         >
           <div className="flex flex-col gap-0.5">

@@ -51,7 +51,7 @@ const VenuesPage = async () => {
                   ) : null}
                   <div className="flex flex-col gap-2 p-5">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]">
+                      <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl">
                         {editionsCount(venue.editions.length)}
                       </span>
                       {venue.isPlace ? null : (

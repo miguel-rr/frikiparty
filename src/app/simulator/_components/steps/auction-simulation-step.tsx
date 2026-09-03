@@ -42,7 +42,7 @@ const AuctionSimulationStep = () => {
         <div className="flex flex-col gap-4 rounded-xl bg-(--panel-2) p-4 ring-(--hair) ring-1">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="font-mono text-(--faded) text-[0.6rem] uppercase tracking-widest">
+              <p className="font-mono text-(--faded) text-2xs uppercase tracking-widest">
                 Bombo {currentLot.potIndex + 1}
               </p>
               <p className="font-bold text-xl">

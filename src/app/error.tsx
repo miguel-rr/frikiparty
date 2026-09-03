@@ -47,7 +47,7 @@ const ErrorPage = ({
             </a>
           </div>
           {error.digest ? (
-            <p className="text-center font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]">
+            <p className="text-center font-mono text-(--faded) text-2xs uppercase tracking-2xl">
               Referencia: {error.digest}
             </p>
           ) : null}

@@ -65,26 +65,26 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
     <article
       // One height for every card: the tallest footer (four faces, rule and
       // solitaire) fits in 30rem, so cards with less give the room to the art.
-      className={`group relative flex h-full min-h-[30rem] flex-col overflow-hidden rounded-2xl border-2 ${
+      className={`group relative flex h-full min-h-120 flex-col overflow-hidden rounded-2xl border-2 ${
         running
           ? 'border-(--gold) border-dashed'
-          : 'border-[#c9a55766] hover:border-(--gold)'
+          : 'border-(--gold)/40 hover:border-(--gold)'
       } bg-(--night-2) shadow-[0_18px_40px_rgba(0,0,0,0.6)] transition-[border-color,transform] hover:-translate-y-1`}
     >
       {/* Inner hairline, like the cards' second rim. */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-1.5 z-10 rounded-xl border border-[#f0d48a2e]"
+        className="pointer-events-none absolute inset-1.5 z-10 rounded-xl border border-(--gold-hi)/18"
       />
       {/* The artwork takes whatever the footer leaves, never less than a
           portrait's worth; cards in a grid row share one height. */}
       <div
-        className="flex min-h-[14rem] flex-1 flex-col justify-between p-5 sm:min-h-[16rem]"
+        className="flex min-h-56 flex-1 flex-col justify-between p-5 sm:min-h-64"
         style={artStyle(edition)}
       >
         <header className="flex items-start justify-end">
           {edition.individual && !running ? (
-            <span className="grid place-items-center rounded-full bg-[#0a0f0ccc] p-1.5">
+            <span className="grid place-items-center rounded-full bg-(--night)/80 p-1.5">
               <RingGlyph size={14} tone="solitaire" />
             </span>
           ) : null}
@@ -99,13 +99,13 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
           {edition.venueName ? (
             edition.venueSlug && edition.venueIsPlace ? (
               <Link
-                className="font-bold font-mono text-(--parchment) text-[0.66rem] uppercase tracking-[0.22em] drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition-colors hover:text-(--gold-hi)"
+                className="font-bold font-mono text-(--parchment) text-2xs uppercase tracking-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition-colors hover:text-(--gold-hi)"
                 href={`/venues/${edition.venueSlug}`}
               >
                 {edition.venueName}
               </Link>
             ) : (
-              <span className="font-bold font-mono text-(--parchment) text-[0.66rem] uppercase tracking-[0.22em] drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
+              <span className="font-bold font-mono text-(--parchment) text-2xs uppercase tracking-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]">
                 {edition.venueName}
               </span>
             )
@@ -113,12 +113,12 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
         </div>
       </div>
       {/* The "text box" of the card: champions instead of an ability. */}
-      <footer className="flex min-h-[7.25rem] flex-col justify-center gap-3 border-(--hair-gold) border-t bg-(--panel) px-5 py-5">
+      <footer className="flex min-h-29 flex-col justify-center gap-3 border-(--hair-gold) border-t bg-(--panel) px-5 py-5">
         {running ? (
           <>
             {/* The status is a doorway: the council page counts down to it. */}
             <Link
-              className="font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.25em] transition-colors hover:text-(--gold-hi)"
+              className="font-mono text-(--gold) text-2xs uppercase tracking-3xl transition-colors hover:text-(--gold-hi)"
               href="/council"
             >
               {edition.status === 'live' ? 'En juego' : 'Próxima edición'} →

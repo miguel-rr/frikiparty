@@ -12,7 +12,7 @@ import { type Scene, sceneStyle } from '@/lib/tournament/edition-scenes';
 import type { EditionListItem } from '@/server/api/routers/edition';
 
 const venueLabel =
-  'font-bold font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.22em]';
+  'font-bold font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 const STATUS_TEXT = {
   live: 'En juego',
@@ -22,12 +22,12 @@ const STATUS_TEXT = {
 type Champion = EditionListItem['teamChampions'][number];
 
 const championsLabel =
-  'flex items-center gap-1.5 font-mono text-(--faded) text-[0.62rem] uppercase tracking-[0.18em]';
+  'flex items-center gap-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl';
 
 const nameShadow =
   '[text-shadow:0_1px_8px_rgba(0,0,0,0.95),0_0_2px_rgba(0,0,0,0.9)]';
 
-const markLayout = 'flex w-[70px] flex-col items-center gap-2';
+const markLayout = 'flex w-17.5 flex-col items-center gap-2';
 
 /**
  * Heraldic champion mark: tall blazon with the name beneath, no boxes.
