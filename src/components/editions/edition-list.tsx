@@ -53,9 +53,13 @@ const EditionList = ({ editions }: { editions: EditionView[] }) => (
                 the same vertical lines, whatever the names measure. */}
             {running ? (
               <>
-                <span className={tag}>
+                {/* The status is a doorway: the council page counts down to it. */}
+                <Link
+                  className={`${tag} transition-colors hover:border-(--gold) hover:text-(--gold-hi)`}
+                  href="/council"
+                >
                   {edition.status === 'live' ? 'En juego' : 'Próxima edición'}
-                </span>
+                </Link>
                 {edition.startsAt && edition.endsAt ? (
                   <span className="text-(--faded) text-sm">
                     {formatDateRange(edition.startsAt, edition.endsAt)}

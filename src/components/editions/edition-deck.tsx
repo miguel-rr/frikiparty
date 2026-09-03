@@ -116,9 +116,13 @@ const DeckCard = ({ edition }: { edition: EditionView }) => {
       <footer className="flex min-h-[7.25rem] flex-col justify-center gap-3 border-(--hair-gold) border-t bg-(--panel) px-5 py-5">
         {running ? (
           <>
-            <span className="font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.25em]">
-              {edition.status === 'live' ? 'En juego' : 'Próxima edición'}
-            </span>
+            {/* The status is a doorway: the council page counts down to it. */}
+            <Link
+              className="font-mono text-(--gold) text-[0.6rem] uppercase tracking-[0.25em] transition-colors hover:text-(--gold-hi)"
+              href="/council"
+            >
+              {edition.status === 'live' ? 'En juego' : 'Próxima edición'} →
+            </Link>
             <p className="text-(--faded) text-sm">
               {edition.startsAt && edition.endsAt
                 ? formatDateRange(edition.startsAt, edition.endsAt)
