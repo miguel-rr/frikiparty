@@ -9,6 +9,7 @@ import {
 } from 'drizzle-orm/pg-core';
 
 import { createTable } from '@/server/db/schema/create-table';
+import { player } from '@/server/db/schema/player';
 
 /** Rural houses / venues get reused across editions — normalized so the Maps link and photo are entered once. */
 const venue = createTable('venue', {
@@ -45,4 +46,25 @@ const edition = createTable(
   (table) => [unique().on(table.year, table.order)],
 );
 
-export { edition, venue };
+/**
+ * Who has answered the call for an edition — the attendance list that grows
+ * while the tournament doesn't exist yet. Deliberately separate from
+ * team_member (that's tournament roster, born with the draw): a confirmed
+ * player is just "I'll be there". confirmedAt keeps the order they answered.
+ */
+const editionPlayer = createTable(
+  'edition_player',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    editionId: uuid('edition_id')
+      .notNull()
+      .references(() => edition.id, { onDelete: 'cascade' }),
+    playerId: uuid('player_id')
+      .notNull()
+      .references(() => player.id, { onDelete: 'cascade' }),
+    confirmedAt: timestamp('confirmed_at').defaultNow().notNull(),
+  },
+  (table) => [unique().on(table.editionId, table.playerId)],
+);
+
+export { edition, editionPlayer, venue };

@@ -1,13 +1,20 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq, gte, isNotNull, sql } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import {
+  getHistoricalRanking,
+  getPlayerForUser,
+} from '@/server/api/routers/player';
+import {
+  adminProcedure,
   createTRPCRouter,
+  protectedProcedure,
   publicProcedure,
   type TRPCContext,
 } from '@/server/api/trpc';
-import { edition, venue } from '@/server/db/schema';
+import { edition, editionPlayer, venue } from '@/server/db/schema';
 
 type ChampionRow = {
   name: string | null;
@@ -238,6 +245,61 @@ const listEditions = async (
   return items;
 };
 
+/** A player who confirmed attendance, with everything their card needs. */
+type ConfirmedPlayer = {
+  id: string;
+  name: string;
+  slug: string;
+  rings: number;
+  individualRings: number;
+  cardPortrait: string | null;
+  cardAbility: string | null;
+  cardAbilityText: string | null;
+  /** The ranking leader: their card opens pinned at 9/9. */
+  isLeader: boolean;
+};
+
+/**
+ * Who has confirmed attendance to an edition, in ranking order — the same
+ * march as /ranking, so the table reads like the standings. Ring counts
+ * and card choices come from the shared ranking query so the cards match
+ * the ones on /ranking and the player pages. Pure query (no session):
+ * /council and the edition pages are static.
+ */
+const listConfirmedPlayers = async (
+  db: TRPCContext['db'],
+  editionId: string,
+): Promise<ConfirmedPlayer[]> => {
+  const [rows, ranking] = await Promise.all([
+    db
+      .select({ playerId: editionPlayer.playerId })
+      .from(editionPlayer)
+      .where(eq(editionPlayer.editionId, editionId)),
+    getHistoricalRanking(db),
+  ]);
+  const confirmed = new Set(rows.map((row) => row.playerId));
+  const leaderId = ranking[0]?.id;
+  return ranking
+    .filter((ranked) => confirmed.has(ranked.id))
+    .map((ranked) => ({
+      id: ranked.id,
+      name: ranked.name,
+      slug: ranked.slug,
+      rings: ranked.rings,
+      individualRings: ranked.individualRings,
+      cardPortrait: ranked.cardPortrait,
+      cardAbility: ranked.cardAbility,
+      cardAbilityText: ranked.cardAbilityText,
+      isLeader: ranked.id === leaderId,
+    }));
+};
+
+/** Pages that list who confirmed: the edition page (static) and /council. */
+const revalidateConfirmations = () => {
+  revalidatePath('/editions/[slug]', 'page');
+  revalidatePath('/council');
+};
+
 /**
  * One edition in full detail: venue, every recorded team of its official
  * tournaments (with captains and final positions), the formation pots and
@@ -435,6 +497,8 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     potsByIndex.set(potRow.pot_index, pot);
   }
 
+  const confirmedPlayers = await listConfirmedPlayers(db, row.id);
+
   return {
     id: row.id,
     year: row.year,
@@ -451,6 +515,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     pots: [...potsByIndex.entries()]
       .sort(([a], [b]) => a - b)
       .map(([potIndex, players]) => ({ potIndex, players })),
+    confirmedPlayers,
   };
 };
 
@@ -467,6 +532,7 @@ const getNextEdition = async (db: TRPCContext['db']) => {
     .select({
       id: edition.id,
       year: edition.year,
+      order: edition.order,
       startsAt: edition.startsAt,
       endsAt: edition.endsAt,
       venueName: venue.name,
@@ -481,7 +547,47 @@ const getNextEdition = async (db: TRPCContext['db']) => {
     .where(and(isNotNull(edition.endsAt), gte(edition.endsAt, today)))
     .orderBy(asc(edition.startsAt))
     .limit(1);
-  return row ?? null;
+  if (!row) {
+    return null;
+  }
+  const { order, ...rest } = row;
+  return {
+    ...rest,
+    /** Edition page slug: "2026" or "2026-2". */
+    slug: order > 1 ? `${row.year}-${order}` : String(row.year),
+  };
+};
+
+/**
+ * The signed-in user's standing for the edition to come: which one it is
+ * and whether their player has confirmed. Null when the account has no
+ * player, or when nothing lies ahead (a running edition no longer takes
+ * confirmations — the door is already open).
+ */
+const getMyAttendance = async (db: TRPCContext['db'], userId: string) => {
+  const [mine, next] = await Promise.all([
+    getPlayerForUser(db, userId),
+    getNextEdition(db),
+  ]);
+  const today = new Date().toISOString().slice(0, 10);
+  if (!mine || !next?.startsAt || next.startsAt <= today) {
+    return null;
+  }
+  const [row] = await db
+    .select({ id: editionPlayer.id })
+    .from(editionPlayer)
+    .where(
+      and(
+        eq(editionPlayer.editionId, next.id),
+        eq(editionPlayer.playerId, mine.id),
+      ),
+    );
+  return {
+    editionId: next.id,
+    playerId: mine.id,
+    year: next.year,
+    confirmed: row !== undefined,
+  };
 };
 
 /**
@@ -581,13 +687,76 @@ const editionRouter = createTRPCRouter({
   latestChampions: publicProcedure.query(({ ctx }) =>
     getLatestChampions(ctx.db),
   ),
+
+  /** Whether the signed-in user's player has confirmed the next edition. */
+  myAttendance: protectedProcedure.query(({ ctx }) =>
+    getMyAttendance(ctx.db, ctx.session.user.id),
+  ),
+
+  /** The signed-in user confirms their own player for the next edition. */
+  confirmMyAttendance: protectedProcedure.mutation(async ({ ctx }) => {
+    const standing = await getMyAttendance(ctx.db, ctx.session.user.id);
+    if (!standing) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'No hay ninguna edición por venir que confirmar.',
+      });
+    }
+    await ctx.db
+      .insert(editionPlayer)
+      .values({ editionId: standing.editionId, playerId: standing.playerId })
+      .onConflictDoNothing();
+    revalidateConfirmations();
+    return { year: standing.year };
+  }),
+
+  /** Admin: a player answers the call. Confirming twice is a no-op. */
+  confirmPlayer: adminProcedure
+    .input(
+      z.object({ editionId: z.string().uuid(), playerId: z.string().uuid() }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const [target] = await ctx.db
+        .select({ id: edition.id })
+        .from(edition)
+        .where(eq(edition.id, input.editionId));
+      if (!target) {
+        throw new TRPCError({ code: 'NOT_FOUND' });
+      }
+      await ctx.db
+        .insert(editionPlayer)
+        .values({ editionId: input.editionId, playerId: input.playerId })
+        .onConflictDoNothing();
+      revalidateConfirmations();
+      return { ok: true };
+    }),
+
+  /** Admin: a player steps back from the list. */
+  unconfirmPlayer: adminProcedure
+    .input(
+      z.object({ editionId: z.string().uuid(), playerId: z.string().uuid() }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .delete(editionPlayer)
+        .where(
+          and(
+            eq(editionPlayer.editionId, input.editionId),
+            eq(editionPlayer.playerId, input.playerId),
+          ),
+        );
+      revalidateConfirmations();
+      return { ok: true };
+    }),
 });
 
 export {
+  type ConfirmedPlayer,
   type EditionListItem,
   editionRouter,
   getEditionDetail,
   getLatestChampions,
   getNextEdition,
+  listConfirmedPlayers,
   listEditions,
 };

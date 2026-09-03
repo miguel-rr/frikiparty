@@ -33,6 +33,16 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
   const mine = api.player.mine.useQuery(undefined, {
     staleTime: 5 * 60 * 1000,
   });
+  // Same timing: the attendance row is ready before the menu opens.
+  const attendance = api.edition.myAttendance.useQuery(undefined, {
+    staleTime: 5 * 60 * 1000,
+  });
+  const confirmAttendance = api.edition.confirmMyAttendance.useMutation({
+    onSuccess: () => {
+      attendance.refetch();
+      router.refresh();
+    },
+  });
 
   // Close on outside click or Escape, like any well-behaved menu.
   useEffect(() => {
@@ -101,6 +111,7 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
               onDone={() => {
                 setLinking(false);
                 mine.refetch();
+                attendance.refetch();
                 router.refresh();
               }}
             />
@@ -134,6 +145,40 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   …
                 </span>
               )}
+              {/* The call to the next edition, for linked players only:
+                  confirm from here, or see yourself among the summoned. */}
+              {mine.data && attendance.data ? (
+                attendance.data.confirmed ? (
+                  <Link
+                    className={item}
+                    href="/council"
+                    onClick={() => setOpen(false)}
+                    role="menuitem"
+                  >
+                    <span className="text-(--gold)">✓</span> Asistencia
+                    confirmada
+                    <EditionTag year={attendance.data.year} />
+                  </Link>
+                ) : (
+                  <button
+                    className={`${item} disabled:cursor-wait`}
+                    disabled={confirmAttendance.isPending}
+                    onClick={() => confirmAttendance.mutate()}
+                    role="menuitem"
+                    type="button"
+                  >
+                    {confirmAttendance.isPending
+                      ? 'Confirmando…'
+                      : 'Confirmar asistencia'}
+                    <EditionTag year={attendance.data.year} />
+                  </button>
+                )
+              ) : null}
+              {confirmAttendance.error ? (
+                <p className="px-4 pb-1.5 text-right text-(--ember) text-xs leading-snug">
+                  {confirmAttendance.error.message}
+                </p>
+              ) : null}
               {role === 'admin' ? (
                 <>
                   <Link
@@ -169,6 +214,13 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
     </div>
   );
 };
+
+/** Second line under an attendance entry: which edition it is about. */
+const EditionTag = ({ year }: { year: number }) => (
+  <span className="block font-mono text-(--gold) text-3xs uppercase tracking-2xl">
+    Edición {year}
+  </span>
+);
 
 /** Code entry inside the dropdown: a labelled field, Vincular and a way back. */
 const LinkPlayerForm = ({

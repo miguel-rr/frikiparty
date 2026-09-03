@@ -2,7 +2,7 @@ import { relations } from 'drizzle-orm';
 
 import { account, session, user } from '@/server/db/schema/auth';
 import { faction, game, gameVersion, tag } from '@/server/db/schema/catalog';
-import { edition, venue } from '@/server/db/schema/edition';
+import { edition, editionPlayer, venue } from '@/server/db/schema/edition';
 import {
   match,
   matchGame,
@@ -54,6 +54,7 @@ const sessionRelations = relations(session, ({ one }) => ({
 const playerRelations = relations(player, ({ many, one }) => ({
   user: one(user, { fields: [player.userId], references: [user.id] }),
   teamMemberships: many(teamMember),
+  editionConfirmations: many(editionPlayer),
   tournamentRankingSnapshots: many(tournamentRankingSnapshot),
   potAssignments: many(teamFormationPotPlayer),
   draftPicksAsCaptain: many(draftPick, { relationName: 'draftPickCaptain' }),
@@ -107,9 +108,21 @@ const venueRelations = relations(venue, ({ many }) => ({
 const editionRelations = relations(edition, ({ many, one }) => ({
   venue: one(venue, { fields: [edition.venueId], references: [venue.id] }),
   tournaments: many(tournament),
+  confirmedPlayers: many(editionPlayer),
   mediaAssociations: many(mediaAssociation),
   likes: many(like),
   comments: many(comment),
+}));
+
+const editionPlayerRelations = relations(editionPlayer, ({ one }) => ({
+  edition: one(edition, {
+    fields: [editionPlayer.editionId],
+    references: [edition.id],
+  }),
+  player: one(player, {
+    fields: [editionPlayer.playerId],
+    references: [player.id],
+  }),
 }));
 
 const tournamentRelations = relations(tournament, ({ many, one }) => ({
@@ -432,6 +445,7 @@ export {
   commentRelations,
   draftPickRelations,
   draftRelations,
+  editionPlayerRelations,
   editionRelations,
   factionRelations,
   gameRelations,

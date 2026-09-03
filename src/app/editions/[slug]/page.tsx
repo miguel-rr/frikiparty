@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { EditionEditor } from '@/app/editions/[slug]/_components/edition-editor';
+import { confirmedCountSentence } from '@/components/council/confirmed-roster';
 import { SiteShell } from '@/components/layout/site-shell';
 import { ArchiveSection } from '@/components/media/archive-section';
 import {
@@ -550,6 +552,25 @@ const EditionPage = async ({ params }: PageProps) => {
               ) : null}
             </div>
           </div>
+
+          {/* Attendance only makes sense before the tournament exists:
+              once teams are recorded, the roster IS the attendance. */}
+          {!teamTournament ? <EditionEditor edition={edition} /> : null}
+
+          {!teamTournament && edition.confirmedPlayers.length > 0 ? (
+            <p className="text-center text-(--faded) text-sm">
+              {confirmedCountSentence(
+                edition.confirmedPlayers.length,
+                'su asistencia.',
+              )}{' '}
+              <Link
+                className="font-bold text-(--gold) transition-colors hover:text-(--gold-hi)"
+                href="/council"
+              >
+                Ver los aspirantes en El Concilio →
+              </Link>
+            </p>
+          ) : null}
 
           {upcomingVenue ? (
             <div className="flex flex-col gap-5">

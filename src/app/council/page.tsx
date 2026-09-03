@@ -1,13 +1,19 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ConfirmedRoster } from '@/components/council/confirmed-roster';
 import { DurinDoor } from '@/components/council/durin-door';
 import { SiteShell } from '@/components/layout/site-shell';
+import { RingDivider } from '@/components/theme/ornament-dividers';
 import { pageWidth, tag } from '@/components/theme/primitives';
 import { VenueShowcase } from '@/components/venue/venue-showcase';
 import { openingInstant } from '@/lib/countdown';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
-import { getNextEdition } from '@/server/api/routers/edition';
+import {
+  getNextEdition,
+  listConfirmedPlayers,
+} from '@/server/api/routers/edition';
 import { db } from '@/server/db';
 
 export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
@@ -16,18 +22,14 @@ export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
 // page re-renders hourly (plus on-demand from venue edits).
 export const revalidate = 3600;
 
-/** "12 de noviembre" — the day the door opens. */
-const formatOpeningDay = (iso: string) =>
-  new Date(`${iso}T12:00:00`).toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'long',
-  });
-
 const CouncilPage = async () => {
   if (!siteFlags.councilPage) {
     notFound();
   }
   const edition = await getNextEdition(db);
+  const confirmedPlayers = edition
+    ? await listConfirmedPlayers(db, edition.id)
+    : [];
   // The fire is lit at noon of day one.
   const target = edition?.startsAt ? openingInstant(edition.startsAt) : null;
 
@@ -40,32 +42,48 @@ const CouncilPage = async () => {
           className={`${pageWidth} flex flex-col gap-10 pt-4 pb-14 sm:pt-5 sm:pb-16`}
           id="council"
         >
+          {/* The door and its dates: one block, the edition name tucked
+              right under the date range and leading to its page. */}
           <div className="flex flex-col items-center gap-8">
             <DurinDoor target={target} />
             {edition?.startsAt && edition.endsAt ? (
               <span className="d-display -mt-3 text-(--silver) text-xl uppercase tracking-3xl [text-shadow:0_0_14px_rgba(190,205,220,0.35)] sm:-mt-4 sm:text-2xl">
-                {formatDateRange(edition.startsAt, edition.endsAt)}
+                {formatDateRange(edition.startsAt, edition.endsAt, {
+                  withYear: false,
+                })}
               </span>
             ) : null}
             {edition ? (
-              <span className="font-bold font-mono text-(--gold) text-base uppercase tracking-5xl sm:text-xl">
+              <Link
+                className="-mt-5 font-bold font-mono text-(--gold) text-base uppercase tracking-5xl transition-colors hover:text-(--gold-hi) sm:-mt-6 sm:text-xl"
+                href={`/editions/${edition.slug}`}
+              >
                 Edición {edition.year}
-              </span>
+              </Link>
             ) : (
               <span className={tag}>El Concilio · En espera</span>
             )}
-            {edition?.startsAt ? (
-              <div className="flex flex-col items-center gap-2 text-center">
-                <p className="max-w-[46ch] text-(--faded)">
-                  La puerta se abre al mediodía del{' '}
-                  {formatOpeningDay(edition.startsAt)}.
-                </p>
-                <p className="font-bold text-lg">
-                  <span className="text-(--parchment)">Contraseña:</span>{' '}
-                  <span className="text-(--silver) italic">mellon</span>
-                </p>
-                {edition.venueName ? (
-                  <div className="mt-6 w-full max-w-2xl text-left">
+            {!edition?.startsAt ? (
+              <p className="max-w-[46ch] text-center text-(--faded)">
+                El concilio aún no ha convocado la próxima reunión. Cuando las
+                estrellas marquen fecha, la cuenta atrás comenzará aquí.
+              </p>
+            ) : null}
+          </div>
+
+          {/* Who has answered the call, before the venue: people first,
+              then the place — each behind the home's ring threshold. */}
+          {edition?.startsAt ? (
+            <>
+              <RingDivider />
+              <ConfirmedRoster players={confirmedPlayers} />
+              {edition.venueName ? (
+                <>
+                  <RingDivider />
+                  <div className="mx-auto flex w-full max-w-2xl flex-col gap-5">
+                    <span className="text-center font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
+                      La sede
+                    </span>
                     <VenueShowcase
                       isPlace={edition.venueIsPlace}
                       mapsEmbedQuery={edition.venueMapsEmbedQuery}
@@ -75,15 +93,10 @@ const CouncilPage = async () => {
                       slug={edition.venueSlug}
                     />
                   </div>
-                ) : null}
-              </div>
-            ) : (
-              <p className="max-w-[46ch] text-center text-(--faded)">
-                El concilio aún no ha convocado la próxima reunión. Cuando las
-                estrellas marquen fecha, la cuenta atrás comenzará aquí.
-              </p>
-            )}
-          </div>
+                </>
+              ) : null}
+            </>
+          ) : null}
         </section>
       </main>
     </SiteShell>
