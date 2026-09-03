@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_team_member" ADD COLUMN "seat" integer;

@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { EditionsView } from '@/components/editions/editions-view';
 import { SiteShell } from '@/components/layout/site-shell';
-import {
-  RingGlyph,
-  Section,
-  SectionHeader,
-} from '@/components/theme/primitives';
-import { EditionCard } from '@/components/tournament/edition-card';
+import { Section, SectionHeader } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
-import { sceneForIndex } from '@/lib/tournament/edition-scenes';
+import { buildEditionViews } from '@/lib/tournament/edition-view';
 import { listEditions } from '@/server/api/routers/edition';
+import { getHistoricalRanking } from '@/server/api/routers/player';
 import { db } from '@/server/db';
 
 export const metadata: Metadata = { title: 'Ediciones — Frikiparty' };
@@ -19,34 +16,27 @@ export const metadata: Metadata = { title: 'Ediciones — Frikiparty' };
 // today's date, so the page re-renders hourly (plus on-demand from edits).
 export const revalidate = 3600;
 
+/**
+ * The chronicle: every edition as a card from the players' deck, with a
+ * compact list behind a toggle for when twenty years is too much scroll.
+ */
 const EditionsPage = async () => {
   if (!siteFlags.editionsPage) {
     notFound();
   }
-  const editions = await listEditions(db);
+  const [editions, players] = await Promise.all([
+    listEditions(db),
+    getHistoricalRanking(db),
+  ]);
+  const views = buildEditionViews(editions, players);
 
   return (
     <SiteShell>
       <main>
         <Section id="editions">
           <SectionHeader eyebrowText="Crónica" title="Las Ediciones" />
-          {editions.length > 0 ? (
-            <ol className="relative mx-auto flex w-full max-w-3xl flex-col gap-8 border-(--hair-gold) border-l pl-6 sm:pl-10">
-              {editions.map((edition, index) => (
-                <li className="relative" key={edition.id}>
-                  <span
-                    aria-hidden
-                    className="absolute top-6 -left-[34px] grid size-4 place-items-center bg-(--night) sm:-left-[50px]"
-                  >
-                    <RingGlyph
-                      size={16}
-                      tone={edition.individualChampion ? 'solitaire' : 'gold'}
-                    />
-                  </span>
-                  <EditionCard edition={edition} scene={sceneForIndex(index)} />
-                </li>
-              ))}
-            </ol>
+          {views.length > 0 ? (
+            <EditionsView editions={views} />
           ) : (
             <p className="text-center text-(--faded)">
               Todavía no hay ediciones registradas.

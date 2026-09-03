@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
+import { ChampionPortrait } from '@/components/editions/champion-portrait';
 import {
   Gem,
   PlayerBlazon,
-  panel,
   RingGlyph,
   rarityForPosition,
   td,
@@ -92,6 +92,55 @@ const RingsCell = ({
   );
 };
 
+const GRAIN_FINE =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='23'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)' opacity='0.5'/%3E%3C/svg%3E\")";
+
+const GRAIN_CLOTH =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014' numOctaves='4' seed='31'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='520' height='520' filter='url(%23c)' opacity='0.7'/%3E%3C/svg%3E\")";
+
+/**
+ * The table's ground, kin to the bearers' treasury: velvet cloth with two
+ * scales of weave, the Ring's breath from above, and the One Ring itself
+ * lying faint and huge under the roster. Lives in its own clipped layer
+ * so the panel can still let the ring tooltips escape.
+ */
+const TreasuryGround = () => (
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-xl"
+  >
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage:
+          'radial-gradient(120% 80% at 50% 0%, #131a12 0%, #0d120c 45%, #090c08 100%)',
+      }}
+    />
+    <div
+      className="absolute inset-0 opacity-25 mix-blend-soft-light"
+      style={{ backgroundImage: GRAIN_CLOTH, backgroundSize: '520px 520px' }}
+    />
+    <div
+      className="absolute inset-0 opacity-30 mix-blend-soft-light"
+      style={{ backgroundImage: GRAIN_FINE, backgroundSize: '240px 240px' }}
+    />
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage:
+          'radial-gradient(70% 30% at 50% 0%, rgba(201,165,87,0.08) 0%, rgba(201,165,87,0.02) 55%, transparent 78%)',
+      }}
+    />
+    {/* biome-ignore lint/performance/noImgElement: decorative local asset, no next/image needed */}
+    <img
+      alt=""
+      className="absolute top-1/2 left-1/2 w-[min(760px,92%)] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.13] mix-blend-screen [mask-image:radial-gradient(circle,black_45%,transparent_70%)]"
+      src="/icon-512.png"
+    />
+    <div className="absolute inset-0 shadow-[inset_0_0_120px_30px_rgba(0,0,0,0.45)]" />
+  </div>
+);
+
 /** Second and third GROUPS mirror the podium banners (silver, bronze), ties included. */
 const METAL_BY_GROUP: Record<number, 'silver' | 'bronze'> = {
   1: 'silver',
@@ -106,7 +155,12 @@ const METAL_NUMBER_CLASS: Record<'silver' | 'bronze', string> = {
 const RankingTable = ({
   players,
 }: {
-  players: (RankedPlayer & { slug?: string; titles?: RingTitle[] })[];
+  players: (RankedPlayer & {
+    slug?: string;
+    titles?: RingTitle[];
+    /** Painted card portrait; without it (the /design mock) the blazon stands in. */
+    portrait?: string | null;
+  })[];
 }) => {
   const positions = competitionPositions(players);
   // Group index = podium banner index: shared positions share a banner.
@@ -116,7 +170,8 @@ const RankingTable = ({
   // overflow opens up from sm so the ring tooltips can escape the panel;
   // mobile keeps the horizontal scroll (and has no hover anyway).
   return (
-    <div className={`${panel} overflow-x-auto sm:overflow-visible`}>
+    <div className="relative isolate overflow-x-auto rounded-xl border border-(--hair-gold) shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066] sm:overflow-visible">
+      <TreasuryGround />
       <table className="w-full border-collapse sm:min-w-[480px]">
         <thead>
           <tr>
@@ -152,8 +207,22 @@ const RankingTable = ({
                   </span>
                 </td>
                 <td className={td}>
-                  <span className="flex items-center gap-2.5">
-                    <PlayerBlazon name={player.name} size="sm" />
+                  <span className="flex items-center gap-3">
+                    {player.portrait ? (
+                      <ChampionPortrait
+                        champion={{
+                          name: player.name,
+                          // The name beside it is the link; the face stays plain.
+                          slug: null,
+                          portrait: player.portrait,
+                          rings: player.rings,
+                        }}
+                        size="sm"
+                        withName={false}
+                      />
+                    ) : (
+                      <PlayerBlazon name={player.name} size="sm" />
+                    )}
                     {player.slug ? (
                       <Link
                         className={`${nameClass} transition-colors hover:text-(--gold)`}

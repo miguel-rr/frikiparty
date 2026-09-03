@@ -387,6 +387,19 @@ const main = async () => {
       sameMembers(candidate.memberIds, ids),
     );
     if (existing) {
+      // Seats follow the JSON order; re-runs fill them in for older rows.
+      for (const [index, name] of roster.entries()) {
+        if (!name) continue;
+        await db
+          .update(teamMember)
+          .set({ seat: index })
+          .where(
+            and(
+              eq(teamMember.teamId, existing.id),
+              eq(teamMember.playerId, playerId(name)),
+            ),
+          );
+      }
       if (captainFirst && roster[0]) {
         const captainId = playerId(roster[0]);
         if (existing.captainIds.length === 0) {
@@ -421,6 +434,7 @@ const main = async () => {
         tournamentId,
         playerId: name ? playerId(name) : null,
         isCaptain: captainFirst && index === 0,
+        seat: index,
       })),
     );
     const created: TeamRecord = {

@@ -117,18 +117,21 @@ const fetchTitles = async (db: typeof Db, playerId: string) => {
         WHERE tm2.team_id = tm.team_id
       ) AS team_size,
       (
+        -- Draw order: pot by pot (captains first), else the import's seat order.
         SELECT coalesce(
           json_agg(
             json_build_object(
               'name', coalesce(p2.name, '???'),
               'slug', p2.slug
             )
-            ORDER BY coalesce(p2.name, '???')
+            ORDER BY pp3.pot_index ASC NULLS LAST, tm3.seat ASC NULLS LAST, tm3.created_at ASC, tm3.ctid ASC
           ),
           '[]'::json
         )
         FROM frikiparty_team_member tm3
         LEFT JOIN frikiparty_player p2 ON p2.id = tm3.player_id
+        LEFT JOIN frikiparty_team_formation_pot_player pp3
+          ON pp3.tournament_id = tm3.tournament_id AND pp3.player_id = tm3.player_id
         WHERE tm3.team_id = tm.team_id
       ) AS members
     FROM frikiparty_team_member tm
@@ -242,9 +245,15 @@ const listRingTitles = async (
         WHERE tm2.team_id = tm.team_id
       ) AS team_size,
       (
-        SELECT array_agg(coalesce(p2.name, '???') ORDER BY p2.name)
+        -- Draw order: pot by pot (captains first), else the import's seat order.
+        SELECT array_agg(
+          coalesce(p2.name, '???')
+          ORDER BY pp3.pot_index ASC NULLS LAST, tm3.seat ASC NULLS LAST, tm3.created_at ASC, tm3.ctid ASC
+        )
         FROM frikiparty_team_member tm3
         LEFT JOIN frikiparty_player p2 ON p2.id = tm3.player_id
+        LEFT JOIN frikiparty_team_formation_pot_player pp3
+          ON pp3.tournament_id = tm3.tournament_id AND pp3.player_id = tm3.player_id
         WHERE tm3.team_id = tm.team_id
       ) AS members
     FROM frikiparty_team_member tm

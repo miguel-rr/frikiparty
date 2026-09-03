@@ -43,6 +43,10 @@ const teamMember = createTable(
       .notNull()
       .references(() => tournament.id),
     isCaptain: boolean('is_captain').notNull().default(false),
+    // Roster order as written in the source (0 = captain when known): the
+    // fallback for listing a team when no formation pots were recorded.
+    // Insertion order can't be trusted — updates move rows around.
+    seat: integer('seat'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
   },
   (table) => [

@@ -164,12 +164,15 @@ const listEditions = async (
       GROUP BY team_id
     ),
     champions AS (
-      SELECT tr.edition_id, p.name, p.slug, ts.size AS team_size
+      SELECT tr.edition_id, p.name, p.slug, ts.size AS team_size,
+        pp.pot_index, tm.seat, tm.created_at, tm.ctid AS row_ref
       FROM frikiparty_tournament tr
       JOIN frikiparty_team t ON t.tournament_id = tr.id
       JOIN frikiparty_team_member tm ON tm.team_id = t.id
       JOIN team_sizes ts ON ts.team_id = t.id
       LEFT JOIN frikiparty_player p ON p.id = tm.player_id
+      LEFT JOIN frikiparty_team_formation_pot_player pp
+        ON pp.tournament_id = tm.tournament_id AND pp.player_id = tm.player_id
       WHERE t.final_position = 1
     )
     SELECT
@@ -179,7 +182,11 @@ const listEditions = async (
     FROM frikiparty_edition e
     LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
     LEFT JOIN champions c ON c.edition_id = e.id
-    ORDER BY e.year DESC, e."order" DESC, c.team_size DESC, c.name ASC
+    -- Rosters in draw order: pot by pot (captains first); without pot
+    -- records, the seat order written by the historical import stands in.
+    ORDER BY e.year DESC, e."order" DESC, c.team_size DESC,
+      c.pot_index ASC NULLS LAST, c.seat ASC NULLS LAST, c.created_at ASC,
+      c.row_ref ASC
   `)) as unknown as EditionListRow[];
 
   const today = new Date().toISOString().slice(0, 10);
@@ -287,8 +294,13 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     JOIN frikiparty_team_member tm ON tm.team_id = t.id
     JOIN team_sizes ts ON ts.team_id = t.id
     LEFT JOIN frikiparty_player p ON p.id = tm.player_id
+    LEFT JOIN frikiparty_team_formation_pot_player pp
+      ON pp.tournament_id = tm.tournament_id AND pp.player_id = tm.player_id
     WHERE tr.edition_id = ${row.id} AND tr.is_official
-    ORDER BY t.final_position ASC NULLS LAST, tm.is_captain DESC, p.name ASC
+    -- Rosters in draw order: pot by pot (captains first); without pot
+    -- records, the seat order written by the historical import stands in.
+    ORDER BY t.final_position ASC NULLS LAST,
+      pp.pot_index ASC NULLS LAST, tm.seat ASC NULLS LAST, tm.created_at ASC, tm.ctid ASC
   `)) as unknown as TeamRow[];
 
   const tournaments = new Map<string, EditionTournament>();
@@ -522,8 +534,9 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
       ON pp.tournament_id = tm.tournament_id AND pp.player_id = tm.player_id
     WHERE tr.edition_id = ${latestEdition.id} AND t.final_position = 1
     -- Bearers march in draw order: pot by pot (captains first); without
-    -- pot records, the historical import's insertion order stands in.
-    ORDER BY ts.size DESC, pp.pot_index ASC NULLS LAST, tm.created_at ASC
+    -- pot records, the seat order written by the historical import stands in.
+    ORDER BY ts.size DESC, pp.pot_index ASC NULLS LAST, tm.seat ASC NULLS LAST,
+      tm.created_at ASC, tm.ctid ASC
   `)) as unknown as ChampionRow[];
 
   return {

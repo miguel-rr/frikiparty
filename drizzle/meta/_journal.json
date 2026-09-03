@@ -120,6 +120,13 @@
       "when": 1788386674968,
       "tag": "0016_illegal_ronan",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1788394749148,
+      "tag": "0017_curved_the_fury",
+      "breakpoints": true
     }
   ]
 }

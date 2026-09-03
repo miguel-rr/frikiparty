@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { SiteShell } from '@/components/layout/site-shell';
+import { LoneStarDivider } from '@/components/theme/ornament-dividers';
 import { Section, SectionHeader } from '@/components/theme/primitives';
 import { HonorPodium } from '@/components/tournament/honor-podium';
 import {
@@ -9,6 +10,7 @@ import {
   RingLegend,
 } from '@/components/tournament/ranking-table';
 import { siteFlags } from '@/lib/site-flags';
+import { cardSpecFor } from '@/lib/tournament/card-lore';
 import {
   getHistoricalRanking,
   listRingTitles,
@@ -28,6 +30,13 @@ const RankingPage = async () => {
   const rows = ranking.map((player) => ({
     ...player,
     titles: ringTitles.get(player.id) ?? [],
+    // The same painted face the player wears on their card and in the chronicle.
+    portrait: cardSpecFor({
+      name: player.name,
+      rings: player.rings,
+      individualRings: player.individualRings,
+      cardPortrait: player.cardPortrait,
+    }).portrait,
   }));
 
   return (
@@ -40,6 +49,10 @@ const RankingPage = async () => {
               <HonorPodium players={ranking} />
               <RankingTable players={rows} />
               <RingLegend />
+              {/* The solitaire's lone star closes the page, as the home's dividers do. */}
+              <div className="pt-6">
+                <LoneStarDivider />
+              </div>
             </>
           ) : (
             <p className="text-center text-(--faded)">
