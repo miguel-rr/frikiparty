@@ -29,7 +29,16 @@ const ArchivePage = async () => {
   }
   const items = await listAllMedia(db, session?.user.id ?? null);
   const photos = items.filter((item) => item.type === 'image').length;
-  const videos = items.length - photos;
+  const videos = items.filter((item) => item.type === 'video').length;
+  const documents = items.filter((item) => item.type === 'document').length;
+  const tally = [
+    `${photos} ${photos === 1 ? 'foto' : 'fotos'}`,
+    `${videos} ${videos === 1 ? 'vídeo' : 'vídeos'}`,
+    ...(documents > 0
+      ? [`${documents} ${documents === 1 ? 'documento' : 'documentos'}`]
+      : []),
+  ];
+  const tallyText = `${tally.slice(0, -1).join(', ')} y ${tally.at(-1)}`;
 
   return (
     <SiteShell>
@@ -39,8 +48,8 @@ const ArchivePage = async () => {
             eyebrowText="Frikiparty"
             lead={
               items.length === 0
-                ? 'Todavía no hay nada guardado. Cada foto o vídeo que subáis desde una edición o un jugador acaba aquí.'
-                : `${photos} ${photos === 1 ? 'foto' : 'fotos'} y ${videos} ${videos === 1 ? 'vídeo' : 'vídeos'} de veinte años de concilios.`
+                ? 'Todavía no hay nada guardado. Cada foto, vídeo o documento que subáis desde una edición o un jugador acaba aquí.'
+                : `${tallyText} de veinte años de concilios.`
             }
             title="Los Archivos"
           />

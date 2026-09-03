@@ -5,7 +5,34 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { isTypingTarget } from '@/components/media/arrow-key-nav';
 import { formatDuration, MediaFigure } from '@/components/media/media-figure';
+import { documentLabel } from '@/lib/media/documents';
 import type { MediaItem } from '@/server/api/routers/media-queries';
+
+/** A sheet with a folded corner and three ruled lines: the document mark. */
+const DocumentGlyph = ({ size = 'size-9' }: { size?: string }) => (
+  <svg
+    aria-hidden="true"
+    className={`${size} text-(--gold) drop-shadow-[0_0_8px_rgba(201,165,87,0.45)]`}
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="1.5"
+    viewBox="0 0 24 24"
+  >
+    <path d="M6 3h8l5 5v13H6z" />
+    <path d="M14 3v5h5" />
+    <path d="M9 12h7M9 15.5h7M9 19h4" />
+  </svg>
+);
+
+/** What a tile or a row is called when it has no caption. */
+const kindName = (item: MediaItem) =>
+  item.type === 'video'
+    ? 'Vídeo'
+    : item.type === 'document'
+      ? 'Documento'
+      : 'Foto';
 
 /** Gold play badge laid over video tiles; `size` is a Tailwind size class. */
 const PlayGlyph = ({ size = 'size-9' }: { size?: string }) => (
@@ -34,7 +61,7 @@ const PlayGlyph = ({ size = 'size-9' }: { size?: string }) => (
  */
 const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
   <button
-    aria-label={item.caption ?? (item.type === 'video' ? 'Vídeo' : 'Foto')}
+    aria-label={item.caption ?? kindName(item)}
     className="group relative aspect-square cursor-pointer overflow-hidden rounded-lg border border-(--hair) bg-(--night-2) transition-[border-color,box-shadow] hover:border-(--hair-gold) hover:shadow-[0_0_18px_rgba(201,165,87,0.25)] focus-visible:border-(--gold) focus-visible:outline-none"
     onClick={onOpen}
     type="button"
@@ -47,6 +74,22 @@ const Tile = ({ item, onOpen }: { item: MediaItem; onOpen: () => void }) => (
         loading="lazy"
         src={item.thumbnailUrl}
       />
+    ) : item.type === 'document' ? (
+      // Typographic tile: no rendition exists for a document, so the
+      // velvet carries the mark, the format and the title instead.
+      <span className="grid size-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#1c2a20,#0a0f0c_70%)] p-3">
+        <span className="flex flex-col items-center gap-2 text-center">
+          <DocumentGlyph />
+          <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
+            {documentLabel(item.mimeType)}
+          </span>
+          {item.caption ? (
+            <span className="d-display line-clamp-3 text-(--parchment) text-sm uppercase leading-snug">
+              {item.caption}
+            </span>
+          ) : null}
+        </span>
+      </span>
     ) : (
       <span className="grid size-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#1c2a20,#0a0f0c_70%)]" />
     )}
@@ -209,4 +252,4 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
   );
 };
 
-export { MediaGallery, PlayGlyph };
+export { DocumentGlyph, MediaGallery, PlayGlyph };

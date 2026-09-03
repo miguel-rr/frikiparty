@@ -11,7 +11,7 @@ import { publicUrl } from '@/server/storage/r2';
 
 type MediaRow = {
   id: string;
-  type: 'image' | 'video';
+  type: 'image' | 'video' | 'document';
   mime_type: string;
   storage_key: string;
   thumbnail_key: string | null;
@@ -42,7 +42,7 @@ type MediaRow = {
 
 type MediaItem = {
   id: string;
-  type: 'image' | 'video';
+  type: 'image' | 'video' | 'document';
   mimeType: string;
   originalUrl: string;
   thumbnailUrl: string | null;

@@ -10,9 +10,14 @@ import {
   group,
   segment,
 } from '@/components/media/gallery-toolbar';
-import { MediaGallery, PlayGlyph } from '@/components/media/media-gallery';
+import {
+  DocumentGlyph,
+  MediaGallery,
+  PlayGlyph,
+} from '@/components/media/media-gallery';
 import { panelGold, td, th } from '@/components/theme/primitives';
 import { archiveItemHref } from '@/lib/media/archive-links';
+import { documentLabel, formatFileSize } from '@/lib/media/documents';
 import {
   applyGalleryView,
   countByType,
@@ -155,6 +160,10 @@ const ArchiveBrowser = ({
                         <span className="pointer-events-none absolute inset-0 grid place-items-center">
                           <PlayGlyph size="size-5" />
                         </span>
+                      ) : item.type === 'document' ? (
+                        <span className="pointer-events-none absolute inset-0 grid place-items-center">
+                          <DocumentGlyph size="size-5" />
+                        </span>
                       ) : null}
                     </Link>
                   </td>
@@ -171,10 +180,13 @@ const ArchiveBrowser = ({
                     </Link>
                   </td>
                   <td className={`${td} font-mono text-(--faded) text-xs`}>
-                    {item.type === 'video' ? 'Vídeo' : 'Foto'}
-                    {item.width && item.height
-                      ? ` · ${item.width}×${item.height}`
-                      : ''}
+                    {item.type === 'document'
+                      ? `${documentLabel(item.mimeType)}${item.fileSize ? ` · ${formatFileSize(item.fileSize)}` : ''}`
+                      : `${item.type === 'video' ? 'Vídeo' : 'Foto'}${
+                          item.width && item.height
+                            ? ` · ${item.width}×${item.height}`
+                            : ''
+                        }`}
                   </td>
                   <td className={`${td} text-(--faded) text-xs`}>
                     {item.players.map((p, index) => (

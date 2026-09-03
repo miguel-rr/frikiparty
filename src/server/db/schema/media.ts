@@ -17,7 +17,9 @@ import { tournament } from '@/server/db/schema/tournament';
 
 const media = createTable('media', {
   id: uuid('id').primaryKey().defaultRandom(),
-  type: text('type').notNull().$type<'image' | 'video' | 'audio'>(),
+  type: text('type')
+    .notNull()
+    .$type<'image' | 'video' | 'audio' | 'document'>(),
   mimeType: text('mime_type').notNull(),
   // R2 object keys, never full URLs: the public domain lives in env
   // (R2_PUBLIC_URL) so it can change without touching a single row.

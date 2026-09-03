@@ -5,6 +5,13 @@ import Link from 'next/link';
 import { MediaActions } from '@/components/media/media-actions';
 import { CommentThread } from '@/components/social/comment-thread';
 import { LikeButton } from '@/components/social/like-button';
+import { linkGold } from '@/components/theme/primitives';
+import {
+  documentLabel,
+  formatFileSize,
+  isPdf,
+  officeViewerUrl,
+} from '@/lib/media/documents';
 import type { MediaItem } from '@/server/api/routers/media-queries';
 
 const formatDuration = (seconds: number) => {
@@ -12,6 +19,24 @@ const formatDuration = (seconds: number) => {
   const rest = seconds % 60;
   return `${minutes}:${rest.toString().padStart(2, '0')}`;
 };
+
+/**
+ * A document on the plaque: the PDF straight into the browser's own
+ * viewer, a presentation through Office's web viewer over its public
+ * URL. Nothing is converted on our side.
+ */
+const DocumentPreview = ({ item }: { item: MediaItem }) => (
+  <iframe
+    className="h-[70vh] w-full border-0 bg-white sm:h-[74vh]"
+    src={
+      isPdf(item.mimeType)
+        ? // No thumbnail rail: the page itself gets the width.
+          `${item.originalUrl}#navpanes=0&view=FitH`
+        : officeViewerUrl(item.originalUrl)
+    }
+    title={item.caption ?? 'Documento'}
+  />
+);
 
 const chipLink =
   'inline-flex items-center rounded-full border border-(--hair-gold) px-2.5 py-1 font-mono text-2xs font-bold uppercase tracking-2xl text-(--gold) transition-colors hover:border-(--gold) hover:text-(--gold-hi)';
@@ -44,7 +69,9 @@ const MediaFigure = ({
 }) => (
   <figure className="flex w-full flex-col gap-4">
     <div className="grid max-h-[70vh] w-full place-items-center overflow-hidden rounded-xl border border-(--hair) bg-(--night) sm:max-h-[74vh]">
-      {item.type === 'video' ? (
+      {item.type === 'document' ? (
+        <DocumentPreview item={item} />
+      ) : item.type === 'video' ? (
         // biome-ignore lint/a11y/useMediaCaption: home videos have no captions track
         <video
           className="max-h-[70vh] w-full sm:max-h-[74vh]"
@@ -67,6 +94,25 @@ const MediaFigure = ({
       )}
     </div>
     <figcaption className="flex flex-col gap-3">
+      {item.type === 'document' ? (
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
+          <a className={linkGold} download href={item.originalUrl}>
+            Descargar {documentLabel(item.mimeType)}
+            {item.fileSize ? ` · ${formatFileSize(item.fileSize)}` : ''}
+          </a>
+          <a
+            className={linkGold}
+            href={item.originalUrl}
+            rel="noreferrer"
+            target="_blank"
+          >
+            Abrir en una pestaña →
+          </a>
+          <span className="text-(--faded) text-xs">
+            Si la vista previa no carga, descárgalo.
+          </span>
+        </div>
+      ) : null}
       {item.caption ? (
         <p className="d-display font-bold text-(--parchment) text-lg uppercase leading-snug">
           {item.caption}

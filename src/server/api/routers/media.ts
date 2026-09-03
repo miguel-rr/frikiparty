@@ -3,7 +3,7 @@ import { and, asc, eq, isNotNull, or, sql } from 'drizzle-orm';
 import { after } from 'next/server';
 import sharp from 'sharp';
 import { z } from 'zod';
-
+import { isPdf, PDF_MIME, PPTX_MIME } from '@/lib/media/documents';
 import { archiveProcedure } from '@/server/api/archive-procedure';
 import { listEditions } from '@/server/api/routers/edition';
 import {
@@ -32,6 +32,7 @@ import {
   headObject,
   presignUpload,
   putObject,
+  setObjectHeaders,
 } from '@/server/storage/r2';
 
 /**
@@ -47,6 +48,9 @@ const UPLOAD_TYPES = {
   'video/mp4': 'mp4',
   'video/quicktime': 'mov',
   'video/webm': 'webm',
+  // Documents: shown through the browser (PDF) or Office's web viewer.
+  [PDF_MIME]: 'pdf',
+  [PPTX_MIME]: 'pptx',
 } as const;
 
 type UploadType = keyof typeof UPLOAD_TYPES;
@@ -67,7 +71,27 @@ const mediaKeys = (id: string, contentType: UploadType) => ({
 });
 
 const mediaTypeOf = (contentType: UploadType) =>
-  contentType.startsWith('video/') ? ('video' as const) : ('image' as const);
+  contentType.startsWith('video/')
+    ? ('video' as const)
+    : contentType.startsWith('image/')
+      ? ('image' as const)
+      : ('document' as const);
+
+/**
+ * Download name and disposition for a document: the PDF opens inline (the
+ * figure embeds it), the presentation downloads under its original name
+ * instead of "original.pptx". Both spellings of the name travel: a plain
+ * ASCII one and the RFC 5987 UTF-8 one for accents.
+ */
+const contentDispositionFor = (contentType: UploadType, fileName: string) => {
+  const kind = isPdf(contentType) ? 'inline' : 'attachment';
+  const ascii = fileName.replace(/[^\x20-\x7e]/g, '_').replace(/"/g, '');
+  return `${kind}; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(fileName)}`;
+};
+
+/** "Reglas 2026" from "Reglas 2026.pptx": the caption a document gets when none is typed. */
+const captionFromFileName = (fileName: string) =>
+  fileName.replace(/\.[^.]+$/, '').trim() || null;
 
 type TournamentKindRow = {
   id: string;
@@ -233,6 +257,8 @@ const mediaRouter = createTRPCRouter({
         width: z.number().int().positive().nullable(),
         height: z.number().int().positive().nullable(),
         durationSeconds: z.number().int().nonnegative().nullable(),
+        // Documents keep their file name for the download and the caption.
+        fileName: z.string().trim().max(255).nullable().optional(),
         playerIds: z.array(z.string().uuid()).min(1).max(40),
         editionId: z.string().uuid().nullable(),
         tournamentId: z.string().uuid().nullable(),
@@ -266,8 +292,22 @@ const mediaRouter = createTRPCRouter({
       let height = input.height;
       let thumbnailKey: string | null = null;
       let displayKey: string | null = null;
+      let caption = input.caption || null;
 
-      if (type === 'image') {
+      if (type === 'document') {
+        // No renditions: the tile is typographic and the figure embeds the
+        // file itself. Pin the headers the browser upload couldn't set.
+        const fileName =
+          input.fileName || `documento.${UPLOAD_TYPES[input.contentType]}`;
+        await setObjectHeaders(keys.original, {
+          contentType: input.contentType,
+          contentDisposition: contentDispositionFor(
+            input.contentType,
+            fileName,
+          ),
+        });
+        caption = caption ?? captionFromFileName(fileName);
+      } else if (type === 'image') {
         const source = await getObject(keys.original);
         const [thumb, display] = await Promise.all([
           renditionOf(source, THUMBNAIL_SIZE),
@@ -301,7 +341,7 @@ const mediaRouter = createTRPCRouter({
           storageKey: keys.original,
           thumbnailKey,
           displayKey,
-          caption: input.caption || null,
+          caption,
           width,
           height,
           durationSeconds: input.durationSeconds,

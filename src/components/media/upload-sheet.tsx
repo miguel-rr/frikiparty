@@ -13,6 +13,7 @@ import {
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { btn, input, label } from '@/components/theme/primitives';
+import { documentLabel, PDF_MIME, PPTX_MIME } from '@/lib/media/documents';
 import { probeVideo } from '@/lib/media/video-poster';
 import type { UploadType } from '@/server/api/routers/media';
 import { api } from '@/trpc/react';
@@ -26,6 +27,8 @@ const ACCEPTED_TYPES = new Set<UploadType>([
   'video/mp4',
   'video/quicktime',
   'video/webm',
+  PDF_MIME,
+  PPTX_MIME,
 ]);
 
 /** Some browsers hand over files with an empty or odd type: fall back to the extension. */
@@ -39,7 +42,16 @@ const TYPE_BY_EXTENSION: Record<string, UploadType> = {
   m4v: 'video/mp4',
   mov: 'video/quicktime',
   webm: 'video/webm',
+  pdf: PDF_MIME,
+  pptx: PPTX_MIME,
 };
+
+/** What the picker offers: any image or video, plus the two document formats. */
+const ACCEPT = `image/*,video/*,.pdf,.pptx,${PDF_MIME},${PPTX_MIME}`;
+
+/** The badge on a queued file without a picture preview. */
+const entryBadge = (contentType: UploadType) =>
+  contentType.startsWith('video/') ? 'Vídeo' : documentLabel(contentType);
 
 const resolveUploadType = (file: File): UploadType | null => {
   if (ACCEPTED_TYPES.has(file.type as UploadType)) {
@@ -130,7 +142,7 @@ const UploadSheet = ({ target }: { target: UploadTarget }) => {
         onClick={() => setOpen(true)}
         type="button"
       >
-        Subir fotos y vídeos
+        Subir archivos
       </button>
       {open ? (
         <UploadDialog
@@ -280,6 +292,7 @@ const UploadDialog = ({
         width: probe?.width ?? null,
         height: probe?.height ?? null,
         durationSeconds: probe?.durationSeconds ?? null,
+        fileName: entry.file.name,
         playerIds,
         editionId: editionId || null,
         tournamentId: tournamentId || null,
@@ -326,7 +339,7 @@ const UploadDialog = ({
               Los Archivos
             </p>
             <h2 className="d-display font-bold text-(--parchment) text-xl uppercase">
-              Subir fotos y vídeos
+              Subir fotos, vídeos y documentos
             </h2>
           </div>
           <button
@@ -342,7 +355,7 @@ const UploadDialog = ({
         <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-5 py-5">
           <div className="flex flex-col gap-3">
             <input
-              accept="image/*,video/*"
+              accept={ACCEPT}
               className="sr-only"
               disabled={running}
               id={fileInputId}
@@ -359,7 +372,7 @@ const UploadDialog = ({
             {rejected.length > 0 ? (
               <p className="text-(--ember) text-xs">
                 Formato no admitido: {rejected.join(', ')}. Valen JPG, PNG,
-                WEBP, GIF, MP4, MOV y WEBM.
+                WEBP, GIF, MP4, MOV, WEBM, PDF y PPTX.
               </p>
             ) : null}
             {entries.length > 0 ? (
@@ -379,7 +392,7 @@ const UploadDialog = ({
                         />
                       ) : (
                         <span className="font-bold font-mono text-(--faded) text-3xs uppercase tracking-2xl">
-                          Vídeo
+                          {entryBadge(entry.contentType)}
                         </span>
                       )}
                     </div>
@@ -510,7 +523,7 @@ const UploadDialog = ({
                 ? 'Subiendo… no cierres esta ventana.'
                 : entries.length > 0
                   ? `${pending.length} por subir.`
-                  : 'Elige fotos o vídeos del móvil o del ordenador.'}
+                  : 'Elige fotos, vídeos o documentos del móvil o del ordenador.'}
           </span>
           {finished ? (
             <button className={btn.primary} onClick={onClose} type="button">

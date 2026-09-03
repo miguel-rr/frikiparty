@@ -83,7 +83,7 @@ const ArchiveSection = ({
         <p className="text-(--faded) text-sm italic">Abriendo Los Archivos…</p>
       ) : items.length === 0 ? (
         <p className="text-(--faded) text-sm italic">
-          Aún no hay fotos ni vídeos {subject} en Los Archivos.
+          Aún no hay fotos, vídeos ni documentos {subject} en Los Archivos.
         </p>
       ) : visible.length === 0 ? (
         <GalleryEmpty onReset={() => setView(DEFAULT_VIEW)} />

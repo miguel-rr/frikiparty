@@ -1,4 +1,5 @@
 import {
+  CopyObjectCommand,
   DeleteObjectsCommand,
   GetObjectCommand,
   HeadObjectCommand,
@@ -88,6 +89,28 @@ const getObject = async (key: string): Promise<Buffer> => {
   return Buffer.from(await result.Body.transformToByteArray());
 };
 
+/**
+ * Rewrites an object's headers in place (a server-side copy onto itself,
+ * so nothing streams through Vercel). Used after a browser upload to pin
+ * the download name and disposition of documents.
+ */
+const setObjectHeaders = async (
+  key: string,
+  headers: { contentType: string; contentDisposition: string },
+): Promise<void> => {
+  await r2.send(
+    new CopyObjectCommand({
+      Bucket: env.R2_BUCKET_NAME,
+      Key: key,
+      CopySource: `${env.R2_BUCKET_NAME}/${key}`,
+      MetadataDirective: 'REPLACE',
+      ContentType: headers.contentType,
+      ContentDisposition: headers.contentDisposition,
+      CacheControl: 'public, max-age=31536000, immutable',
+    }),
+  );
+};
+
 const deleteObjects = async (keys: string[]): Promise<void> => {
   if (keys.length === 0) {
     return;
@@ -107,4 +130,5 @@ export {
   presignUpload,
   publicUrl,
   putObject,
+  setObjectHeaders,
 };

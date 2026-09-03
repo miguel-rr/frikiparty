@@ -8,7 +8,7 @@ import type { MediaItem } from '@/server/api/routers/media-queries';
  */
 
 const SORTS = ['likes', 'comments', 'recent'] as const;
-const TYPES = ['all', 'image', 'video'] as const;
+const TYPES = ['all', 'image', 'video', 'document'] as const;
 
 type GallerySort = (typeof SORTS)[number];
 type GalleryType = (typeof TYPES)[number];
@@ -31,6 +31,7 @@ const TYPE_LABELS: Record<GalleryType, string> = {
   all: 'Todos',
   image: 'Fotos',
   video: 'Vídeos',
+  document: 'Documentos',
 };
 
 const isSort = (value: unknown): value is GallerySort =>
@@ -90,9 +91,9 @@ const applyGalleryView = (items: MediaItem[], view: GalleryView) =>
     )
     .sort(COMPARATORS[view.sort]);
 
-/** Photo and video counts of what the text alone lets through. */
+/** Photo, video and document counts of what the text alone lets through. */
 const countByType = (items: MediaItem[], query: string) => {
-  const counts = { all: 0, image: 0, video: 0 };
+  const counts = { all: 0, image: 0, video: 0, document: 0 };
   for (const item of items) {
     if (matchesQuery(item, query)) {
       counts.all += 1;

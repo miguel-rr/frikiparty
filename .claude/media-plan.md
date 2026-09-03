@@ -26,6 +26,17 @@ Likes y comentarios sobre los archivos: ver `social-plan.md` (2026-09-03).
 
 ## Decisiones
 
+- **Documentos (2026-09-03)**: además de fotos y vídeos, el archivo admite
+  `.pptx` y `.pdf` (`media.type = 'document'`, sin migración: la columna es
+  texto). Sin renditions: el azulejo es tipográfico (glifo + PPTX/PDF +
+  título) y la ficha embebe el fichero — el PDF con el visor del navegador,
+  la presentación con el visor web de Office (`view.officeapps.live.com`)
+  sobre la URL pública de R2; debajo, "Descargar" y "Abrir en una pestaña".
+  Tras la subida, `finalize` fija en R2 el `Content-Disposition` (PDF
+  `inline`, PPTX `attachment`, con el nombre original) mediante una copia
+  sobre sí mismo (`setObjectHeaders`), y usa el nombre del fichero como
+  título si no se escribió ninguno. Helpers en `src/lib/media/documents.ts`.
+
 - **Contenido**: fotos y clips de vídeo de móvil. El original se guarda
   siempre. Tras catalogar, un paso en segundo plano (`next/server` `after`)
   con `ffmpeg-static` saca el póster si el navegador no lo capturó, lee
