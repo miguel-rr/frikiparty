@@ -57,9 +57,12 @@ const AdminPlayersPage = async () => {
             <table className="w-full min-w-144 border-collapse text-sm">
               <thead>
                 <tr>
+                  {/* Code right after the name: on a phone the table
+                      scrolls sideways, and the code must stay in view
+                      next to whose it is; the account column can go. */}
                   <th className={th}>Jugador</th>
-                  <th className={th}>Usuario</th>
                   <th className={th}>Código</th>
+                  <th className={th}>Usuario</th>
                 </tr>
               </thead>
               <tbody>
@@ -72,6 +75,13 @@ const AdminPlayersPage = async () => {
                       >
                         {row.name}
                       </Link>
+                    </td>
+                    <td className={`${td} whitespace-nowrap`}>
+                      {row.linkCode ? (
+                        <CopyCodeButton code={formatLinkCode(row.linkCode)} />
+                      ) : (
+                        <span className="text-(--faded)">—</span>
+                      )}
                     </td>
                     <td className={td}>
                       {row.user ? (
@@ -94,13 +104,6 @@ const AdminPlayersPage = async () => {
                         </span>
                       ) : (
                         <span className="text-(--faded)">Sin vincular</span>
-                      )}
-                    </td>
-                    <td className={td}>
-                      {row.linkCode ? (
-                        <CopyCodeButton code={formatLinkCode(row.linkCode)} />
-                      ) : (
-                        <span className="text-(--faded)">—</span>
                       )}
                     </td>
                   </tr>
