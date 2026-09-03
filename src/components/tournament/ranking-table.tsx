@@ -17,8 +17,8 @@ import type { RingTitle } from '@/server/api/routers/player';
 
 /**
  * Historical ranking table, shared between the /design mock (fixture rows,
- * plain names) and the real /ranking page (rows carry a slug, names link to
- * the player profile). Markup and classes must match the design proposal.
+ * plain names) and the real /ranking page (rows carry a slug, face and name
+ * link to the player profile). Markup and classes must match the design proposal.
  */
 
 /**
@@ -209,17 +209,25 @@ const RankingTable = ({
                 <td className={td}>
                   <span className="flex items-center gap-3">
                     {player.portrait ? (
+                      // Face and name both open the player's page.
                       <ChampionPortrait
                         champion={{
                           name: player.name,
-                          // The name beside it is the link; the face stays plain.
-                          slug: null,
+                          slug: player.slug ?? null,
                           portrait: player.portrait,
                           rings: player.rings,
                         }}
                         size="sm"
                         withName={false}
                       />
+                    ) : player.slug ? (
+                      <Link
+                        aria-label={player.name}
+                        className="inline-flex transition-opacity hover:opacity-85"
+                        href={`/players/${player.slug}`}
+                      >
+                        <PlayerBlazon name={player.name} size="sm" />
+                      </Link>
                     ) : (
                       <PlayerBlazon name={player.name} size="sm" />
                     )}
