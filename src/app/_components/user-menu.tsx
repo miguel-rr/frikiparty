@@ -37,12 +37,21 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
   const attendance = api.edition.myAttendance.useQuery(undefined, {
     staleTime: 5 * 60 * 1000,
   });
+  const utils = api.useUtils();
+  // Either way the answer changes, the /council table redraws from its
+  // query — the static page regenerates behind, but nobody waits for it.
+  const settleAttendance = () => {
+    attendance.refetch();
+    utils.edition.confirmedPlayers.invalidate();
+    router.refresh();
+  };
   const confirmAttendance = api.edition.confirmMyAttendance.useMutation({
-    onSuccess: () => {
-      attendance.refetch();
-      router.refresh();
-    },
+    onSuccess: settleAttendance,
   });
+  const withdrawAttendance = api.edition.withdrawMyAttendance.useMutation({
+    onSuccess: settleAttendance,
+  });
+  const attendanceError = confirmAttendance.error ?? withdrawAttendance.error;
 
   // Close on outside click or Escape, like any well-behaved menu.
   useEffect(() => {
@@ -149,16 +158,11 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   confirm from here, or see yourself among the summoned. */}
               {mine.data && attendance.data ? (
                 attendance.data.confirmed ? (
-                  <Link
-                    className={item}
-                    href="/council"
-                    onClick={() => setOpen(false)}
-                    role="menuitem"
-                  >
-                    <span className="text-(--gold)">✓</span> Asistencia
-                    confirmada
-                    <EditionTag year={attendance.data.year} />
-                  </Link>
+                  <AttendanceConfirmed
+                    onWithdraw={() => withdrawAttendance.mutate()}
+                    pending={withdrawAttendance.isPending}
+                    year={attendance.data.year}
+                  />
                 ) : (
                   <button
                     className={`${item} disabled:cursor-wait`}
@@ -174,9 +178,9 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   </button>
                 )
               ) : null}
-              {confirmAttendance.error ? (
+              {attendanceError ? (
                 <p className="px-4 pb-1.5 text-right text-(--ember) text-xs leading-snug">
-                  {confirmAttendance.error.message}
+                  {attendanceError.message}
                 </p>
               ) : null}
               {role === 'admin' ? (
@@ -221,6 +225,72 @@ const EditionTag = ({ year }: { year: number }) => (
     Edición {year}
   </span>
 );
+
+/**
+ * The confirmed state as one block, not a menu row: the check line, and
+ * under it the edition tag with a small "Retirar" riding the same line.
+ * Retirar asks first, in place — the block turns into the question with
+ * its two answers, and the menu closing (unmount) drops the question.
+ */
+const AttendanceConfirmed = ({
+  onWithdraw,
+  pending,
+  year,
+}: {
+  onWithdraw: () => void;
+  pending: boolean;
+  year: number;
+}) => {
+  const [asking, setAsking] = useState(false);
+  return (
+    <div className="px-4 py-2 text-right text-sm" role="none">
+      {asking ? (
+        <>
+          <p className="text-(--parchment)">
+            ¿Retirar tu asistencia?
+            <EditionTag year={year} />
+          </p>
+          <div className="mt-2 flex justify-end gap-2">
+            <button
+              className={`${btn.ghost} px-3 py-1 text-xs`}
+              onClick={() => setAsking(false)}
+              type="button"
+            >
+              No
+            </button>
+            <button
+              className={`${btn.danger} px-3 py-1 text-xs disabled:cursor-wait disabled:opacity-60`}
+              disabled={pending}
+              onClick={onWithdraw}
+              type="button"
+            >
+              {pending ? 'Retirando…' : 'Sí, retirar'}
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <p className="text-(--faded)">
+            <span className="text-(--gold)">✓</span> Asistencia confirmada
+          </p>
+          <p className="mt-0.5 flex items-baseline justify-end gap-1.5 font-mono text-3xs uppercase tracking-2xl">
+            <span className="text-(--gold)">Edición {year}</span>
+            <span aria-hidden className="text-(--hair-gold)">
+              ·
+            </span>
+            <button
+              className="cursor-pointer text-(--faded) underline-offset-2 transition-colors hover:text-(--ember) hover:underline"
+              onClick={() => setAsking(true)}
+              type="button"
+            >
+              Retirar
+            </button>
+          </p>
+        </>
+      )}
+    </div>
+  );
+};
 
 /** Code entry inside the dropdown: a labelled field, Vincular and a way back. */
 const LinkPlayerForm = ({

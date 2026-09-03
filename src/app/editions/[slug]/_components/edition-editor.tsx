@@ -11,13 +11,14 @@ import {
   PlayerBlazon,
   panelGold,
 } from '@/components/theme/primitives';
+import type { ConfirmedPlayer } from '@/server/api/routers/edition';
 import { api } from '@/trpc/react';
 
 type EditionEditorProps = {
   edition: {
     id: string;
     label: string;
-    confirmedPlayers: { id: string; name: string; slug: string }[];
+    confirmedPlayers: ConfirmedPlayer[];
   };
 };
 
@@ -35,19 +36,30 @@ const EditionEditor = ({ edition }: EditionEditorProps) => {
   const [playerId, setPlayerId] = useState('');
 
   const players = api.player.list.useQuery(undefined, { enabled: editing });
-  const confirmedIds = new Set(edition.confirmedPlayers.map((p) => p.id));
+  // Hydrated from the static page, then live: the list redraws from the
+  // query as soon as a mutation lands, not when the page regenerates.
+  const { data: confirmedPlayers } = api.edition.confirmedPlayers.useQuery(
+    { editionId: edition.id },
+    { initialData: edition.confirmedPlayers, staleTime: 60 * 1000 },
+  );
+  const confirmedIds = new Set(confirmedPlayers.map((p) => p.id));
   const candidates = (players.data ?? []).filter(
     (candidate) => !confirmedIds.has(candidate.id),
   );
 
+  const utils = api.useUtils();
+  const settle = () => {
+    utils.edition.confirmedPlayers.invalidate({ editionId: edition.id });
+    router.refresh();
+  };
   const confirm = api.edition.confirmPlayer.useMutation({
     onSuccess: () => {
       setPlayerId('');
-      router.refresh();
+      settle();
     },
   });
   const unconfirm = api.edition.unconfirmPlayer.useMutation({
-    onSuccess: () => router.refresh(),
+    onSuccess: settle,
   });
   const busy = confirm.isPending || unconfirm.isPending;
   const error = confirm.error ?? unconfirm.error;
@@ -81,9 +93,9 @@ const EditionEditor = ({ edition }: EditionEditorProps) => {
         </p>
       </div>
 
-      {edition.confirmedPlayers.length > 0 ? (
+      {confirmedPlayers.length > 0 ? (
         <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {edition.confirmedPlayers.map((player, index) => (
+          {confirmedPlayers.map((player, index) => (
             <li
               className="flex items-center gap-2.5 rounded-lg border border-(--hair) bg-(--night-2) py-1.5 pr-2 pl-2.5"
               key={player.id}

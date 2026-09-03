@@ -76,7 +76,10 @@ const CouncilPage = async () => {
           {edition?.startsAt ? (
             <>
               <RingDivider />
-              <ConfirmedRoster players={confirmedPlayers} />
+              <ConfirmedRoster
+                editionId={edition.id}
+                initialPlayers={confirmedPlayers}
+              />
               {edition.venueName ? (
                 <>
                   <RingDivider />

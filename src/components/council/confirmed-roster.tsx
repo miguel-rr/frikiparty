@@ -1,9 +1,19 @@
+'use client';
+
 import Link from 'next/link';
 
 import { SHIELD_PATH } from '@/components/theme/primitives';
 import { PortraitCard } from '@/components/tournament/portrait-card';
 import { dealCardSpecs } from '@/lib/tournament/card-lore';
 import type { ConfirmedPlayer } from '@/server/api/routers/edition';
+import { api } from '@/trpc/react';
+
+/**
+ * How long the statically rendered roster is trusted before a focus or
+ * remount refetches it. A confirmation from the user menu invalidates
+ * the query outright, so it never waits this long.
+ */
+const ROSTER_STALE_MS = 60 * 1000;
 
 const NUMBER_WORDS = [
   '',
@@ -200,8 +210,22 @@ const EmptyTable = () => (
  * middle, a full hand of five per row from lg, and a last row that
  * centres itself whatever is left over. Two per row on phones. With no
  * one confirmed yet, the table shows its empty seats instead.
+ *
+ * The page is static: the roster hydrates from the build-time list and
+ * then lives on the tRPC query, so confirming from the menu (which
+ * invalidates it) redraws the table at once, no regeneration needed.
  */
-const ConfirmedRoster = ({ players }: { players: ConfirmedPlayer[] }) => {
+const ConfirmedRoster = ({
+  editionId,
+  initialPlayers,
+}: {
+  editionId: string;
+  initialPlayers: ConfirmedPlayer[];
+}) => {
+  const { data: players } = api.edition.confirmedPlayers.useQuery(
+    { editionId },
+    { initialData: initialPlayers, staleTime: ROSTER_STALE_MS },
+  );
   const cards = dealCardSpecs(players);
   const slugByName = new Map(players.map((p) => [p.name, p.slug]));
   return (

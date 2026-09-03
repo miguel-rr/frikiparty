@@ -688,6 +688,15 @@ const editionRouter = createTRPCRouter({
     getLatestChampions(ctx.db),
   ),
 
+  /**
+   * An edition's confirmed players, live. The static pages hydrate their
+   * roster from this so a confirmation shows up without waiting for the
+   * page to regenerate.
+   */
+  confirmedPlayers: publicProcedure
+    .input(z.object({ editionId: z.string().uuid() }))
+    .query(({ ctx, input }) => listConfirmedPlayers(ctx.db, input.editionId)),
+
   /** Whether the signed-in user's player has confirmed the next edition. */
   myAttendance: protectedProcedure.query(({ ctx }) =>
     getMyAttendance(ctx.db, ctx.session.user.id),
@@ -706,6 +715,27 @@ const editionRouter = createTRPCRouter({
       .insert(editionPlayer)
       .values({ editionId: standing.editionId, playerId: standing.playerId })
       .onConflictDoNothing();
+    revalidateConfirmations();
+    return { year: standing.year };
+  }),
+
+  /** The signed-in user withdraws their player from the next edition. */
+  withdrawMyAttendance: protectedProcedure.mutation(async ({ ctx }) => {
+    const standing = await getMyAttendance(ctx.db, ctx.session.user.id);
+    if (!standing) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'No hay ninguna edición por venir de la que retirarse.',
+      });
+    }
+    await ctx.db
+      .delete(editionPlayer)
+      .where(
+        and(
+          eq(editionPlayer.editionId, standing.editionId),
+          eq(editionPlayer.playerId, standing.playerId),
+        ),
+      );
     revalidateConfirmations();
     return { year: standing.year };
   }),
