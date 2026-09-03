@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { SHIELD_PATH } from '@/components/theme/primitives';
 import { PortraitCard } from '@/components/tournament/portrait-card';
+import { confirmedCountSentence } from '@/lib/council';
 import { dealCardSpecs } from '@/lib/tournament/card-lore';
 import type { ConfirmedPlayer } from '@/server/api/routers/edition';
 import { api } from '@/trpc/react';
@@ -14,38 +15,6 @@ import { api } from '@/trpc/react';
  * the query outright, so it never waits this long.
  */
 const ROSTER_STALE_MS = 60 * 1000;
-
-const NUMBER_WORDS = [
-  '',
-  'Un',
-  'Dos',
-  'Tres',
-  'Cuatro',
-  'Cinco',
-  'Seis',
-  'Siete',
-  'Ocho',
-  'Nueve',
-  'Diez',
-  'Once',
-  'Doce',
-  'Trece',
-  'Catorce',
-  'Quince',
-  'Dieciséis',
-  'Diecisiete',
-  'Dieciocho',
-  'Diecinueve',
-  'Veinte',
-] as const;
-
-/** "Un jugador ha confirmado", "Doce jugadores han confirmado", "23 jugadores…". */
-const confirmedCountSentence = (count: number, tail: string) => {
-  const number = NUMBER_WORDS[count] ?? String(count);
-  return count === 1
-    ? `${number} jugador ha confirmado ${tail}`
-    : `${number} jugadores han confirmado ${tail}`;
-};
 
 /*
  * Cards dealt on the table: each one leans a touch, no two neighbours the
@@ -283,4 +252,4 @@ const ConfirmedRoster = ({
   );
 };
 
-export { ConfirmedRoster, confirmedCountSentence };
+export { ConfirmedRoster };

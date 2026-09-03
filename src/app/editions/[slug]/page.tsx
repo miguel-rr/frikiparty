@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { EditionEditor } from '@/app/editions/[slug]/_components/edition-editor';
-import { confirmedCountSentence } from '@/components/council/confirmed-roster';
 import { SiteShell } from '@/components/layout/site-shell';
 import { ArchiveSection } from '@/components/media/archive-section';
 import {
@@ -17,6 +16,7 @@ import { BracketBoard } from '@/components/tournament/bracket-board';
 import { RANK_MOTIFS } from '@/components/tournament/honor-podium';
 import { type GameView, MatchPanel } from '@/components/tournament/match-games';
 import { VenueShowcase } from '@/components/venue/venue-showcase';
+import { confirmedCountSentence } from '@/lib/council';
 import { formatDateRange } from '@/lib/dates';
 import { siteFlags } from '@/lib/site-flags';
 import { sceneForIndex, sceneStyle } from '@/lib/tournament/edition-scenes';
