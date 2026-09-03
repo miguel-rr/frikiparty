@@ -10,6 +10,7 @@
     "check:write": "biome check --write .",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:migrate:prod": "tsx --env-file=.env.prod scripts/migrate-prod.mts",
     "db:push": "drizzle-kit push",
     "db:backfill:player-slugs": "tsx --env-file=.env scripts/backfill-player-slugs.ts",
     "db:import:historical": "tsx --env-file=.env scripts/import-historical-editions.ts",
