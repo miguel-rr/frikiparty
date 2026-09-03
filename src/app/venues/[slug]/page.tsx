@@ -163,7 +163,11 @@ const VenuePage = async ({ params }: PageProps) => {
               <span className={label}>
                 <RingGlyph size={13} /> Las ediciones en esta casa
               </span>
-              <EditionsView editions={editions} showVenue={false} />
+              <EditionsView
+                editions={editions}
+                showVenue={false}
+                toggleAlign="start"
+              />
             </div>
           ) : (
             <p className="text-center text-(--faded) text-sm italic">

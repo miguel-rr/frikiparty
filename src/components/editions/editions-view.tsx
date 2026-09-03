@@ -24,10 +24,17 @@ const toggle = (active: boolean) =>
 const EditionsView = ({
   editions,
   showVenue = true,
+  toggleAlign = 'end',
 }: {
   editions: EditionView[];
   /** Off on a venue's own page, where every card would name the same house. */
   showVenue?: boolean;
+  /**
+   * Where the Cartas/Lista toggle sits. The chronicle keeps it at the
+   * end of a full row; a venue with one or two cards leaves that corner
+   * empty, so there it leads from the start.
+   */
+  toggleAlign?: 'start' | 'end';
 }) => {
   const [view, setView] = useState<View>('cards');
 
@@ -53,7 +60,9 @@ const EditionsView = ({
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex justify-end">
+      <div
+        className={`flex ${toggleAlign === 'start' ? 'justify-start' : 'justify-end'}`}
+      >
         <fieldset
           aria-label="Vista"
           className="inline-flex rounded-full border border-(--hair) p-0.5"
