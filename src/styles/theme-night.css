@@ -438,6 +438,16 @@
   }
 }
 
+/* iOS zooms the whole page when a field under 16px gets focus, which
+   leaves fixed overlays (the archive lightbox) larger than the screen with
+   their close button out of reach. On touch screens fields never go
+   below 16px. */
+@media (pointer: coarse) {
+  .theme-night :is(input, textarea, select) {
+    font-size: max(1rem, 1em);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .d-ithildin-drums,
   .d-ithildin-drums .d-ithildin-glow,

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { isTypingTarget } from '@/components/media/arrow-key-nav';
 import { formatDuration, MediaFigure } from '@/components/media/media-figure';
@@ -192,64 +193,86 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
           <Tile item={item} key={item.id} onOpen={() => setOpenId(item.id)} />
         ))}
       </div>
-      {current ? (
-        <div
-          aria-modal
-          className="fixed inset-0 z-100 flex flex-col bg-[#05080699] backdrop-blur-sm"
-          role="dialog"
-        >
-          <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
-            <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
-              {index + 1} / {items.length}
-            </span>
-            <div className="flex items-center gap-2">
-              <Link
-                className="rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
-                href={`/archive/${current.id}`}
+      {current
+        ? createPortal(
+            // Rendered on <body>: no ancestor can clip or offset it. Sized
+            // to the dynamic viewport so phone toolbars never hide the
+            // header, and a click on the backdrop (outside the figure)
+            // closes it, like Escape.
+            // biome-ignore lint/a11y/useKeyWithClickEvents: Escape closes it through the document keydown handler above
+            <div
+              aria-modal
+              className="fixed inset-0 z-100 flex h-dvh flex-col bg-[#05080699] backdrop-blur-sm"
+              onClick={(event) => {
+                if (event.target === event.currentTarget) {
+                  setOpenId(null);
+                }
+              }}
+              role="dialog"
+            >
+              <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
+                <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
+                  {index + 1} / {items.length}
+                </span>
+                <div className="flex items-center gap-2">
+                  <Link
+                    className="rounded-full border border-(--hair) px-3 py-1.5 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+                    href={`/archive/${current.id}`}
+                  >
+                    Enlace
+                  </Link>
+                  <button
+                    aria-label="Cerrar"
+                    className="grid size-9 cursor-pointer place-items-center rounded-full border border-(--hair) text-(--faded) transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+                    onClick={() => setOpenId(null)}
+                    type="button"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+              {/* biome-ignore lint/a11y/useKeyWithClickEvents: Escape closes it through the document keydown handler above */}
+              {/* biome-ignore lint/a11y/noStaticElementInteractions: the backdrop margin around the figure, a click-outside target only */}
+              <div
+                className="relative flex flex-1 items-start justify-center overflow-y-auto overscroll-contain px-4 pb-8 sm:px-16"
+                onClick={(event) => {
+                  if (event.target === event.currentTarget) {
+                    setOpenId(null);
+                  }
+                }}
               >
-                Enlace
-              </Link>
-              <button
-                aria-label="Cerrar"
-                className="grid size-9 cursor-pointer place-items-center rounded-full border border-(--hair) text-(--faded) transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
-                onClick={() => setOpenId(null)}
-                type="button"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-          <div className="relative flex flex-1 items-start justify-center overflow-y-auto px-4 pb-8 sm:px-16">
-            {items.length > 1 ? (
-              <>
-                <button
-                  aria-label="Anterior"
-                  className="fixed top-1/2 left-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-(--night)/80 text-(--gold) transition-colors hover:text-(--gold-hi) sm:left-4"
-                  onClick={() => step(-1)}
-                  type="button"
-                >
-                  ‹
-                </button>
-                <button
-                  aria-label="Siguiente"
-                  className="fixed top-1/2 right-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-(--night)/80 text-(--gold) transition-colors hover:text-(--gold-hi) sm:right-4"
-                  onClick={() => step(1)}
-                  type="button"
-                >
-                  ›
-                </button>
-              </>
-            ) : null}
-            <div className="w-full max-w-4xl">
-              <MediaFigure
-                item={current}
-                key={current.id}
-                onRemoved={() => setOpenId(null)}
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
+                {items.length > 1 ? (
+                  <>
+                    <button
+                      aria-label="Anterior"
+                      className="fixed top-1/2 left-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-(--night)/80 text-(--gold) transition-colors hover:text-(--gold-hi) sm:left-4"
+                      onClick={() => step(-1)}
+                      type="button"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      aria-label="Siguiente"
+                      className="fixed top-1/2 right-2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-(--hair-gold) bg-(--night)/80 text-(--gold) transition-colors hover:text-(--gold-hi) sm:right-4"
+                      onClick={() => step(1)}
+                      type="button"
+                    >
+                      ›
+                    </button>
+                  </>
+                ) : null}
+                <div className="w-full max-w-4xl">
+                  <MediaFigure
+                    item={current}
+                    key={current.id}
+                    onRemoved={() => setOpenId(null)}
+                  />
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 };

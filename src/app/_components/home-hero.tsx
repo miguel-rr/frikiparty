@@ -155,4 +155,4 @@ const HeroRidge = () => (
   </svg>
 );
 
-export { HomeAwaitingHero, HomeHero };
+export { HeroRidge, HomeAwaitingHero, HomeHero };
