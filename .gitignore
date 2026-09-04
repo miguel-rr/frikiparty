@@ -49,3 +49,7 @@ yarn-error.log*
 .claude/settings.local.json
 CLAUDE.md.bak
 .env*
+
+# background music sources (uploaded to R2 by scripts/sync-audio.ts)
+/.audio/*
+!/.audio/README.md

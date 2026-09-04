@@ -25,6 +25,8 @@ const siteFlags = {
    * uploads; admins and editors edit all.
    */
   archiveForMembers: true,
+  /** Background music control in the top nav. */
+  music: true,
 } as const;
 
 export { siteFlags };

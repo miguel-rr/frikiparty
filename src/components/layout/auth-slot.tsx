@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserMenu } from '@/app/_components/user-menu';
+import { MusicControl } from '@/components/music/music-control';
 import { btn } from '@/components/theme/primitives';
+import { siteFlags } from '@/lib/site-flags';
 import { authClient } from '@/server/better-auth/client';
+import { api } from '@/trpc/react';
 
 /**
  * The session resolves client-side on purpose: pages stay statically
@@ -33,7 +36,10 @@ const AuthSlot = () => {
   }
   if (user) {
     return (
-      <UserMenu label={user.name || user.email} role={user.role ?? 'user'} />
+      <>
+        {siteFlags.music ? <MusicCorner /> : null}
+        <UserMenu label={user.name || user.email} role={user.role ?? 'user'} />
+      </>
     );
   }
   return (
@@ -41,6 +47,18 @@ const AuthSlot = () => {
       Entrar
     </Link>
   );
+};
+
+/**
+ * The music control, for linked players only. Same query the user menu
+ * runs (react-query dedupes it), so the control appears with the menu's
+ * own answer and costs no extra round trip.
+ */
+const MusicCorner = () => {
+  const mine = api.player.mine.useQuery(undefined, {
+    staleTime: 5 * 60 * 1000,
+  });
+  return mine.data ? <MusicControl /> : null;
 };
 
 export { AuthSlot, useSessionUser };
