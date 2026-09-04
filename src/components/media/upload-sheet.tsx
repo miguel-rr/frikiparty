@@ -516,29 +516,47 @@ const UploadDialog = ({
         </div>
 
         <footer className="flex flex-col gap-3 border-(--hair) border-t px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-(--faded) text-sm">
-            {finished
-              ? `${doneCount} de ${entries.length} en Los Archivos.`
-              : running
-                ? 'Subiendo… no cierres esta ventana.'
+          {running ? (
+            // The one line people must not miss: bold, ember, with a mark.
+            <span
+              className="flex items-center gap-2 font-bold text-(--ember) text-sm"
+              role="status"
+            >
+              <span
+                aria-hidden="true"
+                className="grid size-5 shrink-0 place-items-center rounded-full border border-(--ember) font-mono text-xs"
+              >
+                !
+              </span>
+              Subiendo… no cierres esta ventana ni la pestaña.
+            </span>
+          ) : (
+            <span className="text-(--faded) text-sm">
+              {finished
+                ? `${doneCount} de ${entries.length} en Los Archivos.`
                 : entries.length > 0
                   ? `${pending.length} por subir.`
                   : 'Elige fotos, vídeos o documentos del móvil o del ordenador.'}
-          </span>
+            </span>
+          )}
           {finished ? (
             <button className={btn.primary} onClick={onClose} type="button">
               Cerrar
             </button>
           ) : (
+            // Idle until there's something to send: no count of zero, and
+            // the button looks asleep rather than merely unclickable.
             <button
-              className={btn.primary}
+              className={`${btn.primary} disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none disabled:saturate-50`}
               disabled={!canSubmit}
               onClick={submit}
               type="button"
             >
               {running
                 ? 'Subiendo…'
-                : `Subir ${pending.length === 1 ? '1 archivo' : `${pending.length} archivos`}`}
+                : pending.length === 0
+                  ? 'Selecciona archivos'
+                  : `Subir ${pending.length === 1 ? '1 archivo' : `${pending.length} archivos`}`}
             </button>
           )}
         </footer>
