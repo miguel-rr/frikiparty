@@ -1,6 +1,7 @@
 export * from '@/server/db/schema/auth';
 export * from '@/server/db/schema/catalog';
 export * from '@/server/db/schema/edition';
+export * from '@/server/db/schema/live';
 export * from '@/server/db/schema/match';
 export * from '@/server/db/schema/media';
 export * from '@/server/db/schema/phase';

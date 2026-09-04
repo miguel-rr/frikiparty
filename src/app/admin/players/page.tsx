@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CopyCodeButton } from '@/app/admin/players/_components/copy-code-button';
+import { ImpersonateButton } from '@/app/admin/players/_components/impersonate-button';
 import { LinkUserRow } from '@/app/admin/players/_components/link-user-row';
 import { RoleSelect } from '@/app/admin/players/_components/role-select';
+import { TestAccountButton } from '@/app/admin/players/_components/test-account-button';
 import { UnlinkButton } from '@/app/admin/players/_components/unlink-button';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
@@ -14,6 +16,7 @@ import {
   td,
   th,
 } from '@/components/theme/primitives';
+import { env } from '@/env';
 import { formatLinkCode } from '@/lib/link-code';
 import {
   listPlayersForAdmin,
@@ -43,6 +46,8 @@ const AdminPlayersPage = async () => {
     listUnlinkedUsers(db),
   ]);
   const linked = players.filter((row) => row.user !== null).length;
+  // Test accounts and "Entrar como" never exist in production.
+  const testTools = env.VERCEL_ENV !== 'production';
 
   return (
     <SiteShell>
@@ -50,7 +55,7 @@ const AdminPlayersPage = async () => {
         <Section id="admin-players">
           <SectionHeader
             eyebrowText="Administración"
-            lead={`${linked} de ${players.length} han reclamado su jugador. Los demás necesitan el código de su fila: lo introducen en "Vincular jugador", en su menú de usuario.`}
+            lead={`${linked} de ${players.length} han reclamado su jugador. Los demás necesitan el código de su fila: lo introducen en "Vincular jugador", en su menú de usuario.${testTools ? ' Fuera de producción, "Cuenta de pruebas" crea una cuenta sin acceso propio y "Entrar como" convierte este navegador en ese jugador.' : ''}`}
             title="Jugadores"
           />
           <div className={`${panelGold} mt-10 overflow-x-auto`}>
@@ -101,9 +106,17 @@ const AdminPlayersPage = async () => {
                             playerId={row.id}
                             playerName={row.name}
                           />
+                          {testTools && row.user.id !== selfId ? (
+                            <ImpersonateButton userId={row.user.id} />
+                          ) : null}
                         </span>
                       ) : (
-                        <span className="text-(--faded)">Sin vincular</span>
+                        <span className="flex flex-wrap items-center gap-2">
+                          <span className="text-(--faded)">Sin vincular</span>
+                          {testTools ? (
+                            <TestAccountButton playerId={row.id} />
+                          ) : null}
+                        </span>
                       )}
                     </td>
                   </tr>

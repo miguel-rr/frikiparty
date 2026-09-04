@@ -45,7 +45,30 @@ const faction = createTable('faction', {
     () => gameVersion.id,
   ),
   name: text('name').notNull(),
+  // Stable key into the presentation catalogue (emblems, colours) in
+  // src/lib/tournament/factions.ts; null for games without one.
+  code: text('code').unique(),
+  sortOrder: integer('sort_order').notNull().default(0),
 });
+
+/**
+ * Maps a game is played on. Grows as organisers type new names (same
+ * pattern as `tag`); can be pre-seeded when a list is available.
+ */
+const gameMap = createTable(
+  'game_map',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    gameId: uuid('game_id')
+      .notNull()
+      .references(() => game.id),
+    name: text('name').notNull(),
+    // Player slots the map is built for, when known (2, 4, 6, 8…).
+    players: integer('players'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => [unique().on(table.gameId, table.name)],
+);
 
 /** Free-form tag catalog, scoped to media for now. Grows as users type new tags. */
 const tag = createTable('tag', {
@@ -54,4 +77,4 @@ const tag = createTable('tag', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-export { faction, game, gameVersion, tag };
+export { faction, game, gameMap, gameVersion, tag };

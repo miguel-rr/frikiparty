@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { ConfirmedRoster } from '@/components/council/confirmed-roster';
 import { DurinDoor } from '@/components/council/durin-door';
 import { SiteShell } from '@/components/layout/site-shell';
+import { LiveHub } from '@/components/live/live-hub';
 import { RingDivider } from '@/components/theme/ornament-dividers';
 import { pageWidth, tag } from '@/components/theme/primitives';
 import { VenueShowcase } from '@/components/venue/venue-showcase';
@@ -15,6 +16,11 @@ import {
   listConfirmedPlayers,
 } from '@/server/api/routers/edition';
 import { db } from '@/server/db';
+import {
+  getCurrentTournament,
+  getLiveState,
+  isPublicStage,
+} from '@/server/live/state';
 
 export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
 
@@ -27,6 +33,27 @@ const CouncilPage = async () => {
     notFound();
   }
   const edition = await getNextEdition(db);
+  // Once the organiser has given the tournament its start, the live block
+  // takes the Council over: the door and the venue step aside.
+  const current = await getCurrentTournament(db);
+  const live =
+    current && isPublicStage(current.stage)
+      ? await getLiveState(db, current.id)
+      : null;
+  if (live) {
+    return (
+      <SiteShell>
+        <main>
+          <section
+            className={`${pageWidth} flex flex-col gap-10 pt-8 pb-14 sm:pt-10 sm:pb-16`}
+            id="council"
+          >
+            <LiveHub initial={live} />
+          </section>
+        </main>
+      </SiteShell>
+    );
+  }
   const confirmedPlayers = edition
     ? await listConfirmedPlayers(db, edition.id)
     : [];

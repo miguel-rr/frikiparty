@@ -3,13 +3,15 @@ import { check, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 import { user } from '@/server/db/schema/auth';
 import { createTable } from '@/server/db/schema/create-table';
 import { edition } from '@/server/db/schema/edition';
+import { match } from '@/server/db/schema/match';
 import { media } from '@/server/db/schema/media';
 import { player } from '@/server/db/schema/player';
 
 /**
  * Likes and comments share one target shape: exactly one of media,
- * edition or player, as real per-column FKs (the media_association
- * pattern). Only media has UI for now; the other two are ready for later.
+ * edition, player or match, as real per-column FKs (the media_association
+ * pattern). Media and matches have UI; edition serves as the tournament
+ * wall on /council.
  * Targets cascade, so removing a file takes its likes and comments along.
  */
 const socialTarget = () => ({
@@ -20,15 +22,23 @@ const socialTarget = () => ({
   playerId: uuid('player_id').references(() => player.id, {
     onDelete: 'cascade',
   }),
+  matchId: uuid('match_id').references(() => match.id, {
+    onDelete: 'cascade',
+  }),
 });
 
 const singleTarget = (
   name: string,
-  table: { mediaId: unknown; editionId: unknown; playerId: unknown },
+  table: {
+    mediaId: unknown;
+    editionId: unknown;
+    playerId: unknown;
+    matchId: unknown;
+  },
 ) =>
   check(
     name,
-    sql`num_nonnulls(${table.mediaId}, ${table.editionId}, ${table.playerId}) = 1`,
+    sql`num_nonnulls(${table.mediaId}, ${table.editionId}, ${table.playerId}, ${table.matchId}) = 1`,
   );
 
 /** One "me gusta" per person and target. */
@@ -56,6 +66,9 @@ const like = createTable(
     uniqueIndex('like_user_player_unique')
       .on(table.userId, table.playerId)
       .where(sql`${table.playerId} IS NOT NULL`),
+    uniqueIndex('like_user_match_unique')
+      .on(table.userId, table.matchId)
+      .where(sql`${table.matchId} IS NOT NULL`),
   ],
 );
 

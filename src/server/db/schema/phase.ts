@@ -1,6 +1,15 @@
-import { integer, text, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  jsonb,
+  text,
+  timestamp,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 import { createTable } from '@/server/db/schema/create-table';
+import { team } from '@/server/db/schema/team';
 import { tournament } from '@/server/db/schema/tournament';
 
 /**
@@ -15,26 +24,126 @@ const phase = createTable(
     id: uuid('id').primaryKey().defaultRandom(),
     tournamentId: uuid('tournament_id')
       .notNull()
-      .references(() => tournament.id),
+      .references(() => tournament.id, { onDelete: 'cascade' }),
     phaseOrder: integer('phase_order').notNull(),
     type: text('type').notNull().$type<'group' | 'bracket' | 'swiss'>(),
+    // Display name ("Fase de grupos", "Playoffs"); derived from type when null.
+    name: text('name'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
   },
   (table) => [unique().on(table.tournamentId, table.phaseOrder)],
 );
+
+/**
+ * Tie-break criteria, applied in the order the organiser set them (see
+ * live plan §6.4). The automatic ones resolve on their own; `draw` and
+ * `tiebreak_match` wait for the admin to act.
+ */
+const GROUP_TIEBREAK_CRITERIA = [
+  'head_to_head',
+  'ranking_inverse',
+  'rings_inverse',
+  'draw',
+  'tiebreak_match',
+] as const;
+
+type GroupTiebreakCriterion = (typeof GROUP_TIEBREAK_CRITERIA)[number];
+
+const DEFAULT_TIEBREAK_CHAIN: GroupTiebreakCriterion[] = [
+  'head_to_head',
+  'ranking_inverse',
+  'draw',
+];
 
 const phaseGroupConfig = createTable('phase_group_config', {
   id: uuid('id').primaryKey().defaultRandom(),
   phaseId: uuid('phase_id')
     .notNull()
     .unique()
-    .references(() => phase.id),
+    .references(() => phase.id, { onDelete: 'cascade' }),
   roundsFormat: text('rounds_format').notNull().$type<'single' | 'double'>(),
   gamesToWinMatch: integer('games_to_win_match').notNull(),
-  tiebreakMethod: text('tiebreak_method')
+  // Ordered list of active criteria; the standings show it as the rule.
+  tiebreakChain: jsonb('tiebreak_chain')
+    .$type<GroupTiebreakCriterion[]>()
     .notNull()
-    .$type<'ranking_inverse' | 'rings_inverse'>(),
+    .default(DEFAULT_TIEBREAK_CHAIN),
+  // Usually 1; several groups are supported but rare.
+  groupCount: integer('group_count').notNull().default(1),
+  qualifiersPerGroup: integer('qualifiers_per_group').notNull().default(4),
+  groupDistribution: text('group_distribution')
+    .notNull()
+    .default('random')
+    .$type<'random' | 'manual'>(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+const phaseGroup = createTable(
+  'phase_group',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    phaseId: uuid('phase_id')
+      .notNull()
+      .references(() => phase.id, { onDelete: 'cascade' }),
+    groupIndex: integer('group_index').notNull(),
+    label: text('label').notNull(),
+  },
+  (table) => [unique().on(table.phaseId, table.groupIndex)],
+);
+
+const phaseGroupTeam = createTable(
+  'phase_group_team',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    groupId: uuid('group_id')
+      .notNull()
+      .references(() => phaseGroup.id, { onDelete: 'cascade' }),
+    teamId: uuid('team_id')
+      .notNull()
+      .references(() => team.id),
+    seed: integer('seed').notNull(),
+  },
+  (table) => [unique().on(table.groupId, table.teamId)],
+);
+
+/**
+ * Brackets never use byes: sizes that aren't a power of two open with a
+ * play-in round (roundIndex 0) so every team can still qualify.
+ */
+const phaseBracketConfig = createTable('phase_bracket_config', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  phaseId: uuid('phase_id')
+    .notNull()
+    .unique()
+    .references(() => phase.id, { onDelete: 'cascade' }),
+  hasThirdPlaceMatch: boolean('has_third_place_match').notNull().default(false),
+  seedingSource: text('seeding_source')
+    .notNull()
+    .default('previous_phase')
+    .$type<'previous_phase' | 'ranking' | 'manual'>(),
+});
+
+/**
+ * How factions are drawn for games in this phase (only for games with a
+ * faction catalogue). `depleting`: each team draws from a pool of every
+ * faction that refills once it can't cover a full draw (live plan §6.8).
+ */
+const phaseFactionRules = createTable('phase_faction_rules', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  phaseId: uuid('phase_id')
+    .notNull()
+    .unique()
+    .references(() => phase.id, { onDelete: 'cascade' }),
+  allowRepeatAcrossTeams: boolean('allow_repeat_across_teams')
+    .notNull()
+    .default(true),
+  poolMode: text('pool_mode')
+    .notNull()
+    .default('fresh')
+    .$type<'fresh' | 'depleting'>(),
+  // With `depleting`: keep consuming the previous phase's pool instead of
+  // starting this phase with every faction again.
+  poolCarriesOver: boolean('pool_carries_over').notNull().default(false),
 });
 
 const phaseBracketRoundConfig = createTable(
@@ -43,7 +152,7 @@ const phaseBracketRoundConfig = createTable(
     id: uuid('id').primaryKey().defaultRandom(),
     phaseId: uuid('phase_id')
       .notNull()
-      .references(() => phase.id),
+      .references(() => phase.id, { onDelete: 'cascade' }),
     // Same numbering as match.roundIndex (0 = play-in, 1 = main-bracket round 1…).
     roundIndex: integer('round_index').notNull(),
     gamesToWinMatch: integer('games_to_win_match').notNull(),
@@ -51,4 +160,15 @@ const phaseBracketRoundConfig = createTable(
   (table) => [unique().on(table.phaseId, table.roundIndex)],
 );
 
-export { phase, phaseBracketRoundConfig, phaseGroupConfig };
+export {
+  DEFAULT_TIEBREAK_CHAIN,
+  GROUP_TIEBREAK_CRITERIA,
+  type GroupTiebreakCriterion,
+  phase,
+  phaseBracketConfig,
+  phaseBracketRoundConfig,
+  phaseFactionRules,
+  phaseGroup,
+  phaseGroupConfig,
+  phaseGroupTeam,
+};

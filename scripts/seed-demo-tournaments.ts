@@ -337,7 +337,8 @@ async function main() {
       phaseId: phaseRow.id,
       roundsFormat: groupPhaseDef.rounds,
       gamesToWinMatch: groupPhaseDef.gamesToWinMatch,
-      tiebreakMethod: 'ranking_inverse',
+      tiebreakChain: ['head_to_head', 'ranking_inverse', 'draw'],
+      qualifiersPerGroup: 4,
     });
 
     const partidos = generateGroupMatches(teamIds, groupPhaseDef);

@@ -13,6 +13,11 @@ const user = pgTable('user', {
     .notNull()
     .default('user')
     .$type<'user' | 'editor' | 'admin'>(),
+  // Required by better-auth's admin plugin (bans are never used here, but
+  // the plugin reads the columns); impersonation lives on `session`.
+  banned: boolean('banned').default(false),
+  banReason: text('ban_reason'),
+  banExpires: timestamp('ban_expires'),
   createdAt: timestamp('created_at')
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
@@ -32,6 +37,9 @@ const session = pgTable('session', {
   userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
+  // The admin who opened this session as someone else ("Entrar como",
+  // test accounts only, never in production); null for ordinary sessions.
+  impersonatedBy: text('impersonated_by'),
 });
 
 const account = pgTable('account', {

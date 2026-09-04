@@ -148,6 +148,13 @@
       "when": 1788531909683,
       "tag": "0020_majestic_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1788560818199,
+      "tag": "0021_flippant_william_stryker",
+      "breakpoints": true
     }
   ]
 }

@@ -5,6 +5,10 @@ import { env } from '@/env';
 import { appRouter } from '@/server/api/root';
 import { createTRPCContext } from '@/server/api/trpc';
 
+// Live subscriptions hold the connection open (SSE); the client reconnects
+// when the function's ceiling cuts it.
+const maxDuration = 300;
+
 const createContext = async (req: NextRequest) => {
   return createTRPCContext({
     headers: req.headers,
@@ -27,4 +31,4 @@ const handler = (req: NextRequest) =>
         : undefined,
   });
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, maxDuration };

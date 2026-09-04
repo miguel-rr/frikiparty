@@ -1,5 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { APIError, createAuthMiddleware } from 'better-auth/api';
+import { admin } from 'better-auth/plugins';
 
 import { env } from '@/env';
 import { db } from '@/server/db';
@@ -11,6 +13,13 @@ const microsoftEnabled = Boolean(
   env.BETTER_AUTH_MICROSOFT_CLIENT_ID &&
     env.BETTER_AUTH_MICROSOFT_CLIENT_SECRET,
 );
+
+/** Admin-plugin endpoints that only make sense for test accounts. */
+const PRODUCTION_BLOCKED_PATHS = new Set([
+  '/admin/create-user',
+  '/admin/impersonate-user',
+  '/admin/set-user-password',
+]);
 
 const auth = betterAuth({
   baseURL,
@@ -31,7 +40,9 @@ const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      // input: false stops signup/update requests from setting their own role.
+      // The admin plugin declares `role` optional; re-declared required so
+      // the session type carries a plain string (and input: false keeps
+      // signup/update from setting it).
       role: {
         type: 'string',
         required: true,
@@ -39,6 +50,29 @@ const auth = betterAuth({
         input: false,
       },
     },
+  },
+  plugins: [
+    // Brings `role` (input: false, so signup/update can't set it), plus
+    // "Entrar como": an admin opens a session as another user. Only for
+    // test accounts outside production (see hooks below); it lets one
+    // person drive a whole draft or auction from several browsers.
+    admin({
+      adminRoles: ['admin'],
+      defaultRole: 'user',
+      impersonationSessionDuration: 60 * 60 * 12,
+    }),
+  ],
+  hooks: {
+    before: createAuthMiddleware(async (ctx) => {
+      if (
+        env.VERCEL_ENV === 'production' &&
+        PRODUCTION_BLOCKED_PATHS.has(ctx.path)
+      ) {
+        throw new APIError('FORBIDDEN', {
+          message: 'Las cuentas de pruebas no existen en producción.',
+        });
+      }
+    }),
   },
   socialProviders: {
     github: {

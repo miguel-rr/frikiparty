@@ -3,6 +3,7 @@ import { and, asc, eq, isNotNull, isNull, like, ne, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
+import { env } from '@/env';
 import { generateLinkCode, normalizeLinkCode } from '@/lib/link-code';
 import { firstFreeSlug, rememberSlug } from '@/lib/slug';
 import {
@@ -389,6 +390,9 @@ const getPlayerForUser = async (db: TRPCContext['db'], userId: string) => {
   return row ?? null;
 };
 
+/** Addresses of test accounts; they never receive mail and can't sign in. */
+const TEST_ACCOUNT_DOMAIN = 'frikiparty.test';
+
 const playerRouter = createTRPCRouter({
   list: publicProcedure.query(({ ctx }) => listPlayers(ctx.db)),
 
@@ -446,6 +450,48 @@ const playerRouter = createTRPCRouter({
         throw new TRPCError({ code: 'CONFLICT' });
       }
       return linked;
+    }),
+
+  /**
+   * Admin, outside production only: an account for a player who has none,
+   * with a made-up address so nobody can sign into it — its only way in
+   * is "Entrar como". One per browser is how a draft or an auction gets
+   * rehearsed from several devices (live plan §3.3).
+   */
+  createTestAccount: adminProcedure
+    .input(z.object({ playerId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      if (env.VERCEL_ENV === 'production') {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Las cuentas de pruebas no existen en producción.',
+        });
+      }
+      const [target] = await ctx.db
+        .select({ id: player.id, name: player.name, slug: player.slug })
+        .from(player)
+        .where(and(eq(player.id, input.playerId), isNull(player.userId)));
+      if (!target) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'Ese jugador ya tiene cuenta.',
+        });
+      }
+      const userId = crypto.randomUUID();
+      await ctx.db.transaction(async (tx) => {
+        await tx.insert(user).values({
+          id: userId,
+          name: target.name,
+          email: `${target.slug}@${TEST_ACCOUNT_DOMAIN}`,
+          emailVerified: true,
+          role: 'user',
+        });
+        await tx
+          .update(player)
+          .set({ userId, linkCode: null })
+          .where(eq(player.id, target.id));
+      });
+      return { userId };
     }),
 
   /** Admin: link an account to a free player by hand, no code involved. */

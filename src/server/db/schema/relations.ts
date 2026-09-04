@@ -1,19 +1,35 @@
 import { relations } from 'drizzle-orm';
 
 import { account, session, user } from '@/server/db/schema/auth';
-import { faction, game, gameVersion, tag } from '@/server/db/schema/catalog';
+import {
+  faction,
+  game,
+  gameMap,
+  gameVersion,
+  tag,
+} from '@/server/db/schema/catalog';
 import { edition, editionPlayer, venue } from '@/server/db/schema/edition';
+import {
+  liveRoom,
+  liveVersion,
+  tournamentEvent,
+} from '@/server/db/schema/live';
 import {
   match,
   matchGame,
+  matchGameFactionDraw,
   matchGamePlayerFaction,
   matchGameSaveFile,
 } from '@/server/db/schema/match';
 import { media, mediaAssociation, mediaTag } from '@/server/db/schema/media';
 import {
   phase,
+  phaseBracketConfig,
   phaseBracketRoundConfig,
+  phaseFactionRules,
+  phaseGroup,
   phaseGroupConfig,
+  phaseGroupTeam,
 } from '@/server/db/schema/phase';
 import { player } from '@/server/db/schema/player';
 import { comment, like } from '@/server/db/schema/social';
@@ -31,6 +47,7 @@ import {
   tournament,
   tournamentRankingSnapshot,
   tournamentSwissConfig,
+  tournamentVote,
 } from '@/server/db/schema/tournament';
 
 const userRelations = relations(user, ({ many, one }) => ({
@@ -41,6 +58,8 @@ const userRelations = relations(user, ({ many, one }) => ({
   uploadedSaveFiles: many(matchGameSaveFile),
   likes: many(like),
   comments: many(comment),
+  createdTournaments: many(tournament),
+  tournamentEvents: many(tournamentEvent),
 }));
 
 const accountRelations = relations(account, ({ one }) => ({
@@ -68,11 +87,18 @@ const playerRelations = relations(player, ({ many, one }) => ({
   mediaAssociations: many(mediaAssociation),
   likes: many(like),
   comments: many(comment),
+  tournamentVotes: many(tournamentVote),
 }));
 
 const gameRelations = relations(game, ({ many }) => ({
   versions: many(gameVersion),
   tournaments: many(tournament),
+  maps: many(gameMap),
+}));
+
+const gameMapRelations = relations(gameMap, ({ many, one }) => ({
+  game: one(game, { fields: [gameMap.gameId], references: [game.id] }),
+  matchGames: many(matchGame),
 }));
 
 const gameVersionRelations = relations(gameVersion, ({ many, one }) => ({
@@ -143,6 +169,50 @@ const tournamentRelations = relations(tournament, ({ many, one }) => ({
   auction: one(auction),
   phases: many(phase),
   mediaAssociations: many(mediaAssociation),
+  createdByUser: one(user, {
+    fields: [tournament.createdByUserId],
+    references: [user.id],
+  }),
+  votes: many(tournamentVote),
+  events: many(tournamentEvent),
+  liveRooms: many(liveRoom),
+  liveVersion: one(liveVersion),
+}));
+
+const tournamentVoteRelations = relations(tournamentVote, ({ one }) => ({
+  tournament: one(tournament, {
+    fields: [tournamentVote.tournamentId],
+    references: [tournament.id],
+  }),
+  voter: one(player, {
+    fields: [tournamentVote.voterPlayerId],
+    references: [player.id],
+  }),
+}));
+
+const tournamentEventRelations = relations(tournamentEvent, ({ one }) => ({
+  tournament: one(tournament, {
+    fields: [tournamentEvent.tournamentId],
+    references: [tournament.id],
+  }),
+  actor: one(user, {
+    fields: [tournamentEvent.actorUserId],
+    references: [user.id],
+  }),
+}));
+
+const liveRoomRelations = relations(liveRoom, ({ one }) => ({
+  tournament: one(tournament, {
+    fields: [liveRoom.tournamentId],
+    references: [tournament.id],
+  }),
+}));
+
+const liveVersionRelations = relations(liveVersion, ({ one }) => ({
+  tournament: one(tournament, {
+    fields: [liveVersion.tournamentId],
+    references: [tournament.id],
+  }),
 }));
 
 const tournamentSwissConfigRelations = relations(
@@ -178,7 +248,10 @@ const teamRelations = relations(team, ({ many, one }) => ({
   matchesAsTeamA: many(match, { relationName: 'matchTeamA' }),
   matchesAsTeamB: many(match, { relationName: 'matchTeamB' }),
   matchesWon: many(match, { relationName: 'matchWinner' }),
+  matchesSatOut: many(match, { relationName: 'matchBye' }),
   matchGamesWon: many(matchGame, { relationName: 'matchGameWinner' }),
+  groupSeats: many(phaseGroupTeam),
+  factionDraws: many(matchGameFactionDraw),
 }));
 
 const teamMemberRelations = relations(teamMember, ({ one }) => ({
@@ -275,8 +348,42 @@ const phaseRelations = relations(phase, ({ many, one }) => ({
     references: [tournament.id],
   }),
   groupConfig: one(phaseGroupConfig),
+  groups: many(phaseGroup),
+  bracketConfig: one(phaseBracketConfig),
   bracketRoundConfigs: many(phaseBracketRoundConfig),
+  factionRules: one(phaseFactionRules),
   matches: many(match),
+}));
+
+const phaseGroupRelations = relations(phaseGroup, ({ many, one }) => ({
+  phase: one(phase, { fields: [phaseGroup.phaseId], references: [phase.id] }),
+  teams: many(phaseGroupTeam),
+  matches: many(match),
+}));
+
+const phaseGroupTeamRelations = relations(phaseGroupTeam, ({ one }) => ({
+  group: one(phaseGroup, {
+    fields: [phaseGroupTeam.groupId],
+    references: [phaseGroup.id],
+  }),
+  team: one(team, { fields: [phaseGroupTeam.teamId], references: [team.id] }),
+}));
+
+const phaseBracketConfigRelations = relations(
+  phaseBracketConfig,
+  ({ one }) => ({
+    phase: one(phase, {
+      fields: [phaseBracketConfig.phaseId],
+      references: [phase.id],
+    }),
+  }),
+);
+
+const phaseFactionRulesRelations = relations(phaseFactionRules, ({ one }) => ({
+  phase: one(phase, {
+    fields: [phaseFactionRules.phaseId],
+    references: [phase.id],
+  }),
 }));
 
 const phaseGroupConfigRelations = relations(phaseGroupConfig, ({ one }) => ({
@@ -298,6 +405,15 @@ const phaseBracketRoundConfigRelations = relations(
 
 const matchRelations = relations(match, ({ many, one }) => ({
   phase: one(phase, { fields: [match.phaseId], references: [phase.id] }),
+  group: one(phaseGroup, {
+    fields: [match.groupId],
+    references: [phaseGroup.id],
+  }),
+  byeTeam: one(team, {
+    relationName: 'matchBye',
+    fields: [match.byeTeamId],
+    references: [team.id],
+  }),
   teamA: one(team, {
     relationName: 'matchTeamA',
     fields: [match.teamAId],
@@ -327,6 +443,8 @@ const matchRelations = relations(match, ({ many, one }) => ({
   feedsIntoAsB: many(match, { relationName: 'matchFeederB' }),
   games: many(matchGame),
   mediaAssociations: many(mediaAssociation),
+  likes: many(like),
+  comments: many(comment),
 }));
 
 const matchGameRelations = relations(matchGame, ({ many, one }) => ({
@@ -339,10 +457,33 @@ const matchGameRelations = relations(matchGame, ({ many, one }) => ({
     fields: [matchGame.winnerTeamId],
     references: [team.id],
   }),
+  mapRow: one(gameMap, {
+    fields: [matchGame.mapId],
+    references: [gameMap.id],
+  }),
+  factionDraws: many(matchGameFactionDraw),
   playerFactions: many(matchGamePlayerFaction),
   saveFiles: many(matchGameSaveFile),
   mediaAssociations: many(mediaAssociation),
 }));
+
+const matchGameFactionDrawRelations = relations(
+  matchGameFactionDraw,
+  ({ one }) => ({
+    matchGame: one(matchGame, {
+      fields: [matchGameFactionDraw.matchGameId],
+      references: [matchGame.id],
+    }),
+    team: one(team, {
+      fields: [matchGameFactionDraw.teamId],
+      references: [team.id],
+    }),
+    faction: one(faction, {
+      fields: [matchGameFactionDraw.factionId],
+      references: [faction.id],
+    }),
+  }),
+);
 
 const matchGamePlayerFactionRelations = relations(
   matchGamePlayerFaction,
@@ -425,6 +566,7 @@ const likeRelations = relations(like, ({ one }) => ({
   media: one(media, { fields: [like.mediaId], references: [media.id] }),
   edition: one(edition, { fields: [like.editionId], references: [edition.id] }),
   player: one(player, { fields: [like.playerId], references: [player.id] }),
+  match: one(match, { fields: [like.matchId], references: [match.id] }),
 }));
 
 const commentRelations = relations(comment, ({ one }) => ({
@@ -435,6 +577,7 @@ const commentRelations = relations(comment, ({ one }) => ({
     references: [edition.id],
   }),
   player: one(player, { fields: [comment.playerId], references: [player.id] }),
+  match: one(match, { fields: [comment.matchId], references: [match.id] }),
 }));
 
 export {
@@ -448,9 +591,13 @@ export {
   editionPlayerRelations,
   editionRelations,
   factionRelations,
+  gameMapRelations,
   gameRelations,
   gameVersionRelations,
   likeRelations,
+  liveRoomRelations,
+  liveVersionRelations,
+  matchGameFactionDrawRelations,
   matchGamePlayerFactionRelations,
   matchGameRelations,
   matchGameSaveFileRelations,
@@ -458,8 +605,12 @@ export {
   mediaAssociationRelations,
   mediaRelations,
   mediaTagRelations,
+  phaseBracketConfigRelations,
   phaseBracketRoundConfigRelations,
+  phaseFactionRulesRelations,
   phaseGroupConfigRelations,
+  phaseGroupRelations,
+  phaseGroupTeamRelations,
   phaseRelations,
   playerRelations,
   sessionRelations,
@@ -467,9 +618,11 @@ export {
   teamFormationPotPlayerRelations,
   teamMemberRelations,
   teamRelations,
+  tournamentEventRelations,
   tournamentRankingSnapshotRelations,
   tournamentRelations,
   tournamentSwissConfigRelations,
+  tournamentVoteRelations,
   userRelations,
   venueRelations,
 };

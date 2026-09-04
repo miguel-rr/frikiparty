@@ -6,9 +6,13 @@ import { auth } from '@/server/better-auth';
 import { db } from '@/server/db';
 
 const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await auth.api.getSession({
+  const raw = await auth.api.getSession({
     headers: opts.headers,
   });
+  // The admin plugin types `role` as optional; every account has one.
+  const session = raw
+    ? { ...raw, user: { ...raw.user, role: raw.user.role ?? 'user' } }
+    : null;
   return {
     db,
     session,

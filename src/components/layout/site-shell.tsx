@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { AuthSlot } from '@/components/layout/auth-slot';
+import { ImpersonationBanner } from '@/components/layout/impersonation-banner';
 import { TopNav } from '@/components/layout/top-nav';
 import { ParallaxBackground } from '@/components/theme/parallax-bg';
 import { BlazonDefs, Footer } from '@/components/theme/primitives';
@@ -36,6 +37,7 @@ const SiteShell = ({
       authSlot={siteFlags.auth ? <AuthSlot /> : null}
       links={siteFlags.navigation ? NAV_LINKS : []}
     />
+    {siteFlags.auth ? <ImpersonationBanner /> : null}
     {children}
     <Footer note={footerNote} />
   </div>

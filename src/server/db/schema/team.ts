@@ -104,12 +104,28 @@ const draftPick = createTable(
   (table) => [unique().on(table.draftId, table.pickedPlayerId)],
 );
 
+/**
+ * Timers are configurable and can be changed mid-auction (each change is
+ * also logged as an `auction_config_changed` event so a replay keeps the
+ * real timing of every moment). Defaults per the live plan §6.3.
+ */
 const auction = createTable('auction', {
   id: uuid('id').primaryKey().defaultRandom(),
   tournamentId: uuid('tournament_id')
     .notNull()
     .unique()
-    .references(() => tournament.id),
+    .references(() => tournament.id, { onDelete: 'cascade' }),
+  // Time a lot stays open waiting for its first bid.
+  initialTimerMs: integer('initial_timer_ms').notNull().default(30_000),
+  // Countdown after each bid…
+  countdownMs: integer('countdown_ms').notNull().default(20_000),
+  // …shortened to this once a lot has received this many bids.
+  countdownShortMs: integer('countdown_short_ms').notNull().default(15_000),
+  countdownShortAfterBids: integer('countdown_short_after_bids')
+    .notNull()
+    .default(6),
+  // Controls disabled right after a bid, against accidental double taps.
+  lockoutMs: integer('lockout_ms').notNull().default(1_500),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
