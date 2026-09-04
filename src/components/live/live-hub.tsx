@@ -6,6 +6,11 @@ import { useState } from 'react';
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { Calendar } from '@/components/live/calendar';
 import { FormationRoom } from '@/components/live/formation/formation-room';
+import {
+  currentPhase,
+  PhaseView,
+  phaseTitle,
+} from '@/components/live/phase/phase-view';
 import { PotsReveal } from '@/components/live/pots-reveal';
 import { RankingBlock } from '@/components/live/ranking-block';
 import { StageTimeline } from '@/components/live/stage-timeline';
@@ -45,6 +50,8 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
     teamsSeated &&
     (state.formationMethod === 'auction' || state.formationMethod === 'draft');
   const calendarReady = state.phases.some((p) => p.matches.length > 0);
+  const livePhase =
+    state.stage === 'in_progress' ? currentPhase(state) : undefined;
 
   return (
     <div className="flex flex-col gap-10">
@@ -89,6 +96,20 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
             </div>
           </div>
           <FormationRoom live={state} />
+        </>
+      ) : null}
+
+      {livePhase ? (
+        <>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
+              {phaseTitle(livePhase)}
+            </h3>
+            <Link className={btn.outline} href={`/live/phase/${livePhase.id}`}>
+              Ver la fase completa
+            </Link>
+          </div>
+          <PhaseView compact phase={livePhase} state={state} />
         </>
       ) : null}
 

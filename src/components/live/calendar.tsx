@@ -16,12 +16,17 @@ import type { LiveState } from '@/server/live/state';
 const Calendar = ({
   state,
   compact,
+  onlyPhaseId,
 }: {
   state: LiveState;
   compact?: boolean;
+  /** Restrict to one phase (the phase page). */
+  onlyPhaseId?: string;
 }) => {
   const teamById = new Map(state.teams.map((t) => [t.id, t]));
-  const phasesWithMatches = state.phases.filter((p) => p.matches.length > 0);
+  const phasesWithMatches = state.phases.filter(
+    (p) => p.matches.length > 0 && (!onlyPhaseId || p.id === onlyPhaseId),
+  );
   if (phasesWithMatches.length === 0) {
     return (
       <p className="text-(--faded) text-sm">

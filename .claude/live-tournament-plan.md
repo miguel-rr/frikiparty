@@ -599,7 +599,7 @@ el servidor a mitad y continuar; reproducir y comparar con lo visto.
 Prueba: 8 equipos, 1 grupo ida, 5 clasificados → play-in 4º–5º → bracket 4 con
 final BO3; 2 grupos de 4; 6 equipos suizo 2 derrotas con bye.
 
-### F4 — Vistas de fase (en vivo)
+### F4 — Vistas de fase (en vivo) — **HECHO 2026-09-05**
 - Grupos: clasificación (W-L, partidas, desempate explicado), jornadas, **cuadro de
   cruces**.
 - Bracket: escritorio árbol horizontal con cabeceras fijas y minimapa; móvil **una
@@ -894,3 +894,22 @@ partir de la puja nº 6; `poolCarriesOver = false`; límite de 50 MB por replay.
   ficha. Motor verificado con casos: 5 y 6 equipos ida/vuelta, bracket de 5 y 6
   con play-in, suizo de 7 con descanso, desempate por enfrentamiento directo.
   El torneo 2026 de dev queda `in_progress` con la jornada 1 pendiente.
+- 2026-09-05 — **F4 implementado**: `/live/phase/[phaseId]` con suscripción y
+  `PhaseView` por tipo. Grupos (`GroupView`): clasificación con J/G/P y partidas,
+  línea de corte de clasificados, el criterio que separó cada fila ("por
+  enfrentamientos directos", "por ranking inverso") y aviso de empate pendiente
+  para los criterios manuales; cuadro de cruces equipo × equipo con enlace a cada
+  partido; helper `src/lib/live/standings.ts` (ranking medio del equipo y anillos
+  sumados). Eliminatorias (`BracketView`): en escritorio árbol completo con
+  columnas por ronda, cabeceras fijas y conectores SVG medidos tras el layout
+  (dorados cuando el alimentador ha terminado) dentro de un marco con scroll
+  propio; en móvil una ronda por pantalla con desplazamiento a saltos y sin
+  conectores; "Mi partido" centra el partido del espectador; partido en juego con
+  brillo. Suizo (`SwissView`): columnas por marcador (3-0, 2-1…), eliminados
+  apagados, ronda actual desplegada y anteriores plegadas, descansos. El hub y el
+  Concilio embeben la fase actual en modo compacto durante `in_progress`, con
+  enlace a la fase completa. Probado con resultados de prueba sembrados (tres
+  jornadas y una semifinal): triple empate resuelto por enfrentamientos
+  directos, empate a cero resuelto por ranking inverso, corte de clasificados,
+  conectores del cuadro y propagación del ganador al hueco de la final. Esos
+  resultados de prueba los borrará F5 al implementar el registro real.
