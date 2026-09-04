@@ -562,7 +562,7 @@ no-admins a partir de `formation` (bombos publicados). La papeleta se abre en
 orden histórico; el "Votar ahora" del Concilio sólo aparece a participantes sin
 voto. "Eres capitán" queda para F2 (no había sala de formación donde mostrarlo).
 
-### F2 — Formación de equipos
+### F2 — Formación de equipos — **HECHO 2026-09-05** (ver nota al final)
 - Aleatorio total / por bombos: generación + **revelación** sincronizada por
   `live_version` (equipo a equipo, con retardo escénico).
 - Draft en vivo: setup (modo, orden editable, serpiente/lineal) → sala. Capitán en
@@ -836,3 +836,39 @@ partir de la puja nº 6; `poolCarriesOver = false`; límite de 50 MB por replay.
   suplantado, cuatro por API), cierre, edición y confirmación del ranking, bombos
   5-5-5-5-1 y capitanes Bordallo, Cordente, Valanton, Juanills y Arsu. Cuentas de
   pruebas creadas para los 21 jugadores sin cuenta (`db:seed:live-test`).
+- 2026-09-05 — **F2 implementado**: motores puros con eventos como única verdad
+  (`src/lib/tournament/auction-live.ts`, `draft-live.ts`: `fold*(events)` es el
+  estado; los comandos proponen eventos; deshacer marca eventos como anulados y
+  el lote vuelve a abrirse limpio). Subasta: temporizador inicial, bloqueo,
+  cuenta atrás (corta a partir de N pujas), lote desierto con confirmación,
+  segunda vuelta con los desiertos, sorteo si una vuelta entera queda sin pujas,
+  autoasignación del último con un solo capitán necesitado, pujas libres cuando
+  nadie alcanza el mínimo, pausa con tiempo restante, deshacer, tiempos editables
+  en caliente (evento `auction_config_changed`). Draft: orden de capitanes
+  (ranking/inverso/aleatorio fijo/aleatorio por ronda, primera ronda editable),
+  serpiente/lineal, pausa, deshacer, cierre automático al agotarse las
+  elecciones. Aleatorio total y por bombos con siembra inmediata. Servidor:
+  `src/server/live/formation.ts` (`applyRoomCommand` dentro de la transacción del
+  torneo, `settleAuctionTimers` perezoso llamado por la suscripción en cada tick),
+  router `formation` (setMethod, startRandom, startDraft, startAuction,
+  updateAuctionConfig, bid, pick, confirmNext, confirmSkip, raffle, pause,
+  resume, undo, finish, nameTeam, events). Al publicar (`finish`) se sientan los
+  equipos (`team_member` con asiento por bombo) y se escriben las proyecciones
+  `auction_lot`/`auction_bid` o `draft_pick` desde el registro. UI: `AuctionStage`
+  (atril con carta grande, precio con pop, reloj, sellos ¡Vendido!/Desierto/
+  Pausa/Sorteo, oro y compras de cada capitán, cola del bombo, controles del
+  capitán), `DraftStage` (turno, orden completo, equipos, bombos tachados,
+  controles bombo→jugador), `FormationRoom` (detecta al capitán por su cuenta),
+  `/live/formation` con `?display=tv`, `FormationPanel` en `/live/setup`,
+  `TeamsReveal` en el Concilio con nombre de equipo por el capitán, y
+  `/live/formation/replay` (plegado hasta el instante elegido, ×1/×4/×16, saltar
+  evento, marcas por venta, resumen final). Identidad del pujador oculta en el
+  estado público. Probado en navegador: subasta completa de 16 lotes con pujas
+  de varios capitanes suplantados (ventas por cuenta atrás, autoasignación,
+  desiertos con segunda vuelta, sorteo del último bombo corto, pausa/reanudar,
+  deshacer, cambio de tiempos en caliente), publicación de equipos, revelación
+  en el Concilio y reproducción a ×16; draft completo en serpiente con pausa y
+  deshacer, cierre automático con el último bombo corto (15 elecciones) y
+  publicación. Aviso de prueba: un bot de pujas en una pestaña en segundo plano
+  se ralentiza por el throttling de Chrome; no es cosa del servidor.
+  El torneo 2026 de dev queda en `teams_ready` formado por draft.

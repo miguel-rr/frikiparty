@@ -50,7 +50,7 @@ const TRPCReactProvider = (props: { children: React.ReactNode }) => {
           condition: (op) => op.type === 'subscription',
           true: httpSubscriptionLink({
             transformer: SuperJSON,
-            url: getBaseUrl() + '/api/trpc',
+            url: `${getBaseUrl()}/api/trpc`,
           }),
           // Batched but NOT streamed: Next collects a route handler's
           // pending revalidatePath() calls the moment the handler returns
@@ -59,7 +59,7 @@ const TRPCReactProvider = (props: { children: React.ReactNode }) => {
           // is silently dropped and the static pages never refresh.
           false: httpBatchLink({
             transformer: SuperJSON,
-            url: getBaseUrl() + '/api/trpc',
+            url: `${getBaseUrl()}/api/trpc`,
             headers: () => {
               const headers = new Headers();
               headers.set('x-trpc-source', 'nextjs-react');

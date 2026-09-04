@@ -1,5 +1,7 @@
 import { and, asc, desc, eq, gte, isNotNull, ne, sql } from 'drizzle-orm';
 
+import type { AuctionLiveState } from '@/lib/tournament/auction-live';
+import type { DraftLiveState } from '@/lib/tournament/draft-live';
 import { combineBallotsToRanking } from '@/lib/tournament/ranking';
 import { stageIndex, type TournamentStage } from '@/lib/tournament/stages';
 import type { db as Db } from '@/server/db';
@@ -8,6 +10,7 @@ import {
   editionPlayer,
   game,
   gameVersion,
+  liveRoom,
   liveVersion,
   player,
   team,
@@ -141,7 +144,7 @@ const getLiveState = async (
   const stage = head.stage;
   const reveal = options.privileged || revealsDeliberation(stage);
 
-  const [participants, teams, [versionRow], voters, potRows] =
+  const [participants, teams, [versionRow], voters, potRows, rooms] =
     await Promise.all([
       db
         .select({
@@ -195,7 +198,35 @@ const getLiveState = async (
         })
         .from(teamFormationPotPlayer)
         .where(eq(teamFormationPotPlayer.tournamentId, tournamentId)),
+      db
+        .select({
+          kind: liveRoom.kind,
+          state: liveRoom.state,
+          version: liveRoom.version,
+          status: liveRoom.status,
+        })
+        .from(liveRoom)
+        .where(eq(liveRoom.tournamentId, tournamentId)),
     ]);
+
+  // The formation room, if one runs. Mid-lot, the high bidder's identity is
+  // nobody's business (core-logic): only the amount leaves the server.
+  const roomRow = rooms.find((row) => row.kind === head.formationMethod);
+  const room: LiveRoom | null = roomRow
+    ? roomRow.kind === 'auction'
+      ? {
+          kind: 'auction',
+          version: roomRow.version,
+          status: roomRow.status,
+          state: hideBidder(roomRow.state as AuctionLiveState),
+        }
+      : {
+          kind: 'draft',
+          version: roomRow.version,
+          status: roomRow.status,
+          state: roomRow.state as DraftLiveState,
+        }
+    : null;
 
   const teamMap = new Map<
     string,
@@ -276,8 +307,29 @@ const getLiveState = async (
     ranking: reveal ? (teamRankingSnapshot ?? null) : null,
     voteRanking,
     pots: reveal ? pots : [],
+    room,
   };
 };
+
+type LiveRoom =
+  | {
+      kind: 'auction';
+      version: number;
+      status: string;
+      state: AuctionLiveState;
+    }
+  | { kind: 'draft'; version: number; status: string; state: DraftLiveState };
+
+const hideBidder = (state: AuctionLiveState): AuctionLiveState =>
+  state.currentLot?.highBid
+    ? {
+        ...state,
+        currentLot: {
+          ...state.currentLot,
+          highBid: { ...state.currentLot.highBid, captainId: '' },
+        },
+      }
+    : state;
 
 type LiveState = NonNullable<Awaited<ReturnType<typeof getLiveState>>>;
 
@@ -328,6 +380,7 @@ export {
   getLiveState,
   getLiveVersion,
   isPublicStage,
+  type LiveRoom,
   type LiveState,
   listParticipantCandidates,
   listStaffWithoutPlayer,

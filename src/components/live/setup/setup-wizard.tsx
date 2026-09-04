@@ -8,6 +8,7 @@ import {
   RankingReviewPanel,
   VotingPanel,
 } from '@/components/live/setup/deliberation-panels';
+import { FormationPanel } from '@/components/live/setup/formation-panel';
 import {
   btn,
   input,
@@ -426,6 +427,9 @@ const SetupPanel = ({
       ) : null}
       {state.stage === 'pots_review' ? (
         <PotsReviewPanel onDone={refresh} state={state} />
+      ) : null}
+      {state.stage === 'formation' ? (
+        <FormationPanel onDone={refresh} state={state} />
       ) : null}
 
       <section className={`${panel} grid gap-5 p-5 sm:grid-cols-2 sm:p-7`}>

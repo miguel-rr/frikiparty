@@ -3,6 +3,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { z } from 'zod';
 
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { settleAuctionTimers } from '@/server/live/formation';
 import {
   getCurrentTournament,
   getLiveState,
@@ -46,6 +47,12 @@ const liveRouter = createTRPCRouter({
           { signal },
         ).catch(() => undefined);
         if (signal?.aborted) return;
+        // Whoever polls first settles a due auction timer (lazy clocks).
+        if (state.stage === 'formation') {
+          await settleAuctionTimers(ctx.db, input.tournamentId).catch(
+            () => false,
+          );
+        }
         const version = await getLiveVersion(ctx.db, input.tournamentId);
         if (version === known) continue;
         const next = await getLiveState(ctx.db, input.tournamentId, options);

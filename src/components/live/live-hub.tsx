@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
+import { FormationRoom } from '@/components/live/formation/formation-room';
 import { PotsReveal } from '@/components/live/pots-reveal';
 import { RankingBlock } from '@/components/live/ranking-block';
 import { StageTimeline } from '@/components/live/stage-timeline';
+import { TeamsReveal } from '@/components/live/teams-reveal';
 import { VotingStatus } from '@/components/live/voting-status';
 import { btn, panel, panelGold, tag } from '@/components/theme/primitives';
 import { STAGE_META } from '@/lib/live/stages';
@@ -35,6 +37,12 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
   // Once the pots are public they show everyone; the plain list retires.
   const potsPublished =
     stageIndex(state.stage) >= stageIndex('formation') && state.pots.length > 0;
+  const teamsSeated =
+    stageIndex(state.stage) >= stageIndex('teams_ready') &&
+    state.teams.some((t) => t.members.length > 1);
+  const replayable =
+    teamsSeated &&
+    (state.formationMethod === 'auction' || state.formationMethod === 'draft');
 
   return (
     <div className="flex flex-col gap-10">
@@ -63,12 +71,50 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
 
       {state.stage === 'voting' ? <VotingStatus state={state} /> : null}
 
-      {potsPublished ? (
+      {state.stage === 'formation' ? (
+        <>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
+              La sala
+            </h3>
+            <div className="flex gap-2">
+              <Link className={btn.outline} href="/live/formation">
+                Pantalla completa
+              </Link>
+              <Link className={btn.outline} href="/live/formation?display=tv">
+                Modo TV
+              </Link>
+            </div>
+          </div>
+          <FormationRoom live={state} />
+        </>
+      ) : null}
+
+      {teamsSeated ? (
+        <>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
+              Los equipos
+            </h3>
+            {replayable ? (
+              <Link className={btn.outline} href="/live/formation/replay">
+                {state.formationMethod === 'auction'
+                  ? 'Revive la subasta'
+                  : 'Revive el draft'}
+              </Link>
+            ) : null}
+          </div>
+          <TeamsReveal state={state} />
+        </>
+      ) : null}
+
+      {potsPublished && !teamsSeated ? (
         <>
           <PotsReveal state={state} />
           <RankingBlock state={state} />
         </>
       ) : null}
+      {potsPublished && teamsSeated ? <RankingBlock state={state} /> : null}
 
       {potsPublished ? null : (
         <section className={`${panelGold} flex flex-col gap-5 p-5 sm:p-7`}>
@@ -116,7 +162,7 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
         </section>
       )}
 
-      {state.teams.length > 0 ? (
+      {state.teams.length > 0 && !teamsSeated ? (
         <section className={`${panel} flex flex-col gap-4 p-5 sm:p-7`}>
           <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
             Los equipos

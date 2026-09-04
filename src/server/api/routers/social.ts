@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, inArray, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { cardSpecFor } from '@/lib/tournament/card-lore';
