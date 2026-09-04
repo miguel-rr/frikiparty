@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_player" ADD COLUMN "previous_slugs" text[] DEFAULT '{}'::text[] NOT NULL;

@@ -1,7 +1,7 @@
 import { eq, like } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import { firstFreeSlug, slugify } from '@/lib/slug';
+import { firstFreeSlug, rememberSlug, slugify } from '@/lib/slug';
 import {
   isPlayerId,
   mentionToken,
@@ -37,7 +37,12 @@ const sql = postgres(url, { max: 1 });
 const db = drizzle(sql);
 
 const players = await db
-  .select({ id: player.id, name: player.name, slug: player.slug })
+  .select({
+    id: player.id,
+    name: player.name,
+    slug: player.slug,
+    previousSlugs: player.previousSlugs,
+  })
   .from(player)
   .orderBy(player.name);
 
@@ -82,9 +87,13 @@ const changes: { name: string; from: string; to: string }[] = [];
 
 for (const row of players) {
   const base = slugify(row.name);
+  // Every slug another player has or ever had: those addresses redirect.
   const others = players
     .filter((other) => other.id !== row.id)
-    .map((other) => slugs.get(other.id) ?? other.slug);
+    .flatMap((other) => [
+      slugs.get(other.id) ?? other.slug,
+      ...other.previousSlugs,
+    ]);
   // Already the plain slug, or a suffixed one because another player owns
   // the plain form: nothing to do. Otherwise take the first free slug.
   const keeps =
@@ -108,14 +117,18 @@ if (changes.length === 0) {
     for (const row of players) {
       const next = slugs.get(row.id);
       if (next && next !== row.slug) {
+        // The slug left behind keeps redirecting to the page.
         await db
           .update(player)
-          .set({ slug: next })
+          .set({
+            slug: next,
+            previousSlugs: rememberSlug(row.previousSlugs, row.slug, next),
+          })
           .where(eq(player.id, row.id));
       }
     }
     console.log(
-      `${changes.length} slug(s) actualizados. Redespliega para reconstruir las páginas de jugador.`,
+      `${changes.length} slug(s) actualizados; los antiguos redirigen. Redespliega para reconstruir las páginas de jugador.`,
     );
   } else {
     console.log(

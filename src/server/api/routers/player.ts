@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { generateLinkCode, normalizeLinkCode } from '@/lib/link-code';
-import { firstFreeSlug } from '@/lib/slug';
+import { firstFreeSlug, rememberSlug } from '@/lib/slug';
 import {
   competitionPositions,
   sortByHistoricalRanking,
@@ -171,6 +171,19 @@ const canEditPlayer = (
  * A player's public profile. Pure query (no session) so the page can be
  * built statically; who may edit is resolved client-side via player.mine.
  */
+/** The current slug of the player who once used `slug`, if any. */
+const findCurrentSlugByPrevious = async (
+  db: TRPCContext['db'],
+  slug: string,
+) => {
+  const [row] = await db
+    .select({ slug: player.slug })
+    .from(player)
+    .where(sql`${slug} = ANY(${player.previousSlugs})`)
+    .limit(1);
+  return row?.slug ?? null;
+};
+
 const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
   const [row] = await db.select().from(player).where(eq(player.slug, slug));
   if (!row) {
@@ -518,7 +531,12 @@ const playerRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db
-        .select({ userId: player.userId, name: player.name, slug: player.slug })
+        .select({
+          userId: player.userId,
+          name: player.name,
+          slug: player.slug,
+          previousSlugs: player.previousSlugs,
+        })
         .from(player)
         .where(eq(player.id, input.id));
       if (!row) {
@@ -529,17 +547,23 @@ const playerRouter = createTRPCRouter({
       }
 
       // A new name means a new page address: the slug follows it, dodging
-      // any other player's slug. Unchanged names keep theirs.
+      // every slug another player has or ever had (those redirect). The
+      // one being left behind joins this player's previous slugs, so the
+      // old link keeps working. Unchanged names keep theirs.
       let slug = row.slug;
+      let previousSlugs = row.previousSlugs;
       if (input.name !== undefined && input.name !== row.name) {
-        const taken = await ctx.db
-          .select({ slug: player.slug })
+        const others = await ctx.db
+          .select({ slug: player.slug, previousSlugs: player.previousSlugs })
           .from(player)
           .where(ne(player.id, input.id));
         slug = firstFreeSlug(
           input.name,
-          taken.map((other) => other.slug),
+          others.flatMap((other) => [other.slug, ...other.previousSlugs]),
         );
+        if (slug !== row.slug) {
+          previousSlugs = rememberSlug(row.previousSlugs, row.slug, slug);
+        }
       }
 
       // A curated attack always travels whole: name and definition
@@ -555,7 +579,7 @@ const playerRouter = createTRPCRouter({
       const { id, ...changes } = input;
       const [updated] = await ctx.db
         .update(player)
-        .set({ ...changes, slug })
+        .set({ ...changes, slug, previousSlugs })
         .where(eq(player.id, id))
         .returning({
           id: player.id,
@@ -584,6 +608,7 @@ const playerRouter = createTRPCRouter({
 });
 
 export {
+  findCurrentSlugByPrevious,
   getHistoricalRanking,
   getPlayerForUser,
   getPlayerProfile,
@@ -593,4 +618,5 @@ export {
   listUnlinkedUsers,
   playerRouter,
   type RingTitle,
+  rememberSlug,
 };

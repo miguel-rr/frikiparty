@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import { text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { user } from '@/server/db/schema/auth';
 import { createTable } from '@/server/db/schema/create-table';
@@ -10,9 +11,14 @@ import { createTable } from '@/server/db/schema/create-table';
 const player = createTable('player', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: text('name').notNull(),
-  // Generated from name at creation time and never changed afterwards, so
-  // renaming a player doesn't break existing links to their page.
+  // The page address, generated from the name and following it on a
+  // rename. Every slug the player ever had lives on in previousSlugs, so
+  // old links redirect to the current page (see /players/[slug]).
   slug: text('slug').notNull().unique(),
+  previousSlugs: text('previous_slugs')
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
   userId: text('user_id')
     .references(() => user.id)
     .unique(),

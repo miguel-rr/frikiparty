@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { Fragment } from 'react';
 
 import { PlayerProfile } from '@/app/players/[slug]/_components/player-profile';
@@ -15,7 +15,10 @@ import {
 } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
 import { cardSpecFor, dealCardSpecs } from '@/lib/tournament/card-lore';
-import { getPlayerProfile } from '@/server/api/routers/player';
+import {
+  findCurrentSlugByPrevious,
+  getPlayerProfile,
+} from '@/server/api/routers/player';
 import { db } from '@/server/db';
 import { player as playerTable } from '@/server/db/schema';
 
@@ -68,6 +71,11 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
 
   const player = await getPlayerProfile(db, slug);
   if (!player) {
+    // A slug the player used before a rename: send the old link on.
+    const current = await findCurrentSlugByPrevious(db, slug);
+    if (current) {
+      permanentRedirect(`/players/${current}`);
+    }
     notFound();
   }
 

@@ -141,6 +141,13 @@
       "when": 1788444363615,
       "tag": "0019_bouncy_thor_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1788531909683,
+      "tag": "0020_majestic_stranger",
+      "breakpoints": true
     }
   ]
 }

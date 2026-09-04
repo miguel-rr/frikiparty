@@ -127,15 +127,30 @@ const loadMentioned = async (db: TRPCContext['db'], refs: string[]) => {
   const slugs = refs.filter((ref) => !isPlayerId(ref));
   const conditions = [
     ...(ids.length > 0 ? [inArray(player.id, ids)] : []),
-    ...(slugs.length > 0 ? [inArray(player.slug, slugs)] : []),
+    ...(slugs.length > 0
+      ? [
+          inArray(player.slug, slugs),
+          // Slugs the player had before a rename still name them.
+          sql`${player.previousSlugs} && ${sql.raw(`ARRAY[${slugs.map((s) => `'${s.replace(/'/g, "''")}'`).join(',')}]::text[]`)}`,
+        ]
+      : []),
   ];
   const rows = await db
-    .select({ id: player.id, name: player.name, slug: player.slug })
+    .select({
+      id: player.id,
+      name: player.name,
+      slug: player.slug,
+      previousSlugs: player.previousSlugs,
+    })
     .from(player)
     .where(conditions.length === 1 ? conditions[0] : or(...conditions));
   for (const row of rows) {
-    found.set(row.id, row);
-    found.set(row.slug, row);
+    const known = { id: row.id, name: row.name, slug: row.slug };
+    found.set(row.id, known);
+    found.set(row.slug, known);
+    for (const old of row.previousSlugs) {
+      found.set(old, known);
+    }
   }
   return found;
 };
