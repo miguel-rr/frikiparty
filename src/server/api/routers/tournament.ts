@@ -2,7 +2,12 @@ import { TRPCError } from '@trpc/server';
 import { asc, eq, inArray, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
-
+import { env } from '@/env';
+import { generatePots } from '@/lib/tournament/pots';
+import {
+  combineBallotsToRanking,
+  combineRankings,
+} from '@/lib/tournament/ranking';
 import { teamsLayout } from '@/lib/tournament/teams-layout';
 import { getHistoricalRanking } from '@/server/api/routers/player';
 import {
@@ -34,11 +39,13 @@ import {
   tournament,
   tournamentRankingSnapshot,
   tournamentSwissConfig,
+  tournamentVote,
 } from '@/server/db/schema';
 import {
   getLiveState,
   listParticipantCandidates,
   listStaffWithoutPlayer,
+  loadBallots,
 } from '@/server/live/state';
 import { actorFromSession, runTournamentTx, type Tx } from '@/server/live/tx';
 
@@ -55,13 +62,12 @@ const configSchema = z.object({
   historicalWeightPercent: z.number().int().min(0).max(100).nullable(),
 });
 
-/** Stages during which the roster and team size may still change. */
-const ROSTER_EDITABLE: TournamentStage[] = [
-  'setup',
-  'voting',
-  'ranking_review',
-  'pots_review',
-];
+/**
+ * The roster and team size change only before the start: ballots, the
+ * ranking and the pots all depend on them. To add a latecomer later, the
+ * admin moves the stage back to setup (which also clears those).
+ */
+const ROSTER_EDITABLE: TournamentStage[] = ['setup'];
 
 const stageIndex = (stage: TournamentStage) => TOURNAMENT_STAGES.indexOf(stage);
 
@@ -88,7 +94,8 @@ const assertRosterEditable = (stage: TournamentStage) => {
   if (!ROSTER_EDITABLE.includes(stage)) {
     throw new TRPCError({
       code: 'BAD_REQUEST',
-      message: 'Los equipos ya están en marcha: no se puede tocar la lista.',
+      message:
+        'El torneo ya ha comenzado: vuelve a "Preparación" para tocar la lista.',
     });
   }
 };
@@ -262,6 +269,47 @@ const deleteTournamentCascade = async (tx: Tx, tournamentId: string) => {
   await tx.delete(tournament).where(eq(tournament.id, tournamentId));
 };
 
+/** Participants in historical-ranking order (the snapshot's positions). */
+const loadHistoricalOrder = async (
+  db: TRPCContext['db'],
+  tournamentId: string,
+) =>
+  (
+    await db
+      .select({ id: tournamentRankingSnapshot.playerId })
+      .from(tournamentRankingSnapshot)
+      .where(eq(tournamentRankingSnapshot.tournamentId, tournamentId))
+      .orderBy(asc(tournamentRankingSnapshot.position))
+  ).map((row) => row.id);
+
+const assertSameSet = (
+  given: string[],
+  expected: string[],
+  message: string,
+) => {
+  const wanted = new Set(expected);
+  const seen = new Set(given);
+  if (
+    seen.size !== given.length ||
+    seen.size !== wanted.size ||
+    given.some((id) => !wanted.has(id))
+  ) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message });
+  }
+};
+
+const writePots = async (tx: Tx, tournamentId: string, pots: string[][]) => {
+  await tx
+    .delete(teamFormationPotPlayer)
+    .where(eq(teamFormationPotPlayer.tournamentId, tournamentId));
+  const rows = pots.flatMap((pot, potIndex) =>
+    pot.map((playerId) => ({ tournamentId, potIndex, playerId })),
+  );
+  if (rows.length > 0) {
+    await tx.insert(teamFormationPotPlayer).values(rows);
+  }
+};
+
 const tournamentRouter = createTRPCRouter({
   /** Games and versions to pick from when creating a tournament. */
   catalog: adminProcedure.query(async ({ ctx }) => {
@@ -293,7 +341,9 @@ const tournamentRouter = createTRPCRouter({
   setup: adminProcedure
     .input(z.object({ tournamentId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const state = await getLiveState(ctx.db, input.tournamentId);
+      const state = await getLiveState(ctx.db, input.tournamentId, {
+        privileged: true,
+      });
       if (!state) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
@@ -432,6 +482,17 @@ const tournamentRouter = createTRPCRouter({
             count,
             current.teamSize ?? 1,
           );
+          // Anything derived from the old roster is void.
+          await tx
+            .delete(tournamentVote)
+            .where(eq(tournamentVote.tournamentId, input.tournamentId));
+          await tx
+            .delete(teamFormationPotPlayer)
+            .where(eq(teamFormationPotPlayer.tournamentId, input.tournamentId));
+          await tx
+            .update(tournament)
+            .set({ teamRankingSnapshot: null })
+            .where(eq(tournament.id, input.tournamentId));
           await emit({
             stream: 'admin',
             type: 'participants_changed',
@@ -470,6 +531,17 @@ const tournamentRouter = createTRPCRouter({
       }
       const next: TournamentStage =
         current.rankingSource === 'historical' ? 'ranking_review' : 'voting';
+      if (next === 'ranking_review') {
+        // No vote: the tournament ranking opens as the historical one.
+        const historical = await loadHistoricalOrder(
+          ctx.db,
+          input.tournamentId,
+        );
+        await ctx.db
+          .update(tournament)
+          .set({ teamRankingSnapshot: historical })
+          .where(eq(tournament.id, input.tournamentId));
+      }
       await changeStage(ctx, input.tournamentId, current.stage, next);
       return { stage: next };
     }),
@@ -496,6 +568,299 @@ const tournamentRouter = createTRPCRouter({
       }
       await ctx.db.transaction((tx) =>
         deleteTournamentCascade(tx, input.tournamentId),
+      );
+      revalidateLive();
+      return { ok: true };
+    }),
+
+  /**
+   * Closes the vote: Borda count over the ballots, blended with the
+   * historical order when the source is `combined`, becomes the working
+   * ranking the admin then reviews.
+   */
+  closeVoting: adminProcedure
+    .input(z.object({ tournamentId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (current.stage !== 'voting') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'La votación no está abierta.',
+        });
+      }
+      const [historical, ballots] = await Promise.all([
+        loadHistoricalOrder(ctx.db, input.tournamentId),
+        loadBallots(ctx.db, input.tournamentId),
+      ]);
+      if (ballots.length === 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Nadie ha votado todavía.',
+        });
+      }
+      const voteRanking = combineBallotsToRanking(ballots, historical);
+      const ranking =
+        current.rankingSource === 'combined'
+          ? combineRankings(
+              historical,
+              voteRanking,
+              current.historicalWeightPercent ?? 50,
+            )
+          : voteRanking;
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          await tx
+            .update(tournament)
+            .set({
+              teamRankingSnapshot: ranking,
+              stage: 'ranking_review',
+              stageChangedAt: new Date(),
+            })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'voting_closed',
+            payload: {
+              ballots: ballots.length,
+              voteRanking,
+              historical,
+              ranking,
+              historicalWeightPercent: current.historicalWeightPercent,
+            },
+          });
+          await emit({
+            stream: 'admin',
+            type: 'stage_changed',
+            payload: {
+              from: 'voting',
+              to: 'ranking_review',
+              direction: 'forward',
+            },
+          });
+        },
+      );
+      revalidateLive();
+      return { ok: true };
+    }),
+
+  /**
+   * Development only: the raw ballots, to tune the vote while building it.
+   * Refused in production — votes are private there, admins included.
+   */
+  ballots: adminProcedure
+    .input(z.object({ tournamentId: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      if (env.VERCEL_ENV === 'production') {
+        throw new TRPCError({ code: 'FORBIDDEN' });
+      }
+      return loadBallots(ctx.db, input.tournamentId);
+    }),
+
+  /** Hand-adjusted tournament ranking, while it's under review. */
+  setRanking: adminProcedure
+    .input(
+      z.object({
+        tournamentId: z.string().uuid(),
+        order: z.array(z.string().uuid()).min(2),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (current.stage !== 'ranking_review') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'El ranking sólo se edita durante su revisión.',
+        });
+      }
+      const roster = await loadHistoricalOrder(ctx.db, input.tournamentId);
+      assertSameSet(
+        input.order,
+        roster,
+        'El ranking debe incluir a todos los participantes.',
+      );
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          await tx
+            .update(tournament)
+            .set({ teamRankingSnapshot: input.order })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'ranking_edited',
+            payload: { order: input.order },
+          });
+        },
+      );
+      return { ok: true };
+    }),
+
+  /** The ranking is final: pots are dealt from it and go under review. */
+  confirmRanking: adminProcedure
+    .input(z.object({ tournamentId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (current.stage !== 'ranking_review' || !current.teamRankingSnapshot) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'No hay ranking que confirmar.',
+        });
+      }
+      const { pots } = generatePots(
+        current.teamRankingSnapshot,
+        current.teamSize ?? 1,
+      );
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          await writePots(tx, input.tournamentId, pots);
+          await tx
+            .update(tournament)
+            .set({ stage: 'pots_review', stageChangedAt: new Date() })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'ranking_confirmed',
+            payload: { order: current.teamRankingSnapshot },
+          });
+          await emit({
+            stream: 'admin',
+            type: 'pots_generated',
+            payload: { pots },
+          });
+          await emit({
+            stream: 'admin',
+            type: 'stage_changed',
+            payload: {
+              from: 'ranking_review',
+              to: 'pots_review',
+              direction: 'forward',
+            },
+          });
+        },
+      );
+      revalidateLive();
+      return { ok: true };
+    }),
+
+  /** Hand-moved pots, while they're under review. */
+  setPots: adminProcedure
+    .input(
+      z.object({
+        tournamentId: z.string().uuid(),
+        pots: z.array(z.array(z.string().uuid())).min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (current.stage !== 'pots_review') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Los bombos sólo se editan durante su revisión.',
+        });
+      }
+      const roster = await loadHistoricalOrder(ctx.db, input.tournamentId);
+      assertSameSet(
+        input.pots.flat(),
+        roster,
+        'Los bombos deben repartir a todos los participantes.',
+      );
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          await writePots(tx, input.tournamentId, input.pots);
+          await emit({
+            stream: 'admin',
+            type: 'pots_edited',
+            payload: { pots: input.pots },
+          });
+        },
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * Pots are final: every player of the captains' pot takes a team (in
+   * pot order), the pots become public, and formation can begin.
+   */
+  confirmPots: adminProcedure
+    .input(z.object({ tournamentId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (current.stage !== 'pots_review') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'No hay bombos que confirmar.',
+        });
+      }
+      const state = await getLiveState(ctx.db, input.tournamentId, {
+        privileged: true,
+      });
+      const captainPot = state?.pots[current.captainPotIndex] ?? [];
+      const teams = state?.teams ?? [];
+      if (captainPot.length === 0 || captainPot.length !== teams.length) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `El bombo de capitanes tiene ${captainPot.length} jugadores y hay ${teams.length} equipos.`,
+        });
+      }
+      if (teams.some((teamRow) => teamRow.members.length > 0)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Los equipos ya tienen miembros.',
+        });
+      }
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          const assignments = captainPot.map((playerId, index) => ({
+            teamId: teams[index]?.id ?? '',
+            playerId,
+          }));
+          await tx.insert(teamMember).values(
+            assignments.map((entry) => ({
+              teamId: entry.teamId,
+              playerId: entry.playerId,
+              tournamentId: input.tournamentId,
+              isCaptain: true,
+              seat: 0,
+            })),
+          );
+          await tx
+            .update(tournament)
+            .set({ stage: 'formation', stageChangedAt: new Date() })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'pots_published',
+            payload: { pots: state?.pots ?? [] },
+          });
+          await emit({
+            stream: 'admin',
+            type: 'captains_assigned',
+            payload: { assignments },
+          });
+          await emit({
+            stream: 'admin',
+            type: 'stage_changed',
+            payload: {
+              from: 'pots_review',
+              to: 'formation',
+              direction: 'forward',
+            },
+          });
+        },
       );
       revalidateLive();
       return { ok: true };

@@ -3,7 +3,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-
+import {
+  PotsReviewPanel,
+  RankingReviewPanel,
+  VotingPanel,
+} from '@/components/live/setup/deliberation-panels';
 import {
   btn,
   input,
@@ -35,12 +39,15 @@ const fieldset = 'flex flex-col gap-1';
 const SetupWizard = ({
   nextEdition,
   tournamentId,
+  testTools,
 }: {
   nextEdition: NextEdition;
   tournamentId: string | null;
+  /** Outside production: development-only aids (the ballot viewer). */
+  testTools: boolean;
 }) =>
   tournamentId ? (
-    <SetupPanel tournamentId={tournamentId} />
+    <SetupPanel testTools={testTools} tournamentId={tournamentId} />
   ) : (
     <CreateTournamentForm nextEdition={nextEdition} />
   );
@@ -312,7 +319,13 @@ const CandidateList = ({
   </ul>
 );
 
-const SetupPanel = ({ tournamentId }: { tournamentId: string }) => {
+const SetupPanel = ({
+  tournamentId,
+  testTools,
+}: {
+  tournamentId: string;
+  testTools: boolean;
+}) => {
   const router = useRouter();
   const utils = api.useUtils();
   const setup = api.tournament.setup.useQuery({ tournamentId });
@@ -404,6 +417,16 @@ const SetupPanel = ({ tournamentId }: { tournamentId: string }) => {
           </div>
         ) : null}
       </section>
+
+      {state.stage === 'voting' ? (
+        <VotingPanel onDone={refresh} state={state} testTools={testTools} />
+      ) : null}
+      {state.stage === 'ranking_review' ? (
+        <RankingReviewPanel onDone={refresh} state={state} />
+      ) : null}
+      {state.stage === 'pots_review' ? (
+        <PotsReviewPanel onDone={refresh} state={state} />
+      ) : null}
 
       <section className={`${panel} grid gap-5 p-5 sm:grid-cols-2 sm:p-7`}>
         {state.kind === 'team' ? (

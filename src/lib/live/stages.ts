@@ -1,4 +1,5 @@
 import {
+  stageIndex,
   TOURNAMENT_STAGES,
   type TournamentStage,
 } from '@/lib/tournament/stages';
@@ -59,8 +60,6 @@ const STAGE_META: Record<TournamentStage, StageMeta> = {
     next: 'El torneo ha terminado. Los anillos ya tienen dueño.',
   },
 };
-
-const stageIndex = (stage: TournamentStage) => TOURNAMENT_STAGES.indexOf(stage);
 
 /** Stages shown on the public timeline (setup is private). */
 const PUBLIC_STAGES = TOURNAMENT_STAGES.filter((stage) => stage !== 'setup');

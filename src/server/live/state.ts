@@ -1,5 +1,7 @@
 import { and, asc, desc, eq, gte, isNotNull, ne, sql } from 'drizzle-orm';
 
+import { combineBallotsToRanking } from '@/lib/tournament/ranking';
+import { stageIndex, type TournamentStage } from '@/lib/tournament/stages';
 import type { db as Db } from '@/server/db';
 import {
   edition,
@@ -8,11 +10,12 @@ import {
   gameVersion,
   liveVersion,
   player,
-  type TournamentStage,
   team,
+  teamFormationPotPlayer,
   teamMember,
   tournament,
   tournamentRankingSnapshot,
+  tournamentVote,
   user,
 } from '@/server/db/schema';
 
@@ -60,6 +63,14 @@ const getCurrentTournament = async (db: Database) => {
 /** Public once the admin has given the tournament its start. */
 const isPublicStage = (stage: TournamentStage) => stage !== 'setup';
 
+/**
+ * The ranking, its vote-derived half and the pots are the admin's until the
+ * pots are published (stage `formation`); before that the Council only
+ * says it deliberates.
+ */
+const revealsDeliberation = (stage: TournamentStage) =>
+  stageIndex(stage) >= stageIndex('formation');
+
 type Participant = {
   id: string;
   name: string;
@@ -67,17 +78,37 @@ type Participant = {
   position: number;
   rings: number;
   individualRings: number;
+  cardPortrait: string | null;
+  cardAbility: string | null;
+  cardAbilityText: string | null;
   /** Has an account claimed this player (so they can act in the app). */
   hasAccount: boolean;
 };
 
+/** Ballots as the engine wants them; never leaves the server. */
+const loadBallots = async (db: Database, tournamentId: string) =>
+  (
+    await db
+      .select({
+        voterId: tournamentVote.voterPlayerId,
+        order: tournamentVote.order,
+      })
+      .from(tournamentVote)
+      .where(eq(tournamentVote.tournamentId, tournamentId))
+  ).map((row) => ({ voterId: row.voterId, order: row.order }));
+
 /**
  * Everything the live views need about a tournament in one read; grows
  * with each phase of the live plan. Participants come from the ranking
- * snapshot, which is also the participant list (regenerated on every
- * roster change until formation).
+ * snapshot, which is also the participant list. Pass `privileged` for an
+ * admin reader: the deliberation (ranking, votes' aggregate, pots) is
+ * only included for everyone else once the pots are published.
  */
-const getLiveState = async (db: Database, tournamentId: string) => {
+const getLiveState = async (
+  db: Database,
+  tournamentId: string,
+  options: { privileged?: boolean } = {},
+) => {
   const [head] = await db
     .select({
       id: tournament.id,
@@ -91,6 +122,7 @@ const getLiveState = async (db: Database, tournamentId: string) => {
       historicalWeightPercent: tournament.historicalWeightPercent,
       formationMethod: tournament.formationMethod,
       captainPotIndex: tournament.captainPotIndex,
+      teamRankingSnapshot: tournament.teamRankingSnapshot,
       gameId: tournament.gameId,
       gameName: game.name,
       gameVersion: gameVersion.version,
@@ -106,43 +138,64 @@ const getLiveState = async (db: Database, tournamentId: string) => {
     .leftJoin(gameVersion, eq(gameVersion.id, tournament.gameVersionId))
     .where(eq(tournament.id, tournamentId));
   if (!head?.stage) return null;
+  const stage = head.stage;
+  const reveal = options.privileged || revealsDeliberation(stage);
 
-  const [participants, teams, [versionRow]] = await Promise.all([
-    db
-      .select({
-        id: player.id,
-        name: player.name,
-        slug: player.slug,
-        position: tournamentRankingSnapshot.position,
-        rings: tournamentRankingSnapshot.rings,
-        individualRings: tournamentRankingSnapshot.individualRings,
-        hasAccount: sql<boolean>`${player.userId} IS NOT NULL`,
-      })
-      .from(tournamentRankingSnapshot)
-      .innerJoin(player, eq(player.id, tournamentRankingSnapshot.playerId))
-      .where(eq(tournamentRankingSnapshot.tournamentId, tournamentId))
-      .orderBy(asc(tournamentRankingSnapshot.position)),
-    db
-      .select({
-        id: team.id,
-        name: team.name,
-        memberId: teamMember.id,
-        playerId: teamMember.playerId,
-        playerName: player.name,
-        playerSlug: player.slug,
-        isCaptain: teamMember.isCaptain,
-        seat: teamMember.seat,
-      })
-      .from(team)
-      .leftJoin(teamMember, eq(teamMember.teamId, team.id))
-      .leftJoin(player, eq(player.id, teamMember.playerId))
-      .where(eq(team.tournamentId, tournamentId))
-      .orderBy(asc(team.createdAt), asc(teamMember.seat)),
-    db
-      .select({ version: liveVersion.version })
-      .from(liveVersion)
-      .where(eq(liveVersion.tournamentId, tournamentId)),
-  ]);
+  const [participants, teams, [versionRow], voters, potRows] =
+    await Promise.all([
+      db
+        .select({
+          id: player.id,
+          name: player.name,
+          slug: player.slug,
+          position: tournamentRankingSnapshot.position,
+          rings: tournamentRankingSnapshot.rings,
+          individualRings: tournamentRankingSnapshot.individualRings,
+          cardPortrait: player.cardPortrait,
+          cardAbility: player.cardAbility,
+          cardAbilityText: player.cardAbilityText,
+          hasAccount: sql<boolean>`${player.userId} IS NOT NULL`,
+        })
+        .from(tournamentRankingSnapshot)
+        .innerJoin(player, eq(player.id, tournamentRankingSnapshot.playerId))
+        .where(eq(tournamentRankingSnapshot.tournamentId, tournamentId))
+        .orderBy(asc(tournamentRankingSnapshot.position)),
+      db
+        .select({
+          id: team.id,
+          name: team.name,
+          memberId: teamMember.id,
+          playerId: teamMember.playerId,
+          playerName: player.name,
+          playerSlug: player.slug,
+          isCaptain: teamMember.isCaptain,
+          seat: teamMember.seat,
+        })
+        .from(team)
+        .leftJoin(teamMember, eq(teamMember.teamId, team.id))
+        .leftJoin(player, eq(player.id, teamMember.playerId))
+        .where(eq(team.tournamentId, tournamentId))
+        .orderBy(asc(team.createdAt), asc(teamMember.seat)),
+      db
+        .select({ version: liveVersion.version })
+        .from(liveVersion)
+        .where(eq(liveVersion.tournamentId, tournamentId)),
+      db
+        .select({
+          playerId: tournamentVote.voterPlayerId,
+          submittedAt: tournamentVote.submittedAt,
+        })
+        .from(tournamentVote)
+        .where(eq(tournamentVote.tournamentId, tournamentId))
+        .orderBy(asc(tournamentVote.submittedAt)),
+      db
+        .select({
+          potIndex: teamFormationPotPlayer.potIndex,
+          playerId: teamFormationPotPlayer.playerId,
+        })
+        .from(teamFormationPotPlayer)
+        .where(eq(teamFormationPotPlayer.tournamentId, tournamentId)),
+    ]);
 
   const teamMap = new Map<
     string,
@@ -176,16 +229,53 @@ const getLiveState = async (db: Database, tournamentId: string) => {
     teamMap.set(row.id, entry);
   }
 
-  const { editionOrder, editionYear, ...rest } = head;
+  // Pots in ranking order within each tier (the snapshot decides).
+  const rankPosition = new Map(
+    (head.teamRankingSnapshot ?? []).map((id, index) => [id, index]),
+  );
+  const potCount = potRows.reduce(
+    (max, row) => Math.max(max, row.potIndex + 1),
+    0,
+  );
+  const pots: string[][] = Array.from({ length: potCount }, () => []);
+  for (const row of potRows) pots[row.potIndex]?.push(row.playerId);
+  for (const pot of pots) {
+    pot.sort(
+      (a, b) =>
+        (rankPosition.get(a) ?? Number.MAX_SAFE_INTEGER) -
+        (rankPosition.get(b) ?? Number.MAX_SAFE_INTEGER),
+    );
+  }
+
+  // The votes' own ranking is only computed once voting is closed: a live
+  // partial tally would leak how the vote is going.
+  const votingClosed = stageIndex(stage) > stageIndex('voting');
+  const participantIds = participants.map((row) => row.id);
+  const voteRanking =
+    reveal && votingClosed && head.rankingSource !== 'historical'
+      ? combineBallotsToRanking(
+          await loadBallots(db, tournamentId),
+          participantIds,
+        )
+      : null;
+
+  const { editionOrder, editionYear, teamRankingSnapshot, ...rest } = head;
   return {
     ...rest,
-    stage: head.stage,
+    stage,
     editionYear,
     editionSlug:
       editionOrder > 1 ? `${editionYear}-${editionOrder}` : String(editionYear),
     version: versionRow?.version ?? 0,
     participants: participants as Participant[],
     teams: [...teamMap.values()],
+    voting: {
+      submittedPlayerIds: voters.map((row) => row.playerId),
+    },
+    /** Tournament ranking (best first); null until computed or while private. */
+    ranking: reveal ? (teamRankingSnapshot ?? null) : null,
+    voteRanking,
+    pots: reveal ? pots : [],
   };
 };
 
@@ -241,5 +331,7 @@ export {
   type LiveState,
   listParticipantCandidates,
   listStaffWithoutPlayer,
+  loadBallots,
   type Participant,
+  revealsDeliberation,
 };

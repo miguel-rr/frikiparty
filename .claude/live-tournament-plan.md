@@ -540,7 +540,7 @@ Prueba: crear torneo 2026, participantes, tamaño 5 con 21 → ver "5 equipos: 4
 cuentas de pruebas para 6 jugadores; tres navegadores entrando como jugadores
 distintos; cambio de etapa visible en <3 s; borrar y recrear.
 
-### F1 — Ranking y bombos
+### F1 — Ranking y bombos — **HECHO 2026-09-05**
 - Setup: `rankingSource`; histórico directo o votación.
 - `/live/vote`: papeleta con arrastrar + flechas, orden inicial histórico, "Enviar"
   con doble confirmación, sellada. Visor de papeletas sólo fuera de producción.
@@ -553,6 +553,14 @@ distintos; cambio de etapa visible en <3 s; borrar y recrear.
 
 Prueba: 6 jugadores votan desde 3 navegadores; comprobar Borda con caso pequeño;
 mover jugador de bombo; comprobar que los capitanes ven "Eres capitán".
+
+Nota de implementación (2026-09-05): la lista de participantes y el tamaño de
+equipo sólo se editan en `setup`; para añadir a alguien después, el admin
+devuelve la etapa a "Preparación" (se anulan votos, ranking y bombos derivados).
+El ranking, el agregado de votos y los bombos sólo salen del servidor para
+no-admins a partir de `formation` (bombos publicados). La papeleta se abre en
+orden histórico; el "Votar ahora" del Concilio sólo aparece a participantes sin
+voto. "Eres capitán" queda para F2 (no había sala de formación donde mostrarlo).
 
 ### F2 — Formación de equipos
 - Aleatorio total / por bombos: generación + **revelación** sincronizada por
@@ -813,3 +821,18 @@ partir de la puja nº 6; `poolCarriesOver = false`; límite de 50 MB por replay.
   `db:seed:live-test` escrito pero no ejecutado; `SKIP_ENV_VALIDATION=1 pnpm run
   build` no ejecutado porque el dev server estaba en marcha; seed de catálogo y
   migración en producción (los ejecuta Miguel al desplegar).
+- 2026-09-05 — **F1 implementado y probado**: router `vote` (`mine`, `submit`
+  sellado, valida que la papeleta ordena a todos los demás; el evento registra
+  quién votó, nunca el orden), `/live/vote` con lista reordenable (arrastrar y
+  flechas) y doble confirmación; bloque de votación en `/live` y `/council`
+  (sellados / faltan, botón "Votar ahora"); en `/live/setup` paneles por etapa:
+  cerrar votación (Borda y combinado con peso; visor de papeletas sólo fuera de
+  producción), revisión del ranking editable con columnas histórico/voto,
+  "Ranking definitivo → bombos" (`generatePots`), revisión de bombos con
+  `PotBoard`, "Bombos definitivos → capitanes" (capitanes a los equipos vacíos,
+  `stage = formation`). Revelación de bombos en el Concilio con cartas que se
+  giran bombo a bombo y bloque del ranking final. Privacidad: ranking, agregado y
+  bombos gateados por rol hasta `formation`. Probado: 5 votos (Richar por la UI
+  suplantado, cuatro por API), cierre, edición y confirmación del ranking, bombos
+  5-5-5-5-1 y capitanes Bordallo, Cordente, Valanton, Juanills y Arsu. Cuentas de
+  pruebas creadas para los 21 jugadores sin cuenta (`db:seed:live-test`).

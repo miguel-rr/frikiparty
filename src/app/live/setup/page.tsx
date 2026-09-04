@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { SiteShell } from '@/components/layout/site-shell';
 import { SetupWizard } from '@/components/live/setup/setup-wizard';
 import { Section, SectionHeader } from '@/components/theme/primitives';
+import { env } from '@/env';
 import { getNextEdition } from '@/server/api/routers/edition';
 import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
@@ -40,6 +41,7 @@ const LiveSetupPage = async () => {
           {nextEdition ? (
             <SetupWizard
               nextEdition={{ id: nextEdition.id, year: nextEdition.year }}
+              testTools={env.VERCEL_ENV !== 'production'}
               tournamentId={current?.id ?? null}
             />
           ) : null}

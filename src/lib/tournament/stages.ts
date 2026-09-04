@@ -20,6 +20,8 @@ const TOURNAMENT_STAGES = [
 
 type TournamentStage = (typeof TOURNAMENT_STAGES)[number];
 
+const stageIndex = (stage: TournamentStage) => TOURNAMENT_STAGES.indexOf(stage);
+
 type RankingSource = 'historical' | 'vote' | 'combined';
 
 type FormationMethod = 'random' | 'pots_random' | 'draft' | 'auction';
@@ -27,6 +29,7 @@ type FormationMethod = 'random' | 'pots_random' | 'draft' | 'auction';
 export {
   type FormationMethod,
   type RankingSource,
+  stageIndex,
   TOURNAMENT_STAGES,
   type TournamentKind,
   type TournamentStage,

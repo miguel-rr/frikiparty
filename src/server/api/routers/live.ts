@@ -25,12 +25,17 @@ const liveRouter = createTRPCRouter({
 
   state: publicProcedure
     .input(z.object({ tournamentId: z.string().uuid() }))
-    .query(({ ctx, input }) => getLiveState(ctx.db, input.tournamentId)),
+    .query(({ ctx, input }) =>
+      getLiveState(ctx.db, input.tournamentId, {
+        privileged: ctx.session?.user.role === 'admin',
+      }),
+    ),
 
   onChange: publicProcedure
     .input(z.object({ tournamentId: z.string().uuid() }))
     .subscription(async function* ({ ctx, input, signal }) {
-      let state = await getLiveState(ctx.db, input.tournamentId);
+      const options = { privileged: ctx.session?.user.role === 'admin' };
+      let state = await getLiveState(ctx.db, input.tournamentId, options);
       if (!state) return;
       yield state;
       let known = state.version;
@@ -43,7 +48,7 @@ const liveRouter = createTRPCRouter({
         if (signal?.aborted) return;
         const version = await getLiveVersion(ctx.db, input.tournamentId);
         if (version === known) continue;
-        const next = await getLiveState(ctx.db, input.tournamentId);
+        const next = await getLiveState(ctx.db, input.tournamentId, options);
         if (!next) return;
         state = next;
         known = next.version;
