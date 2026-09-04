@@ -27,6 +27,7 @@ const ACCEPTED_TYPES = new Set<UploadType>([
   'video/mp4',
   'video/quicktime',
   'video/webm',
+  'video/x-msvideo',
   PDF_MIME,
   PPTX_MIME,
 ]);
@@ -42,12 +43,14 @@ const TYPE_BY_EXTENSION: Record<string, UploadType> = {
   m4v: 'video/mp4',
   mov: 'video/quicktime',
   webm: 'video/webm',
+  // Reported as video/avi, video/msvideo or nothing depending on the OS.
+  avi: 'video/x-msvideo',
   pdf: PDF_MIME,
   pptx: PPTX_MIME,
 };
 
 /** What the picker offers: any image or video, plus the two document formats. */
-const ACCEPT = `image/*,video/*,.pdf,.pptx,${PDF_MIME},${PPTX_MIME}`;
+const ACCEPT = `image/*,video/*,.avi,.pdf,.pptx,${PDF_MIME},${PPTX_MIME}`;
 
 /** The badge on a queued file without a picture preview. */
 const entryBadge = (contentType: UploadType) =>
@@ -372,7 +375,7 @@ const UploadDialog = ({
             {rejected.length > 0 ? (
               <p className="text-(--ember) text-xs">
                 Formato no admitido: {rejected.join(', ')}. Valen JPG, PNG,
-                WEBP, GIF, MP4, MOV, WEBM, PDF y PPTX.
+                WEBP, GIF, MP4, MOV, WEBM, AVI, PDF y PPTX.
               </p>
             ) : null}
             {entries.length > 0 ? (

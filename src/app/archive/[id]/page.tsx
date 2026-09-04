@@ -144,7 +144,7 @@ const ArchiveItemPage = async ({ params, searchParams }: PageProps) => {
             ) : null}
             <MediaFigure
               doneHref={walk && trip?.edit ? walk.back : undefined}
-              editing={trip?.edit ?? false}
+              editing={(trip?.edit ?? false) || query.edit === '1'}
               item={item}
               key={item.id}
               priority

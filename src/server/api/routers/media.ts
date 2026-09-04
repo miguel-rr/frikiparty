@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, isNotNull, or, sql } from 'drizzle-orm';
+import { and, asc, eq, inArray, isNotNull, or, sql } from 'drizzle-orm';
 import { after } from 'next/server';
 import sharp from 'sharp';
 import { z } from 'zod';
@@ -48,6 +48,9 @@ const UPLOAD_TYPES = {
   'video/mp4': 'mp4',
   'video/quicktime': 'mov',
   'video/webm': 'webm',
+  // Old camera clips. No browser plays the container, so the background
+  // pass always makes the H.264 rendition (and the poster) for these.
+  'video/x-msvideo': 'avi',
   // Documents: shown through the browser (PDF) or Office's web viewer.
   [PDF_MIME]: 'pdf',
   [PPTX_MIME]: 'pptx',
@@ -470,6 +473,58 @@ const mediaRouter = createTRPCRouter({
         keys.playback,
       ]);
       return { id: input.id };
+    }),
+
+  /**
+   * Removes several files at once, under the same rule as `remove` for
+   * every one of them: all must be the caller's own or the caller a
+   * moderator, else nothing is deleted. Rows and links go in one
+   * transaction, then every object in R2.
+   */
+  removeMany: protectedProcedure
+    .input(z.object({ ids: z.array(z.string().uuid()).min(1).max(200) }))
+    .mutation(async ({ ctx, input }) => {
+      const ids = [...new Set(input.ids)];
+      const rows = await ctx.db
+        .select({
+          id: media.id,
+          mimeType: media.mimeType,
+          uploadedByUserId: media.uploadedByUserId,
+        })
+        .from(media)
+        .where(inArray(media.id, ids));
+      const { role, id: userId } = ctx.session.user;
+      const canModerate = role === 'admin' || role === 'editor';
+      if (!canModerate && rows.some((row) => row.uploadedByUserId !== userId)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Solo puedes eliminar lo que subiste tú.',
+        });
+      }
+      const found = rows.map((row) => row.id);
+      if (found.length === 0) {
+        return { removed: 0 };
+      }
+      await ctx.db.transaction(async (tx) => {
+        await tx
+          .delete(mediaAssociation)
+          .where(inArray(mediaAssociation.mediaId, found));
+        await tx.delete(mediaTag).where(inArray(mediaTag.mediaId, found));
+        await tx.delete(media).where(inArray(media.id, found));
+      });
+      await deleteObjects(
+        rows.flatMap((row) => {
+          const keys = mediaKeys(row.id, row.mimeType as UploadType);
+          return [
+            keys.original,
+            keys.poster,
+            keys.thumbnail,
+            keys.display,
+            keys.playback,
+          ];
+        }),
+      );
+      return { removed: found.length };
     }),
 });
 

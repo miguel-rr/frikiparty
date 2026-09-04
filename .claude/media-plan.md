@@ -26,6 +26,12 @@ Likes y comentarios sobre los archivos: ver `social-plan.md` (2026-09-03).
 
 ## Decisiones
 
+- **AVI (2026-09-04)**: se admite `video/x-msvideo` (`.avi`, también por
+  extensión). Ningún navegador reproduce el contenedor, así que el paso en
+  segundo plano siempre saca póster y `playback.mp4`; el navegador no puede
+  capturar el póster de un AVI, lo hace ffmpeg. Mismos límites (400 MB,
+  200 s). Verificado en dev con un AVI mpeg4+mp3 de 3 s.
+
 - **/archive abierto a los miembros (2026-09-04)**: `archiveForMembers`
   pasa a `true`. Todo miembro (jugador vinculado, editor, admin) ve la
   biblioteca completa, galería y tabla; edita y borra solo lo que subió.

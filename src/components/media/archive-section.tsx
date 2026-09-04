@@ -8,6 +8,11 @@ import {
   GalleryToolbar,
 } from '@/components/media/gallery-toolbar';
 import { MediaGallery } from '@/components/media/media-gallery';
+import {
+  MediaTable,
+  type Mode,
+  ModeToggle,
+} from '@/components/media/media-table';
 import { UploadSheet } from '@/components/media/upload-sheet';
 import {
   Divider,
@@ -21,6 +26,7 @@ import {
   DEFAULT_VIEW,
   type GalleryView,
 } from '@/lib/media/gallery-view';
+import type { MediaItem } from '@/server/api/routers/media-queries';
 import { api } from '@/trpc/react';
 
 const label =
@@ -58,6 +64,12 @@ const ArchiveSection = ({
     enabled: access.data?.allowed === true,
   });
   const [view, setView] = useState<GalleryView>(DEFAULT_VIEW);
+  const [mode, setMode] = useState<Mode>('gallery');
+  const utils = api.useUtils();
+  // Admins and editors may remove anything; everyone else their own uploads.
+  const canModerate = user?.role === 'admin' || user?.role === 'editor';
+  const canRemove = (item: MediaItem) =>
+    canModerate || (user !== undefined && item.uploadedByUserId === user.id);
   const items = useMemo(() => gallery.data ?? [], [gallery.data]);
   const visible = useMemo(() => applyGalleryView(items, view), [items, view]);
   const counts = useMemo(
@@ -98,7 +110,12 @@ const ArchiveSection = ({
             <span className="text-(--gold)">· {items.length}</span>
           ) : null}
         </span>
-        {canUpload ? <UploadSheet target={target} /> : null}
+        <span className="flex flex-wrap items-center gap-3">
+          {items.length > 0 ? (
+            <ModeToggle mode={mode} onChange={setMode} />
+          ) : null}
+          {canUpload ? <UploadSheet target={target} /> : null}
+        </span>
       </div>
       {items.length >= TOOLBAR_FROM ? (
         <GalleryToolbar counts={counts} onChange={setView} view={view} />
@@ -111,6 +128,15 @@ const ArchiveSection = ({
         </p>
       ) : visible.length === 0 ? (
         <GalleryEmpty onReset={() => setView(DEFAULT_VIEW)} />
+      ) : mode === 'table' ? (
+        <MediaTable
+          canRemove={canRemove}
+          hrefFor={(item, options) =>
+            options?.edit ? `/archive/${item.id}?edit=1` : `/archive/${item.id}`
+          }
+          items={visible}
+          onChanged={() => utils.media.gallery.invalidate()}
+        />
       ) : (
         <MediaGallery items={visible} />
       )}
