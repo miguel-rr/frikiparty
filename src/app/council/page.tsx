@@ -30,7 +30,7 @@ const CouncilPage = async () => {
   const confirmedPlayers = edition
     ? await listConfirmedPlayers(db, edition.id)
     : [];
-  // The fire is lit at noon of day one.
+  // The fire is lit at 14:00 Madrid time on day one.
   const target = edition?.startsAt ? openingInstant(edition.startsAt) : null;
 
   return (

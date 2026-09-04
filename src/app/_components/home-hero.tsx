@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { DaysUntil } from '@/app/_components/days-until';
 import { linkGold, pageWidth, tag } from '@/components/theme/primitives';
 import { TheRing } from '@/components/theme/ring';
+import { openingInstant, todayInMadrid } from '@/lib/countdown';
 import { formatDateRange, formatShortDateRange } from '@/lib/dates';
 
 type NextEdition = {
@@ -20,11 +21,12 @@ type NextEdition = {
 /** Hero for an announced (or running) edition. */
 const HomeHero = ({ edition }: { edition: NextEdition }) => {
   const hasDates = edition.startsAt !== null && edition.endsAt !== null;
-  const today = new Date().toISOString().slice(0, 10);
+  // "In play" from the moment the door opens (14:00 Madrid, day one) until
+  // the last day is over by Madrid's calendar; before that, the countdown.
   const live =
     hasDates &&
-    (edition.startsAt as string) <= today &&
-    today <= (edition.endsAt as string);
+    Date.now() >= Date.parse(openingInstant(edition.startsAt as string)) &&
+    todayInMadrid() <= (edition.endsAt as string);
   return (
     <section className="relative overflow-hidden" id="top">
       <div
@@ -34,14 +36,14 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
           className="w-[min(80vw,440px)] lg:w-105"
           title={`Edición ${edition.year}`}
         >
-          <span className="font-bold font-mono text-(--gold) text-lg uppercase tracking-5xl lg:text-xl">
+          <span className="font-bold font-mono text-(--gold) text-sm uppercase tracking-5xl lg:text-base">
             Edición
           </span>
-          <span className="d-display d-gold-text font-black text-7xl lg:text-8xl">
+          <span className="d-display d-gold-text -mt-2 font-black text-6xl leading-none lg:text-7xl">
             {edition.year}
           </span>
           {hasDates ? (
-            <span className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-3xl lg:text-xs">
+            <span className="font-bold font-mono text-(--faded) text-3xs uppercase tracking-3xl lg:text-2xs">
               {formatShortDateRange(
                 edition.startsAt as string,
                 edition.endsAt as string,
@@ -49,10 +51,7 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
             </span>
           ) : null}
           {!live && hasDates ? (
-            <DaysUntil
-              className="font-bold font-mono text-(--gold) text-3xs uppercase tracking-3xl lg:text-2xs"
-              startsAt={edition.startsAt as string}
-            />
+            <DaysUntil startsAt={edition.startsAt as string} />
           ) : null}
         </TheRing>
         <div className="flex flex-col items-center gap-7 text-center lg:gap-5">

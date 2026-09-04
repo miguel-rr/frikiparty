@@ -1,7 +1,7 @@
 'use client';
 
 import { NEXT_EVENT } from '@/app/design/fixtures';
-import { DurinDoor, two } from '@/components/council/durin-door';
+import { DurinDoor } from '@/components/council/durin-door';
 import {
   linkGold,
   RingGlyph,
@@ -9,6 +9,7 @@ import {
   SectionHeader,
   tag,
 } from '@/components/theme/primitives';
+import { two, unitLabel } from '@/lib/countdown';
 import { useCountdown } from '@/lib/use-countdown';
 
 /**
@@ -73,10 +74,22 @@ const Flame = ({ delay, size }: { delay: number; size: number }) => (
 const BeaconsProposal = () => {
   const left = useCountdown(TARGET_ISO);
   const slots = [
-    { label: 'días', value: left ? String(left.days) : '——' },
-    { label: 'horas', value: left ? two(left.hours) : '——' },
-    { label: 'min', value: left ? two(left.minutes) : '——' },
-    { label: 'seg', value: left ? two(left.seconds) : '——' },
+    {
+      label: unitLabel('days', left?.days ?? null),
+      value: left ? String(left.days) : '——',
+    },
+    {
+      label: unitLabel('hours', left?.hours ?? null),
+      value: left ? two(left.hours) : '——',
+    },
+    {
+      label: unitLabel('minutes', null),
+      value: left ? two(left.minutes) : '——',
+    },
+    {
+      label: unitLabel('seconds', null),
+      value: left ? two(left.seconds) : '——',
+    },
   ];
   return (
     <div className="flex flex-col items-center gap-8 py-6 text-center">
@@ -182,7 +195,7 @@ const RedBookProposal = () => {
             </span>
             altan{' '}
             <span className="font-bold text-[#8f2f1f] tabular-nums">
-              {left ? left.days : '——'} días
+              {left ? left.days : '——'} {unitLabel('days', left?.days ?? null)}
             </span>{' '}
             para que el concilio vuelva a reunirse, esta vez bajo el techo de{' '}
             <span className="font-bold">{NEXT_EVENT.venue}</span>. La primera

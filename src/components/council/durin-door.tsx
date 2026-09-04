@@ -1,16 +1,14 @@
 'use client';
 
-import type { Remaining } from '@/lib/countdown';
+import { type Remaining, two, unitLabel } from '@/lib/countdown';
 import { useCountdown } from '@/lib/use-countdown';
 
 /**
  * The Doors of Durin, traced in ithildin: the /council waiting state. A
- * live countdown to noon of the event's first day is carved inside the
+ * live countdown to 14:00 (Madrid) of the event's first day is carved inside the
  * arch; when the hour arrives the door "opens" (MELLON), and with no
  * edition announced the tracing dims and the stars keep quiet.
  */
-
-const two = (value: number) => String(value).padStart(2, '0');
 
 const Star = ({ cx, cy, r = 5 }: { cx: number; cy: number; r?: number }) => {
   const points = Array.from({ length: 8 }, (_, i) => {
@@ -23,6 +21,16 @@ const Star = ({ cx, cy, r = 5 }: { cx: number; cy: number; r?: number }) => {
 
 const mono = 'var(--font-jetbrains), monospace';
 const cinzel = 'var(--font-cinzel), Georgia, serif';
+
+/** The last week: the drums are heard and the door beats. */
+const DRUMS_WITHIN_DAYS = 7;
+
+const isDrumming = (left: Remaining) =>
+  !isOpen(left) && left.days <= DRUMS_WITHIN_DAYS;
+
+/** The hour has come: nothing left on the clock. */
+const isOpen = ({ days, hours, minutes, seconds }: Remaining) =>
+  days === 0 && hours === 0 && minutes === 0 && seconds === 0;
 
 /** What the arch shows: counting down, wide open, or waiting for a date. */
 const ArchContent = ({
@@ -52,13 +60,7 @@ const ArchContent = ({
       </g>
     );
   }
-  const open =
-    left !== null &&
-    left.days === 0 &&
-    left.hours === 0 &&
-    left.minutes === 0 &&
-    left.seconds === 0;
-  if (open) {
+  if (left !== null && isOpen(left)) {
     return (
       <g fontFamily={mono} textAnchor="middle">
         <text fill="#dce6ee" fontSize="15" letterSpacing="6" x="230" y="265">
@@ -82,9 +84,39 @@ const ArchContent = ({
       </g>
     );
   }
+  if (left !== null && isDrumming(left)) {
+    return (
+      <g fontFamily={mono} textAnchor="middle">
+        {/* Smaller than it could be: it heaves to 110% on each beat and
+            must stay clear of the inner arch at its widest. */}
+        <text
+          className="d-ithildin-glow d-drums-beat"
+          fill="#eef4fa"
+          fontFamily={cinzel}
+          fontSize="32"
+          fontWeight="900"
+          letterSpacing="2"
+          x="230"
+          y="326"
+        >
+          TAMBORES.
+        </text>
+        <text
+          className="d-drums-beat-soft"
+          fill="#dce6ee"
+          fontSize="11.5"
+          letterSpacing="3"
+          x="230"
+          y="360"
+        >
+          TAMBORES EN LO PROFUNDO
+        </text>
+      </g>
+    );
+  }
   return (
     <g fontFamily={mono} textAnchor="middle">
-      <text fill="#dce6ee" fontSize="16" letterSpacing="6" x="230" y="238">
+      <text fill="#dce6ee" fontSize="16" letterSpacing="6" x="230" y="252">
         FALTAN
       </text>
       <text
@@ -94,29 +126,82 @@ const ArchContent = ({
         fontSize="104"
         fontWeight="900"
         x="230"
-        y="350"
+        y="364"
       >
         {left ? left.days : '——'}
       </text>
-      <text fill="#aeb9c2" fontSize="15" letterSpacing="5" x="230" y="384">
-        DÍAS
+      <text fill="#aeb9c2" fontSize="15" letterSpacing="5" x="230" y="398">
+        {unitLabel('days', left?.days ?? null).toUpperCase()}
       </text>
-      <text fill="#8b99a6" fontSize="20" letterSpacing="3" x="230" y="440">
-        {left
-          ? `${two(left.hours)}:${two(left.minutes)}:${two(left.seconds)}`
-          : '——:——:——'}
-      </text>
+    </g>
+  );
+};
+
+/**
+ * Under the threshold: days, hours, minutes and seconds, each
+ * centred on a fixed x so the row never shifts as the digits change, with
+ * a hair-thin label under each so "00" reads as hours, not as a stopwatch
+ * stuck at zero.
+ */
+const CLOCK_SEGMENTS = [152, 204, 256, 308] as const;
+
+const Clock = ({ left }: { left: Remaining | null }) => {
+  if (left && isOpen(left)) {
+    return null;
+  }
+  // In the last week it beats along with the inscription's caption.
+  const beat = left && isDrumming(left) ? 'd-drums-beat-soft' : undefined;
+  const mask = (value: number) => (left ? two(value) : '——');
+  const values = [
+    { unit: 'days', value: left ? String(left.days) : '——' },
+    { unit: 'hours', value: mask(left?.hours ?? 0) },
+    { unit: 'minutes', value: mask(left?.minutes ?? 0) },
+    { unit: 'seconds', value: mask(left?.seconds ?? 0) },
+  ] as const;
+  return (
+    <g className={beat} fontFamily={mono} textAnchor="middle">
+      {values.map(({ unit, value }, index) => {
+        const x = CLOCK_SEGMENTS[index] ?? 230;
+        const previous = CLOCK_SEGMENTS[index - 1];
+        const label = unitLabel(unit, left ? left[unit] : null).toUpperCase();
+        return (
+          <g key={unit}>
+            {previous !== undefined ? (
+              <text
+                fill="#8b99a6"
+                fontSize="20"
+                opacity="0.6"
+                x={(previous + x) / 2}
+                y="508"
+              >
+                :
+              </text>
+            ) : null}
+            <text fill="#8b99a6" fontSize="20" x={x} y="508">
+              {value}
+            </text>
+            <text fill="#6b7883" fontSize="8" letterSpacing="2" x={x} y="526">
+              {label}
+            </text>
+          </g>
+        );
+      })}
     </g>
   );
 };
 
 const DurinDoor = ({ target }: { target: string | null }) => {
   const left = useCountdown(target);
+  const drums = left !== null && isDrumming(left);
   return (
     <div
       className={`relative w-[min(88vw,460px)] lg:w-135 xl:w-142 ${target ? '' : 'opacity-60 saturate-50'}`}
     >
-      <svg className="block w-full" role="img" viewBox="0 18 460 492">
+      <svg
+        className={`block w-full ${drums ? 'd-ithildin-drums' : ''}`}
+        role="img"
+        viewBox="0 18 460 528"
+      >
         <title>La Puerta de Durin</title>
         <defs>
           <path
@@ -190,9 +275,10 @@ const DurinDoor = ({ target }: { target: string | null }) => {
           </textPath>
         </text>
         <ArchContent left={left} target={target} />
+        {target ? <Clock left={left} /> : null}
       </svg>
     </div>
   );
 };
 
-export { DurinDoor, two };
+export { DurinDoor };
