@@ -1,4 +1,6 @@
 import { Almendra_Display, IM_Fell_English } from 'next/font/google';
+import Link from 'next/link';
+import { parseBody } from '@/lib/social/mentions';
 
 /**
  * The player chronicle as an ancient sheet of parchment: silhouette carved
@@ -148,6 +150,55 @@ const WaxSeal = () => (
   </div>
 );
 
+/**
+ * A paragraph's ink: the rubricated initial (a drop cap on the first
+ * paragraph, a raised capital on the rest), then the text with any
+ * mention of another player written as a link in the same red ink.
+ */
+const InkedParagraph = ({ first, text }: { first: boolean; text: string }) => {
+  const segments = parseBody(text);
+  const [lead, ...rest] = segments;
+  // The initial comes off the opening text; a paragraph that opens with a
+  // mention keeps it whole.
+  const initial = lead?.kind === 'text' ? lead.text.charAt(0) : '';
+  const body =
+    lead?.kind === 'text'
+      ? [{ kind: 'text' as const, text: lead.text.slice(1) }, ...rest]
+      : segments;
+  return (
+    <>
+      {initial ? (
+        first ? (
+          <span
+            className={`${almendraDisplay.className} relative top-2.25 -mr-1 inline-block align-baseline text-[#8f2f1f] text-[4rem] leading-[0.72] [text-shadow:0_0_1px_rgba(143,47,31,0.55)]`}
+          >
+            {initial}
+          </span>
+        ) : (
+          <span className="-mr-[0.04rem] text-[#8f2f1f] text-[1.35em] leading-none [text-shadow:0_0_1px_rgba(143,47,31,0.45)]">
+            {initial}
+          </span>
+        )
+      ) : null}
+      {body.map((segment, index) =>
+        segment.kind === 'mention' ? (
+          <Link
+            className="text-[#8f2f1f] tracking-[0.03em] transition-colors [font-variant-caps:small-caps] [text-shadow:0_0_1px_rgba(143,47,31,0.35)] hover:text-[#5e1c11] hover:[text-shadow:0_0_2px_rgba(143,47,31,0.5)]"
+            href={`/players/${segment.ref}`}
+            // biome-ignore lint/suspicious/noArrayIndexKey: segments are positional and never reorder
+            key={index}
+          >
+            {segment.name}
+          </Link>
+        ) : (
+          // biome-ignore lint/suspicious/noArrayIndexKey: segments are positional and never reorder
+          <span key={index}>{segment.text}</span>
+        ),
+      )}
+    </>
+  );
+};
+
 const BioParchment = ({ text }: { text: string }) => (
   <div className="w-full max-w-2xl">
     <ParchmentFilters />
@@ -206,18 +257,7 @@ const BioParchment = ({ text }: { text: string }) => (
             className={`${imFell.className} hyphens-auto text-[#2b2113] text-base leading-relaxed sm:text-justify`}
             key={paragraph.slice(0, 16)}
           >
-            {index === 0 ? (
-              <span
-                className={`${almendraDisplay.className} relative top-2.25 -mr-1 inline-block align-baseline text-[#8f2f1f] text-[4rem] leading-[0.72] [text-shadow:0_0_1px_rgba(143,47,31,0.55)]`}
-              >
-                {paragraph.charAt(0)}
-              </span>
-            ) : (
-              <span className="-mr-[0.04rem] text-[#8f2f1f] text-[1.35em] leading-none [text-shadow:0_0_1px_rgba(143,47,31,0.45)]">
-                {paragraph.charAt(0)}
-              </span>
-            )}
-            {paragraph.slice(1)}
+            <InkedParagraph first={index === 0} text={paragraph} />
           </p>
         ))}
       </div>

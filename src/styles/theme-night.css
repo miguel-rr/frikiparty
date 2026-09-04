@@ -316,19 +316,20 @@
   }
 }
 
-/* Drums in the deep: the door's last week. One heart (lub-dub, then a
-   pause) drives every layer with the same keyframe timing, so tracing,
-   stars and inscription all beat together; the texts simply beat harder,
-   swelling and flaring where the door only breathes its glow. */
+/* Drums in the deep: the door's last week. One heart, one slow beat
+   every few seconds — held still for a moment first, so the door is seen
+   at rest before it starts — driving every layer with the same timing:
+   the tracing only breathes its glow, the inscription heaves and flares,
+   its caption and the clock a touch less. */
 .d-ithildin-drums {
-  animation: d-drums 2.2s ease-in-out infinite;
+  animation: d-drums 3.4s ease-in-out 1.8s infinite;
   transform-origin: 50% 100%;
 }
 .d-ithildin-drums .d-ithildin {
   filter: drop-shadow(0 0 10px rgba(200, 214, 226, 0.85));
 }
 .d-ithildin-drums .d-ithildin-glow {
-  animation: d-drums-glow 2.2s ease-in-out infinite;
+  animation: d-drums-glow 3.4s ease-in-out 1.8s infinite;
 }
 .d-drums-beat,
 .d-drums-beat-soft {
@@ -336,115 +337,61 @@
   transform-origin: center;
 }
 .d-ithildin-drums .d-drums-beat {
-  animation: d-drums-beat 2.2s ease-in-out infinite;
+  animation: d-drums-beat 3.4s ease-in-out 1.8s infinite;
 }
 .d-ithildin-drums .d-drums-beat-soft {
-  animation: d-drums-beat-soft 2.2s ease-in-out infinite;
+  animation: d-drums-beat-soft 3.4s ease-in-out 1.8s infinite;
 }
 /* The door: a faint swell of light, no visible zoom. */
 @keyframes d-drums {
   0%,
+  55%,
   100% {
     transform: scale(1);
     filter: drop-shadow(0 0 6px rgba(220, 230, 238, 0.4));
   }
-  12% {
-    transform: scale(1.0015);
-    filter: drop-shadow(0 0 11px rgba(232, 240, 248, 0.6));
-  }
-  24% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 7px rgba(220, 230, 238, 0.45));
-  }
-  36% {
+  22% {
     transform: scale(1.002);
     filter: drop-shadow(0 0 14px rgba(238, 244, 250, 0.7));
   }
-  60% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 6px rgba(220, 230, 238, 0.4));
-  }
 }
-/* Stars and other glowing tracing: flare on each beat. */
+/* Stars and other glowing tracing: flare on the beat. */
 @keyframes d-drums-glow {
   0%,
+  55%,
   100% {
     opacity: 0.8;
     filter: drop-shadow(0 0 8px rgba(220, 230, 238, 0.7));
   }
-  12% {
-    opacity: 1;
-    filter: drop-shadow(0 0 16px rgba(232, 240, 248, 1));
-  }
-  24% {
-    opacity: 0.85;
-    filter: drop-shadow(0 0 9px rgba(220, 230, 238, 0.75));
-  }
-  36% {
+  22% {
     opacity: 1;
     filter: drop-shadow(0 0 20px rgba(238, 244, 250, 1));
-  }
-  60% {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 8px rgba(220, 230, 238, 0.7));
   }
 }
 /* The inscription: heaves and flares. */
 @keyframes d-drums-beat {
   0%,
+  55%,
   100% {
     transform: scale(1);
     filter: drop-shadow(0 0 8px rgba(220, 230, 238, 0.7));
   }
-  12% {
-    transform: scale(1.07);
-    filter: drop-shadow(0 0 22px rgba(238, 244, 250, 1));
-  }
-  24% {
-    transform: scale(1.015);
-    filter: drop-shadow(0 0 10px rgba(220, 230, 238, 0.75));
-  }
-  36% {
+  22% {
     transform: scale(1.1);
     filter: drop-shadow(0 0 30px rgba(244, 248, 252, 1));
   }
-  60% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 8px rgba(220, 230, 238, 0.7));
-  }
 }
-/* Its caption: half the heave, a softer flare. */
+/* Its caption and the clock: half the heave, a softer flare. */
 @keyframes d-drums-beat-soft {
   0%,
+  55%,
   100% {
     transform: scale(1);
     filter: drop-shadow(0 0 0 rgba(220, 230, 238, 0));
   }
-  12% {
-    transform: scale(1.035);
-    filter: drop-shadow(0 0 8px rgba(232, 240, 248, 0.8));
-  }
-  24% {
-    transform: scale(1.008);
-    filter: drop-shadow(0 0 2px rgba(220, 230, 238, 0.3));
-  }
-  36% {
+  22% {
     transform: scale(1.05);
     filter: drop-shadow(0 0 12px rgba(238, 244, 250, 0.95));
-  }
-  60% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 rgba(220, 230, 238, 0));
-  }
-}
-
-/* iOS zooms the whole page when a field under 16px gets focus, which
-   leaves fixed overlays (the archive lightbox) larger than the screen with
-   their close button out of reach. On touch screens fields never go
-   below 16px. */
-@media (pointer: coarse) {
-  .theme-night :is(input, textarea, select) {
-    font-size: max(1rem, 1em);
   }
 }
 

@@ -16,26 +16,31 @@ type MentionablePlayer = { id: string; name: string; slug: string };
  */
 const useComposerBody = (initialBody: string) => {
   const [text, setText] = useState(() => plainText(initialBody));
-  const [picked, setPicked] = useState<Map<string, string>>(
-    () =>
-      new Map(
-        parseBody(initialBody).flatMap((segment) =>
-          segment.kind === 'mention' ? [[segment.name, segment.ref]] : [],
-        ),
+  // Picks live in a ref as well as state: a pick is followed at once by
+  // the text change that inserts it, and that change must already
+  // serialise with the pick in hand.
+  const picked = useRef<Map<string, string>>(
+    new Map(
+      parseBody(initialBody).flatMap((segment) =>
+        segment.kind === 'mention' ? [[segment.name, segment.ref]] : [],
       ),
+    ),
   );
-  const pick = (player: MentionablePlayer) =>
-    setPicked((current) => new Map(current).set(player.name, player.id));
-  const serialize = () => {
-    let body = text;
-    for (const [name, ref] of Array.from(picked.entries()).sort(
+  const pick = (player: MentionablePlayer) => {
+    picked.current.set(player.name, player.id);
+  };
+  /** The storable body for `source` (the current text by default). */
+  const serializeWith = (source: string) => {
+    let body = source;
+    for (const [name, ref] of Array.from(picked.current.entries()).sort(
       (a, b) => b[0].length - a[0].length,
     )) {
       body = body.split(`@${name}`).join(mentionToken(name, ref));
     }
     return body.trim();
   };
-  return { text, setText, pick, serialize };
+  const serialize = () => serializeWith(text);
+  return { text, setText, pick, serialize, serializeWith };
 };
 
 /** The `@query` right before the caret, if the person is typing one. */
@@ -63,6 +68,8 @@ const MentionComposer = ({
   placeholder,
   id,
   autoFocus = false,
+  className = 'min-h-20 resize-y text-sm',
+  maxLength = 2000,
 }: {
   players: MentionablePlayer[];
   value: string;
@@ -75,6 +82,9 @@ const MentionComposer = ({
   placeholder: string;
   id: string;
   autoFocus?: boolean;
+  /** Textarea sizing and type, on top of the shared input look. */
+  className?: string;
+  maxLength?: number;
 }) => {
   const textarea = useRef<HTMLTextAreaElement>(null);
   const [caret, setCaret] = useState(0);
@@ -151,9 +161,9 @@ const MentionComposer = ({
         aria-autocomplete="list"
         // biome-ignore lint/a11y/noAutofocus: the editor opens on request, focus is expected
         autoFocus={autoFocus}
-        className={`${input} min-h-20 resize-y text-sm`}
+        className={`${input} ${className}`}
         id={id}
-        maxLength={2000}
+        maxLength={maxLength}
         onChange={(event) => {
           onChange(event.target.value);
           setDismissed(null);

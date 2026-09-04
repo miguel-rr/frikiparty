@@ -1,13 +1,7 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, inArray, or, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
-import {
-  isPlayerId,
-  mentionedRefs,
-  mentionToken,
-  rewriteMentions,
-} from '@/lib/social/mentions';
 import { cardSpecFor } from '@/lib/tournament/card-lore';
 import { archiveProcedure } from '@/server/api/archive-procedure';
 import { createTRPCRouter, type TRPCContext } from '@/server/api/trpc';
@@ -19,6 +13,7 @@ import {
   player,
   user,
 } from '@/server/db/schema';
+import { resolveMentions, sanitizeBody } from '@/server/social/mentions';
 
 /**
  * Likes and comments on a file, an edition or a player. Only files have
@@ -113,76 +108,6 @@ const authorSelect = {
 };
 
 const bodySchema = z.string().trim().min(1).max(2000);
-
-/**
- * The players behind a set of mention refs (ids, or slugs from older
- * bodies and from bodies being edited), keyed by whichever ref named them.
- */
-const loadMentioned = async (db: TRPCContext['db'], refs: string[]) => {
-  const found = new Map<string, { id: string; name: string; slug: string }>();
-  if (refs.length === 0) {
-    return found;
-  }
-  const ids = refs.filter(isPlayerId);
-  const slugs = refs.filter((ref) => !isPlayerId(ref));
-  const conditions = [
-    ...(ids.length > 0 ? [inArray(player.id, ids)] : []),
-    ...(slugs.length > 0
-      ? [
-          inArray(player.slug, slugs),
-          // Slugs the player had before a rename still name them.
-          sql`${player.previousSlugs} && ${sql.raw(`ARRAY[${slugs.map((s) => `'${s.replace(/'/g, "''")}'`).join(',')}]::text[]`)}`,
-        ]
-      : []),
-  ];
-  const rows = await db
-    .select({
-      id: player.id,
-      name: player.name,
-      slug: player.slug,
-      previousSlugs: player.previousSlugs,
-    })
-    .from(player)
-    .where(conditions.length === 1 ? conditions[0] : or(...conditions));
-  for (const row of rows) {
-    const known = { id: row.id, name: row.name, slug: row.slug };
-    found.set(row.id, known);
-    found.set(row.slug, known);
-    for (const old of row.previousSlugs) {
-      found.set(old, known);
-    }
-  }
-  return found;
-};
-
-/**
- * What gets stored: every mention pinned to the player's id, so renames
- * can't strand it; mentions of nobody become plain `@Nombre` text.
- */
-const sanitizeBody = async (db: TRPCContext['db'], body: string) => {
-  const known = await loadMentioned(db, mentionedRefs(body));
-  return rewriteMentions(body, (ref) => {
-    const found = known.get(ref);
-    return found ? mentionToken(found.name, found.id) : null;
-  });
-};
-
-/**
- * What gets shown: every mention carrying the player's current name and
- * page slug, whatever the body was saved with.
- */
-const resolveMentions = async (db: TRPCContext['db'], bodies: string[]) => {
-  const known = await loadMentioned(
-    db,
-    Array.from(new Set(bodies.flatMap(mentionedRefs))),
-  );
-  return bodies.map((body) =>
-    rewriteMentions(body, (ref) => {
-      const found = known.get(ref);
-      return found ? mentionToken(found.name, found.slug) : null;
-    }),
-  );
-};
 
 const loadOwnComment = async (
   ctx: {

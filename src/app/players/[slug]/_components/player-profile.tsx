@@ -5,6 +5,11 @@ import { type ReactNode, useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { BioParchment } from '@/components/players/bio-parchment';
+import {
+  type MentionablePlayer,
+  MentionComposer,
+  useComposerBody,
+} from '@/components/social/mention-composer';
 import { btn, input, label } from '@/components/theme/primitives';
 import type { CardSpec } from '@/components/tournament/hearth-card';
 import { PortraitCard } from '@/components/tournament/portrait-card';
@@ -67,6 +72,9 @@ const PlayerProfile = ({
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio ?? '');
+  // Remounts the bio field on cancel, dropping its draft and picks.
+  const [bioSession, setBioSession] = useState(0);
+  const players = api.player.list.useQuery(undefined, { enabled: editing });
   const [portrait, setPortrait] = useState(initialPortrait ?? '');
   const [abilityName, setAbilityName] = useState(initialAbility ?? '');
   const [abilityText, setAbilityText] = useState(initialAbilityText ?? '');
@@ -94,6 +102,7 @@ const PlayerProfile = ({
   const cancel = () => {
     setName(initialName);
     setBio(initialBio ?? '');
+    setBioSession((session) => session + 1);
     setPortrait(initialPortrait ?? '');
     setAbilityName(initialAbility ?? '');
     setAbilityText(initialAbilityText ?? '');
@@ -103,6 +112,21 @@ const PlayerProfile = ({
   // Name and definition travel together: exactly one filled is invalid.
   const attackIncomplete =
     (abilityName.trim() === '') !== (abilityText.trim() === '');
+
+  const save = () => {
+    if (update.isPending || name.trim().length === 0 || attackIncomplete) {
+      return;
+    }
+    update.mutate({
+      id,
+      name,
+      bio: bio.trim().length > 0 ? bio : null,
+      cardPortrait: portrait.length > 0 ? portrait : null,
+      cardAbility: abilityName.trim().length > 0 ? abilityName.trim() : null,
+      cardAbilityText:
+        abilityText.trim().length > 0 ? abilityText.trim() : null,
+    });
+  };
 
   // Live preview while editing: portrait and the typed attack apply to the
   // card instantly; cleared fields fall back to the automatic defaults.
@@ -152,11 +176,12 @@ const PlayerProfile = ({
             <div className="flex flex-col gap-4">
               <div>
                 <span className={label}>Bio</span>
-                <textarea
-                  className={`${input} min-h-44 font-serif text-base leading-relaxed`}
-                  onChange={(event) => setBio(event.target.value)}
-                  placeholder="La crónica del jugador, al tono del Libro Rojo…"
-                  value={bio}
+                <BioField
+                  initialBody={initialBio ?? ''}
+                  key={bioSession}
+                  onBodyChange={setBio}
+                  onSubmit={save}
+                  players={players.data ?? []}
                 />
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -210,22 +235,7 @@ const PlayerProfile = ({
                     name.trim().length === 0 ||
                     attackIncomplete
                   }
-                  onClick={() =>
-                    update.mutate({
-                      id,
-                      name,
-                      bio: bio.trim().length > 0 ? bio : null,
-                      cardPortrait: portrait.length > 0 ? portrait : null,
-                      cardAbility:
-                        abilityName.trim().length > 0
-                          ? abilityName.trim()
-                          : null,
-                      cardAbilityText:
-                        abilityText.trim().length > 0
-                          ? abilityText.trim()
-                          : null,
-                    })
-                  }
+                  onClick={save}
                   type="button"
                 >
                   {update.isPending ? 'Guardando…' : 'Guardar'}
@@ -252,6 +262,42 @@ const PlayerProfile = ({
       </div>
       {children}
     </div>
+  );
+};
+
+/**
+ * The bio editor: the comments' composer (type @ to mention a player),
+ * reporting the storable body — mentions as tokens — on every change.
+ */
+const BioField = ({
+  initialBody,
+  onBodyChange,
+  onSubmit,
+  players,
+}: {
+  initialBody: string;
+  onBodyChange: (body: string) => void;
+  onSubmit: () => void;
+  players: MentionablePlayer[];
+}) => {
+  const composer = useComposerBody(initialBody);
+  return (
+    <MentionComposer
+      className="min-h-44 font-serif text-base leading-relaxed"
+      id="player-bio"
+      maxLength={4000}
+      onChange={(text) => {
+        composer.setText(text);
+        onBodyChange(composer.serializeWith(text));
+      }}
+      onPick={(player) => {
+        composer.pick(player);
+      }}
+      onSubmit={onSubmit}
+      placeholder="La crónica del jugador, al tono del Libro Rojo… Escribe @ para nombrar a otro jugador."
+      players={players}
+      value={composer.text}
+    />
   );
 };
 

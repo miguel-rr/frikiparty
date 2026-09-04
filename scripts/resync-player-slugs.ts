@@ -12,8 +12,9 @@ import { comment, player } from '@/server/db/schema';
 /**
  * Brings every player's slug back in line with their name — for rows
  * renamed before the slug learnt to follow the name — after pinning the
- * mentions in comments to player ids, so no rename can strand them. Dry
- * run by default: prints what would change; pass --apply to write it.
+ * mentions in comments and bios to player ids (so no rename can strand
+ * them) and turning plainly written player names in bios into mentions.
+ * Dry run by default: prints what would change; pass --apply to write it.
  *
  *   pnpm run db:resync:player-slugs            (dev, .env)
  *   pnpm run db:resync:player-slugs:prod       (production, .env.prod)
@@ -79,6 +80,80 @@ if (pinned.length > 0) {
   }
 } else {
   console.log('Menciones: todas fijadas ya al id del jugador.');
+}
+
+// Bios next: pin any mention saved by slug, and turn a player's name
+// written plainly into a mention of that player — whole words only,
+// longest names first so "Juan Carlos" is never cut to "Juan", never a
+// player's own name in their own bio, never text already inside a token.
+const escapePattern = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const byLength = [...players].sort((a, b) => b.name.length - a.name.length);
+const linkNames = (body: string, selfId: string) => {
+  let out = body;
+  for (const other of byLength) {
+    if (other.id === selfId) {
+      continue;
+    }
+    // Not preceded by a letter, digit, "@" or "[" (inside a token); not
+    // followed by a letter, digit or "]" (the token's own name).
+    const pattern = new RegExp(
+      `(?<![\\p{L}\\p{N}@\\[])${escapePattern(other.name)}(?![\\p{L}\\p{N}\\]])`,
+      'gu',
+    );
+    out = out.replace(pattern, mentionToken(other.name, other.id));
+  }
+  return out;
+};
+const withBio = await db
+  .select({ id: player.id, name: player.name, bio: player.bio })
+  .from(player)
+  .where(like(player.bio, '%_%'));
+const bios = withBio.flatMap((row) => {
+  if (!row.bio) {
+    return [];
+  }
+  const pinnedBio = rewriteMentions(row.bio, (ref, name) => {
+    if (isPlayerId(ref)) {
+      return mentionToken(name, ref);
+    }
+    const found = bySlug.get(ref);
+    return found ? mentionToken(name, found.id) : mentionToken(name, ref);
+  });
+  const body = linkNames(pinnedBio, row.id);
+  if (body === row.bio) {
+    return [];
+  }
+  const linked = byLength
+    .filter(
+      (other) =>
+        other.id !== row.id &&
+        body.includes(mentionToken(other.name, other.id)) &&
+        !row.bio?.includes(mentionToken(other.name, other.id)),
+    )
+    .map((other) => other.name);
+  return [{ id: row.id, name: row.name, body, linked }];
+});
+if (bios.length > 0) {
+  console.log(
+    `Bios con menciones que fijar o nombres que enlazar: ${bios.length}`,
+  );
+  for (const row of bios) {
+    console.log(
+      `  ${row.name}: ${row.linked.length > 0 ? `enlaza a ${row.linked.join(', ')}` : 'fija menciones al id'}`,
+    );
+  }
+  if (apply) {
+    for (const row of bios) {
+      await db
+        .update(player)
+        .set({ bio: row.body })
+        .where(eq(player.id, row.id));
+    }
+    console.log('  → bios actualizadas.');
+  }
+} else {
+  console.log('Bios: nada que fijar ni enlazar.');
 }
 
 /** Slugs as they will stand once every change is applied. */

@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, isNotNull, isNull, ne, sql } from 'drizzle-orm';
+import { and, asc, eq, isNotNull, isNull, like, ne, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -18,6 +18,7 @@ import {
 } from '@/server/api/trpc';
 import type { db as Db } from '@/server/db';
 import { player, user } from '@/server/db/schema';
+import { resolveMentions, sanitizeBody } from '@/server/social/mentions';
 
 type RankingRow = {
   id: string;
@@ -202,11 +203,14 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
     ? (competitionPositions(allRanked)[rankedIndex] ?? null)
     : null;
 
+  // The bio's mentions are served with each player's current name and slug.
+  const [bio] = row.bio ? await resolveMentions(db, [row.bio]) : [null];
+
   return {
     id: row.id,
     slug: row.slug,
     name: row.name,
-    bio: row.bio,
+    bio: bio ?? null,
     cardPortrait: row.cardPortrait,
     cardAbility: row.cardAbility,
     cardAbilityText: row.cardAbilityText,
@@ -577,9 +581,14 @@ const playerRouter = createTRPCRouter({
       }
 
       const { id, ...changes } = input;
+      // Bio mentions are stored by player id, like comments.
+      const bio =
+        typeof changes.bio === 'string'
+          ? await sanitizeBody(ctx.db, changes.bio)
+          : changes.bio;
       const [updated] = await ctx.db
         .update(player)
-        .set({ ...changes, slug, previousSlugs })
+        .set({ ...changes, bio, slug, previousSlugs })
         .where(eq(player.id, id))
         .returning({
           id: player.id,
@@ -593,6 +602,16 @@ const playerRouter = createTRPCRouter({
         revalidatePath(`/players/${updated.slug}`);
         if (updated.slug !== row.slug) {
           revalidatePath(`/players/${row.slug}`);
+        }
+        // A new name shows up wherever a bio mentions this player.
+        if (updated.name !== row.name) {
+          const mentioning = await ctx.db
+            .select({ slug: player.slug })
+            .from(player)
+            .where(like(player.bio, `%(${id})%`));
+          for (const other of mentioning) {
+            revalidatePath(`/players/${other.slug}`);
+          }
         }
         revalidatePath('/editions/[slug]', 'page');
         revalidatePath('/venues/[slug]', 'page');
