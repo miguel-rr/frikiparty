@@ -1,13 +1,13 @@
 {
-  "richar": {
-    "name": "Richar",
+  "richard": {
+    "name": "Richard",
     "bio": "Cuando el concilio no era aún concilio sino un puñado de caminantes, él ya estaba allí, alzando la primera hoguera. Los elfos lo llaman Ruifindel, y en él no brilla la estrella del favorito: los augures nunca pronuncian su nombre, y sin embargo todos los caminos terminan en su corona. Pues tal es su don — no acaudilla a los grandes, sino que hace grandes a cuantos marchan bajo su estandarte, y el pastor que cabalga a su lado carga como un caballero de la Marca. Se cuenta que una vez los días se le negaron, y le bastó uno solo: entre el alba y el ocaso cupo entera su victoria. Habla poco, como hablan los sabios, y su silencio pesa más en el consejo que muchas voces juntas. Dos hermanos salieron de la misma casa: a él lo siguió la gloria, y al otro lo sigue una sombra que aún no tiene fin.",
     "portrait": "king",
     "ability": "Grito de batalla",
     "abilityText": "Añade un anillo a tu mano."
   },
-  "guille": {
-    "name": "Guille",
+  "mawerson": {
+    "name": "Mawerson",
     "bio": "De la misma casa que Ruifindel salió Mawer, el menor, y los sabios aún discuten cuál de los dos nació con el mayor don. Nadie ríe más alto ni rehúsa menos partidas: donde él tiende la mano hay juego, y donde hay juego suele vencer. Es también de los que velan los grimorios nuevos antes de cada concilio, para que, al llegar las huestes, los rituales ya estén dispuestos. Se prepara como se preparan los reyes para la guerra, y cada año los augures lo coronan antes de la primera tirada. Ahí comienza su tragedia. Pues cuando lucha solo ningún poder se le resiste — sus gemas dan fe —, mas el anillo que el concilio de verdad codicia huye de su mano como agua entre los dedos: cuantas finales alcanzó, todas las vio perderse, contra toda razón y contra todo pronóstico. Los elfos no hallan falta alguna en él; por eso a lo suyo lo llaman maldición. Y en las noches largas se murmura que la sombra que sigue a su casa aún no ha encontrado su fin.",
     "portrait": "elf-lord",
     "ability": "La maldición del Señalado",

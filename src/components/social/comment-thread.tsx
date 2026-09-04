@@ -36,9 +36,10 @@ const CommentBody = ({ body }: { body: string }) => (
   <p className="whitespace-pre-line text-(--parchment) text-sm leading-relaxed">
     {parseBody(body).map((segment, index) =>
       segment.kind === 'mention' ? (
+        // The served body carries the player's current slug as the ref.
         <Link
-          className="font-bold text-(--gold) transition-colors hover:text-(--gold-hi)"
-          href={`/players/${segment.slug}`}
+          className="rounded-sm bg-(--gold)/10 px-1 font-bold text-(--gold) underline decoration-(--gold)/50 decoration-dotted underline-offset-[3px] transition-colors hover:bg-(--gold)/18 hover:text-(--gold-hi) hover:decoration-(--gold-hi)"
+          href={`/players/${segment.ref}`}
           // biome-ignore lint/suspicious/noArrayIndexKey: segments are positional and never reorder
           key={index}
         >

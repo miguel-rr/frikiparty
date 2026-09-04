@@ -81,12 +81,12 @@ const AvatarStack = ({
   const shown = avatars.slice(0, max);
   const rest = avatars.length - shown.length;
   return (
-    <span className="flex items-center">
+    <span className="flex shrink-0 items-center">
       {shown.map((avatar, index) => (
         // biome-ignore lint/performance/noImgElement: local portrait assets, plain img keeps the stack light
         <img
           alt={avatar.name}
-          className={`${size} rounded-full border-(--night) border-2 object-cover object-top ${index > 0 ? '-ml-2.5' : ''}`}
+          className={`${size} relative shrink-0 rounded-full border-(--night) border-2 object-cover object-top ${index > 0 ? '-ml-2.5' : ''}`}
           key={avatar.slug}
           src={avatar.portrait}
           style={{ zIndex: shown.length - index }}
@@ -94,7 +94,7 @@ const AvatarStack = ({
       ))}
       {rest > 0 ? (
         <span
-          className={`${size} -ml-2.5 flex items-center justify-center rounded-full border-(--night) border-2 bg-(--panel-2) font-bold font-mono text-(--gold) text-2xs`}
+          className={`${size} relative z-10 -ml-2.5 flex shrink-0 items-center justify-center rounded-full border-(--night) border-2 bg-(--panel-2) font-bold font-mono text-(--gold) text-2xs`}
         >
           +{rest}
         </span>
@@ -374,11 +374,13 @@ const ProposalCartouche = ({ facts }: { facts: EventFacts }) => (
           label="Confirmados"
           value={
             <Link
-              className="flex items-center gap-2.5 transition-colors hover:text-(--gold-hi)"
+              className="flex flex-wrap items-center gap-x-2.5 gap-y-1 transition-colors hover:text-(--gold-hi)"
               href={`/council#${ASPIRANTS_ANCHOR}`}
             >
               <AvatarStack avatars={facts.confirmed} max={4} size="h-6 w-6" />
-              <span>{facts.confirmed.length} en el concilio</span>
+              <span className="whitespace-nowrap">
+                {facts.confirmed.length} en el concilio
+              </span>
             </Link>
           }
         />
@@ -658,15 +660,14 @@ const PlaqueCell = ({
   className?: string;
 }) => (
   <div
-    className={`flex items-center gap-2.5 px-3 py-3 sm:gap-3 sm:px-5 ${className}`}
+    className={`flex min-w-0 items-center gap-2.5 px-3.5 py-3 sm:px-4 ${className}`}
   >
     {children}
   </div>
 );
 
-/** Round 36px slot on phones, 44px from sm: every row's icon, same size. */
-const plaqueIcon =
-  'h-9 w-9 shrink-0 rounded-full border border-(--hair-gold) sm:h-11 sm:w-11';
+/** Round 36px slot: every row's icon, the same size as one face of the stack. */
+const plaqueIcon = 'h-9 w-9 shrink-0 rounded-full border border-(--hair-gold)';
 
 const ProposalBeacons = ({ facts }: { facts: EventFacts }) => (
   <div className="flex w-full max-w-3xl flex-col items-center text-center">
@@ -723,11 +724,12 @@ const ProposalBeacons = ({ facts }: { facts: EventFacts }) => (
         ))}
       </ol>
       {/* One plaque for the rest: venue (the Maps link), roster, game.
-          On phones it is a compact pair, venue and roster; the game
-          waits for the wider plaque. */}
-      <div className="d-scape grid grid-cols-2 overflow-hidden rounded-xl border border-(--hair-gold) text-left shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066] sm:grid-cols-[1.4fr_1fr_1fr]">
+          On phones it stacks venue and roster as two full-width rows, so
+          the faces never fight the text for room; the game waits for the
+          wider, three-cell plaque. */}
+      <div className="d-scape grid grid-cols-1 overflow-hidden rounded-xl border border-(--hair-gold) text-left shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066] sm:grid-cols-[1.2fr_1.3fr_1fr]">
         <MapsLink
-          className="group border-(--hair-gold) border-r transition-colors hover:bg-(--panel-2)/60"
+          className="group border-(--hair-gold) border-b transition-colors hover:bg-(--panel-2)/60 sm:border-r sm:border-b-0"
           facts={facts}
         >
           <PlaqueCell>
@@ -746,11 +748,17 @@ const ProposalBeacons = ({ facts }: { facts: EventFacts }) => (
               </span>
             )}
             <span className="flex min-w-0 flex-col">
-              <span className="font-bold text-(--parchment) text-xs leading-tight sm:truncate sm:text-sm">
+              <span className="font-bold text-(--parchment) text-sm leading-tight">
                 {facts.venueName}
               </span>
               <span className="text-(--faded) text-xs">
-                <span className="hidden sm:inline">{facts.venueArea} · </span>
+                {/* The full area on the wide phone row; just the town in
+                    the narrower desktop cell, so the line never breaks. */}
+                <span className="sm:hidden">{facts.venueArea}</span>
+                <span className="hidden sm:inline">
+                  {facts.venueArea.split(',')[0]}
+                </span>{' '}
+                ·{' '}
                 <span className="font-bold text-(--gold) transition-colors group-hover:text-(--gold-hi)">
                   Cómo llegar
                 </span>
@@ -763,13 +771,17 @@ const ProposalBeacons = ({ facts }: { facts: EventFacts }) => (
           href={`/council#${ASPIRANTS_ANCHOR}`}
         >
           <PlaqueCell>
-            <AvatarStack
-              avatars={facts.confirmed}
-              max={3}
-              size="h-9 w-9 sm:h-11 sm:w-11"
-            />
-            <span className="flex flex-col">
-              <span className="font-bold text-(--parchment) text-xs leading-tight sm:text-sm">
+            {/* The phone row runs full width: room for five faces. The
+                desktop cell shares the plaque with two others: two faces
+                and the tally. */}
+            <span className="contents sm:hidden">
+              <AvatarStack avatars={facts.confirmed} max={5} size="h-9 w-9" />
+            </span>
+            <span className="hidden sm:contents">
+              <AvatarStack avatars={facts.confirmed} max={2} size="h-9 w-9" />
+            </span>
+            <span className="flex min-w-0 flex-col">
+              <span className="font-bold text-(--parchment) text-sm leading-tight">
                 {facts.confirmed.length}{' '}
                 {facts.confirmed.length === 1 ? 'confirmado' : 'confirmados'}
               </span>
@@ -785,8 +797,8 @@ const ProposalBeacons = ({ facts }: { facts: EventFacts }) => (
           >
             {GLYPHS.ring}
           </span>
-          <span className="flex flex-col">
-            <span className="font-bold text-(--parchment) text-sm">
+          <span className="flex min-w-0 flex-col">
+            <span className="font-bold text-(--parchment) text-sm leading-tight">
               Age of the Ring
             </span>
             <span className="text-(--faded) text-xs">equipos e individual</span>

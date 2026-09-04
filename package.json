@@ -12,6 +12,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:migrate:prod": "tsx --env-file=.env.prod scripts/migrate-prod.mts",
     "db:push": "drizzle-kit push",
+    "db:resync:player-slugs": "tsx --env-file=.env scripts/resync-player-slugs.ts",
+    "db:resync:player-slugs:prod": "tsx --env-file=.env.prod scripts/resync-player-slugs.ts",
     "db:backfill:player-slugs": "tsx --env-file=.env scripts/backfill-player-slugs.ts",
     "db:import:historical": "tsx --env-file=.env scripts/import-historical-editions.ts",
     "db:seed:demo": "tsx --env-file=.env scripts/seed-demo-tournaments.ts",

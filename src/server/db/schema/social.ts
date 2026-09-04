@@ -61,8 +61,8 @@ const like = createTable(
 
 /**
  * Flat comments, plain text with line breaks. Mentions live inside the
- * body as `@[Name](slug)` tokens, rendered as links to the player's page
- * without any lookup (see src/lib/social/mentions.ts).
+ * body as `@[Name](playerId)` tokens; the social router serves them with
+ * the player's current name and slug (see src/lib/social/mentions.ts).
  */
 const comment = createTable(
   'comment',

@@ -9,9 +9,10 @@ type MentionablePlayer = { id: string; name: string; slug: string };
 
 /**
  * The composer shows `@Nombre` while typing; the stored body carries
- * `@[Nombre](slug)` tokens. Picks made from the popup are remembered by
+ * `@[Nombre](id)` tokens. Picks made from the popup are remembered by
  * name and turned into tokens on submit (longest names first, so "Juan"
- * never swallows "Juan Carlos"). A body being edited seeds both.
+ * never swallows "Juan Carlos"). A body being edited seeds both — its
+ * refs are slugs (the served form), which the server maps back to ids.
  */
 const useComposerBody = (initialBody: string) => {
   const [text, setText] = useState(() => plainText(initialBody));
@@ -19,18 +20,18 @@ const useComposerBody = (initialBody: string) => {
     () =>
       new Map(
         parseBody(initialBody).flatMap((segment) =>
-          segment.kind === 'mention' ? [[segment.name, segment.slug]] : [],
+          segment.kind === 'mention' ? [[segment.name, segment.ref]] : [],
         ),
       ),
   );
   const pick = (player: MentionablePlayer) =>
-    setPicked((current) => new Map(current).set(player.name, player.slug));
+    setPicked((current) => new Map(current).set(player.name, player.id));
   const serialize = () => {
     let body = text;
-    for (const [name, slug] of Array.from(picked.entries()).sort(
+    for (const [name, ref] of Array.from(picked.entries()).sort(
       (a, b) => b[0].length - a[0].length,
     )) {
-      body = body.split(`@${name}`).join(mentionToken(name, slug));
+      body = body.split(`@${name}`).join(mentionToken(name, ref));
     }
     return body.trim();
   };
