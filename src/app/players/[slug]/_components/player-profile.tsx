@@ -17,6 +17,8 @@ import { api } from '@/trpc/react';
 
 type PlayerProfileProps = {
   id: string;
+  /** The page's address; a rename moves the page and we follow it. */
+  slug: string;
   name: string;
   bio: string | null;
   /** The card dealt server-side for this visit (saved choices already applied). */
@@ -39,6 +41,7 @@ type PlayerProfileProps = {
  */
 const PlayerProfile = ({
   id,
+  slug,
   name: initialName,
   bio: initialBio,
   card,
@@ -68,12 +71,22 @@ const PlayerProfile = ({
   const [abilityName, setAbilityName] = useState(initialAbility ?? '');
   const [abilityText, setAbilityText] = useState(initialAbilityText ?? '');
   const router = useRouter();
+  const utils = api.useUtils();
 
   // The page is a Server Component, so a client-side query cache invalidation
   // wouldn't touch its props — refresh() re-runs it with fresh data instead.
+  // A rename moves the page (the slug follows the name): go to the new
+  // address, which renders with the fresh data; the user menu's link and
+  // any player list re-read their slugs.
   const update = api.player.update.useMutation({
-    onSuccess: () => {
+    onSuccess: (updated) => {
       setEditing(false);
+      void utils.player.mine.invalidate();
+      void utils.player.list.invalidate();
+      if (updated && updated.slug !== slug) {
+        router.replace(`/players/${updated.slug}`);
+        return;
+      }
       router.refresh();
     },
   });

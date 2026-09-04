@@ -3,7 +3,7 @@ import { eq, ne } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
-import { slugify } from '@/lib/slug';
+import { firstFreeSlug } from '@/lib/slug';
 import { listEditions } from '@/server/api/routers/edition';
 import {
   adminProcedure,
@@ -19,22 +19,14 @@ const uniqueSlug = async (
   name: string,
   keepId: string,
 ) => {
-  const taken = new Set(
-    (
-      await db
-        .select({ slug: venue.slug })
-        .from(venue)
-        .where(ne(venue.id, keepId))
-    ).map((row) => row.slug),
+  const taken = await db
+    .select({ slug: venue.slug })
+    .from(venue)
+    .where(ne(venue.id, keepId));
+  return firstFreeSlug(
+    name,
+    taken.map((row) => row.slug),
   );
-  const base = slugify(name);
-  let candidate = base;
-  let suffix = 2;
-  while (taken.has(candidate)) {
-    candidate = `${base}-${suffix}`;
-    suffix += 1;
-  }
-  return candidate;
 };
 
 /**

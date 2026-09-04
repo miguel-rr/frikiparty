@@ -99,6 +99,7 @@ const PlayerPage = async ({ params }: PlayerPageProps) => {
               individualRings={player.individualRings}
               name={player.name}
               rings={player.rings}
+              slug={player.slug}
               stats={
                 <div className="flex flex-col gap-3">
                   {player.position !== null ? (

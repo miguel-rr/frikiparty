@@ -1,9 +1,10 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, isNotNull, isNull, sql } from 'drizzle-orm';
+import { and, asc, eq, isNotNull, isNull, ne, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { generateLinkCode, normalizeLinkCode } from '@/lib/link-code';
+import { firstFreeSlug } from '@/lib/slug';
 import {
   competitionPositions,
   sortByHistoricalRanking,
@@ -517,7 +518,7 @@ const playerRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db
-        .select({ userId: player.userId })
+        .select({ userId: player.userId, name: player.name, slug: player.slug })
         .from(player)
         .where(eq(player.id, input.id));
       if (!row) {
@@ -525,6 +526,20 @@ const playerRouter = createTRPCRouter({
       }
       if (!canEditPlayer(ctx.session.user, row.userId)) {
         throw new TRPCError({ code: 'FORBIDDEN' });
+      }
+
+      // A new name means a new page address: the slug follows it, dodging
+      // any other player's slug. Unchanged names keep theirs.
+      let slug = row.slug;
+      if (input.name !== undefined && input.name !== row.name) {
+        const taken = await ctx.db
+          .select({ slug: player.slug })
+          .from(player)
+          .where(ne(player.id, input.id));
+        slug = firstFreeSlug(
+          input.name,
+          taken.map((other) => other.slug),
+        );
       }
 
       // A curated attack always travels whole: name and definition
@@ -540,7 +555,7 @@ const playerRouter = createTRPCRouter({
       const { id, ...changes } = input;
       const [updated] = await ctx.db
         .update(player)
-        .set(changes)
+        .set({ ...changes, slug })
         .where(eq(player.id, id))
         .returning({
           id: player.id,
@@ -548,9 +563,13 @@ const playerRouter = createTRPCRouter({
           name: player.name,
           bio: player.bio,
         });
-      // Statically built pages that show the player's name or card.
+      // Statically built pages that show the player's name or card. The
+      // old address is rebuilt too, so it stops serving the stale page.
       if (updated) {
         revalidatePath(`/players/${updated.slug}`);
+        if (updated.slug !== row.slug) {
+          revalidatePath(`/players/${row.slug}`);
+        }
         revalidatePath('/editions/[slug]', 'page');
         revalidatePath('/venues/[slug]', 'page');
         revalidatePath('/');
