@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { isTypingTarget } from '@/components/media/arrow-key-nav';
@@ -149,6 +149,17 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
   const [openId, setOpenId] = useState<string | null>(null);
   const index = openId === null ? -1 : items.findIndex((i) => i.id === openId);
   const current = index === -1 ? null : (items[index] ?? null);
+  // The lightbox is portalled out of the page flow, but it has to stay
+  // inside the theme wrapper (.theme-night, see site-shell): the colour
+  // tokens, text colour and base size live there, and on <body> they are
+  // undefined — every border and label came out transparent.
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [host, setHost] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setHost(
+      gridRef.current?.closest<HTMLElement>('.theme-night') ?? document.body,
+    );
+  }, []);
 
   const step = useCallback(
     (delta: number) => {
@@ -188,17 +199,20 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-5">
+      <div
+        className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-5"
+        ref={gridRef}
+      >
         {items.map((item) => (
           <Tile item={item} key={item.id} onOpen={() => setOpenId(item.id)} />
         ))}
       </div>
-      {current
+      {current && host
         ? createPortal(
-            // Rendered on <body>: no ancestor can clip or offset it. Sized
-            // to the dynamic viewport so phone toolbars never hide the
-            // header, and a click on the backdrop (outside the figure)
-            // closes it, like Escape.
+            // Rendered on the theme wrapper: no page section can clip or
+            // offset it. Sized to the dynamic viewport so phone toolbars
+            // never hide the header, and a click on the backdrop (outside
+            // the figure) closes it, like Escape.
             // biome-ignore lint/a11y/useKeyWithClickEvents: Escape closes it through the document keydown handler above
             <div
               aria-modal
@@ -270,7 +284,7 @@ const MediaGallery = ({ items }: { items: MediaItem[] }) => {
                 </div>
               </div>
             </div>,
-            document.body,
+            host,
           )
         : null}
     </>
