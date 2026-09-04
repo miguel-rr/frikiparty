@@ -588,7 +588,7 @@ Prueba: 4 capitanes en 4 navegadores + TV; subasta con lote desierto, segunda
 vuelta, sorteo final, sin dinero, pausa, deshacer; draft serpiente completo; apagar
 el servidor a mitad y continuar; reproducir y comparar con lo visto.
 
-### F3 — Fases y calendario
+### F3 — Fases y calendario — **HECHO 2026-09-05**
 - Setup de fases: grupos (§6.4), bracket (§6.5), suizo (§6.6), reglas de facciones
   por fase (§5.4). Motor: `scheduleRoundRobin` (círculo, jornadas), `assignGroups`,
   `seedBracketFrom` (cruces clásicos tras play-in), `pairSwissRound`,
@@ -872,3 +872,25 @@ partir de la puja nº 6; `poolCarriesOver = false`; límite de 50 MB por replay.
   publicación. Aviso de prueba: un bot de pujas en una pestaña en segundo plano
   se ralentiza por el throttling de Chrome; no es cosa del servidor.
   El torneo 2026 de dev queda en `teams_ready` formado por draft.
+- 2026-09-05 — **F3 implementado**: motor puro `src/lib/tournament/phase-engine.ts`
+  (round-robin por método del círculo con jornadas y descansos, ida y vuelta;
+  siembra de equipos por el ranking del capitán; reparto en grupos por sorteo o
+  serpiente; árbol de eliminatorias con play-in y nunca byes, 3º/4º opcional;
+  emparejamiento suizo por marcador con los tres criterios, sin repeticiones
+  cuando se puede y descanso sorteado; clasificación con la cadena de desempate
+  ordenada: enfrentamientos directos, ranking inverso, anillos inverso, y
+  `tiedWith` para los manuales). Vocabulario del desempate en
+  `src/lib/tournament/tiebreak.ts` (sin Drizzle). Servidor: `src/server/live/
+  phases.ts` (`loadPhases`, `gamesToWinFor`), router `phases` (`savePlan`,
+  `generateFirst`, `setGroups`, `startPlay`), fases con partidos y partidas dentro
+  del estado en vivo. UI: `PhasesPanel` en `/live/setup` (constructor de fases con
+  grupos, eliminatorias y suizo, cadena de desempate reordenable, partidas por
+  ronda con nombres Play-in/Cuartos/Semis/Final, reglas de facciones por fase,
+  editor de grupos a mano), `Calendar` en `/live` y `/council` (jornadas y rondas,
+  la actual destacada, marcador derivado de las partidas, enlace a la ficha),
+  ficha de partido mínima en `/matches/[id]` (cabecera cara a cara; el resto llega
+  en F5). Probado: plan grupos + playoffs con final BO3, generación de 15 partidos
+  en 5 jornadas para 6 equipos, arranque a `in_progress`, calendario en el hub y
+  ficha. Motor verificado con casos: 5 y 6 equipos ida/vuelta, bracket de 5 y 6
+  con play-in, suizo de 7 con descanso, desempate por enfrentamiento directo.
+  El torneo 2026 de dev queda `in_progress` con la jornada 1 pendiente.

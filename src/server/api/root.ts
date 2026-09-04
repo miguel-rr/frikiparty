@@ -4,6 +4,7 @@ import { editionRouter } from '@/server/api/routers/edition';
 import { formationRouter } from '@/server/api/routers/formation';
 import { liveRouter } from '@/server/api/routers/live';
 import { mediaRouter } from '@/server/api/routers/media';
+import { phasesRouter } from '@/server/api/routers/phases';
 import { playerRouter } from '@/server/api/routers/player';
 import { socialRouter } from '@/server/api/routers/social';
 import { tournamentRouter } from '@/server/api/routers/tournament';
@@ -18,6 +19,7 @@ const appRouter = createTRPCRouter({
   formation: formationRouter,
   live: liveRouter,
   media: mediaRouter,
+  phases: phasesRouter,
   player: playerRouter,
   social: socialRouter,
   tournament: tournamentRouter,

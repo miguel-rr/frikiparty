@@ -8,6 +8,11 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 
+import {
+  DEFAULT_TIEBREAK_CHAIN,
+  GROUP_TIEBREAK_CRITERIA,
+  type GroupTiebreakCriterion,
+} from '@/lib/tournament/tiebreak';
 import { createTable } from '@/server/db/schema/create-table';
 import { team } from '@/server/db/schema/team';
 import { tournament } from '@/server/db/schema/tournament';
@@ -33,27 +38,6 @@ const phase = createTable(
   },
   (table) => [unique().on(table.tournamentId, table.phaseOrder)],
 );
-
-/**
- * Tie-break criteria, applied in the order the organiser set them (see
- * live plan §6.4). The automatic ones resolve on their own; `draw` and
- * `tiebreak_match` wait for the admin to act.
- */
-const GROUP_TIEBREAK_CRITERIA = [
-  'head_to_head',
-  'ranking_inverse',
-  'rings_inverse',
-  'draw',
-  'tiebreak_match',
-] as const;
-
-type GroupTiebreakCriterion = (typeof GROUP_TIEBREAK_CRITERIA)[number];
-
-const DEFAULT_TIEBREAK_CHAIN: GroupTiebreakCriterion[] = [
-  'head_to_head',
-  'ranking_inverse',
-  'draw',
-];
 
 const phaseGroupConfig = createTable('phase_group_config', {
   id: uuid('id').primaryKey().defaultRandom(),

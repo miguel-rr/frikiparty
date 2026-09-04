@@ -21,6 +21,7 @@ import {
   tournamentVote,
   user,
 } from '@/server/db/schema';
+import { loadPhases } from '@/server/live/phases';
 
 type Database = typeof Db;
 
@@ -144,7 +145,7 @@ const getLiveState = async (
   const stage = head.stage;
   const reveal = options.privileged || revealsDeliberation(stage);
 
-  const [participants, teams, [versionRow], voters, potRows, rooms] =
+  const [participants, teams, [versionRow], voters, potRows, rooms, phases] =
     await Promise.all([
       db
         .select({
@@ -207,6 +208,7 @@ const getLiveState = async (
         })
         .from(liveRoom)
         .where(eq(liveRoom.tournamentId, tournamentId)),
+      loadPhases(db, tournamentId),
     ]);
 
   // The formation room, if one runs. Mid-lot, the high bidder's identity is
@@ -308,6 +310,7 @@ const getLiveState = async (
     voteRanking,
     pots: reveal ? pots : [],
     room,
+    phases,
   };
 };
 

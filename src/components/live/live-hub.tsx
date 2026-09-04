@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
+import { Calendar } from '@/components/live/calendar';
 import { FormationRoom } from '@/components/live/formation/formation-room';
 import { PotsReveal } from '@/components/live/pots-reveal';
 import { RankingBlock } from '@/components/live/ranking-block';
@@ -43,6 +44,7 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
   const replayable =
     teamsSeated &&
     (state.formationMethod === 'auction' || state.formationMethod === 'draft');
+  const calendarReady = state.phases.some((p) => p.matches.length > 0);
 
   return (
     <div className="flex flex-col gap-10">
@@ -87,6 +89,15 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
             </div>
           </div>
           <FormationRoom live={state} />
+        </>
+      ) : null}
+
+      {calendarReady ? (
+        <>
+          <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
+            El calendario
+          </h3>
+          <Calendar state={state} />
         </>
       ) : null}
 
