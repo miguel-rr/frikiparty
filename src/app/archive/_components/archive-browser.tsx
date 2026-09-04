@@ -37,10 +37,9 @@ type Mode = 'gallery' | 'table';
  * The view lives in the URL (?sort=&type=&q=&view=) so a filtered archive
  * can be shared and survives a refresh or a trip into a file's page. Read
  * once on mount, written back with replaceState so typing never reloads
- * the page. Defaults stay out of the address; the table is admin-only,
- * so anyone else opening a `view=table` link lands on the gallery.
+ * the page. Defaults stay out of the address.
  */
-const useUrlView = (tableAllowed: boolean) => {
+const useUrlView = () => {
   const params = useSearchParams();
   const [view, setView] = useState<GalleryView>(() =>
     viewFromParams({
@@ -50,7 +49,7 @@ const useUrlView = (tableAllowed: boolean) => {
     }),
   );
   const [mode, setMode] = useState<Mode>(() =>
-    tableAllowed && params.get('view') === 'table' ? 'table' : 'gallery',
+    params.get('view') === 'table' ? 'table' : 'gallery',
   );
   useEffect(() => {
     const search = paramsFromView(view);
@@ -67,19 +66,22 @@ const useUrlView = (tableAllowed: boolean) => {
 };
 
 /**
- * Gallery of everything, and for admins a table view that shows the
- * catalogue at a glance: thumbnail, title, who, likes, comments. Both
- * views show the same sorted and filtered list. Each row links to the
- * file's page, where it can be edited or removed.
+ * Gallery of everything, and a table view that shows the catalogue at a
+ * glance: thumbnail, title, who, likes, comments. Both views show the
+ * same sorted and filtered list. A row's Editar leads to the file's
+ * page, and only shows where the visitor may edit: their own uploads,
+ * or everything for a moderator.
  */
 const ArchiveBrowser = ({
-  isAdmin,
+  canModerate,
   items,
+  viewerId,
 }: {
-  isAdmin: boolean;
+  canModerate: boolean;
   items: MediaItem[];
+  viewerId: string | null;
 }) => {
-  const { view, setView, mode, setMode } = useUrlView(isAdmin);
+  const { view, setView, mode, setMode } = useUrlView();
   const visible = useMemo(() => applyGalleryView(items, view), [items, view]);
   const counts = useMemo(
     () => countByType(items, view.query),
@@ -97,27 +99,25 @@ const ArchiveBrowser = ({
         counts={counts}
         onChange={setView}
         trailing={
-          isAdmin ? (
-            <fieldset className={group}>
-              <legend className="sr-only">Vista</legend>
-              <button
-                aria-pressed={mode === 'gallery'}
-                className={segment(mode === 'gallery')}
-                onClick={() => setMode('gallery')}
-                type="button"
-              >
-                Galería
-              </button>
-              <button
-                aria-pressed={mode === 'table'}
-                className={segment(mode === 'table')}
-                onClick={() => setMode('table')}
-                type="button"
-              >
-                Tabla
-              </button>
-            </fieldset>
-          ) : null
+          <fieldset className={group}>
+            <legend className="sr-only">Vista</legend>
+            <button
+              aria-pressed={mode === 'gallery'}
+              className={segment(mode === 'gallery')}
+              onClick={() => setMode('gallery')}
+              type="button"
+            >
+              Galería
+            </button>
+            <button
+              aria-pressed={mode === 'table'}
+              className={segment(mode === 'table')}
+              onClick={() => setMode('table')}
+              type="button"
+            >
+              Tabla
+            </button>
+          </fieldset>
         }
         view={view}
       />
@@ -220,12 +220,18 @@ const ArchiveBrowser = ({
                     {item.commentCount}
                   </td>
                   <td className={`${td} text-right`}>
-                    <Link
-                      className="inline-flex rounded-full border border-(--hair) px-3 py-1 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
-                      href={archiveItemHref(item.id, context, { edit: true })}
-                    >
-                      Editar
-                    </Link>
+                    {canModerate ||
+                    (viewerId !== null &&
+                      item.uploadedByUserId === viewerId) ? (
+                      <Link
+                        className="inline-flex rounded-full border border-(--hair) px-3 py-1 font-mono text-(--faded) text-2xs uppercase tracking-2xl transition-colors hover:border-(--hair-gold) hover:text-(--gold-hi)"
+                        href={archiveItemHref(item.id, context, {
+                          edit: true,
+                        })}
+                      >
+                        Editar
+                      </Link>
+                    ) : null}
                   </td>
                 </tr>
               ))}

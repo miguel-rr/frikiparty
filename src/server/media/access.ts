@@ -7,6 +7,8 @@ type ArchiveAccess = {
   /** May see galleries and open /archive/<id>, and upload. */
   allowed: boolean;
   isAdmin: boolean;
+  /** May edit and remove any file, not just their own: admins and editors. */
+  canModerate: boolean;
   /** The player this account has claimed, to preselect in the upload form. */
   playerId: string | null;
 };
@@ -21,13 +23,20 @@ const resolveArchiveAccess = async (
   user: SessionUser | null | undefined,
 ): Promise<ArchiveAccess> => {
   if (!user) {
-    return { allowed: false, isAdmin: false, playerId: null };
+    return {
+      allowed: false,
+      isAdmin: false,
+      canModerate: false,
+      playerId: null,
+    };
   }
   const isAdmin = user.role === 'admin';
+  const canModerate = isAdmin || user.role === 'editor';
   const linked = await getPlayerForUser(db, user.id);
   return {
-    allowed: isAdmin || user.role === 'editor' || linked !== null,
+    allowed: canModerate || linked !== null,
     isAdmin,
+    canModerate,
     playerId: linked?.id ?? null,
   };
 };

@@ -209,25 +209,27 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   {attendanceError.message}
                 </p>
               ) : null}
+              {/* The library, for whoever may enter it: a claimed player,
+                  an editor, an admin. */}
+              {role === 'admin' || role === 'editor' || mine.data ? (
+                <Link
+                  className={item}
+                  href="/archive"
+                  onClick={() => setOpen(false)}
+                  role="menuitem"
+                >
+                  Los Archivos
+                </Link>
+              ) : null}
               {role === 'admin' ? (
-                <>
-                  <Link
-                    className={item}
-                    href="/archive"
-                    onClick={() => setOpen(false)}
-                    role="menuitem"
-                  >
-                    Los Archivos
-                  </Link>
-                  <Link
-                    className={item}
-                    href="/admin/players"
-                    onClick={() => setOpen(false)}
-                    role="menuitem"
-                  >
-                    Jugadores
-                  </Link>
-                </>
+                <Link
+                  className={item}
+                  href="/admin/players"
+                  onClick={() => setOpen(false)}
+                  role="menuitem"
+                >
+                  Jugadores
+                </Link>
               ) : null}
               <button
                 className={item}

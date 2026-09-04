@@ -47,8 +47,10 @@ const MediaActions = ({
 
   const utils = api.useUtils();
   const isAdmin = user?.role === 'admin';
+  // Admins and editors edit anything; everyone else only what they uploaded.
+  const canModerate = isAdmin || user?.role === 'editor';
   const canEdit =
-    user !== undefined && (isAdmin || user.id === item.uploadedByUserId);
+    user !== undefined && (canModerate || user.id === item.uploadedByUserId);
 
   // Galleries are client queries and /archive pages are dynamic: refresh both.
   const refresh = () => {
@@ -74,7 +76,7 @@ const MediaActions = ({
   if (editing) {
     return (
       <MediaEditor
-        isAdmin={isAdmin}
+        canModerate={canModerate}
         item={item}
         onDone={() => {
           if (doneHref) {
@@ -143,11 +145,12 @@ const MediaActions = ({
 };
 
 const MediaEditor = ({
-  isAdmin,
+  canModerate,
   item,
   onDone,
 }: {
-  isAdmin: boolean;
+  /** May write the long description (admins and editors). */
+  canModerate: boolean;
   item: MediaItem;
   onDone: () => void;
 }) => {
@@ -176,7 +179,7 @@ const MediaEditor = ({
     update.mutate({
       id: item.id,
       caption: caption.trim() || null,
-      ...(isAdmin ? { description: description.trim() || null } : {}),
+      ...(canModerate ? { description: description.trim() || null } : {}),
       playerIds,
       editionId: editionId || null,
       tournamentId: tournamentId || null,
@@ -196,7 +199,7 @@ const MediaEditor = ({
           value={caption}
         />
       </div>
-      {isAdmin ? (
+      {canModerate ? (
         <div className="flex flex-col">
           <label className={label} htmlFor={`description-${item.id}`}>
             Descripción

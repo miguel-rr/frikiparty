@@ -21,8 +21,10 @@ const siteFlags = {
   /**
    * /archive, the whole library, for every account with archive access
    * (linked player or editor). Admins always get in; anonymous never.
+   * Open since 2026-09-04: members see everything, edit only their own
+   * uploads; admins and editors edit all.
    */
-  archiveForMembers: false,
+  archiveForMembers: true,
 } as const;
 
 export { siteFlags };

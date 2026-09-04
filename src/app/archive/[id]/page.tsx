@@ -70,7 +70,7 @@ const ArchiveItemPage = async ({ params, searchParams }: PageProps) => {
     notFound();
   }
 
-  // The list is admin-only until the flag opens it; the walk follows suit.
+  // The walk through the list is for whoever may open the list.
   const listAllowed = access.isAdmin || siteFlags.archiveForMembers;
   const trip = listAllowed ? readArchiveContext(query) : null;
   let walk: {

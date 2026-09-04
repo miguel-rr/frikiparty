@@ -26,6 +26,13 @@ Likes y comentarios sobre los archivos: ver `social-plan.md` (2026-09-03).
 
 ## Decisiones
 
+- **/archive abierto a los miembros (2026-09-04)**: `archiveForMembers`
+  pasa a `true`. Todo miembro (jugador vinculado, editor, admin) ve la
+  biblioteca completa, galería y tabla; edita y borra solo lo que subió.
+  Admin y editor ("moderadores", `canModerate` en `resolveArchiveAccess`
+  y en `loadEditable`) editan y borran cualquier archivo, descripción
+  larga incluida. Reprocesar vídeo sigue siendo solo admin.
+
 - **Documentos (2026-09-03)**: además de fotos y vídeos, el archivo admite
   `.pptx` y `.pdf` (`media.type = 'document'`, sin migración: la columna es
   texto). Sin renditions: el azulejo es tipográfico (glifo + PPTX/PDF +

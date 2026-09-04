@@ -12,19 +12,19 @@ import { resolveArchiveAccess } from '@/server/media/access';
 
 export const metadata: Metadata = { title: 'Los Archivos — Frikiparty' };
 
-// Reads the session (admin gate), so it renders on demand.
+// Reads the session (member gate), so it renders on demand.
 export const dynamic = 'force-dynamic';
 
 /**
- * The whole library. Admins always get in; other archive members only
- * once the archiveForMembers flag opens the doors; anyone else gets a 404,
- * so the page doesn't advertise itself.
+ * The whole library, for every archive member (a claimed player, an
+ * editor, an admin); anyone else gets a 404, so the page doesn't
+ * advertise itself. Everyone sees every file; the row actions follow
+ * who may edit what.
  */
 const ArchivePage = async () => {
   const session = await getSession();
   const access = await resolveArchiveAccess(db, session?.user);
-  const { isAdmin } = access;
-  if (!isAdmin && !(access.allowed && siteFlags.archiveForMembers)) {
+  if (!access.isAdmin && !(access.allowed && siteFlags.archiveForMembers)) {
     notFound();
   }
   const items = await listAllMedia(db, session?.user.id ?? null);
@@ -53,7 +53,11 @@ const ArchivePage = async () => {
             }
             title="Los Archivos"
           />
-          <ArchiveBrowser isAdmin={isAdmin} items={items} />
+          <ArchiveBrowser
+            canModerate={access.canModerate}
+            items={items}
+            viewerId={session?.user.id ?? null}
+          />
         </Section>
       </main>
     </SiteShell>

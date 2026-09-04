@@ -179,7 +179,7 @@ const assertTournamentInEdition = async (
   }
 };
 
-/** Who may change or remove a file: its uploader, or an admin. */
+/** Who may change or remove a file: its uploader, or a moderator (admin or editor). */
 const loadEditable = async (
   ctx: {
     db: TRPCContext['db'];
@@ -191,11 +191,12 @@ const loadEditable = async (
   if (!row) {
     throw new TRPCError({ code: 'NOT_FOUND' });
   }
-  const isAdmin = ctx.session.user.role === 'admin';
-  if (!isAdmin && row.uploadedByUserId !== ctx.session.user.id) {
+  const { role } = ctx.session.user;
+  const canModerate = role === 'admin' || role === 'editor';
+  if (!canModerate && row.uploadedByUserId !== ctx.session.user.id) {
     throw new TRPCError({ code: 'FORBIDDEN' });
   }
-  return { row, isAdmin };
+  return { row, canModerate };
 };
 
 const mediaRouter = createTRPCRouter({
@@ -403,8 +404,8 @@ const mediaRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { isAdmin } = await loadEditable(ctx, input.id);
-      if (input.description !== undefined && !isAdmin) {
+      const { canModerate } = await loadEditable(ctx, input.id);
+      if (input.description !== undefined && !canModerate) {
         throw new TRPCError({ code: 'FORBIDDEN' });
       }
       await assertTournamentInEdition(
