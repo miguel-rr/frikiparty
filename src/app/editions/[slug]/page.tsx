@@ -553,9 +553,7 @@ const EditionPage = async ({ params }: PageProps) => {
             </div>
           </div>
 
-          {/* Attendance only makes sense before the tournament exists:
-              once teams are recorded, the roster IS the attendance. */}
-          {!teamTournament ? <EditionEditor edition={edition} /> : null}
+          <EditionEditor edition={edition} />
 
           {!teamTournament && edition.confirmedPlayers.length > 0 ? (
             <p className="text-center text-(--faded) text-sm">

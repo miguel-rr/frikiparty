@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { NewEditionButton } from '@/app/editions/_components/new-edition-button';
 import { EditionsView } from '@/components/editions/editions-view';
 import { SiteShell } from '@/components/layout/site-shell';
 import { Section, SectionHeader } from '@/components/theme/primitives';
@@ -35,6 +36,7 @@ const EditionsPage = async () => {
       <main>
         <Section id="editions">
           <SectionHeader eyebrowText="Crónica" title="Las Ediciones" />
+          <NewEditionButton />
           {views.length > 0 ? (
             <EditionsView editions={views} />
           ) : (

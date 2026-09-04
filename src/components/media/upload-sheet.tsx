@@ -241,7 +241,13 @@ const UploadDialog = ({
       });
     }
     setRejected(refused);
-    setEntries((current) => [...current, ...accepted]);
+    // A finished batch is spent: adding after it starts a fresh list.
+    // Files that failed stay, so they can be retried with the new ones;
+    // files still waiting stay too — those are just more of the same batch.
+    setEntries((current) => [
+      ...current.filter((entry) => entry.status !== 'done'),
+      ...accepted,
+    ]);
   };
 
   const patch = useCallback((key: string, changes: Partial<Entry>) => {
@@ -366,12 +372,16 @@ const UploadDialog = ({
               onChange={addFiles}
               type="file"
             />
-            <label
-              className={`${btn.primary} w-full cursor-pointer sm:w-auto`}
-              htmlFor={fileInputId}
-            >
-              {entries.length === 0 ? 'Elegir archivos' : 'Añadir más'}
-            </label>
+            {/* No adding mid-upload: the picker is gone until the batch
+                ends, then it comes back as "Elegir archivos" for a new one. */}
+            {running ? null : (
+              <label
+                className={`${btn.primary} w-full cursor-pointer sm:w-auto`}
+                htmlFor={fileInputId}
+              >
+                {pending.length === 0 ? 'Elegir archivos' : 'Añadir más'}
+              </label>
+            )}
             {rejected.length > 0 ? (
               <p className="text-(--ember) text-xs">
                 Formato no admitido: {rejected.join(', ')}. Valen JPG, PNG,

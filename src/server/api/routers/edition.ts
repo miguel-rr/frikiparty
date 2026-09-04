@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, gte, isNotNull, sql } from 'drizzle-orm';
+import { and, asc, eq, gte, inArray, isNotNull, or, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -14,7 +14,17 @@ import {
   publicProcedure,
   type TRPCContext,
 } from '@/server/api/trpc';
-import { edition, editionPlayer, venue } from '@/server/db/schema';
+import {
+  edition,
+  editionPlayer,
+  game,
+  match,
+  team,
+  teamFormationPotPlayer,
+  teamMember,
+  tournament,
+  venue,
+} from '@/server/db/schema';
 
 type ChampionRow = {
   name: string | null;
@@ -69,6 +79,8 @@ const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
  * is shown at its real size.
  */
 type PlayerRef = {
+  /** Null for a seat whose player was never recorded. */
+  id: string | null;
   name: string | null;
   slug: string | null;
   isCaptain: boolean;
@@ -109,12 +121,13 @@ type TeamRow = {
   team_id: string;
   final_position: number | null;
   is_captain: boolean;
+  player_id: string | null;
   name: string | null;
   slug: string | null;
   size: number;
 };
 
-type PotRow = { pot_index: number; name: string; slug: string };
+type PotRow = { pot_index: number; id: string; name: string; slug: string };
 
 type BracketRow = {
   tournament_id: string;
@@ -301,6 +314,311 @@ const revalidateConfirmations = () => {
 };
 
 /**
+ * Everything an edition's record can appear on. Rings derive from final
+ * positions, so a roster change reaches the ranking, the players' pages
+ * and every card — carpet revalidation is the honest option.
+ */
+const revalidateEditionRecord = () => {
+  revalidatePath('/editions/[slug]', 'page');
+  revalidatePath('/editions');
+  revalidatePath('/players/[slug]', 'page');
+  revalidatePath('/venues/[slug]', 'page');
+  revalidatePath('/venues');
+  revalidatePath('/ranking');
+  revalidatePath('/champions');
+  revalidatePath('/council');
+  revalidatePath('/');
+};
+
+const editionSlugOf = (row: { year: number; order: number }) =>
+  row.order > 1 ? `${row.year}-${row.order}` : String(row.year);
+
+const isoDate = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha en formato AAAA-MM-DD');
+
+const editionFields = z
+  .object({
+    year: z.number().int().min(2000).max(2100),
+    order: z.number().int().min(1).max(5),
+    venueId: z.string().uuid().nullable(),
+    startsAt: isoDate.nullable(),
+    endsAt: isoDate.nullable(),
+  })
+  .refine(
+    (value) =>
+      !value.startsAt || !value.endsAt || value.startsAt <= value.endsAt,
+    { message: 'La fecha de fin no puede ir antes que la de inicio.' },
+  );
+
+/** The official Age of the Ring game row, created on first use like the importer does. */
+const aotrGameId = async (db: TRPCContext['db']) => {
+  const [existing] = await db
+    .select({ id: game.id })
+    .from(game)
+    .where(eq(game.name, 'Age of the Ring'));
+  if (existing) {
+    return existing.id;
+  }
+  const [row] = await db
+    .insert(game)
+    .values({ name: 'Age of the Ring', isOfficial: true })
+    .returning({ id: game.id });
+  if (!row) {
+    throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
+  }
+  return row.id;
+};
+
+/**
+ * The edition's official tournament of the given kind (teams of more
+ * than one, or teams of one), created when missing. Kind is derived from
+ * roster size, exactly as the pages read it.
+ */
+const ensureOfficialTournament = async (
+  db: TRPCContext['db'],
+  editionId: string,
+  kind: 'team' | 'individual',
+) => {
+  const rows = (await db.execute(sql`
+    SELECT tr.id, coalesce(max(sizes.members), 0)::int AS max_members
+    FROM frikiparty_tournament tr
+    LEFT JOIN (
+      SELECT t.id, t.tournament_id, count(tm.id)::int AS members
+      FROM frikiparty_team t
+      LEFT JOIN frikiparty_team_member tm ON tm.team_id = t.id
+      GROUP BY t.id
+    ) sizes ON sizes.tournament_id = tr.id
+    WHERE tr.edition_id = ${editionId} AND tr.is_official
+    GROUP BY tr.id
+    ORDER BY tr.created_at ASC
+  `)) as unknown as { id: string; max_members: number }[];
+  const found = rows.find((row) =>
+    kind === 'team' ? row.max_members > 1 : row.max_members === 1,
+  );
+  if (found) {
+    return found.id;
+  }
+  // An empty tournament (no teams yet) can serve either kind.
+  const empty = rows.find((row) => row.max_members === 0);
+  if (empty) {
+    return empty.id;
+  }
+  const [row] = await db
+    .insert(tournament)
+    .values({ editionId, gameId: await aotrGameId(db), isOfficial: true })
+    .returning({ id: tournament.id });
+  if (!row) {
+    throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
+  }
+  return row.id;
+};
+
+const teamInput = z.object({
+  /** Kept when given, so matches that point at the team survive a re-save. */
+  id: z.string().uuid().nullable(),
+  /** Seat order; null = a member we know existed but can't name. */
+  playerIds: z.array(z.string().uuid().nullable()).min(1).max(8),
+  captainPlayerId: z.string().uuid().nullable(),
+  finalPosition: z.union([z.literal(1), z.literal(2)]).nullable(),
+});
+
+/**
+ * Replaces the team tournament's record — pots and teams — with what the
+ * editor sends. Teams keep their ids (matches point at them); a team
+ * dropped from the list is deleted unless a match still references it.
+ */
+const saveTeamTournament = async (
+  db: TRPCContext['db'],
+  editionId: string,
+  input: { pots: string[][]; teams: z.infer<typeof teamInput>[] },
+) => {
+  const allIds = input.teams.flatMap((t) =>
+    t.playerIds.filter((id): id is string => id !== null),
+  );
+  if (new Set(allIds).size !== allIds.length) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'Un jugador no puede estar en dos equipos.',
+    });
+  }
+  const potIds = input.pots.flat();
+  if (new Set(potIds).size !== potIds.length) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'Un jugador no puede estar en dos bombos.',
+    });
+  }
+  if (input.teams.filter((t) => t.finalPosition === 1).length > 1) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'Solo un equipo puede ser campeón.',
+    });
+  }
+  for (const t of input.teams) {
+    if (t.captainPlayerId && !t.playerIds.includes(t.captainPlayerId)) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'El capitán tiene que estar en su equipo.',
+      });
+    }
+  }
+
+  const tournamentId = await ensureOfficialTournament(db, editionId, 'team');
+  await db.transaction(async (tx) => {
+    const existing = await tx
+      .select({ id: team.id })
+      .from(team)
+      .where(eq(team.tournamentId, tournamentId));
+    const keep = new Set(
+      input.teams.map((t) => t.id).filter((id): id is string => id !== null),
+    );
+    const dropped = existing.map((t) => t.id).filter((id) => !keep.has(id));
+    if (dropped.length > 0) {
+      const [referenced] = await tx
+        .select({ id: match.id })
+        .from(match)
+        .where(
+          or(
+            inArray(match.teamAId, dropped),
+            inArray(match.teamBId, dropped),
+            inArray(match.winnerTeamId, dropped),
+          ),
+        )
+        .limit(1);
+      if (referenced) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message:
+            'Un equipo eliminado tiene partidos registrados; quita antes los partidos.',
+        });
+      }
+      await tx.delete(teamMember).where(inArray(teamMember.teamId, dropped));
+      await tx.delete(team).where(inArray(team.id, dropped));
+    }
+    for (const t of input.teams) {
+      let teamId = t.id;
+      if (teamId && !existing.some((e) => e.id === teamId)) {
+        throw new TRPCError({ code: 'BAD_REQUEST' });
+      }
+      if (teamId) {
+        await tx
+          .update(team)
+          .set({ finalPosition: t.finalPosition })
+          .where(eq(team.id, teamId));
+        await tx.delete(teamMember).where(eq(teamMember.teamId, teamId));
+      } else {
+        const [created] = await tx
+          .insert(team)
+          .values({ tournamentId, finalPosition: t.finalPosition })
+          .returning({ id: team.id });
+        if (!created) {
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
+        }
+        teamId = created.id;
+      }
+      await tx.insert(teamMember).values(
+        t.playerIds.map((playerId, seat) => ({
+          teamId: teamId as string,
+          tournamentId,
+          playerId,
+          isCaptain: playerId !== null && playerId === t.captainPlayerId,
+          seat,
+        })),
+      );
+    }
+    await tx
+      .delete(teamFormationPotPlayer)
+      .where(eq(teamFormationPotPlayer.tournamentId, tournamentId));
+    const potRows = input.pots.flatMap((ids, potIndex) =>
+      ids.map((playerId) => ({ tournamentId, potIndex, playerId })),
+    );
+    if (potRows.length > 0) {
+      await tx.insert(teamFormationPotPlayer).values(potRows);
+    }
+  });
+};
+
+/**
+ * The individual championship as the pages read it: teams of one with
+ * final positions 1 and 2. Other individual placements are left alone.
+ */
+const saveIndividualTournament = async (
+  db: TRPCContext['db'],
+  editionId: string,
+  input: { championPlayerId: string | null; runnerUpPlayerId: string | null },
+) => {
+  if (
+    input.championPlayerId &&
+    input.championPlayerId === input.runnerUpPlayerId
+  ) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'Campeón y finalista no pueden ser el mismo jugador.',
+    });
+  }
+  const tournamentId = await ensureOfficialTournament(
+    db,
+    editionId,
+    'individual',
+  );
+  await db.transaction(async (tx) => {
+    const placed = await tx
+      .select({ id: team.id, finalPosition: team.finalPosition })
+      .from(team)
+      .where(
+        and(
+          eq(team.tournamentId, tournamentId),
+          inArray(team.finalPosition, [1, 2]),
+        ),
+      );
+    if (placed.length > 0) {
+      const ids = placed.map((t) => t.id);
+      const [referenced] = await tx
+        .select({ id: match.id })
+        .from(match)
+        .where(
+          or(
+            inArray(match.teamAId, ids),
+            inArray(match.teamBId, ids),
+            inArray(match.winnerTeamId, ids),
+          ),
+        )
+        .limit(1);
+      if (referenced) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message:
+            'El campeonato individual tiene partidos registrados; edítalo desde el torneo.',
+        });
+      }
+      await tx.delete(teamMember).where(inArray(teamMember.teamId, ids));
+      await tx.delete(team).where(inArray(team.id, ids));
+    }
+    for (const [playerId, finalPosition] of [
+      [input.championPlayerId, 1],
+      [input.runnerUpPlayerId, 2],
+    ] as const) {
+      if (!playerId) continue;
+      const [created] = await tx
+        .insert(team)
+        .values({ tournamentId, finalPosition })
+        .returning({ id: team.id });
+      if (!created) {
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
+      }
+      await tx.insert(teamMember).values({
+        teamId: created.id,
+        tournamentId,
+        playerId,
+        isCaptain: false,
+        seat: 0,
+      });
+    }
+  });
+};
+
+/**
  * One edition in full detail: venue, every recorded team of its official
  * tournaments (with captains and final positions), the formation pots and
  * the knockout rounds when known. Pure query (no session) so the page can
@@ -319,6 +637,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
       order: edition.order,
       startsAt: edition.startsAt,
       endsAt: edition.endsAt,
+      venueId: edition.venueId,
       venueName: venue.name,
       venueSlug: venue.slug,
       venueIsPlace: venue.isPlace,
@@ -350,7 +669,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     )
     SELECT
       tr.id AS tournament_id, t.id AS team_id, t.final_position,
-      tm.is_captain, p.name, p.slug, ts.size
+      tm.is_captain, tm.player_id, p.name, p.slug, ts.size
     FROM frikiparty_tournament tr
     JOIN frikiparty_team t ON t.tournament_id = tr.id
     JOIN frikiparty_team_member tm ON tm.team_id = t.id
@@ -389,6 +708,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
       tournament.teams.push(team);
     }
     team.players.push({
+      id: teamRow.player_id,
       name: teamRow.name,
       slug: teamRow.slug,
       isCaptain: teamRow.is_captain,
@@ -483,17 +803,20 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
 
   const potRows = teamTournament
     ? ((await db.execute(sql`
-        SELECT fp.pot_index, p.name, p.slug
+        SELECT fp.pot_index, p.id, p.name, p.slug
         FROM frikiparty_team_formation_pot_player fp
         JOIN frikiparty_player p ON p.id = fp.player_id
         WHERE fp.tournament_id = ${teamTournament.id}
         ORDER BY fp.pot_index ASC, p.name ASC
       `)) as unknown as PotRow[])
     : [];
-  const potsByIndex = new Map<number, { name: string; slug: string }[]>();
+  const potsByIndex = new Map<
+    number,
+    { id: string; name: string; slug: string }[]
+  >();
   for (const potRow of potRows) {
     const pot = potsByIndex.get(potRow.pot_index) ?? [];
-    pot.push({ name: potRow.name, slug: potRow.slug });
+    pot.push({ id: potRow.id, name: potRow.name, slug: potRow.slug });
     potsByIndex.set(potRow.pot_index, pot);
   }
 
@@ -506,6 +829,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     label,
     startsAt: row.startsAt,
     endsAt: row.endsAt,
+    venueId: row.venueId,
     venueName: row.venueName,
     venueSlug: row.venueSlug,
     venueIsPlace: row.venueIsPlace,
@@ -739,6 +1063,92 @@ const editionRouter = createTRPCRouter({
     revalidateConfirmations();
     return { year: standing.year };
   }),
+
+  /** Admin: a new edition; the slug comes back so the client can go there. */
+  create: adminProcedure
+    .input(editionFields)
+    .mutation(async ({ ctx, input }) => {
+      const [clash] = await ctx.db
+        .select({ id: edition.id })
+        .from(edition)
+        .where(
+          and(eq(edition.year, input.year), eq(edition.order, input.order)),
+        );
+      if (clash) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'Ya existe una edición con ese año y número.',
+        });
+      }
+      const [created] = await ctx.db
+        .insert(edition)
+        .values(input)
+        .returning({ year: edition.year, order: edition.order });
+      if (!created) {
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
+      }
+      revalidateEditionRecord();
+      return { slug: editionSlugOf(created) };
+    }),
+
+  /** Admin: year, number, venue and dates. Renumbering moves the page. */
+  update: adminProcedure
+    .input(z.object({ id: z.string().uuid() }).and(editionFields))
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...fields } = input;
+      const [current] = await ctx.db
+        .select({ year: edition.year, order: edition.order })
+        .from(edition)
+        .where(eq(edition.id, id));
+      if (!current) {
+        throw new TRPCError({ code: 'NOT_FOUND' });
+      }
+      const [clash] = await ctx.db
+        .select({ id: edition.id })
+        .from(edition)
+        .where(
+          and(eq(edition.year, fields.year), eq(edition.order, fields.order)),
+        );
+      if (clash && clash.id !== id) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'Ya existe otra edición con ese año y número.',
+        });
+      }
+      await ctx.db.update(edition).set(fields).where(eq(edition.id, id));
+      revalidateEditionRecord();
+      return { slug: editionSlugOf(fields) };
+    }),
+
+  /** Admin: pots and teams of the team tournament, replacing the record. */
+  saveTeamTournament: adminProcedure
+    .input(
+      z.object({
+        editionId: z.string().uuid(),
+        pots: z.array(z.array(z.string().uuid())).max(6),
+        teams: z.array(teamInput).max(16),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await saveTeamTournament(ctx.db, input.editionId, input);
+      revalidateEditionRecord();
+      return { ok: true };
+    }),
+
+  /** Admin: champion and runner-up of the individual championship. */
+  saveIndividualTournament: adminProcedure
+    .input(
+      z.object({
+        editionId: z.string().uuid(),
+        championPlayerId: z.string().uuid().nullable(),
+        runnerUpPlayerId: z.string().uuid().nullable(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await saveIndividualTournament(ctx.db, input.editionId, input);
+      revalidateEditionRecord();
+      return { ok: true };
+    }),
 
   /** Admin: a player answers the call. Confirming twice is a no-op. */
   confirmPlayer: adminProcedure
