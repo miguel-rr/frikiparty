@@ -6,6 +6,7 @@ import {
   FactionChip,
   type FactionRef,
 } from '@/components/live/match/faction-chip';
+import { useMusicPool } from '@/components/music/music-provider';
 import { btn, RingGlyph } from '@/components/theme/primitives';
 import { PortraitCard } from '@/components/tournament/portrait-card';
 import { gamesToWinFor } from '@/lib/live/games-to-win';
@@ -190,6 +191,8 @@ const EpicFaceOff = ({
   /** Where the sheet lives, when the face-off is shown elsewhere (the Council). */
   href?: string;
 }) => {
+  // The final brings its own music while it is on screen (F7).
+  useMusicPool('final', kind === 'final');
   const teamA = state.teams.find((t) => t.id === m.teamAId);
   const teamB = state.teams.find((t) => t.id === m.teamBId);
   const score = matchScore(m);

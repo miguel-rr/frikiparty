@@ -13,8 +13,27 @@ const MUSIC_FILES = Array.from(
   (_, index) => `audio-${String(index + 1).padStart(5, '0')}.mp3`,
 );
 
+/**
+ * The final's pool: the most epic of the tracks above, played instead of
+ * the general queue while a final is on screen (live plan F7). Track
+ * numbers as in MUSIC_FILES; empty means "no special pool yet".
+ */
+const FINAL_POOL_NUMBERS: number[] = [];
+
 /** Absolute URLs for the player; `publicBase` is the bucket's public origin. */
 const musicTrackUrls = (publicBase: string): string[] =>
   MUSIC_FILES.map((file) => `${publicBase}/${MUSIC_PREFIX}/${file}`);
 
-export { MUSIC_FILES, MUSIC_PREFIX, musicTrackUrls };
+const musicFinalPoolUrls = (publicBase: string): string[] =>
+  FINAL_POOL_NUMBERS.map(
+    (n) =>
+      `${publicBase}/${MUSIC_PREFIX}/audio-${String(n).padStart(5, '0')}.mp3`,
+  );
+
+export {
+  FINAL_POOL_NUMBERS,
+  MUSIC_FILES,
+  MUSIC_PREFIX,
+  musicFinalPoolUrls,
+  musicTrackUrls,
+};

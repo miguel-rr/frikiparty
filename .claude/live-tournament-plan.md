@@ -695,9 +695,12 @@ semifinal; el 3º/4º no): en la ficha del partido sustituyen a la cabecera, y e
   dos equipos, que se desplaza hacia el que va ganando en proporción a la
   ventaja; al decidirse, coronación con **podio** (campeones en alto, subcampeones
   al lado), confeti dorado y el equipo perdedor atenuado.
-- Pendiente: el tema musical propio de la final. El reproductor hoy solo
-  encadena pistas de fondo sin nombre; cuando haya una pista para la final se
-  añade `finalThemeUrl` en `src/lib/music.ts` y un `playTheme` en el provider.
+- Música de la final: el reproductor admite **pools con nombre**
+  (`MusicProvider pools`, `useMusicPool('final', activo)`): mientras la final
+  está en pantalla la cola pasa a `FINAL_POOL_NUMBERS` (`src/lib/music.ts`,
+  números de pista de las ya subidas), con fundido, y vuelve a la general al
+  salir. La lista de pistas épicas la elige Miguel; hasta entonces está vacía y
+  no cambia nada.
 
 ### F8 — Extremo a extremo y producción
 Guion completo en preview con cuentas de pruebas; comprobar anillos y páginas tras

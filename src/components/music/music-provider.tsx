@@ -29,6 +29,8 @@ type MusicState = {
   playing: boolean;
   toggle: () => void;
   next: () => void;
+  /** Switch the queue to a named pool (null: back to the general one). */
+  setPool: (name: string | null) => void;
 };
 
 const MusicContext = createContext<MusicState | null>(null);
@@ -100,14 +102,18 @@ const shuffled = <T,>(items: T[]): T[] => {
 const MusicProvider = ({
   children,
   tracks,
+  pools = {},
 }: {
   children: ReactNode;
   tracks: string[];
+  /** Special queues a page can ask for while it is on screen (the final's). */
+  pools?: Record<string, string[]>;
 }) => {
   const [enabled, setEnabled] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const queueRef = useRef<string[]>([]);
+  const poolRef = useRef<string | null>(null);
   // -1 until the first track is loaded, so the first play starts at 0.
   const positionRef = useRef(-1);
   const fadeTimer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -248,14 +254,46 @@ const MusicProvider = ({
     });
   }, [advance, enabled]);
 
+  /**
+   * A page asks for a pool (or lets it go): the queue is rebuilt from it,
+   * shuffled, and if something is playing the next track comes from the
+   * new queue after a short fade. Unknown or empty pools are ignored.
+   */
+  const setPool = useCallback(
+    (name: string | null) => {
+      const wanted = name && (pools[name]?.length ?? 0) > 0 ? name : null;
+      if (wanted === poolRef.current) return;
+      poolRef.current = wanted;
+      queueRef.current = shuffled(wanted ? (pools[wanted] ?? tracks) : tracks);
+      positionRef.current = -1;
+      const audio = audioRef.current;
+      if (!audio || !enabled || audio.paused) return;
+      fadeTo(audio, fadeTimer, 0, () => {
+        advance();
+      });
+    },
+    [advance, enabled, pools, tracks],
+  );
+
   return (
-    <MusicContext.Provider value={{ enabled, playing, toggle, next }}>
+    <MusicContext.Provider value={{ enabled, playing, toggle, next, setPool }}>
       {children}
     </MusicContext.Provider>
   );
 };
 
+/** Keeps a pool selected while `active` and the component is mounted. */
+const useMusicPool = (name: string, active: boolean) => {
+  const music = useContext(MusicContext);
+  const setPool = music?.setPool;
+  useEffect(() => {
+    if (!setPool || !active) return;
+    setPool(name);
+    return () => setPool(null);
+  }, [setPool, name, active]);
+};
+
 /** Null outside the provider (e.g. a page rendered without the root layout). */
 const useMusic = () => useContext(MusicContext);
 
-export { MusicProvider, useMusic };
+export { MusicProvider, useMusic, useMusicPool };

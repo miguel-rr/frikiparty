@@ -5,7 +5,7 @@ import { Alegreya_Sans, Cinzel, JetBrains_Mono } from 'next/font/google';
 
 import { MusicProvider } from '@/components/music/music-provider';
 import { env } from '@/env';
-import { musicTrackUrls } from '@/lib/music';
+import { musicFinalPoolUrls, musicTrackUrls } from '@/lib/music';
 import { TRPCReactProvider } from '@/trpc/react';
 
 const jetbrains = JetBrains_Mono({
@@ -67,7 +67,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     >
       <body className="min-h-screen bg-(--night) antialiased">
         {/* The player lives here, above every page, so navigating never cuts the music. */}
-        <MusicProvider tracks={musicTrackUrls(env.R2_PUBLIC_URL)}>
+        <MusicProvider
+          pools={{ final: musicFinalPoolUrls(env.R2_PUBLIC_URL) }}
+          tracks={musicTrackUrls(env.R2_PUBLIC_URL)}
+        >
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </MusicProvider>
       </body>
