@@ -911,4 +911,4 @@ const changeStage = async (
   revalidateLive();
 };
 
-export { tournamentRouter };
+export { deleteTournamentCascade, tournamentRouter };

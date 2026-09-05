@@ -42,7 +42,18 @@ type Title = {
   type: 'team' | 'individual';
 };
 
-const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
+const ROMAN_ORDINALS = [
+  'I',
+  'II',
+  'III',
+  'IV',
+  'V',
+  'VI',
+  'VII',
+  'VIII',
+  'IX',
+  'X',
+] as const;
 
 const editionLabel = (title: Title) =>
   title.order > 1

@@ -39,10 +39,14 @@ const SwissView = ({
   const rounds = [...new Set(phase.matches.map((m) => m.roundIndex ?? 0))].sort(
     (a, b) => a - b,
   );
-  const currentRound =
-    rounds.find((r) =>
-      phase.matches.some((m) => m.roundIndex === r && m.status !== 'completed'),
-    ) ?? rounds.at(-1);
+  // The round still being played (byes never wait); once every round is
+  // decided the last one stays on show, no longer "en juego".
+  const openRound = rounds.find((r) =>
+    phase.matches.some(
+      (m) => m.roundIndex === r && !m.byeTeamId && m.status !== 'completed',
+    ),
+  );
+  const currentRound = openRound ?? rounds.at(-1);
   const alive = state.teams.filter(
     (t) => (record.get(t.id)?.losses ?? 0) < limit,
   );
@@ -124,7 +128,7 @@ const SwissView = ({
               className={`cursor-pointer font-mono text-2xs uppercase tracking-2xl ${isCurrent ? 'text-(--gold-hi)' : 'text-(--faded)'}`}
             >
               Ronda {round}
-              {isCurrent ? ' · en juego' : ''}
+              {isCurrent && openRound !== undefined ? ' · en juego' : ''}
             </summary>
             <ul className="mt-3 flex flex-col gap-2">
               {roundMatches.map((m) => {

@@ -71,7 +71,18 @@ type EditionListItem = {
   status: 'upcoming' | 'live' | 'past';
 };
 
-const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
+const ROMAN_ORDINALS = [
+  'I',
+  'II',
+  'III',
+  'IV',
+  'V',
+  'VI',
+  'VII',
+  'VIII',
+  'IX',
+  'X',
+] as const;
 
 /**
  * A team member. Old editions have rosters we only half know: those rows
@@ -88,6 +99,8 @@ type PlayerRef = {
 
 type EditionTeam = {
   id: string;
+  /** The captain's flourish, when the team took one (live module). */
+  name: string | null;
   finalPosition: number | null;
   players: PlayerRef[];
 };
@@ -99,6 +112,8 @@ type EditionMatch = {
   teamAId: string | null;
   teamBId: string | null;
   winnerTeamId: string | null;
+  /** The bronze match sits in the last round next to the final. */
+  isThirdPlace: boolean;
   games: FinalGame[];
 };
 
@@ -119,6 +134,7 @@ type EditionTournament = {
 type TeamRow = {
   tournament_id: string;
   team_id: string;
+  team_name: string | null;
   final_position: number | null;
   is_captain: boolean;
   player_id: string | null;
@@ -137,6 +153,7 @@ type BracketRow = {
   team_a_id: string | null;
   team_b_id: string | null;
   winner_team_id: string | null;
+  is_third_place: boolean;
   game_number: number | null;
   game_winner_team_id: string | null;
 };
@@ -668,8 +685,8 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
       GROUP BY team_id
     )
     SELECT
-      tr.id AS tournament_id, t.id AS team_id, t.final_position,
-      tm.is_captain, tm.player_id, p.name, p.slug, ts.size
+      tr.id AS tournament_id, t.id AS team_id, t.name AS team_name,
+      t.final_position, tm.is_captain, tm.player_id, p.name, p.slug, ts.size
     FROM frikiparty_tournament tr
     JOIN frikiparty_team t ON t.tournament_id = tr.id
     JOIN frikiparty_team_member tm ON tm.team_id = t.id
@@ -701,6 +718,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     if (!team) {
       team = {
         id: teamRow.team_id,
+        name: teamRow.team_name,
         finalPosition: teamRow.final_position,
         players: [],
       };
@@ -721,7 +739,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     SELECT
       ph.tournament_id, m.id AS match_id, m.round_index,
       c.games_to_win_match, m.team_a_id, m.team_b_id, m.winner_team_id,
-      g.game_number, g.winner_team_id AS game_winner_team_id
+      m.is_third_place, g.game_number, g.winner_team_id AS game_winner_team_id
     FROM frikiparty_match m
     JOIN frikiparty_phase ph ON ph.id = m.phase_id
     JOIN frikiparty_tournament tr ON tr.id = ph.tournament_id
@@ -742,6 +760,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
         teamAId: bracketRow.team_a_id,
         teamBId: bracketRow.team_b_id,
         winnerTeamId: bracketRow.winner_team_id,
+        isThirdPlace: bracketRow.is_third_place,
         games: [],
       };
       matchesById.set(bracketRow.match_id, bracketMatch);

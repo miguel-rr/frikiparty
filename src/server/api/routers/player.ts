@@ -224,7 +224,18 @@ const getPlayerProfile = async (db: TRPCContext['db'], slug: string) => {
   };
 };
 
-const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
+const ROMAN_ORDINALS = [
+  'I',
+  'II',
+  'III',
+  'IV',
+  'V',
+  'VI',
+  'VII',
+  'VIII',
+  'IX',
+  'X',
+] as const;
 
 /** One won ring, with everything the ranking tooltip needs. */
 type RingTitle = {

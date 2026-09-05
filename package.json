@@ -21,6 +21,7 @@
     "db:seed:catalog:prod": "tsx --env-file=.env.prod scripts/seed-catalog.ts",
     "db:seed:live-test": "tsx --env-file=.env scripts/seed-live-test.ts",
     "db:seed:live-tournament": "tsx --env-file=.env scripts/seed-live-tournament.ts",
+    "db:simulate:tournaments": "tsx --env-file=.env --tsconfig scripts/tsconfig.sim.json scripts/simulate-tournaments.ts",
     "db:seed:wiki": "tsx --env-file=.env scripts/seed-wiki.ts",
     "db:seed:wiki:prod": "tsx --env-file=.env.prod scripts/seed-wiki.ts",
     "db:studio": "drizzle-kit studio",

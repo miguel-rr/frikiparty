@@ -702,10 +702,97 @@ semifinal; el 3º/4º no): en la ficha del partido sustituyen a la cabecera, y e
   salir. La lista de pistas épicas la elige Miguel; hasta entonces está vacía y
   no cambia nada.
 
-### F8 — Extremo a extremo y producción
-Guion completo en preview con cuentas de pruebas; comprobar anillos y páginas tras
-`completed`; migración y seed de catálogo en prod; enlazado de cuentas reales;
-destino de `/simulator`.
+### F8 — Extremo a extremo y producción — **EN CURSO 2026-09-05**
+
+Hecho en esta fase:
+- **Anales y anillos**: al coronar, el módulo escribe `team.finalPosition` (1
+  campeones, 2 subcampeones) y deshacer lo borra; así el ranking suma el anillo
+  y la página de la edición muestra a los campeones, la final y ahora también
+  **la fase de grupos** (clasificación y cruces del torneo en vivo). Cada
+  resultado revalida `/council`, la edición, `/editions`, `/ranking`,
+  `/champions`, los jugadores y la portada.
+- **Preview** (`frikiparty.vercel.app`, rama develop) usa la **misma base de
+  datos de desarrollo** que el local: lo que se siembra aquí se ve allí. El
+  torneo de ensayo **infla los anillos en dev** (los campeones de mentira suman
+  uno) hasta que se vuelve a sembrar o se borra el torneo.
+
+Guion de prueba en preview (Miguel, con las cuentas de pruebas y "Entrar como"):
+1. `/live/setup`: crear torneo 2026 (participantes = confirmados + los que
+   falten), arrancar, votar como dos o tres jugadores, cerrar votación, revisar
+   ranking y bombos, formación (subasta o draft) en dos navegadores: uno con el
+   capitán A, otro con el B; comprobar el modo TV y el reproductor.
+2. Fases: grupos (una vuelta, primero a 1) + playoffs (semis a 2, final a 3),
+   generar, arrancar. Comprobar el calendario en el móvil.
+3. Un partido de grupo completo desde la ficha: "Listos" con los dos capitanes,
+   sorteo, reparto, confirmación, mapa, replay, "Hemos perdido"; ver la
+   clasificación en el Concilio y "Mis partidos".
+4. Resto del grupo a mano desde las fichas (admin); un empate a propósito para
+   resolverlo; generar playoffs desde la propuesta.
+5. Semis y final: comprobar el escenario épico, las antorchas, el anillo, la
+   coronación, y después `/editions/2026`, `/ranking` y el jugador campeón.
+6. Deshacer la final y volver a coronar; borrar el torneo desde `/live/setup`
+   para dejar el ranking limpio.
+
+Producción, cuando toque (lo ejecuta Miguel):
+- `pnpm run db:migrate:prod` (aplica lo pendiente: 0021 a 0024).
+- `pnpm run db:seed:catalog:prod` (idempotente: AotR 9.2.0/9.3.0, facciones,
+  mapas); `db:seed:wiki:prod` sólo si se quiere la wiki en prod (está fuera de
+  la navegación). **Nunca** `db:seed:live-test` ni `db:seed:live-tournament`
+  (se niegan en producción).
+- Cuentas reales: cada jugador reclama el suyo con el código de
+  `/admin/players` ("Vincular jugador" en su menú); los capitanes necesitan
+  cuenta antes de la formación. "Entrar como" no existe en producción.
+- Promoción: `git push origin develop:main`.
+
+Simulaciones extremo a extremo (`pnpm run db:simulate:tournaments`, sólo dev):
+- El guion `scripts/simulate-tournaments.ts` recorre el módulo entero a través
+  de los **procedimientos tRPC reales** (`createCaller` con la sesión del admin
+  y las de los jugadores de prueba; `next/cache` se sustituye por un shim vía
+  `scripts/tsconfig.sim.json`). Crea cinco ediciones **2026 · II a VI** con
+  fechas pasadas (enero a julio de 2026), cada una con un torneo por equipos y
+  otro individual, y las deja terminadas. Al acabar cada edición pliega todas
+  las marcas de tiempo al fin de semana de la edición (viernes 17:00 a domingo
+  19:00) conservando el orden y el ritmo relativo.
+- Cobertura: ranking histórico, votado y combinado; formación aleatoria, por
+  bombos, draft (serpiente e inverso; lineal con orden a suertes) y subasta
+  (pujas, lotes desiertos, sorteo, timers resueltos sin esperar); grupos de
+  uno y dos, ida y vuelta, al mejor de 1/3/5; cuadros con play-in (6
+  entrantes), tercer puesto, sembrados por fase anterior o por ranking; suizo a
+  una y dos derrotas con los tres emparejamientos (byes incluidos); pools de
+  facciones fresh, depleting y con arrastre; empates circulares resueltos a
+  suertes y con partidos de desempate; corrección, deshacer y reanotar;
+  nombres de equipo; comentarios en el tablón y en la ficha de la final.
+- Los resultados son deterministas (semilla fija): una nueva ejecución borra
+  las ediciones II a VI y las vuelve a contar igual.
+- Fechas: los eventos se escalan al fin de semana; el resto de marcas
+  (partidas, partidos, votos, elecciones, lotes, salas, comentarios) se
+  reconstruye desde el registro de eventos, así que coinciden con él al
+  milisegundo y volver a plegar no cambia nada (`-- --fold-only`).
+- Lo que las simulaciones sacaron a la luz (todo corregido):
+  - un empate resuelto tras el último partido de la última fase (liguilla sin
+    playoffs) no coronaba; ahora `resolveTie` corona;
+  - la crónica tomaba el partido por el tercer puesto como la final (banner y
+    "La final" equivocados); ahora la final es la que no es de bronce y el
+    tercer puesto tiene su propio panel;
+  - los nombres de equipo no salían en la edición ("Equipo de X");
+  - las tablas de grupo ignoraban las resoluciones manuales de empates
+    ("empate pendiente" tras resolverlo a suertes) y decían "por a suertes";
+  - una final con partida abierta se pintaba como derrota doble 0–0; ahora
+    sólo cuentan las partidas decididas y la edición en juego enlaza al
+    Concilio;
+  - el suizo marcaba "en juego" una ronda ya cerrada por culpa del descanso;
+  - la ficha de partido sólo resolvía el torneo en curso (404 en ediciones
+    pasadas); ahora va por el torneo del propio partido;
+  - los equipos de uno se llamaban "Equipo de X" en las vistas en vivo;
+  - los ordinales romanos acababan en V; los portadores decían "Edición 2026"
+    sin ordinal.
+- Fase de grupos y suizo también se muestran en la crónica del individual.
+- **Anillos en dev**: los campeones de estas ediciones cuentan en el ranking
+  como cualquier edición oficial. Es lo que se quiere ver; en producción no
+  existen.
+
+Pendiente de decidir: **`/simulator`**. Propuesta: borrarlo (ya no se enlaza,
+está en modo dinámico y el motor que valía se reutilizó en `src/lib/tournament`).
 
 Orden: F0 → F1 → F2 → F3 → F4 → F5 → F6 → F7 → F8. F6 se alimenta desde F0.
 
@@ -1042,3 +1129,9 @@ facciones por versión, contexto de cada partida). Estado y reglas:
 - 2026-09-05 — **F7 hecho** (salvo música): semis y final con diseño propio en la
   ficha y en primer plano en el Concilio; antorchas por partida, anillo hacia el
   que gana, coronación con podio y confeti.
+- 2026-09-05 — **F8 en curso**: anillos y anales desde el módulo en vivo
+  (`finalPosition` al coronar, fase de grupos en la edición, revalidaciones),
+  guion de prueba en preview y runbook de producción escritos en F8.
+- 2026-09-05 — **Simulaciones**: cinco ediciones de ensayo (2026 · II a VI)
+  terminadas a través de los procedimientos reales; `resolveTie` corona cuando
+  el empate decide el campeón; `deleteTournamentCascade` exportado.

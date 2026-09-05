@@ -15,6 +15,7 @@ import {
   matchGame,
   matchGameFactionDraw,
   matchGamePlayerFaction,
+  team,
   tournament,
 } from '@/server/db/schema';
 import {
@@ -630,6 +631,36 @@ const maybeCrown = async (
   const last = projected.phases.find((p) => p.id === phase.id);
   if (!last || !phaseIsComplete(projected, last)) return;
   const winner = champion(projected);
+  // The annals and the ranking read team.finalPosition (1 champions,
+  // 2 runners-up): the live result writes it, undoing clears it.
+  const runnerUp =
+    phase.type === 'bracket'
+      ? (() => {
+          const finalRound = Math.max(
+            ...matchesNow.map((m) => m.roundIndex ?? 0),
+          );
+          const final = matchesNow.find(
+            (m) => m.roundIndex === finalRound && !m.isThirdPlace,
+          );
+          return final?.winnerTeamId === final?.teamAId
+            ? final?.teamBId
+            : final?.teamAId;
+        })()
+      : null;
+  await ctx.tx
+    .update(team)
+    .set({ finalPosition: null })
+    .where(eq(team.tournamentId, state.id));
+  if (winner)
+    await ctx.tx
+      .update(team)
+      .set({ finalPosition: 1 })
+      .where(eq(team.id, winner));
+  if (runnerUp)
+    await ctx.tx
+      .update(team)
+      .set({ finalPosition: 2 })
+      .where(eq(team.id, runnerUp));
   await ctx.tx
     .update(tournament)
     .set({ stage: 'completed', stageChangedAt: new Date() })
@@ -707,6 +738,10 @@ const undoGame = async (
         );
     }
     if (state.stage === 'completed') {
+      await tx
+        .update(team)
+        .set({ finalPosition: null })
+        .where(eq(team.tournamentId, state.id));
       await tx
         .update(tournament)
         .set({ stage: 'in_progress', stageChangedAt: new Date() })
@@ -842,6 +877,7 @@ export {
   downstreamTouched,
   ensureGame,
   locate,
+  maybeCrown,
   openGame,
   overrideResult,
   proposeEntrants,

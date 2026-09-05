@@ -91,7 +91,7 @@ const MatchSheet = ({
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <span className={tag}>
-          Edición {state.editionYear} · {phaseTitle(phase)}
+          Edición {state.editionSlug.replace('-', ' · ')} · {phaseTitle(phase)}
           {m.roundIndex !== null ? ` · ${roundWord(phase, m)}` : ''}
           {m.isTiebreak ? ' · desempate' : ''}
         </span>
@@ -99,8 +99,16 @@ const MatchSheet = ({
           <Link className={btn.outline} href={`/live/phase/${phase.id}`}>
             {phaseTitle(phase)}
           </Link>
-          <Link className={btn.outline} href="/live">
-            El torneo
+          {/* A finished tournament lives in its edition; the running one, in the Council. */}
+          <Link
+            className={btn.outline}
+            href={
+              state.stage === 'completed'
+                ? `/editions/${state.editionSlug}`
+                : '/live'
+            }
+          >
+            {state.stage === 'completed' ? 'La edición' : 'El torneo'}
           </Link>
         </div>
       </div>

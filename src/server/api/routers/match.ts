@@ -20,6 +20,7 @@ import {
   confirmLineup,
   ensureGame,
   locate,
+  maybeCrown,
   openGame,
   overrideResult,
   proposeEntrants,
@@ -29,6 +30,7 @@ import {
   sideOf,
   undoGame,
 } from '@/server/live/matches';
+import type { LivePhase } from '@/server/live/phases';
 import { getLiveState, type LiveState } from '@/server/live/state';
 import { actorFromSession, runTournamentTx } from '@/server/live/tx';
 import {
@@ -51,8 +53,20 @@ const loadState = async (
   return state;
 };
 
-/** Match sheets are static for nobody: only /council caches, and it shows the current phase. */
-const refresh = () => revalidatePath('/council');
+/**
+ * A decided match moves the Council, and a decided tournament the annals:
+ * the edition's page, the ranking (rings), the players and the champions.
+ */
+const refresh = (state?: LiveState) => {
+  revalidatePath('/council');
+  if (!state) return;
+  revalidatePath(`/editions/${state.editionSlug}`);
+  revalidatePath('/editions');
+  revalidatePath('/ranking');
+  revalidatePath('/champions');
+  revalidatePath('/players/[slug]', 'page');
+  revalidatePath('/');
+};
 
 const replayKey = (tournamentId: string, gameId: string, fileId: string) =>
   `replays/${tournamentId}/${gameId}/${fileId}.BfME2Replay`;
@@ -180,7 +194,7 @@ const matchRouter = createTRPCRouter({
           );
         },
       );
-      if (result.matchCompleted) refresh();
+      if (result.matchCompleted) refresh(state);
       return result;
     }),
 
@@ -236,7 +250,7 @@ const matchRouter = createTRPCRouter({
           );
         },
       );
-      refresh();
+      refresh(state);
       return result;
     }),
 
@@ -251,7 +265,7 @@ const matchRouter = createTRPCRouter({
         actorFromSession(ctx.session),
         (tctx) => undoGame(tctx, state, located, input.gameId),
       );
-      refresh();
+      refresh(state);
       return { ok: true };
     }),
 
@@ -291,12 +305,12 @@ const matchRouter = createTRPCRouter({
         ctx.db,
         input.tournamentId,
         actorFromSession(ctx.session),
-        async ({ tx, emit }) => {
-          await tx
+        async (tctx) => {
+          await tctx.tx
             .update(phaseGroup)
             .set({ tieResolutions: [...kept, order] })
             .where(eq(phaseGroup.id, group.id));
-          await emit({
+          await tctx.emit({
             stream: 'admin',
             type: 'tie_resolved',
             payload: {
@@ -306,6 +320,23 @@ const matchRouter = createTRPCRouter({
               order,
             },
           });
+          // A tie settled after the last match of the last phase is what
+          // decides the champion: crown from the resolved standings.
+          const resolvedPhase: LivePhase = {
+            ...phase,
+            groups: phase.groups.map((g) =>
+              g.id === group.id
+                ? { ...g, tieResolutions: [...kept, order] }
+                : g,
+            ),
+          };
+          const resolvedState: LiveState = {
+            ...state,
+            phases: state.phases.map((p) =>
+              p.id === phase.id ? resolvedPhase : p,
+            ),
+          };
+          await maybeCrown(tctx, resolvedState, resolvedPhase, phase.matches);
         },
       );
       refresh();

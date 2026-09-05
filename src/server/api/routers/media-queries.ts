@@ -70,7 +70,18 @@ type MediaItem = {
   venue: { name: string; slug: string } | null;
 };
 
-const ROMAN_ORDINALS = ['I', 'II', 'III', 'IV', 'V'] as const;
+const ROMAN_ORDINALS = [
+  'I',
+  'II',
+  'III',
+  'IV',
+  'V',
+  'VI',
+  'VII',
+  'VIII',
+  'IX',
+  'X',
+] as const;
 
 const toItem = (row: MediaRow): MediaItem => ({
   id: row.id,

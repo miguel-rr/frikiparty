@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { EditionEditor } from '@/app/editions/[slug]/_components/edition-editor';
 import { SiteShell } from '@/components/layout/site-shell';
+import { PhaseView } from '@/components/live/phase/phase-view';
 import { ArchiveSection } from '@/components/media/archive-section';
 import {
   PlayerBlazon,
@@ -24,6 +25,7 @@ import { getEditionDetail } from '@/server/api/routers/edition';
 import { getVenue } from '@/server/api/routers/venue';
 import { db } from '@/server/db';
 import { edition as editionTable } from '@/server/db/schema';
+import { getLiveState } from '@/server/live/state';
 
 type EditionDetail = NonNullable<Awaited<ReturnType<typeof getEditionDetail>>>;
 type EditionTeam = NonNullable<
@@ -34,9 +36,13 @@ type EditionRound = EditionTournament['rounds'][number];
 type EditionFinal = EditionRound['matches'][number];
 type EditionPlayer = EditionTeam['players'][number];
 
-/** The final is the only match of the last recorded round. */
+/** The final: the last recorded round's match that isn't the bronze one. */
 const finalOf = (rounds: EditionRound[]): EditionFinal | null =>
-  rounds.at(-1)?.matches[0] ?? null;
+  rounds.at(-1)?.matches.find((m) => !m.isThirdPlace) ?? null;
+
+/** The third-place match, when the edition played one. */
+const thirdPlaceOf = (rounds: EditionRound[]): EditionFinal | null =>
+  rounds.at(-1)?.matches.find((m) => m.isThirdPlace) ?? null;
 
 /**
  * A single recorded round is just a final and reads better as the faceoff
@@ -46,20 +52,23 @@ const isBracket = (rounds: EditionRound[]) => rounds.length > 1;
 
 const bracketRounds = (rounds: EditionRound[]) =>
   rounds.map((round) => ({
-    matches: round.matches.map((bracketMatch) => {
-      const wins = (teamId: string | null) =>
-        bracketMatch.games.filter((game) => game.winnerTeamId === teamId)
-          .length;
-      const played = bracketMatch.games.length > 0;
-      return {
-        id: bracketMatch.id,
-        teamAId: bracketMatch.teamAId,
-        teamBId: bracketMatch.teamBId,
-        winnerTeamId: bracketMatch.winnerTeamId,
-        scoreA: played ? wins(bracketMatch.teamAId) : null,
-        scoreB: played ? wins(bracketMatch.teamBId) : null,
-      };
-    }),
+    // The bronze match has its own panel; the tree keeps the road to the final.
+    matches: round.matches
+      .filter((bracketMatch) => !bracketMatch.isThirdPlace)
+      .map((bracketMatch) => {
+        const wins = (teamId: string | null) =>
+          bracketMatch.games.filter((game) => game.winnerTeamId === teamId)
+            .length;
+        const played = bracketMatch.games.length > 0;
+        return {
+          id: bracketMatch.id,
+          teamAId: bracketMatch.teamAId,
+          teamBId: bracketMatch.teamBId,
+          winnerTeamId: bracketMatch.winnerTeamId,
+          scoreA: played ? wins(bracketMatch.teamAId) : null,
+          scoreB: played ? wins(bracketMatch.teamBId) : null,
+        };
+      }),
   }));
 
 const bracketTeams = (teams: EditionTeam[]) =>
@@ -110,10 +119,12 @@ const captainOf = (team: EditionTeam | undefined) =>
   team?.players.find((player) => player.isCaptain && player.name);
 
 /**
- * "Equipo de <capitán>" — teams have no names, their players ARE the team.
- * Without a recorded captain (old editions) we don't invent one.
+ * The team's own name when the captain gave it one; otherwise "Equipo de
+ * <capitán>" — their players ARE the team. Without a recorded captain
+ * (old editions) we don't invent one.
  */
 const teamHandle = (team: EditionTeam | undefined) => {
+  if (team?.name) return team.name;
   const captain = captainOf(team);
   if (captain) {
     return `Equipo de ${captain.name}`;
@@ -358,16 +369,19 @@ const finalGames = (final: EditionFinal, teams: EditionTeam[]): GameView[] => {
   const rightId = leftId === final.teamAId ? final.teamBId : final.teamAId;
   const left = teams.find((team) => team.id === leftId);
   const right = teams.find((team) => team.id === rightId);
-  return final.games.map((game) => ({
-    sideA: (left?.players ?? []).map((player) => ({ name: player.name })),
-    sideB: (right?.players ?? []).map((player) => ({ name: player.name })),
-    winner:
-      game.winnerTeamId === leftId
-        ? 'A'
-        : game.winnerTeamId === rightId
-          ? 'B'
-          : null,
-  }));
+  // Only decided games are history; an open one has nothing to tell yet.
+  return final.games
+    .filter((game) => game.winnerTeamId !== null)
+    .map((game) => ({
+      sideA: (left?.players ?? []).map((player) => ({ name: player.name })),
+      sideB: (right?.players ?? []).map((player) => ({ name: player.name })),
+      winner:
+        game.winnerTeamId === leftId
+          ? 'A'
+          : game.winnerTeamId === rightId
+            ? 'B'
+            : null,
+    }));
 };
 
 /**
@@ -497,7 +511,29 @@ const EditionPage = async ({ params }: PageProps) => {
       : null;
 
   const teamTournament = edition.teamTournament;
+  // Tournaments run through the live module keep their group phase and
+  // the whole calendar: the chronicle shows them under the bracket.
+  const live = teamTournament
+    ? await getLiveState(db, teamTournament.id)
+    : null;
   const individualTournament = edition.individualTournament;
+  const individualLive = individualTournament
+    ? await getLiveState(db, individualTournament.id)
+    : null;
+  // Group and swiss phases have no bracket tree: the live phase view tells them.
+  const tablePhases = (state: typeof live) =>
+    state?.phases.filter((p) => p.type !== 'bracket' && p.matches.length > 0) ??
+    [];
+  const phaseLabel = (type: 'group' | 'bracket' | 'swiss') =>
+    type === 'swiss' ? 'El suizo' : 'La fase de grupos';
+  const teamThirdPlace = thirdPlaceOf(teamTournament?.rounds ?? []);
+  const decided = (m: EditionFinal | null) =>
+    (m?.games.filter((g) => g.winnerTeamId !== null).length ?? 0) > 0;
+  // A tournament still running through the live module: the chronicle
+  // shows what stands so far and points at the Council for the rest.
+  const inPlay = [live, individualLive].some(
+    (state) => state && state.stage !== 'completed',
+  );
   const hasRoster = (teamTournament?.teams.length ?? 0) > 1;
   const teamRounds = teamTournament?.rounds ?? [];
   const teamChampions = teamTournament?.teams.find(
@@ -611,7 +647,21 @@ const EditionPage = async ({ params }: PageProps) => {
             </div>
           ) : null}
 
-          {teamTournament && teamFinal && teamFinal.games.length > 0 ? (
+          {inPlay ? (
+            <Link
+              className={`${panelGold} flex flex-wrap items-center justify-between gap-3 px-5 py-4 transition-colors hover:border-(--gold-hi)`}
+              href="/council"
+            >
+              <span className="d-display font-bold text-(--gold-hi) uppercase">
+                Esta edición se está jugando
+              </span>
+              <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
+                Síguela en el Concilio →
+              </span>
+            </Link>
+          ) : null}
+
+          {teamTournament && teamFinal && decided(teamFinal) ? (
             <div className="flex flex-col gap-5">
               <span className={label}>
                 <RingGlyph size={13} /> La final
@@ -634,8 +684,27 @@ const EditionPage = async ({ params }: PageProps) => {
             </div>
           ) : null}
 
-          {/* "La fase de grupos" slots in here once group-stage data exists
-              (2026 onwards): same label pattern, league table component. */}
+          {teamTournament && teamThirdPlace && decided(teamThirdPlace) ? (
+            <div className="flex flex-col gap-5">
+              <span className={label}>
+                <RingGlyph size={13} /> El tercer puesto
+              </span>
+              <MatchPanel
+                games={finalGames(teamThirdPlace, teamTournament.teams)}
+              />
+            </div>
+          ) : null}
+
+          {live
+            ? tablePhases(live).map((phase) => (
+                <div className="flex flex-col gap-5" key={phase.id}>
+                  <span className={label}>
+                    <RingGlyph size={13} /> {phaseLabel(phase.type)}
+                  </span>
+                  <PhaseView compact phase={phase} state={live} />
+                </div>
+              ))
+            : null}
 
           {hasRoster && teamTournament ? (
             <div className="flex flex-col gap-5">
@@ -712,6 +781,16 @@ const EditionPage = async ({ params }: PageProps) => {
                   runnerUpTeam={individualRunnerUpTeam}
                 />
               )}
+              {individualLive
+                ? tablePhases(individualLive).map((phase) => (
+                    <PhaseView
+                      compact
+                      key={phase.id}
+                      phase={phase}
+                      state={individualLive}
+                    />
+                  ))
+                : null}
             </div>
           ) : null}
 

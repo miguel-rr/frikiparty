@@ -94,7 +94,7 @@ const ChampionsPage = async () => {
         <Section id="champions">
           <SectionHeader
             eyebrowHref={`/editions/${champions.editionSlug}`}
-            eyebrowText={`Edición ${champions.year}`}
+            eyebrowText={`Edición ${edition?.label ?? champions.year}`}
             title="Los Portadores del Anillo"
           />
           <div className="flex flex-col gap-12">

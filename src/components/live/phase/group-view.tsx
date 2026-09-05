@@ -6,7 +6,10 @@ import { panel, panelGold } from '@/components/theme/primitives';
 import { matchScore } from '@/lib/live/match-score';
 import { groupStandings } from '@/lib/live/standings';
 import { teamLabel, teamRoster } from '@/lib/live/team-label';
-import { TIEBREAK_LABELS } from '@/lib/tournament/tiebreak';
+import {
+  type GroupTiebreakCriterion,
+  TIEBREAK_LABELS,
+} from '@/lib/tournament/tiebreak';
 import type { LivePhase } from '@/server/live/phases';
 import type { LiveState } from '@/server/live/state';
 
@@ -15,6 +18,14 @@ import type { LiveState } from '@/server/live/state';
  * that decided each border and any tie still open), the cross grid of
  * every pairing, and the jornadas. Qualifiers sit above the cut line.
  */
+/** "Por enfrentamientos directos", "a suertes", "por el partido de desempate". */
+const separatedLabel = (criterion: GroupTiebreakCriterion) =>
+  criterion === 'draw'
+    ? 'a suertes'
+    : criterion === 'tiebreak_match'
+      ? 'por el partido de desempate'
+      : `por ${TIEBREAK_LABELS[criterion].toLowerCase()}`;
+
 const GroupView = ({
   state,
   phase,
@@ -38,6 +49,7 @@ const GroupView = ({
           ranking: state.ranking ?? [],
           matches,
           chain: config.tiebreakChain,
+          manual: group.tieResolutions,
         });
         const openTies = rows.filter((r) => r.tiedWith.length > 0);
         return (
@@ -85,8 +97,7 @@ const GroupView = ({
                           )}
                           {row.separatedBy && row.separatedBy !== 'wins' ? (
                             <span className="block font-mono text-(--faded) text-3xs uppercase tracking-wider">
-                              por{' '}
-                              {TIEBREAK_LABELS[row.separatedBy].toLowerCase()}
+                              {separatedLabel(row.separatedBy)}
                             </span>
                           ) : null}
                           {row.tiedWith.length > 0 ? (
