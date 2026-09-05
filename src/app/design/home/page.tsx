@@ -29,8 +29,6 @@ export const metadata: Metadata = {
 };
 
 // Real edition and confirmations, refreshed hourly like the home itself.
-export const revalidate = 3600;
-
 /** Area line for the venue: not stored yet, so the fixture's stands in. */
 const VENUE_AREA = NEXT_EVENT.venueArea;
 

@@ -11,8 +11,6 @@ export const metadata: Metadata = {
 // The door counts to a moment two days out, so the "drums" state (the
 // last week) shows by the real rule, not a forced flag. Re-rendered
 // hourly so the target never drifts into the past.
-export const revalidate = 3600;
-
 const DRUMS_LEAD_MS = 2 * 86_400_000;
 
 /**

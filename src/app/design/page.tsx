@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 
 // Re-render per request so the card lore deck reshuffles on every reload.
-export const dynamic = 'force-dynamic';
-
 import { HomeAwaitingHero } from '@/app/_components/home-hero';
 import { BioFrames } from '@/app/design/_components/bio-frames';
 import { CardGallery } from '@/app/design/_components/card-gallery';

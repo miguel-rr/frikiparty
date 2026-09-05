@@ -24,22 +24,9 @@ import { CATEGORY_LABELS, STRUCTURE_KIND_LABELS } from '@/lib/wiki/labels';
 import type { StructureKind } from '@/lib/wiki/types';
 import { db } from '@/server/db';
 import type { UnitCategory } from '@/server/db/schema';
-import {
-  type FactionPageData,
-  getFactionPage,
-  listWikiParams,
-} from '@/server/wiki/queries';
+import { type FactionPageData, getFactionPage } from '@/server/wiki/queries';
 
 type Params = Promise<{ slug: string; version: string; code: string }>;
-
-export const generateStaticParams = async () =>
-  (await listWikiParams(db))
-    .filter((p) => p.code)
-    .map((p) => ({
-      slug: p.slug,
-      version: p.version as string,
-      code: p.code as string,
-    }));
 
 export const generateMetadata = async ({
   params,

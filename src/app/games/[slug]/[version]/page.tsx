@@ -14,12 +14,7 @@ import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { Prose } from '@/components/wiki/prose';
 import { WikiImage } from '@/components/wiki/wiki-image';
 import { db } from '@/server/db';
-import { getGameVersionPage, listWikiParams } from '@/server/wiki/queries';
-
-export const generateStaticParams = async () =>
-  (await listWikiParams(db))
-    .filter((p) => p.version && !p.code)
-    .map((p) => ({ slug: p.slug, version: p.version as string }));
+import { getGameVersionPage } from '@/server/wiki/queries';
 
 export const generateMetadata = async ({
   params,

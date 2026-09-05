@@ -14,12 +14,7 @@ import {
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { Prose } from '@/components/wiki/prose';
 import { db } from '@/server/db';
-import { getGame, listWikiParams } from '@/server/wiki/queries';
-
-export const generateStaticParams = async () =>
-  (await listWikiParams(db))
-    .filter((p) => !p.version)
-    .map((p) => ({ slug: p.slug }));
+import { getGame } from '@/server/wiki/queries';
 
 export const generateMetadata = async ({
   params,

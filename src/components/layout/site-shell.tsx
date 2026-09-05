@@ -17,7 +17,6 @@ const NAV_LINKS = [
   { href: '/champions', text: 'Los Portadores' },
   { href: '/ranking', text: 'Ranking' },
   { href: '/editions', text: 'Ediciones' },
-  { href: '/games', text: 'Juegos' },
   { href: '/council', text: 'El Concilio' },
 ];
 
