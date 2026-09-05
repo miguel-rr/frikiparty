@@ -681,13 +681,23 @@ Componentes en `src/components/live/council/` (`matches-digest`,
 `final-standings`, `council-wall`); `finalStandings()` en `progression.ts`.
 Las semifinales y la final tendrán su diseño especial en F7.
 
-### F7 — Semifinales y final
-Diseños épicos y profesionales **[DECIDIDO]**: semis "los ejércitos se reúnen"
-(enfrentamientos a página completa, retratos en formación, emblemas de facciones,
-antorchas por partida ganada); final "la Batalla por el Anillo" (anillo entre los
-dos equipos, filigrana, el anillo gira hacia el vencedor, coronación con podio y
-confeti dorado, tema musical propio si la música está activa). Se activan solas por
-`roundIndex`.
+### F7 — Semifinales y final — **HECHO 2026-09-05** (salvo la música)
+Diseños épicos **[DECIDIDO]**, en `src/components/live/match/epic-face-off.tsx`,
+activados solos por `roundIndex` (`epicKind`: última ronda = final, la anterior =
+semifinal; el 3º/4º no): en la ficha del partido sustituyen a la cabecera, y en
+`/council` y `/live` salen en primer plano en cuanto se conocen los dos equipos
+(y la final se queda al terminar).
+- Semis, "los ejércitos se reúnen": los dos equipos en formación con sus cartas
+  de retrato (entrada escalonada), la facción de cada jugador en la última
+  partida con reparto, marcador grande y **antorchas**: una encendida por partida
+  ganada, apagadas las que faltan hasta las necesarias.
+- Final, "la Batalla por el Anillo": lo mismo con el **anillo** girando entre los
+  dos equipos, que se desplaza hacia el que va ganando en proporción a la
+  ventaja; al decidirse, coronación con **podio** (campeones en alto, subcampeones
+  al lado), confeti dorado y el equipo perdedor atenuado.
+- Pendiente: el tema musical propio de la final. El reproductor hoy solo
+  encadena pistas de fondo sin nombre; cuando haya una pista para la final se
+  añade `finalThemeUrl` en `src/lib/music.ts` y un `playTheme` en el provider.
 
 ### F8 — Extremo a extremo y producción
 Guion completo en preview con cuentas de pruebas; comprobar anillos y páginas tras
@@ -1026,3 +1036,6 @@ facciones por versión, contexto de cada partida). Estado y reglas:
 - 2026-09-05 — **F6 hecho**: el Concilio en juego enseña mis partidos, próximos
   partidos y últimos resultados; al terminar, la clasificación final con enlace
   a la edición; y el tablón de la edición siempre.
+- 2026-09-05 — **F7 hecho** (salvo música): semis y final con diseño propio en la
+  ficha y en primer plano en el Concilio; antorchas por partida, anillo hacia el
+  que gana, coronación con podio y confeti.

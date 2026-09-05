@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
+import { EpicFaceOff, epicKind } from '@/components/live/match/epic-face-off';
 import { GameCard, type Viewer } from '@/components/live/match/game-card';
 import { phaseTitle } from '@/components/live/phase/phase-view';
 import { CommentThread } from '@/components/social/comment-thread';
@@ -84,6 +85,7 @@ const MatchSheet = ({
   const setResult = api.match.setResult.useMutation({
     onError: (e) => setError('message' in e ? e.message : 'Error'),
   });
+  const epic = teamA && teamB ? epicKind(phase, m) : null;
 
   return (
     <div className="flex flex-col gap-8">
@@ -103,35 +105,39 @@ const MatchSheet = ({
         </div>
       </div>
 
-      <div
-        className={`${panelGold} grid items-center gap-6 p-6 sm:grid-cols-[1fr_auto_1fr] sm:p-10`}
-      >
-        <div className="flex flex-col items-center gap-1 text-center sm:items-end sm:text-right">
-          <span
-            className={`d-display font-bold text-2xl uppercase ${winner && winner.id === teamA?.id ? 'd-gold-text' : 'text-(--parchment)'}`}
-          >
-            {teamLabel(teamA)}
-          </span>
-          <span className="text-(--faded) text-sm">{teamRoster(teamA)}</span>
+      {epic ? (
+        <EpicFaceOff kind={epic} match={m} phase={phase} state={state} />
+      ) : (
+        <div
+          className={`${panelGold} grid items-center gap-6 p-6 sm:grid-cols-[1fr_auto_1fr] sm:p-10`}
+        >
+          <div className="flex flex-col items-center gap-1 text-center sm:items-end sm:text-right">
+            <span
+              className={`d-display font-bold text-2xl uppercase ${winner && winner.id === teamA?.id ? 'd-gold-text' : 'text-(--parchment)'}`}
+            >
+              {teamLabel(teamA)}
+            </span>
+            <span className="text-(--faded) text-sm">{teamRoster(teamA)}</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <span className="d-display text-center font-black text-(--gold-hi) text-6xl tabular-nums">
+              {score.a}–{score.b}
+            </span>
+            <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
+              {toWin === 1 ? 'partida única' : `primero a ${toWin}`}
+              {m.status === 'completed' ? ' · decidido' : ''}
+            </span>
+          </div>
+          <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
+            <span
+              className={`d-display font-bold text-2xl uppercase ${winner && winner.id === teamB?.id ? 'd-gold-text' : 'text-(--parchment)'}`}
+            >
+              {teamLabel(teamB)}
+            </span>
+            <span className="text-(--faded) text-sm">{teamRoster(teamB)}</span>
+          </div>
         </div>
-        <div className="flex flex-col items-center gap-1">
-          <span className="d-display text-center font-black text-(--gold-hi) text-6xl tabular-nums">
-            {score.a}–{score.b}
-          </span>
-          <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
-            {toWin === 1 ? 'partida única' : `primero a ${toWin}`}
-            {m.status === 'completed' ? ' · decidido' : ''}
-          </span>
-        </div>
-        <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
-          <span
-            className={`d-display font-bold text-2xl uppercase ${winner && winner.id === teamB?.id ? 'd-gold-text' : 'text-(--parchment)'}`}
-          >
-            {teamLabel(teamB)}
-          </span>
-          <span className="text-(--faded) text-sm">{teamRoster(teamB)}</span>
-        </div>
-      </div>
+      )}
 
       {!teamA || !teamB ? (
         <p className="text-center text-(--faded) text-sm">

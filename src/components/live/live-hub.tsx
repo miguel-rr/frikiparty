@@ -9,6 +9,7 @@ import { CouncilWall } from '@/components/live/council/council-wall';
 import { FinalStandings } from '@/components/live/council/final-standings';
 import { MatchesDigest } from '@/components/live/council/matches-digest';
 import { FormationRoom } from '@/components/live/formation/formation-room';
+import { EpicFaceOff, epicKind } from '@/components/live/match/epic-face-off';
 import {
   ChampionBanner,
   PhaseAdmin,
@@ -107,6 +108,30 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
           <FormationRoom live={state} />
         </>
       ) : null}
+
+      {/* Semis and the final take the stage as soon as their sides are known (F7). */}
+      {livePhase?.type === 'bracket'
+        ? livePhase.matches
+            .filter(
+              (m) =>
+                m.teamAId &&
+                m.teamBId &&
+                epicKind(livePhase, m) &&
+                (state.stage === 'completed'
+                  ? epicKind(livePhase, m) === 'final'
+                  : m.status !== 'completed'),
+            )
+            .map((m) => (
+              <EpicFaceOff
+                href={`/matches/${m.id}`}
+                key={m.id}
+                kind={epicKind(livePhase, m) as 'semi' | 'final'}
+                match={m}
+                phase={livePhase}
+                state={state}
+              />
+            ))
+        : null}
 
       {state.stage === 'completed' ? <FinalStandings state={state} /> : null}
 
