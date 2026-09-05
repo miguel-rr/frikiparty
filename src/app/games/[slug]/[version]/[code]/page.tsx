@@ -261,7 +261,7 @@ const FactionPage = async ({ params }: { params: Params }) => {
                   ['#heroes', 'Héroes', page.heroes.length],
                   ['#units', 'Unidades', page.units.length],
                   ['#structures', 'Estructuras', page.structures.length],
-                  ['#spellbook', 'Libro de poderes', page.powers.length],
+                  ['#spellbook', 'Árbol de poderes', page.powers.length],
                 ]
                   .filter(([, , n]) => (n as number) > 0)
                   .map(([href, text, n]) => (
@@ -370,7 +370,7 @@ const FactionPage = async ({ params }: { params: Params }) => {
               {page.powers.length > 0 ? (
                 <div className="flex flex-col gap-4">
                   <h3 className={heading} id="spellbook">
-                    Libro de poderes
+                    Árbol de poderes
                   </h3>
                   <SpellbookTree powers={page.powers} />
                 </div>

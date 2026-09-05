@@ -77,6 +77,13 @@ const POWER_COLUMN: Record<PowerPosition, number> = {
   RR: 6,
 };
 
+/**
+ * Column of a power given its tier: the last tier's two powers sit between
+ * the three of the tier above (columns 2 and 4), as the in-game book draws it.
+ */
+const powerColumn = (tier: number | null, position: PowerPosition) =>
+  tier === 4 ? (position === 'L' ? 2 : 4) : POWER_COLUMN[position];
+
 /** Positions of each tier, left to right. */
 const TIER_POSITIONS: Record<number, PowerPosition[]> = {
   1: ['L', 'C', 'R'],
@@ -91,6 +98,7 @@ export {
   COUNTER_LABELS,
   POWER_COLUMN,
   POWER_KIND_LABELS,
+  powerColumn,
   STRUCTURE_KIND_LABELS,
   TIER_COST,
   TIER_POSITIONS,

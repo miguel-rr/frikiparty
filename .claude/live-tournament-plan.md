@@ -819,7 +819,10 @@ facciones por versión, contexto de cada partida). Estado y reglas:
 - **Producción**: `pnpm run db:migrate:prod` (0022 + 0023), `pnpm run
   db:seed:catalog:prod` si no está, y `pnpm run db:seed:wiki:prod`.
 - **Pendiente**: el resto de facciones (mismo pipeline), y las vistas de
-  comparación/estudio que aprovechen `stats`.
+  comparación/estudio que aprovechen `stats`. El estudio de tiers por eje
+  (aguante, ataque, utilidad) y global está diseñado y aparcado en
+  `.claude/wiki-analytics-proposal.md` (§5, punto de retorno); su bloqueante es
+  extraer los INI del mod de la instalación de Miguel.
 
 ## 13. Registro de cambios
 
