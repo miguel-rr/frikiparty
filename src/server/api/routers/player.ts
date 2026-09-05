@@ -75,9 +75,10 @@ const fetchRankedPlayers = async (db: typeof Db): Promise<RankedPlayer[]> => {
       FROM frikiparty_team_member tm
       JOIN frikiparty_team t ON t.id = tm.team_id
       JOIN team_sizes ts ON ts.team_id = tm.team_id
-      -- Champions only. Fallback semantics: with a full phase/match record
-      -- this should derive from results instead (not implemented yet).
-      WHERE tm.player_id IS NOT NULL AND t.final_position = 1
+      JOIN frikiparty_tournament tr ON tr.id = t.tournament_id
+      JOIN frikiparty_edition e ON e.id = tr.edition_id
+      -- Champions only, rehearsal editions aside.
+      WHERE tm.player_id IS NOT NULL AND t.final_position = 1 AND NOT e.is_rehearsal
     )
     SELECT
       p.id,
@@ -144,7 +145,7 @@ const fetchTitles = async (db: typeof Db, playerId: string) => {
     JOIN frikiparty_edition e ON e.id = tr.edition_id
     LEFT JOIN frikiparty_game g ON g.id = tr.game_id
     LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
-    WHERE tm.player_id = ${playerId} AND t.final_position = 1
+    WHERE tm.player_id = ${playerId} AND t.final_position = 1 AND NOT e.is_rehearsal
     ORDER BY e.year DESC, e."order" DESC
   `)) as unknown as TitleRow[];
 
@@ -291,7 +292,7 @@ const listRingTitles = async (
     JOIN frikiparty_tournament tr ON tr.id = tm.tournament_id
     JOIN frikiparty_edition e ON e.id = tr.edition_id
     LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
-    WHERE tm.player_id IS NOT NULL AND t.final_position = 1
+    WHERE tm.player_id IS NOT NULL AND t.final_position = 1 AND NOT e.is_rehearsal
     ORDER BY e.year ASC, e."order" ASC
   `)) as unknown as RingTitleRow[];
 

@@ -171,7 +171,8 @@ const fetchMediaItems = async (
         WHERE a.media_id = p.id
       ) AS players,
       e.id AS edition_id, e.year AS edition_year, e."order" AS edition_order,
-      (SELECT count(*)::int FROM frikiparty_edition e2 WHERE e2.year = e.year) AS editions_in_year,
+      (SELECT count(*)::int FROM frikiparty_edition e2
+        WHERE e2.year = e.year AND NOT e2.is_rehearsal) AS editions_in_year,
       (SELECT eo.tournament_id FROM edition_of eo WHERE eo.media_id = p.id AND eo.tournament_id IS NOT NULL LIMIT 1) AS tournament_id,
       v.name AS venue_name, v.slug AS venue_slug
     FROM picked p

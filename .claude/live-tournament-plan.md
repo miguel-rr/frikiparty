@@ -745,6 +745,20 @@ Producción, cuando toque (lo ejecuta Miguel):
   cuenta antes de la formación. "Entrar como" no existe en producción.
 - Promoción: `git push origin develop:main`.
 
+Rutas mientras dura la prueba (decidido 2026-09-05):
+- **`/live` es el Concilio del producto final**: la puerta (cuenta atrás,
+  confirmados, sede) mientras no hay torneo público y el bloque en vivo en
+  cuanto lo hay. No está enlazada desde el menú.
+- **`/council` queda como en producción** (sólo la puerta) hasta el día del
+  estreno, cuando `/live` la sustituya. Los enlaces del módulo en vivo
+  apuntan a `/live`; los de producción (menú, portada, confirmaciones) a
+  `/council`.
+- **Ediciones de ensayo**: `edition.is_rehearsal` (migración 0025). Un ensayo
+  conserva sus páginas y sus fichas, pero no suma anillos, no es "últimos
+  campeones", no es la próxima edición ni sale en la crónica: sólo el admin
+  lo ve, al pie de `/editions`, bajo "Ensayos". Las cinco simulaciones están
+  marcadas así; el guion las crea ya marcadas.
+
 Simulaciones extremo a extremo (`pnpm run db:simulate:tournaments`, sólo dev):
 - El guion `scripts/simulate-tournaments.ts` recorre el módulo entero a través
   de los **procedimientos tRPC reales** (`createCaller` con la sesión del admin
@@ -788,8 +802,8 @@ Simulaciones extremo a extremo (`pnpm run db:simulate:tournaments`, sólo dev):
   - los ordinales romanos acababan en V; los portadores decían "Edición 2026"
     sin ordinal.
 - Fase de grupos y suizo también se muestran en la crónica del individual.
-- **Anillos en dev**: los campeones de estas ediciones cuentan en el ranking
-  como cualquier edición oficial. Es lo que se quiere ver; en producción no
+- **Anillos**: las ediciones de ensayo no suman anillos ni salen en la
+  crónica (`is_rehearsal`); las páginas de cada edición y sus fichas sí
   existen.
 
 **`/simulator` borrado** (2026-09-05): ya no se enlazaba, su motor útil se
@@ -1139,3 +1153,6 @@ facciones por versión, contexto de cada partida). Estado y reglas:
   el empate decide el campeón; `deleteTournamentCascade` exportado.
 - 2026-09-05 — **Borrado `/simulator`**: ruta, `src/lib/simulator`, salas en
   memoria, routers `auctionRoom`/`draftRoom`, `seed-demo-tournaments` y su plan.
+- 2026-09-05 — **`/live` = Concilio futuro, `/council` intacto**; ediciones de
+  ensayo con `is_rehearsal` (migración 0025), fuera de anillos, campeones,
+  próxima edición y crónica; visibles al admin al pie de `/editions`.

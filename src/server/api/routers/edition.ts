@@ -40,6 +40,7 @@ type EditionListRow = {
   venue_name: string | null;
   venue_slug: string | null;
   venue_is_place: boolean | null;
+  is_rehearsal: boolean;
   champion_name: string | null;
   champion_slug: string | null;
   team_size: number | null;
@@ -69,6 +70,8 @@ type EditionListItem = {
   teamChampions: ChampionRef[];
   individualChampion: ChampionRef | null;
   status: 'upcoming' | 'live' | 'past';
+  /** Simulations and dry runs: shown to the organiser, counted nowhere. */
+  isRehearsal: boolean;
 };
 
 const ROMAN_ORDINALS = [
@@ -213,7 +216,7 @@ const listEditions = async (
       WHERE t.final_position = 1
     )
     SELECT
-      e.id, e.year, e."order", e.starts_at, e.ends_at,
+      e.id, e.year, e."order", e.starts_at, e.ends_at, e.is_rehearsal,
       v.name AS venue_name, v.slug AS venue_slug, v.is_place AS venue_is_place,
       c.name AS champion_name, c.slug AS champion_slug, c.team_size
     FROM frikiparty_edition e
@@ -245,6 +248,7 @@ const listEditions = async (
         teamChampions: [],
         individualChampion: null,
         status: editionStatus(row.starts_at, row.ends_at, today),
+        isRehearsal: row.is_rehearsal,
       };
       editionsById.set(row.id, item);
     }
@@ -263,7 +267,9 @@ const listEditions = async (
 
   const items = [...editionsById.values()];
   const editionsPerYear = new Map<number, number>();
+  // Rehearsals don't turn a year's only real edition into "2026 · I".
   for (const item of items) {
+    if (item.isRehearsal) continue;
     editionsPerYear.set(item.year, (editionsPerYear.get(item.year) ?? 0) + 1);
   }
   for (const item of items) {
@@ -658,6 +664,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
       venueName: venue.name,
       venueSlug: venue.slug,
       venueIsPlace: venue.isPlace,
+      isRehearsal: edition.isRehearsal,
     })
     .from(edition)
     .leftJoin(venue, eq(edition.venueId, venue.id))
@@ -669,9 +676,11 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
   const [meta] = (await db.execute(sql`
     SELECT
       (SELECT count(*)::int FROM frikiparty_edition e2
-        WHERE e2.year > ${year} OR (e2.year = ${year} AND e2."order" > ${order})
+        WHERE NOT e2.is_rehearsal
+          AND (e2.year > ${year} OR (e2.year = ${year} AND e2."order" > ${order}))
       ) AS scene_index,
-      (SELECT count(*)::int FROM frikiparty_edition e3 WHERE e3.year = ${year}) AS editions_in_year
+      (SELECT count(*)::int FROM frikiparty_edition e3
+        WHERE e3.year = ${year} AND NOT e3.is_rehearsal) AS editions_in_year
   `)) as unknown as { scene_index: number; editions_in_year: number }[];
   const label =
     order > 1 || (meta?.editions_in_year ?? 1) > 1
@@ -852,6 +861,7 @@ const getEditionDetail = async (db: TRPCContext['db'], slug: string) => {
     venueName: row.venueName,
     venueSlug: row.venueSlug,
     venueIsPlace: row.venueIsPlace,
+    isRehearsal: row.isRehearsal,
     sceneIndex: meta?.scene_index ?? 0,
     teamTournament,
     individualTournament,
@@ -887,7 +897,13 @@ const getNextEdition = async (db: TRPCContext['db']) => {
     })
     .from(edition)
     .leftJoin(venue, eq(edition.venueId, venue.id))
-    .where(and(isNotNull(edition.endsAt), gte(edition.endsAt, today)))
+    .where(
+      and(
+        isNotNull(edition.endsAt),
+        gte(edition.endsAt, today),
+        eq(edition.isRehearsal, false),
+      ),
+    )
     .orderBy(asc(edition.startsAt))
     .limit(1);
   if (!row) {
@@ -944,7 +960,7 @@ const getLatestChampions = async (db: TRPCContext['db']) => {
       v.slug AS venue_slug, v.is_place AS venue_is_place
     FROM frikiparty_edition e
     LEFT JOIN frikiparty_venue v ON v.id = e.venue_id
-    WHERE EXISTS (
+    WHERE NOT e.is_rehearsal AND EXISTS (
       SELECT 1
       FROM frikiparty_tournament tr
       JOIN frikiparty_team t ON t.tournament_id = tr.id

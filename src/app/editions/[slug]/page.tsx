@@ -566,6 +566,11 @@ const EditionPage = async ({ params }: PageProps) => {
             <h1 className="d-display d-gold-text font-black text-5xl tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] sm:text-6xl">
               {edition.label}
             </h1>
+            {edition.isRehearsal ? (
+              <span className="w-fit rounded-full border border-(--ember) px-3 py-1 font-bold font-mono text-(--ember) text-2xs uppercase tracking-2xl">
+                Ensayo · no cuenta en los anales
+              </span>
+            ) : null}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {edition.venueName ? (
                 edition.venueSlug && edition.venueIsPlace ? (
@@ -599,7 +604,7 @@ const EditionPage = async ({ params }: PageProps) => {
               )}{' '}
               <Link
                 className="font-bold text-(--gold) transition-colors hover:text-(--gold-hi)"
-                href="/council"
+                href="/live"
               >
                 Ver los aspirantes en El Concilio →
               </Link>
@@ -650,7 +655,7 @@ const EditionPage = async ({ params }: PageProps) => {
           {inPlay ? (
             <Link
               className={`${panelGold} flex flex-wrap items-center justify-between gap-3 px-5 py-4 transition-colors hover:border-(--gold-hi)`}
-              href="/council"
+              href="/live"
             >
               <span className="d-display font-bold text-(--gold-hi) uppercase">
                 Esta edición se está jugando

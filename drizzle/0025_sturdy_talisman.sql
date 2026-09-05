@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_edition" ADD COLUMN "is_rehearsal" boolean DEFAULT false NOT NULL;

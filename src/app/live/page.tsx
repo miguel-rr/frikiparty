@@ -1,45 +1,65 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
+import { CouncilDoor } from '@/components/council/council-door';
 import { SiteShell } from '@/components/layout/site-shell';
 import { LiveHub } from '@/components/live/live-hub';
-import { btn, Section, SectionHeader } from '@/components/theme/primitives';
+import { SetupLink } from '@/components/live/setup-link';
+import { pageWidth } from '@/components/theme/primitives';
+import {
+  getNextEdition,
+  listConfirmedPlayers,
+} from '@/server/api/routers/edition';
 import { db } from '@/server/db';
-import { getCurrentTournament, getLiveState } from '@/server/live/state';
+import {
+  getCurrentTournament,
+  getLiveState,
+  isPublicStage,
+} from '@/server/live/state';
 
-export const metadata: Metadata = { title: 'Torneo en vivo — Frikiparty' };
+export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
 
 // The live module changes by the second: always rendered on demand.
 export const dynamic = 'force-dynamic';
 
 /**
- * Temporary home of the live module while it's being built and tested;
- * once a tournament is under way the same block lives on /council.
+ * The Council as it will be: the door while nothing runs, the live block
+ * from the moment the organiser gives the tournament its start. Lives
+ * here, unlinked, so /council ships untouched until release day.
  */
 const LivePage = async () => {
   const current = await getCurrentTournament(db);
-  const state = current ? await getLiveState(db, current.id) : null;
+  const live =
+    current && isPublicStage(current.stage)
+      ? await getLiveState(db, current.id)
+      : null;
+  if (live) {
+    return (
+      <SiteShell>
+        <main>
+          <section
+            className={`${pageWidth} flex flex-col gap-10 pt-8 pb-14 sm:pt-10 sm:pb-16`}
+            id="council"
+          >
+            <LiveHub initial={live} />
+          </section>
+        </main>
+      </SiteShell>
+    );
+  }
+  const edition = await getNextEdition(db);
+  const confirmedPlayers = edition
+    ? await listConfirmedPlayers(db, edition.id)
+    : [];
   return (
     <SiteShell>
       <main>
-        <Section id="live">
-          {state ? (
-            <LiveHub initial={state} />
-          ) : (
-            <>
-              <SectionHeader
-                eyebrowText="Torneo en vivo"
-                lead="Cuando el Concilio cree el torneo de la próxima edición, aquí se seguirá cada paso."
-                title="Nada en marcha"
-              />
-              <div className="flex justify-center">
-                <Link className={btn.outline} href="/live/setup">
-                  Preparar un torneo
-                </Link>
-              </div>
-            </>
-          )}
-        </Section>
+        <section
+          className={`${pageWidth} flex flex-col gap-10 pt-4 pb-14 sm:pt-5 sm:pb-16`}
+          id="council"
+        >
+          <CouncilDoor confirmedPlayers={confirmedPlayers} edition={edition} />
+          <SetupLink />
+        </section>
       </main>
     </SiteShell>
   );

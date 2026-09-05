@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { NewEditionButton } from '@/app/editions/_components/new-edition-button';
 import { EditionsView } from '@/components/editions/editions-view';
+import { RehearsalEditions } from '@/components/editions/rehearsal-editions';
 import { SiteShell } from '@/components/layout/site-shell';
 import { Section, SectionHeader } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
@@ -29,7 +30,14 @@ const EditionsPage = async () => {
     listEditions(db),
     getHistoricalRanking(db),
   ]);
-  const views = buildEditionViews(editions, players);
+  const views = buildEditionViews(
+    editions.filter((e) => !e.isRehearsal),
+    players,
+  );
+  const rehearsals = buildEditionViews(
+    editions.filter((e) => e.isRehearsal),
+    players,
+  );
 
   return (
     <SiteShell>
@@ -44,6 +52,7 @@ const EditionsPage = async () => {
               Todavía no hay ediciones registradas.
             </p>
           )}
+          <RehearsalEditions editions={rehearsals} />
         </Section>
       </main>
     </SiteShell>

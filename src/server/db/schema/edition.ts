@@ -41,6 +41,9 @@ const edition = createTable(
     // Nullable: unknown for most historical editions (only the year survives).
     startsAt: date('starts_at'),
     endsAt: date('ends_at'),
+    // A rehearsal edition (simulations, dry runs) keeps its pages but
+    // counts nowhere: no rings, no "latest champions", no chronicle card.
+    isRehearsal: boolean('is_rehearsal').notNull().default(false),
     createdAt: timestamp('created_at').defaultNow().notNull(),
   },
   (table) => [unique().on(table.year, table.order)],

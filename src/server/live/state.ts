@@ -51,6 +51,7 @@ const getCurrentTournament = async (db: Database) => {
         isNotNull(tournament.stage),
         isNotNull(edition.endsAt),
         gte(edition.endsAt, today),
+        eq(edition.isRehearsal, false),
       ),
     )
     .orderBy(asc(edition.startsAt), desc(tournament.createdAt))

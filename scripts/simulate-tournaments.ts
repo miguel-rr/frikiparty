@@ -10,7 +10,7 @@
  * `pnpm run db:simulate:tournaments` continues where a cut run stopped;
  * `pnpm run db:simulate:tournaments -- --reset` tells every story again.
  */
-import { and, asc, eq, gte, inArray, sql } from 'drizzle-orm';
+import { asc, eq, inArray, sql } from 'drizzle-orm';
 
 import { activePhase, champion, openTies } from '@/lib/live/progression';
 import {
@@ -671,6 +671,7 @@ const main = async () => {
         venueId: house?.id ?? null,
         startsAt: scenario.startsAt,
         endsAt: scenario.endsAt,
+        isRehearsal: true,
       })
       .returning({ id: edition.id });
     if (!ed) throw new Error('No se pudo crear la edición.');
@@ -720,7 +721,7 @@ const foldExisting = async () => {
       endsAt: edition.endsAt,
     })
     .from(edition)
-    .where(and(eq(edition.year, 2026), gte(edition.order, 2)));
+    .where(eq(edition.isRehearsal, true));
   for (const ed of rows) {
     if (!ed.startsAt || !ed.endsAt) continue;
     const ids = (
@@ -745,7 +746,7 @@ const resetSimulations = async (): Promise<Set<number>> => {
   const old = await db
     .select({ id: edition.id, order: edition.order })
     .from(edition)
-    .where(and(eq(edition.year, 2026), gte(edition.order, 2)));
+    .where(eq(edition.isRehearsal, true));
   for (const ed of old) {
     const tournaments = await db
       .select({ id: tournament.id, stage: tournament.stage })

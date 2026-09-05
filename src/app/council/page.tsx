@@ -1,26 +1,15 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ConfirmedRoster } from '@/components/council/confirmed-roster';
-import { DurinDoor } from '@/components/council/durin-door';
+
+import { CouncilDoor } from '@/components/council/council-door';
 import { SiteShell } from '@/components/layout/site-shell';
-import { LiveHub } from '@/components/live/live-hub';
-import { RingDivider } from '@/components/theme/ornament-dividers';
-import { pageWidth, tag } from '@/components/theme/primitives';
-import { VenueShowcase } from '@/components/venue/venue-showcase';
-import { openingInstant } from '@/lib/countdown';
-import { formatDateRange } from '@/lib/dates';
+import { pageWidth } from '@/components/theme/primitives';
 import { siteFlags } from '@/lib/site-flags';
 import {
   getNextEdition,
   listConfirmedPlayers,
 } from '@/server/api/routers/edition';
 import { db } from '@/server/db';
-import {
-  getCurrentTournament,
-  getLiveState,
-  isPublicStage,
-} from '@/server/live/state';
 
 export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
 
@@ -28,37 +17,18 @@ export const metadata: Metadata = { title: 'El Concilio — Frikiparty' };
 // page re-renders hourly (plus on-demand from venue edits).
 export const revalidate = 3600;
 
+/**
+ * The Council as it ships today: the door, the roster and the venue. The
+ * live module rehearses on /live and takes this page over on release day.
+ */
 const CouncilPage = async () => {
   if (!siteFlags.councilPage) {
     notFound();
   }
   const edition = await getNextEdition(db);
-  // Once the organiser has given the tournament its start, the live block
-  // takes the Council over: the door and the venue step aside.
-  const current = await getCurrentTournament(db);
-  const live =
-    current && isPublicStage(current.stage)
-      ? await getLiveState(db, current.id)
-      : null;
-  if (live) {
-    return (
-      <SiteShell>
-        <main>
-          <section
-            className={`${pageWidth} flex flex-col gap-10 pt-8 pb-14 sm:pt-10 sm:pb-16`}
-            id="council"
-          >
-            <LiveHub initial={live} />
-          </section>
-        </main>
-      </SiteShell>
-    );
-  }
   const confirmedPlayers = edition
     ? await listConfirmedPlayers(db, edition.id)
     : [];
-  // The fire is lit at 14:00 Madrid time on day one.
-  const target = edition?.startsAt ? openingInstant(edition.startsAt) : null;
 
   return (
     <SiteShell>
@@ -69,64 +39,7 @@ const CouncilPage = async () => {
           className={`${pageWidth} flex flex-col gap-10 pt-4 pb-14 sm:pt-5 sm:pb-16`}
           id="council"
         >
-          {/* The door and its dates: one block, the edition name tucked
-              right under the date range and leading to its page. */}
-          <div className="flex flex-col items-center gap-8">
-            <DurinDoor target={target} />
-            {edition?.startsAt && edition.endsAt ? (
-              <span className="d-display -mt-3 text-(--silver) text-xl uppercase tracking-3xl [text-shadow:0_0_14px_rgba(190,205,220,0.35)] sm:-mt-4 sm:text-2xl">
-                {formatDateRange(edition.startsAt, edition.endsAt, {
-                  withYear: false,
-                })}
-              </span>
-            ) : null}
-            {edition ? (
-              <Link
-                className="-mt-5 font-bold font-mono text-(--gold) text-base uppercase tracking-5xl transition-colors hover:text-(--gold-hi) sm:-mt-6 sm:text-xl"
-                href={`/editions/${edition.slug}`}
-              >
-                Edición {edition.year}
-              </Link>
-            ) : (
-              <span className={tag}>El Concilio · En espera</span>
-            )}
-            {!edition?.startsAt ? (
-              <p className="max-w-[46ch] text-center text-(--faded)">
-                El concilio aún no ha convocado la próxima reunión. Cuando las
-                estrellas marquen fecha, la cuenta atrás comenzará aquí.
-              </p>
-            ) : null}
-          </div>
-
-          {/* Who has answered the call, before the venue: people first,
-              then the place — each behind the home's ring threshold. */}
-          {edition?.startsAt ? (
-            <>
-              <RingDivider />
-              <ConfirmedRoster
-                editionId={edition.id}
-                initialPlayers={confirmedPlayers}
-              />
-              {edition.venueName ? (
-                <>
-                  <RingDivider />
-                  <div className="mx-auto flex w-full max-w-2xl flex-col gap-5">
-                    <span className="text-center font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
-                      La sede
-                    </span>
-                    <VenueShowcase
-                      isPlace={edition.venueIsPlace}
-                      mapsEmbedQuery={edition.venueMapsEmbedQuery}
-                      mapsUrl={edition.venueMapsUrl}
-                      name={edition.venueName}
-                      photoUrl={edition.venuePhotoUrl}
-                      slug={edition.venueSlug}
-                    />
-                  </div>
-                </>
-              ) : null}
-            </>
-          ) : null}
+          <CouncilDoor confirmedPlayers={confirmedPlayers} edition={edition} />
         </section>
       </main>
     </SiteShell>
