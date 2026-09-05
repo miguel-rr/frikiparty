@@ -151,9 +151,78 @@ const champion = (state: LiveState): string | null => {
   return qualifiersSeeding(state, last)?.[0] ?? null;
 };
 
+type FinalRow = { teamId: string; label: string };
+
+/**
+ * The final classification once the tournament is over: the last phase
+ * decides the top (final, third-place match or the two semifinalists),
+ * the previous group standings order the rest.
+ */
+const finalStandings = (state: LiveState): FinalRow[] => {
+  const played = state.phases.filter((p) => p.matches.length > 0);
+  const last = played.at(-1);
+  if (!last || !phaseIsComplete(state, last)) return [];
+  const rows: FinalRow[] = [];
+  const seen = new Set<string>();
+  const push = (teamId: string | null | undefined, label: string) => {
+    if (!teamId || seen.has(teamId)) return;
+    seen.add(teamId);
+    rows.push({ teamId, label });
+  };
+  const loserOf = (m: LiveMatch | undefined) =>
+    m?.winnerTeamId
+      ? m.winnerTeamId === m.teamAId
+        ? m.teamBId
+        : m.teamAId
+      : null;
+  if (last.type === 'bracket') {
+    const finalRound = Math.max(...last.matches.map((m) => m.roundIndex ?? 0));
+    const final = last.matches.find(
+      (m) => m.roundIndex === finalRound && !m.isThirdPlace,
+    );
+    push(final?.winnerTeamId, 'Campeones');
+    push(loserOf(final), 'Subcampeones');
+    const third = last.matches.find((m) => m.isThirdPlace);
+    if (third?.winnerTeamId) {
+      push(third.winnerTeamId, 'Tercer puesto');
+      push(loserOf(third), 'Cuarto puesto');
+    } else {
+      for (const semi of last.matches.filter(
+        (m) => m.roundIndex === finalRound - 1 && !m.isThirdPlace,
+      ))
+        push(loserOf(semi), 'Semifinalistas');
+    }
+    // Earlier rounds, from the latest round out: losers by round.
+    for (let r = finalRound - 2; r >= 0; r -= 1) {
+      for (const m of last.matches.filter((x) => x.roundIndex === r))
+        push(loserOf(m), r === 0 ? 'Play-in' : `Ronda ${r}`);
+    }
+  } else if (last.type === 'swiss') {
+    const records = [...swissRecords(last)].sort(
+      (a, b) => b.wins - a.wins || a.losses - b.losses,
+    );
+    for (const [i, t] of records.entries())
+      push(t.id, i === 0 ? 'Campeones' : `${t.wins} victorias`);
+  } else {
+    const ordered = standingsOf(state, last).flatMap(({ rows: r }) => r);
+    for (const [i, row] of ordered.entries())
+      push(row.teamId, i === 0 ? 'Campeones' : `${row.position}º del grupo`);
+  }
+  // Whoever fell in an earlier phase, in that phase's order.
+  for (const phase of [...played].reverse().slice(1)) {
+    if (phase.type !== 'group') continue;
+    for (const { rows: r } of standingsOf(state, phase))
+      for (const row of r) push(row.teamId, `${row.position}º del grupo`);
+  }
+  for (const team of state.teams) push(team.id, 'Participantes');
+  return rows;
+};
+
 export {
   activePhase,
   champion,
+  type FinalRow,
+  finalStandings,
   isPending,
   nextPhase,
   openTies,

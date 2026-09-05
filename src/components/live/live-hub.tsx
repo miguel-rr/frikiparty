@@ -5,6 +5,9 @@ import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { Calendar } from '@/components/live/calendar';
+import { CouncilWall } from '@/components/live/council/council-wall';
+import { FinalStandings } from '@/components/live/council/final-standings';
+import { MatchesDigest } from '@/components/live/council/matches-digest';
 import { FormationRoom } from '@/components/live/formation/formation-room';
 import {
   ChampionBanner,
@@ -105,6 +108,8 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
         </>
       ) : null}
 
+      {state.stage === 'completed' ? <FinalStandings state={state} /> : null}
+
       {livePhase ? (
         <>
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -115,9 +120,12 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
               Ver la fase completa
             </Link>
           </div>
-          <ChampionBanner state={state} />
+          {state.stage === 'completed' ? null : (
+            <ChampionBanner state={state} />
+          )}
           <PhaseView compact phase={livePhase} state={state} />
           <PhaseAdmin phase={livePhase} state={state} />
+          <MatchesDigest state={state} />
         </>
       ) : null}
 
@@ -235,6 +243,8 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
           </div>
         </section>
       ) : null}
+
+      <CouncilWall editionId={state.editionId} />
     </div>
   );
 };

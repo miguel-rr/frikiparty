@@ -663,21 +663,23 @@ final BO3; 2 grupos de 4; 6 equipos suizo 2 derrotas con bye.
 - Pendiente para F7: animación de cartas del sorteo más escénica (hoy entran con
   un fundido escalonado) y la ficha de la final.
 
-### F6 — `/council` centro de mando
-`LiveCouncil` por etapa:
+### F6 — `/council` centro de mando — **HECHO 2026-09-05**
+`LiveHub` (compartido por `/live` y `/council`) por etapa:
 
 | Etapa | Bloques |
 |---|---|
-| sin torneo / `setup` | lo actual (puerta, confirmados, sede) |
+| sin torneo / `setup` | lo anterior (puerta, confirmados, sede) |
 | `voting` | "Votación abierta" · han votado X de N · pendientes · Votar |
 | `ranking_review` / `pots_review` | "El Concilio delibera" (detalle sólo admin) |
-| `formation` | acceso a la sala en vivo · progreso · equipos formándose |
+| `formation` | la sala embebida · pantalla completa · modo TV |
 | `teams_ready` / `phase_setup` | equipos revelados · "el calendario se forja" · Revive la subasta/draft |
-| `in_progress` | fase actual embebida · próximos partidos · mis partidos · últimos resultados · tablón (`editionId`) |
-| semis / final | diseño especial (F7) en primer plano |
-| `completed` | campeón · clasificación final · revive · enlace a la edición |
+| `in_progress` | fase actual embebida (con empates y siguiente fase para el admin) · **mis partidos** (el siguiente y los ya jugados, si el jugador está en el torneo) · **próximos partidos** de la fase · **últimos resultados** · calendario · equipos · ranking |
+| `completed` | campeones · **clasificación final** (final, tercer puesto o semifinalistas, y el orden del grupo para el resto) · enlace a la edición · revive · cuadro |
+| siempre (público) | "¿Qué está pasando?" / "¿Qué toca ahora?" · acceso de admin a `/live/setup` · **el tablón** de la edición (comentarios sobre `editionId`, sólo para cuentas con jugador; los anónimos ven la puerta) |
 
-Siempre: "¿Qué está pasando?" / "¿Qué toca ahora?" y accesos de admin a `/live/setup`.
+Componentes en `src/components/live/council/` (`matches-digest`,
+`final-standings`, `council-wall`); `finalStandings()` en `progression.ts`.
+Las semifinales y la final tendrán su diseño especial en F7.
 
 ### F7 — Semifinales y final
 Diseños épicos y profesionales **[DECIDIDO]**: semis "los ejércitos se reúnen"
@@ -1021,3 +1023,6 @@ facciones por versión, contexto de cada partida). Estado y reglas:
   que se gasta), repartos confirmados, resultados, automatismos de cuadro/suizo/
   grupos, campeón, deshacer y sobrescribir, empates, fase siguiente confirmada,
   replays y comentarios. Migración 0024. Semilla `db:seed:live-tournament`.
+- 2026-09-05 — **F6 hecho**: el Concilio en juego enseña mis partidos, próximos
+  partidos y últimos resultados; al terminar, la clasificación final con enlace
+  a la edición; y el tablón de la edición siempre.
