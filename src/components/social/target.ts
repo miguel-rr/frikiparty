@@ -2,6 +2,7 @@
 type SocialTarget =
   | { mediaId: string }
   | { editionId: string }
-  | { playerId: string };
+  | { playerId: string }
+  | { matchId: string };
 
 export type { SocialTarget };

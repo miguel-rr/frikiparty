@@ -9,6 +9,7 @@ import {
   edition,
   editionPlayer,
   game,
+  gameMap,
   gameVersion,
   liveRoom,
   liveVersion,
@@ -22,6 +23,7 @@ import {
   user,
 } from '@/server/db/schema';
 import { loadPhases } from '@/server/live/phases';
+import { listCoreFactionsForVersion } from '@/server/wiki/queries';
 
 type Database = typeof Db;
 
@@ -128,6 +130,7 @@ const getLiveState = async (
       captainPotIndex: tournament.captainPotIndex,
       teamRankingSnapshot: tournament.teamRankingSnapshot,
       gameId: tournament.gameId,
+      gameVersionId: tournament.gameVersionId,
       gameName: game.name,
       gameVersion: gameVersion.version,
       editionId: edition.id,
@@ -145,71 +148,93 @@ const getLiveState = async (
   const stage = head.stage;
   const reveal = options.privileged || revealsDeliberation(stage);
 
-  const [participants, teams, [versionRow], voters, potRows, rooms, phases] =
-    await Promise.all([
-      db
-        .select({
-          id: player.id,
-          name: player.name,
-          slug: player.slug,
-          position: tournamentRankingSnapshot.position,
-          rings: tournamentRankingSnapshot.rings,
-          individualRings: tournamentRankingSnapshot.individualRings,
-          cardPortrait: player.cardPortrait,
-          cardAbility: player.cardAbility,
-          cardAbilityText: player.cardAbilityText,
-          hasAccount: sql<boolean>`${player.userId} IS NOT NULL`,
-        })
-        .from(tournamentRankingSnapshot)
-        .innerJoin(player, eq(player.id, tournamentRankingSnapshot.playerId))
-        .where(eq(tournamentRankingSnapshot.tournamentId, tournamentId))
-        .orderBy(asc(tournamentRankingSnapshot.position)),
-      db
-        .select({
-          id: team.id,
-          name: team.name,
-          memberId: teamMember.id,
-          playerId: teamMember.playerId,
-          playerName: player.name,
-          playerSlug: player.slug,
-          isCaptain: teamMember.isCaptain,
-          seat: teamMember.seat,
-        })
-        .from(team)
-        .leftJoin(teamMember, eq(teamMember.teamId, team.id))
-        .leftJoin(player, eq(player.id, teamMember.playerId))
-        .where(eq(team.tournamentId, tournamentId))
-        .orderBy(asc(team.createdAt), asc(teamMember.seat)),
-      db
-        .select({ version: liveVersion.version })
-        .from(liveVersion)
-        .where(eq(liveVersion.tournamentId, tournamentId)),
-      db
-        .select({
-          playerId: tournamentVote.voterPlayerId,
-          submittedAt: tournamentVote.submittedAt,
-        })
-        .from(tournamentVote)
-        .where(eq(tournamentVote.tournamentId, tournamentId))
-        .orderBy(asc(tournamentVote.submittedAt)),
-      db
-        .select({
-          potIndex: teamFormationPotPlayer.potIndex,
-          playerId: teamFormationPotPlayer.playerId,
-        })
-        .from(teamFormationPotPlayer)
-        .where(eq(teamFormationPotPlayer.tournamentId, tournamentId)),
-      db
-        .select({
-          kind: liveRoom.kind,
-          state: liveRoom.state,
-          version: liveRoom.version,
-          status: liveRoom.status,
-        })
-        .from(liveRoom)
-        .where(eq(liveRoom.tournamentId, tournamentId)),
-      loadPhases(db, tournamentId),
-    ]);
+  const [
+    participants,
+    teams,
+    [versionRow],
+    voters,
+    potRows,
+    rooms,
+    phases,
+    factions,
+    maps,
+  ] = await Promise.all([
+    db
+      .select({
+        id: player.id,
+        name: player.name,
+        slug: player.slug,
+        position: tournamentRankingSnapshot.position,
+        rings: tournamentRankingSnapshot.rings,
+        individualRings: tournamentRankingSnapshot.individualRings,
+        cardPortrait: player.cardPortrait,
+        cardAbility: player.cardAbility,
+        cardAbilityText: player.cardAbilityText,
+        hasAccount: sql<boolean>`${player.userId} IS NOT NULL`,
+      })
+      .from(tournamentRankingSnapshot)
+      .innerJoin(player, eq(player.id, tournamentRankingSnapshot.playerId))
+      .where(eq(tournamentRankingSnapshot.tournamentId, tournamentId))
+      .orderBy(asc(tournamentRankingSnapshot.position)),
+    db
+      .select({
+        id: team.id,
+        name: team.name,
+        memberId: teamMember.id,
+        playerId: teamMember.playerId,
+        playerName: player.name,
+        playerSlug: player.slug,
+        isCaptain: teamMember.isCaptain,
+        seat: teamMember.seat,
+      })
+      .from(team)
+      .leftJoin(teamMember, eq(teamMember.teamId, team.id))
+      .leftJoin(player, eq(player.id, teamMember.playerId))
+      .where(eq(team.tournamentId, tournamentId))
+      .orderBy(asc(team.createdAt), asc(teamMember.seat)),
+    db
+      .select({ version: liveVersion.version })
+      .from(liveVersion)
+      .where(eq(liveVersion.tournamentId, tournamentId)),
+    db
+      .select({
+        playerId: tournamentVote.voterPlayerId,
+        submittedAt: tournamentVote.submittedAt,
+      })
+      .from(tournamentVote)
+      .where(eq(tournamentVote.tournamentId, tournamentId))
+      .orderBy(asc(tournamentVote.submittedAt)),
+    db
+      .select({
+        potIndex: teamFormationPotPlayer.potIndex,
+        playerId: teamFormationPotPlayer.playerId,
+      })
+      .from(teamFormationPotPlayer)
+      .where(eq(teamFormationPotPlayer.tournamentId, tournamentId)),
+    db
+      .select({
+        kind: liveRoom.kind,
+        state: liveRoom.state,
+        version: liveRoom.version,
+        status: liveRoom.status,
+      })
+      .from(liveRoom)
+      .where(eq(liveRoom.tournamentId, tournamentId)),
+    loadPhases(db, tournamentId),
+    // The draw pool: the core factions of the tournament's game version.
+    head.gameVersionId
+      ? listCoreFactionsForVersion(db, head.gameVersionId).then((rows) =>
+          rows.map((f) => ({ id: f.id, name: f.name, code: f.code })),
+        )
+      : Promise.resolve([]),
+    head.gameId
+      ? db
+          .select({ id: gameMap.id, name: gameMap.name })
+          .from(gameMap)
+          .where(eq(gameMap.gameId, head.gameId))
+          .orderBy(asc(gameMap.name))
+      : Promise.resolve([]),
+  ]);
 
   // The formation room, if one runs. Mid-lot, the high bidder's identity is
   // nobody's business (core-logic): only the amount leaves the server.
@@ -311,6 +336,8 @@ const getLiveState = async (
     pots: reveal ? pots : [],
     room,
     phases,
+    factions,
+    maps,
   };
 };
 

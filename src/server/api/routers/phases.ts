@@ -223,12 +223,17 @@ const generatePhase = async (
   phaseRow: LivePhase,
   entrantTeamIds: string[],
   groupsOverride?: string[][],
+  options: { seeded?: boolean } = {},
 ) => {
   await clearMatches(tx, [phaseRow.id]);
-  const seeded = teamRankOrder(
-    state.teams.filter((t) => entrantTeamIds.includes(t.id)),
-    state.ranking ?? [],
-  );
+  // Entrants come seeded when a previous phase ranked them (plan §6.4);
+  // the first phase seeds by the tournament ranking.
+  const seeded = options.seeded
+    ? entrantTeamIds
+    : teamRankOrder(
+        state.teams.filter((t) => entrantTeamIds.includes(t.id)),
+        state.ranking ?? [],
+      );
   if (phaseRow.type === 'group' && phaseRow.group) {
     const groups =
       groupsOverride ??

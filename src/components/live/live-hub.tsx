@@ -7,6 +7,10 @@ import { useSessionUser } from '@/components/layout/auth-slot';
 import { Calendar } from '@/components/live/calendar';
 import { FormationRoom } from '@/components/live/formation/formation-room';
 import {
+  ChampionBanner,
+  PhaseAdmin,
+} from '@/components/live/phase/phase-admin';
+import {
   currentPhase,
   PhaseView,
   phaseTitle,
@@ -51,7 +55,9 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
     (state.formationMethod === 'auction' || state.formationMethod === 'draft');
   const calendarReady = state.phases.some((p) => p.matches.length > 0);
   const livePhase =
-    state.stage === 'in_progress' ? currentPhase(state) : undefined;
+    state.stage === 'in_progress' || state.stage === 'completed'
+      ? currentPhase(state)
+      : undefined;
 
   return (
     <div className="flex flex-col gap-10">
@@ -109,7 +115,9 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
               Ver la fase completa
             </Link>
           </div>
+          <ChampionBanner state={state} />
           <PhaseView compact phase={livePhase} state={state} />
+          <PhaseAdmin phase={livePhase} state={state} />
         </>
       ) : null}
 

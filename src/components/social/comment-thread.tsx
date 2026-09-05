@@ -270,7 +270,7 @@ const CommentThread = ({ target }: { target: SocialTarget }) => {
       )}
       <Composer
         error={add.error?.message ?? null}
-        id={`comment-new-${'mediaId' in target ? target.mediaId : 'editionId' in target ? target.editionId : target.playerId}`}
+        id={`comment-new-${Object.values(target)[0]}`}
         key={composerKey}
         onSubmit={(body) => add.mutate({ target, body })}
         pending={add.isPending}

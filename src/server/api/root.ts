@@ -3,6 +3,7 @@ import { draftRoomRouter } from '@/server/api/routers/draft-room';
 import { editionRouter } from '@/server/api/routers/edition';
 import { formationRouter } from '@/server/api/routers/formation';
 import { liveRouter } from '@/server/api/routers/live';
+import { matchRouter } from '@/server/api/routers/match';
 import { mediaRouter } from '@/server/api/routers/media';
 import { phasesRouter } from '@/server/api/routers/phases';
 import { playerRouter } from '@/server/api/routers/player';
@@ -19,6 +20,7 @@ const appRouter = createTRPCRouter({
   edition: editionRouter,
   formation: formationRouter,
   live: liveRouter,
+  match: matchRouter,
   media: mediaRouter,
   phases: phasesRouter,
   player: playerRouter,

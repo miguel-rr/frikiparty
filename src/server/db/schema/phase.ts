@@ -71,6 +71,12 @@ const phaseGroup = createTable(
       .references(() => phase.id, { onDelete: 'cascade' }),
     groupIndex: integer('group_index').notNull(),
     label: text('label').notNull(),
+    // Ties the organiser settled by hand or by lot (plan §6.4): ordered
+    // clusters of team ids, best first, fed to the standings as `manual`.
+    tieResolutions: jsonb('tie_resolutions')
+      .$type<string[][]>()
+      .notNull()
+      .default([]),
   },
   (table) => [unique().on(table.phaseId, table.groupIndex)],
 );

@@ -145,6 +145,8 @@ const matchGameSaveFile = createTable('match_game_save_file', {
     .notNull()
     .references(() => matchGame.id, { onDelete: 'cascade' }),
   url: text('url').notNull(),
+  // The replay's original name, kept for the download.
+  fileName: text('file_name'),
   fileSize: integer('file_size'),
   extractedMetadata: jsonb('extracted_metadata'),
   uploadedByUserId: text('uploaded_by_user_id').references(() => user.id),

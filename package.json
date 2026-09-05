@@ -20,6 +20,7 @@
     "db:seed:catalog": "tsx --env-file=.env scripts/seed-catalog.ts",
     "db:seed:catalog:prod": "tsx --env-file=.env.prod scripts/seed-catalog.ts",
     "db:seed:live-test": "tsx --env-file=.env scripts/seed-live-test.ts",
+    "db:seed:live-tournament": "tsx --env-file=.env scripts/seed-live-tournament.ts",
     "db:seed:wiki": "tsx --env-file=.env scripts/seed-wiki.ts",
     "db:seed:wiki:prod": "tsx --env-file=.env.prod scripts/seed-wiki.ts",
     "db:studio": "drizzle-kit studio",

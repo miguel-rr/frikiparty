@@ -1,0 +1,4997 @@
+{
+  "id": "8caa11e2-51ba-4197-aa6f-61f301bf855f",
+  "prevId": "4204c876-a306-4f2c-a3ac-57dfc1b4749d",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.account": {
+      "name": "account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "account_id": {
+          "name": "account_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token_expires_at": {
+          "name": "access_token_expires_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refresh_token_expires_at": {
+          "name": "refresh_token_expires_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "account_user_id_user_id_fk": {
+          "name": "account_user_id_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip_address": {
+          "name": "ip_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_agent": {
+          "name": "user_agent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "impersonated_by": {
+          "name": "impersonated_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "session_token_unique": {
+          "name": "session_token_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "token"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_verified": {
+          "name": "email_verified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'user'"
+        },
+        "banned": {
+          "name": "banned",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "ban_reason": {
+          "name": "ban_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ban_expires": {
+          "name": "ban_expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.verification": {
+      "name": "verification",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_faction": {
+      "name": "frikiparty_faction",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "introduced_in_version_id": {
+          "name": "introduced_in_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "removed_in_version_id": {
+          "name": "removed_in_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'core'"
+        },
+        "transforms_faction_id": {
+          "name": "transforms_faction_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_faction_introduced_in_version_id_frikiparty_game_version_id_fk": {
+          "name": "frikiparty_faction_introduced_in_version_id_frikiparty_game_version_id_fk",
+          "tableFrom": "frikiparty_faction",
+          "tableTo": "frikiparty_game_version",
+          "columnsFrom": [
+            "introduced_in_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_faction_removed_in_version_id_frikiparty_game_version_id_fk": {
+          "name": "frikiparty_faction_removed_in_version_id_frikiparty_game_version_id_fk",
+          "tableFrom": "frikiparty_faction",
+          "tableTo": "frikiparty_game_version",
+          "columnsFrom": [
+            "removed_in_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_faction_transforms_faction_id_frikiparty_faction_id_fk": {
+          "name": "frikiparty_faction_transforms_faction_id_frikiparty_faction_id_fk",
+          "tableFrom": "frikiparty_faction",
+          "tableTo": "frikiparty_faction",
+          "columnsFrom": [
+            "transforms_faction_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_faction_code_unique": {
+          "name": "frikiparty_faction_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "code"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_faction_hero": {
+      "name": "frikiparty_faction_hero",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "revision_id": {
+          "name": "revision_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recruited_at": {
+          "name": "recruited_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "build_time_seconds": {
+          "name": "build_time_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "health": {
+          "name": "health",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "armour_set": {
+          "name": "armour_set",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attack_type": {
+          "name": "attack_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_summon": {
+          "name": "is_summon",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "abilities": {
+          "name": "abilities",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "stats": {
+          "name": "stats",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "portrait_url": {
+          "name": "portrait_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_faction_hero_revision_id_frikiparty_faction_revision_id_fk": {
+          "name": "frikiparty_faction_hero_revision_id_frikiparty_faction_revision_id_fk",
+          "tableFrom": "frikiparty_faction_hero",
+          "tableTo": "frikiparty_faction_revision",
+          "columnsFrom": [
+            "revision_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_faction_power": {
+      "name": "frikiparty_faction_power",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "revision_id": {
+          "name": "revision_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tier": {
+          "name": "tier",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "requires": {
+          "name": "requires",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stats": {
+          "name": "stats",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_faction_power_revision_id_frikiparty_faction_revision_id_fk": {
+          "name": "frikiparty_faction_power_revision_id_frikiparty_faction_revision_id_fk",
+          "tableFrom": "frikiparty_faction_power",
+          "tableTo": "frikiparty_faction_revision",
+          "columnsFrom": [
+            "revision_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_faction_revision": {
+      "name": "frikiparty_faction_revision",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "faction_id": {
+          "name": "faction_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_version_id": {
+          "name": "game_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "overview": {
+          "name": "overview",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strengths": {
+          "name": "strengths",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "weaknesses": {
+          "name": "weaknesses",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "changes": {
+          "name": "changes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ring_hero": {
+          "name": "ring_hero",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_faction_revision_faction_id_frikiparty_faction_id_fk": {
+          "name": "frikiparty_faction_revision_faction_id_frikiparty_faction_id_fk",
+          "tableFrom": "frikiparty_faction_revision",
+          "tableTo": "frikiparty_faction",
+          "columnsFrom": [
+            "faction_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_faction_revision_game_version_id_frikiparty_game_version_id_fk": {
+          "name": "frikiparty_faction_revision_game_version_id_frikiparty_game_version_id_fk",
+          "tableFrom": "frikiparty_faction_revision",
+          "tableTo": "frikiparty_game_version",
+          "columnsFrom": [
+            "game_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_faction_revision_faction_id_game_version_id_unique": {
+          "name": "frikiparty_faction_revision_faction_id_game_version_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "faction_id",
+            "game_version_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_faction_structure": {
+      "name": "frikiparty_faction_structure",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "revision_id": {
+          "name": "revision_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "build_time_seconds": {
+          "name": "build_time_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "health": {
+          "name": "health",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "health_by_level": {
+          "name": "health_by_level",
+          "type": "integer[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::integer[]"
+        },
+        "armour_set": {
+          "name": "armour_set",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "max_count": {
+          "name": "max_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bonus": {
+          "name": "bonus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "produces": {
+          "name": "produces",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "upgrades": {
+          "name": "upgrades",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "abilities": {
+          "name": "abilities",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "stats": {
+          "name": "stats",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_faction_structure_revision_id_frikiparty_faction_revision_id_fk": {
+          "name": "frikiparty_faction_structure_revision_id_frikiparty_faction_revision_id_fk",
+          "tableFrom": "frikiparty_faction_structure",
+          "tableTo": "frikiparty_faction_revision",
+          "columnsFrom": [
+            "revision_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_faction_unit": {
+      "name": "frikiparty_faction_unit",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "revision_id": {
+          "name": "revision_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recruited_at": {
+          "name": "recruited_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "requirements": {
+          "name": "requirements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "command_points": {
+          "name": "command_points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "health": {
+          "name": "health",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "build_time_seconds": {
+          "name": "build_time_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "armour_set": {
+          "name": "armour_set",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attack_type": {
+          "name": "attack_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "max_count": {
+          "name": "max_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_summon": {
+          "name": "is_summon",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "strong_against": {
+          "name": "strong_against",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "weak_against": {
+          "name": "weak_against",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "abilities": {
+          "name": "abilities",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "upgrades": {
+          "name": "upgrades",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "stats": {
+          "name": "stats",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "portrait_url": {
+          "name": "portrait_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_faction_unit_revision_id_frikiparty_faction_revision_id_fk": {
+          "name": "frikiparty_faction_unit_revision_id_frikiparty_faction_revision_id_fk",
+          "tableFrom": "frikiparty_faction_unit",
+          "tableTo": "frikiparty_faction_revision",
+          "columnsFrom": [
+            "revision_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_game": {
+      "name": "frikiparty_game",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_official": {
+          "name": "is_official",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "website_url": {
+          "name": "website_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_game_name_unique": {
+          "name": "frikiparty_game_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        },
+        "frikiparty_game_slug_unique": {
+          "name": "frikiparty_game_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_game_map": {
+      "name": "frikiparty_game_map",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "players": {
+          "name": "players",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "introduced_in_version_id": {
+          "name": "introduced_in_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_game_map_game_id_frikiparty_game_id_fk": {
+          "name": "frikiparty_game_map_game_id_frikiparty_game_id_fk",
+          "tableFrom": "frikiparty_game_map",
+          "tableTo": "frikiparty_game",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_game_map_introduced_in_version_id_frikiparty_game_version_id_fk": {
+          "name": "frikiparty_game_map_introduced_in_version_id_frikiparty_game_version_id_fk",
+          "tableFrom": "frikiparty_game_map",
+          "tableTo": "frikiparty_game_version",
+          "columnsFrom": [
+            "introduced_in_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_game_map_game_id_name_unique": {
+          "name": "frikiparty_game_map_game_id_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "game_id",
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_game_version": {
+      "name": "frikiparty_game_version",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "release_order": {
+          "name": "release_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "released_at": {
+          "name": "released_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "changelog_url": {
+          "name": "changelog_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_game_version_game_id_frikiparty_game_id_fk": {
+          "name": "frikiparty_game_version_game_id_frikiparty_game_id_fk",
+          "tableFrom": "frikiparty_game_version",
+          "tableTo": "frikiparty_game",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_game_version_game_id_version_unique": {
+          "name": "frikiparty_game_version_game_id_version_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "game_id",
+            "version"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_tag": {
+      "name": "frikiparty_tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_tag_name_unique": {
+          "name": "frikiparty_tag_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_edition": {
+      "name": "frikiparty_edition",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "venue_id": {
+          "name": "venue_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ends_at": {
+          "name": "ends_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_edition_venue_id_frikiparty_venue_id_fk": {
+          "name": "frikiparty_edition_venue_id_frikiparty_venue_id_fk",
+          "tableFrom": "frikiparty_edition",
+          "tableTo": "frikiparty_venue",
+          "columnsFrom": [
+            "venue_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_edition_year_order_unique": {
+          "name": "frikiparty_edition_year_order_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "year",
+            "order"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_edition_player": {
+      "name": "frikiparty_edition_player",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "confirmed_at": {
+          "name": "confirmed_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_edition_player_edition_id_frikiparty_edition_id_fk": {
+          "name": "frikiparty_edition_player_edition_id_frikiparty_edition_id_fk",
+          "tableFrom": "frikiparty_edition_player",
+          "tableTo": "frikiparty_edition",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_edition_player_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_edition_player_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_edition_player",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_edition_player_edition_id_player_id_unique": {
+          "name": "frikiparty_edition_player_edition_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "edition_id",
+            "player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_venue": {
+      "name": "frikiparty_venue",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maps_url": {
+          "name": "maps_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "photo_url": {
+          "name": "photo_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maps_embed_query": {
+          "name": "maps_embed_query",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_place": {
+          "name": "is_place",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_venue_slug_unique": {
+          "name": "frikiparty_venue_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_live_room": {
+      "name": "frikiparty_live_room",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "last_seq": {
+          "name": "last_seq",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "deadline_at": {
+          "name": "deadline_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paused_remaining_ms": {
+          "name": "paused_remaining_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'open'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_live_room_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_live_room_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_live_room",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_live_room_tournament_id_kind_unique": {
+          "name": "frikiparty_live_room_tournament_id_kind_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "kind"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_live_version": {
+      "name": "frikiparty_live_version",
+      "schema": "",
+      "columns": {
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_live_version_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_live_version_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_live_version",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_tournament_event": {
+      "name": "frikiparty_tournament_event",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stream": {
+          "name": "stream",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seq": {
+          "name": "seq",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payload": {
+          "name": "payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "at": {
+          "name": "at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_user_id": {
+          "name": "actor_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "impersonated_by_user_id": {
+          "name": "impersonated_by_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "undone_by_seq": {
+          "name": "undone_by_seq",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_tournament_event_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_tournament_event_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_tournament_event",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_tournament_event_actor_user_id_user_id_fk": {
+          "name": "frikiparty_tournament_event_actor_user_id_user_id_fk",
+          "tableFrom": "frikiparty_tournament_event",
+          "tableTo": "user",
+          "columnsFrom": [
+            "actor_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_tournament_event_tournament_id_seq_unique": {
+          "name": "frikiparty_tournament_event_tournament_id_seq_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "seq"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_match": {
+      "name": "frikiparty_match",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "phase_id": {
+          "name": "phase_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_a_id": {
+          "name": "team_a_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_b_id": {
+          "name": "team_b_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "winner_team_id": {
+          "name": "winner_team_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'scheduled'"
+        },
+        "played_at": {
+          "name": "played_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "leg": {
+          "name": "leg",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "round_index": {
+          "name": "round_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_third_place": {
+          "name": "is_third_place",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_tiebreak": {
+          "name": "is_tiebreak",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "bye_team_id": {
+          "name": "bye_team_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "feeder_match_a_id": {
+          "name": "feeder_match_a_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "feeder_match_b_id": {
+          "name": "feeder_match_b_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_match_phase_id_frikiparty_phase_id_fk": {
+          "name": "frikiparty_match_phase_id_frikiparty_phase_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_phase",
+          "columnsFrom": [
+            "phase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_group_id_frikiparty_phase_group_id_fk": {
+          "name": "frikiparty_match_group_id_frikiparty_phase_group_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_phase_group",
+          "columnsFrom": [
+            "group_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_team_a_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_match_team_a_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "team_a_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_team_b_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_match_team_b_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "team_b_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_winner_team_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_match_winner_team_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "winner_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_bye_team_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_match_bye_team_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "bye_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_feeder_match_a_id_frikiparty_match_id_fk": {
+          "name": "frikiparty_match_feeder_match_a_id_frikiparty_match_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_match",
+          "columnsFrom": [
+            "feeder_match_a_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_feeder_match_b_id_frikiparty_match_id_fk": {
+          "name": "frikiparty_match_feeder_match_b_id_frikiparty_match_id_fk",
+          "tableFrom": "frikiparty_match",
+          "tableTo": "frikiparty_match",
+          "columnsFrom": [
+            "feeder_match_b_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_match_game": {
+      "name": "frikiparty_match_game",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "match_id": {
+          "name": "match_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "winner_team_id": {
+          "name": "winner_team_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "map": {
+          "name": "map",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "map_id": {
+          "name": "map_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "ready_team_a_at": {
+          "name": "ready_team_a_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ready_team_b_at": {
+          "name": "ready_team_b_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "confirmed_team_a_at": {
+          "name": "confirmed_team_a_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "confirmed_team_b_at": {
+          "name": "confirmed_team_b_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "game_number": {
+          "name": "game_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "played_at": {
+          "name": "played_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_match_game_match_id_frikiparty_match_id_fk": {
+          "name": "frikiparty_match_game_match_id_frikiparty_match_id_fk",
+          "tableFrom": "frikiparty_match_game",
+          "tableTo": "frikiparty_match",
+          "columnsFrom": [
+            "match_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_winner_team_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_match_game_winner_team_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_match_game",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "winner_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_map_id_frikiparty_game_map_id_fk": {
+          "name": "frikiparty_match_game_map_id_frikiparty_game_map_id_fk",
+          "tableFrom": "frikiparty_match_game",
+          "tableTo": "frikiparty_game_map",
+          "columnsFrom": [
+            "map_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_match_game_faction_draw": {
+      "name": "frikiparty_match_game_faction_draw",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "match_game_id": {
+          "name": "match_game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "team_id": {
+          "name": "team_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "faction_id": {
+          "name": "faction_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "draw_order": {
+          "name": "draw_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_match_game_faction_draw_match_game_id_frikiparty_match_game_id_fk": {
+          "name": "frikiparty_match_game_faction_draw_match_game_id_frikiparty_match_game_id_fk",
+          "tableFrom": "frikiparty_match_game_faction_draw",
+          "tableTo": "frikiparty_match_game",
+          "columnsFrom": [
+            "match_game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_faction_draw_team_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_match_game_faction_draw_team_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_match_game_faction_draw",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_faction_draw_faction_id_frikiparty_faction_id_fk": {
+          "name": "frikiparty_match_game_faction_draw_faction_id_frikiparty_faction_id_fk",
+          "tableFrom": "frikiparty_match_game_faction_draw",
+          "tableTo": "frikiparty_faction",
+          "columnsFrom": [
+            "faction_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_match_game_faction_draw_match_game_id_team_id_faction_id_unique": {
+          "name": "frikiparty_match_game_faction_draw_match_game_id_team_id_faction_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "match_game_id",
+            "team_id",
+            "faction_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_match_game_player_faction": {
+      "name": "frikiparty_match_game_player_faction",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "match_game_id": {
+          "name": "match_game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "faction_id": {
+          "name": "faction_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_match_game_player_faction_match_game_id_frikiparty_match_game_id_fk": {
+          "name": "frikiparty_match_game_player_faction_match_game_id_frikiparty_match_game_id_fk",
+          "tableFrom": "frikiparty_match_game_player_faction",
+          "tableTo": "frikiparty_match_game",
+          "columnsFrom": [
+            "match_game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_player_faction_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_match_game_player_faction_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_match_game_player_faction",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_player_faction_faction_id_frikiparty_faction_id_fk": {
+          "name": "frikiparty_match_game_player_faction_faction_id_frikiparty_faction_id_fk",
+          "tableFrom": "frikiparty_match_game_player_faction",
+          "tableTo": "frikiparty_faction",
+          "columnsFrom": [
+            "faction_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_match_game_player_faction_match_game_id_player_id_unique": {
+          "name": "frikiparty_match_game_player_faction_match_game_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "match_game_id",
+            "player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_match_game_save_file": {
+      "name": "frikiparty_match_game_save_file",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "match_game_id": {
+          "name": "match_game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_name": {
+          "name": "file_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "file_size": {
+          "name": "file_size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extracted_metadata": {
+          "name": "extracted_metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "uploaded_by_user_id": {
+          "name": "uploaded_by_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_match_game_save_file_match_game_id_frikiparty_match_game_id_fk": {
+          "name": "frikiparty_match_game_save_file_match_game_id_frikiparty_match_game_id_fk",
+          "tableFrom": "frikiparty_match_game_save_file",
+          "tableTo": "frikiparty_match_game",
+          "columnsFrom": [
+            "match_game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_match_game_save_file_uploaded_by_user_id_user_id_fk": {
+          "name": "frikiparty_match_game_save_file_uploaded_by_user_id_user_id_fk",
+          "tableFrom": "frikiparty_match_game_save_file",
+          "tableTo": "user",
+          "columnsFrom": [
+            "uploaded_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_media": {
+      "name": "frikiparty_media",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mime_type": {
+          "name": "mime_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "storage_key": {
+          "name": "storage_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "thumbnail_key": {
+          "name": "thumbnail_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "display_key": {
+          "name": "display_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "playback_key": {
+          "name": "playback_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "playback_status": {
+          "name": "playback_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "caption": {
+          "name": "caption",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "width": {
+          "name": "width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration_seconds": {
+          "name": "duration_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "file_size": {
+          "name": "file_size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "taken_at": {
+          "name": "taken_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "uploaded_by_user_id": {
+          "name": "uploaded_by_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_media_uploaded_by_user_id_user_id_fk": {
+          "name": "frikiparty_media_uploaded_by_user_id_user_id_fk",
+          "tableFrom": "frikiparty_media",
+          "tableTo": "user",
+          "columnsFrom": [
+            "uploaded_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_media_association": {
+      "name": "frikiparty_media_association",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "match_id": {
+          "name": "match_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "match_game_id": {
+          "name": "match_game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "venue_id": {
+          "name": "venue_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_media_association_media_id_frikiparty_media_id_fk": {
+          "name": "frikiparty_media_association_media_id_frikiparty_media_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_association_edition_id_frikiparty_edition_id_fk": {
+          "name": "frikiparty_media_association_edition_id_frikiparty_edition_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_edition",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_association_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_media_association_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_association_match_id_frikiparty_match_id_fk": {
+          "name": "frikiparty_media_association_match_id_frikiparty_match_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_match",
+          "columnsFrom": [
+            "match_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_association_match_game_id_frikiparty_match_game_id_fk": {
+          "name": "frikiparty_media_association_match_game_id_frikiparty_match_game_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_match_game",
+          "columnsFrom": [
+            "match_game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_association_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_media_association_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_association_venue_id_frikiparty_venue_id_fk": {
+          "name": "frikiparty_media_association_venue_id_frikiparty_venue_id_fk",
+          "tableFrom": "frikiparty_media_association",
+          "tableTo": "frikiparty_venue",
+          "columnsFrom": [
+            "venue_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "media_association_single_target": {
+          "name": "media_association_single_target",
+          "value": "num_nonnulls(\"frikiparty_media_association\".\"edition_id\", \"frikiparty_media_association\".\"tournament_id\", \"frikiparty_media_association\".\"match_id\", \"frikiparty_media_association\".\"match_game_id\", \"frikiparty_media_association\".\"player_id\", \"frikiparty_media_association\".\"venue_id\") = 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_media_tag": {
+      "name": "frikiparty_media_tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tag_id": {
+          "name": "tag_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_media_tag_media_id_frikiparty_media_id_fk": {
+          "name": "frikiparty_media_tag_media_id_frikiparty_media_id_fk",
+          "tableFrom": "frikiparty_media_tag",
+          "tableTo": "frikiparty_media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_media_tag_tag_id_frikiparty_tag_id_fk": {
+          "name": "frikiparty_media_tag_tag_id_frikiparty_tag_id_fk",
+          "tableFrom": "frikiparty_media_tag",
+          "tableTo": "frikiparty_tag",
+          "columnsFrom": [
+            "tag_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_media_tag_media_id_tag_id_unique": {
+          "name": "frikiparty_media_tag_media_id_tag_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "media_id",
+            "tag_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase": {
+      "name": "frikiparty_phase",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase_order": {
+          "name": "phase_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_phase_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_phase",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_tournament_id_phase_order_unique": {
+          "name": "frikiparty_phase_tournament_id_phase_order_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "phase_order"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase_bracket_config": {
+      "name": "frikiparty_phase_bracket_config",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "phase_id": {
+          "name": "phase_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "has_third_place_match": {
+          "name": "has_third_place_match",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "seeding_source": {
+          "name": "seeding_source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'previous_phase'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_bracket_config_phase_id_frikiparty_phase_id_fk": {
+          "name": "frikiparty_phase_bracket_config_phase_id_frikiparty_phase_id_fk",
+          "tableFrom": "frikiparty_phase_bracket_config",
+          "tableTo": "frikiparty_phase",
+          "columnsFrom": [
+            "phase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_bracket_config_phase_id_unique": {
+          "name": "frikiparty_phase_bracket_config_phase_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phase_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase_bracket_round_config": {
+      "name": "frikiparty_phase_bracket_round_config",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "phase_id": {
+          "name": "phase_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "round_index": {
+          "name": "round_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "games_to_win_match": {
+          "name": "games_to_win_match",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_bracket_round_config_phase_id_frikiparty_phase_id_fk": {
+          "name": "frikiparty_phase_bracket_round_config_phase_id_frikiparty_phase_id_fk",
+          "tableFrom": "frikiparty_phase_bracket_round_config",
+          "tableTo": "frikiparty_phase",
+          "columnsFrom": [
+            "phase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_bracket_round_config_phase_id_round_index_unique": {
+          "name": "frikiparty_phase_bracket_round_config_phase_id_round_index_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phase_id",
+            "round_index"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase_faction_rules": {
+      "name": "frikiparty_phase_faction_rules",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "phase_id": {
+          "name": "phase_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "allow_repeat_across_teams": {
+          "name": "allow_repeat_across_teams",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "pool_mode": {
+          "name": "pool_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'fresh'"
+        },
+        "pool_carries_over": {
+          "name": "pool_carries_over",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_faction_rules_phase_id_frikiparty_phase_id_fk": {
+          "name": "frikiparty_phase_faction_rules_phase_id_frikiparty_phase_id_fk",
+          "tableFrom": "frikiparty_phase_faction_rules",
+          "tableTo": "frikiparty_phase",
+          "columnsFrom": [
+            "phase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_faction_rules_phase_id_unique": {
+          "name": "frikiparty_phase_faction_rules_phase_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phase_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase_group": {
+      "name": "frikiparty_phase_group",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "phase_id": {
+          "name": "phase_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "group_index": {
+          "name": "group_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tie_resolutions": {
+          "name": "tie_resolutions",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_group_phase_id_frikiparty_phase_id_fk": {
+          "name": "frikiparty_phase_group_phase_id_frikiparty_phase_id_fk",
+          "tableFrom": "frikiparty_phase_group",
+          "tableTo": "frikiparty_phase",
+          "columnsFrom": [
+            "phase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_group_phase_id_group_index_unique": {
+          "name": "frikiparty_phase_group_phase_id_group_index_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phase_id",
+            "group_index"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase_group_config": {
+      "name": "frikiparty_phase_group_config",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "phase_id": {
+          "name": "phase_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rounds_format": {
+          "name": "rounds_format",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "games_to_win_match": {
+          "name": "games_to_win_match",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tiebreak_chain": {
+          "name": "tiebreak_chain",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[\"head_to_head\",\"ranking_inverse\",\"draw\"]'::jsonb"
+        },
+        "group_count": {
+          "name": "group_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "qualifiers_per_group": {
+          "name": "qualifiers_per_group",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 4
+        },
+        "group_distribution": {
+          "name": "group_distribution",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'random'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_group_config_phase_id_frikiparty_phase_id_fk": {
+          "name": "frikiparty_phase_group_config_phase_id_frikiparty_phase_id_fk",
+          "tableFrom": "frikiparty_phase_group_config",
+          "tableTo": "frikiparty_phase",
+          "columnsFrom": [
+            "phase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_group_config_phase_id_unique": {
+          "name": "frikiparty_phase_group_config_phase_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phase_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_phase_group_team": {
+      "name": "frikiparty_phase_group_team",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "team_id": {
+          "name": "team_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seed": {
+          "name": "seed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_phase_group_team_group_id_frikiparty_phase_group_id_fk": {
+          "name": "frikiparty_phase_group_team_group_id_frikiparty_phase_group_id_fk",
+          "tableFrom": "frikiparty_phase_group_team",
+          "tableTo": "frikiparty_phase_group",
+          "columnsFrom": [
+            "group_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_phase_group_team_team_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_phase_group_team_team_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_phase_group_team",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_phase_group_team_group_id_team_id_unique": {
+          "name": "frikiparty_phase_group_team_group_id_team_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "group_id",
+            "team_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_player": {
+      "name": "frikiparty_player",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "previous_slugs": {
+          "name": "previous_slugs",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link_code": {
+          "name": "link_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_portrait": {
+          "name": "card_portrait",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_lore": {
+          "name": "card_lore",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_ability": {
+          "name": "card_ability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_ability_text": {
+          "name": "card_ability_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_player_user_id_user_id_fk": {
+          "name": "frikiparty_player_user_id_user_id_fk",
+          "tableFrom": "frikiparty_player",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_player_slug_unique": {
+          "name": "frikiparty_player_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        },
+        "frikiparty_player_user_id_unique": {
+          "name": "frikiparty_player_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        },
+        "frikiparty_player_link_code_unique": {
+          "name": "frikiparty_player_link_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "link_code"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_comment": {
+      "name": "frikiparty_comment",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "match_id": {
+          "name": "match_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "body": {
+          "name": "body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "edited_at": {
+          "name": "edited_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_comment_user_id_user_id_fk": {
+          "name": "frikiparty_comment_user_id_user_id_fk",
+          "tableFrom": "frikiparty_comment",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_comment_media_id_frikiparty_media_id_fk": {
+          "name": "frikiparty_comment_media_id_frikiparty_media_id_fk",
+          "tableFrom": "frikiparty_comment",
+          "tableTo": "frikiparty_media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_comment_edition_id_frikiparty_edition_id_fk": {
+          "name": "frikiparty_comment_edition_id_frikiparty_edition_id_fk",
+          "tableFrom": "frikiparty_comment",
+          "tableTo": "frikiparty_edition",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_comment_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_comment_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_comment",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_comment_match_id_frikiparty_match_id_fk": {
+          "name": "frikiparty_comment_match_id_frikiparty_match_id_fk",
+          "tableFrom": "frikiparty_comment",
+          "tableTo": "frikiparty_match",
+          "columnsFrom": [
+            "match_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "comment_single_target": {
+          "name": "comment_single_target",
+          "value": "num_nonnulls(\"frikiparty_comment\".\"media_id\", \"frikiparty_comment\".\"edition_id\", \"frikiparty_comment\".\"player_id\", \"frikiparty_comment\".\"match_id\") = 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_like": {
+      "name": "frikiparty_like",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "match_id": {
+          "name": "match_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "like_user_media_unique": {
+          "name": "like_user_media_unique",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "media_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"frikiparty_like\".\"media_id\" IS NOT NULL",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "like_user_edition_unique": {
+          "name": "like_user_edition_unique",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"frikiparty_like\".\"edition_id\" IS NOT NULL",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "like_user_player_unique": {
+          "name": "like_user_player_unique",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "player_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"frikiparty_like\".\"player_id\" IS NOT NULL",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "like_user_match_unique": {
+          "name": "like_user_match_unique",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "match_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"frikiparty_like\".\"match_id\" IS NOT NULL",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "frikiparty_like_user_id_user_id_fk": {
+          "name": "frikiparty_like_user_id_user_id_fk",
+          "tableFrom": "frikiparty_like",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_like_media_id_frikiparty_media_id_fk": {
+          "name": "frikiparty_like_media_id_frikiparty_media_id_fk",
+          "tableFrom": "frikiparty_like",
+          "tableTo": "frikiparty_media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_like_edition_id_frikiparty_edition_id_fk": {
+          "name": "frikiparty_like_edition_id_frikiparty_edition_id_fk",
+          "tableFrom": "frikiparty_like",
+          "tableTo": "frikiparty_edition",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_like_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_like_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_like",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_like_match_id_frikiparty_match_id_fk": {
+          "name": "frikiparty_like_match_id_frikiparty_match_id_fk",
+          "tableFrom": "frikiparty_like",
+          "tableTo": "frikiparty_match",
+          "columnsFrom": [
+            "match_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "like_single_target": {
+          "name": "like_single_target",
+          "value": "num_nonnulls(\"frikiparty_like\".\"media_id\", \"frikiparty_like\".\"edition_id\", \"frikiparty_like\".\"player_id\", \"frikiparty_like\".\"match_id\") = 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_auction": {
+      "name": "frikiparty_auction",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "initial_timer_ms": {
+          "name": "initial_timer_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 30000
+        },
+        "countdown_ms": {
+          "name": "countdown_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 20000
+        },
+        "countdown_short_ms": {
+          "name": "countdown_short_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 15000
+        },
+        "countdown_short_after_bids": {
+          "name": "countdown_short_after_bids",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 6
+        },
+        "lockout_ms": {
+          "name": "lockout_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1500
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_auction_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_auction_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_auction",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_auction_tournament_id_unique": {
+          "name": "frikiparty_auction_tournament_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_auction_bid": {
+      "name": "frikiparty_auction_bid",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "lot_id": {
+          "name": "lot_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "captain_player_id": {
+          "name": "captain_player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bid_at": {
+          "name": "bid_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_auction_bid_lot_id_frikiparty_auction_lot_id_fk": {
+          "name": "frikiparty_auction_bid_lot_id_frikiparty_auction_lot_id_fk",
+          "tableFrom": "frikiparty_auction_bid",
+          "tableTo": "frikiparty_auction_lot",
+          "columnsFrom": [
+            "lot_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_auction_bid_captain_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_auction_bid_captain_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_auction_bid",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "captain_player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_auction_lot": {
+      "name": "frikiparty_auction_lot",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "auction_id": {
+          "name": "auction_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pot_index": {
+          "name": "pot_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sold_at": {
+          "name": "sold_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "winning_captain_player_id": {
+          "name": "winning_captain_player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "final_price": {
+          "name": "final_price",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "was_auto_assigned": {
+          "name": "was_auto_assigned",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_auction_lot_auction_id_frikiparty_auction_id_fk": {
+          "name": "frikiparty_auction_lot_auction_id_frikiparty_auction_id_fk",
+          "tableFrom": "frikiparty_auction_lot",
+          "tableTo": "frikiparty_auction",
+          "columnsFrom": [
+            "auction_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_auction_lot_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_auction_lot_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_auction_lot",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_auction_lot_winning_captain_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_auction_lot_winning_captain_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_auction_lot",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "winning_captain_player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_auction_lot_auction_id_player_id_unique": {
+          "name": "frikiparty_auction_lot_auction_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "auction_id",
+            "player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_draft": {
+      "name": "frikiparty_draft",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "method": {
+          "name": "method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "captain_order_method": {
+          "name": "captain_order_method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_draft_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_draft_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_draft",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_draft_tournament_id_unique": {
+          "name": "frikiparty_draft_tournament_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_draft_pick": {
+      "name": "frikiparty_draft_pick",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "draft_id": {
+          "name": "draft_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "captain_player_id": {
+          "name": "captain_player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pot_index": {
+          "name": "pot_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "picked_player_id": {
+          "name": "picked_player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "picked_at": {
+          "name": "picked_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_draft_pick_draft_id_frikiparty_draft_id_fk": {
+          "name": "frikiparty_draft_pick_draft_id_frikiparty_draft_id_fk",
+          "tableFrom": "frikiparty_draft_pick",
+          "tableTo": "frikiparty_draft",
+          "columnsFrom": [
+            "draft_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_draft_pick_captain_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_draft_pick_captain_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_draft_pick",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "captain_player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_draft_pick_picked_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_draft_pick_picked_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_draft_pick",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "picked_player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_draft_pick_draft_id_picked_player_id_unique": {
+          "name": "frikiparty_draft_pick_draft_id_picked_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "draft_id",
+            "picked_player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_team": {
+      "name": "frikiparty_team",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "final_position": {
+          "name": "final_position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_team_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_team_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_team",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_team_formation_pot_player": {
+      "name": "frikiparty_team_formation_pot_player",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pot_index": {
+          "name": "pot_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_team_formation_pot_player_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_team_formation_pot_player_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_team_formation_pot_player",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_team_formation_pot_player_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_team_formation_pot_player_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_team_formation_pot_player",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_team_formation_pot_player_tournament_id_player_id_unique": {
+          "name": "frikiparty_team_formation_pot_player_tournament_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_team_member": {
+      "name": "frikiparty_team_member",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "team_id": {
+          "name": "team_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_captain": {
+          "name": "is_captain",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "seat": {
+          "name": "seat",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_team_member_team_id_frikiparty_team_id_fk": {
+          "name": "frikiparty_team_member_team_id_frikiparty_team_id_fk",
+          "tableFrom": "frikiparty_team_member",
+          "tableTo": "frikiparty_team",
+          "columnsFrom": [
+            "team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_team_member_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_team_member_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_team_member",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_team_member_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_team_member_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_team_member",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_team_member_team_id_player_id_unique": {
+          "name": "frikiparty_team_member_team_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "team_id",
+            "player_id"
+          ]
+        },
+        "frikiparty_team_member_tournament_id_player_id_unique": {
+          "name": "frikiparty_team_member_tournament_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_tournament": {
+      "name": "frikiparty_tournament",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_official": {
+          "name": "is_official",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_version_id": {
+          "name": "game_version_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "model": {
+          "name": "model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_ranking_snapshot": {
+          "name": "team_ranking_snapshot",
+          "type": "uuid[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stage": {
+          "name": "stage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stage_changed_at": {
+          "name": "stage_changed_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_size": {
+          "name": "team_size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ranking_source": {
+          "name": "ranking_source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "historical_weight_percent": {
+          "name": "historical_weight_percent",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "formation_method": {
+          "name": "formation_method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "captain_pot_index": {
+          "name": "captain_pot_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_by_user_id": {
+          "name": "created_by_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_tournament_edition_id_frikiparty_edition_id_fk": {
+          "name": "frikiparty_tournament_edition_id_frikiparty_edition_id_fk",
+          "tableFrom": "frikiparty_tournament",
+          "tableTo": "frikiparty_edition",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_tournament_game_id_frikiparty_game_id_fk": {
+          "name": "frikiparty_tournament_game_id_frikiparty_game_id_fk",
+          "tableFrom": "frikiparty_tournament",
+          "tableTo": "frikiparty_game",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_tournament_game_version_id_frikiparty_game_version_id_fk": {
+          "name": "frikiparty_tournament_game_version_id_frikiparty_game_version_id_fk",
+          "tableFrom": "frikiparty_tournament",
+          "tableTo": "frikiparty_game_version",
+          "columnsFrom": [
+            "game_version_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_tournament_created_by_user_id_user_id_fk": {
+          "name": "frikiparty_tournament_created_by_user_id_user_id_fk",
+          "tableFrom": "frikiparty_tournament",
+          "tableTo": "user",
+          "columnsFrom": [
+            "created_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_tournament_ranking_snapshot": {
+      "name": "frikiparty_tournament_ranking_snapshot",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rings": {
+          "name": "rings",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "individual_rings": {
+          "name": "individual_rings",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_tournament_ranking_snapshot_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_tournament_ranking_snapshot_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_tournament_ranking_snapshot",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "frikiparty_tournament_ranking_snapshot_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_tournament_ranking_snapshot_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_tournament_ranking_snapshot",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_tournament_ranking_snapshot_tournament_id_player_id_unique": {
+          "name": "frikiparty_tournament_ranking_snapshot_tournament_id_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "player_id"
+          ]
+        },
+        "frikiparty_tournament_ranking_snapshot_tournament_id_position_unique": {
+          "name": "frikiparty_tournament_ranking_snapshot_tournament_id_position_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "position"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_tournament_swiss_config": {
+      "name": "frikiparty_tournament_swiss_config",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elimination_losses": {
+          "name": "elimination_losses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pairing_method": {
+          "name": "pairing_method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_tournament_swiss_config_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_tournament_swiss_config_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_tournament_swiss_config",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_tournament_swiss_config_tournament_id_unique": {
+          "name": "frikiparty_tournament_swiss_config_tournament_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.frikiparty_tournament_vote": {
+      "name": "frikiparty_tournament_vote",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tournament_id": {
+          "name": "tournament_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "voter_player_id": {
+          "name": "voter_player_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "uuid[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "submitted_at": {
+          "name": "submitted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "frikiparty_tournament_vote_tournament_id_frikiparty_tournament_id_fk": {
+          "name": "frikiparty_tournament_vote_tournament_id_frikiparty_tournament_id_fk",
+          "tableFrom": "frikiparty_tournament_vote",
+          "tableTo": "frikiparty_tournament",
+          "columnsFrom": [
+            "tournament_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "frikiparty_tournament_vote_voter_player_id_frikiparty_player_id_fk": {
+          "name": "frikiparty_tournament_vote_voter_player_id_frikiparty_player_id_fk",
+          "tableFrom": "frikiparty_tournament_vote",
+          "tableTo": "frikiparty_player",
+          "columnsFrom": [
+            "voter_player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "frikiparty_tournament_vote_tournament_id_voter_player_id_unique": {
+          "name": "frikiparty_tournament_vote_tournament_id_voter_player_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tournament_id",
+            "voter_player_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

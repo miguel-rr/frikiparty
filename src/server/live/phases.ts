@@ -1,11 +1,16 @@
 import { asc, eq, inArray } from 'drizzle-orm';
 
+import { gamesToWinFor } from '@/lib/live/games-to-win';
 import { matchScore } from '@/lib/live/match-score';
 import type { GroupTiebreakCriterion } from '@/lib/tournament/tiebreak';
 import type { db as Db } from '@/server/db';
 import {
+  type MatchGameStatus,
   match,
   matchGame,
+  matchGameFactionDraw,
+  matchGamePlayerFaction,
+  matchGameSaveFile,
   phase,
   phaseBracketConfig,
   phaseBracketRoundConfig,
@@ -46,8 +51,42 @@ type LivePhase = {
     poolMode: 'fresh' | 'depleting';
     poolCarriesOver: boolean;
   } | null;
-  groups: { id: string; index: number; label: string; teamIds: string[] }[];
+  groups: {
+    id: string;
+    index: number;
+    label: string;
+    teamIds: string[];
+    tieResolutions: string[][];
+  }[];
   matches: LiveMatch[];
+};
+
+/** One game of a match, with everything the sheet shows. */
+type LiveGame = {
+  id: string;
+  gameNumber: number | null;
+  winnerTeamId: string | null;
+  status: MatchGameStatus;
+  map: string | null;
+  mapId: string | null;
+  readyTeamAAt: string | null;
+  readyTeamBAt: string | null;
+  confirmedTeamAAt: string | null;
+  confirmedTeamBAt: string | null;
+  startedAt: string | null;
+  playedAt: string | null;
+  /** What the draw handed each team, in draw order. */
+  draws: { teamId: string; factionId: string; drawOrder: number }[];
+  /** The captains' distribution: one faction per player. */
+  lineup: { playerId: string; factionId: string }[];
+  saveFiles: {
+    id: string;
+    url: string;
+    fileName: string | null;
+    fileSize: number | null;
+    uploadedByUserId: string | null;
+    createdAt: string;
+  }[];
 };
 
 type LiveMatch = {
@@ -66,12 +105,7 @@ type LiveMatch = {
   byeTeamId: string | null;
   feederMatchAId: string | null;
   feederMatchBId: string | null;
-  games: {
-    id: string;
-    gameNumber: number | null;
-    winnerTeamId: string | null;
-    status: string;
-  }[];
+  games: LiveGame[];
 };
 
 /** Every phase of a tournament with its configuration, groups and matches. */
@@ -138,6 +172,27 @@ const loadPhases = async (
           .where(inArray(matchGame.matchId, matchIds))
           .orderBy(asc(matchGame.gameNumber), asc(matchGame.playedAt))
       : [];
+  const gameIds = games.map((g) => g.id);
+  const [draws, lineups, saveFiles] =
+    gameIds.length > 0
+      ? await Promise.all([
+          db
+            .select()
+            .from(matchGameFactionDraw)
+            .where(inArray(matchGameFactionDraw.matchGameId, gameIds))
+            .orderBy(asc(matchGameFactionDraw.drawOrder)),
+          db
+            .select()
+            .from(matchGamePlayerFaction)
+            .where(inArray(matchGamePlayerFaction.matchGameId, gameIds)),
+          db
+            .select()
+            .from(matchGameSaveFile)
+            .where(inArray(matchGameSaveFile.matchGameId, gameIds))
+            .orderBy(asc(matchGameSaveFile.createdAt)),
+        ])
+      : [[], [], []];
+  const iso = (value: Date | null) => value?.toISOString() ?? null;
   const groupIds = new Set(groups.map((g) => g.id));
   const swiss = swissConfigs[0] ?? null;
 
@@ -151,6 +206,7 @@ const loadPhases = async (
         id: g.id,
         index: g.groupIndex,
         label: g.label,
+        tieResolutions: g.tieResolutions,
         teamIds: groupTeams
           .filter((gt) => gt.groupId === g.id && groupIds.has(gt.groupId))
           .sort((a, b) => a.seed - b.seed)
@@ -218,36 +274,53 @@ const loadPhases = async (
           feederMatchBId: m.feederMatchBId,
           games: games
             .filter((g) => g.matchId === m.id)
-            .map((g) => ({
-              id: g.id,
-              gameNumber: g.gameNumber,
-              winnerTeamId: g.winnerTeamId,
-              status: g.status,
-            })),
+            .map(
+              (g): LiveGame => ({
+                id: g.id,
+                gameNumber: g.gameNumber,
+                winnerTeamId: g.winnerTeamId,
+                status: g.status,
+                map: g.map,
+                mapId: g.mapId,
+                readyTeamAAt: iso(g.readyTeamAAt),
+                readyTeamBAt: iso(g.readyTeamBAt),
+                confirmedTeamAAt: iso(g.confirmedTeamAAt),
+                confirmedTeamBAt: iso(g.confirmedTeamBAt),
+                startedAt: iso(g.startedAt),
+                playedAt: iso(g.playedAt),
+                draws: draws
+                  .filter((d) => d.matchGameId === g.id)
+                  .map((d) => ({
+                    teamId: d.teamId,
+                    factionId: d.factionId,
+                    drawOrder: d.drawOrder,
+                  })),
+                lineup: lineups
+                  .filter((l) => l.matchGameId === g.id)
+                  .map((l) => ({
+                    playerId: l.playerId,
+                    factionId: l.factionId,
+                  })),
+                saveFiles: saveFiles
+                  .filter((f) => f.matchGameId === g.id)
+                  .map((f) => ({
+                    id: f.id,
+                    url: f.url,
+                    fileName: f.fileName,
+                    fileSize: f.fileSize,
+                    uploadedByUserId: f.uploadedByUserId,
+                    createdAt: f.createdAt.toISOString(),
+                  })),
+              }),
+            ),
         })),
     };
   });
 };
 
-/** Games needed to win a given match, from its phase's configuration. */
-const gamesToWinFor = (
-  phaseRow: LivePhase,
-  m: Pick<LiveMatch, 'roundIndex'>,
-) => {
-  if (phaseRow.group) return phaseRow.group.gamesToWinMatch;
-  if (phaseRow.bracket) {
-    return (
-      phaseRow.bracket.rounds.find((r) => r.roundIndex === m.roundIndex)
-        ?.gamesToWinMatch ??
-      phaseRow.bracket.rounds.at(-1)?.gamesToWinMatch ??
-      1
-    );
-  }
-  return 1;
-};
-
 export {
   gamesToWinFor,
+  type LiveGame,
   type LiveMatch,
   type LivePhase,
   loadPhases,

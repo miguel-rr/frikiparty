@@ -9,6 +9,7 @@ import {
   comment,
   edition,
   like,
+  match,
   media,
   player,
   user,
@@ -25,15 +26,17 @@ const targetSchema = z.union([
   z.object({ mediaId: z.string().uuid() }),
   z.object({ editionId: z.string().uuid() }),
   z.object({ playerId: z.string().uuid() }),
+  z.object({ matchId: z.string().uuid() }),
 ]);
 
 type Target = z.infer<typeof targetSchema>;
 
-/** The three nullable columns a like or comment row carries. */
+/** The four nullable columns a like or comment row carries. */
 const targetColumns = (target: Target) => ({
   mediaId: 'mediaId' in target ? target.mediaId : null,
   editionId: 'editionId' in target ? target.editionId : null,
   playerId: 'playerId' in target ? target.playerId : null,
+  matchId: 'matchId' in target ? target.matchId : null,
 });
 
 /** WHERE for one target on either table (same column names on both). */
@@ -42,7 +45,9 @@ const targetWhere = (table: typeof like | typeof comment, target: Target) =>
     ? eq(table.mediaId, target.mediaId)
     : 'editionId' in target
       ? eq(table.editionId, target.editionId)
-      : eq(table.playerId, target.playerId);
+      : 'playerId' in target
+        ? eq(table.playerId, target.playerId)
+        : eq(table.matchId, target.matchId);
 
 const assertTargetExists = async (db: TRPCContext['db'], target: Target) => {
   const [row] =
@@ -56,10 +61,15 @@ const assertTargetExists = async (db: TRPCContext['db'], target: Target) => {
             .select({ id: edition.id })
             .from(edition)
             .where(eq(edition.id, target.editionId))
-        : await db
-            .select({ id: player.id })
-            .from(player)
-            .where(eq(player.id, target.playerId));
+        : 'playerId' in target
+          ? await db
+              .select({ id: player.id })
+              .from(player)
+              .where(eq(player.id, target.playerId))
+          : await db
+              .select({ id: match.id })
+              .from(match)
+              .where(eq(match.id, target.matchId));
   if (!row) {
     throw new TRPCError({ code: 'NOT_FOUND' });
   }

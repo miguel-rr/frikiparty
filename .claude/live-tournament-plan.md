@@ -621,13 +621,47 @@ final BO3; 2 grupos de 4; 6 equipos suizo 2 derrotas con bye.
 - Suizo: columnas por marcador (estilo Major de CS), fichas que se mueven,
   eliminados apagados, emparejamientos de la ronda, quién descansa.
 
-### F5 — Ficha de partido y partidas (`/matches/[id]`)
-- Cabecera cara a cara, marcador grande, "al mejor de N", fase/ronda.
-- Por partida: "Listos" de ambos capitanes → sorteo con animación de cartas →
-  reparto por arrastre → confirmación de ambos → mapa → "Hemos perdido" (capitán)
-  / resultado (admin) → automatismos → partida guardada (varias) → comentarios.
-- Sobrescritura de resultado y deshacer (admin), registrados como eventos.
-- Catálogo de mapas: intento de extraer la lista de la wiki de AotR.
+### F5 — Ficha de partido y partidas (`/matches/[id]`) — **HECHO 2026-09-05**
+- Cabecera cara a cara, marcador grande, "primero a N" / "partida única", fase/ronda
+  (jornada, play-in, semifinal, final, tercer puesto, desempate).
+- Por partida: "Listos" de ambos capitanes → sorteo automático al segundo "listos"
+  (motor puro `src/lib/tournament/faction-draw.ts`, pool que se gasta con relleno
+  §6.8, exclusión entre equipos relajada sólo si no queda otra, todo en el evento
+  `factions_drawn`) → reparto tocando facción y jugador (capitán) → confirmación
+  de ambos → "En juego" → mapa (catálogo con texto libre) → "Hemos perdido" con
+  doble toque (capitán, sólo su derrota) / resultado (admin, cualquier partida
+  abierta o a mano) → automatismos → partidas guardadas (`.BfME2Replay` ≤ 50 MB,
+  directo a R2 bajo `replays/`, quien jugó o el admin) → comentarios (tablón
+  social con destino `matchId`).
+- Automatismos al decidir un partido: cuadro (ganador a la siguiente casilla,
+  perdedor al 3º/4º), suizo (ronda siguiente generada cuando la ronda cierra),
+  grupos (clasificación en vivo), y **campeón** (`stage = completed`) cuando la
+  última fase no tiene nada pendiente. Un partido del cuadro sin equipos aún
+  cuenta como pendiente.
+- Admin: sobrescribir resultado (deshace y anota sobre un estado proyectado en
+  memoria), deshacer la última partida decidida si nada aguas abajo se ha jugado
+  (a mano desaparece; jugada vuelve a "en juego"; deshace el campeón), resolver
+  empates de grupo (orden manual, a suertes, o partidos de desempate
+  `isTiebreak`; `phase_group.tieResolutions`, migración 0024), y generar la
+  fase siguiente con la propuesta de cabezas de serie a la vista
+  (`match.generateNext`, `generatePhase(..., { seeded: true })`).
+- Servidor: `src/server/live/matches.ts` (lógica) + router `match`
+  (`ready`, `setLineup`, `confirmLineup`, `setMap`, `declareLoss`, `setResult`,
+  `undoGame`, `resolveTie`, `createTiebreakMatches`, `generateNext`,
+  `presignReplay`, `finalizeReplay`, `removeReplay`); `src/lib/live/progression.ts`
+  (fase activa, completitud, empates abiertos, clasificados, campeón) compartido
+  con el cliente. El snapshot lleva ya las partidas completas (sorteos, repartos,
+  mapa, replays), las facciones de la versión y los mapas.
+- UI: `src/components/live/match/*` (hoja, tarjeta de partida, editor de reparto,
+  chips de facción con emblema, replays) y `phase/phase-admin.tsx` (empates,
+  siguiente fase, campeones) en la página de fase y en el hub.
+- Ensayo: `pnpm run db:seed:live-tournament` deja un torneo 2026 en juego (21
+  jugadores, 6 equipos, grupo único + playoffs con pool que se gasta). Probado de
+  extremo a extremo con "Entrar como" (los dos capitanes por turnos, misma
+  sesión de navegador): sorteo, reparto, mapa, replay, derrota, clasificación en
+  vivo, playoffs generados, final al mejor de cinco, campeón, deshacer.
+- Pendiente para F7: animación de cartas del sorteo más escénica (hoy entran con
+  un fundido escalonado) y la ficha de la final.
 
 ### F6 — `/council` centro de mando
 `LiveCouncil` por etapa:
@@ -983,3 +1017,7 @@ facciones por versión, contexto de cada partida). Estado y reglas:
   fichas completas de Gondor y Montañas Nubladas con números tipados y `stats`
   para cálculos, imágenes de todo en R2, árbol del libro de poderes, editor
   admin. Migración 0023.
+- 2026-09-05 — **F5 hecho**: ficha de partido en vivo con sorteo de facciones (pool
+  que se gasta), repartos confirmados, resultados, automatismos de cuadro/suizo/
+  grupos, campeón, deshacer y sobrescribir, empates, fase siguiente confirmada,
+  replays y comentarios. Migración 0024. Semilla `db:seed:live-tournament`.

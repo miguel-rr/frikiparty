@@ -6,6 +6,10 @@ import { useState } from 'react';
 import { Calendar } from '@/components/live/calendar';
 import { BracketView } from '@/components/live/phase/bracket-view';
 import { GroupView } from '@/components/live/phase/group-view';
+import {
+  ChampionBanner,
+  PhaseAdmin,
+} from '@/components/live/phase/phase-admin';
 import { SwissView } from '@/components/live/phase/swiss-view';
 import { btn, tag } from '@/components/theme/primitives';
 import type { LivePhase } from '@/server/live/phases';
@@ -85,7 +89,9 @@ const PhaseLive = ({
           </Link>
         </div>
       </header>
+      <ChampionBanner state={state} />
       <PhaseView phase={phase} state={state} />
+      <PhaseAdmin phase={phase} state={state} />
       {phase.type !== 'bracket' ? (
         <>
           <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
