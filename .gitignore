@@ -53,3 +53,5 @@ CLAUDE.md.bak
 # background music sources (uploaded to R2 by scripts/sync-audio.ts)
 /.audio/*
 !/.audio/README.md
+/.wiki-images/*
+!/.wiki-images/README.md

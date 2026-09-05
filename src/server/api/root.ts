@@ -10,6 +10,7 @@ import { socialRouter } from '@/server/api/routers/social';
 import { tournamentRouter } from '@/server/api/routers/tournament';
 import { venueRouter } from '@/server/api/routers/venue';
 import { voteRouter } from '@/server/api/routers/vote';
+import { wikiRouter } from '@/server/api/routers/wiki';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 const appRouter = createTRPCRouter({
@@ -25,6 +26,7 @@ const appRouter = createTRPCRouter({
   tournament: tournamentRouter,
   venue: venueRouter,
   vote: voteRouter,
+  wiki: wikiRouter,
 });
 
 type AppRouter = typeof appRouter;

@@ -5,20 +5,33 @@
 > El `/simulator` NO se toma como referencia funcional (fue una primera versión);
 > sólo se rescata de él la lógica pura que ya está probada (ver §2).
 >
-> Estado: **v1.1 — todas las decisiones cerradas; listo para arrancar F0.**
+> Estado: **v1.1 — decisiones cerradas. F0 a F4 hechas y en `develop`; F5 en curso.**
 > Última actualización: 2026-09-05.
 
 ---
 
-## 0. Cómo leer este documento
+## 0. Índice y cómo leer este documento
 
-- §1 Objetivo y alcance. §2 Qué se reutiliza y qué se descarta. §3 Decisiones de
-  arquitectura. §4 Máquina de estados. §5 Modelo de datos. §6 Reglas de juego
-  decididas (lo que `core-logic.md` no cubría). §7 Plan por fases de trabajo
-  (F0…F8). §8 Pantallas. §9 Realtime en detalle. §10 Permisos. §11 Preguntas
-  abiertas. §12 Riesgos. §13 Registro de cambios.
-- Las marcas **[SUPUESTO]** son valores por defecto que he fijado yo y se pueden
-  cambiar sin coste; las **[DECIDIDO]** vienen de respuestas de Miguel (§13).
+1. [Objetivo y alcance](#1-objetivo-y-alcance)
+2. [Inventario: qué se reutiliza y qué se descarta](#2-inventario-qué-se-reutiliza-y-qué-se-descarta)
+3. [Decisiones de arquitectura](#3-decisiones-de-arquitectura)
+4. [Máquina de estados del torneo](#4-máquina-de-estados-del-torneo)
+5. [Cambios en el modelo de datos](#5-cambios-en-el-modelo-de-datos)
+6. [Reglas de juego decididas](#6-reglas-de-juego-decididas-complemento-a-core-logicmd)
+7. [Plan por fases de trabajo (F0…F8)](#7-plan-por-fases-de-trabajo)
+8. [Pantallas](#8-pantallas)
+9. [Realtime en detalle](#9-realtime-en-detalle)
+10. [Permisos](#10-permisos)
+11. [Preguntas abiertas](#11-preguntas-abiertas)
+12. [Riesgos](#12-riesgos)
+13. [Registro de cambios](#13-registro-de-cambios)
+14. [Wiki de juegos](#14-wiki-de-juegos)
+
+Marcas usadas en el texto:
+
+- **[DECIDIDO]**: viene de una respuesta de Miguel (la fecha y el detalle están en §13).
+- **[SUPUESTO]**: valor por defecto fijado por Claude; se cambia sin coste.
+- **HECHO**: la fase de trabajo está implementada, probada y commiteada.
 
 ---
 
@@ -758,6 +771,56 @@ partir de la puja nº 6; `poolCarriesOver = false`; límite de 50 MB por replay.
 
 ---
 
+## 14. Wiki de juegos
+
+**[HECHO 2026-09-05]** Ruta `/games`. Fuera del alcance original del módulo en vivo, pero lo alimenta (pool de
+facciones por versión, contexto de cada partida). Estado y reglas:
+
+- **Modelo**: `game` (slug, descripción) → `game_version` (fecha, notas,
+  changelog) → `faction` (misma fila en todas las versiones; `kind`
+  core/alternate, `transformsFactionId`, `imageUrl` con el escudo) →
+  `faction_revision` con validez **"desde" una versión**: al mostrar la facción
+  bajo la versión X se usa la revisión más reciente con orden ≤ X (marcada como
+  heredada si es de otra versión). Cada revisión tiene `faction_hero`,
+  `faction_unit`, `faction_structure` y `faction_power` (migraciones 0022 y
+  **0023**).
+- **Los números son números** (petición de Miguel, 2026-09-05): coste, puntos
+  de mando, vida, tiempo de reclutamiento, límite en campo, coste de mejoras,
+  nivel de habilidades, nivel/PP/posición de poderes van en columnas tipadas;
+  `strongAgainst`/`weakAgainst` son listas cerradas de etiquetas
+  (`CounterTag`, en `src/lib/wiki/types.ts`) para cruzar unidades de facciones
+  distintas; y cada fila, habilidad, mejora y poder lleva un `stats` jsonb
+  `Record<string, number>` con nombres estables (`damagePct`, `armourPct`,
+  `durationS`, `cooldownS`…) para estudios futuros (habilidad × precio,
+  comparativas). La prosa explica; nunca es el único sitio donde vive un número.
+- **Libro de poderes**: árbol 3-4-3-2 con `tier`, `position` (L/C/R/LL/LR/RL/RR)
+  y `requires` (nombres del nivel anterior, derivados de la posición en el
+  seed), dibujado como en el juego (`spellbook-tree.tsx`).
+- **Contenido**: Gondor y Montañas Nubladas completos (todas las unidades,
+  héroes incl. héroe del Anillo e invocados, estructuras con niveles y mejoras,
+  12 poderes) en `scripts/wiki-data/aotr-*.ts`, en castellano, redactado por
+  Claude a partir de la wiki de la comunidad (aotr.fandom.com, CC BY-SA, leída
+  por su API MediaWiki) y las notas del mod. La 9.2.0 es la base; la 9.3.0 se
+  aplica como parche en el seed (dragones de fuego rehechos, Golfimbul). Las
+  cifras reflejan el estado actual de la wiki (no distingue 9.2.0/9.3.0 salvo
+  lo anunciado en las notas).
+- **Imágenes** para todo: `scripts/wiki-data/*.ts` nombra el fichero fuente de
+  cada retrato/render; `pnpm run wiki:images -- manifest` lista las claves
+  esperadas; se convierten a WebP ≤ 800 px en `.wiki-images/` (git-ignored,
+  README dentro) y `pnpm run wiki:images` las sube a R2 bajo `wiki/` (bucket
+  compartido dev/prod, así que en producción no hay que subir nada). Los iconos
+  de poderes se recortan de la imagen del libro de cada facción; los escudos
+  de las 11 facciones principales salen de los logos de la wiki
+  (`scripts/wiki-data/crests.ts`). Claves inmutables (caché de un año): para
+  sustituir una imagen se cambia la clave, no el contenido.
+- **Admin** en `/admin/games`: juego, versiones, facciones, mapas y la ficha por
+  versión con todas las columnas (habilidades, mejoras y `stats` se editan como
+  JSON). Páginas públicas SSG con `revalidatePath` al guardar.
+- **Producción**: `pnpm run db:migrate:prod` (0022 + 0023), `pnpm run
+  db:seed:catalog:prod` si no está, y `pnpm run db:seed:wiki:prod`.
+- **Pendiente**: el resto de facciones (mismo pipeline), y las vistas de
+  comparación/estudio que aprovechen `stats`.
+
 ## 13. Registro de cambios
 
 - 2026-09-04 — v0. Inventario del código, propuesta de arquitectura, modelo y fases.
@@ -913,3 +976,7 @@ partir de la puja nº 6; `poolCarriesOver = false`; límite de 50 MB por replay.
   directos, empate a cero resuelto por ranking inverso, corte de clasificados,
   conectores del cuadro y propagación del ganador al hueco de la final. Esos
   resultados de prueba los borrará F5 al implementar el registro real.
+- 2026-09-05 — **Wiki de juegos** (§14): modelo versionado por "válido desde",
+  fichas completas de Gondor y Montañas Nubladas con números tipados y `stats`
+  para cálculos, imágenes de todo en R2, árbol del libro de poderes, editor
+  admin. Migración 0023.

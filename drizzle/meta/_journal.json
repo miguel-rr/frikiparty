@@ -155,6 +155,20 @@
       "when": 1788560818199,
       "tag": "0021_flippant_william_stryker",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1788606027111,
+      "tag": "0022_bouncy_william_stryker",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1788607539195,
+      "tag": "0023_chief_scream",
+      "breakpoints": true
     }
   ]
 }

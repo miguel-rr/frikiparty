@@ -231,6 +231,16 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   Jugadores
                 </Link>
               ) : null}
+              {role === 'admin' ? (
+                <Link
+                  className={item}
+                  href="/admin/games"
+                  onClick={() => setOpen(false)}
+                  role="menuitem"
+                >
+                  Juegos
+                </Link>
+              ) : null}
               <button
                 className={item}
                 onClick={handleSignOut}

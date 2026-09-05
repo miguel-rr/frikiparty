@@ -3,6 +3,11 @@ import { relations } from 'drizzle-orm';
 import { account, session, user } from '@/server/db/schema/auth';
 import {
   faction,
+  factionHero,
+  factionPower,
+  factionRevision,
+  factionStructure,
+  factionUnit,
   game,
   gameMap,
   gameVersion,
@@ -98,7 +103,57 @@ const gameRelations = relations(game, ({ many }) => ({
 
 const gameMapRelations = relations(gameMap, ({ many, one }) => ({
   game: one(game, { fields: [gameMap.gameId], references: [game.id] }),
+  introducedInVersion: one(gameVersion, {
+    fields: [gameMap.introducedInVersionId],
+    references: [gameVersion.id],
+  }),
   matchGames: many(matchGame),
+}));
+
+const factionRevisionRelations = relations(
+  factionRevision,
+  ({ many, one }) => ({
+    faction: one(faction, {
+      fields: [factionRevision.factionId],
+      references: [faction.id],
+    }),
+    gameVersion: one(gameVersion, {
+      fields: [factionRevision.gameVersionId],
+      references: [gameVersion.id],
+    }),
+    heroes: many(factionHero),
+    units: many(factionUnit),
+    structures: many(factionStructure),
+    powers: many(factionPower),
+  }),
+);
+
+const factionHeroRelations = relations(factionHero, ({ one }) => ({
+  revision: one(factionRevision, {
+    fields: [factionHero.revisionId],
+    references: [factionRevision.id],
+  }),
+}));
+
+const factionUnitRelations = relations(factionUnit, ({ one }) => ({
+  revision: one(factionRevision, {
+    fields: [factionUnit.revisionId],
+    references: [factionRevision.id],
+  }),
+}));
+
+const factionStructureRelations = relations(factionStructure, ({ one }) => ({
+  revision: one(factionRevision, {
+    fields: [factionStructure.revisionId],
+    references: [factionRevision.id],
+  }),
+}));
+
+const factionPowerRelations = relations(factionPower, ({ one }) => ({
+  revision: one(factionRevision, {
+    fields: [factionPower.revisionId],
+    references: [factionRevision.id],
+  }),
 }));
 
 const gameVersionRelations = relations(gameVersion, ({ many, one }) => ({
@@ -109,6 +164,13 @@ const gameVersionRelations = relations(gameVersion, ({ many, one }) => ({
 }));
 
 const factionRelations = relations(faction, ({ many, one }) => ({
+  revisions: many(factionRevision),
+  transformsFaction: one(faction, {
+    relationName: 'factionTransforms',
+    fields: [faction.transformsFactionId],
+    references: [faction.id],
+  }),
+  alternates: many(faction, { relationName: 'factionTransforms' }),
   introducedInVersion: one(gameVersion, {
     relationName: 'factionIntroduced',
     fields: [faction.introducedInVersionId],
@@ -590,7 +652,12 @@ export {
   draftRelations,
   editionPlayerRelations,
   editionRelations,
+  factionHeroRelations,
+  factionPowerRelations,
   factionRelations,
+  factionRevisionRelations,
+  factionStructureRelations,
+  factionUnitRelations,
   gameMapRelations,
   gameRelations,
   gameVersionRelations,
