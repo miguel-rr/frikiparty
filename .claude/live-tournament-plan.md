@@ -2,8 +2,8 @@
 
 > Documento vivo. Se actualiza cada vez que cambiamos una decisión.
 > Fuente de verdad del dominio: `core-logic.md`. Modelo base: `data-model.md`.
-> El `/simulator` NO se toma como referencia funcional (fue una primera versión);
-> sólo se rescata de él la lógica pura que ya está probada (ver §2).
+> El antiguo `/simulator` (una primera versión) no fue la referencia funcional y
+> se borró el 2026-09-05; sólo sobrevive su lógica pura en `src/lib/tournament`.
 >
 > Estado: **v1.1 — decisiones cerradas. F0 a F4 hechas y en `develop`; F5 en curso.**
 > Última actualización: 2026-09-05.
@@ -106,9 +106,10 @@ guardadas; `archive-procedure.ts` como patrón de `playerProcedure`;
 
 ### 2.2 Se descarta
 
-- `src/app/simulator/**` y `src/lib/simulator/**` (wizard local). Se mantienen hasta
-  que el módulo nuevo esté probado; después se decide si `/simulator` desaparece.
-- `src/server/realtime/*` (salas en memoria: no sobreviven en Vercel).
+- `src/app/simulator/**` y `src/lib/simulator/**` (wizard local): **borrados el
+  2026-09-05**, con `src/server/realtime/*` (salas en memoria), los routers
+  `auctionRoom`/`draftRoom` y el seed de demostración. Los motores puros que
+  valían viven en `src/lib/tournament`.
 - `claim-captain-list` y la identificación por "device id": nada de "toca tu
   nombre" **[DECIDIDO]**.
 
@@ -791,8 +792,9 @@ Simulaciones extremo a extremo (`pnpm run db:simulate:tournaments`, sólo dev):
   como cualquier edición oficial. Es lo que se quiere ver; en producción no
   existen.
 
-Pendiente de decidir: **`/simulator`**. Propuesta: borrarlo (ya no se enlaza,
-está en modo dinámico y el motor que valía se reutilizó en `src/lib/tournament`).
+**`/simulator` borrado** (2026-09-05): ya no se enlazaba, su motor útil se
+reutilizó en `src/lib/tournament` y los componentes que sólo él usaba se fueron
+con él.
 
 Orden: F0 → F1 → F2 → F3 → F4 → F5 → F6 → F7 → F8. F6 se alimenta desde F0.
 
@@ -1135,3 +1137,5 @@ facciones por versión, contexto de cada partida). Estado y reglas:
 - 2026-09-05 — **Simulaciones**: cinco ediciones de ensayo (2026 · II a VI)
   terminadas a través de los procedimientos reales; `resolveTie` corona cuando
   el empate decide el campeón; `deleteTournamentCascade` exportado.
+- 2026-09-05 — **Borrado `/simulator`**: ruta, `src/lib/simulator`, salas en
+  memoria, routers `auctionRoom`/`draftRoom`, `seed-demo-tournaments` y su plan.

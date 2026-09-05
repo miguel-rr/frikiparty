@@ -1,5 +1,3 @@
-import { auctionRoomRouter } from '@/server/api/routers/auction-room';
-import { draftRoomRouter } from '@/server/api/routers/draft-room';
 import { editionRouter } from '@/server/api/routers/edition';
 import { formationRouter } from '@/server/api/routers/formation';
 import { liveRouter } from '@/server/api/routers/live';
@@ -15,8 +13,6 @@ import { wikiRouter } from '@/server/api/routers/wiki';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 const appRouter = createTRPCRouter({
-  auctionRoom: auctionRoomRouter,
-  draftRoom: draftRoomRouter,
   edition: editionRouter,
   formation: formationRouter,
   live: liveRouter,
