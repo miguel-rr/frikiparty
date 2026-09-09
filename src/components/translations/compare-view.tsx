@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { btn, input, label, td, th } from '@/components/theme/primitives';
+import { btn, input, label } from '@/components/theme/primitives';
+import { Cell, Row, RowHead } from '@/components/translations/rows';
 import { StrDiff, StrText } from '@/components/translations/str-text';
 import { valueText } from '@/lib/translations/str';
 import { api } from '@/trpc/react';
@@ -15,6 +16,8 @@ const KINDS: { value: Kind; text: string }[] = [
   { value: 'removed', text: 'Eliminadas' },
   { value: 'same', text: 'Iguales' },
 ];
+
+const COLUMNS = 'minmax(0,1.1fr) minmax(0,3fr) auto';
 
 const select =
   'appearance-none rounded-lg border border-(--hair) bg-(--night-2) px-3 py-2 text-(--parchment) text-sm transition-colors hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
@@ -159,51 +162,41 @@ const CompareView = () => {
       {!ready ? (
         <p className="text-(--faded) text-sm">Elige dos ficheros distintos.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-160 border-collapse text-sm">
-            <thead>
-              <tr>
-                <th className={th}>Clave</th>
-                {kind === 'changed' ? (
-                  <th className={th}>
-                    {fileText(from)} → {fileText(to)}
-                  </th>
+        <div>
+          <RowHead columns={COLUMNS}>
+            <span>Clave</span>
+            <span>
+              {kind === 'changed'
+                ? `${fileText(from)} → ${fileText(to)}`
+                : 'Texto'}
+            </span>
+            <span />
+          </RowHead>
+          {rows.data?.rows.map((row) => (
+            <Row columns={COLUMNS} key={row.key}>
+              <span className="break-all font-mono text-(--gold-hi) text-xs">
+                {row.key}
+              </span>
+              <Cell label="Texto">
+                {kind === 'changed' && row.before && row.after ? (
+                  <StrDiff
+                    after={valueText(row.after) ?? row.after}
+                    before={valueText(row.before) ?? row.before}
+                  />
                 ) : (
-                  <th className={th}>Texto</th>
+                  <StrText value={row.after ?? row.before} />
                 )}
-                <th className={th} />
-              </tr>
-            </thead>
-            <tbody>
-              {rows.data?.rows.map((row) => (
-                <tr key={row.key}>
-                  <td
-                    className={`${td} max-w-64 break-all font-mono text-(--gold-hi) text-xs`}
-                  >
-                    {row.key}
-                  </td>
-                  <td className={`${td} text-(--parchment)`}>
-                    {kind === 'changed' && row.before && row.after ? (
-                      <StrDiff
-                        after={valueText(row.after) ?? row.after}
-                        before={valueText(row.before) ?? row.before}
-                      />
-                    ) : (
-                      <StrText value={row.after ?? row.before} />
-                    )}
-                  </td>
-                  <td className={`${td} whitespace-nowrap text-right`}>
-                    <Link
-                      className={`${btn.ghost} px-3 py-1 text-xs`}
-                      href={`/translations?key=${encodeURIComponent(row.key)}`}
-                    >
-                      Cadena propia
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+              </Cell>
+              <span className="md:text-right">
+                <Link
+                  className={`${btn.ghost} px-3 py-1 text-xs`}
+                  href={`/translations?key=${encodeURIComponent(row.key)}`}
+                >
+                  Cadena propia
+                </Link>
+              </span>
+            </Row>
+          ))}
           <div className="mt-3 flex items-center justify-between text-(--faded) text-xs">
             <span>
               {total === 0

@@ -8,9 +8,8 @@ import {
   label,
   panel,
   panelGold,
-  td,
-  th,
 } from '@/components/theme/primitives';
+import { Cell, Row, RowHead } from '@/components/translations/rows';
 import { StrText } from '@/components/translations/str-text';
 import type { StrLanguage } from '@/server/db/schema/translations';
 import type { ImportReport, ImportResult } from '@/server/translations/import';
@@ -21,6 +20,8 @@ type Overview = RouterOutputs['translations']['overview'];
 const select =
   'w-full appearance-none rounded-lg border border-(--hair) bg-(--night-2) px-3 py-2 text-(--parchment) transition-colors hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
 const field = 'flex flex-col';
+const COLUMNS =
+  'minmax(0,1.2fr) minmax(0,1.6fr) minmax(0,1fr) minmax(0,1.6fr) auto';
 const LANGUAGE_TEXT: Record<StrLanguage, string> = {
   en: 'Original (inglés)',
   es: 'Traducción (español)',
@@ -126,7 +127,7 @@ const UploadForm = ({
                   </option>
                 ))}
               </select>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <input
                   className={input}
                   onChange={(e) =>
@@ -160,7 +161,7 @@ const UploadForm = ({
               ) : null}
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <select
                 className={select}
                 onChange={(e) => setVersionId(e.target.value)}
@@ -256,7 +257,7 @@ const UploadForm = ({
       {error ? <p className="text-(--ember) text-sm">{error}</p> : null}
       <div className="flex items-center gap-3">
         <button
-          className={btn.primary}
+          className={`${btn.primary} w-full sm:w-auto`}
           disabled={busy || !file || !versionId}
           type="submit"
         >
@@ -406,76 +407,73 @@ const FilesTable = ({ files }: { files: Overview['files'] }) => {
       </p>
     );
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-160 border-collapse text-sm">
-        <thead>
-          <tr>
-            <th className={th}>Versión</th>
-            <th className={th}>Idioma</th>
-            <th className={th}>Origen</th>
-            <th className={th}>Bloques</th>
-            <th className={th}>Subido</th>
-            <th className={th}>Avisos</th>
-            <th className={th} />
-          </tr>
-        </thead>
-        <tbody>
-          {files.map((file) => (
-            <tr key={file.id}>
-              <td className={`${td} whitespace-nowrap text-(--gold-hi)`}>
-                {file.gameName} {file.version}
-              </td>
-              <td className={td}>{LANGUAGE_TEXT[file.language]}</td>
-              <td className={td}>
-                <span className="text-(--parchment)">{file.source ?? '—'}</span>
-                {file.header ? (
-                  <p
-                    className="mt-0.5 max-w-64 truncate text-(--faded) text-xs"
-                    title={file.header}
-                  >
-                    {file.header.split('\n')[0]}
-                  </p>
-                ) : null}
-              </td>
-              <td className={td}>{file.entryCount}</td>
-              <td className={`${td} whitespace-nowrap text-(--faded)`}>
-                {formatDate(file.uploadedAt)}
-                {file.uploadedBy ? ` · ${file.uploadedBy}` : ''}
-              </td>
-              <td className={td}>{file.issues.length}</td>
-              <td className={`${td} text-right`}>
-                {confirming === file.id ? (
-                  <span className="inline-flex gap-1.5">
-                    <button
-                      className={`${btn.danger} px-3 py-1 text-xs`}
-                      disabled={remove.isPending}
-                      onClick={() => remove.mutate({ fileId: file.id })}
-                      type="button"
-                    >
-                      Borrar
-                    </button>
-                    <button
-                      className={`${btn.ghost} px-3 py-1 text-xs`}
-                      onClick={() => setConfirming(null)}
-                      type="button"
-                    >
-                      No
-                    </button>
-                  </span>
-                ) : (
-                  <button
-                    className={`${btn.ghost} px-3 py-1 text-xs`}
-                    onClick={() => setConfirming(file.id)}
-                    type="button"
-                  >
-                    Borrar
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <RowHead columns={COLUMNS}>
+        <span>Fichero</span>
+        <span>Origen</span>
+        <span>Bloques · avisos</span>
+        <span>Subido</span>
+        <span />
+      </RowHead>
+      {files.map((file) => (
+        <Row columns={COLUMNS} key={file.id}>
+          <span className="text-(--gold-hi)">
+            {file.gameName} {file.version}
+            <span className="block text-(--faded) text-xs">
+              {LANGUAGE_TEXT[file.language]}
+            </span>
+          </span>
+          <Cell label="Origen">
+            {file.source ?? '—'}
+            {file.header ? (
+              <span
+                className="block truncate text-(--faded) text-xs"
+                title={file.header}
+              >
+                {file.header.split('\n')[0]}
+              </span>
+            ) : null}
+          </Cell>
+          <Cell label="Bloques">
+            {file.entryCount} · {file.issues.length} avisos
+          </Cell>
+          <Cell label="Subido">
+            <span className="text-(--faded)">
+              {formatDate(file.uploadedAt)}
+              {file.uploadedBy ? ` · ${file.uploadedBy}` : ''}
+            </span>
+          </Cell>
+          <span className="md:text-right">
+            {confirming === file.id ? (
+              <span className="inline-flex gap-1.5">
+                <button
+                  className={`${btn.danger} px-3 py-1 text-xs`}
+                  disabled={remove.isPending}
+                  onClick={() => remove.mutate({ fileId: file.id })}
+                  type="button"
+                >
+                  Borrar
+                </button>
+                <button
+                  className={`${btn.ghost} px-3 py-1 text-xs`}
+                  onClick={() => setConfirming(null)}
+                  type="button"
+                >
+                  No
+                </button>
+              </span>
+            ) : (
+              <button
+                className={`${btn.ghost} px-3 py-1 text-xs`}
+                onClick={() => setConfirming(file.id)}
+                type="button"
+              >
+                Borrar
+              </button>
+            )}
+          </span>
+        </Row>
+      ))}
       {remove.error ? (
         <p className="mt-2 text-(--ember) text-xs">{remove.error.message}</p>
       ) : null}

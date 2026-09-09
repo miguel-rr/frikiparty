@@ -3,15 +3,8 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
-import {
-  btn,
-  input,
-  label,
-  panel,
-  tag,
-  td,
-  th,
-} from '@/components/theme/primitives';
+import { btn, input, label, panel, tag } from '@/components/theme/primitives';
+import { Cell, Row, RowHead } from '@/components/translations/rows';
 import { StrDiff, StrText } from '@/components/translations/str-text';
 import {
   hotkeyOf,
@@ -29,6 +22,8 @@ const MODES: { value: Mode; text: string }[] = [
   { value: 'untranslated', text: 'Sin traducir' },
   { value: 'missing', text: 'Faltan en español' },
 ];
+
+const COLUMNS = 'minmax(0,1.1fr) minmax(0,2fr) minmax(0,2fr) minmax(0,2fr)';
 
 const select =
   'appearance-none rounded-lg border border-(--hair) bg-(--night-2) px-3 py-2 text-(--parchment) text-sm transition-colors hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
@@ -271,7 +266,7 @@ const InlineEditor = ({
       {error ? <p className="text-(--ember) text-sm">{error.message}</p> : null}
       <div className="flex flex-wrap items-center gap-2">
         <button
-          className={btn.primary}
+          className={`${btn.primary} w-full sm:w-auto`}
           disabled={busy || ours.includes('"')}
           onClick={() =>
             save.mutate({ key: entryKey, value: ours, note: noteValue })
@@ -400,72 +395,59 @@ const StringBrowser = () => {
           Sube primero un lotr.str en la pestaña Ficheros.
         </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-200 border-collapse text-sm">
-            <thead>
-              <tr>
-                <th className={th}>Clave</th>
-                <th className={th}>Original {data?.en?.version ?? ''}</th>
-                <th className={th}>Español {data?.es?.version ?? ''}</th>
-                <th className={th}>Nuestra</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data?.rows.map((row) => {
-                const isOpen = row.key === open;
-                return [
-                  <tr
-                    className={`cursor-pointer transition-colors hover:bg-(--gold)/6 ${
-                      isOpen ? 'bg-(--gold)/10' : ''
-                    }`}
-                    key={row.key}
-                    onClick={() => toggle(row.key)}
-                  >
-                    <td
-                      className={`${td} max-w-64 break-all font-mono text-(--gold-hi) text-xs`}
-                    >
-                      {row.key}
-                    </td>
-                    <td className={`${td} max-w-80 text-(--parchment)`}>
-                      <StrText value={row.en} />
-                    </td>
-                    <td className={`${td} max-w-80 text-(--parchment)`}>
-                      <StrText value={row.es} />
-                    </td>
-                    <td className={`${td} max-w-80 text-(--parchment)`}>
-                      {row.custom !== null ? (
-                        <>
-                          <StrText text={row.custom} />
-                          {row.status === 'review' ? (
-                            <span
-                              className={`${tag} ml-2 border-(--ember)/60 text-(--ember)`}
-                            >
-                              revisar
-                            </span>
-                          ) : null}
-                        </>
-                      ) : (
-                        <span className="text-(--faded)/60">—</span>
-                      )}
-                    </td>
-                  </tr>,
-                  isOpen ? (
-                    <tr key={`${row.key}-editor`}>
-                      <td
-                        className="border-(--hair-gold) border-b bg-(--night-2)/60 p-0"
-                        colSpan={4}
-                      >
-                        <InlineEditor
-                          entryKey={row.key}
-                          onClose={() => setOpen(null)}
-                        />
-                      </td>
-                    </tr>
-                  ) : null,
-                ];
-              })}
-            </tbody>
-          </table>
+        <div>
+          <RowHead columns={COLUMNS}>
+            <span>Clave</span>
+            <span>Original {data?.en?.version ?? ''}</span>
+            <span>Español {data?.es?.version ?? ''}</span>
+            <span>Nuestra</span>
+          </RowHead>
+          {data?.rows.map((row) => {
+            const isOpen = row.key === open;
+            return (
+              <div key={row.key}>
+                <Row
+                  active={isOpen}
+                  columns={COLUMNS}
+                  onClick={() => toggle(row.key)}
+                >
+                  <span className="break-all font-mono text-(--gold-hi) text-xs">
+                    {row.key}
+                  </span>
+                  <Cell clamp label="Original">
+                    <StrText value={row.en} />
+                  </Cell>
+                  <Cell clamp label="Español">
+                    <StrText value={row.es} />
+                  </Cell>
+                  <Cell label="Nuestra">
+                    {row.custom !== null ? (
+                      <>
+                        <StrText text={row.custom} />
+                        {row.status === 'review' ? (
+                          <span
+                            className={`${tag} ml-2 border-(--ember)/60 text-(--ember)`}
+                          >
+                            revisar
+                          </span>
+                        ) : null}
+                      </>
+                    ) : (
+                      <span className="text-(--faded)/60">—</span>
+                    )}
+                  </Cell>
+                </Row>
+                {isOpen ? (
+                  <div className="border-(--hair-gold) border-b bg-(--night-2)/60">
+                    <InlineEditor
+                      entryKey={row.key}
+                      onClose={() => setOpen(null)}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
           <div className="mt-3 flex items-center justify-between text-(--faded) text-xs">
             <span>
               {total === 0
