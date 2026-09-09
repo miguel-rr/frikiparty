@@ -24,6 +24,7 @@
     "db:seed:wiki": "tsx --env-file=.env scripts/seed-wiki.ts",
     "db:seed:wiki:prod": "tsx --env-file=.env.prod scripts/seed-wiki.ts",
     "db:studio": "drizzle-kit studio",
+    "db:sync:translations:prod": "tsx --env-file=.env scripts/sync-translations-prod.ts",
     "audio:sync": "tsx --env-file=.env scripts/sync-audio.ts",
     "wiki:images": "tsx --env-file=.env scripts/sync-wiki-images.ts",
     "dev": "next dev --turbo",

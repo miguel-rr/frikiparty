@@ -8,7 +8,6 @@ import {
   input,
   label,
   panel,
-  panelGold,
   tag,
   td,
   th,
@@ -71,8 +70,11 @@ const warnings = (ours: string, reference: string | null) => {
   return out;
 };
 
-/** One key: every version we hold, our text, and the editor for it. */
-const StringEditor = ({
+/**
+ * The row unfolded: the same key read comfortably, every version we hold,
+ * and the box to write our string. Saving folds it back.
+ */
+const InlineEditor = ({
   entryKey,
   onClose,
 }: {
@@ -83,28 +85,32 @@ const StringEditor = ({
   const entry = api.translations.entry.useQuery({ key: entryKey });
   const [draft, setDraft] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
-  const refresh = () => {
-    void utils.translations.entry.invalidate({ key: entryKey });
-    void utils.translations.search.invalidate();
-    void utils.translations.overview.invalidate();
+  const refresh = async () => {
+    await Promise.all([
+      utils.translations.search.invalidate(),
+      utils.translations.overview.invalidate(),
+    ]);
+    utils.translations.entry.invalidate({ key: entryKey });
   };
   const save = api.translations.saveCustom.useMutation({
-    onSuccess: () => {
-      setDraft(null);
-      setNote(null);
-      refresh();
+    onSuccess: async () => {
+      await refresh();
+      onClose();
     },
   });
   const confirm = api.translations.confirmCustom.useMutation({
-    onSuccess: refresh,
-  });
-  const remove = api.translations.deleteCustom.useMutation({
-    onSuccess: () => {
-      setDraft(null);
-      setNote(null);
-      refresh();
+    onSuccess: async () => {
+      await refresh();
+      onClose();
     },
   });
+  const remove = api.translations.deleteCustom.useMutation({
+    onSuccess: async () => {
+      await refresh();
+      onClose();
+    },
+  });
+  const busy = save.isPending || confirm.isPending || remove.isPending;
   const data = entry.data;
   const latest = (language: 'en' | 'es') =>
     data?.versions.find((v) => v.language === language) ?? null;
@@ -132,9 +138,11 @@ const StringEditor = ({
     custom.baseEnValue !== null &&
     en !== null &&
     custom.baseEnValue !== en.value;
+  const error = save.error ?? confirm.error ?? remove.error;
 
+  if (!data) return <p className="p-4 text-(--faded) text-sm">Cargando…</p>;
   return (
-    <div className={`${panelGold} flex flex-col gap-4 p-5`}>
+    <div className="flex flex-col gap-4 p-4">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="font-mono text-(--gold-hi) text-sm">{entryKey}</p>
@@ -142,166 +150,185 @@ const StringEditor = ({
             <p className="text-(--faded) text-xs">{en.comment}</p>
           ) : null}
         </div>
-        <button className={btn.ghost} onClick={onClose} type="button">
+        <button
+          className={btn.ghost}
+          disabled={busy}
+          onClick={onClose}
+          type="button"
+        >
           Cerrar
         </button>
       </div>
-      {!data ? (
-        <p className="text-(--faded) text-sm">Cargando…</p>
-      ) : (
-        <>
-          <div className="grid gap-4 text-sm md:grid-cols-2">
-            <div className={`${panel} p-3`}>
-              <p className={label}>Original {en ? en.version : ''}</p>
-              <StrText className="text-(--parchment)" value={en?.value} />
-            </div>
-            <div className={`${panel} p-3`}>
-              <p className={label}>Español {es ? es.version : ''}</p>
-              <StrText className="text-(--parchment)" value={es?.value} />
-            </div>
+      <div className="grid gap-4 text-sm md:grid-cols-2">
+        <div className={`${panel} p-3`}>
+          <p className={label}>Original {en ? en.version : ''}</p>
+          <StrText
+            className="text-(--parchment) leading-relaxed"
+            value={en?.value}
+          />
+        </div>
+        <div className={`${panel} p-3`}>
+          <p className={label}>Español {es ? es.version : ''}</p>
+          <StrText
+            className="text-(--parchment) leading-relaxed"
+            value={es?.value}
+          />
+        </div>
+      </div>
+      {baselineChanged && custom?.baseEnValue && en ? (
+        <div className="rounded-lg border border-(--gold)/40 bg-(--gold)/6 p-3 text-sm">
+          <p className={label}>
+            El original ha cambiado desde que escribimos la nuestra
+          </p>
+          <p className="text-(--parchment) leading-relaxed">
+            <StrDiff
+              after={valueText(en.value) ?? en.value}
+              before={valueText(custom.baseEnValue) ?? custom.baseEnValue}
+            />
+          </p>
+          <button
+            className={`${btn.secondary} mt-3`}
+            disabled={busy}
+            onClick={() => confirm.mutate({ key: entryKey })}
+            type="button"
+          >
+            Sigue valiendo
+          </button>
+        </div>
+      ) : null}
+      {older.length > 0 ? (
+        <details className="text-sm">
+          <summary className="cursor-pointer text-(--faded)">
+            Otras versiones ({older.length})
+          </summary>
+          <ul className="mt-2 flex flex-col gap-1.5">
+            {older.map((v) => (
+              <li className="flex gap-3" key={v.fileId}>
+                <span className="w-20 shrink-0 font-mono text-(--faded) text-xs">
+                  {v.language} {v.version}
+                </span>
+                <StrText className="text-(--parchment)" value={v.value} />
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+      <div className="grid gap-4 md:grid-cols-2">
+        <div>
+          <label className={label} htmlFor={`custom-text-${entryKey}`}>
+            Nuestra cadena
+          </label>
+          <textarea
+            className={`${input} min-h-28 font-mono text-sm leading-relaxed disabled:opacity-60`}
+            disabled={busy}
+            id={`custom-text-${entryKey}`}
+            onChange={(e) => setDraft(e.target.value)}
+            value={editable}
+          />
+          <p className="mt-1 text-(--faded) text-xs">
+            Intro salta de línea (se guarda como \n). Pon &amp; delante de la
+            letra que sea tecla rápida, igual que en el original.
+          </p>
+          <label
+            className={`${label} mt-3`}
+            htmlFor={`custom-note-${entryKey}`}
+          >
+            Nota
+          </label>
+          <input
+            className={`${input} disabled:opacity-60`}
+            disabled={busy}
+            id={`custom-note-${entryKey}`}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Por qué la cambiamos"
+            value={noteValue}
+          />
+        </div>
+        <div>
+          <p className={label}>Así se verá</p>
+          <div
+            className={`${panel} min-h-28 p-3 text-(--parchment) text-sm leading-relaxed`}
+          >
+            <StrText text={ours} />
           </div>
-          {baselineChanged && custom?.baseEnValue && en ? (
-            <div className="rounded-lg border border-(--gold)/40 bg-(--gold)/6 p-3 text-sm">
-              <p className={label}>
-                El original ha cambiado desde que escribimos la nuestra
-              </p>
-              <p className="text-(--parchment)">
-                <StrDiff
-                  after={valueText(en.value) ?? en.value}
-                  before={valueText(custom.baseEnValue) ?? custom.baseEnValue}
-                />
-              </p>
-              <button
-                className={`${btn.secondary} mt-3`}
-                disabled={confirm.isPending}
-                onClick={() => confirm.mutate({ key: entryKey })}
-                type="button"
-              >
-                Sigue valiendo
-              </button>
-            </div>
+          {alerts.length > 0 ? (
+            <ul className="mt-2 flex flex-col gap-1 text-(--ember) text-xs">
+              {alerts.map((alert) => (
+                <li key={alert}>{alert}</li>
+              ))}
+            </ul>
           ) : null}
-          {older.length > 0 ? (
-            <details className="text-sm">
-              <summary className="cursor-pointer text-(--faded)">
-                Otras versiones ({older.length})
-              </summary>
-              <ul className="mt-2 flex flex-col gap-1.5">
-                {older.map((v) => (
-                  <li className="flex gap-3" key={v.fileId}>
-                    <span className="w-20 shrink-0 font-mono text-(--faded) text-xs">
-                      {v.language} {v.version}
-                    </span>
-                    <StrText className="text-(--parchment)" value={v.value} />
-                  </li>
-                ))}
-              </ul>
-            </details>
+          {custom ? (
+            <p className="mt-2 text-(--faded) text-xs">
+              Guardada el{' '}
+              {new Date(custom.updatedAt).toLocaleDateString('es-ES')}
+              {custom.updatedBy ? ` por ${custom.updatedBy}` : ''}
+              {custom.status === 'review' ? ' · en revisión' : ''}
+            </p>
           ) : null}
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <label className={label} htmlFor="custom-text">
-                Nuestra cadena
-              </label>
-              <textarea
-                className={`${input} min-h-28 font-mono text-sm leading-relaxed`}
-                id="custom-text"
-                onChange={(e) => setDraft(e.target.value)}
-                value={editable}
-              />
-              <p className="mt-1 text-(--faded) text-xs">
-                Intro salta de línea (se guarda como \n). El atajo se marca con
-                &amp; delante de la letra.
-              </p>
-              <label className={`${label} mt-3`} htmlFor="custom-note">
-                Nota
-              </label>
-              <input
-                className={input}
-                id="custom-note"
-                onChange={(e) => setNote(e.target.value)}
-                placeholder="Por qué la cambiamos"
-                value={noteValue}
-              />
-            </div>
-            <div>
-              <p className={label}>Así se verá</p>
-              <div
-                className={`${panel} min-h-28 p-3 text-(--parchment) text-sm`}
-              >
-                <StrText text={ours} />
-              </div>
-              {alerts.length > 0 ? (
-                <ul className="mt-2 flex flex-col gap-1 text-(--ember) text-xs">
-                  {alerts.map((alert) => (
-                    <li key={alert}>{alert}</li>
-                  ))}
-                </ul>
-              ) : null}
-              {custom ? (
-                <p className="mt-2 text-(--faded) text-xs">
-                  Guardada el{' '}
-                  {new Date(custom.updatedAt).toLocaleDateString('es-ES')}
-                  {custom.updatedBy ? ` por ${custom.updatedBy}` : ''}
-                  {custom.status === 'review' ? ' · en revisión' : ''}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          {save.error ? (
-            <p className="text-(--ember) text-sm">{save.error.message}</p>
-          ) : null}
-          <div className="flex flex-wrap gap-2">
-            <button
-              className={btn.primary}
-              disabled={save.isPending || ours.includes('"')}
-              onClick={() =>
-                save.mutate({ key: entryKey, value: ours, note: noteValue })
-              }
-              type="button"
-            >
-              {custom ? 'Guardar cambios' : 'Guardar cadena propia'}
-            </button>
-            {custom ? (
-              <button
-                className={btn.danger}
-                disabled={remove.isPending}
-                onClick={() => remove.mutate({ key: entryKey })}
-                type="button"
-              >
-                Quitar la nuestra
-              </button>
-            ) : null}
-          </div>
-        </>
-      )}
+        </div>
+      </div>
+      {error ? <p className="text-(--ember) text-sm">{error.message}</p> : null}
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          className={btn.primary}
+          disabled={busy || ours.includes('"')}
+          onClick={() =>
+            save.mutate({ key: entryKey, value: ours, note: noteValue })
+          }
+          type="button"
+        >
+          {save.isPending
+            ? 'Guardando…'
+            : custom
+              ? 'Guardar cambios'
+              : 'Guardar cadena propia'}
+        </button>
+        {custom ? (
+          <button
+            className={btn.danger}
+            disabled={busy}
+            onClick={() => remove.mutate({ key: entryKey })}
+            type="button"
+          >
+            {remove.isPending ? 'Quitando…' : 'Quitar la nuestra'}
+          </button>
+        ) : null}
+        <button
+          className={btn.ghost}
+          disabled={busy}
+          onClick={onClose}
+          type="button"
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
   );
 };
 
-/** Search, filters, the paged table and the editor for the picked key. */
+/** Search, filters and the paged table; a click unfolds the row's editor. */
 const StringBrowser = () => {
   const params = useSearchParams();
   const router = useRouter();
-  const [q, setQ] = useState(params.get('q') ?? '');
+  const linkedKey = params.get('key');
+  // A key in the URL (from Comparar) is searched for, so its row is on screen.
+  const [q, setQ] = useState(params.get('q') ?? linkedKey ?? '');
   const [category, setCategory] = useState('');
   const [mode, setMode] = useState<Mode>(
     (params.get('mode') as Mode | null) ?? 'all',
   );
   const [page, setPage] = useState(0);
-  const [selected, setSelected] = useState<string | null>(params.get('key'));
+  const [open, setOpen] = useState<string | null>(linkedKey);
   const debouncedQ = useDebounced(q);
   const categories = api.translations.categories.useQuery();
   const search = api.translations.search.useQuery(
     { q: debouncedQ, category, mode, page },
     { placeholderData: (previous) => previous },
   );
-  const pick = (key: string | null) => {
-    setSelected(key);
-    const next = new URLSearchParams(params.toString());
-    if (key) next.set('key', key);
-    else next.delete('key');
-    router.replace(`/translations${next.size > 0 ? `?${next}` : ''}`);
+  const toggle = (key: string) => {
+    setOpen((current) => (current === key ? null : key));
+    if (linkedKey) router.replace('/translations');
   };
   const data = search.data;
   const total = data?.total ?? 0;
@@ -310,9 +337,6 @@ const StringBrowser = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      {selected ? (
-        <StringEditor entryKey={selected} onClose={() => pick(null)} />
-      ) : null}
       <div className="flex flex-wrap items-end gap-3">
         <div className="min-w-60 grow">
           <label className={label} htmlFor="str-search">
@@ -387,43 +411,59 @@ const StringBrowser = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.rows.map((row) => (
-                <tr
-                  className={`cursor-pointer transition-colors hover:bg-(--gold)/6 ${
-                    row.key === selected ? 'bg-(--gold)/10' : ''
-                  }`}
-                  key={row.key}
-                  onClick={() => pick(row.key)}
-                >
-                  <td
-                    className={`${td} max-w-64 break-all font-mono text-(--gold-hi) text-xs`}
+              {data?.rows.map((row) => {
+                const isOpen = row.key === open;
+                return [
+                  <tr
+                    className={`cursor-pointer transition-colors hover:bg-(--gold)/6 ${
+                      isOpen ? 'bg-(--gold)/10' : ''
+                    }`}
+                    key={row.key}
+                    onClick={() => toggle(row.key)}
                   >
-                    {row.key}
-                  </td>
-                  <td className={`${td} max-w-80 text-(--parchment)`}>
-                    <StrText value={row.en} />
-                  </td>
-                  <td className={`${td} max-w-80 text-(--parchment)`}>
-                    <StrText value={row.es} />
-                  </td>
-                  <td className={`${td} max-w-80 text-(--parchment)`}>
-                    {row.custom !== null ? (
-                      <>
-                        <StrText text={row.custom} />
-                        {row.status === 'review' ? (
-                          <span
-                            className={`${tag} ml-2 border-(--ember)/60 text-(--ember)`}
-                          >
-                            revisar
-                          </span>
-                        ) : null}
-                      </>
-                    ) : (
-                      <span className="text-(--faded)/60">—</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    <td
+                      className={`${td} max-w-64 break-all font-mono text-(--gold-hi) text-xs`}
+                    >
+                      {row.key}
+                    </td>
+                    <td className={`${td} max-w-80 text-(--parchment)`}>
+                      <StrText value={row.en} />
+                    </td>
+                    <td className={`${td} max-w-80 text-(--parchment)`}>
+                      <StrText value={row.es} />
+                    </td>
+                    <td className={`${td} max-w-80 text-(--parchment)`}>
+                      {row.custom !== null ? (
+                        <>
+                          <StrText text={row.custom} />
+                          {row.status === 'review' ? (
+                            <span
+                              className={`${tag} ml-2 border-(--ember)/60 text-(--ember)`}
+                            >
+                              revisar
+                            </span>
+                          ) : null}
+                        </>
+                      ) : (
+                        <span className="text-(--faded)/60">—</span>
+                      )}
+                    </td>
+                  </tr>,
+                  isOpen ? (
+                    <tr key={`${row.key}-editor`}>
+                      <td
+                        className="border-(--hair-gold) border-b bg-(--night-2)/60 p-0"
+                        colSpan={4}
+                      >
+                        <InlineEditor
+                          entryKey={row.key}
+                          onClose={() => setOpen(null)}
+                        />
+                      </td>
+                    </tr>
+                  ) : null,
+                ];
+              })}
             </tbody>
           </table>
           <div className="mt-3 flex items-center justify-between text-(--faded) text-xs">
