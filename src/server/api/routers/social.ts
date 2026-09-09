@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, desc, eq, sql } from 'drizzle-orm';
 import { z } from 'zod';
-
+import { isAdmin } from '@/lib/roles';
 import { cardSpecFor } from '@/lib/tournament/card-lore';
 import { archiveProcedure } from '@/server/api/archive-procedure';
 import { createTRPCRouter, type TRPCContext } from '@/server/api/trpc';
@@ -131,8 +131,10 @@ const loadOwnComment = async (
   if (!row) {
     throw new TRPCError({ code: 'NOT_FOUND' });
   }
-  const isAdmin = ctx.session.user.role === 'admin';
-  if (row.userId !== ctx.session.user.id && !(adminMayToo && isAdmin)) {
+  if (
+    row.userId !== ctx.session.user.id &&
+    !(adminMayToo && isAdmin(ctx.session.user))
+  ) {
     throw new TRPCError({ code: 'FORBIDDEN' });
   }
   return row;

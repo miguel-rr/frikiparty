@@ -1,7 +1,7 @@
 import { setTimeout as sleep } from 'node:timers/promises';
 
 import { z } from 'zod';
-
+import { isAdmin } from '@/lib/roles';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { settleAuctionTimers } from '@/server/live/formation';
 import {
@@ -28,14 +28,14 @@ const liveRouter = createTRPCRouter({
     .input(z.object({ tournamentId: z.string().uuid() }))
     .query(({ ctx, input }) =>
       getLiveState(ctx.db, input.tournamentId, {
-        privileged: ctx.session?.user.role === 'admin',
+        privileged: isAdmin(ctx.session?.user),
       }),
     ),
 
   onChange: publicProcedure
     .input(z.object({ tournamentId: z.string().uuid() }))
     .subscription(async function* ({ ctx, input, signal }) {
-      const options = { privileged: ctx.session?.user.role === 'admin' };
+      const options = { privileged: isAdmin(ctx.session?.user) };
       let state = await getLiveState(ctx.db, input.tournamentId, options);
       if (!state) return;
       yield state;

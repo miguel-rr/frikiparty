@@ -8,11 +8,10 @@ const user = pgTable('user', {
     .$defaultFn(() => false)
     .notNull(),
   image: text('image'),
-  // 'editor' may upload media without being linked to a player; admins can do everything.
-  role: text('role')
-    .notNull()
-    .default('user')
-    .$type<'user' | 'editor' | 'admin'>(),
+  // Comma-separated roles ('editor,translator'), 'user' when none; read
+  // through src/lib/roles.ts. Editors upload media without a player,
+  // translators keep the lotr.str, admins can do everything.
+  role: text('role').notNull().default('user'),
   // Required by better-auth's admin plugin (bans are never used here, but
   // the plugin reads the columns); impersonation lives on `session`.
   banned: boolean('banned').default(false),

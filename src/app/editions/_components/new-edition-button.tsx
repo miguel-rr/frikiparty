@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { btn, input, label, panelGold } from '@/components/theme/primitives';
+import { isAdmin } from '@/lib/roles';
 import { api } from '@/trpc/react';
 
 /**
@@ -26,7 +27,7 @@ const NewEditionButton = () => {
     onSuccess: ({ slug }) => router.push(`/editions/${slug}`),
   });
 
-  if (user?.role !== 'admin') {
+  if (!isAdmin(user)) {
     return null;
   }
   if (!open) {

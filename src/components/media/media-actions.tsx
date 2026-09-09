@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { btn, input, label } from '@/components/theme/primitives';
+import { canModerate, isAdmin } from '@/lib/roles';
 import type { MediaItem } from '@/server/api/routers/media-queries';
 import { api } from '@/trpc/react';
 
@@ -46,11 +47,11 @@ const MediaActions = ({
   const [confirming, setConfirming] = useState(false);
 
   const utils = api.useUtils();
-  const isAdmin = user?.role === 'admin';
+  const admin = isAdmin(user);
   // Admins and editors edit anything; everyone else only what they uploaded.
-  const canModerate = isAdmin || user?.role === 'editor';
+  const moderator = canModerate(user);
   const canEdit =
-    user !== undefined && (canModerate || user.id === item.uploadedByUserId);
+    user !== undefined && (moderator || user.id === item.uploadedByUserId);
 
   // Galleries are client queries and /archive pages are dynamic: refresh both.
   const refresh = () => {
@@ -76,7 +77,7 @@ const MediaActions = ({
   if (editing) {
     return (
       <MediaEditor
-        canModerate={canModerate}
+        canModerate={moderator}
         item={item}
         onDone={() => {
           if (doneHref) {
@@ -94,7 +95,7 @@ const MediaActions = ({
       <button className={quiet} onClick={() => setEditing(true)} type="button">
         Editar
       </button>
-      {isAdmin && item.type === 'video' ? (
+      {admin && item.type === 'video' ? (
         <button
           className={quiet}
           disabled={reprocess.isPending || item.playbackStatus === 'converting'}

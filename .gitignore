@@ -55,3 +55,7 @@ CLAUDE.md.bak
 !/.audio/README.md
 /.wiki-images/*
 !/.wiki-images/README.md
+
+# lotr.str samples for the translations tests (uploaded through the site, not committed)
+/.str-samples/*
+!/.str-samples/README.md

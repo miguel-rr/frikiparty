@@ -16,6 +16,7 @@ import {
   swissRecords,
 } from '@/lib/live/progression';
 import { teamLabel, teamRoster } from '@/lib/live/team-label';
+import { isAdmin } from '@/lib/roles';
 import type { LivePhase } from '@/server/live/phases';
 import type { LiveState } from '@/server/live/state';
 import { api } from '@/trpc/react';
@@ -196,7 +197,7 @@ const PhaseAdmin = ({
   phase: LivePhase;
 }) => {
   const { user } = useSessionUser();
-  if (user?.role !== 'admin') return null;
+  if (!isAdmin(user)) return null;
   const ties = phase.type === 'group' ? openTies(state, phase) : [];
   const allPlayed =
     phase.matches.length > 0 &&

@@ -11,6 +11,7 @@ import {
   PlayerBlazon,
   panelGold,
 } from '@/components/theme/primitives';
+import { isAdmin } from '@/lib/roles';
 import type {
   ConfirmedPlayer,
   getEditionDetail,
@@ -63,7 +64,7 @@ const EditionEditor = ({ edition }: { edition: EditionDetail }) => {
   const [editing, setEditing] = useState(false);
   const players = api.player.list.useQuery(undefined, { enabled: editing });
 
-  if (user?.role !== 'admin') {
+  if (!isAdmin(user)) {
     return null;
   }
   if (!editing) {

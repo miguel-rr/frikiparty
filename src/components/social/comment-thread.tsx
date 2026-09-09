@@ -16,6 +16,7 @@ import {
 } from '@/components/social/mention-composer';
 import type { SocialTarget } from '@/components/social/target';
 import { btn } from '@/components/theme/primitives';
+import { isAdmin } from '@/lib/roles';
 import { parseBody } from '@/lib/social/mentions';
 import { api } from '@/trpc/react';
 
@@ -164,7 +165,7 @@ const CommentThread = ({ target }: { target: SocialTarget }) => {
     },
   });
 
-  const isAdmin = user?.role === 'admin';
+  const admin = isAdmin(user);
   const comments = thread.data ?? [];
   const mentionable = players.data ?? [];
 
@@ -216,7 +217,7 @@ const CommentThread = ({ target }: { target: SocialTarget }) => {
                   ) : (
                     <CommentBody body={item.body} />
                   )}
-                  {editingId !== item.id && (mine || isAdmin) ? (
+                  {editingId !== item.id && (mine || admin) ? (
                     <div className="-ml-2 flex flex-wrap items-center gap-1">
                       {mine ? (
                         <button

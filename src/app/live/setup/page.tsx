@@ -5,6 +5,7 @@ import { SiteShell } from '@/components/layout/site-shell';
 import { SetupWizard } from '@/components/live/setup/setup-wizard';
 import { Section, SectionHeader } from '@/components/theme/primitives';
 import { env } from '@/env';
+import { isAdmin } from '@/lib/roles';
 import { getNextEdition } from '@/server/api/routers/edition';
 import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
@@ -18,7 +19,7 @@ export const dynamic = 'force-dynamic';
 /** The organiser's desk. Non-admins get a 404, like the other admin pages. */
 const LiveSetupPage = async () => {
   const session = await getSession();
-  if (session?.user.role !== 'admin') {
+  if (!session || !isAdmin(session.user)) {
     notFound();
   }
   const [nextEdition, current] = await Promise.all([

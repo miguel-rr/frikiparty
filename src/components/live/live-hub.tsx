@@ -26,6 +26,7 @@ import { TeamsReveal } from '@/components/live/teams-reveal';
 import { VotingStatus } from '@/components/live/voting-status';
 import { btn, panel, panelGold, tag } from '@/components/theme/primitives';
 import { STAGE_META } from '@/lib/live/stages';
+import { isAdmin } from '@/lib/roles';
 import { stageIndex } from '@/lib/tournament/stages';
 import { describeTeamsLayout } from '@/lib/tournament/teams-layout';
 import type { LiveState } from '@/server/live/state';
@@ -44,7 +45,7 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
     { onData: setState },
   );
   const { user } = useSessionUser();
-  const isAdmin = user?.role === 'admin';
+  const admin = isAdmin(user);
   const meta = STAGE_META[state.stage];
   const playersPerTeam = state.teamSize ?? 1;
   const linkedCount = state.participants.filter((p) => p.hasAccount).length;
@@ -76,7 +77,7 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
           {meta.title}
         </h2>
         <p className="max-w-[52ch] text-(--faded)">{meta.next}</p>
-        {isAdmin ? (
+        {admin ? (
           <Link className={btn.outline} href="/live/setup">
             Gestionar el torneo
           </Link>
@@ -215,7 +216,7 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
                 >
                   {participant.name}
                 </Link>
-                {isAdmin && !participant.hasAccount ? (
+                {admin && !participant.hasAccount ? (
                   <span
                     className="size-1.5 shrink-0 rounded-full bg-(--ember)"
                     title="Sin cuenta vinculada"
@@ -224,7 +225,7 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
               </li>
             ))}
           </ol>
-          {isAdmin ? (
+          {admin ? (
             <p className="text-(--faded) text-xs">
               {linkedCount} de {state.participants.length} con cuenta vinculada.
               {linkedCount < state.participants.length

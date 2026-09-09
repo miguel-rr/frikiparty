@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { env } from '@/env';
 import { generateLinkCode, normalizeLinkCode } from '@/lib/link-code';
+import { isAdmin, joinRoles } from '@/lib/roles';
 import { firstFreeSlug, rememberSlug } from '@/lib/slug';
 import {
   competitionPositions,
@@ -168,7 +169,7 @@ const canEditPlayer = (
   playerUserId: string | null,
 ) =>
   sessionUser !== undefined &&
-  (sessionUser.role === 'admin' || sessionUser.id === playerUserId);
+  (isAdmin(sessionUser) || sessionUser.id === playerUserId);
 
 /**
  * A player's public profile. Pure query (no session) so the page can be
@@ -531,18 +532,21 @@ const playerRouter = createTRPCRouter({
     }),
 
   /**
-   * Admin: change an account's role. Admins can't demote themselves, so
+   * Admin: set an account's roles (several may combine). Admins can't demote themselves, so
    * the site can never end up without one.
    */
   setUserRole: adminProcedure
     .input(
       z.object({
         userId: z.string().min(1),
-        role: z.enum(['user', 'editor', 'admin']),
+        roles: z.array(z.enum(['editor', 'translator', 'admin'])),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      if (input.userId === ctx.session.user.id && input.role !== 'admin') {
+      if (
+        input.userId === ctx.session.user.id &&
+        !input.roles.includes('admin')
+      ) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'No puedes quitarte el rol de admin a ti mismo.',
@@ -550,7 +554,7 @@ const playerRouter = createTRPCRouter({
       }
       const [updated] = await ctx.db
         .update(user)
-        .set({ role: input.role })
+        .set({ role: joinRoles(input.roles) })
         .where(eq(user.id, input.userId))
         .returning({ id: user.id, role: user.role });
       if (!updated) {

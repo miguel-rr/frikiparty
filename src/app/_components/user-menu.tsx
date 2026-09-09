@@ -6,6 +6,7 @@ import { type FormEvent, useEffect, useRef, useState } from 'react';
 
 import { btn, input, label } from '@/components/theme/primitives';
 import { ASPIRANTS_ANCHOR } from '@/lib/council';
+import { canModerate, canTranslate, isAdmin } from '@/lib/roles';
 import { authClient } from '@/server/better-auth/client';
 import { api } from '@/trpc/react';
 
@@ -211,7 +212,7 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
               ) : null}
               {/* The library, for whoever may enter it: a claimed player,
                   an editor, an admin. */}
-              {role === 'admin' || role === 'editor' || mine.data ? (
+              {canModerate({ role }) || mine.data ? (
                 <Link
                   className={item}
                   href="/archive"
@@ -221,7 +222,7 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   Los Archivos
                 </Link>
               ) : null}
-              {role === 'admin' ? (
+              {isAdmin({ role }) ? (
                 <Link
                   className={item}
                   href="/admin/players"
@@ -231,7 +232,7 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   Jugadores
                 </Link>
               ) : null}
-              {role === 'admin' ? (
+              {isAdmin({ role }) ? (
                 <Link
                   className={item}
                   href="/admin/games"
@@ -239,6 +240,16 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   role="menuitem"
                 >
                   Juegos
+                </Link>
+              ) : null}
+              {canTranslate({ role }) ? (
+                <Link
+                  className={item}
+                  href="/translations"
+                  onClick={() => setOpen(false)}
+                  role="menuitem"
+                >
+                  Traducciones
                 </Link>
               ) : null}
               <button

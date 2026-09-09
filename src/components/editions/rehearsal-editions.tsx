@@ -2,6 +2,7 @@
 
 import { EditionList } from '@/components/editions/edition-list';
 import { useSessionUser } from '@/components/layout/auth-slot';
+import { isAdmin } from '@/lib/roles';
 import type { EditionView } from '@/lib/tournament/edition-view';
 
 /**
@@ -10,7 +11,7 @@ import type { EditionView } from '@/lib/tournament/edition-view';
  */
 const RehearsalEditions = ({ editions }: { editions: EditionView[] }) => {
   const { user } = useSessionUser();
-  if (user?.role !== 'admin' || editions.length === 0) return null;
+  if (!isAdmin(user) || editions.length === 0) return null;
   return (
     <div className="flex flex-col gap-4 pt-6">
       <div className="flex flex-col gap-1">

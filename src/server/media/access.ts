@@ -1,3 +1,4 @@
+import { canModerate, isAdmin } from '@/lib/roles';
 import { getPlayerForUser } from '@/server/api/routers/player';
 import type { TRPCContext } from '@/server/api/trpc';
 
@@ -30,13 +31,13 @@ const resolveArchiveAccess = async (
       playerId: null,
     };
   }
-  const isAdmin = user.role === 'admin';
-  const canModerate = isAdmin || user.role === 'editor';
+  const admin = isAdmin(user);
+  const moderator = canModerate(user);
   const linked = await getPlayerForUser(db, user.id);
   return {
-    allowed: canModerate || linked !== null,
-    isAdmin,
-    canModerate,
+    allowed: moderator || linked !== null,
+    isAdmin: admin,
+    canModerate: moderator,
     playerId: linked?.id ?? null,
   };
 };

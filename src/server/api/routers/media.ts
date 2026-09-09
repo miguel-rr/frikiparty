@@ -4,6 +4,7 @@ import { after } from 'next/server';
 import sharp from 'sharp';
 import { z } from 'zod';
 import { isPdf, PDF_MIME, PPTX_MIME } from '@/lib/media/documents';
+import { canModerate } from '@/lib/roles';
 import { archiveProcedure } from '@/server/api/archive-procedure';
 import { listEditions } from '@/server/api/routers/edition';
 import {
@@ -194,12 +195,13 @@ const loadEditable = async (
   if (!row) {
     throw new TRPCError({ code: 'NOT_FOUND' });
   }
-  const { role } = ctx.session.user;
-  const canModerate = role === 'admin' || role === 'editor';
-  if (!canModerate && row.uploadedByUserId !== ctx.session.user.id) {
+  if (
+    !canModerate(ctx.session.user) &&
+    row.uploadedByUserId !== ctx.session.user.id
+  ) {
     throw new TRPCError({ code: 'FORBIDDEN' });
   }
-  return { row, canModerate };
+  return { row, canModerate: canModerate(ctx.session.user) };
 };
 
 const mediaRouter = createTRPCRouter({
@@ -493,9 +495,11 @@ const mediaRouter = createTRPCRouter({
         })
         .from(media)
         .where(inArray(media.id, ids));
-      const { role, id: userId } = ctx.session.user;
-      const canModerate = role === 'admin' || role === 'editor';
-      if (!canModerate && rows.some((row) => row.uploadedByUserId !== userId)) {
+      const { id: userId } = ctx.session.user;
+      if (
+        !canModerate(ctx.session.user) &&
+        rows.some((row) => row.uploadedByUserId !== userId)
+      ) {
         throw new TRPCError({
           code: 'FORBIDDEN',
           message: 'Solo puedes eliminar lo que subiste tú.',

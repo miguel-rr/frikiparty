@@ -1,7 +1,7 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
-
+import { canTranslate, isAdmin } from '@/lib/roles';
 import { auth } from '@/server/better-auth';
 import { db } from '@/server/db';
 
@@ -77,7 +77,15 @@ const protectedProcedure = t.procedure
 
 // Verifies the session and requires an admin role.
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.session.user.role !== 'admin') {
+  if (!isAdmin(ctx.session.user)) {
+    throw new TRPCError({ code: 'FORBIDDEN' });
+  }
+  return next();
+});
+
+// Verifies the session and requires the translator role (admins always pass).
+const translatorProcedure = protectedProcedure.use(({ ctx, next }) => {
+  if (!canTranslate(ctx.session.user)) {
     throw new TRPCError({ code: 'FORBIDDEN' });
   }
   return next();
@@ -91,4 +99,5 @@ export {
   protectedProcedure,
   publicProcedure,
   type TRPCContext,
+  translatorProcedure,
 };

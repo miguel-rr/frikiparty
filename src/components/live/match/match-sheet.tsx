@@ -12,6 +12,7 @@ import { btn, panelGold, tag } from '@/components/theme/primitives';
 import { gamesToWinFor } from '@/lib/live/games-to-win';
 import { matchScore } from '@/lib/live/match-score';
 import { teamLabel, teamRoster } from '@/lib/live/team-label';
+import { isAdmin } from '@/lib/roles';
 import type { LiveMatch, LivePhase } from '@/server/live/phases';
 import type { LiveState } from '@/server/live/state';
 import { api } from '@/trpc/react';
@@ -59,7 +60,7 @@ const MatchSheet = ({
   const viewer: Viewer = {
     userId: user?.id ?? null,
     playerId: mine.data?.id ?? null,
-    isAdmin: user?.role === 'admin',
+    isAdmin: isAdmin(user),
     captainOf:
       myTeam &&
       mine.data &&

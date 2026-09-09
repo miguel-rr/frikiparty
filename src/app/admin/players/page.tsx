@@ -18,6 +18,7 @@ import {
 } from '@/components/theme/primitives';
 import { env } from '@/env';
 import { formatLinkCode } from '@/lib/link-code';
+import { isAdmin } from '@/lib/roles';
 import {
   listPlayersForAdmin,
   listUnlinkedUsers,
@@ -37,7 +38,7 @@ export const dynamic = 'force-dynamic';
  */
 const AdminPlayersPage = async () => {
   const session = await getSession();
-  if (session?.user.role !== 'admin') {
+  if (!session || !isAdmin(session.user)) {
     notFound();
   }
   const selfId = session.user.id;

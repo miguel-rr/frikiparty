@@ -26,6 +26,7 @@ import {
   DEFAULT_VIEW,
   type GalleryView,
 } from '@/lib/media/gallery-view';
+import { canModerate } from '@/lib/roles';
 import type { MediaItem } from '@/server/api/routers/media-queries';
 import { api } from '@/trpc/react';
 
@@ -67,9 +68,9 @@ const ArchiveSection = ({
   const [mode, setMode] = useState<Mode>('gallery');
   const utils = api.useUtils();
   // Admins and editors may remove anything; everyone else their own uploads.
-  const canModerate = user?.role === 'admin' || user?.role === 'editor';
+  const moderator = canModerate(user);
   const canRemove = (item: MediaItem) =>
-    canModerate || (user !== undefined && item.uploadedByUserId === user.id);
+    moderator || (user !== undefined && item.uploadedByUserId === user.id);
   const items = useMemo(() => gallery.data ?? [], [gallery.data]);
   const visible = useMemo(() => applyGalleryView(items, view), [items, view]);
   const counts = useMemo(

@@ -13,6 +13,7 @@ import {
 import { btn, input, label } from '@/components/theme/primitives';
 import type { CardSpec } from '@/components/tournament/hearth-card';
 import { PortraitCard } from '@/components/tournament/portrait-card';
+import { isAdmin } from '@/lib/roles';
 import {
   cardSpecFor,
   PORTRAIT_OPTIONS,
@@ -67,8 +68,7 @@ const PlayerProfile = ({
     enabled: user !== undefined,
     staleTime: 5 * 60 * 1000,
   });
-  const canEdit =
-    user !== undefined && (user.role === 'admin' || mine.data?.id === id);
+  const canEdit = user !== undefined && (isAdmin(user) || mine.data?.id === id);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio ?? '');

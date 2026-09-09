@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { openTies, phaseIsComplete } from '@/lib/live/progression';
+import { canModerate, isAdmin } from '@/lib/roles';
 import { roundRobinSchedule } from '@/lib/tournament/phase-engine';
 import { playerProcedure } from '@/server/api/player-procedure';
 import { generatePhase } from '@/server/api/routers/phases';
@@ -145,7 +146,7 @@ const matchRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const state = await loadState(ctx.db, input.tournamentId);
       const located = locate(state, input.matchId);
-      if (ctx.session.user.role !== 'admin') {
+      if (!isAdmin(ctx.session.user)) {
         const player = await getPlayerForUser(ctx.db, ctx.session.user.id);
         if (!player) throw new TRPCError({ code: 'FORBIDDEN' });
         captainSide(state, located.match, player.id);
@@ -543,7 +544,7 @@ const matchRouter = createTRPCRouter({
       if (!row) throw new TRPCError({ code: 'NOT_FOUND' });
       if (
         row.uploadedByUserId !== ctx.session.user.id &&
-        ctx.session.user.role !== 'admin'
+        !isAdmin(ctx.session.user)
       )
         throw new TRPCError({ code: 'FORBIDDEN' });
       await runTournamentTx(
@@ -581,8 +582,7 @@ const assertMayUpload = async (
   state: LiveState,
   m: LiveState['phases'][number]['matches'][number],
 ) => {
-  if (ctx.session.user.role === 'admin' || ctx.session.user.role === 'editor')
-    return;
+  if (canModerate(ctx.session.user)) return;
   const player = await getPlayerForUser(ctx.db, ctx.session.user.id);
   const team = player
     ? state.teams.find((t) => t.members.some((mm) => mm.playerId === player.id))

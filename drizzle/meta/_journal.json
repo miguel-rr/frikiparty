@@ -183,6 +183,13 @@
       "when": 1788636091089,
       "tag": "0025_sturdy_talisman",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1788963354211,
+      "tag": "0026_last_iron_patriot",
+      "breakpoints": true
     }
   ]
 }
