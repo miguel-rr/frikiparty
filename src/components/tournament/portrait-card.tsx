@@ -40,7 +40,7 @@ const StatNumber = ({
   y,
 }: {
   size?: number;
-  value: number;
+  value: number | string;
   x: number;
   y: number;
 }) => (
@@ -68,6 +68,8 @@ const PortraitCard = ({
   // Easter egg: tapping either bottom gem rerolls it to a random value.
   const [attackShown, setAttackShown] = useState<number | null>(null);
   const [healthShown, setHealthShown] = useState<number | null>(null);
+  // The mystery guest keeps "?" on both gems, and taps change nothing.
+  const hiddenStats = card.hiddenStats === true;
   const reroll = (current: number) => {
     let next = current;
     while (next === current) {
@@ -75,17 +77,27 @@ const PortraitCard = ({
     }
     return next;
   };
+  const rerollAttack = () => {
+    if (!hiddenStats) {
+      setAttackShown((value) => reroll(value ?? card.attack));
+    }
+  };
+  const rerollHealth = () => {
+    if (!hiddenStats) {
+      setHealthShown((value) => reroll(value ?? card.health));
+    }
+  };
 
   // Fate deals fresh stats on every visit — client-side after hydration,
   // so the statically built page (and its HTML) never changes.
   const pinnedStats = card.pinnedStats === true;
   useEffect(() => {
-    if (pinnedStats) {
+    if (pinnedStats || hiddenStats) {
       return;
     }
     setAttackShown(1 + Math.floor(Math.random() * 9));
     setHealthShown(1 + Math.floor(Math.random() * 9));
-  }, [pinnedStats]);
+  }, [pinnedStats, hiddenStats]);
 
   const race = raceForPlayer(card.name);
   const scene = SCENES[race];
@@ -341,18 +353,18 @@ const PortraitCard = ({
       {/* Attack / stamina gems — tap one and fate rerolls it */}
       {/* biome-ignore lint/a11y/useSemanticElements: SVG has no button element */}
       <g
-        className="cursor-pointer focus:outline-none"
+        className={`focus:outline-none ${hiddenStats ? '' : 'cursor-pointer'}`}
         onClick={(event) => {
           // The card may live inside a link; a reroll is not a navigation.
           event.preventDefault();
           event.stopPropagation();
-          setAttackShown((value) => reroll(value ?? card.attack));
+          rerollAttack();
         }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             event.stopPropagation();
-            setAttackShown((value) => reroll(value ?? card.attack));
+            rerollAttack();
           }
         }}
         role="button"
@@ -366,22 +378,26 @@ const PortraitCard = ({
           stroke="#0d0a05"
           strokeWidth="2.5"
         />
-        <StatNumber value={attackShown ?? card.attack} x={32} y={334} />
+        <StatNumber
+          value={hiddenStats ? '?' : (attackShown ?? card.attack)}
+          x={32}
+          y={334}
+        />
       </g>
       {/* biome-ignore lint/a11y/useSemanticElements: SVG has no button element */}
       <g
-        className="cursor-pointer focus:outline-none"
+        className={`focus:outline-none ${hiddenStats ? '' : 'cursor-pointer'}`}
         onClick={(event) => {
           // The card may live inside a link; a reroll is not a navigation.
           event.preventDefault();
           event.stopPropagation();
-          setHealthShown((value) => reroll(value ?? card.health));
+          rerollHealth();
         }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             event.stopPropagation();
-            setHealthShown((value) => reroll(value ?? card.health));
+            rerollHealth();
           }
         }}
         role="button"
@@ -395,7 +411,11 @@ const PortraitCard = ({
           stroke="#0d0a05"
           strokeWidth="2.5"
         />
-        <StatNumber value={healthShown ?? card.health} x={218} y={334} />
+        <StatNumber
+          value={hiddenStats ? '?' : (healthShown ?? card.health)}
+          x={218}
+          y={334}
+        />
       </g>
     </svg>
   );

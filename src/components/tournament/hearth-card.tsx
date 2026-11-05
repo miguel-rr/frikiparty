@@ -15,6 +15,8 @@ type CardSpec = {
   health: number;
   /** True for the ranking leader: the initial 9/9 never randomizes. */
   pinnedStats?: boolean;
+  /** The mystery guest: both gems show "?" and taps reroll nothing. */
+  hiddenStats?: boolean;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   ability?: string;
   text: string;

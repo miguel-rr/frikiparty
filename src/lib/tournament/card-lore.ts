@@ -49,6 +49,9 @@ const PORTRAITS_BY_RACE: Record<Race, string[]> = {
 
 const FALLBACK_PORTRAIT_KEY = 'huntsman';
 
+/** The secret guest's placeholder name: its card hides its stats until the reveal. */
+const MYSTERY_PLAYER_NAME = '?????';
+
 /** Curated defaults for the faces everyone knows; a DB choice overrides, the rest hash into their race pool. */
 const PLAYER_PORTRAITS: Record<string, string> = {
   Cañete: 'dwarf',
@@ -138,6 +141,7 @@ const cardSpecFor = (identity: CardIdentity): CardSpec => {
     attack: identity.isLeader ? 9 : 3 + (hash % 7),
     health: identity.isLeader ? 9 : 3 + (Math.floor(hash / 7) % 7),
     pinnedStats: identity.isLeader === true,
+    hiddenStats: name === MYSTERY_PLAYER_NAME,
     rarity: rarityFor(rings + individualRings),
     ability: identity.cardAbility ?? undefined,
     text: identity.cardAbilityText ?? GENERIC_TEXT[race],
