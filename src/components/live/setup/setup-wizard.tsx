@@ -18,6 +18,7 @@ import {
   panelGold,
   tag,
 } from '@/components/theme/primitives';
+import { formatDateRange } from '@/lib/dates';
 import { STAGE_META } from '@/lib/live/stages';
 import {
   TOURNAMENT_STAGES,
@@ -26,7 +27,49 @@ import {
 import { describeTeamsLayout } from '@/lib/tournament/teams-layout';
 import { api } from '@/trpc/react';
 
-type NextEdition = { id: string; year: number };
+type NextEdition = {
+  id: string;
+  year: number;
+  slug: string;
+  startsAt: string | null;
+  endsAt: string | null;
+  venueName: string | null;
+};
+
+/**
+ * Which edition the tournament belongs to, said out loud: the one being
+ * prepared is always the next edition on the calendar, and there is no
+ * choosing, so the desk states it before anything else.
+ */
+const EditionBanner = ({ edition }: { edition: NextEdition }) => (
+  <section
+    className={`${panelGold} flex flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 py-4 sm:px-7`}
+  >
+    <div className="flex flex-col gap-1">
+      <span className="font-bold font-mono text-(--gold) text-2xs uppercase tracking-2xl">
+        Torneo de la edición
+      </span>
+      <span className="d-display d-gold-text font-black text-3xl uppercase tracking-wide">
+        {edition.year}
+      </span>
+      <span className="font-mono text-(--faded) text-xs uppercase tracking-2xl">
+        {edition.startsAt && edition.endsAt
+          ? formatDateRange(edition.startsAt, edition.endsAt)
+          : 'Sin fechas'}
+        {edition.venueName ? ` · ${edition.venueName}` : ''}
+      </span>
+    </div>
+    <div className="flex flex-col items-end gap-2">
+      <Link className={btn.outline} href={`/editions/${edition.slug}`}>
+        Ver la edición
+      </Link>
+      <span className="max-w-[34ch] text-right text-(--faded) text-xs">
+        La próxima del calendario, sin contar ensayos. Para otra edición, cambia
+        sus fechas en la crónica.
+      </span>
+    </div>
+  </section>
+);
 
 const select =
   'w-full appearance-none rounded-lg border border-(--hair) bg-(--night-2) px-3.5 py-2 text-(--parchment) transition-colors hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
@@ -47,12 +90,16 @@ const SetupWizard = ({
   tournamentId: string | null;
   /** Outside production: development-only aids (the ballot viewer). */
   testTools: boolean;
-}) =>
-  tournamentId ? (
-    <SetupPanel testTools={testTools} tournamentId={tournamentId} />
-  ) : (
-    <CreateTournamentForm nextEdition={nextEdition} />
-  );
+}) => (
+  <div className="flex flex-col gap-8">
+    <EditionBanner edition={nextEdition} />
+    {tournamentId ? (
+      <SetupPanel testTools={testTools} tournamentId={tournamentId} />
+    ) : (
+      <CreateTournamentForm nextEdition={nextEdition} />
+    )}
+  </div>
+);
 
 const CreateTournamentForm = ({
   nextEdition,
@@ -331,6 +378,12 @@ const SetupPanel = ({
   const router = useRouter();
   const utils = api.useUtils();
   const setup = api.tournament.setup.useQuery({ tournamentId });
+  // The desk follows the tournament like everyone else: every change
+  // (a vote landing, a captain's pick, a result) refetches the snapshot.
+  api.live.onChange.useSubscription(
+    { tournamentId },
+    { onData: () => utils.tournament.setup.invalidate({ tournamentId }) },
+  );
   const refresh = () => {
     utils.tournament.setup.invalidate({ tournamentId });
     router.refresh();
@@ -403,16 +456,27 @@ const SetupPanel = ({
         </div>
 
         {state.stage === 'setup' ? (
-          <div className="flex flex-wrap items-center gap-3 border-(--hair) border-t pt-4">
+          // The one thing this stage is for: the start, front and centre.
+          <div className="flex flex-col items-center gap-4 border-(--hair) border-t pt-6 pb-2 text-center">
+            <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
+              {state.participants.length} participantes ·{' '}
+              {describeTeamsLayout(
+                state.participants.length,
+                state.teamSize ?? 1,
+              )}
+            </span>
             <button
-              className={btn.primary}
+              className={`${btn.primary} d-display px-10 py-4 text-lg uppercase tracking-wider shadow-[0_0_34px_rgba(201,165,87,0.35)]`}
               disabled={start.isPending || state.participants.length < 2}
               onClick={() => start.mutate({ tournamentId })}
               type="button"
             >
               {start.isPending ? 'Comenzando…' : 'Dar comienzo al torneo'}
             </button>
-            <span className="text-(--faded) text-xs">
+            <span className="max-w-[46ch] text-(--faded) text-sm">
+              {state.rankingSource === 'historical'
+                ? 'Se abre la revisión del ranking histórico.'
+                : 'Se abre la votación entre los participantes.'}{' '}
               Desde ese momento el torneo es público y El Concilio lo muestra en
               lugar de la puerta.
             </span>

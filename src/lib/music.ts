@@ -16,9 +16,11 @@ const MUSIC_FILES = Array.from(
 /**
  * The final's pool: the most epic of the tracks above, played instead of
  * the general queue while a final is on screen (live plan F7). Track
- * numbers as in MUSIC_FILES; empty means "no special pool yet".
+ * numbers as in the file names (Miguel's pick, 2026-09-06).
  */
-const FINAL_POOL_NUMBERS: number[] = [];
+const FINAL_POOL_NUMBERS: number[] = [
+  2, 6, 7, 11, 14, 18, 22, 23, 24, 25, 30, 32,
+];
 
 /** Absolute URLs for the player; `publicBase` is the bucket's public origin. */
 const musicTrackUrls = (publicBase: string): string[] =>

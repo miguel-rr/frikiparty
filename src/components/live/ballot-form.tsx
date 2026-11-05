@@ -92,42 +92,43 @@ const BallotForm = ({
           </span>
         )}
       />
+      {/* The ballot ends in one act: the seal, centred and unmissable. */}
       {confirming ? (
-        <div className={`${panelGold} flex flex-col gap-4 p-5`}>
-          <p className="text-(--parchment)">
+        <div
+          className={`${panelGold} flex flex-col items-center gap-4 p-6 text-center`}
+        >
+          <p className="max-w-[40ch] text-(--parchment)">
             ¿Seguro? Una vez enviado, tu voto queda sellado y no se puede
             cambiar.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <button
-              className={btn.primary}
-              disabled={submit.isPending}
-              onClick={() => submit.mutate({ tournamentId, order: current })}
-              type="button"
-            >
-              {submit.isPending ? 'Sellando…' : 'Sí, sellar mi voto'}
-            </button>
-            <button
-              className={btn.ghost}
-              disabled={submit.isPending}
-              onClick={() => setConfirming(false)}
-              type="button"
-            >
-              Seguir ordenando
-            </button>
-          </div>
+          <button
+            className={`${btn.primary} d-display px-10 py-4 text-lg uppercase tracking-wider shadow-[0_0_34px_rgba(201,165,87,0.35)]`}
+            disabled={submit.isPending}
+            onClick={() => submit.mutate({ tournamentId, order: current })}
+            type="button"
+          >
+            {submit.isPending ? 'Sellando…' : 'Sí, sellar mi voto'}
+          </button>
+          <button
+            className={btn.ghost}
+            disabled={submit.isPending}
+            onClick={() => setConfirming(false)}
+            type="button"
+          >
+            Seguir ordenando
+          </button>
         </div>
       ) : (
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col items-center gap-3 pt-2 text-center">
           <button
-            className={btn.primary}
+            className={`${btn.primary} d-display px-10 py-4 text-lg uppercase tracking-wider shadow-[0_0_34px_rgba(201,165,87,0.35)]`}
             onClick={() => setConfirming(true)}
             type="button"
           >
             Enviar mi voto
           </button>
           <span className="text-(--faded) text-xs">
-            El mejor arriba. Arrastra o usa las flechas.
+            El mejor arriba. Arrastra o usa las flechas. Se sella al enviar.
           </span>
         </div>
       )}

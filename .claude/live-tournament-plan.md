@@ -682,7 +682,7 @@ Componentes en `src/components/live/council/` (`matches-digest`,
 `final-standings`, `council-wall`); `finalStandings()` en `progression.ts`.
 Las semifinales y la final tendrán su diseño especial en F7.
 
-### F7 — Semifinales y final — **HECHO 2026-09-05** (salvo la música)
+### F7 — Semifinales y final — **HECHO 2026-09-05** (música de la final el 2026-09-06)
 Diseños épicos **[DECIDIDO]**, en `src/components/live/match/epic-face-off.tsx`,
 activados solos por `roundIndex` (`epicKind`: última ronda = final, la anterior =
 semifinal; el 3º/4º no): en la ficha del partido sustituyen a la cabecera, y en
@@ -1156,3 +1156,5 @@ facciones por versión, contexto de cada partida). Estado y reglas:
 - 2026-09-05 — **`/live` = Concilio futuro, `/council` intacto**; ediciones de
   ensayo con `is_rehearsal` (migración 0025), fuera de anillos, campeones,
   próxima edición y crónica; visibles al admin al pie de `/editions`.
+- 2026-09-06 — **Pool de la final**: pistas 2, 6, 7, 11, 14, 18, 22, 23, 24,
+  25, 30 y 32 (`FINAL_POOL_NUMBERS` en `src/lib/music.ts`). F7 completa.

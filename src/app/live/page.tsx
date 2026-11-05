@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { CouncilDoor } from '@/components/council/council-door';
 import { SiteShell } from '@/components/layout/site-shell';
+import { LiveDoorWatch } from '@/components/live/live-door-watch';
 import { LiveHub } from '@/components/live/live-hub';
 import { SetupLink } from '@/components/live/setup-link';
 import { pageWidth } from '@/components/theme/primitives';
@@ -58,7 +59,10 @@ const LivePage = async () => {
           id="council"
         >
           <CouncilDoor confirmedPlayers={confirmedPlayers} edition={edition} />
-          <SetupLink />
+          <SetupLink preparing={current?.stage === 'setup'} />
+          <LiveDoorWatch
+            initial={current ? { id: current.id, stage: current.stage } : null}
+          />
         </section>
       </main>
     </SiteShell>

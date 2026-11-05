@@ -34,14 +34,21 @@ const LiveSetupPage = async () => {
             eyebrowText="Administración"
             lead={
               nextEdition
-                ? `Edición ${nextEdition.year}. Cada paso queda registrado; nada se pierde.`
+                ? 'Cada paso queda registrado; nada se pierde.'
                 : 'No hay ninguna edición por venir con fechas: crea una antes de preparar el torneo.'
             }
             title="Preparar el torneo"
           />
           {nextEdition ? (
             <SetupWizard
-              nextEdition={{ id: nextEdition.id, year: nextEdition.year }}
+              nextEdition={{
+                id: nextEdition.id,
+                year: nextEdition.year,
+                slug: nextEdition.slug,
+                startsAt: nextEdition.startsAt,
+                endsAt: nextEdition.endsAt,
+                venueName: nextEdition.venueName,
+              }}
               testTools={env.VERCEL_ENV !== 'production'}
               tournamentId={current?.id ?? null}
             />
