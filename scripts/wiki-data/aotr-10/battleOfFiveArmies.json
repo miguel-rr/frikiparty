@@ -1,0 +1,2388 @@
+{
+  "code": "battleOfFiveArmies",
+  "units": [
+    {
+      "slug": "dwarven-porter",
+      "object": "DwarvenPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza de Erebor",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        },
+        {
+          "name": "Reino de Escudo de Roble",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Tu has elegido el Reino de Escudo de Roble."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIEreborBuilder",
+        "portrait": "UPEreborBuilder"
+      }
+    },
+    {
+      "slug": "laketown-spearmen",
+      "object": "LaketownSpearmenHorde",
+      "name": "Vigilantes de la Ciudad del Lago",
+      "category": "pikemen",
+      "recruitedAt": "Ruina Dalish",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 220,
+      "buildTime": 20,
+      "armourSet": "PikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Piqueros Básicos. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nBonificaciones de Horda. Todos los Vigilantes y Arqueros del Lago ganan +25% de daño y armadura cuando se reúnen en grupos de 80 unidades o más.\n\nAntiguamente, el Gobernador de Esgaroth armaba y mantenía un pequeño regimiento de guardia urbana, encargado de mantener la ley y el orden en el Lago Largo.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Armaduras del Gobernador",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armaduras del Gobernador. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Esgaroth",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Espadas del Gobernador",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Espadas del Gobernador. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 100,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILaketowner",
+        "portrait": "UPLaketowner"
+      }
+    },
+    {
+      "slug": "dwarven-laketown-bowmen",
+      "object": "DwarvenLaketownBowmenHorde",
+      "name": "Arqueros de la Ciudad del Lago",
+      "category": "archers",
+      "recruitedAt": "Ruina Dalish",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 25,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Arqueros Básicos de Movimiento Rápido.\n\nBonificaciones de Horda. Todos los Vigilantes y Arqueros del Lago ganan +25% de daño y armadura cuando se reúnen en grupos de 80 unidades o más.\n\nCon sus arcos largos y sus cascos altos, los arqueros de Esgaroth mantienen viva la antigua tradición Dalish de puntería aguda.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armaduras del Gobernador",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armaduras del Gobernador. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Esgaroth",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Punta de Mithril. Añade daño cortante adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uilaketownbowmen",
+        "portrait": "UPLaketownBowmen"
+      }
+    },
+    {
+      "slug": "laketown-guard",
+      "object": "LaketownGuardHorde",
+      "name": "Guardias del Gobernador",
+      "category": "swordsmen",
+      "recruitedAt": "Ruina Dalish",
+      "requirements": null,
+      "cost": 400,
+      "cp": 70,
+      "health": 400,
+      "buildTime": 30,
+      "armourSet": "DaleSoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Encargados de la protección especial del Gobernador de Esgaroth, estos centinelas privilegiados reciben la autoridad y el lujo que pocos civiles pueden permitirse.",
+      "abilities": [
+        {
+          "name": "¡Deténte Justo Ahí!",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio infligen. -33% de daño y se ralentizan un 20% durante 30 segundos."
+        },
+        {
+          "name": "Orden de Registro",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Inutiliza las estructuras enemigas e inflige un daño menor con el tiempo durante 15 segundos."
+        },
+        {
+          "name": "Supremacía Bárdida",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio infligen. -33% de daño y se ralentizan un 20% durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armaduras del Gobernador",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armaduras del Gobernador. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Espadas del Gobernador",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Espadas del Gobernador. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Esgaroth",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 300,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "uilaketowncaptain",
+        "portrait": "UPLaketownCaptain"
+      }
+    },
+    {
+      "slug": "menof-dale-swordsman",
+      "object": "MenofDaleSwordsmanHorde",
+      "name": "Espadachines Bárdidos",
+      "category": "swordsmen",
+      "recruitedAt": "Ruina Dalish",
+      "requirements": null,
+      "cost": 400,
+      "cp": 70,
+      "health": 400,
+      "buildTime": 30,
+      "armourSet": "DaleSoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Infantería de Élite.\n\nLa riqueza reavivada de Valle se ejemplifica en su ejército excelentemente entrenado y equipado, que se encuentra entre los mejores de todo Rhovanion.",
+      "abilities": [
+        {
+          "name": "Supremacía Bárdida",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio infligen. -33% de daño y se ralentizan un 20% durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 100,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIDaleSwordsmen",
+        "portrait": "UPDaleSwordsmen"
+      }
+    },
+    {
+      "slug": "dwarven-men-of-dale",
+      "object": "DwarvenMenOfDaleHorde",
+      "name": "Arqueros Bárdidos",
+      "category": "archers",
+      "recruitedAt": "Ruina Dalish nivel 2",
+      "requirements": null,
+      "cost": 625,
+      "cp": 72,
+      "health": 220,
+      "buildTime": 30,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Pueden disparar Flechas Negras.\n\nEn la tradición militar Bárdida, el uso hábil del arco largo es la marca primordial de un excelente soldado.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Flechas Negras",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Habilidad de largo alcance que inflige más daño. Causan miedo en los monstruos enemigos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Punta de Mithril. Añade daño cortante adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 75,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 380,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 380,
+        "preAttackDelayMs": 1170
+      },
+      "images": {
+        "button": "UIDaleArcher",
+        "portrait": "UPDaleArcher"
+      }
+    },
+    {
+      "slug": "mirkwood-warrior-horde-bot-fa",
+      "object": "MirkwoodWarriorHorde_BotFA",
+      "name": "Megilherdir",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones del Rey Elfo",
+      "requirements": null,
+      "cost": 700,
+      "cp": 80,
+      "health": 500,
+      "buildTime": 30,
+      "armourSet": "GreenwoodWarriorArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Maestros Espadachines. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nDespués de presenciar de primera mano el terror de Mordor, Thranduil formó un ejército permanente de Elfos ricamente equipados para proteger su reino contra su inevitable regreso.",
+      "abilities": [
+        {
+          "name": "Afinidad Élfica",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Megilherdir y todos los Elfos del Reino del Bosque aliados cercanos ganan +20% de armadura durante 30 segundos. No se acumula consigo mismo."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 330,
+      "damageType": "SLASH",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIGreenwoodWarrior",
+        "portrait": "UPGreenwoodWarriors"
+      }
+    },
+    {
+      "slug": "greenwood-slayer-horde-bot-fa",
+      "object": "GreenwoodSlayerHorde_BotFA",
+      "name": "Theladagnyr",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones del Rey Elfo",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": null,
+      "buildTime": 30,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Lanza-verdugos. Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nEstos guerreros, que empuñan cuchillas de doble hojas, son muy hábiles para abrirse camino a través de los siervos del Enemigo.",
+      "abilities": [
+        {
+          "name": "Proezas Élfica",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques consecutivos incrementan temporalmente."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 50,
+      "battalionSize": 10,
+      "stats": {},
+      "images": {
+        "button": "UIGreenwoodSlayer",
+        "portrait": "UPGreenwoodSlayers"
+      }
+    },
+    {
+      "slug": "greenwood-archer-horde-bot-fa",
+      "object": "GreenwoodArcherHorde_BotFA",
+      "name": "Cúmaethyr",
+      "category": "archers",
+      "recruitedAt": "Barracones del Rey Elfo nivel 2",
+      "requirements": "Requiere Nivel 2 de los Barracones Reales",
+      "cost": 800,
+      "cp": 80,
+      "health": null,
+      "buildTime": 40,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Guerreros del Arco.\n\nEmpuñando poderosos arcos largos y un carcaj lleno de flechas con púas feroces, los arqueros del ejército de Thranduil están perfecta y mortalmente entrenados.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Precisión Élfica",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Incrementa el rango de ataque y el daño en un 25% a costa de un 50% de velocidad de movimiento durante 25 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Silvanas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Silvanas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 50,
+      "battalionSize": 10,
+      "stats": {},
+      "images": {
+        "button": "UIGreenwoodArcher",
+        "portrait": "UPGreenwoodArchers"
+      }
+    },
+    {
+      "slug": "greenwood-spearmen-horde-bot-fa",
+      "object": "GreenwoodSpearmenHorde_BotFA",
+      "name": "Tamastirnyr",
+      "category": "pikemen",
+      "recruitedAt": "Barracones del Rey Elfo nivel 2",
+      "requirements": "Requiere Nivel 2 de los Barracones",
+      "cost": 800,
+      "cp": 80,
+      "health": 650,
+      "buildTime": 45,
+      "armourSet": "PalaceGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Vigilantes del Pasillo.\n\nArmados con largas lanzas y altos escudos, estos guerreros Elfos cumplían solemnemente la voluntad del Rey de los Elfos con mortal precisión.",
+      "abilities": [
+        {
+          "name": "Resistencia Élfica",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Lanceros del Bosque Verde obtienen +50% de armadura y son resistentes a los golpes, pero pierden un 40% de velocidad durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 225,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIGreenwoodSpearmen",
+        "portrait": "UPGreenwoodSpears"
+      }
+    },
+    {
+      "slug": "dismounted-gilded-guard",
+      "object": "DismountedGildedGuardHorde",
+      "name": "Tawartirio",
+      "category": "heroic",
+      "recruitedAt": "Barracones del Rey Elfo nivel 3",
+      "requirements": "Requiere Nivel 3 de los Barracones del Rey Elfo",
+      "cost": 1600,
+      "cp": 90,
+      "health": 1200,
+      "buildTime": 70,
+      "armourSet": "NandorHirHatholArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Guardia Dorada desmontada.\n\nPocos siervos del Mal podrían resistir las hachas de la Guardia Dorada del Rey de los Elfos en su terrible ira.",
+      "abilities": [
+        {
+          "name": "Deber Solemne",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Guardias Dorados otorgan a Legolas y a Thranduil +10% de armadura, hasta un máximo del 30%. Las estructuras cercanas ganan +25% de armadura."
+        },
+        {
+          "name": "Llamada Salvaje",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Todos los héroes cercanos ganan +15% de daño de ataque, +15% de velocidad de movimiento y +15% de armadura.\n\nCuando se activa, la Guardia Dorada hace sonar sus cuernos, provocando que las bajas enemigas generen recursos durante 20 segundos."
+        },
+        {
+          "name": "Hojas Supurantes",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "La Guardia Dorada devuelve una pequeña fracción del daño que se le inflige.\n\nCuando se activa, la Guardia Dorada ignora la armadura durante 30 segundos."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "toggle",
+          "description": "Incrementa significativamente la armadura contra espadachines y piqueros al blandir espadas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Arcos Mallorn",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Arcos Mallorn. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 6,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uigildgrd",
+        "portrait": "upgildgrd"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "hero-bilbo-botfa",
+      "object": "HeroBilboBotfa",
+      "name": "Bilbo",
+      "title": "Noble hobbit de la Comarca",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 500,
+      "buildTime": 40,
+      "health": 400,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Perdón! No quiero aventuras, gracias. Hoy no. ¡Buenos días! Pero por favor, ven a tomar el té, ¡cuando quieras! ¿Por qué no mañana? ¡Hasta mañana!'",
+      "abilities": [
+        {
+          "name": "Regalo de Reyes",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bilbo obtiene +33% de armadura contra ataques a distancia durante 30 segundos."
+        },
+        {
+          "name": "Saqueador de la Compañía",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Bilbo queda en sigilo y no puede ser atacado ni atacar durante 30 segundos."
+        },
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Creador de Acertijos",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas y los monstruos en el radio luchen entre sí durante 45 segundos."
+        },
+        {
+          "name": "Coraje de Bilbo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIEreborBilbo",
+        "portrait": "HPEreborBilboHobbit"
+      }
+    },
+    {
+      "slug": "dwarven-roac-bot-fa",
+      "object": "DwarvenRoac_BotFA",
+      "name": "Roäc",
+      "title": "Señor de los Cuervos, Roäc",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 500,
+      "buildTime": 15,
+      "health": 260,
+      "armourSet": "EagleHeroArmor",
+      "attackType": null,
+      "isRing": false,
+      "description": "Durante siglos, los Enanos de Erebor han mantenido una estrecha amistad con los cuervos de la Montaña Solitaria, empleándolos como mensajeros y atendiendo a sus sabios consejos.",
+      "abilities": [
+        {
+          "name": "Formas Sutiles",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Roäc se vuelve invisible mientras permanezca quieto. Roäc detecta unidades en sigilo."
+        },
+        {
+          "name": "Crueldad de los Cuervos",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los enemigos bajo Roäc pierden -15% de velocidad."
+        },
+        {
+          "name": "Sabiduría de Antaño",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades objetivo ganan experiencia moderada. En el nivel 5, concede experiencia adicional."
+        },
+        {
+          "name": "Mensajero del Rey",
+          "level": 5,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca un batallón de Jinetes de las Colinas de Hierro."
+        },
+        {
+          "name": "Señor de los Cuervos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Rango 1: Las unidades aliadas cercanas a Roäc obtienen +5% de velocidad. Rango 3: Los héroes aliados cercanos a Roäc obtienen +10% de experiencia. Rango 5: Las unidades aliadas cercanas a Roäc obtienen +10% de velocidad."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 120,
+      "stats": {
+        "visionRange": 210
+      },
+      "images": {
+        "button": "HIEreborRoac",
+        "portrait": "HPEreborRoac"
+      }
+    },
+    {
+      "slug": "dwarven-kili",
+      "object": "DwarvenKili",
+      "name": "Kili",
+      "title": "Joven Príncipe de Erebor",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 1700,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'¡No me esconderé detrás de un muro de piedra mientras otros pelean nuestras batallas por nosotros!'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Hermandad",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Kili obtiene +20% de daño junto a Fili."
+        },
+        {
+          "name": "Suerte de Batalla",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Kili obtiene permanentemente una mejora en la evasión a ataques a distancia."
+        },
+        {
+          "name": "Tiro Rápido",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Kili obtiene +15% de daño y +33% de velocidad de ataque durante 20 segundos. Sólo se puede usar con el arco."
+        },
+        {
+          "name": "Espíritus Elevados",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Garantiza experiencia a las tropas cercanas. Sólo afecta a las unidades enanas."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIEreborKili",
+        "portrait": "HPEreborKili"
+      }
+    },
+    {
+      "slug": "dwarven-fili",
+      "object": "DwarvenFili",
+      "name": "Fili",
+      "title": "Joven Príncipe Heredero de Erebor",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Estaremos detrás de ti! Si te encuentras con problemas, grazna dos veces como una lechuza común, una vez como una lechuza parda.'",
+      "abilities": [
+        {
+          "name": "Hermandad",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Fili obtiene +20% de daño junto a Kili."
+        },
+        {
+          "name": "Cuchilla Oculta",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Fili inflige un gran daño a un solo objetivo, incapacitándolo durante 10 segundos."
+        },
+        {
+          "name": "Destreza Enana",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Fili obtiene +25% de daño y más velocidad de ataque y movimiento durante 30 segundos."
+        },
+        {
+          "name": "Heredero al Trono",
+          "level": 8,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los enanos de Erebor y los enanos de Ered Luin cerca de Fili obtienen +33% de daño y +25% de armadura."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 815,
+      "attackRange": 25,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborFili",
+        "portrait": "HPEreborFili"
+      }
+    },
+    {
+      "slug": "dwarven-balin",
+      "object": "DwarvenBalin",
+      "name": "Balin",
+      "title": "Consejero Principal del Rey",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Estamos contigo, muchacho. Veremos que se haga.'",
+      "abilities": [
+        {
+          "name": "Vigía de la Compañía",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los aliados cercanos a Balin obtienen +25% de rango de visión.\n\nEn el nivel 10, teletransporta a las unidades objetivo a la ubicación deseada. No funciona en unidades de asedio."
+        },
+        {
+          "name": "Expedición de Balin",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Balin planta el estandarte de Durin. Las tropas cercanas obtienen +33% de daño, +25% de armadura, ganan experiencia un 50% más rápido y se curan parcialmente. En el nivel 7, las unidades afectadas son inmunes al derribo y se curan en mayor medida."
+        },
+        {
+          "name": "Sabiduría Enana",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La producción de recursos de la estructura seleccionada se eleva al 200% durante 60 segundos."
+        },
+        {
+          "name": "Consejero de Reyes",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Balin potencia a un héroe aliado, otorgándole 50% de armadura, 50% más de experiencia y 75% más de tiempo de recarga de poder durante 30 segundos."
+        }
+      ],
+      "damage": 210,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborBalin",
+        "portrait": "HPEreborBalin"
+      }
+    },
+    {
+      "slug": "dwarven-captainof-dale",
+      "object": "DwarvenCaptainofDale",
+      "name": "Bardo el Arquero",
+      "title": "Bardo el Arquero",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'¡Flecha negra! Nunca me has fallado, y siempre te he recuperado. Te tenía de mi padre, y él de la antigüedad. Si alguna vez viniste de las forjas del verdadero Rey bajo la Montaña, ¡ve ahora y acelera bien!'",
+      "abilities": [
+        {
+          "name": "Flecha Negra de Valle",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Un disparo de flecha preciso que reduce la armadura enemiga en -33% durante 15 segundos."
+        },
+        {
+          "name": "Barquero Honrado",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bardo entrega varios barriles de pescado que curan a las unidades cercanas."
+        },
+        {
+          "name": "Agitador Popular",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades objetivo ganan experiencia moderada. Solo influye en las unidades de la Ciudad del Lago."
+        },
+        {
+          "name": "Descendiente de Girion",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los arqueros cercanos a Bardo ganan +33% de daño, +33% de visión y +15% de rango de ataque."
+        },
+        {
+          "name": "Matadragones",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Bardo convoca a un tordo. Ganando +33% de velocidad de ataque, +70% de daño y +30% de alcance. Bardo hace daño extra contra monstruos y unidades voladoras. Duración 20 segundos."
+        }
+      ],
+      "damage": 175,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 400,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIEreborBard",
+        "portrait": "HPEreborBard"
+      }
+    },
+    {
+      "slug": "dwarven-dain",
+      "object": "DwarvenDain",
+      "name": "Señor Dáin II Pie de Hierro",
+      "title": "Dáin Pie de Hierro, Señor de las Colinas de Hierro",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 2800,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Si osa interponerse entre los míos y yo, ¡le abriré su linda cabeza! ¡a ver si siguie sonriendo después!'",
+      "abilities": [
+        {
+          "name": "Señor de las Colinas de Hierro",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades de las Colinas de Hierro cercanas a Dáin obtienen +25% de daño, +25% de armadura y experiencia un 33% más rápido."
+        },
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "¡Baruk Khazâd!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Ataque potente que provoca un impacto severo. Sólo se puede utilizar cuando se desmonta."
+        },
+        {
+          "name": "Asalto Temerario",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo obtienen +33% de daño durante 30 segundos. Anula el liderazgo enemigo durante 30 segundos."
+        },
+        {
+          "name": "¡Por el Rey!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "A Pie: Convoca tres batallones de lanceros de las Colinas de Hierro al lado de Dáin. En Jabalí: Convoca tres batallones de jinetes de cabra de las Colinas de Hierro al lado de Dáin."
+        }
+      ],
+      "damage": 600,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborDain",
+        "portrait": "HPEreborDainHobbit"
+      }
+    },
+    {
+      "slug": "dwarven-dwalin",
+      "object": "DwarvenDwalin",
+      "name": "Dwalin",
+      "title": "Poderoso guerrero Enano, Dwalin",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Lo salvaje no es lugar para gente gentil que no puede luchar ni valerse por sí mismo...'",
+      "abilities": [
+        {
+          "name": "Hermanos de Armas",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Junto a Thorin, Dwalin obtiene +15% de daño y armadura +15% de velocidad de ataque."
+        },
+        {
+          "name": "¡Baruk Khazâd!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Dwalin deja escapar un grito de guerra causando terror en las unidades enemigas."
+        },
+        {
+          "name": "Golpe Furioso",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Dwalin golpea el suelo derribando a las unidades enemigas y causando un gran daño a las estructuras en un pequeño radio de acción."
+        },
+        {
+          "name": "Juggernaut Enano",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Dwalin gana +200% de armadura, resistencia al derribo e inflige daño de derribo durante 30 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborDwalin",
+        "portrait": "HPEreborDwalin"
+      }
+    },
+    {
+      "slug": "dwarven-thorin",
+      "object": "DwarvenThorin",
+      "name": "Thorin Escudo de Roble",
+      "title": "Rey Bajo la Montaña",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3600,
+      "armourSet": "ThorinArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Lealtad. Honor. Un corazón dispuesto. No puedo pedir más que eso.'",
+      "abilities": [
+        {
+          "name": "Rey Bajo la Montaña",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Enanos cercanos a Thorin ganan un 25% de armadura, resistencia al miedo y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Resentimiento",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo pierden. -20% de velocidad y -30% de armadura durante 30 segundos. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Hendedora de Trasgos",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Thorin obtiene +75% de daño mágico y +100% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Impulsado por la Profecía",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cura a los aliados cercanos y refresca completamente los temporizadores de habilidades especiales."
+        },
+        {
+          "name": "¡Du Bekar!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Thorin y los aliados cercanos ganan resistencia a los golpes, +75% de daño y +20% de velocidad durante 30 segundos. Thorin puede aplastar a los enemigos. Los enemigos en un radio amplio alrededor de Thorin quedan aturdidos de miedo durante 15 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborThorin",
+        "portrait": "HPEreborThorin"
+      }
+    },
+    {
+      "slug": "mirkwood-feren-bot-fa",
+      "object": "MirkwoodFeren_BotFA",
+      "name": "Feren",
+      "title": "Guardia Real, Feren",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Leal y de carácter severo, Feren pasó la mayor parte de sus largos años en solemne deber con el Rey Elfo, manteniendo seguras las fronteras del Bosque Verde.",
+      "abilities": [
+        {
+          "name": "Embestida de Escudo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Poderoso ataque que derriba a las unidades enemigas. En el rango 6, el radio se incrementa."
+        },
+        {
+          "name": "Comandante de Eryn Lasgalen",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca un batallón de Exploradores Silvanos. En el rango 5, incluye un batallón adicional de Lanceros del Bosque Verde. En el rango 8, incluye un batallón adicional de Exploradores Silvanos. En el rango 10, dos de ambos."
+        },
+        {
+          "name": "¡Sonad la Alarma!",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Feren sopla su cuerno. Puede lanzarse sobre una estructura para reducir el tiempo de reclutamiento en un 75% durante 90 segundos, sobre unidades aliadas para incrementar la velocidad de movimiento en un 25% durante 15 segundos o sobre unidades enemigas para reducir la velocidad de movimiento en un 25% durante 15 segundos. No puede ser lanzado en el Refugio Beórnida."
+        },
+        {
+          "name": "Destierro",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo queda inmovilizado y recibe +15% de daño de todas las fuentes durante 15 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodFeren",
+        "portrait": "HEMirkwoodFeren"
+      }
+    },
+    {
+      "slug": "mirkwood-legolas-bot-fa",
+      "object": "MirkwoodLegolas_BotFA",
+      "name": "Legolas",
+      "title": "Príncipe del Reino del Bosque",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 2400,
+      "armourSet": "LegolasGreenwoodArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'Mas no abandonéis toda esperanza. Del día de mañana nada sabemos aún. La solución se encuentra a menudo al salir el Sol.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Flechas Gemelas",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ataque de Doble Flecha que inflige daño por proximidad."
+        },
+        {
+          "name": "Príncipe del Reino del Bosque",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Los arqueros objetivo obtienen buena experiencia.\n\nLas unidades aliadas cercanas son inmunes al miedo y al terror. En el nivel 6, las unidades aliadas cercanas obtienen +33% de daño y +25% de rango de visión."
+        },
+        {
+          "name": "Disparos Penetrantes",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Durante 15 segundos, las flechas de Legolas ignoran la armadura enemiga y ralentizan a sus objetivos un 40% durante 5 segundos."
+        },
+        {
+          "name": "Amigo-enano",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a Gimli hijo de Glóin en el campo de batalla."
+        },
+        {
+          "name": "Tiro de Halcón",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ataque de Doble Flecha que inflige daño por proximidad."
+        }
+      ],
+      "damage": 175,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 380,
+      "speed": 60,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIMirkwoodLegolas",
+        "portrait": "HEMirkwoodLegolas"
+      }
+    },
+    {
+      "slug": "mirkwood-thranduil-bot-fa",
+      "object": "MirkwoodThranduil_BotFA",
+      "name": "Thranduil",
+      "title": "Rey Elfo",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Esa es la naturaleza del mal. Allí, en la vasta ignorancia del mundo, se contagia y se propaga. Una sombra que crece en la oscuridad. Una malicia insomne tan negra como la pared de la noche que se aproxima. Así fue siempre. Así será siempre. Con el tiempo, todas las cosas inmundas surgen'",
+      "abilities": [
+        {
+          "name": "Rey Elfo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los aliados cerca de Thranduil obtienen +33% de armadura. En el nivel 7, Thranduil se pone su armadura obteniendo, +25% de armadura de forma permanente.\n\nmontado en Gran Alce o a pie."
+        },
+        {
+          "name": "Amor por la Plata y las Joyas",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Concede Armadura Sindarin a las unidades en el radio.\n\nArmadura Sindarin: otorga +25% de armadura a las unidades. Tiempo de reutilización se reduce en los Niveles 5, 7 y 10."
+        },
+        {
+          "name": "Nadie Puede Entrar",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El terreno objetivo se vuelve hostil hacia las unidades enemigas durante 60 segundos. Al pasar por encima, las unidades enemigas se ralentizan -15% y reciben daño con el tiempo."
+        },
+        {
+          "name": "Guerrero de Renombre",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Thranduil obtiene +10% de velocidad y +50% de armadura durante 30 segundos.\n\nRango 6: +10% de velocidad, +50% de armadura, +15% de daño.\n\nRango 7: +10% de velocidad, +50% de armadura, +25% de daño.\n\nRango 8: +10% de velocidad, +50% de armadura, +50% de daño.\n\nRango 9: +10% de velocidad, +50% de armadura, +50% de daño, -25% de desaceleración por aplastamiento.\n\nRango 10: +10% de velocidad, +150% de armadura, +50% de daño, -25% de desaceleración por aplastamiento."
+        },
+        {
+          "name": "Memoria de Mordor",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Thranduil está rodeado de recuerdos de la Tierra Negra durante 30 segundos. Las unidades enemigas se aterrorizan, reciben daño, pierden todo el liderazgo e infligen -50% de daño. Thranduil es invulnerable mientras el poder está activo, pero no puede atacar y es más lento en un 75%."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 500,
+      "attackRange": 15,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodThranduil",
+        "portrait": "HEMirkwoodThranduil"
+      }
+    },
+    {
+      "slug": "gandalf-the-grey-bot-fa",
+      "object": "GandalfTheGreyBotFA",
+      "name": "Gandalf El Gris",
+      "title": "Peregrino Gris, Gandalf",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3000,
+      "buildTime": 80,
+      "health": 2700,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Un mago nunca llega tarde, ni temprano, llega precisamente cuando quiere'",
+      "abilities": [
+        {
+          "name": "Carro de Gandalf",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca el carro ambulante de Gandalf. Cura a los aliados cercanos."
+        },
+        {
+          "name": "Arriesguemos un Poco Más de Luz",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los arqueros cercanos ganan +20% de alcance y +15% de daño durante 30 segundos."
+        },
+        {
+          "name": "Perturbador de la Paz",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Gandalf dispara un peculiar fuego artificial contra el objetivo seleccionado."
+        },
+        {
+          "name": "El Martillo de Enemigos",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Lanza rayos de la espada de Gandalf."
+        },
+        {
+          "name": "¡No Puedes Pasar!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Aturde a las unidades enemigas en un amplio radio alrededor de Gandalf durante 10 segundos."
+        },
+        {
+          "name": "Escudo de Burbuja",
+          "level": null,
+          "hotkey": "U",
+          "kind": "active",
+          "description": "Crea un escudo mágico alrededor de Gandalf. Otorga temporalmente +300% de armadura y resistencia a los ataques de derribo."
+        }
+      ],
+      "damage": 500,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborGandalf",
+        "portrait": "HPEreborGandalf"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "dwarven-fortress-citadel",
+      "object": "DwarvenFortressCitadel",
+      "name": "Fortaleza de Erebor",
+      "kind": "fortress",
+      "cost": 0,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor"],
+      "upgrades": [
+        {
+          "name": "Estandartes de Cuervos",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Cuernos de la Puerta",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Cuando se activa, hace que los enemigos cercanos se acobarden de miedo durante 15 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Foso",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Cura a los aliados cercanos y repone a las unidades caídas. Añade 1000 puntos de impacto adicional a la Fortaleza.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Braseros de Erebor",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Añade Flechas Punta de Mithril a todas las torres y daño de fuego a todas las catapultas adjuntas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Armerías de Thrór",
+          "cost": 1000,
+          "hotkey": "S",
+          "level": null,
+          "description": "Permite a la Fortaleza convocar armaduras y estantes de armas para mejorar las unidades aliadas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fortificaciones",
+          "cost": 1800,
+          "hotkey": "D",
+          "level": null,
+          "description": "Permite a la Fortaleza lanzar barriles de aceite explosivos. Incrementa la armadura de la Fortaleza y las Murallas un 65%. Requisito previo para la mejora La Piedra del Arca.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "La Piedra del Arca",
+          "cost": 1200,
+          "hotkey": "F",
+          "level": null,
+          "description": "Reduce el reclutamiento de todas las unidades Enanas un 20%. Incrementa el movimiento de todas las unidades Enanas un 10%. Reduce el coste de las mejoras de las unidades un 20%. Se acumula con el descuento Bonificación de Acero.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Lanzar Barriles de Aceite",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Ataca a los enemigos con barriles de aceite."
+        },
+        {
+          "name": "Cuernos de la Puerta",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Causa terror en los enemigos cercanos durante 15 segundos."
+        },
+        {
+          "name": "Armerías de Thrór",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Genera montones de armas y armaduras de Erebor para mejorar a las unidades aliadas."
+        }
+      ],
+      "images": {
+        "button": "BIEreborFortress",
+        "portrait": "BPEreborFortress"
+      }
+    },
+    {
+      "slug": "dwarven-mine-shaft",
+      "object": "DwarvenMineShaft",
+      "name": "Mina Enana",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 20,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera recursos según el terreno disponible. Proporciona acceso a la red de túneles. Proporciona liderazgo a los Guardianes cercanos. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Mejora Colapso de Túnel",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a la Mina Enana dañar y aturdir a las unidades cercanas durante 10 segundos, pero detiene la producción de recursos durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Especialistas en Espacios Reducidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Guardianes obtienen +25% de daño y armadura cuando están cerca de las minas enanas y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Colapso de Túnel",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Daña y aturde a las unidades cercanas durante 10 segundos, pero detiene la producción de recursos durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborMineshaft"
+      }
+    },
+    {
+      "slug": "bot-fadalish-ruin",
+      "object": "BotFADalishRuin",
+      "name": "Ruina Dalish",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Hombres de la Ciudad del Lago.",
+      "produces": [
+        "Vigilantes de la Ciudad del Lago",
+        "Arqueros de la Ciudad del Lago",
+        "Guardias del Gobernador",
+        "Espadachines Bárdidos",
+        "Arqueros Bárdidos"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de Thrór",
+          "cost": 400,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes de Thrór. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "La Guarnición de Valle al Nivel 3",
+          "cost": 650,
+          "hotkey": "U",
+          "level": 3,
+          "description": "Añade una torre defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPInnNew"
+      }
+    },
+    {
+      "slug": "mirkwood-royal-barracks-bot-fa",
+      "object": "MirkwoodRoyalBarracks_BotFA",
+      "name": "Barracones del Rey Elfo",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Elfos del Reino del Bosque.",
+      "produces": [
+        "Megilherdir",
+        "Theladagnyr",
+        "Cúmaethyr",
+        "Tamastirnyr",
+        "Tawartirio"
+      ],
+      "upgrades": [
+        {
+          "name": "Barracones Reales al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Arqueros del Bosque Verde y a los Guardias del Palacio +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Barracones Reales al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Nobles Sindar +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPRoyalBarracks"
+      }
+    },
+    {
+      "slug": "dwarven-sentry-tower",
+      "object": "DwarvenSentryTower",
+      "name": "Torre de la Guardia de Erebor",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Estandarte de Durin",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre ganan experiencia +15% más rápido.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Khazad-dûm",
+          "cost": 150,
+          "hotkey": "E",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre son inmunes al miedo y al terror.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Ered Mithrim",
+          "cost": 150,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa la visión de la Torre. Los aliados cercanos a la Torre obtienen una bonificación de alcance y visión de +25%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre obtienen +15% de daño.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Ered Luin",
+          "cost": 500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre obtienen recursos por cada muerte enemiga.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 200,
+          "hotkey": "D",
+          "level": null,
+          "description": "Mejora esta Torre de Batalla con Flechas Punta de Mithril. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Estandarte de Durin",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre ganan experiencia +15% más rápido."
+        },
+        {
+          "name": "Estandarte Khazad-dûm",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre son inmunes al miedo y al terror."
+        },
+        {
+          "name": "Estandarte de Ered Mithrim",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa la visión de la Torre. Los aliados cercanos a la Torre obtienen una bonificación de alcance y visión de +25%."
+        },
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre obtienen +15% de daño."
+        },
+        {
+          "name": "Estandarte de Ered Luin",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre obtienen recursos por cada muerte enemiga."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborWallTower"
+      }
+    },
+    {
+      "slug": "statue-of-girion",
+      "object": "StatueOfGirion",
+      "name": "Estatua de Girion",
+      "kind": "support",
+      "cost": 800,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": 3,
+      "description": "Proporciona una bonificación de liderazgo a las unidades cercanas. Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPStatueGirion"
+      }
+    },
+    {
+      "slug": "dwarven-catapult-expansion",
+      "object": "DwarvenCatapultExpansion",
+      "name": "Catapulta",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Beneficios de la mejora de los Braseros de Erebor.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar catapulta",
+          "cost": 450,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reconstruye la Catapulta en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "BPEreborWindlance"
+      }
+    },
+    {
+      "slug": "dwarven-erebor-tower-tower-expansion",
+      "object": "DwarvenEreborTowerTowerExpansion",
+      "name": "Torre de Guardia",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Construye una Torre de Guardia.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "BPEreborWallTower"
+      }
+    },
+    {
+      "slug": "dwarven-hall-expansion",
+      "object": "DwarvenHallExpansion",
+      "name": "Expansión del Salón",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Estructura defensiva de guarnición. Incrementa el valor de desmantelamiento de las unidades. Las unidades guarecidas se curan. Éstas obtienen +20% de experiencia. Incrementa los puntos de mando en 25 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborFortressHall"
+      }
+    },
+    {
+      "slug": "dwarven-wall-hub-small-expansion",
+      "object": "DwarvenWallHubSmallExpansion",
+      "name": "Expansión Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "DwarvenWallArmor",
+      "maxCount": null,
+      "description": "Construye una Expansión de Muralla.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborWallHub"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "dwarven-skill",
+      "name": "Reconstrucción de Erebor",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Repara una estructura.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SBEreborDwarvenSkill"
+      },
+      "requires": []
+    },
+    {
+      "slug": "erebor-ravens",
+      "name": "Cuervos de Erebor",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca a una bandada de Cuervos. Revela el mapa y detecta las unidades en sigilo. Las unidades aliadas cercanas ganan +15% de velocidad de movimiento, ataque y recarga de habilidades. Las estructuras aliadas cercanas ganan +15% de velocidad de producción.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBEreborRavensofErebor"
+      },
+      "requires": []
+    },
+    {
+      "slug": "rallying-call-erebor",
+      "name": "Cuerno de Erebor",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBEreborHorn"
+      },
+      "requires": []
+    },
+    {
+      "slug": "deep-delving",
+      "name": "Hogueras Reavivadas",
+      "tier": 2,
+      "position": "LL",
+      "kind": "utility",
+      "cost": 10,
+      "description": "+15% de recursos de las Grandes Fraguas. Desbloquea 'Incendiarse' para Grandes Fraguas. Poder pasivo.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "HIHearthRekindled"
+      },
+      "requires": ["Reconstrucción de Erebor"]
+    },
+    {
+      "slug": "muster-the-dwearves",
+      "name": "Camino del Rey Elfo",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una Piedra-guía Élfica. La Piedra-guía puede teletransportar unidades a su ubicación.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "SBGreenwoodRoad"
+      },
+      "requires": ["Reconstrucción de Erebor", "Cuervos de Erebor"]
+    },
+    {
+      "slug": "armed-and-filthy",
+      "name": "Carga Noble",
+      "tier": 2,
+      "position": "RL",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Las unidades aliadas obtienen +15% de velocidad, +75% de daño y resistencia al miedo, el terror y el derribo durante 20 segundos.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "HINobleCharge"
+      },
+      "requires": ["Cuervos de Erebor", "Cuerno de Erebor"]
+    },
+    {
+      "slug": "goats",
+      "name": "¡Enviad las Cabras!",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una poderosa estampida de cabras para aplastar a las unidades enemigas.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SBEreborGoatBoys"
+      },
+      "requires": ["Cuerno de Erebor"]
+    },
+    {
+      "slug": "khazad-allies",
+      "name": "Granizo de Flechas",
+      "tier": 3,
+      "position": "L",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Dos rápidas andanadas de flechas Silvanas. La primera andanada es instantánea, la segunda viene después.",
+      "requiresSlots": [5, 4],
+      "slot": 8,
+      "images": {
+        "button": "SBGreenwoodArrows"
+      },
+      "requires": ["Hogueras Reavivadas", "Camino del Rey Elfo"]
+    },
+    {
+      "slug": "durins-day",
+      "name": "El Día de Durin",
+      "tier": 3,
+      "position": "C",
+      "kind": "heal",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Cura lentamente a las unidades aliadas y repone a las unidades caídas por todo el mapa durante 15 segundos.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "SBEreborDurinsDay"
+      },
+      "requires": ["Camino del Rey Elfo", "Carga Noble"]
+    },
+    {
+      "slug": "undermine-erebor",
+      "name": "La Montaña Solitaria se Agita",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Desploma un túnel que daña a los enemigos.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "UIMoriaCollapse"
+      },
+      "requires": ["Carga Noble", "¡Enviad las Cabras!"]
+    },
+    {
+      "slug": "thrors-hoard",
+      "name": "¡Vienen las Águilas!",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Gwaihir el Señor de los Vientos y a 3 águilas.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "SBGondorEaglesSummonAotrnew"
+      },
+      "requires": ["Granizo de Flechas", "El Día de Durin"]
+    },
+    {
+      "slug": "earthquake",
+      "name": "Beorn el Cambia-pieles",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Beorn el Cambia-pieles para sembrar el caos en el campo de batalla.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "UIUrsineSoul"
+      },
+      "requires": ["El Día de Durin", "La Montaña Solitaria se Agita"]
+    }
+  ]
+}

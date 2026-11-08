@@ -1,0 +1,2055 @@
+{
+  "code": "rhun",
+  "units": [
+    {
+      "slug": "mordor-rhun-porter",
+      "object": "MordorRhunPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIPorterNew",
+        "portrait": "UPLaborernew"
+      }
+    },
+    {
+      "slug": "mordor-variag-horde-rhun",
+      "object": "MordorVariagHorde_Rhun",
+      "name": "Variags de Khand",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición del Este",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 210,
+      "buildTime": 25,
+      "armourSet": "SoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "archers"],
+      "weakAgainst": [],
+      "description": "Los Variags de Khand son una raza formidable de guerreros nacida de una larga historia de conflictos con las tierras de Gondor.",
+      "abilities": [
+        {
+          "name": "Corredores de las Llanuras",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Variags obtienen un 33% de velocidad a costa de un 10% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Regla del Mercenario",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Variags son bienvenidos por los siervos reclutados y contribuyen a su bonificación por horda. Los variags no se benefician de la bonificación por horda."
+        },
+        {
+          "name": "Cubierta de Escudo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los variags obtienen un 15% de armadura contra ataques a distancia siempre que haya más de 10 unidades en el batallón."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 50,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIMordorVariagsN",
+        "portrait": "UPMordorVariagsN"
+      }
+    },
+    {
+      "slug": "tribal-auxillary",
+      "object": "TribalAuxillaryHorde",
+      "name": "Heltâin-hârainax",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición del Este",
+      "requirements": null,
+      "cost": 275,
+      "cp": 60,
+      "health": 180,
+      "buildTime": 20,
+      "armourSet": "AngmarPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Lanceros Siervos.\n\nBonificaciones de Horda. Todos los Lanceros y Arqueros Siervos obtienen +35% de armadura cuando se reúnen en grupos de 40 unidades o más.\n\nCuando los Khâns reunieron a sus Hordas Doradas para marchar hacia Mordor, pasaron por muchas aldeas y granjas, donde exigieron a los Hombres aptos que abandonaran a sus familias y reforzaran la horda.",
+      "abilities": [
+        {
+          "name": "Servicio Forzado",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Heltân-hârax reponen rápidamente sus fuerzas con 4 nuevos reclutas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 120,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UISerfSpearmen",
+        "portrait": "UPSerfSpearmen"
+      }
+    },
+    {
+      "slug": "mordor-easterling-swordsman",
+      "object": "MordorEasterlingSwordsmanHorde",
+      "name": "Khân-xâtainax",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición del Este nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 75,
+      "health": 300,
+      "buildTime": 35,
+      "armourSet": "SoldierEliteArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Espadachines del Gran Khân.\n\nTradicionalmente, los Khân-xâtainax permanecían en la retaguardia de las legiones Rhûnic y sólo entraban en combate como reservas para relevar a una primera línea de falange cansada y aplastar al enemigo restante.",
+      "abilities": [
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        },
+        {
+          "name": "Endurecido por la Guerra",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 30 segundos, los Espadachines del Gran Khân desangran a sus enemigos con cada ataque, infligiendo daño con el tiempo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 110,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIEasterlingSwordsInn",
+        "portrait": "UPEasterlingSwordsInn"
+      }
+    },
+    {
+      "slug": "mordor-easterling",
+      "object": "MordorEasterlingHorde",
+      "name": "Khân-pâlainax",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición del Este nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 75,
+      "health": 350,
+      "buildTime": 25,
+      "armourSet": "RhunArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Falange del Gran Khân. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nLos Khân-pâlainax formaban el grueso de las fuerzas expedicionarias enviadas a Mordor. Avanzaron sobre sus enemigos en temible formación, escudos cerrados y picas al frente.",
+      "abilities": [
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 180,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMordorEasterlingPikes",
+        "portrait": "UPMordorEasterlingPikemen"
+      }
+    },
+    {
+      "slug": "easterling-axe-men",
+      "object": "EasterlingAxeMenHorde",
+      "name": "Khân-bórainax",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición del Este nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 90,
+      "health": 500,
+      "buildTime": 40,
+      "armourSet": "HarbingerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Hacheros Dorados.\n\nTradicionalmente, los Khân-bórainax permanecían en la retaguardia de las legiones Rhûnic y sólo entraban en combate como reservas para relevar a una primera línea de falange cansada y aplastar al enemigo restante.",
+      "abilities": [
+        {
+          "name": "Indómito",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Hacheros Dorados obtienen +50% de daño e inmunidad al derribo y al pisoteo durante 20 segundos."
+        },
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Hacheros Dorados obtienen +20% de armadura y reflejan el daño cuerpo a cuerpo recibido a las unidades atacantes."
+        },
+        {
+          "name": "Sin Cuartel",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades Orientales y Variags cercanos obtienen +50% de armadura y resistencia al miedo y al terror durante 30 segundo."
+        }
+      ],
+      "upgrades": [],
+      "damage": 175,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIEasterlingSwords",
+        "portrait": "UPEasterlingSwords"
+      }
+    },
+    {
+      "slug": "mordor-dragon-knight",
+      "object": "MordorDragonKnightHorde",
+      "name": "Khârtan-khâmurâin",
+      "category": "heroic",
+      "recruitedAt": "Guarnición del Este nivel 3",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 90,
+      "health": 720,
+      "buildTime": 70,
+      "armourSet": "HeroMiniFootArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["monsters", "cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Caballeros del Dragón.\n\nLos Caballeros del Dragón son una orden de guerreros Orientales que viajan por la tierra y sirven a cualquier señor de la guerra que esté dispuesto a pagar su considerable paga. El último rito de iniciación al que debe someterse un aspirante a Caballero del Dragón es viajar a lo alto de montañas lejanas y buscar a un draco de fuego y recuperar una gema, ya sea mediante el ingenio, la fuerza o la adulación.",
+      "abilities": [
+        {
+          "name": "Mirada del Dragón",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los enemigos cercanos sufren -15% de daño. Causa miedo."
+        },
+        {
+          "name": "Sabiduría de Draco",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Caballeros del Dragón comparten una fracción de su poder con una unidad objetivo, otorgándole permanentemente un 25% de daño."
+        },
+        {
+          "name": "Fuego-draco Maldito",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Caballeros del Dragón obtienen +50% de velocidad y armadura, e infligen daño de fuego."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Embestida",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ordena a los Númenóreanos Negros que carguen contra el enemigo. Tipo: Beneficios. Los Númenóreanos Negros obtienen +50% de daño y +50% de armadura. Causa impacto severo."
+        },
+        {
+          "name": "Máscara de la Muerte",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -25% de daño y -20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Bronce",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Corazas de Bronce. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas de Acero Forjado",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Hojas de Acero Forjado. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Seda",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 80,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "uidragonknights",
+        "portrait": "updragonknights"
+      }
+    },
+    {
+      "slug": "auxillary-archer",
+      "object": "AuxillaryArcherHorde",
+      "name": "Heltân-yûnax",
+      "category": "archers",
+      "recruitedAt": "Campo de Tiro con Arco de Rhûn",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 25,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Arqueros Siervos.\n\nBonificaciones de Horda. Todos los Lanceros y Arqueros Siervos obtienen +35% de armadura cuando se reúnen en grupos de 40 unidades o más.\n\nLos cazadores de las llanuras y los bosques oscuros del lejano Oriente no son libres: pertenecen al caudillo que reclama sus cotos de caza y deben servirle cuando se les llama en tiempos de guerra.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Servicio Forzado",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Heltân-yûnax reponen rápidamente sus fuerzas con 4 nuevos reclutas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uiserfarcher",
+        "portrait": "UPSerfArcher"
+      }
+    },
+    {
+      "slug": "mordor-easterling-archer",
+      "object": "MordorEasterlingArcherHorde",
+      "name": "Khân-yûn-âkhax",
+      "category": "archers",
+      "recruitedAt": "Campo de Tiro con Arco de Rhûn nivel 2",
+      "requirements": "Requiere Nivel 2 del Campo de Tiro",
+      "cost": 650,
+      "cp": 72,
+      "health": 200,
+      "buildTime": 40,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Arqueros del Gran Khân.\n\nLos khân-yûn-âkhax eran tiradores altamente entrenados que portaban pesados arcos de guerra y carcajs llenos de flechas de púas trenzadas, haciendo llover la muerte sobre el enemigo incluso cuando la falange avanzaba.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Púas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Púas. Incrementa el daño de las flechas, y agrega daño de corte.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 85,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 390,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorEasterlingArcherN",
+        "portrait": "UPMordorEasterlingArchers"
+      }
+    },
+    {
+      "slug": "rhun-wardogs",
+      "object": "RhunWardogsHorde",
+      "name": "Perros de Guerra Khandish",
+      "category": "swordsmen",
+      "recruitedAt": "Campamento de Jinetes",
+      "requirements": "Requiere a Bélohk el Amo de los Sabuesos",
+      "cost": 250,
+      "cp": 40,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "AngmarDireWolfHeavyArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Caballería Básica.\n\nDurante generaciones, los hombres de Khand han confiado en estos robustos sabuesos para la caza y como perros guardianes. Las bestias también se utilizan en tiempos de guerra, atando a sus objetivos mientras los jinetes de Variag lanzan flechas desde el flanco.",
+      "abilities": [
+        {
+          "name": "Tácticas de Manada",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Bonificaciones de Horda. Todos los Perros de Guerra khandish obtienen +25% de daño y +25% de armadura cuando se reúnen en grupos de 30 unidades o más."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Manada Alfa",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 65,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 115,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 800
+      },
+      "images": {
+        "button": "uirhunwardogs",
+        "portrait": "uprhunwardogs"
+      }
+    },
+    {
+      "slug": "rhun-variag-horse-archer",
+      "object": "RhunVariagHorseArcherHorde",
+      "name": "Jinetes Variag",
+      "category": "special",
+      "recruitedAt": "Campamento de Jinetes",
+      "requirements": null,
+      "cost": 450,
+      "cp": 80,
+      "health": 300,
+      "buildTime": 40,
+      "armourSet": "RohirrimArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Los guerreros Variag, que practican el arte del tiro con arco a caballo desde una edad temprana, son conocidos por sus rápidas partidas de asalto, en las que cabalgan sobre sus caballos de las llanuras para lanzar una andanada de flechas mortíferas antes de retirarse fuera del alcance del enemigo.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Púas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Púas. Incrementa el daño de las flechas, y agrega daño de corte.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 30,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 115,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 370,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIRhunVariagHorseArcher",
+        "portrait": "UPRhunVariagHorseArcher"
+      }
+    },
+    {
+      "slug": "mordor-easterling-kataphract",
+      "object": "MordorEasterlingKataphractHorde",
+      "name": "Khân-kâtaphranax",
+      "category": "cavalry",
+      "recruitedAt": "Campamento de Jinetes nivel 2",
+      "requirements": null,
+      "cost": 900,
+      "cp": 80,
+      "health": 600,
+      "buildTime": 35,
+      "armourSet": "KataphraktArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Catafractos Dorados. Caballería de Élite.\n\nLos Khân-kâtaphranax estaban formados por nobles de alto y bajo rango. Estos corceles de armadura pesada avanzaban, sacudiendo la tierra y atronando la llanura, con una fuerza que pocos ejércitos podían resistir.",
+      "abilities": [
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 240,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorEasterlingKata",
+        "portrait": "UPMordorEasterlingKata"
+      }
+    },
+    {
+      "slug": "easterling-chariot",
+      "object": "EasterlingChariot",
+      "name": "Âkhax-rúmax",
+      "category": "cavalry",
+      "recruitedAt": "Campamento de Jinetes nivel 3",
+      "requirements": null,
+      "cost": 850,
+      "cp": 60,
+      "health": 3500,
+      "buildTime": 30,
+      "armourSet": "BattleWagonArmorHeavy",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Cuadriga Dorada.\n\nGrandes cuadrigas atronan las vastas llanuras de las Tierras del Este, conducidas por los señores de la guerra que lideran sus ejércitos al ser convocados por el Señor Oscuro para su guerra final contra Gondor.",
+      "abilities": [
+        {
+          "name": "Aurigas",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa la armadura de los Catafractos Dorados y Jinetes Variag cercanos en +25%."
+        },
+        {
+          "name": "¡Atropellarlos!",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La Cuadriga obtiene +25% de velocidad y -50% de desaceleración por pisoteo a costa de -25% de armadura durante 10 segundos."
+        }
+      ],
+      "upgrades": [],
+      "damage": 300,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 0,
+      "speed": 90,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 275,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uieasterlingchariot",
+        "portrait": "upeasterlingchariot"
+      }
+    },
+    {
+      "slug": "rhun-flamesprayer",
+      "object": "RhunFlamesprayer",
+      "name": "Gâsh-gôrtân",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio",
+      "requirements": null,
+      "cost": 1200,
+      "cp": 30,
+      "health": 4800,
+      "buildTime": 40,
+      "armourSet": "FlamesprayerArmor",
+      "attackType": "Fuego (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Destructor de Llamas.\n\nLa veneración de los dragones en Rhûn se desarrolló hace mucho tiempo como una rama del culto a Melkor. Muchos han intentado aprovechar el poder de estas criaturas, pero con escaso éxito duradero. El Destructor de Llamas alberga el poder del dragón de fuego sin la imprevisibilidad y el peligro personal que a menudo se asocia a ellos, arrasando ejércitos y fortificaciones enemigas a la orden de un oficial en lugar de a los extraños caprichos de un dragón.",
+      "abilities": [
+        {
+          "name": "Mezcla Inestable",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "El Destructor de Llamas explota si es destruido por el fuego, dañando todas las unidades y estructuras circundantes."
+        },
+        {
+          "name": "Explosión a Presión",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "No inflige daño."
+        }
+      ],
+      "upgrades": [],
+      "damage": 1400,
+      "damageType": "FLAME",
+      "attackDelayMs": 4100,
+      "attackRange": 200,
+      "speed": 35,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 520,
+        "attackRadius": 30,
+        "preAttackDelayMs": 1640
+      },
+      "images": {
+        "button": "uiflamedestroyer",
+        "portrait": "uprhunflamedestroyer"
+      }
+    },
+    {
+      "slug": "rhun-cannon",
+      "object": "RhunCannon",
+      "name": "Khârtan-gâsh",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 2",
+      "requirements": null,
+      "cost": 750,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 40,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Fuego (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Cañón de Fuego de Dragón.\n\nAlimentados por el fuego-draco, una sustancia inventada cuyos misteriosos orígenes fueron enseñados por Sauron en épocas pasadas, los khârtan-gâshan son capaces de infligir grandes pérdidas entre las filas enemigas, dejando a su paso nada más que piedra ennegrecida.",
+      "abilities": [
+        {
+          "name": "Mezcla Inestable",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "El Cañón de Fuego de Dragón explota si es destruido por el fuego, dañando a todas las unidades y estructuras circundantes."
+        },
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [],
+      "damage": 120,
+      "damageType": "FLAME",
+      "attackDelayMs": 7000,
+      "attackRange": 500,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 30,
+        "preAttackDelayMs": 1
+      },
+      "images": {
+        "button": "uirhuncannon",
+        "portrait": "uprhuncannon"
+      }
+    },
+    {
+      "slug": "rhun-war-drake",
+      "object": "RhunWarDrake",
+      "name": "Draco de Guerra de Rhûn",
+      "category": "monster",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 3",
+      "requirements": null,
+      "cost": 1600,
+      "cp": 50,
+      "health": 5000,
+      "buildTime": 60,
+      "armourSet": "FireDrakeArmor",
+      "attackType": "Fuego (cuerpo a cuerpo, en área)",
+      "maxCount": 2,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Recluta a un Caballero Dragón a lomos de un Draco de Fuego.\n\nEntre los más grandes guerreros de los Caballeros Dragón están quienes tienen la tenacidad de montar un Draco Oriental en batalla. Tal hazaña exige someterse por completo a la voluntad del dragón, pues cualquier intento de dominar a la bestia lleva a un final rápido.",
+      "abilities": [
+        {
+          "name": "Mirada de Pavor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Al activarse, anula el liderazgo enemigo cerca del Draco de Fuego durante 15 segundos."
+        },
+        {
+          "name": "Chorro de Llamas",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Draco lanza una bola de fuego devastadora desde una gran distancia."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 500,
+      "damageType": "FLAME",
+      "attackDelayMs": 2200,
+      "attackRange": 45,
+      "speed": 55,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 150,
+        "preAttackDelayMs": 2600
+      },
+      "images": {
+        "button": "uirhundrake",
+        "portrait": "uprhundrake"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "rhun-belokh-za",
+      "object": "RhunBelokhZa",
+      "name": "Bélohk el Amo de los Sabuesos",
+      "title": "Temido Amo de los Sabuesos de Khand",
+      "recruitedAt": "Fortaleza",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2000,
+      "armourSet": "LegolasGreenwoodArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Belohk, jefe de los sabuesos de las legiones de Vâh-rús, es un guerrero leal y feroz que lidera con orgullo a los auxiliares de Khandish en la batalla, acompañado por decenas de feroces sabuesos de guerra.",
+      "abilities": [
+        {
+          "name": "El Amo de los Sabuesos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Bélohk el Amo de los Sabuesos está acompañado por tres Perros de Guerra Khandish. Cuando se activa, convoca a un Perro de Guerra temporal adicional que sigue a su amo y ataca a sus enemigos. Convoca a un Perro de Guerra adicional en el nivel 5, y a 2 más en el nivel 10."
+        },
+        {
+          "name": "Maestro de las Estepas de Khandish",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Las unidades cercanas de Variags, Perros de Guerra y Siervos de Rhûn obtienen +15% de armadura y +15% de daño."
+        },
+        {
+          "name": "Disparo Belicista",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Un preciso disparo de flecha que ralentiza a una unidad enemiga en -70% y reduce su visión un 50% durante 15 segundos."
+        },
+        {
+          "name": "Flechas Desgarradoras",
+          "level": 5,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las flechas del Amo de los Sabuesos dañan a los enemigos durante 10 segundos."
+        },
+        {
+          "name": "Furia de las Bestias",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Los Variags, Jinetes y Perros de Guerra Khandish cercanos obtienen +50% de daño, +50% de armadura y -25% de ralentización por pisoteo durante 10 segundos. En el rango 10, la duración del efecto se incrementa a 20 segundos."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 65,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uibelokhza",
+        "portrait": "UPBelokhZa"
+      }
+    },
+    {
+      "slug": "rhun-razari",
+      "object": "RhunRazari",
+      "name": "Razári",
+      "title": "Sacerdotisa Balchoth",
+      "recruitedAt": "Fortaleza",
+      "cost": 1700,
+      "buildTime": 60,
+      "health": 2100,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Razari, la última de las sacerdotisas del vacío, enciende una oscura llama de recuerdo para las tribus arruinadas de los Balchoth. Entrometida en extrañas magias, cree en la restauración de su pueblo, aunque sus métodos delatan una influencia más oscura.",
+      "abilities": [
+        {
+          "name": "Terror Manifestado",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Rázari practica la brujería prohibida, canalizando los poderes del vacío y robando salud con cada golpe.\n\nCuando se activa, Rázari daña a las unidades cercanas y les infunde miedo durante 10 segundos."
+        },
+        {
+          "name": "Crueles Augurios",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Invoca un Guardián Maléfico, que reduce la visión y la velocidad enemigas un 15%, y reduce el recargo de los hechizos que Rázari lanza cerca de ella un 50%.\n\nEn el nivel 5, los Guardianes Maléficos dañan lentamente a las unidades cercanas."
+        },
+        {
+          "name": "Fiesta de las Almas",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas en el área objetivo sufren daño con el tiempo e infligen un 25% menos de daño durante 5 segundos. Cura a Razári y a las unidades amigas no mecánicas cercanas. En el nivel 8, la cantidad que se curan los aliados se incrementa enormemente."
+        },
+        {
+          "name": "Susurros del Vacío",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Hace que las unidades objetivo se vuelvan hostiles entre sí durante 15 segundos.\n\nSe puede lanzar sobre los Guardianes Maléficos para que inflijan daño a las unidades enemigas cercanas a lo largo del tiempo, destruyéndolas en el proceso."
+        },
+        {
+          "name": "Ira de los Balchoth",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Controla a los enemigos objetivo durante 30 segundos. Las unidades enemigas dominadas obtienen +50% de daño, pero pierden -50% de armadura mientras están controladas."
+        }
+      ],
+      "damage": 320,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uirazari",
+        "portrait": "uprazari"
+      }
+    },
+    {
+      "slug": "rhun-khren-tak",
+      "object": "RhunKhrenTak",
+      "name": "Khren-ták",
+      "title": "Azote de Dorwinion",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "El Azote de Dorwinion se ganó su apodo durante un sangriento conflicto con los señores de Dorwinion, cuando, superado en número y rodeado, mató a un centenar de legionarios para alcanzar a su comandante, cuya cabeza tomó. Siendo uno de los únicos supervivientes de su compañía de Caballeros del Dragón, Khren-ták fue ascendido para sustituir a su comandante caído.",
+      "abilities": [
+        {
+          "name": "Embate con Escudo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Por cada 15 unidades de Rhûn cercanas, Khren-ták obtiene +5% de armadura hasta un máximo del 25%.\n\nCuando se activa, Khren-ták golpea al enemigo con su escudo, dañándolo y haciéndolo retroceder."
+        },
+        {
+          "name": "Regla del Veterano",
+          "level": 3,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Caballeros del Dragón cercanos a Khren-ták obtienen experiencia un 50% más rápido. En el nivel 6, otorga a los Orientales cercanos +25% de daño y armadura."
+        },
+        {
+          "name": "Recompensa a la Fuerza",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Proporciona una excelente experiencia a las unidades objetivo."
+        },
+        {
+          "name": "Súplica del Gran Draco",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Khren-ták hace estallar la tierra a su alrededor, aturdiendo a los enemigos cercanos durante 5 segundos y concediendo resistencia al derribo a los aliados cercanos durante 10 segundos."
+        },
+        {
+          "name": "La Ira del Señor de los Dragones",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Khren-ták canaliza el poder del dragón furioso, exhalando fuego sobre una zona e infligiendo graves daños a unidades y estructuras."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uikhrentak",
+        "portrait": "UPKhrenTak"
+      }
+    },
+    {
+      "slug": "rhun-khamul",
+      "object": "RhunKhamul",
+      "name": "Khamûl",
+      "title": "Sombra del Este",
+      "recruitedAt": "Fortaleza",
+      "cost": 2700,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "Khamûl, antaño un gran rey de los Páramos del Este, fue atrapado por Sauron a través de uno de sus Grandes Anillos. Durante muchos siglos Khamûl ha servido, realizando actos de gran terror y crueldad con solemne dedicación a su Maestro.",
+      "abilities": [
+        {
+          "name": "Los Nueve están en el Extranjero",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Espectro del Anillo cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Excursión del Espectro",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Khamûl se teletransporta al área objetivo y hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "La Sombra del Este",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas obtienen +33% de daño.\n\nCuando se activa, Khamûl golpea el suelo con su maza de guerra, dañando y derribando a todos los enemigos en fila."
+        },
+        {
+          "name": "Protector Letal",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cuando se activa, coloca un Círculo Rúnico alrededor de Khamûl. Las unidades aliadas dentro del Círculo Rúnico obtienen +75% de armadura al daño a Distancia, Fuego, Escarcha y Magia durante 60 segundos."
+        },
+        {
+          "name": "El Oriental Negro",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Khamûl y las unidades aliadas cercanas obtienen +75% de daño y +20% de velocidad, pero pierden -25% de armadura y no ganan experiencia durante 20 segundos. También invoca a cuatro Guardias Malditos."
+        }
+      ],
+      "damage": 270,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uicalmul",
+        "portrait": "upcalmul"
+      }
+    },
+    {
+      "slug": "rhun-vah-rus",
+      "object": "RhunVahRus",
+      "name": "Vâh-rús",
+      "title": "Jefe Supremo de las Legiones Rhûnic",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Nombrado personalmente por el tenebroso Emperador Onyx, Vâh-rús ha asumido el alto mando de las legiones enviadas para aplastar a los enemigos de Sauron durante las campañas finales, para que el Señor Oscuro pueda hacerse con el control de toda la Tierra Media. Despiadado y astuto, Vâh-rús es un veterano de muchas guerras, y ha dirigido a sus guerreros desde el frente durante décadas, sofocando levantamientos y uniendo las tierras de su emperador bajo su negro estandarte.",
+      "abilities": [
+        {
+          "name": "Autoridad de Rân",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los aliados cercanos obtienen +10% de armadura. En el nivel 3, los aliados cercanos obtienen +25% de armadura y daño. En el nivel 6, los aliados cercanos obtienen +50% de armadura y daño."
+        },
+        {
+          "name": "Golpe Ponderado",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Vâh-rús ejecuta un fuerte golpe contra sus enemigos, haciéndolos retroceder."
+        },
+        {
+          "name": "Demanda del Señor de la Guerra",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo obtienen +33% de daño e inmunidad al miedo y al terror durante 30 segundos. Las unidades enemigas objetivo sufren. -25% de daño y -25% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Elegidos del Emperador Onyx",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Vâh-rús fue empoderado personalmente por el Emperador Onyx. Durante 30 segundos, obtiene +100% de armadura, inmunidad al derribo y hace retroceder a los enemigos en un radio con sus ataques. En el nivel 10, convoca a un batallón de la Guardia de Khân durante 90 segundos."
+        },
+        {
+          "name": "Maldición del Dragón Negro",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Los enemigos objetivo son envueltos en fuego de dragón místico. Los enemigos fuera de la explosión son infligidos con el miedo."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uivahrus",
+        "portrait": "upvahrus"
+      }
+    },
+    {
+      "slug": "mordor-sauron-ring-hero",
+      "object": "MordorSauron_RingHero",
+      "name": "Sauron",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 10000,
+      "buildTime": 180,
+      "health": 10000,
+      "armourSet": "SauronArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "isRing": true,
+      "description": "Usa el Anillo Único para convocar al Señor Oscuro. 'Ash nazg durbatulûk ash nazg gimbatul. Ash nazg thrakatulûk agh burzum-ishi krimpatul.'",
+      "abilities": [
+        {
+          "name": "Gorthaur",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Todas las unidades cercanas se encojen de miedo ya sea amigo o enemigo.\n\nCuando se activa, las unidades enemigas y los héroes cercanos quedan paralizados durante 10 segundos."
+        },
+        {
+          "name": "Conflagración",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Destruye al héroe enemigo objetivo (sólo inflige el 50% del daño total a Gandalf, Elessar, Saruman, Rey Brujo, Bolg, Galadriel, Elrond, Glorfindel, Thranduil, Théoden, Thorin, Nigromante, Rey Dáin, Durin el Inmortal, Rey Dorado)."
+        },
+        {
+          "name": "Annatar, Señor de los Dones",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convierte permanentemente a las unidades enemigas en un amplio radio."
+        },
+        {
+          "name": "El Señor de los Anillos",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Sauron gana +100% de daño, +10% de velocidad de movimiento e invulnerabilidad durante 20 segundos."
+        },
+        {
+          "name": "Sus Sirvientes Más Letales",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Sauron convoca permanentemente a cuatro. Espectros del Anillo. Máximo cuatro Espectros del Anillo pueden salir en cualquier momento."
+        }
+      ],
+      "damage": 2800,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1833,
+      "attackRange": 12,
+      "speed": 35,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HISauronNew",
+        "portrait": "HESauronNew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "rhun-fortress-citadel",
+      "object": "RhunFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor"],
+      "upgrades": [
+        {
+          "name": "Heráldica del Gran Khân",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Estatuas Guardianes",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a la fortaleza lanzar Ráfaga de Llamas, que derriba a las unidades enemigas cercanas e incendia el área circundante. Las unidades enemigas cercanas huyen aterrorizadas al activarse. Concede flechas de fuego a la Fortaleza y expansiones de Torre.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de los Buscadores del Vacío",
+          "cost": 1500,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa permanentemente el rango de visión de la Fortaleza y detecta unidades en sigilo. Permite a la fortaleza lanzar la Invocación Buscadores del Vacío, que bombardea el área objetivo con una artillería devastadora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Caminos de la Guerra",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Permite a la Fortaleza activar Tácticas de Guerra para potenciar temporalmente áreas especializadas de la facción. Sólo puede estar activa una Táctica de Guerra a la vez.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Ráfaga de Llamas",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Derriba a las unidades enemigas cercanas e incendia el área circundante. Las unidades enemigas cercanas huyen aterrorizadas."
+        },
+        {
+          "name": "Invocación Buscadores del Vacío",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        },
+        {
+          "name": "Camino del Jabalí Cargador",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Todos los Espadachines y Piqueros de Rhûn aliados obtienen +25% de armadura, resistencia al miedo y al terror y pueden pisotear a las unidades enemigas durante 120 segundos. Sólo puede estar activa una Táctica de Guerra a la vez."
+        },
+        {
+          "name": "Camino de la Serpiente Atacante",
+          "level": null,
+          "hotkey": "F",
+          "kind": "active",
+          "description": "Todas las unidades Rhûn aliadas obtienen +15% de velocidad de movimiento durante 120 segundos. Los Arqueros del Gran Khân, los Arqueros Siervos y los Jinetes Variag obtienen +25% de visión. Sólo puede estar activa una Táctica de Guerra a la vez."
+        },
+        {
+          "name": "Camino del Dragón Furioso",
+          "level": null,
+          "hotkey": "G",
+          "kind": "active",
+          "description": "Todas las unidades aliadas de Catafractos Dorados y Cuadrigas Doradas obtienen +50% de armadura y -25% de desaceleración por aplastamiento durante 120 segundos. El tiempo de reclutamiento de los Catafractos Dorados y las Cuadrigas Doradas se reducen un 50% durante 120 segundos. Sólo puede estar activa una Táctica de Guerra a la vez."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPRhunFortress"
+      }
+    },
+    {
+      "slug": "mordor-slaughter-house",
+      "object": "MordorSlaughterHouse",
+      "name": "Granja de Esclavos",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona comida como recurso basado en el terreno disponible. Reduce el coste de la caballería. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorSlaughterHouse"
+      }
+    },
+    {
+      "slug": "mordor-armory",
+      "object": "MordorArmory",
+      "name": "Fundidora de Gorgoroth",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Fabrica y comercializa armaduras como un recurso según el terreno disponible. Investiga mejoras en armas y armadura. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.\n\nAunque toscas en apariencia, las armas y armaduras que salían de las grandes forjas de Gorgoroth eran potentes y, con razón, temidas entre las filas Gondorianas.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Ojo Rojo",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Estandartes del Ojo Rojo. Incrementa la horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cuchillas Crueles",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cuchillas Crueles. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Púas",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Púas. Cuando está equipado, incrementa significativamente el daño de las flechas, y agrega daño de corte.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura de Acero Dentado",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Armadura de Acero Dentado. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorArmoury"
+      }
+    },
+    {
+      "slug": "mordor-haradrim-palace-rhun",
+      "object": "MordorHaradrimPalace_Rhun",
+      "name": "Guarnición del Este",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Variags y Hombres del Este.\n\nLas temibles legiones del Este eran numerosas, tanto en Rhovanion, al norte, como en Mordor, donde establecieron grandes campamentos de guerra, a la espera de la señal de guerra del Señor Oscuro.",
+      "produces": [
+        "Variags de Khand",
+        "Heltâin-hârainax",
+        "Khân-xâtainax",
+        "Khân-pâlainax",
+        "Khân-bórainax",
+        "Khârtan-khâmurâin"
+      ],
+      "upgrades": [
+        {
+          "name": "Guarnición del Este al Nivel 2",
+          "cost": 750,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Espadachines y Falanges del Gran Khân +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Guarnición del Este al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a Hacheros Dorados y Caballeros del Dragón. Añade torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorEasterlingEncampment"
+      }
+    },
+    {
+      "slug": "mordor-rhun-archer-range",
+      "object": "MordorRhunArcherRange",
+      "name": "Campo de Tiro con Arco de Rhûn",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 25,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena a los arqueros de Rhûn.",
+      "produces": ["Heltân-yûnax", "Khân-yûn-âkhax"],
+      "upgrades": [
+        {
+          "name": "Campo de Tiro con Arco de Rhûn al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Arqueros del Gran Khân +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Campo de Tiro con Arco de Rhûn al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "uprhunarcheryrange"
+      }
+    },
+    {
+      "slug": "rhun-stable",
+      "object": "RhunStable",
+      "name": "Campamento de Jinetes",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena a la Caballería Rhûnic.",
+      "produces": [
+        "Perros de Guerra Khandish",
+        "Jinetes Variag",
+        "Khân-kâtaphranax",
+        "Âkhax-rúmax"
+      ],
+      "upgrades": [
+        {
+          "name": "Campamento de Jinetes al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Catafractos Dorados +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Campamento de Jinetes al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a las Cuadrigas Doradas. Añade torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "uprhunhorsemasterscampground"
+      }
+    },
+    {
+      "slug": "rhun-siege-works",
+      "object": "RhunSiegeWorks",
+      "name": "Gran Fábrica de Máquinas de Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye máquinas de asedio. En el rango 2, repara las máquinas de asedio cercanas.",
+      "produces": ["Gâsh-gôrtân", "Khârtan-gâsh", "Draco de Guerra de Rhûn"],
+      "upgrades": [
+        {
+          "name": "Gran Fábrica de Máquinas de Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite construir Cañones de Fuego de Dragón. Repara las máquinas de asedio cercanas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Gran Fábrica de Máquinas de Asedio al Nivel 3",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite reclutar al Draco de Guerra de Rhûn. Cura a los Dracos de Guerra de Rhûn cercanos y mejora la reparación de las máquinas de asedio dañadas cercanas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorSiegeWorks"
+      }
+    },
+    {
+      "slug": "rhun-guard-tower",
+      "object": "RhunGuardTower",
+      "name": "Torre de Guardia",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos.\n\nCuando Sauron regresó a Mordor, ordenó la construcción de enormes y terribles torres, destinadas a vigilar las tierras limítrofes de Gondor.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "uprhuntower"
+      }
+    },
+    {
+      "slug": "rhun-fortress-tower-expansion",
+      "object": "RhunFortressTowerExpansion",
+      "name": "Expansión Torre de Guardia",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva de arqueros que dispara a las unidades enemigas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UpRhunTowerExp"
+      }
+    },
+    {
+      "slug": "rhun-cannon-expansion",
+      "object": "RhunCannonExpansion",
+      "name": "Expansión de Cañón",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Cañón de Fuego de Dragón",
+          "cost": 450,
+          "hotkey": "W",
+          "level": null,
+          "description": "Reconstruye el Cañón de Fuego de Dragón en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "UPRhunCannonExp"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "mordor-generic-leadership",
+      "name": "Adivinación Oscura",
+      "tier": 1,
+      "position": "L",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Espía a las fuerzas enemigas durante 60 segundos. Concede +15% de velocidad a unidades y héroes en la zona elegida durante 35 segundos.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uidarkdivination"
+      },
+      "requires": []
+    },
+    {
+      "slug": "war-chant-mordor",
+      "name": "Cuerno del Gran Khân",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos. Tiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "uihornofrhun"
+      },
+      "requires": []
+    },
+    {
+      "slug": "crack-of-doom",
+      "name": "Fervor Temerario",
+      "tier": 1,
+      "position": "R",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura parcialmente a las unidades y sustituye a un muerto por batallón. Reduce la armadura aliada y enemiga un 20%.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "uirecklessfervour"
+      },
+      "requires": []
+    },
+    {
+      "slug": "haradrim-raiders",
+      "name": "Revés de la Fortuna",
+      "tier": 2,
+      "position": "LL",
+      "kind": "debuff",
+      "cost": 10,
+      "description": "Las unidades enemigas dentro del radio pierden todo el liderazgo y se mueven un 20% más despacio durante 10 segundos. Las unidades aliadas dentro del radio pierden todas las maldiciones y se mueven un 20% más rápido.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "uirhunreversal"
+      },
+      "requires": ["Adivinación Oscura"]
+    },
+    {
+      "slug": "barricade",
+      "name": "Aluvión de Flechas",
+      "tier": 2,
+      "position": "LR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Bombardea un área con una descarga de flechas.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "uirhunarrowvolley"
+      },
+      "requires": ["Adivinación Oscura", "Cuerno del Gran Khân"]
+    },
+    {
+      "slug": "mordor-callthe",
+      "name": "Estandarte del Khân-úl-khârtan",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un enorme estandarte que proporciona bonificaciones cada vez más potentes cuanto más tiempo esté en pie. Lanzamiento inicial: +25% de armadura y +50% de experiencia 30 segundos: +50% de armadura, +25% de daño y +100% de experiencia 60 segundos: +50% de armadura, +50% de daño, +100% de experiencia y resistencia a los golpes.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "uirhunbannersp"
+      },
+      "requires": ["Cuerno del Gran Khân", "Fervor Temerario"]
+    },
+    {
+      "slug": "industry",
+      "name": "Esclavos de Nurn",
+      "tier": 2,
+      "position": "RR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "La producción de recursos de la estructura elegida sube al 200% durante 5 minutos. No afecta a los Aserraderos.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uirhunslavesnurn"
+      },
+      "requires": ["Fervor Temerario"]
+    },
+    {
+      "slug": "shelob-summon",
+      "name": "Heraldo de la Torre Oscura",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a Boca de Sauron y sus Acólitos.",
+      "requiresSlots": [5, 4],
+      "slot": 8,
+      "images": {
+        "button": "uirhunmorgulallies"
+      },
+      "requires": ["Revés de la Fortuna", "Aluvión de Flechas"]
+    },
+    {
+      "slug": "darkness",
+      "name": "Crepúsculo Interminable",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cubre todo el mapa de oscuridad durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Todas las unidades aliadas obtienen +33% de daño y +33% de armadura.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "uirhunendlesstwilight"
+      },
+      "requires": ["Aluvión de Flechas", "Estandarte del Khân-úl-khârtan"]
+    },
+    {
+      "slug": "wraith",
+      "name": "Cabalgata de la Serpiente Negra",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca tres batallones de Incursores de Harondor sobre el campo de batalla, comandados por Sûladan.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "uirhunblackserpent"
+      },
+      "requires": ["Estandarte del Khân-úl-khârtan", "Esclavos de Nurn"]
+    },
+    {
+      "slug": "eyeof-sauron-new",
+      "name": "Ojo de Sauron",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca al Ojo de Sauron. Revela enemigos en sigilo. Paraliza a todos los enemigos del mapa durante 10 segundos al invocarlo. Todas las unidades atrapadas en su mirada sufren daño constante y se ralentizan un 33%. Los aliados obtienen +33% de daño, +50% de armadura, inmunidad al miedo y al terror, y ganan experiencia un 50% más rápido.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "uirhuneyesauron"
+      },
+      "requires": ["Heraldo de la Torre Oscura", "Crepúsculo Interminable"]
+    },
+    {
+      "slug": "rain-of-fire",
+      "name": "Vuelo del Dragón Dorado",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Khâronax el Opulento, el Dragón de Fuego del Este.",
+      "requiresSlots": [7, 9, 10],
+      "slot": 12,
+      "images": {
+        "button": "uirhunspawnglaurung"
+      },
+      "requires": [
+        "Esclavos de Nurn",
+        "Crepúsculo Interminable",
+        "Cabalgata de la Serpiente Negra"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2377 @@
+{
+  "code": "mistyMountains",
+  "units": [
+    {
+      "slug": "wild-porter",
+      "object": "WildPorter",
+      "name": "Constructor Trasgo",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye Estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIMMGoblinBuilder",
+        "portrait": "UPMMGoblinPorter"
+      }
+    },
+    {
+      "slug": "wild-laborer",
+      "object": "WildLaborer",
+      "name": "Trabajador Trasgo",
+      "category": "special",
+      "recruitedAt": "Serrería",
+      "requirements": null,
+      "cost": 20,
+      "cp": 4,
+      "health": 60,
+      "buildTime": 5,
+      "armourSet": "NoArmor",
+      "attackType": "Chop (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Recolecta recursos para la Serrería.",
+      "abilities": [
+        {
+          "name": "Recolectar Recursos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "Base",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Construir Base de Mordor."
+        }
+      ],
+      "upgrades": [],
+      "damage": 10,
+      "damageType": "CHOP",
+      "attackDelayMs": 733,
+      "attackRange": 12,
+      "speed": 32,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 533
+      },
+      "images": {
+        "button": "UIMMGoblinLaborer",
+        "portrait": "UPMMGoblinlaborer"
+      }
+    },
+    {
+      "slug": "wild-mountain-orc-sword",
+      "object": "WildMountainOrcSwordHorde",
+      "name": "Degolladores de la Montaña",
+      "category": "swordsmen",
+      "recruitedAt": "Pabellón Orco de la Montaña",
+      "requirements": null,
+      "cost": 375,
+      "cp": 60,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "SoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Endurecidos a través de generaciones de guerra y el clima, estos Orcos de las Montañas fueron finalmente unidos bajo un solo estandarte por Bolg del Norte.",
+      "abilities": [
+        {
+          "name": "Terror de la Montaña",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques consecutivos aumentan temporalmente el daño de ataque en un 5% hasta un máximo del 25%."
+        },
+        {
+          "name": "Embestida",
+          "level": 2,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen contra el enemigo. Los guerreros obtienen +50% de daño y +50% de armadura. Causa impacto severo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Carroñero",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Carroñero. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas de Carroñero",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas de Carroñero. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 189,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMountainOrcSlasher",
+        "portrait": "UPMountainOrcSlasher"
+      }
+    },
+    {
+      "slug": "wild-mountain-orc-brute",
+      "object": "WildMountainOrcBruteHorde",
+      "name": "Brutos de la Montaña",
+      "category": "pikemen",
+      "recruitedAt": "Pabellón Orco de la Montaña",
+      "requirements": null,
+      "cost": 375,
+      "cp": 60,
+      "health": 270,
+      "buildTime": 30,
+      "armourSet": "PikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nEncargados de asegurar los fríos valles y estribaciones de los territorios ocupados por los orcos, estos lanceros son conocidos por asaltar partidas de exploradores elfos.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Armadura de Carroñero",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Carroñero. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas de Carroñero",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas de Carroñero. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 141,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 35,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMountainOrcBrute",
+        "portrait": "UPMountainOrcBrute"
+      }
+    },
+    {
+      "slug": "wild-mountain-orc-scout",
+      "object": "WildMountainOrcScoutHorde",
+      "name": "Exploradores de la Montaña",
+      "category": "archers",
+      "recruitedAt": "Pabellón Orco de la Montaña nivel 2",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 35,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Temidos en Eriador, estos cazadores Orcos de la Montaña tienen la reputación de ser crueles y despiadados al rastrear a su presa.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Flechas de Púas",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Exploradores Orcos de las Montañas ganan +65% de daño contra monstruos y unidades voladoras. Los monstruos objetivo y las unidades voladoras pierden. -75% de velocidad de movimiento."
+        },
+        {
+          "name": "Tiro de Flecha con Púas",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Causa impacto severo y mayor daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Carroñero",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Carroñero. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 370,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIMountainOrcScouts",
+        "portrait": "UPMountainOrcScouts"
+      }
+    },
+    {
+      "slug": "wild-gundabad-berserker",
+      "object": "WildGundabadBerserkerHorde",
+      "name": "Bersérkers de Gundabad",
+      "category": "swordsmen",
+      "recruitedAt": "Pabellón Orco de la Montaña nivel 3",
+      "requirements": null,
+      "cost": 800,
+      "cp": 90,
+      "health": 600,
+      "buildTime": 30,
+      "armourSet": "GundabadBerserkerHeavyArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "cavalry"],
+      "weakAgainst": [],
+      "description": "El Monte Gundabad ha estado ocupado durante mucho tiempo por grandes y feroces orcos bajo el mando de Bolg del Norte.",
+      "abilities": [
+        {
+          "name": "Determinación Cruel",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Bersérkers de Gundabad obtienen +33% de daño y resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "Embestida",
+          "level": 2,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen contra el enemigo. Los guerreros obtienen +50% de daño y +50% de armadura. Causa impacto severo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas de Carroñero",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas de Carroñero. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 345,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMMGundabadWarrior",
+        "portrait": "UPMMGundabadWarrior"
+      }
+    },
+    {
+      "slug": "wild-gundabad-body-guard",
+      "object": "WildGundabadBodyGuardHorde",
+      "name": "Escoltas de Bolg",
+      "category": "heroic",
+      "recruitedAt": "Pabellón Orco de la Montaña nivel 3",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 100,
+      "health": 800,
+      "buildTime": 70,
+      "armourSet": "BodyguardArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad Héroe.\n\nComprendiendo que la imprudencia de Azog había hecho que lo mataran, Bolg se rodeó de los orcos más grandes y crueles que pudo encontrar para no repetir el error de su padre.",
+      "abilities": [
+        {
+          "name": "Intimidación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los héroes enemigos pierden. -20% de daño y -15% de armadura."
+        },
+        {
+          "name": "Lanzamiento de Calavera",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Potente ataque a distancia con efecto sobre el área."
+        },
+        {
+          "name": "Resolución Oscura",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Escoltas de Bolg obtienen +100% de daño a costa de -25% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 185,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMMBodyGuard",
+        "portrait": "UPMMGundabadGuard"
+      }
+    },
+    {
+      "slug": "goblin-fighter",
+      "object": "GoblinFighterHorde",
+      "name": "Orcos-chillones de Moria",
+      "category": "swordsmen",
+      "recruitedAt": "Cueva Trasgo de Moria",
+      "requirements": null,
+      "cost": 100,
+      "cp": 40,
+      "health": 50,
+      "buildTime": 30,
+      "armourSet": "GoblinFighterArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Bonificaciones de Horda. Todos los Orcos-chillones, Orcos-arqueros y Orcos-lanceros de Moria ganan +50% de daño cuando se reúnen en grupos de 150 unidades o más.\n\nDespués de que los enanos abandonaran Khazad-dûm, estos usurpadores orcos saquearon y profanaron sus salas vacías.",
+      "abilities": [
+        {
+          "name": "Cuchillas Envenenadas",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Envenena a los enemigos objetivo causándoles daño durante 15 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 18,
+      "damageType": "SLASH",
+      "attackDelayMs": 522,
+      "attackRange": 12,
+      "speed": 70,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 245
+      },
+      "images": {
+        "button": "UIMMGoblinWarrior",
+        "portrait": "UPMMGoblinSword"
+      }
+    },
+    {
+      "slug": "goblin-archer",
+      "object": "GoblinArcherHorde",
+      "name": "Orcos-arqueros de Moria",
+      "category": "archers",
+      "recruitedAt": "Cueva Trasgo de Moria",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 100,
+      "buildTime": 30,
+      "armourSet": "GoblinArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Bonificaciones de Horda. Todos los Orcos-chillones, Orcos-arqueros y Orcos-lanceros de Moria ganan +50% de daño cuando se reúnen en grupos de 150 unidades o más.\n\nEstos arqueros orcos ganaron su reputación mortal al asesinar a Balin mientras miraba al Lago Espejo fuera de la puerta Este.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Flechas Envenenadas",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Flechas con punta de veneno que causan daño durante 15 segundos. Las Flechas Envenenadas infligen +55% de daño adicional contra los monstruos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Armadura de Carroñero",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Carroñero. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 25,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 300,
+      "speed": 70,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIMMGoblinArcher",
+        "portrait": "UPMMGoblinArcher"
+      }
+    },
+    {
+      "slug": "wild-warg-pack",
+      "object": "WildWargPackHorde",
+      "name": "Jauría de Huargos",
+      "category": "cavalry",
+      "recruitedAt": "Montículo del Lobo",
+      "requirements": null,
+      "cost": 325,
+      "cp": 40,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "WargPackArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Rápidas y feroces, las manadas de Huargos han sido a menudo la perdición de los viajeros incautos.",
+      "abilities": [
+        {
+          "name": "Aullido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huargos obtienen +33% de daño y +33% de armadura durante 45 segundos."
+        },
+        {
+          "name": "Abrigo de Invierno",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La resistencia a la perforación se ve incrementada un 33%."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Manada Alfa",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 115,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "UIMMWarg",
+        "portrait": "UPMMGundabadWarg"
+      }
+    },
+    {
+      "slug": "wild-warg-rider",
+      "object": "WildWargRiderHorde",
+      "name": "Jinetes Lobos de Gundabad",
+      "category": "cavalry",
+      "recruitedAt": "Montículo del Lobo nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 80,
+      "health": 375,
+      "buildTime": 30,
+      "armourSet": "WargHeavyArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Por generaciones, los orcos han montado huargos y lobos - no como maestros, si no como iguales - para rastrear y emboscar a los pueblos libres.",
+      "abilities": [
+        {
+          "name": "Aullido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huargos obtienen +33% de daño y +33% de armadura durante 45 segundos."
+        },
+        {
+          "name": "Abrigo de Invierno",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La resistencia a la perforación se ve incrementada un 33%."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas de Carroñero",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas de Carroñero. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Bolg",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 60,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 95,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "UIMMGundabadRider",
+        "portrait": "UPMMGundabadRider"
+      }
+    },
+    {
+      "slug": "goblin-cave-troll",
+      "object": "GoblinCaveTroll",
+      "name": "Troll de las Cavernas",
+      "category": "siege",
+      "recruitedAt": "Guarida de Trolls",
+      "requirements": null,
+      "cost": 500,
+      "cp": 45,
+      "health": 2500,
+      "buildTime": 45,
+      "armourSet": "CaveTrollArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "structures"],
+      "weakAgainst": [],
+      "description": "Molestado y atormentado durante años por sus captores trasgos, este pequeño troll relativamente dócil ha sido cegado por la rabia y la frustración.",
+      "abilities": [
+        {
+          "name": "Coger Trasgo / Orco",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Encuentra un Orco para cogerlo y lanzarlo contra el enemigo. Las unidades enemigas huirán aterrorizadas."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Tomar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Recoger un árbol o una roca para usarlos como arma."
+        }
+      ],
+      "upgrades": [],
+      "damage": 350,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 65,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 50,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMMCaveTroll",
+        "portrait": "UPMMCaveTroll"
+      }
+    },
+    {
+      "slug": "wild-snow-troll",
+      "object": "WildSnowTrollHorde",
+      "name": "Trolls de las Nieves",
+      "category": "monster",
+      "recruitedAt": "Guarida de Trolls nivel 2",
+      "requirements": null,
+      "cost": 850,
+      "cp": 80,
+      "health": 720,
+      "buildTime": 45,
+      "armourSet": "SnowTrollNewArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Los Trolls de las Nieves a menudo se les considera unas criaturas de cuentos de hadas en partes más civilizadas de la Tierra Media, pero los que habitan en el duro clima del norte de las Montañas Nubladas y más allá los conocen mejor. Estos malvados trolls son delgados, engañosamente poderosos, y poseen un gran talento para la crueldad.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Furia de Trolls",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Trolls de las Nieves arrojan sus lanzas con gran fuerza, infligiendo más daño y derribando a las unidades en un amplio radio."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 246,
+      "damageType": "PIERCE",
+      "attackDelayMs": 2280,
+      "attackRange": 350,
+      "speed": 65,
+      "battalionSize": 5,
+      "stats": {
+        "visionRange": 430,
+        "attackRadius": 8,
+        "preAttackDelayMs": 640
+      },
+      "images": {
+        "button": "uisnowtroll",
+        "portrait": "upsnowtroll"
+      }
+    },
+    {
+      "slug": "wild-giant-bat-interface",
+      "object": "WildGiantBatInterface",
+      "name": "Murciélago Gigante",
+      "category": "siege",
+      "recruitedAt": "Guarida de Trolls nivel 2",
+      "requirements": null,
+      "cost": 700,
+      "cp": 50,
+      "health": 1500,
+      "buildTime": 40,
+      "armourSet": "GiantBatArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "cavalry", "structures"],
+      "weakAgainst": [],
+      "description": "'Estos murciélagos son criados con un solo propósito, ¡la guerra!'",
+      "abilities": [
+        {
+          "name": "Vampirismo",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades voladoras pierden -30% de velocidad durante 5 segundos al ser golpeadas por Murciélagos Gigantes.\n\nLos Murciélagos Gigantes recuperan salud por cada golpe."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 575,
+      "damageType": "SIEGE",
+      "attackDelayMs": 4000,
+      "attackRange": 24,
+      "speed": 95,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "attackRadius": 18
+      },
+      "images": {
+        "button": "UIMMGiantBat",
+        "portrait": "UPMMGiantBat"
+      }
+    },
+    {
+      "slug": "wild-attack-troll",
+      "object": "WildAttackTroll",
+      "name": "Troll de Piedra de Gundabad",
+      "category": "siege",
+      "recruitedAt": "Guarida de Trolls nivel 3",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 90,
+      "health": 3000,
+      "buildTime": 45,
+      "armourSet": "AttackTrollArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "cavalry", "structures"],
+      "weakAgainst": [],
+      "description": "Estos Trolls de piedra son originarios de los entornos más oscuros y hostiles de las Montañas Nubladas. Sus pieles son duras, sus extremidades son largas y poderosas, y su crueldad es insuperable.",
+      "abilities": [
+        {
+          "name": "Cráneo Grueso",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Durante 15 segundos, el Troll obtiene +50% de daño contra estructuras, pero pierde -50% de armadura. El Troll no inflige ataques de impacto contra estructuras mientras el Cráneo Grueso esté activo."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Casco Aterrador",
+          "cost": 500,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora este Troll con un Casco Aterrador. Incrementa significativamente la armadura y asusta a las unidades enemigas. Reduce la velocidad del Troll de Piedra un 7%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Armadura Serrada",
+          "cost": 500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este Troll con Armadura Serrada. Incrementa sinficativamente los puntos de impacto del Troll y disminuye la desaceleración por aplastamiento. Reduce la velocidad del Troll de Piedra un 7%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Guanteletes de Guadaña",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este Troll de Piedra con Guanteletes de Guadaña. Incrementa significativamente el ataque y los daños adyacentes. Reduce la velocidad del Troll de Piedra un 7%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 760,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 65,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 75,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMMGundabadTroll",
+        "portrait": "UPMMGundabadTroll"
+      }
+    },
+    {
+      "slug": "wild-mountain-giant",
+      "object": "WildMountainGiant",
+      "name": "Gigante de la Montaña",
+      "category": "siege",
+      "recruitedAt": "Guarida de Trolls nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 60,
+      "health": 3400,
+      "buildTime": 45,
+      "armourSet": "MountainGiantArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": 2,
+      "strongAgainst": ["structures", "swordsmen"],
+      "weakAgainst": [],
+      "description": "Progenie del Norte incrementa el límite a 5.\n\n'Allí se refugiaron bajo una roca colgante para pasar la noche, y Bilbo se acostó bajo una manta y tembló de pies a cabeza. Cuando se asomó entre los relámpagos, vio que al otro lado del valle los gigantes de piedra habían salido y se arrojaban rocas para jugar, las atrapaban y las arrojaban a la oscuridad, donde se estrellaban entre los árboles más abajo o se astillaban en pedacitos con un estruendo.'",
+      "abilities": [
+        {
+          "name": "Pisotear",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Poderoso ataque que causa un fuerte impacto. No se puede utilizar con una roca equipada."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 700,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1400,
+      "attackRange": 30,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 55,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "BIMMMountainGiant",
+        "portrait": "UPMMMountainGiant"
+      }
+    },
+    {
+      "slug": "wild-fire-drake-buildable",
+      "object": "WildFireDrake_Buildable",
+      "name": "Draco de Fuego",
+      "category": "monster",
+      "recruitedAt": "Guarida del Dragón",
+      "requirements": null,
+      "cost": 1400,
+      "cp": 50,
+      "health": 3500,
+      "buildTime": 60,
+      "armourSet": "FireDrakeArmor",
+      "attackType": "Fuego (cuerpo a cuerpo, en área)",
+      "maxCount": 2,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Doma a un Draco salvaje que escupe fuego.\n\nProgenie del Norte eleva el límite a 4.\n\nAunque no pueden volar y son más pequeños que los dragones, los Dracos de Fuego se consideran unas de las criaturas más peligrosas de la Tierra Media.",
+      "abilities": [
+        {
+          "name": "Mirada de Pavor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Al activarse, anula el liderazgo enemigo cerca del Draco de Fuego durante 15 segundos."
+        },
+        {
+          "name": "Chorro de Llamas",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Draco lanza una bola de fuego devastadora desde una gran distancia."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 500,
+      "damageType": "FLAME",
+      "attackDelayMs": 2200,
+      "attackRange": 45,
+      "speed": 55,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 150,
+        "preAttackDelayMs": 2600
+      },
+      "images": {
+        "button": "UIMMFireWyrm",
+        "portrait": "UPMMFireWyrm"
+      }
+    },
+    {
+      "slug": "wild-cold-drake",
+      "object": "WildColdDrake",
+      "name": "Dragón-helado",
+      "category": "siege",
+      "recruitedAt": "Guarida del Dragón nivel 2",
+      "requirements": null,
+      "cost": 2000,
+      "cp": 80,
+      "health": 6000,
+      "buildTime": 55,
+      "armourSet": "ColdDrakeArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": 1,
+      "strongAgainst": ["infantry", "cavalry", "structures"],
+      "weakAgainst": [],
+      "description": "y Progenie del Norte. Doma a un Dragón-helado salvaje.\n\nEran muy grandes al lado de los Hombres de aquellos días - fríos como en la naturaleza de las víboras y las serpientes, y de ellos muchos teniendo alas van con el máximo ruido y velocidad... Sólo se permite 1 Dragón-helado en cualquier momento.",
+      "abilities": [
+        {
+          "name": "Rugido Congela-corazones",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Aterroriza a los enemigos durante 15 segundos."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 750,
+      "damageType": "SIEGE",
+      "attackDelayMs": 4000,
+      "attackRange": 24,
+      "speed": 95,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "attackRadius": 40
+      },
+      "images": {
+        "button": "uicolddrake",
+        "portrait": "UPColdDrake"
+      }
+    },
+    {
+      "slug": "moria-shaman",
+      "object": "MoriaShamanHorde",
+      "name": "Orco-chamán de Moria",
+      "category": "archers",
+      "recruitedAt": "Altar de la Llama",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo del Campo de Batalla.\n\nEmbelesados por los antiguos misterios de la Sombra y la Llama, estos orcos han reunido a una banda de desventurados seguidores, que se sacrificarán gustosamente para alimentar la hechicería oscura que el Daño de Durin confiere a sus amos.",
+      "abilities": [
+        {
+          "name": "Siervos de la Llama",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo infligen permanentemente daño de fuego añadido con sus ataques y a los enemigos que las atacan. Otorga también un 50% de armadura contra el fuego. Sólo puede usarse con la infantería cuerpo a cuerpo de las Montañas Nubladas. No afecta a las unidades heroicas ni a los monstruos."
+        },
+        {
+          "name": "Ira de Valaraukar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Daño de Durin era capaz de lanzar poderosos hechizos, y podía ser persuadido por sus sirvientes para utilizarlos en su beneficio. Invoca la Ira de Valaraukar desde el suelo. Los enemigos en el área objetivo son derribados y sufren daño moderado."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 55,
+      "battalionSize": 7,
+      "stats": {
+        "visionRange": 480,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uigobsham",
+        "portrait": "upgobsham"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "wild-muzgash",
+      "object": "WildMuzgash",
+      "name": "Mûzgash",
+      "title": "Peligroso orco de Moria",
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 50,
+      "health": 2300,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Mûzgash, un señor de la guerra trasgo, goza de gran renombre entre los Orcos de las Montañas Nubladas. Las mujeres orcas lo quieren, los hombres orcos quieren ser como él.'",
+      "abilities": [
+        {
+          "name": "Veterano Legendario",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Orcos de Moria y de la Montaña cerca de Mûzgash obtienen +15% de daño y armadura.\n\nEn el rango 8, los Orcos de Moria y de la Montaña cerca de Mûzgash obtienen +33% de daño y armadura. Los aliados cercanos ganan recursos por cada muerte."
+        },
+        {
+          "name": "Cuchilla Pútrida",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Mûzgash sumerge su hoja en veneno orco, infligiendo daño venenoso potente, daño por proximidad y derribo durante 20 segundos."
+        },
+        {
+          "name": "Disciplina de Hierro",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Mûzgash hace que sus subordinados formen correctamente y les otorga +25% de velocidad de movimiento durante 30 segundos."
+        },
+        {
+          "name": "Símbolo de Supremacía",
+          "level": 9,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Mûzgash presenta a sus enemigos una muestra de victorias pasadas durante 60 segundos. Las unidades enemigas pierden todo el liderazgo y pierden. -33% de velocidad de movimiento."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIMMMuzgash",
+        "portrait": "UPMMMuzgash"
+      }
+    },
+    {
+      "slug": "wild-golfimbul",
+      "object": "WildGolfimbul",
+      "name": "Golfimbul",
+      "title": "Jefe de los orcos del Monte Gram",
+      "recruitedAt": "Fortaleza",
+      "cost": 1400,
+      "buildTime": 50,
+      "health": 2300,
+      "armourSet": "HeroArmorMounted",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Mucho después del día en que la horrible muerte de su antepasado provocó la invención de un tonto deporte Mediano, Golfimbul busca vengar la muerte de su homónimo arrasando con la Comarca.'",
+      "abilities": [
+        {
+          "name": "Jefe del Monte Gram",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Huargos y la Caballería cercana obtienen +25% de daño, +15% de velocidad y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Lobos Blancos de Forochel",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Golfimbul convoca a 3 Lobos Blancos sobre el área objetivo. En el nivel 6, el número de Lobos convocados se incrementa a 6."
+        },
+        {
+          "name": "Aborrecimiento a la Gente Pequeña",
+          "level": 8,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Golfimbul busca exigir su venganza sobre la Gente Pequeña. Golfimbul y los Lobos, Huargos, y Jinetes Lobos cercanos obtienen +50% de daño, +50% armadura y -50% desaceleración por aplastamiento durante 20 segundos."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 960,
+      "attackRange": 20,
+      "speed": 100,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIMMGolfimbul",
+        "portrait": "UPMMGolfimbul"
+      }
+    },
+    {
+      "slug": "wild-urshak",
+      "object": "WildUrshak",
+      "name": "Urshak",
+      "title": "Urshak el Chamán",
+      "recruitedAt": "Fortaleza",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 2500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Un chamán poderoso y celoso, Urshak es capaz de incitar incluso al más manso de sus seguidores a cometer actos de gran crueldad y rebeldía.'",
+      "abilities": [
+        {
+          "name": "Intimidación",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los Trolls, Murciélagos y Gigantes cercanos a Urshak obtienen +15% de velocidad y visión.\n\nLas unidades enemigas cercanas sufren. -15% de daño y -10% de armadura. En el rango 5, las unidades enemigas cercanas sufren. -25% de daño, -20% de armadura y -10% de velocidad."
+        },
+        {
+          "name": "Derrumbarse",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El edificio enemigo objetivo sufre graves daños y queda inutilizado durante 20 segundos. Abre automáticamente la puerta objetivo."
+        },
+        {
+          "name": "Invierno Cruel",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas y aliadas afectadas quedan congeladas y no pueden moverse, atacar o recibir mejoras durante 15 segundos."
+        },
+        {
+          "name": "El Pozo Negro",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades enemigas en el área objetivo sufren un daño moderado en el tiempo. Cura a las unidades aliadas cercanas."
+        },
+        {
+          "name": "Profecía Oscura",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Urshak hechiza a las unidades objetivo, provocando que se vuelvan hostiles entre sí."
+        }
+      ],
+      "damage": 175,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIUrshak",
+        "portrait": "HPUrshak"
+      }
+    },
+    {
+      "slug": "wild-lugthe-mauled",
+      "object": "WildLugtheMauled",
+      "name": "Lug el Mutilado",
+      "title": "Desquiciado asesino a sueldo, Lug",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Con el mismo apetito por el oro y la destrucción, Lug es un feroz cazador cuya reputación asesina le precede a lo largo de las dragas de las Montañas Nubladas.",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Cazador de Cabezas",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Pone un precio a la cabeza de un héroe enemigo, reduciendo su armadura y velocidad en un 20% durante 20 segundos. En el nivel 3, reduce la armadura y la velocidad en un 30%. En el nivel 6, reduce la armadura y la velocidad en un 40%. En el nivel 10, reduce la armadura y la velocidad en un 50%."
+        },
+        {
+          "name": "Vamos a Caer Peleando",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Lug se daña a sí mismo para obtener +50% de armadura, +50% de daño y +20% de velocidad durante 30 segundos. Sólo se puede utilizar con la espada equipada."
+        },
+        {
+          "name": "Tierra Quemada",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Lug incendia la tierra y quema todas las unidades aliadas y enemigas."
+        }
+      ],
+      "damage": 100,
+      "damageType": "HERO",
+      "attackDelayMs": 480,
+      "attackRange": 15,
+      "speed": 55,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uilugthemauled",
+        "portrait": "UPLugtheMauled"
+      }
+    },
+    {
+      "slug": "wild-great-goblin",
+      "object": "WildGreatGoblin",
+      "name": "Gran Trasgo",
+      "title": "Rey del Pueblo Trasgo",
+      "recruitedAt": "Fortaleza",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "GreatGoblinArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "'Abominaciones, desfiguraciones, mutilaciones y repulsiones... Eso es todo lo que encontrarás aquí abajo.'",
+      "abilities": [
+        {
+          "name": "Demanda del Rey Trasgo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un Tótem del Enjambre en la ubicación objetivo. El Tótem puede reclutar Guerreros del Pueblo Trasgo y revelar unidades en sigilo."
+        },
+        {
+          "name": "El Rey Trasgo",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los Orcos de Moria y del Pueblo Trasgo cercanos obtienen +33% de daño y armadura, y resistencia al miedo y al terror.\n\nEn el nivel 7. Proporciona a las unidades seleccionadas una experiencia excelente."
+        },
+        {
+          "name": "Enjambre",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca a tres hordas de Guerreros del Pueblo Trasgo. El número de hordas convocadas se incrementa en uno con cada rango.\n\nCuando se activa, los Orcos-chillones de Moria y Orcos del Pueblo Trasgo cercanos obtienen +15% de daño durante 20 segundos."
+        },
+        {
+          "name": "Anticuario",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Gran Trasgo hace un trato con algunas finas antigüedades. Sin embargo, tenga cuidado, su vista se está yendo y podría quemarse. Cuidado con la Enfermedad del Dragón."
+        },
+        {
+          "name": "Canción Abominable",
+          "level": 9,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas obtienen +33% de daño y armadura durante 30 segundos. Las unidades enemigas cercanas sufren. -25% de daño y -20% de armadura durante 30 segundos. Anula el liderazgo enemigo."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 2100,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIMMGG",
+        "portrait": "UPMMGreatGoblin"
+      }
+    },
+    {
+      "slug": "wild-bolg-new",
+      "object": "WildBolgNew",
+      "name": "Bolg del Norte",
+      "title": "Azote de las Montañas Nubladas",
+      "recruitedAt": "Fortaleza",
+      "cost": 3500,
+      "buildTime": 80,
+      "health": 3300,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Los Trasgos están sobre ti! Bolg del Norte se acerca. ¡Oh, Dáin! A cuyo padre mataste en Moria. ¡Mirad! Los murciélagos están sobre su ejército como un mar de langostas. ¡Cabalgan sobre lobos y los Huargos van en su séquito!'",
+      "abilities": [
+        {
+          "name": "Jefe Supremo Salvaje",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Orcos, Huargos y Murciélagos Gigantes cercanos reciben +50% de armadura, resistencia al miedo y al terror."
+        },
+        {
+          "name": "Odio Creciente",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Bolg inflige más daño a los enanos.\n\nCuando se activa, Bolg inflige daño por derribo con un radio de ataque mayor durante 30 segundos. En el nivel 3, los ataques consecutivos incrementan temporalmente el daño de ataque en un 10% hasta un máximo del 50% mientras la habilidad está activa."
+        },
+        {
+          "name": "Gobernados por el Miedo",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas infligen +125% de daño, pero pierden -50% de armadura y no ganan experiencia durante 20 segundos. Los enemigos cercanos se acobardan durante 15 segundos."
+        },
+        {
+          "name": "Rangos Imperceptibles",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Bolg está protegido por cuatro de sus Escoltas.\n\nCuando se activa, Bolg obtiene +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Terror del Norte",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Bolg convoca a un pequeño ejército de Orcos de la Montaña, Jinetes Lobos y Murciélagos Gigantes."
+        }
+      ],
+      "damage": 450,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uibolgnew",
+        "portrait": "UPBolgNew"
+      }
+    },
+    {
+      "slug": "wild-smaug",
+      "object": "WildSmaug",
+      "name": "Smaug",
+      "title": "Más Importante y Grande de las Calamidades",
+      "recruitedAt": "Fortaleza",
+      "cost": 10000,
+      "buildTime": 80,
+      "health": 12000,
+      "armourSet": "DrogothArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "Aterrizar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "Alas como un Huracán",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Dispara una onda expansiva de fuerza debajo de Smaug, causando un daño importante a los enemigos."
+        },
+        {
+          "name": "Espíritu Ardiente",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Envía un proyectil de dragón ardiente al objetivo seleccionado."
+        },
+        {
+          "name": "Yo Soy Muerte",
+          "level": 10,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Respira fuego sobre un área seleccionada."
+        },
+        {
+          "name": "Enfermedad de Dragón",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Provoca que las unidades y monstruos objetivos se vuelvan hostiles entre sí durante 45 segundos."
+        }
+      ],
+      "damage": 850,
+      "damageType": "SIEGE",
+      "attackDelayMs": 4000,
+      "attackRange": 24,
+      "speed": 125,
+      "stats": {
+        "visionRange": 400
+      },
+      "images": {
+        "button": "UIMMSmaug",
+        "portrait": "UPMMSmaug"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "wild-fortress-citadel",
+      "object": "WildFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor Trasgo"],
+      "upgrades": [
+        {
+          "name": "Lealtad Salvaje",
+          "cost": 800,
+          "hotkey": "W",
+          "level": null,
+          "description": "Desbloquea Lealtad Salvaje. Se puede lanzar sobre cualquier guarida salvaje para tomar el control de la guarida y empezar a producir unidades. Las guaridas capturadas producen recursos.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Murciélagos de Cueva",
+          "cost": 500,
+          "hotkey": "E",
+          "level": null,
+          "description": "La Fortaleza obtiene una bonificación de visión y puede detectar unidades con sigilo.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Púas Crueles",
+          "cost": 600,
+          "hotkey": "R",
+          "level": null,
+          "description": "Daña a las unidades enemigas adyacentes a la Fortaleza.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Infestación",
+          "cost": 1250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Añade un número de Orcos-arqueros de Moria con Flechas de Fuego en la Fortaleza. Añade ataque de fuego a todos los Miradores Orcos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Progenie del Norte",
+          "cost": 1200,
+          "hotkey": "S",
+          "level": null,
+          "description": "Desbloquea Dragón-helado. Mejora el número máximo de Gigantes de la Montaña disponibles de 2 a 5. Mejora el número máximo de Dracos de Fuego disponibles de 2 a 4. Permite a la fortaleza convocar temporalmente un Dragón.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torres de Gundabad",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Permite entrenar un segundo batallón de Escoltas de Bolg.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Tambores en lo Profundo",
+          "cost": 500,
+          "hotkey": "F",
+          "level": null,
+          "description": "La fortaleza obtiene la habilidad para usar los Tambores en lo Profundo. Convoca temporalmente 5 hordas de Orcos-chillones de Moria.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Dragón Pequeño",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Convoca temporalmente un Draco de Fuego."
+        },
+        {
+          "name": "Tambores en lo Profundo",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Convoca temporalmente 5 hordas de Orcos-chillones de Moria.\n\nLas unidade enemigas objetivo pierden. -25% de daño y -20% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Lealtad Salvaje",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Se lanza sobre una guarida para obtener el control de la misma. Las criaturas que custodian la guarida son asesinadas. Las guaridas capturadas producen recursos y reclutan unidades."
+        },
+        {
+          "name": "Nube de Murciélago",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige pequeñas cantidades de daño y detecta unidades en sigilo."
+        }
+      ],
+      "images": {
+        "button": "BIMMFortress",
+        "portrait": "BPMMFortress"
+      }
+    },
+    {
+      "slug": "wild-mine-shaft",
+      "object": "WildMineShaft",
+      "name": "Túnel Orco",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera recursos según el terreno disponible. Proporciona acceso a la red de túneles. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMTunnel"
+      }
+    },
+    {
+      "slug": "wild-lumber-mill",
+      "object": "WildLumberMill",
+      "name": "Serrería",
+      "kind": "economy",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Recolecta recursos de árboles cercanos. Reduce el coste de estructuras. Tiempo de construcción: 30 s.",
+      "produces": ["Trabajador Trasgo"],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPLumberMillnew"
+      }
+    },
+    {
+      "slug": "wild-treasure-trove",
+      "object": "WildTreasureTrove",
+      "name": "Tesoro Trasgo",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Acumula armaduras y objetos de valor como un recurso según el terreno disponible. Investiga mejoras en armas y armadura. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de Bolg",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Estandartes de Bolg. Incrementa la horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Fuego",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Fuego. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cuchillas de Carroñero",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cuchillas de Carroñero. Incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez que se compre la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura de Carroñero",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Armadura de Carroñero. Reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez que se compre la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMTresureTrove"
+      }
+    },
+    {
+      "slug": "wild-lodge",
+      "object": "WildLodge",
+      "name": "Pabellón Orco de la Montaña",
+      "kind": "economy",
+      "cost": 375,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades de Orcos de la Montaña y de Gundabad.",
+      "produces": [
+        "Degolladores de la Montaña",
+        "Brutos de la Montaña",
+        "Exploradores de la Montaña",
+        "Bersérkers de Gundabad",
+        "Escoltas de Bolg"
+      ],
+      "upgrades": [
+        {
+          "name": "Pabellón Orco de la Montaña al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Orcos Exploradores +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Pabellón Orco de la Montaña al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Bersérkers de Gundabad y Escoltas de Bolg +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMGundabadPit"
+      }
+    },
+    {
+      "slug": "goblin-cave",
+      "object": "GoblinCave",
+      "name": "Cueva Trasgo de Moria",
+      "kind": "production",
+      "cost": 325,
+      "buildTime": 20,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Orcos-chillones y Orcos-arqueros de Moria.",
+      "produces": ["Orcos-chillones de Moria", "Orcos-arqueros de Moria"],
+      "upgrades": [
+        {
+          "name": "Cueva Orco de Moria al Nivel 2",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Añade dos Orcos-arqueros de Moria guarecidos +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Cueva Orco de Moria al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "+25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMGobinCave"
+      }
+    },
+    {
+      "slug": "wild-spider-pit",
+      "object": "WildSpiderPit",
+      "name": "Montículo del Lobo",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Huargos y Jinetes Lobos de Gundabad.",
+      "produces": ["Jauría de Huargos", "Jinetes Lobos de Gundabad"],
+      "upgrades": [
+        {
+          "name": "Montículo del Lobo al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Jinetes Lobos de Gundabad +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Montículo del Lobo al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "+25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMGundabadCage"
+      }
+    },
+    {
+      "slug": "goblin-fissure",
+      "object": "GoblinFissure",
+      "name": "Guarida de Trolls",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Trolls, Murciélagos Gigantes y Gigantes de la Montaña.",
+      "produces": [
+        "Troll de las Cavernas",
+        "Trolls de las Nieves",
+        "Murciélago Gigante",
+        "Troll de Piedra de Gundabad",
+        "Gigante de la Montaña"
+      ],
+      "upgrades": [
+        {
+          "name": "Guarida de Trolls al Nivel 2",
+          "cost": 700,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Trolls de las Nieves y Murciélagos Gigantes +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Guarida de Trolls al Nivel 3",
+          "cost": 900,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Trolls de Piedra de Gundabad y Gigantes de la Montaña. Añade un troll defensivo a la guarida. Los amigables Gigantes de la Montaña cercanos a la guarida se curan pasivamente con el tiempo +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMTrollLair"
+      }
+    },
+    {
+      "slug": "fire-wyrm-lair",
+      "object": "FireWyrmLair",
+      "name": "Guarida del Dragón",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 35,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Doma a los Dracos de Fuego y a los Dragones-helados.",
+      "produces": ["Draco de Fuego", "Dragón-helado"],
+      "upgrades": [
+        {
+          "name": "Guarida del Dragón al Nivel 2",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite domesticar a los Dragones-helados +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guarida del Dragón al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Los Dracos de Fuego y los Dragones-helados cercanos a la Guarida se curan pasivamente con el tiempo +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMWyrmLair"
+      }
+    },
+    {
+      "slug": "wild-sentry-tower",
+      "object": "WildSentryTower",
+      "name": "Torre Centinela",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego. Incrementa el daño de las flechas. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMSentryTower"
+      }
+    },
+    {
+      "slug": "moria-altarof-fire",
+      "object": "MoriaAltarofFire",
+      "name": "Altar de la Llama",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 1,
+      "description": "Recluta Orcos-chamanes de Moria. Adora al Daño de Durin para lanzar varias habilidades en todo el mapa. No puede ser demolido.",
+      "produces": ["Orco-chamán de Moria"],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Tambores en lo Profundo",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Convoca temporalmente 2 hordas de Orcos-chillones de Moria."
+        },
+        {
+          "name": "Renovación Oscura",
+          "level": null,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Cuando se activa, se repone una unidad caída de todos los batallones aliados del mapa."
+        },
+        {
+          "name": "Tributo Saqueado",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La producción de recursos del Túnel Orco o el Tesoro Trasgo seleccionados se incrementa hasta un 250% durante 5 minutos."
+        },
+        {
+          "name": "Llama de Udûn",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "de Moria. Sacrifica a todos los chamanes en el campo de batalla para invocar la ira del Daño de Durin y quemar a todas las unidades enemigas en el área objetivo."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPAltarofFlame"
+      }
+    },
+    {
+      "slug": "wild-arrow-den-expansion",
+      "object": "WildArrowDenExpansion",
+      "name": "Puesto de Observación Orco",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Dispara flechas a las unidades enemigas cercanas. Beneficios de la mejora de Infestación.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BIMMFortressSentryTower",
+        "portrait": "BPMMFortressTower"
+      }
+    },
+    {
+      "slug": "wild-spider-holes-expansion",
+      "object": "WildSpiderHolesExpansion",
+      "name": "Guarida de Lobo",
+      "kind": "defence",
+      "cost": 500,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los Lobos atacarán a las unidades enemigas cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "UPWolfCairnExpansion"
+      }
+    },
+    {
+      "slug": "wild-cave-troll-expansion",
+      "object": "WildCaveTrollExpansion",
+      "name": "Expansion de Centinela Troll",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Un troll que lanza piedras a las unidades enemigas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BIMMFortressSentryTower",
+        "portrait": "BPMMTrollThrowerExpansion"
+      }
+    },
+    {
+      "slug": "wild-burrows-expansion",
+      "object": "WildBurrowsExpansion",
+      "name": "Entrada de Túnel",
+      "kind": "production",
+      "cost": 200,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Conecta esta Fortaleza a la red de túneles.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMMFortressBurrows"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "chill-wind",
+      "name": "Viento Destructor",
+      "tier": 1,
+      "position": "L",
+      "kind": "attack",
+      "cost": 5,
+      "description": "Dispersa las unidades enemigas del centro del área de efecto. Causa un daño mínimo. No afecta a las unidades de caballería.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "BIMMFellWind"
+      },
+      "requires": []
+    },
+    {
+      "slug": "frozen-land",
+      "name": "Desechos Congelados",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Congela un área del terreno durante 90 segundos. Todas las unidades aliadas obtienen +25% de daño y +25% de armadura. Las unidades enemigas sufren -10% de velocidad. Extingue todos los incendios.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "BIMMFrozenLand"
+      },
+      "requires": []
+    },
+    {
+      "slug": "cave-bats",
+      "name": "Murciélagos de las Cavernas",
+      "tier": 1,
+      "position": "R",
+      "kind": "debuff",
+      "cost": 5,
+      "description": "Revela el área y detecta unidades en sigilo. Las unidades enemigas cercanas pierden. -15% de daño y armadura.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "BIMMCaveBats"
+      },
+      "requires": []
+    },
+    {
+      "slug": "scavenger",
+      "name": "Carroñero",
+      "tier": 2,
+      "position": "LL",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Durante 180 segundos, todas las muertes obtienen recursos adicionales. Las mejoras de unidades se descuentan en un 25% durante la duración.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "BIMMScavenger"
+      },
+      "requires": ["Viento Destructor"]
+    },
+    {
+      "slug": "mordor-callthe",
+      "name": "Ya Vienen",
+      "tier": 2,
+      "position": "LR",
+      "kind": "attack",
+      "cost": 10,
+      "description": "Un Túnel Orco o de Gusano elegido engendra 2 batallones permanentes de Orcos-chillones de Moria y un Troll Destructor. Los Orcos de Moria respetan el límite de puntos de mando, mientras que el Troll Destructor no.",
+      "requiresSlots": [4, 2, 1],
+      "slot": 5,
+      "images": {
+        "button": "BIMMTheyAreComing"
+      },
+      "requires": ["Viento Destructor", "Desechos Congelados", "Carroñero"]
+    },
+    {
+      "slug": "angmar-citadel",
+      "name": "Ruina de Angmar",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una Ruina abandonada de Angmar. La Ruina permite el reclutamiento de Muertos de Arnor y Lobos Blancos, así como desencadenar una ventisca local.",
+      "requiresSlots": [4, 3, 2],
+      "slot": 6,
+      "images": {
+        "button": "BIAngmarCitadel"
+      },
+      "requires": [
+        "Desechos Congelados",
+        "Murciélagos de las Cavernas",
+        "Carroñero"
+      ]
+    },
+    {
+      "slug": "untamed-allegiance",
+      "name": "Estofado de Trolls",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca temporalmente una olla de Estofado de Trolls, custodiada por Tom, Bert y William. El Estofado de Trolls proporciona curación y otorga +15% de armadura y daño a las unidades cercanas y detecta unidades en sigilo.",
+      "requiresSlots": [4, 3],
+      "slot": 7,
+      "images": {
+        "button": "UITrollishStew"
+      },
+      "requires": ["Murciélagos de las Cavernas", "Carroñero"]
+    },
+    {
+      "slug": "awaken-wyrm",
+      "name": "Despertar Gusano",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a un Gusano subterráneo bajo tu control.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "BIMMAwakenWyrm"
+      },
+      "requires": ["Carroñero", "Ya Vienen"]
+    },
+    {
+      "slug": "white-winter",
+      "name": "Invierno Blanco",
+      "tier": 3,
+      "position": "C",
+      "kind": "utility",
+      "cost": 15,
+      "description": "Cubre el mapa en una tormenta de nieve durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas sufren -25% de daño, -20% de armadura y -30% de visión. Anula el liderazgo enemigo. Extingue todos los incendios.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SBEvil_WhiteWinter"
+      },
+      "requires": ["Ya Vienen", "Ruina de Angmar"]
+    },
+    {
+      "slug": "watcher-ally",
+      "name": "Convoca al Vigilante",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca al Vigilante en el Agua. Causando un daño severo a los enemigos.",
+      "requiresSlots": [3, 7, 6],
+      "slot": 10,
+      "images": {
+        "button": "SBEvil_SummonWatcherAotR"
+      },
+      "requires": [
+        "Murciélagos de las Cavernas",
+        "Ruina de Angmar",
+        "Estofado de Trolls"
+      ]
+    },
+    {
+      "slug": "balrog-ally",
+      "name": "Daño de Durin",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca al Balrog, el Daño de Durin.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "SBEvil_BalrogAllyAotR"
+      },
+      "requires": ["Despertar Gusano", "Invierno Blanco"]
+    },
+    {
+      "slug": "dragon-strike",
+      "name": "La Cólera del Dragón de Fuego",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a un Dragón que respira fuego para sobrevolar y arrasar el campo de batalla.",
+      "requiresSlots": [10, 9],
+      "slot": 12,
+      "images": {
+        "button": "SBEvil_DragonStrikeAotR"
+      },
+      "requires": ["Invierno Blanco", "Convoca al Vigilante"]
+    }
+  ]
+}

@@ -1,0 +1,1249 @@
+{
+  "code": "shire",
+  "units": [
+    {
+      "slug": "shire-marish-hound",
+      "object": "ShireMarishHoundHorde",
+      "name": "Sabuesos de Marjala",
+      "category": "cavalry",
+      "recruitedAt": "Granja Hobbit",
+      "requirements": null,
+      "cost": 300,
+      "cp": 40,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "WargPackArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Las tierras fronterizas de Marjala son más salvajes que la mayoría de los lugares de la Comarca, y los que viven allí necesitan protección adicional, a menudo en forma de grandes y leales sabuesos.",
+      "abilities": [
+        {
+          "name": "Tácticas de Manada",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Bonificaciones de Horda. Todos los sabuesos de marjala ganan +25% de daño y +25% de armadura cuando se reúnen en grupos de 30 unidades o más."
+        },
+        {
+          "name": "Aullido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huargos obtienen +33% de daño y +33% de armadura durante 45 segundos."
+        },
+        {
+          "name": "Abrigo de Invierno",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La resistencia a la perforación se ve incrementada un 33%."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Manada Alfa",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 60,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 115,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "hirivmaggotpower",
+        "portrait": "UPMaggotHound"
+      }
+    },
+    {
+      "slug": "shire-bounder",
+      "object": "ShireBounderHorde",
+      "name": "Fronteros",
+      "category": "swordsmen",
+      "recruitedAt": "Oficina de Oficiales",
+      "requirements": null,
+      "cost": 175,
+      "cp": 48,
+      "health": 150,
+      "buildTime": 25,
+      "armourSet": "RivendellHobbitArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLos Fronterizos son guardianes de la paz, que patrullan los caminos, senderos y fronteras de la Comarca, resolviendo disputas y vigilando tanto a los malvados como a los extranjeros. Durante los últimos días de la Tercera Edad, su número aumentó considerablemente gracias al alcalde Pieblanco, que sentía que se estaban gestando problemas en las tierras salvajes de más allá.",
+      "abilities": [
+        {
+          "name": "Pies Ligeros",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los hobbits ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Oficial",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 165,
+      "damageType": "SLASH",
+      "attackDelayMs": 833,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 100,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uirivbounder",
+        "portrait": "uprivbounder"
+      }
+    },
+    {
+      "slug": "shire-took-archer",
+      "object": "ShireTookArcherHorde",
+      "name": "Arqueros Tuk",
+      "category": "archers",
+      "recruitedAt": "Oficina de Oficiales",
+      "requirements": null,
+      "cost": 200,
+      "cp": 40,
+      "health": 180,
+      "buildTime": 25,
+      "armourSet": "TookArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nComo todos los Hobbits, estos arqueros son bendecidos con ojos agudos y manos firmes, con un coraje nativo de la familia de los Tuk.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Ojo Avizor",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Incrementa el rango de ataque y el daño en un 25% a costa de un 15% de velocidad de movimiento durante 25 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Plumas de Cisne",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño base y añade daño de perforación adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Oficial",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 125,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 300,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uirivtookarcher",
+        "portrait": "uprivtookarcher"
+      }
+    },
+    {
+      "slug": "shire-buckland-brave",
+      "object": "ShireBucklandBraveHorde",
+      "name": "Bravos de los Gamos",
+      "category": "pikemen",
+      "recruitedAt": "Oficina de Oficiales",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 150,
+      "buildTime": 20,
+      "armourSet": "AngmarPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLos Gamunos son un pueblo extraño, con sus propias costumbres y dichos. No es de extrañar que estén ansiosos por defender sus hogares por cualquier medio que puedan reunir.",
+      "abilities": [
+        {
+          "name": "Pies Ligeros",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los hobbits ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Oficial",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIBucklandBraves",
+        "portrait": "UPBucklandBraves"
+      }
+    },
+    {
+      "slug": "shire-hornblower",
+      "object": "ShireHornblower",
+      "name": "Corneta Hobbit",
+      "category": "swordsmen",
+      "recruitedAt": "Oficina de Oficiales",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 800,
+      "buildTime": 30,
+      "armourSet": "BerserkerArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de apoyo única.\n\nLos sopladores de cuernos son un componente clave de la comunicación rápida en caso de peligro. Muchos hobbits poseían un cuerno, recién tallado o transmitido de generación en generación, y lo comunicaban en caso de que aparecieran visitantes indeseados.",
+      "abilities": [
+        {
+          "name": "¡Sonad la Alarma!",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Las unidades Hobbit cercanas ganan +10% de daño y armadura. Se acumula con Hechizos y Beneficios.\n\nCuando se activa, el hobbit hace sonar su cuerno. Se puede lanzar sobre unidades aliadas para otorgar resistencia al miedo y al terror durante 15 segundos, o sobre unidades enemigas para reducir el daño y la armadura un 25% durante 15 segundos."
+        },
+        {
+          "name": "¡Llamad a la Guardia!",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca un batallón temporal de Fronteros. En el nivel 3, también convoca a un batallón temporal de Bravos de los Gamos. En el nivel 5, convoca dos batallones de ambos."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 20,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIHobbitHornblower",
+        "portrait": "UPHobbitHornblower"
+      }
+    },
+    {
+      "slug": "shire-firework-launcher",
+      "object": "ShireFireworkLauncher",
+      "name": "Lanzador de Fuegos Artificiales",
+      "category": "siege",
+      "recruitedAt": "Carro de Suministros",
+      "requirements": "Requiere Fuegos Artificiales de Gandalf",
+      "cost": 750,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 40,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Fuego (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Introducidos por el mago errante conocido como Gandalf, los fuegos artificiales se han convertido en una parte célebre de las festividades hobbit.",
+      "abilities": [
+        {
+          "name": "Buscapiés, Petardos y Dragones de Fuegos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Lanza un dragón de fuego contra las unidades enemigas, haciéndolas retroceder."
+        },
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [],
+      "damage": 1600,
+      "damageType": "FLAME",
+      "attackDelayMs": 7000,
+      "attackRange": 500,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1
+      },
+      "images": {
+        "button": "UIFireworkLauncher",
+        "portrait": "UPFireworkLauncher"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "shire-gaffer-gamgee",
+      "object": "ShireGafferGamgee",
+      "name": "Hamfast Gamyi",
+      "title": "Tío",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 350,
+      "buildTime": 15,
+      "health": 400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Es un mal viento que no sopla a nadie bueno, como siempre digo. ¡Y todo está bien si acaba mejor!'",
+      "abilities": [
+        {
+          "name": "Padre Orgulloso",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Hamfast gana +33% de armadura y daño mientras está cerca de Samsagaz."
+        },
+        {
+          "name": "El Tío",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las estructuras cercanas ganan +15% de armadura."
+        },
+        {
+          "name": "De Corazón Robusto",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades enemigas en el radio objetivo no pueden ganar experiencia durante 30 segundos. Anula el liderazgo enemigo."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 10,
+      "speed": 50,
+      "stats": {
+        "visionRange": 220
+      },
+      "images": {
+        "button": "uihamfast",
+        "portrait": "UPHamfast"
+      }
+    },
+    {
+      "slug": "shire-farmer-maggot",
+      "object": "ShireFarmerMaggot",
+      "name": "Maggot el Granjero",
+      "title": "Bravo granjero Hobbit",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 800,
+      "buildTime": 15,
+      "health": 1500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Tienes suerte de que te conozca. Estaba a punto de salir para poner a mis perros sobre cualquier extraño. Hoy están pasando cosas raras.'",
+      "abilities": [
+        {
+          "name": "Sabuesos de Maggot",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Grip, Fang, y Wolf protegen al Maggot el Granjero. Los Sabuesos de Marjala cercanos ganan +33% de daño y armadura."
+        },
+        {
+          "name": "El Habar",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca la granja del Granjero Maggot durante 30 segundos. Genera una gran cantidad de recursos."
+        },
+        {
+          "name": "Golpe Ineludible",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Poderoso ataque que derriba a las unidades enemigas. En el rango 8, el radio y el daño se incrementan."
+        }
+      ],
+      "damage": 120,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "hirivmaggot",
+        "portrait": "hprivmaggot"
+      }
+    },
+    {
+      "slug": "shire-fatty-bolger",
+      "object": "ShireFattyBolger",
+      "name": "Gordo Bolger",
+      "title": "Amigo de Frodo, Fredegar Bolger",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 1200,
+      "buildTime": 20,
+      "health": 1500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'El Gordo Bolger no se había quedado de brazos cruzados. En cuanto vio las formas oscuras salir del jardín, supo que debía correr o perecer. Y corrió, salió por la puerta trasera, atravesó el jardín y cruzó los campos.'",
+      "abilities": [
+        {
+          "name": "¡Corre Gordo, Corre!",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Gordo Bolger obtiene +30% de velocidad durante 15 segundos."
+        },
+        {
+          "name": "¡Miedo!¡Fuego!¡Enemigos!",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Suena la llamada del Cuerno de Los Gamos, que reduce el tiempo de reclutamiento de todas las unidades hobbit un 300% durante 30 segundos."
+        },
+        {
+          "name": "Co-conspirador",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Gordo potencia temporalmente a un héroe amigo, otorgándole un 50% de armadura, una ganancia de experiencia un 50% más rápida y una recarga de energía un 75% más rápida. Se acumula con Liderazgo y Hechizos."
+        },
+        {
+          "name": "Precisión de Mediano",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Durante 15 segundos, los ataques del Gordo ignoran la armadura enemiga."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": 2600,
+      "attackRange": 250,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "hirivbolger",
+        "portrait": "hprivbolger"
+      }
+    },
+    {
+      "slug": "shire-pippin",
+      "object": "ShirePippin",
+      "name": "Peregrin Tuk",
+      "title": "Caballero de Gondor, Peregrin Tuk",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Yo soy un mensajero del Rey -dijo-. Le estas hablando al amigo del Rey, y a uno de los más renombrados en todos los países del Oeste. Eres un rufián y un imbécil. Ponte de rodillas en el camino y pide perdón, o te traspasaré con este acero, perdición de los trolls.'",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Lazos de la Comunidad",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Peregrin gana +15% de daño cuando está cerca de Meriadoc, Samsagaz o Frodo. Activar para volverse invisible cuando se está quieto."
+        },
+        {
+          "name": "Tenacidad Tuk",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Las unidades Hobbit cercanas ganan +25% de daño y alcance. Peregrin llama a un grupo de arqueros Tuk estacionarios para que defiendan el lugar elegido. Son inmóviles, pero permanecen en sigilo cuando no atacan."
+        },
+        {
+          "name": "Caballero de Gondor",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los héroes cercanos ganan experiencia un 50% más rápido. Se acumula con Liderazgos, Hechizos y Beneficios. Cuando se activa, el héroe amigo objetivo se vuelve inmune al daño durante 10 segundos."
+        },
+        {
+          "name": "Inquisitivo",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Teletransporta a las unidades objetivo a la ubicación deseada. No funciona en unidades de asedio."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIShirePippin",
+        "portrait": "HPShirePippin"
+      }
+    },
+    {
+      "slug": "shire-meriadoc",
+      "object": "ShireMeriadoc",
+      "name": "Meriadoc Brandigamo",
+      "title": "Caballero de Rohan, Meriadoc Brandigamo",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Ahórrate el aliento! -dijo Merry riendo-. Yo tengo uno mejor. -Y levantando el cuerno de plata lanzó una llamada clara que resonó más allá de la Colina; y de las cavernas y las cabañas y las deterioradas casa de Hobinton, los hobbits respondieron y se volcaron por los caminos, y entre vivas y aclamaciones alcanzaron a la comitiva y siguieron detrás de ella rumbo a Bolsón Cerrado.'",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Lazos de la Comunidad",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Meriadoc gana +15% de daño cuando está cerca de Peregrin, Samsagaz o Frodo. Activar para volverse invisible cuando se está quieto."
+        },
+        {
+          "name": "Caballero de Rohan",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Las unidades Hobbit cercanas ganan +25% de armadura y experiencia. Meriadoc clava su Hoja de Oesternesse en un héroe enemigo, infligiéndole un gran daño e incapacitándolo durante 10 segundos."
+        },
+        {
+          "name": "Cuerno Rohírrico",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Meriadoc hace sonar el cuerno de plata de Rohan, aturdiendo de miedo a las unidades enemigas cercanas durante 15 segundos. Sólo se puede lanzar desmontado."
+        },
+        {
+          "name": "Meriadoc el Magnífico",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades cercanas ganan +15% de velocidad y resistencia al miedo, el terror, el derribo y el pisoteo durante 30 segundos."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIShireMerry",
+        "portrait": "HPShireMerry"
+      }
+    },
+    {
+      "slug": "shire-samwise",
+      "object": "ShireSamwise",
+      "name": "Samsagaz Gamyi",
+      "title": "Samsagaz el Valiente",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'El pequeño jardín de un jardinero libre era lo único que respondía a los gustos y a las necesidades de Sam; no un jardín agigantado hasta las dimensiones de un reino; el trabajo de sus propias manos, no las manos de otros bajo sus órdenes.'",
+      "abilities": [
+        {
+          "name": "Lazos de la Comunidad",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Samsagaz gana +15% de daño cuando está cerca de Peregrin, Meriadoc o Frodo. Activar para volverse invisible cuando se está quieto."
+        },
+        {
+          "name": "Estofado de Conejo",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca una olla de estofado que cura a las unidades cercanas, repone a las caídas y otorga +50% de armadura."
+        },
+        {
+          "name": "Eso es por mi viejo Tío",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Sam gana +100% de daño y +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Samsagaz el Valiente",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas en un radio amplio se vuelven invulnerables, mientras que las unidades enemigas cercanas reciben daño con el tiempo durante 30 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIShireSam",
+        "portrait": "HPShireSam"
+      }
+    },
+    {
+      "slug": "shire-frodo",
+      "object": "ShireFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Así suele ocurrir, Sam, cuando las cosas están en peligro: alguien tiene que renunciar a ellas, perderlas, para que otros las conserven.'",
+      "abilities": [
+        {
+          "name": "Lazos de la Comunidad",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Frodo gana +15% de daño cuando está cerca de Peregrin, Meriadoc o Samsagaz. Activar para volverse invisible cuando se está quieto."
+        },
+        {
+          "name": "Luz de Eärendil",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los enemigos cercanos huyen despavoridos y sufren daño en el tiempo durante 10 segundos."
+        },
+        {
+          "name": "Frodo el de los Nueve Dedos",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas y los monstruos del radio luchen entre sí durante 45 segundos."
+        },
+        {
+          "name": "Héroe de la Tierra Media",
+          "level": 5,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los aliados cercanos obtienen +50% de daño, +50% de armadura y ganan experiencia el doble de rápido. Los tiempos de reutilización de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIShireFrodo",
+        "portrait": "HPShireFrodo"
+      }
+    },
+    {
+      "slug": "shire-bilbo",
+      "object": "ShireBilbo",
+      "name": "Bilbo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Piedra de las Tres Cuadernas",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": null,
+      "isRing": true,
+      "description": "El Camino sigue y sigue desde la puerta. El Camino ha ido muy lejos, y si es posible he de seguirlo recorriéndolo con pie decidido hasta llegar a un camino más ancho donde se encuentran senderos y cursos. ¿Y de ahí adónde iré? No podría decirlo.",
+      "abilities": [
+        {
+          "name": "Ladrón Retirado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Bilbo puede apuntar a unidades enemigas. Los aliados alrededor del objetivo ganan un 100% de armadura, +100% de daño y resistencia al miedo y al terror."
+        },
+        {
+          "name": "Una Despedida muy Afectuosa",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bilbo se pone el Anillo Único y desaparece de la vista durante 2 minutos. Bilbo no puede atacar, pero sus habilidades todavía se pueden utilizar."
+        },
+        {
+          "name": "Túneles Llenos de Oro",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Se puede lanzar sobre un agujero hobbit para que aparezca un cofre de oro cada 20 segundos durante 2 minutos."
+        },
+        {
+          "name": "Invitaciones de Fiesta",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Bilbo envía las invitaciones para su fiesta. Convoca un batallón aleatorio de unidades Hobbit."
+        },
+        {
+          "name": "El Camino Sigue y Sigue",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Bilbo está listo para otra aventura. Bilbo se teletransporta al lugar objetivo."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIShireBilbo",
+        "portrait": "HPShireBilbo"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "shire-citadel",
+      "object": "ShireCitadel",
+      "name": "Piedra de las Tres Cuadernas",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": null,
+      "description": null,
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Auto Reparación",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Permite que la estructura se repare de forma automática."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPShireCitadel"
+      }
+    },
+    {
+      "slug": "shire-hobbit-hole-foundation",
+      "object": "ShireHobbitHoleFoundation",
+      "name": "Agujero de Hobbit",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Produce recursos. Proporciona acceso a la red de túneles. Incrementa los puntos de mando en 100 unidades.\n\n'En un agujero del suelo vivía un hobbit. No era un agujero asqueroso, sucio y húmedo, lleno de gusanos y de un olor viscoso, ni tampoco un agujero seco, desnudo y arenoso, sin nada para sentarse o comer: era un agujero de hobbit, y eso significa comodidad.'",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Los Grandes Smials",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un Agujero de Hobbit en la ubicación objetivo. El Agujero de Hobbit convocado se conecta a la red de túneles pero no produce recursos.\n\n'Las casas y los agujeros de Hobbits de la Comarca eran a menudo grandes y estaban habitados por familias numerosas.... A veces, como en el caso de los Tuks en los Grandes Smials, o los Brandigamos de Casa Brandi, muchas generaciones de parientes vivían en paz (comparativa) en una mansión ancestral y con muchos túneles...'"
+        },
+        {
+          "name": "Una Fiesta Inesperada",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas pierden -33% de armadura y daño y se ralentizan -50%. Activo durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPShireHobbitHole"
+      }
+    },
+    {
+      "slug": "shire-hobbit-farm-foundation",
+      "object": "ShireHobbitFarmFoundation",
+      "name": "Granja Hobbit",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Produce recursos. Razas Sabuesos de Marjala. Cura a los aliados cercanos. Incrementa los puntos de mando en 100 unidades.\n\n'Los hobbits llevan cientos de años viviendo y cultivando las cuatro Cuadernas de la Comarca. Se contentan con ignorar y ser ignorados por el mundo de los Grandes...'",
+      "produces": ["Sabuesos de Marjala"],
+      "upgrades": [
+        {
+          "name": "Setas de Marjala",
+          "cost": 250,
+          "hotkey": "E",
+          "level": null,
+          "description": "Incrementa permanentemente la tasa de curación y el radio de la Granja Hobbit en +50%. Además repone las unidades caídas cerca de la Granja Hobbit.\n\n'Los hobbits tienen una pasión por las setas, superando incluso a los gustos más codiciosos de la gente grande. Un hecho que explica en parte las largas expediciones del joven Frodo a los renombrados campos de Marjala, y la ira del perjudicado Maggot.'",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Protectores Vigilantes",
+          "cost": 800,
+          "hotkey": "R",
+          "level": null,
+          "description": "Cuando se investiga, todas las estructuras de la Comarca son patrulladas permanentemente por Montaraces del Norte.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Una Fiesta Inesperada",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas pierden -33% de armadura y daño y se ralentizan -50%. Activo durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPShireHobbitFarm"
+      }
+    },
+    {
+      "slug": "shire-shirriffs-quarters-foundation",
+      "object": "ShireShirriffsQuartersFoundation",
+      "name": "Oficina de Oficiales",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 25,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Produce recursos. Entrena Hobbits de la Comarca. Incrementa los puntos de mando en 100 unidades.\n\n'El único funcionario real de la Comarca en esta fecha era el Alcalde de Cavada Grande (o de la Comarca), que era elegido cada siete años.... Las oficinas de Correos y el Primer Oficial estaban adscritos a la alcaldía, por lo que gestionaba tanto el Servicio de Mensajería como la Guardia'",
+      "produces": [
+        "Fronteros",
+        "Arqueros Tuk",
+        "Bravos de los Gamos",
+        "Corneta Hobbit"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Oficiales de la Comarca",
+          "cost": 400,
+          "hotkey": "S",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora de Oficiales. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Una Fiesta Inesperada",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas pierden -33% de armadura y daño y se ralentizan -50%. Activo durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPShireShirrifsQuarters"
+      }
+    },
+    {
+      "slug": "shire-halfling-inn-foundation",
+      "object": "ShireHalflingInnFoundation",
+      "name": "Posada Bulliciosa",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Petición de ayuda de los Errantes de Eriador. Produce recursos. Incrementa los puntos de mando en 100 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Una Fiesta Inesperada",
+          "level": null,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas pierden -33% de armadura y daño y se ralentizan -50%. Activo durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPShireInn"
+      }
+    },
+    {
+      "slug": "shire-supply-cart-foundation",
+      "object": "ShireSupplyCartFoundation",
+      "name": "Carro de Suministros",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Produce recursos. Proporciona bonificación de liderazgo a los aliados cercanos. Investiga mejoras de la facción. Incrementa los puntos de mando en 100 unidades.",
+      "produces": ["Lanzador de Fuegos Artificiales"],
+      "upgrades": [
+        {
+          "name": "Fresas y Crema",
+          "cost": 800,
+          "hotkey": "W",
+          "level": null,
+          "description": "Cuando se investiga, todas las unidades de Hobbits ganan pasivamente +10% de velocidad de movimiento y se curan fuera de combate.\n\n'La fruta era tan abundante que los jóvenes hobbits casi se bañaban en fresas con crema; y después se sentaban en el césped bajo los ciruelos y comían, hasta que habían hecho montones de piedras como pequeñas pirámides o las calaveras amontonadas de un conquistador, y luego seguían su camino. Y nadie se puso enfermo, y todos estaban contentos, excepto los que tenían que cortar la hierba.'",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Hoja Valle Largo",
+          "cost": 400,
+          "hotkey": "E",
+          "level": null,
+          "description": "Desbloquea la habilidad Una Fiesta Inesperada para las estructuras de la Comarca. Cuando se activa, las unidades enemigas cercanas pierden -33% de armadura y daño y se ralentizan -50%.\n\n'Todo el mundo está de acuerdo en que Tobold Corneta, de Valle Largo, en la Cuaderna del Sur, fue el primero en cultivar la auténtica hierba de pipa en sus jardines... Los mejores cultivos caseros siguen procediendo de ese distrito, especialmente las variedades conocidas actualmente como la Hoja Valle Largo, el Viejo Toby y Cuaderna del Sur.'",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fuegos Artificiales de Gandalf",
+          "cost": 650,
+          "hotkey": "R",
+          "level": null,
+          "description": "Desbloquea el reclutamiento de Lanzadores de Fuegos Artificiales de los Carros de Suministros.\n\n'Los mejores cohetes jamás vistos. Estallan en estrellas azules y verdes. O tras el trueno, lluvias de plata. Caían como una lluvia de flores.'",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Investigar Flechas de Pluma de Cisne",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Adquirir la mejora Flechas de Pluma de Cisne. Incrementa el daño base y añade daño mágico a las flechas.\n\nMejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Una Fiesta Inesperada",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas pierden -33% de armadura y daño y se ralentizan -50%. Activo durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPShireSupplyCart"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "rallying-call-rivendell",
+      "name": "¡Miedo!¡Fuego!¡Enemigos!",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SPFearFireFoes"
+      },
+      "requires": []
+    },
+    {
+      "slug": "heal-rivendell",
+      "name": "Viejo Toby",
+      "tier": 1,
+      "position": "C",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura parcialmente a las unidades y sustituye a un muerto por batallón. Las unidades aliadas y enemigas objetivo pierden -25% de velocidad de movimiento durante 30 segundos.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SPOldToby"
+      },
+      "requires": []
+    },
+    {
+      "slug": "farsight-rivendell",
+      "name": "Defensores Silenciosos",
+      "tier": 1,
+      "position": "R",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Revela el velo e invoca a tres Montaraces del Norte en el área objetivo durante 60 segundos. Otorga una bonificación temporal de +15% de velocidad a las unidades en su área objetivo durante 35 segundos. Siempre se acumula.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SPSilentDefenders"
+      },
+      "requires": []
+    },
+    {
+      "slug": "old-kingdom",
+      "name": "El Bosque Viejo se Agita",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca permanentemente un Ucorno al campo de batalla.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SPShireHuorn"
+      },
+      "requires": ["¡Miedo!¡Fuego!¡Enemigos!"]
+    },
+    {
+      "slug": "sons-of-elrond",
+      "name": "Buena Puntería",
+      "tier": 2,
+      "position": "LR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Lanza una ráfaga de flechas en cualquier lugar del mapa.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SPKeenAim"
+      },
+      "requires": ["¡Miedo!¡Fuego!¡Enemigos!", "Viejo Toby"]
+    },
+    {
+      "slug": "relicsofthe-past",
+      "name": "Compañías Errantes",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca a dos batallones de Noldor Exiliados y a Gildor.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "SPWanderingCompanies"
+      },
+      "requires": ["Viejo Toby", "Defensores Silenciosos"]
+    },
+    {
+      "slug": "breath-of-manwe",
+      "name": "El Árbol de la Fiesta",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Invoca al Árbol de la Fiesta. Las unidades cercanas se curan con el tiempo y ganan +25% de daño y armadura. El Árbol de la Fiesta puede lanzar Una Fiesta Inesperada para debilitar a las unidades enemigas cercanas.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SPPartyTree"
+      },
+      "requires": ["Defensores Silenciosos"]
+    },
+    {
+      "slug": "the-grey-pilgrim",
+      "name": "Defensores del Norte",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a tres batallones de Jinetes Dúnedain.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SPDunedainOutriders"
+      },
+      "requires": ["El Bosque Viejo se Agita", "Buena Puntería"]
+    },
+    {
+      "slug": "blessingof-ulmo",
+      "name": "Viento del Oeste",
+      "tier": 3,
+      "position": "C",
+      "kind": "heal",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Cura lentamente a las unidades aliadas y repone a las unidades caídas por todo el mapa durante 15 segundos.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "SPShireWestWind"
+      },
+      "requires": ["Buena Puntería", "Compañías Errantes"]
+    },
+    {
+      "slug": "hall-of-fire",
+      "name": "Valentía Mediana",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Las unidades aliadas ganan +15% de velocidad, +75% de daño, +75% de armadura y resistencia al miedo, el terror y el derribo durante 20 segundos.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "SPHalflingBravery"
+      },
+      "requires": ["Compañías Errantes", "El Árbol de la Fiesta"]
+    },
+    {
+      "slug": "rivendell-tom-bombadil",
+      "name": "¡Ven Alegre Dol!",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Tom Bombadil.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "SBRivendellTomBombadil"
+      },
+      "requires": ["Defensores del Norte", "Viento del Oeste"]
+    },
+    {
+      "slug": "bruinen-flood",
+      "name": "Cuerno de Llamada de Los Gamos",
+      "tier": 4,
+      "position": "R",
+      "kind": "heal",
+      "cost": 25,
+      "description": "Las unidades enemigas dentro del radio pierden. -50% de armadura y -50% de daño durante 30 segundos. Los Héroes recargan completamente sus habilidades y son moderadamente curados. Todas las unidades aliadas en el campo de batalla pueden pisotear temporalmente a los enemigos. Todas las unidades de caballería del campo de batalla ganan +100% de armadura contra lanceros durante 30 segundos.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SPHorncallBuckland"
+      },
+      "requires": ["Viento del Oeste", "Valentía Mediana"]
+    }
+  ]
+}

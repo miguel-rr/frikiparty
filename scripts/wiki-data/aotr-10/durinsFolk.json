@@ -1,0 +1,3132 @@
+{
+  "code": "durinsFolk",
+  "units": [
+    {
+      "slug": "dwarven-porter",
+      "object": "DwarvenPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza de Erebor",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        },
+        {
+          "name": "Reino de Escudo de Roble",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Tu has elegido el Reino de Escudo de Roble."
+        },
+        {
+          "name": "Reino de Pie de Hierro",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Tu has elegido el Reino de Pie de Hierro."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIEreborBuilder",
+        "portrait": "UPEreborBuilder"
+      }
+    },
+    {
+      "slug": "armed-miner-horde-durins-folk",
+      "object": "ArmedMinerHorde_DurinsFolk",
+      "name": "Uthâk",
+      "category": "swordsmen",
+      "recruitedAt": "Mina Enana",
+      "requirements": null,
+      "cost": 250,
+      "cp": 48,
+      "health": 185,
+      "buildTime": 30,
+      "armourSet": "SoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "structures"],
+      "weakAgainst": [],
+      "description": "Mineros Armados. Incrementa la producción de recursos a medida que suben de nivel.\n\nBonificaciones de Horda. Todos los mineros ganan +25% de daño y +25% de armadura cuando se reúnen en grupos de 60 unidades o más.\n\nSólo puede entrenarse un batallón de mineros por mina. Los mineros perdidos pueden ser reentrenados en sus respectivas minas de origen.\n\nEntre los enanos, la minería es una profesión de gran necesidad y renombre. Todos los jóvenes enanos sirven varios años en una compañía minera. Los mejores nunca se van.",
+      "abilities": [
+        {
+          "name": "Picos Punta de Mithril",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques de los Mineros Armados reducen la armadura de las estructuras un 5% y roban recursos de las estructuras."
+        },
+        {
+          "name": "Compensación Laboral",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "La mina de origen del minero genera +5% adicional de recursos. Por cada nivel que ganan los mineros, su mina obtiene +5% adicional de producción de recursos. Máximo +25%."
+        },
+        {
+          "name": "Mina Perdida",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "La mina de los mineros ha sido destruida."
+        },
+        {
+          "name": "Flama Destellante",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los mineros lanzan botellas de llamarada enana que dañan a las unidades y estructuras enemigas de un área."
+        },
+        {
+          "name": "Embestida",
+          "level": 4,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen al enemigo. Los Guardianes obtienen +50% de daño y +50% de armadura. Causa impactos severos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flama Destellante",
+          "cost": 400,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los mineros utilizar Flama Destellante, un devastador ataque de fuego que inflige graves daños a unidades y estructuras.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 80,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIEreborMiners",
+        "portrait": "UPEreborMiners"
+      }
+    },
+    {
+      "slug": "dwarven-guardian",
+      "object": "DwarvenGuardianHorde",
+      "name": "Âzagh-baruk",
+      "category": "swordsmen",
+      "recruitedAt": "Salón de los Guerreros de Erebor",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 300,
+      "buildTime": 20,
+      "armourSet": "DwarvenGuardianArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Guerreros de Erebor.\n\nEstos exploradores son guerreros bien entrenados que componen la mayor parte del ejército permanente.",
+      "abilities": [
+        {
+          "name": "Velocistas Naturales",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Guerreros de Erebor obtienen +15% de velocidad de movimiento y pueden aplastar unidades enemigas durante 5 segundos. Los Guerreros también obtienen +15% de daño y +15% de armadura durante 10 segundos. En el nivel 4, inflige más daño al aplastar enemigos."
+        },
+        {
+          "name": "Embestida",
+          "level": 4,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen al enemigo. Los Guardianes obtienen +50% de daño y +50% de armadura. Causa impactos severos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Martillos de Asedio",
+          "cost": 400,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora este batallón con Martillos de Asedio. Incrementa significativamente el daño de las armas cuerpo a cuerpo contra Estructuras. Anula los efectos de las Espadas Forjadas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 330,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIEreborWarrior",
+        "portrait": "UPEreborWarrior"
+      }
+    },
+    {
+      "slug": "dwarven-phalanx",
+      "object": "DwarvenPhalanxHorde",
+      "name": "Sigin-udrîg",
+      "category": "pikemen",
+      "recruitedAt": "Salón de los Guerreros de Erebor",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 400,
+      "buildTime": 30,
+      "armourSet": "DwarvenPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Piqueros de Erebor. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nCon largas lanzas y anchos escudos estos enanos protegen los altos salones y pasillos de Erebor.",
+      "abilities": [
+        {
+          "name": "Velocistas Naturales",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Piqueros de Erebor obtienen +15% de velocidad de movimiento y pueden aplastar unidades enemigas durante 5 segundos. Los Piqueros también obtienen +15% de daño y +15% de armadura durante 10 segundos. En el nivel 5, inflige más daño al aplastar enemigos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 360,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 36,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIEreborPikeman",
+        "portrait": "UPEreborPikeman"
+      }
+    },
+    {
+      "slug": "dwarven-archer",
+      "object": "DwarvenArcherHorde",
+      "name": "Rakhâs-abzâg",
+      "category": "archers",
+      "recruitedAt": "Salón de los Guerreros de Erebor",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Arqueros de Erebor.\n\nPortando arcos compuestos y flechas gruesas, estos arqueros enanos asestan un severo golpe en las distancias cortas.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "¡Perforad!",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Arqueros derriban a las unidades enemigas durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Punta de Mithril. Añade daño cortante adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 300,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 320,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIEreborArcher",
+        "portrait": "UPEreborArcher"
+      }
+    },
+    {
+      "slug": "dwarven-grim-hammer",
+      "object": "DwarvenGrimHammerHorde",
+      "name": "Sulkhâ-bekhâz",
+      "category": "swordsmen",
+      "recruitedAt": "Salón de los Guerreros de Erebor nivel 2",
+      "requirements": null,
+      "cost": 275,
+      "cp": 60,
+      "health": 220,
+      "buildTime": 27,
+      "armourSet": "DwarvenGrimHammerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "numbers"],
+      "weakAgainst": [],
+      "description": "Martillos Sombríos.\n\nVestidos con finas armaduras enanas y empuñando armas que son la envidia de la Tierra Media, estos robustos soldados no temen a ningún enemigo.",
+      "abilities": [
+        {
+          "name": "Intimidación",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas pierden. -10% de velocidad."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 160,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 10,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIGrimhammer",
+        "portrait": "UPGrimhammer"
+      }
+    },
+    {
+      "slug": "khazad-guard",
+      "object": "KhazadGuardHorde",
+      "name": "Âzugh-Khazad-dûm",
+      "category": "heroic",
+      "recruitedAt": "Salón de los Guerreros de Erebor nivel 3",
+      "requirements": null,
+      "cost": 1200,
+      "cp": 80,
+      "health": 550,
+      "buildTime": 20,
+      "armourSet": "HarbingerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Veteranos de Khazad-dûm.\n\nEstos guerreros Enanos de élite, robustos e incondicionales recuperadores del Khazad-dûm caído, no temen a ningún enemigo.",
+      "abilities": [
+        {
+          "name": "Señor de Moria",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Veteranos de Khazad-dûm obtienen +25% de armadura mientras estén cerca de Balin."
+        },
+        {
+          "name": "Himno de Durin",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Veteranos de Khazad-dúm entonan un canto intimidatorio, que reduce la armadura de las unidades enemigas cercanas en un 35% durante 20 segundos."
+        },
+        {
+          "name": "Furia Ancestral",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a los Veteranos de Khazad-dûm se vuelven inmunes al miedo y al terror."
+        },
+        {
+          "name": "Portadores de Runas",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Veteranos de Khazad-dûm despiertan las runas de su antiguo armamento e infligen daño mágico con cada golpe."
+        },
+        {
+          "name": "Velocistas Naturales",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Guerreros de Erebor obtienen +15% de velocidad de movimiento y pueden aplastar unidades enemigas durante 5 segundos. Los Guerreros también obtienen +15% de daño y +15% de armadura durante 10 segundos. En el nivel 4, inflige más daño al aplastar enemigos."
+        },
+        {
+          "name": "Embestida",
+          "level": 4,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen al enemigo. Los Guardianes obtienen +50% de daño y +50% de armadura. Causa impactos severos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Martillos de Asedio",
+          "cost": 400,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora este batallón con Martillos de Asedio. Incrementa significativamente el daño de las armas cuerpo a cuerpo contra Estructuras. Anula los efectos de las Espadas Forjadas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 800,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "SBEreborSummonBoyos",
+        "portrait": "UPEreborKhazad"
+      }
+    },
+    {
+      "slug": "dwarven-ered-luin-trader",
+      "object": "DwarvenEredLuinTraderHorde",
+      "name": "Usjur-Khagal-zirak",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Erebor",
+      "requirements": null,
+      "cost": 400,
+      "cp": 40,
+      "health": 240,
+      "buildTime": 20,
+      "armourSet": "EredLuinArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Comerciantes de las Montañas Azules. Infantería de Apoyo.\n\nLos enanos de las Montañas Azules son conocidos por su cultura industriosa y mercantil, y viajan por toda la Tierra Media para vender sus mercancías.",
+      "abilities": [
+        {
+          "name": "Pan de Camino Enano",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los comerciantes se curan pasivamente fuera del combate."
+        },
+        {
+          "name": "Mercaderes",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Comerciantes y los aliados cercanos obtienen recursos por sus bajas enemigas durante 30 segundos."
+        },
+        {
+          "name": "Hojalateros",
+          "level": 3,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Todas las unidades de asedio cercanas obtienen +15% de daño y velocidad."
+        },
+        {
+          "name": "Jugueteros",
+          "level": 4,
+          "hotkey": "C",
+          "kind": "toggle",
+          "description": "Despliega los Fuegos Artificiales Enanos el icono '¡Ponlos en Marcha!'"
+        },
+        {
+          "name": "Embestida",
+          "level": 4,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen al enemigo. Los Guardianes obtienen +50% de daño y +50% de armadura. Causa impactos severos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Jefe de Ered Luin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 180,
+      "damageType": "SLASH",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 5,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 433
+      },
+      "images": {
+        "button": "UIEreborEredLuin",
+        "portrait": "UPEreborEredLuin"
+      }
+    },
+    {
+      "slug": "ered-luin-guard-horde-durins-folk",
+      "object": "EredLuinGuardHorde_DurinsFolk",
+      "name": "Ushmur-Khagal-zirak",
+      "category": "archers",
+      "recruitedAt": "Asamblea de Erebor",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Guardias de Ered Luin. Pueden ocultarse tras los árboles.\n\nLos robustos arcos cortos y un carcaj lleno de dardos de acero hacen maravillas para proteger las caravanas enanas que atraviesan las tierras salvajes de Eriador y más allá.",
+      "abilities": [
+        {
+          "name": "Pan de Camino Enano",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Guardias se curan pasivamente tras el combate."
+        },
+        {
+          "name": "Fuego Cruzado",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 30 segundos, la unidad o héroe objetivo queda marcado por los Guardias de Ered Luin. El objetivo recibe 20 puntos más de daño de los ataques de los Guardias, Cazadores de Trolls y Montaraces de Ered Luin."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Punta de Mithril. Añade daño cortante adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Jefe de Ered Luin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 65,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIEredLuinGuard",
+        "portrait": "UPEredLuinGuard"
+      }
+    },
+    {
+      "slug": "dwarven-ered-luin-ranger",
+      "object": "DwarvenEredLuinRangerHorde",
+      "name": "Huruz-Khagal-zirak",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Erebor nivel 2",
+      "requirements": null,
+      "cost": 400,
+      "cp": 60,
+      "health": 240,
+      "buildTime": 20,
+      "armourSet": "EredLuinRangerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Montaraces de Ered Luin. Infantería rápida y contundente. Pueden ocultarse tras los árboles.\n\nLos extensos bosques que cubrían las largas estribaciones de las Montañas Azules eran mantenidos a salvo por los Montaraces Enanos de mirada aguda.",
+      "abilities": [
+        {
+          "name": "Pan de Camino Enano",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Exploradores se curan pasivamente tras el combate."
+        },
+        {
+          "name": "Caminos Secretos",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Los Montaraces se ocultan tras los árboles. Ellos infligen el doble de daño cuando flanquean y atacan desde atrás.\n\nCuando se activa, los Montaraces de Ered Luin se teletransportan a la ubicación objetivo."
+        },
+        {
+          "name": "Astucia Enana",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Montaraces colocan una variedad surtida de trampas. Los enemigos que atraviesan ese terreno quedan aturdidos durante 5 segundos. No afecta a bestias salvajes."
+        },
+        {
+          "name": "Embestida",
+          "level": 4,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordenar a los guerreros que carguen al enemigo. Los Guardianes obtienen +50% de daño y +50% de armadura. Causa impactos severos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Jefe de Ered Luin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Placa Enana",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa Enana. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Thrór",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 620,
+      "damageType": "SLASH",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 10,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uieredluinrangers",
+        "portrait": "UPEredLuinRangers"
+      }
+    },
+    {
+      "slug": "ered-luin-troll-slayer",
+      "object": "EredLuinTrollSlayerHorde",
+      "name": "Cazadores de Trolls de Ered Luin",
+      "category": "archers",
+      "recruitedAt": "Asamblea de Erebor nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 72,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "EredLuinRangerArmor",
+      "attackType": "Espada (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Cazadores de Trolls de Ered Luin. Infantería híbrida lanzadora de hachas con ataques cuerpo a cuerpo lentos y potentes. Pueden ocultarse tras los árboles.\n\nMuchos mercaderes que se enfrentaban a los peligros de los Bosque de los Trolls confiaban en la habilidad y pericia de los Cazadores de Trolls Enanos para llegar sanos y salvos a su destino.",
+      "abilities": [
+        {
+          "name": "Pan de Camino Enano",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Exploradores se curan pasivamente tras el combate."
+        },
+        {
+          "name": "Manos Firmes",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Cazadores de Trolls ganan +50% de armadura de aplastamiento y asedio, +15% de velocidad y no pueden ser derribados durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Jefe de Ered Luin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 290,
+      "damageType": "SLASH",
+      "attackDelayMs": null,
+      "attackRange": 250,
+      "speed": 45,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1100
+      },
+      "images": {
+        "button": "uitrollslayers",
+        "portrait": "uptrollslayers"
+      }
+    },
+    {
+      "slug": "iron-hills-warrior",
+      "object": "IronHillsWarriorHorde",
+      "name": "Baruk-sharâhul",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Erebor nivel 2",
+      "requirements": null,
+      "cost": 700,
+      "cp": 90,
+      "health": 450,
+      "buildTime": 20,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "cavalry"],
+      "weakAgainst": [],
+      "description": "Guerreros de las Colinas de Hierro. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nEstos fuertes guerreros siguieron al Señor de las Colinas de Hierro hasta Erebor, para entablar combate con cualquiera que se interpusiese ente ellos y sus parientes.",
+      "abilities": [
+        {
+          "name": "Hendir Golpes",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques cuerpo a cuerpo reducen la armadura enemiga un 20% durante 5 segundos. El maleficio no se acumula consigo mismo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {},
+      "images": {
+        "button": "UIIronHillsWarriors",
+        "portrait": "UPIronHillsWarriors"
+      }
+    },
+    {
+      "slug": "iron-hills-crossbow",
+      "object": "IronHillsCrossbowHorde",
+      "name": "Azaghâr-sharâhul",
+      "category": "archers",
+      "recruitedAt": "Asamblea de Erebor nivel 3",
+      "requirements": null,
+      "cost": 675,
+      "cp": 80,
+      "health": 250,
+      "buildTime": 35,
+      "armourSet": "IHCrossbowHeavyArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Ballesteros de las Colinas de Hierro.\n\nAl igual que sus usuarios, las ballestas de las Colinas de Hierro son cortas y robustas, y tienen una gran potencia.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Cuerdas Anudadas",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Ballesteros ignoran la armadura enemiga durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 130,
+      "damageType": "PIERCE",
+      "attackDelayMs": 1000,
+      "attackRange": 320,
+      "speed": 45,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIIronHillsCrossbows",
+        "portrait": "UPIronHillsCrossbows"
+      }
+    },
+    {
+      "slug": "iron-hill-rider",
+      "object": "IronHillRiderHorde",
+      "name": "Ukhrub-sharâhul",
+      "category": "cavalry",
+      "recruitedAt": "Asamblea de Erebor nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 80,
+      "health": 400,
+      "buildTime": 30,
+      "armourSet": "RohirrimHeavyArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Jinetes de las Colinas de Hierro. Caballería de Élite.\n\n'Los Enanos de las Colinas de Hierro ven una similitud simbólica entre ellos mismos y estas cabras montesas. Juntos, forman una temible presencia en la campo de batalla.'",
+      "abilities": [
+        {
+          "name": "Carga Implacable",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Jinetes de las Colinas de Hierro pierden. -50% de desaceleración por pisoteo y obtienen +50% de resistencia a las picas durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Runas Khûzdul",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 195,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIIronHillsRiders",
+        "portrait": "UPIronHillsRiders"
+      }
+    },
+    {
+      "slug": "dale-guard",
+      "object": "DaleGuardHorde",
+      "name": "Lanceros Bárdidos",
+      "category": "pikemen",
+      "recruitedAt": "Asamblea de Erebor",
+      "requirements": null,
+      "cost": 325,
+      "cp": 60,
+      "health": 280,
+      "buildTime": 20,
+      "armourSet": "PikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Piqueros Básicos. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nEl rey Brand de Valle se ocupó de la creación de un ejército permanente: regimientos de hombres disciplinados equipados con lanza y escudo, librando la guerra desde una formación de falange casi impenetrable.",
+      "abilities": [
+        {
+          "name": "Supremacía Bárdida",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas de Orientales y Variags sufren. -25% de daño y -20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Armaduras del Gobernador",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armaduras del Gobernador. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Espadas del Gobernador",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Espadas del Gobernador. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Esgaroth",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 150,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 36,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "uidalephalanx",
+        "portrait": "UPDalePhalanx"
+      }
+    },
+    {
+      "slug": "menof-dale-swordsman",
+      "object": "MenofDaleSwordsmanHorde",
+      "name": "Espadachines Bárdidos",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Erebor",
+      "requirements": null,
+      "cost": 400,
+      "cp": 70,
+      "health": 400,
+      "buildTime": 30,
+      "armourSet": "DaleSoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Infantería de Élite.\n\nLa riqueza reavivada de Valle se ejemplifica en su ejército excelentemente entrenado y equipado, que se encuentra entre los mejores de todo Rhovanion.",
+      "abilities": [
+        {
+          "name": "Supremacía Bárdida",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio infligen. -33% de daño y se ralentizan un 20% durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 100,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIDaleSwordsmen",
+        "portrait": "UPDaleSwordsmen"
+      }
+    },
+    {
+      "slug": "dwarven-men-of-dale",
+      "object": "DwarvenMenOfDaleHorde",
+      "name": "Arqueros Bárdidos",
+      "category": "archers",
+      "recruitedAt": "Asamblea de Erebor nivel 2",
+      "requirements": null,
+      "cost": 625,
+      "cp": 72,
+      "health": 220,
+      "buildTime": 30,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Pueden disparar Flechas Negras.\n\nEn la tradición militar Bárdida, el uso hábil del arco largo es la marca primordial de un excelente soldado.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Flechas Negras",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Habilidad de largo alcance que inflige más daño. Causan miedo en los monstruos enemigos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cota de Malla Bárdida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Cota de Malla Bárdida. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Punta de Mithril. Añade daño cortante adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Valle",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 75,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 380,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 380,
+        "preAttackDelayMs": 1170
+      },
+      "images": {
+        "button": "UIDaleArcher",
+        "portrait": "UPDaleArcher"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "dwarven-roac",
+      "object": "DwarvenRoac",
+      "name": "Roäc",
+      "title": "Señor de los Cuervos, Roäc",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 500,
+      "buildTime": 15,
+      "health": 260,
+      "armourSet": "EagleHeroArmor",
+      "attackType": null,
+      "isRing": false,
+      "description": "Durante siglos, los Enanos de Erebor han mantenido una estrecha amistad con los cuervos de la Montaña Solitaria, empleándolos como mensajeros y atendiendo a sus sabios consejos.",
+      "abilities": [
+        {
+          "name": "Formas Sutiles",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Roäc se vuelve invisible mientras permanezca quieto. Roäc detecta unidades en sigilo."
+        },
+        {
+          "name": "Crueldad de los Cuervos",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los enemigos bajo Roäc pierden -15% de velocidad."
+        },
+        {
+          "name": "Sabiduría de Antaño",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades objetivo ganan experiencia moderada. En el nivel 5, concede experiencia adicional."
+        },
+        {
+          "name": "Mensajero del Rey",
+          "level": 5,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca un batallón de Guerreros de las Colinas de Hierro."
+        },
+        {
+          "name": "Señor de los Cuervos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Rango 1: Las unidades aliadas cercanas a Roäc obtienen +5% de velocidad. Rango 3: Los héroes aliados cercanos a Roäc obtienen +10% de experiencia. Rango 5: Las unidades aliadas cercanas a Roäc obtienen +10% de velocidad."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 120,
+      "stats": {
+        "visionRange": 210
+      },
+      "images": {
+        "button": "HIEreborRoac",
+        "portrait": "HPEreborRoac"
+      }
+    },
+    {
+      "slug": "dwarven-kili-adventure",
+      "object": "DwarvenKili_Adventure",
+      "name": "Kili",
+      "title": "Joven Príncipe de Erebor",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 1700,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'¡No me esconderé detrás de un muro de piedra mientras otros pelean nuestras batallas por nosotros!'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Hermandad",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Kili obtiene +20% de daño junto a Fili."
+        },
+        {
+          "name": "Suerte de Batalla",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Kili obtiene permanentemente una mejora en la evasión a ataques a distancia."
+        },
+        {
+          "name": "Tiro Rápido",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Kili obtiene +15% de daño y +33% de velocidad de ataque durante 20 segundos. Sólo se puede usar con el arco."
+        },
+        {
+          "name": "Espíritus Elevados",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Garantiza experiencia a las tropas cercanas. Sólo afecta a las unidades enanas."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIEreborKili",
+        "portrait": "HPEreborKili"
+      }
+    },
+    {
+      "slug": "dwarven-fili-adventure",
+      "object": "DwarvenFili_Adventure",
+      "name": "Fili",
+      "title": "Joven Príncipe Heredero de Erebor",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Estaremos detrás de ti! Si te encuentras con problemas, grazna dos veces como una lechuza común, una vez como una lechuza parda.'",
+      "abilities": [
+        {
+          "name": "Hermandad",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Fili obtiene +20% de daño junto a Kili."
+        },
+        {
+          "name": "Cuchilla Oculta",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Fili inflige un gran daño a un solo objetivo, incapacitándolo durante 10 segundos."
+        },
+        {
+          "name": "Destreza Enana",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Fili obtiene +25% de daño y más velocidad de ataque y movimiento durante 30 segundos."
+        },
+        {
+          "name": "Heredero al Trono",
+          "level": 8,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los enanos de Erebor y los enanos de Ered Luin cerca de Fili obtienen +33% de daño y +25% de armadura."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 815,
+      "attackRange": 25,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborFili",
+        "portrait": "HPEreborFili"
+      }
+    },
+    {
+      "slug": "dwarven-balin-adventure",
+      "object": "DwarvenBalin_Adventure",
+      "name": "Balin",
+      "title": "Consejero Principal del Rey",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Estamos contigo, muchacho. Veremos que se haga.'",
+      "abilities": [
+        {
+          "name": "Vigía de la Compañía",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los aliados cercanos a Balin obtienen +25% de rango de visión.\n\nEn el nivel 10, teletransporta a las unidades objetivo a la ubicación deseada. No funciona en unidades de asedio."
+        },
+        {
+          "name": "Expedición de Balin",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Balin planta el estandarte de Durin. Las tropas cercanas obtienen +33% de daño, +25% de armadura, ganan experiencia un 50% más rápido y se curan parcialmente. En el nivel 7, las unidades afectadas son inmunes al derribo y se curan en mayor medida."
+        },
+        {
+          "name": "Sabiduría Enana",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La producción de recursos de la estructura seleccionada se eleva al 200% durante 60 segundos."
+        },
+        {
+          "name": "Consejero de Reyes",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Balin potencia a un héroe aliado, otorgándole 50% de armadura, 50% más de experiencia y 75% más de tiempo de recarga de poder durante 30 segundos."
+        }
+      ],
+      "damage": 210,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborBalin",
+        "portrait": "HPEreborBalin"
+      }
+    },
+    {
+      "slug": "dwarven-dain-adventure",
+      "object": "DwarvenDain_Adventure",
+      "name": "Señor Dáin II Pie de Hierro",
+      "title": "Dáin Pie de Hierro, Señor de las Colinas de Hierro",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 2800,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Si osa interponerse entre los míos y yo, ¡le abriré su linda cabeza! ¡a ver si siguie sonriendo después!'",
+      "abilities": [
+        {
+          "name": "Señor de las Colinas de Hierro",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades de las Colinas de Hierro cercanas a Dáin obtienen +25% de daño, +25% de armadura y experiencia un 33% más rápido."
+        },
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "¡Baruk Khazâd!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Ataque potente que provoca un impacto severo. Sólo se puede utilizar cuando se desmonta."
+        },
+        {
+          "name": "Asalto Temerario",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo obtienen +33% de daño durante 30 segundos. Anula el liderazgo enemigo durante 30 segundos."
+        },
+        {
+          "name": "¡Por el Rey!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "A Pie: Convoca tres batallones de lanceros de las Colinas de Hierro al lado de Dáin. En Jabalí: Convoca tres batallones de jinetes de cabra de las Colinas de Hierro al lado de Dáin."
+        }
+      ],
+      "damage": 600,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborDain",
+        "portrait": "HPEreborDainHobbit"
+      }
+    },
+    {
+      "slug": "dwarven-dwalin-adventure",
+      "object": "DwarvenDwalin_Adventure",
+      "name": "Dwalin",
+      "title": "Poderoso guerrero Enano, Dwalin",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Lo salvaje no es lugar para gente gentil que no puede luchar ni valerse por sí mismo...'",
+      "abilities": [
+        {
+          "name": "Hermanos de Armas",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Junto a Thorin, Dwalin obtiene +15% de daño y armadura +15% de velocidad de ataque."
+        },
+        {
+          "name": "¡Baruk Khazâd!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Dwalin deja escapar un grito de guerra causando terror en las unidades enemigas."
+        },
+        {
+          "name": "Golpe Furioso",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Dwalin golpea el suelo derribando a las unidades enemigas y causando un gran daño a las estructuras en un pequeño radio de acción."
+        },
+        {
+          "name": "Juggernaut Enano",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Dwalin gana +200% de armadura, resistencia al derribo e inflige daño de derribo durante 30 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborDwalin",
+        "portrait": "HPEreborDwalin"
+      }
+    },
+    {
+      "slug": "dwarven-thorin-adventure",
+      "object": "DwarvenThorin_Adventure",
+      "name": "Thorin Escudo de Roble",
+      "title": "Rey Bajo la Montaña",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3600,
+      "armourSet": "ThorinArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Lealtad. Honor. Un corazón dispuesto. No puedo pedir más que eso.'",
+      "abilities": [
+        {
+          "name": "Rey Bajo la Montaña",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Enanos cercanos a Thorin ganan un 25% de armadura, resistencia al miedo y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Resentimiento",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo pierden. -20% de velocidad y -30% de armadura durante 30 segundos. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Hendedora de Trasgos",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Thorin obtiene +75% de daño mágico y +100% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Impulsado por la Profecía",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cura a los aliados cercanos y refresca completamente los temporizadores de habilidades especiales."
+        },
+        {
+          "name": "¡Du Bekar!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Thorin y los aliados cercanos ganan resistencia a los golpes, +75% de daño y +20% de velocidad durante 30 segundos. Thorin puede aplastar a los enemigos. Los enemigos en un radio amplio alrededor de Thorin quedan aturdidos de miedo durante 15 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborThorin",
+        "portrait": "HPEreborThorin"
+      }
+    },
+    {
+      "slug": "dwarven-arcah",
+      "object": "DwarvenArcah",
+      "name": "Arcah",
+      "title": "Dama de los Cuervos, Hija de Roäc",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 500,
+      "buildTime": 15,
+      "health": 260,
+      "armourSet": "EagleHeroArmor",
+      "attackType": null,
+      "isRing": false,
+      "description": "Durante siglos, los Enanos de Erebor han mantenido una estrecha amistad con los cuervos de la Montaña Solitaria, empleándolos como mensajeros y atendiendo a sus sabios consejos.",
+      "abilities": [
+        {
+          "name": "Formas Sutiles",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Arcah se vuelve invisible mientras permanezca quieta. Arcah detecta unidades en sigilo."
+        },
+        {
+          "name": "Crueldad de los Cuervos",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los enemigos bajo Arcah pierden -15% de velocidad."
+        },
+        {
+          "name": "Sabiduría de Antaño",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades objetivo ganan experiencia moderada. En el nivel 5, concede experiencia adicional."
+        },
+        {
+          "name": "Mensajero del Rey",
+          "level": 5,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca un batallón de Guerreros de las Colinas de Hierro."
+        },
+        {
+          "name": "Dama de los Cuervos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Rango 1: Las unidades aliadas cercanas a Arcah obtienen +5% de velocidad. Rango 3: Los héroes aliados cercanos a Arcah obtienen +10% de experiencia. Rango 5: Las unidades aliadas cercanas a Arcah obtienen +10% de velocidad."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 120,
+      "stats": {
+        "visionRange": 210
+      },
+      "images": {
+        "button": "hiarcahlotrera",
+        "portrait": "HPArcahLotrEra"
+      }
+    },
+    {
+      "slug": "dwarven-hadhod",
+      "object": "DwarvenHadhod",
+      "name": "Hadhod",
+      "title": "Orgulloso guerrero del clan de Fundin",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2700,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Hadhod es un veterano de muchas batallas, después de haber viajado por todas partes antes de establecerse finalmente en Erebor.",
+      "abilities": [
+        {
+          "name": "Ojo Atento",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Se puede lanzar sobre estructuras enemigas para reducir su armadura un 25% durante 10 segundos."
+        },
+        {
+          "name": "Sabotaje",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El edificio enemigo objetivo recibe un gran daño y es desactivado durante 20 segundos. Automáticamente abre la puerta objetivo."
+        },
+        {
+          "name": "Tallador de Piedra",
+          "level": 6,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enanas cercanas infligen +25% de daño contra estructuras."
+        },
+        {
+          "name": "Maestro de Asedio",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los Âzagh-baruk objetivo se mejoran con Martillos de Asedio. Los Mangoneles objetivo reciben un incremento permanente del 15% en daño y rango."
+        },
+        {
+          "name": "Lazos de Amistad",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a Elegost, el cazahuargos, sobre el campo de batalla."
+        }
+      ],
+      "damage": 230,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hihadhodlotrera",
+        "portrait": "HPHadhodLotrEra"
+      }
+    },
+    {
+      "slug": "dwarven-gloin",
+      "object": "DwarvenGloin",
+      "name": "Glóin",
+      "title": "Padre de Gimli",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'La Sombra crece y se acerca. La guerra ya se está acercando a nuestras fronteras Orientales...'",
+      "abilities": [
+        {
+          "name": "Tradición Herborista",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Cura a las unidades cercanas.\n\nLos aliados cercanos a Glóin obtienen +15% de daño y +15% de armadura."
+        },
+        {
+          "name": "Padre Orgulloso",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Glóin obtiene +20% de armadura y daño mientras esté cercano a Gimli."
+        },
+        {
+          "name": "¡Baruk Khazâd!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Glóin y las unidades enanas cercanas obtienen una bonificación de +15% de velocidad, +50% de experiencia y resistencia al miedo y al terror durante 20 segundos."
+        },
+        {
+          "name": "Capitalismo de Riesgo",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La Mina o Gran Fragua objetivo incrementa su producción un 200% durante 30 segundos."
+        },
+        {
+          "name": "Caminos Secretos",
+          "level": 9,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Glóin conoce las rutas que los enanos más jóvenes no conocen. Teletransporta a las unidades seleccionadas al lugar deseado. No funciona en unidades de asedio."
+        }
+      ],
+      "damage": 180,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "higloinlotrera",
+        "portrait": "HPGloinLotrEra"
+      }
+    },
+    {
+      "slug": "dwarven-balin-adventure-lot-r",
+      "object": "DwarvenBalin_AdventureLotR",
+      "name": "Balin",
+      "title": "Consejero Principal del Rey",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Estamos contigo, muchacho. Veremos que se haga.'",
+      "abilities": [
+        {
+          "name": "Vigía de la Compañía",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los aliados cercanos a Balin obtienen +25% de rango de visión."
+        },
+        {
+          "name": "Expedición de Balin",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Balin planta el estandarte de Durin. Las tropas cercanas obtienen +50% de experiencia, +25% de armadura, +33% de daño y se curan parcialmente. En el nivel 7, las unidades afectadas son inmunes al derribo y se curan en mayor medida. En el nivel 10, convoca a un batallón de Veteranos Khazâd-Dum."
+        },
+        {
+          "name": "Sabiduría Enana",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La producción de recursos de la estructura seleccionada se eleva al 200% durante 60 segundos."
+        },
+        {
+          "name": "Consejero de Reyes",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Balin potencia a un héroe aliado, otorgándole 50% de armadura, 50% más de experiencia y 75% más de tiempo de recarga de poder durante 30 segundos."
+        }
+      ],
+      "damage": 210,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIEreborBalin",
+        "portrait": "HPEreborBalin"
+      }
+    },
+    {
+      "slug": "dwarven-old-dwalin-adventure",
+      "object": "DwarvenOldDwalin_Adventure",
+      "name": "Dwalin",
+      "title": "Poderoso guerrero Enano, Dwalin",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Lo salvaje no es lugar para gente gentil que no puede luchar ni valerse por sí mismo...'",
+      "abilities": [
+        {
+          "name": "Hijo de Fundin",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Junto a Balin, Dwalin obtiene +15% de daño y armadura +15% de velocidad de ataque."
+        },
+        {
+          "name": "¡Baruk Khazâd!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Dwalin deja escapar un grito de guerra causando terror en las unidades enemigas."
+        },
+        {
+          "name": "Golpe Furioso",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Dwalin golpea el suelo derribando a las unidades enemigas y causando un gran daño a las estructuras en un pequeño radio de acción."
+        },
+        {
+          "name": "Juggernaut Enano",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Dwalin gana +200% de armadura, resistencia al derribo e inflige daño de derribo durante 30 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiolddwalin",
+        "portrait": "upolddwalin"
+      }
+    },
+    {
+      "slug": "dwarven-gimli-adventure",
+      "object": "DwarvenGimli_Adventure",
+      "name": "Gimli",
+      "title": "Enano de la Montaña Solitaria",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 2800,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Aún queda un Enano con vida en Moria!'",
+      "abilities": [
+        {
+          "name": "Lanzamiento de Hacha",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Potente ataque a distancia con daño en el radio. El héroe enemigo objetivo queda ralentizado -50% durante 10 segundos."
+        },
+        {
+          "name": "Maestro del Hacha",
+          "level": null,
+          "hotkey": "R",
+          "kind": "toggle",
+          "description": "Hacha de Balin otorga +33% de daño de armadura y daño de área. Hacha de Glóin otorga +10% de velocidad de movimiento y +50% de velocidad de ataque."
+        },
+        {
+          "name": "Nadie Lanza a un Enano",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Gimli salta sobre una localización causando un daño de efecto."
+        },
+        {
+          "name": "Orgullo Obstinado",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Gimli obtiene +50% de daño y +33% de velocidad durante 30 segundos."
+        },
+        {
+          "name": "Amigo-elfo",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a Legolas Hoja Verde en el campo de batalla."
+        }
+      ],
+      "damage": 265,
+      "damageType": "HERO",
+      "attackDelayMs": 300,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "higimlilotrera",
+        "portrait": "HPGimliLotrEra"
+      }
+    },
+    {
+      "slug": "dwarven-thorin-stonehelm-adventure",
+      "object": "DwarvenThorinStonehelm_Adventure",
+      "name": "Thorin III Yelmo de Piedra",
+      "title": "Thorin III Yelmo de Piedra, Príncipe de Erebor",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Cuando la noticia de la derrota de Sauron llegó a las huestes Orientales que sitiaban Erebor, se llenaron de consternación. Fue en este momento que Thorin Yelmo de Piedra, príncipe de Erebor, lideró un descarado contraataque que rompió el asedio y derrotó al enemigo.",
+      "abilities": [
+        {
+          "name": "Príncipe de Erebor",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Siempre que Thorin ataca, las tropas cercanas obtienen +33% de daño acumulable durante 5 segundos.\n\nEn el nivel 5, Thorin está acompañado por tres Khazâd-uzbadul."
+        },
+        {
+          "name": "Rencor Enano",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Thorin hace retroceder a las unidades enemigas y gana +50% de velocidad de ataque durante 15 segundos. La bonificación del Príncipe de Erebor se incrementa al 50% de daño durante ese tiempo.\n\nEn el rango 3, Thorin devuelve pasivamente un porcentaje del daño infligido."
+        },
+        {
+          "name": "Escogidos de Durin",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Thorin y las unidades enanas cercanas obtienen brevemente resistencia al derribo y +75% de daño durante 30 segundos. Thorin puede aplastar a los enemigos durante el tiempo."
+        },
+        {
+          "name": "Yelmo de Piedra",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Thorin se pone el Yelmo de Piedra y obtiene permanentemente +33% de armadura.\n\nCuando se activa, Thorin pronuncia un grito aterrador, aturdiendo a los enemigos que estén cerca durante 15 segundos. Thorin y los héroes amigos cercanos obtienen +50% de daño durante 30 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "histonehelmlotrera",
+        "portrait": "HPStonehelmLotrEra"
+      }
+    },
+    {
+      "slug": "dwarven-king-dain-adventure",
+      "object": "DwarvenKingDain_Adventure",
+      "name": "Rey Dáin",
+      "title": "Dáin Pie de Hierro, el Rey Bajo la Montaña",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "KingDainArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Debería llamar a eso una gran pérdida, si no fuera una maravilla más bien que en su gran edad todavía pudiera empuñar su hacha con tanta fuerza como dicen que lo hizo, de pie sobre el cuerpo del rey Brand ante la Puerta de Erebor, hasta que la oscuridad cayó.'",
+      "abilities": [
+        {
+          "name": "Rey Bajo la Montaña",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los aliados cerca del Rey Dáin obtienen +50% de armadura y resistencia al miedo y al terror. El Rey Dáin obtienen +33% de daño de ataque cuando está cerca del Rey Brand."
+        },
+        {
+          "name": "El Hacha Roja",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades aliadas seleccionadas obtienen +33% de daño y armadura durante 30 segundos. Las unidades enemigas objetivo sufren. -25% de daño y -20% de armadura durante 30 segundos.\n\nEn el nivel 6, las unidades aliadas seleccionadas obtienen +50% de daño y armadura durante 30 segundos."
+        },
+        {
+          "name": "Poderoso Veterano",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Cura a los aliados cercanos y refresca completamente sus temporizadores de habilidades especiales."
+        },
+        {
+          "name": "Mensajero del Rey",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe aliado objetivo es inmune al daño durante 15 segundos. El héroe enemigo objetivo no puede atacar durante 15 segundos."
+        },
+        {
+          "name": "Última Batalla",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El Rey Dáin obtiene +75% de armadura e inflige daño por proximidad durante 30 segundos. Convoca temporalmente dos batallones de Guardias de las Colinas de Hierro."
+        }
+      ],
+      "damage": 400,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 40,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hidainlotrera",
+        "portrait": "HPDainLotrEra"
+      }
+    },
+    {
+      "slug": "ring-hero-bilbo",
+      "object": "RingHeroBilbo",
+      "name": "Bilbo",
+      "title": "Noble hobbit de la Comarca",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "'¡Perdón! No quiero aventuras, gracias. Hoy no. ¡Buenos días! Pero por favor, ven a tomar el té, ¡cuando quieras! ¿Por qué no mañana? ¡Hasta mañana!'",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Creador de Acertijos",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas y los monstruos en el radio luchen entre sí durante 45 segundos."
+        },
+        {
+          "name": "Coraje de Bilbo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "Viejos Amigos",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a Gandalf el Gris."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIEreborBilbo",
+        "portrait": "HPEreborBilboHobbit"
+      }
+    },
+    {
+      "slug": "ring-hero-frodo",
+      "object": "RingHeroFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Fortaleza de Erebor",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Frasco de Galadriel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas huyan."
+        },
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "El Guía y el Jardinero",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca al fiel jardinero de Frodo, Samsagaz Gamyi, y a Sméagol, su guía."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIFrodonew",
+        "portrait": "HEFrodonew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "dwarven-fortress-citadel",
+      "object": "DwarvenFortressCitadel",
+      "name": "Fortaleza de Erebor",
+      "kind": "fortress",
+      "cost": 0,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor"],
+      "upgrades": [
+        {
+          "name": "Reino de Pie de Hierro",
+          "cost": null,
+          "hotkey": "E",
+          "level": null,
+          "description": "¡Elige luchar con Dáin Pie de Hierro y sus firmes aliados!"
+        },
+        {
+          "name": "Reino de Escudo de Roble",
+          "cost": null,
+          "hotkey": "R",
+          "level": null,
+          "description": "¡Elige luchar con Thorin Escudo de Roble y sus leales compañeros!"
+        },
+        {
+          "name": "Estandartes de Cuervos",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Cuernos de la Puerta",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Cuando se activa, hace que los enemigos cercanos se acobarden de miedo durante 15 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Foso",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Cura a los aliados cercanos y repone a las unidades caídas. Añade 1000 puntos de impacto adicional a la Fortaleza.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Braseros de Erebor",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Añade Flechas Punta de Mithril a todas las torres y daño de fuego a todas las catapultas adjuntas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fortificaciones",
+          "cost": 1800,
+          "hotkey": "S",
+          "level": null,
+          "description": "Permite a la Fortaleza lanzar barriles de aceite explosivos. Incrementa la armadura de la Fortaleza y las Murallas un 65%. Requisito previo para la mejora La Piedra del Arca.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "La Piedra del Arca",
+          "cost": 1200,
+          "hotkey": "D",
+          "level": null,
+          "description": "Reduce el reclutamiento de todas las unidades Enanas un 20%. Incrementa el movimiento de todas las unidades Enanas un 10%. Reduce el coste de las mejoras de las unidades un 20%. Se acumula con el descuento Bonificación de Acero.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Lanzar Barriles de Aceite",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Ataca a los enemigos con barriles de aceite."
+        },
+        {
+          "name": "Cuernos de la Puerta",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Causa terror en los enemigos cercanos durante 15 segundos."
+        }
+      ],
+      "images": {
+        "button": "BIEreborFortress",
+        "portrait": "BPEreborFortress"
+      }
+    },
+    {
+      "slug": "dwarven-mine-shaft",
+      "object": "DwarvenMineShaft",
+      "name": "Mina Enana",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 20,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera recursos según el terreno disponible. Proporciona acceso a la red de túneles. Proporciona liderazgo a los Guardianes cercanos. Incrementa los puntos de mando en 50 unidades.",
+      "produces": ["Uthâk"],
+      "upgrades": [
+        {
+          "name": "Mejora Colapso de Túnel",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a la Mina Enana dañar y aturdir a las unidades cercanas durante 10 segundos, pero detiene la producción de recursos durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Especialistas en Espacios Reducidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Guardianes obtienen +25% de daño y armadura cuando están cerca de las minas enanas y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Colapso de Túnel",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Daña y aturde a las unidades cercanas durante 10 segundos, pero detiene la producción de recursos durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborMineshaft"
+      }
+    },
+    {
+      "slug": "dwarf-barracks",
+      "object": "DwarfBarracks",
+      "name": "Salón de los Guerreros de Erebor",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 25,
+      "health": 4000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena infantería básica de los Enanos.",
+      "produces": [
+        "Âzagh-baruk",
+        "Sigin-udrîg",
+        "Rakhâs-abzâg",
+        "Sulkhâ-bekhâz",
+        "Âzugh-Khazad-dûm"
+      ],
+      "upgrades": [
+        {
+          "name": "El Salón de los Guerreros al Nivel 2",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Martillos Sombríos, Guardianes de Erebor y Arqueros de Erebor +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "El Salón de los Guerreros al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade una Torre Defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborBarracks"
+      }
+    },
+    {
+      "slug": "dwarven-assembly",
+      "object": "DwarvenAssembly",
+      "name": "Asamblea de Erebor",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 3500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Recluta aliados enanos de las Montañas Azules y las Colinas de Hierro.",
+      "produces": [
+        "Usjur-Khagal-zirak",
+        "Ushmur-Khagal-zirak",
+        "Huruz-Khagal-zirak",
+        "Cazadores de Trolls de Ered Luin",
+        "Baruk-sharâhul",
+        "Azaghâr-sharâhul",
+        "Ukhrub-sharâhul",
+        "Lanceros Bárdidos",
+        "Espadachines Bárdidos",
+        "Arqueros Bárdidos"
+      ],
+      "upgrades": [
+        {
+          "name": "La Asamblea de Erebor al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Montaraces de Ered Luin +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "La Asamblea de Erebor al Nivel 3",
+          "cost": 650,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a Guerreros de las Colinas de Hierro, Ballesteros de las Colinas de Hierro, Jinetes de Cabra de las Colinas de Hierro y Guardia de Khazad. Añade una torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborAssembly"
+      }
+    },
+    {
+      "slug": "dwarven-sentry-tower",
+      "object": "DwarvenSentryTower",
+      "name": "Torre de la Guardia de Erebor",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Estandarte de Durin",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre ganan experiencia +15% más rápido.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Khazad-dûm",
+          "cost": 150,
+          "hotkey": "E",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre son inmunes al miedo y al terror.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Ered Mithrim",
+          "cost": 150,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa la visión de la Torre. Los aliados cercanos a la Torre obtienen una bonificación de alcance y visión de +25%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre obtienen +15% de daño.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Ered Luin",
+          "cost": 500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre obtienen recursos por cada muerte enemiga.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 200,
+          "hotkey": "D",
+          "level": null,
+          "description": "Mejora esta Torre de Batalla con Flechas Punta de Mithril. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Estandarte de Durin",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre ganan experiencia +15% más rápido."
+        },
+        {
+          "name": "Estandarte Khazad-dûm",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre son inmunes al miedo y al terror."
+        },
+        {
+          "name": "Estandarte de Ered Mithrim",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa la visión de la Torre. Los aliados cercanos a la Torre obtienen una bonificación de alcance y visión de +25%."
+        },
+        {
+          "name": "Estandarte de las Colinas de Hierro",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre obtienen +15% de daño."
+        },
+        {
+          "name": "Estandarte de Ered Luin",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre obtienen recursos por cada muerte enemiga."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborWallTower"
+      }
+    },
+    {
+      "slug": "dwarven-well",
+      "object": "DwarvenWell",
+      "name": "Pozo de Erebor",
+      "kind": "support",
+      "cost": 350,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborWell"
+      }
+    },
+    {
+      "slug": "dwarven-statue",
+      "object": "DwarvenStatue",
+      "name": "Estatua Heroica de Erebor",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona bonificación de liderazgo a los aliados cercanos. Reduce el coste de la infantería.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborStatue"
+      }
+    },
+    {
+      "slug": "dwarven-wall-hub-small",
+      "object": "DwarvenWallHubSmall",
+      "name": "Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "DwarvenWallArmor",
+      "maxCount": null,
+      "description": "Permite la construcción de murallas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborWallHub"
+      }
+    },
+    {
+      "slug": "dwarven-catapult-expansion",
+      "object": "DwarvenCatapultExpansion",
+      "name": "Catapulta",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Beneficios de la mejora de los Braseros de Erebor.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar catapulta",
+          "cost": 450,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reconstruye la Catapulta en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "BPEreborWindlance"
+      }
+    },
+    {
+      "slug": "dwarven-erebor-tower-tower-expansion",
+      "object": "DwarvenEreborTowerTowerExpansion",
+      "name": "Torre de Guardia",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Construye una Torre de Guardia.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "BPEreborWallTower"
+      }
+    },
+    {
+      "slug": "dwarven-hall-expansion",
+      "object": "DwarvenHallExpansion",
+      "name": "Expansión del Salón",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Estructura defensiva de guarnición. Incrementa el valor de desmantelamiento de las unidades. Las unidades guarecidas se curan. Éstas obtienen +20% de experiencia. Incrementa los puntos de mando en 25 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborFortressHall"
+      }
+    },
+    {
+      "slug": "dwarven-wall-hub-small-expansion",
+      "object": "DwarvenWallHubSmallExpansion",
+      "name": "Expansión Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "DwarvenWallArmor",
+      "maxCount": null,
+      "description": "Construye una Expansión de Muralla.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborWallHub"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "dwarven-skill",
+      "name": "Habilidad Enana",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Repara una estructura.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SBEreborDwarvenSkill"
+      },
+      "requires": []
+    },
+    {
+      "slug": "erebor-ravens",
+      "name": "Cuervos de Erebor",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca a una bandada de Cuervos. Revela el mapa y detecta las unidades en sigilo. Las unidades aliadas cercanas ganan +15% de velocidad de movimiento, ataque y recarga de habilidades. Las estructuras aliadas cercanas ganan +15% de velocidad de producción.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBEreborRavensofErebor"
+      },
+      "requires": []
+    },
+    {
+      "slug": "rallying-call-erebor",
+      "name": "Cuerno de Erebor",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBEreborHorn"
+      },
+      "requires": []
+    },
+    {
+      "slug": "deep-delving",
+      "name": "Ahondar Profundo",
+      "tier": 2,
+      "position": "LL",
+      "kind": "utility",
+      "cost": 10,
+      "description": "+10% de recursos de las Minas Enanas. Poder pasivo.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SBEreborGreedyFucks"
+      },
+      "requires": ["Habilidad Enana"]
+    },
+    {
+      "slug": "muster-the-dwearves",
+      "name": "Voto de Venganza",
+      "tier": 2,
+      "position": "LR",
+      "kind": "debuff",
+      "cost": 10,
+      "description": "El Pueblo de Durin hace un voto solemne de venganza contra aquellos que les han ofendido. Reduce la armadura enemiga en un radio del 50% e impide ganar experiencia. El área de efecto dura 5 minutos.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "SBEreborMustertheDwarves"
+      },
+      "requires": ["Habilidad Enana", "Cuervos de Erebor"]
+    },
+    {
+      "slug": "armed-and-filthy",
+      "name": "Aliados Humanos",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Reinado de Escudo de Roble: Convoca a Bardo el Arquero y a los Arqueros de la Ciudad del Lago.\n\nReinado de Pie de Hierro: Convoca al Rey Brand y a los Arqueros Bárdidos.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "BDArcheryRange_MenofDale"
+      },
+      "requires": ["Cuervos de Erebor", "Cuerno de Erebor"]
+    },
+    {
+      "slug": "goats",
+      "name": "¡Enviad las Cabras!",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una poderosa estampida de cabras para aplastar a las unidades enemigas.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SBEreborGoatBoys"
+      },
+      "requires": ["Cuerno de Erebor"]
+    },
+    {
+      "slug": "khazad-allies",
+      "name": "Bombardear",
+      "tier": 3,
+      "position": "L",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Bombardea el área objetivo con artillería devastadora.",
+      "requiresSlots": [5, 4],
+      "slot": 8,
+      "images": {
+        "button": "uidurinsfolkbarrage"
+      },
+      "requires": ["Ahondar Profundo", "Voto de Venganza"]
+    },
+    {
+      "slug": "durins-day",
+      "name": "El Día de Durin",
+      "tier": 3,
+      "position": "C",
+      "kind": "heal",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Cura lentamente a las unidades aliadas y repone a las unidades caídas por todo el mapa durante 15 segundos.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "SBEreborDurinsDay"
+      },
+      "requires": ["Voto de Venganza", "Aliados Humanos"]
+    },
+    {
+      "slug": "undermine-erebor",
+      "name": "Socavar",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Coloca un Pozo de Mina en cualquier parte del mapa que está protegido por Guardianes de la Cámara y daña a las unidades cuando aparece. Los aliados cercanos ganan un 15% de daño y armadura y se curan lentamente. El Pozo de Mina se conecta inmediatamente a la red de túneles.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "uideepmine"
+      },
+      "requires": ["Aliados Humanos", "¡Enviad las Cabras!"]
+    },
+    {
+      "slug": "thrors-hoard",
+      "name": "Tesoro de Thrór",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca un Tesoro Enano. Ten cuidado con lo que tu codicia podría convocar.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "SBEreborThorHoard"
+      },
+      "requires": ["Bombardear", "El Día de Durin"]
+    },
+    {
+      "slug": "earthquake",
+      "name": "Despertar a Durin el Inmortal",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca permanentemente a Durin el Inmortal en la ubicación objetivo. Cuando Durin cae en combate, se le puede despertar en la fortaleza o volver a despertar de la piedra para derribar a todos los enemigos circundantes. Al despertar de la piedra, sus poderes se desactivan durante 15 segundos.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "uidurinsummon"
+      },
+      "requires": ["El Día de Durin", "Socavar"]
+    }
+  ]
+}

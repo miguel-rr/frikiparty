@@ -1,0 +1,2481 @@
+{
+  "code": "woodland",
+  "units": [
+    {
+      "slug": "mirkwood-porter",
+      "object": "MirkwoodPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye edificios.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIGreenwoodBuilder",
+        "portrait": "UPGreenwoodBuilder"
+      }
+    },
+    {
+      "slug": "mirkwood-gilded-guard",
+      "object": "MirkwoodGildedGuardHorde",
+      "name": "Tawartirio",
+      "category": "cavalry",
+      "recruitedAt": "Fortaleza",
+      "requirements": "Requiere la mejora Tributo a Oromë; Requiere Tributo a Oromë",
+      "cost": 1600,
+      "cp": 100,
+      "health": 800,
+      "buildTime": 60,
+      "armourSet": "HeroMiniMountedArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Guardias Dorados de Lasgalen.\n\nSu orden se originó en los primeros orígenes del asentamiento Silvano del Gran Bosque Verde, la Guardia Dorada ha permanecido siempre vigilante en defensa de su hogar en el bosque.",
+      "abilities": [
+        {
+          "name": "Baluarte del Rey Elfo",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Todos los héroes cercanos ganan +15% de daño de ataque, +15% de velocidad de movimiento y +15% de armadura. En el nivel 4, la Guardia Dorada refleja una pequeña cantidad del daño que se le inflige."
+        },
+        {
+          "name": "Llamada Salvaje",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La Guardia Dorada hace sonar sus cuernos, provocando que las bajas enemigas generen recursos durante 20 segundos."
+        },
+        {
+          "name": "Hojas Supurantes",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los ataques de la Guardia Dorada ignoran la armadura durante 30 segundos."
+        },
+        {
+          "name": "Furia de Nahar",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La Guardia Dorada comienza una gran carga y gana +40% de velocidad, +50% de armadura y se deslizan entre los enemigos como el viento durante 30 segundos."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 180,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIGildedGuard",
+        "portrait": "UPGildedGuard"
+      }
+    },
+    {
+      "slug": "mirkwood-silvan-hunter",
+      "object": "MirkwoodSilvanHunter",
+      "name": "Feredir",
+      "category": "archers",
+      "recruitedAt": "Santuario de Caza",
+      "requirements": null,
+      "cost": 150,
+      "cp": 6,
+      "health": 100,
+      "buildTime": 15,
+      "armourSet": "NoArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Cazador. Puede moverse mientras este en sigilo.\n\nLos Elfos del Bosque Verde eran cazadores muy hábiles que podían acechar a su presa a corta distancia sin ni siquiera alertar de su presencia. Pocos podían entrar en el Bosque Verde sin que sus movimientos pasaran desapercibidos, ya que los Cazadores eran numerosos y vigilaban de cerca el Camino del Rey Elfo.",
+      "abilities": [
+        {
+          "name": "Atuendo del Bosque",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Los Cazadores Silvanos son rápidas unidades de exploración en conseguir recursos cuando matan enemigos.\n\nCuando se activa, el cazador se vuelve invisible durante 30 segundos, pero perderá la invisibilidad si ataca."
+        },
+        {
+          "name": "Trampa de Caza",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El cazador coloca trampas que aturde a los enemigos cercanos durante 5 segundos. No afecta a bestias salvajes."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 260,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 70,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 900
+      },
+      "images": {
+        "button": "UIGreenwoodHunter",
+        "portrait": "UPMirkwoodHunter"
+      }
+    },
+    {
+      "slug": "mirkwood-ranger",
+      "object": "MirkwoodRangerHorde",
+      "name": "Taurdrim",
+      "category": "archers",
+      "recruitedAt": "Claro Silvano",
+      "requirements": null,
+      "cost": 325,
+      "cp": 60,
+      "health": 220,
+      "buildTime": 25,
+      "armourSet": "MirkwoodArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Habitantes del Bosque. Se pueden ocultar tras los árboles.\n\nLos Elfos del Bosque se enorgullecían de sus destrezas del bosque y sus tradiciones de caza, y veían su sintonía con la tierra como algo sagrado.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Evasión",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades Silvanas ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "Púas Espinosas",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Aturde unidades enemigas durante 5 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Silvanas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Silvanas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 40,
+      "damageType": "PIERCE",
+      "attackDelayMs": 1100,
+      "attackRange": 350,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMirkwoodRangers",
+        "portrait": "UPMirkwoodRangers"
+      }
+    },
+    {
+      "slug": "mirkwood-warden",
+      "object": "MirkwoodWardenHorde",
+      "name": "Sigilmaethyr",
+      "category": "swordsmen",
+      "recruitedAt": "Claro Silvano",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 245,
+      "buildTime": 25,
+      "armourSet": "GreenwoodWardenArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Guerreros de dagas. Se pueden ocultar tras los árboles.\n\nLas ramas cercanas del Bosque Verde eran inadecuadas para el balanceo de espadas largas, llevando a muchos elfos a luchar usando dagas gemelas.",
+      "abilities": [
+        {
+          "name": "Evasión",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades Silvanas ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "Cuchillos Desolladores",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques infligen una pequeña cantidad de daño en el tiempo durante 15 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 216,
+      "damageType": "SLASH",
+      "attackDelayMs": 850,
+      "attackRange": 12,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 750
+      },
+      "images": {
+        "button": "UIMirkwoodWardens",
+        "portrait": "UPMirkwoodWarden"
+      }
+    },
+    {
+      "slug": "mirkwood-spear",
+      "object": "MirkwoodSpearHorde",
+      "name": "Thelamaethyr",
+      "category": "pikemen",
+      "recruitedAt": "Claro Silvano nivel 2",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 260,
+      "buildTime": 25,
+      "armourSet": "GreenwoodPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Guerreros de lanzas. Se pueden ocultar tras los árboles. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nSi bien muchos Elfos cazaban a su presa desde lejos, algunos preferían acecharlos y ensartarlos desde un rango más cercano.",
+      "abilities": [
+        {
+          "name": "Evasión",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades Silvanas ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 210,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 30,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 650
+      },
+      "images": {
+        "button": "UIMirkwoodSpears",
+        "portrait": "UPMirkwoodSpears"
+      }
+    },
+    {
+      "slug": "mirkwood-outrider",
+      "object": "MirkwoodOutriderHorde",
+      "name": "Gwairochyn",
+      "category": "cavalry",
+      "recruitedAt": "Claro Silvano nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 70,
+      "health": 300,
+      "buildTime": 35,
+      "armourSet": "OutriderArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Jinetes Salvajes.\n\nEl Reino del Bosque era enorme, y Thranduil empleaba a jinetes ágiles y veloces para llevar mensajes y órdenes entre sus diversos hogares élficos.",
+      "abilities": [
+        {
+          "name": "Dominio del Caballo",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Jinetes ganan +25% de armadura y +20% de velocidad durante 30 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Silvanas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Silvanas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 35,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 370,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIMirkwoodOutriders",
+        "portrait": "UPMirkwoodOutriders"
+      }
+    },
+    {
+      "slug": "woodmen-marksmen",
+      "object": "WoodmenMarksmenHorde",
+      "name": "Cazadores del Bosque",
+      "category": "archers",
+      "recruitedAt": "Refugio Beórnida",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 375,
+      "buildTime": 30,
+      "armourSet": "WoodmanArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLos cazadores del bosque son guerreros veteranos que durante mucho tiempo han necesitado blandir sus grandes arcos en defensa de sus ataduras contra las hordas de Dol Guldur.",
+      "abilities": [
+        {
+          "name": "Cambiar de Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": "Los arcos son fuertes contra la infantería normal y monstruos. Las hachas son fuertes contra edificios."
+        },
+        {
+          "name": "Marca de Béma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La unidad o héroe objetivo es marcado por los Cazadores. Las unidades marcadas pierden -10% de armadura durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Compañeros Leales",
+          "cost": 150,
+          "hotkey": "T",
+          "level": null,
+          "description": "El batallón es defendido por perros de caza.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Druidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Druidas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Capitán Cazador",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 38,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIGreenwoodWoodmenMarksmen",
+        "portrait": "UPGreenwoodWoodmenMarksmen"
+      }
+    },
+    {
+      "slug": "mirkwood-druid",
+      "object": "MirkwoodDruid",
+      "name": "Druida de la Orden del Roble",
+      "category": "archers",
+      "recruitedAt": "Refugio Beórnida nivel 2",
+      "requirements": null,
+      "cost": 350,
+      "cp": 10,
+      "health": 650,
+      "buildTime": 30,
+      "armourSet": "NecromancerArmor",
+      "attackType": null,
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo.\n\nEstudiosos en los caminos ocultos de la naturaleza, estos sabios sirven como líderes y sanadores entre la gente de los Valles de Anduin.",
+      "abilities": [
+        {
+          "name": "Presagios Oscuros",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Druidas se enfocan en unidades para reducir su daño en un 15% y en los edificios para reducir su armadura en un 15%.\n\nLos Cazadores del Bosque cercanos ganan +33% de armadura de aplastamiento y resistencia al miedo y al terror."
+        },
+        {
+          "name": "Bendición de Aldaron",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Cazadores del Bosque cercanos se curan pasivamente con el tiempo. Se puede lanzar sobre batallones aliados para curarlos moderadamente y reponer una unidad caída por batallón."
+        },
+        {
+          "name": "Piedras Protectoras",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Coloca un círculo temporal de Piedras Protectoras. Las unidades aliadas dentro del círculo recibirán +33% de armadura."
+        },
+        {
+          "name": "Ritual del Roble",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca un Roble sagrado que produce una pequeña cantidad de recursos. Dura hasta que se destruye."
+        },
+        {
+          "name": "Poción de Potencia",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe objetivo se cura parcialmente y obtiene +25% de armadura durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Bendición de Aldaron",
+          "cost": 200,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los Cazadores del Bosque cercanos se curan pasivamente con el tiempo. Permite al Druida utilizar la habilidad Bendición de Aldaron. Se puede lanzar sobre batallones aliados para curarlos moderadamente y reponer una unidad caída por batallón.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Piedras Protectoras",
+          "cost": 200,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los Druidas usar la habilidad Piedras Protectoras. Coloca un círculo temporal de Piedras Protectoras. Las unidades aliadas dentro del círculo recibirán +33% de armadura.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Ritual del Roble",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a los Druidas usar la habilidad Ritual del Roble. Convoca un Roble sagrado que produce una pequeña cantidad de recursos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Poción de Potencia",
+          "cost": 800,
+          "hotkey": "V",
+          "level": null,
+          "description": "El Druida obtiene permanentemente 200 de salud. Permite a los Druidas usar la habilidad Poción de Potencia. El héroe objetivo se cura parcialmente y obtiene +25% de armadura durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 420,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIGreenwoodDruid",
+        "portrait": "UPGreenwoodDruids"
+      }
+    },
+    {
+      "slug": "mirkwood-beorning",
+      "object": "MirkwoodBeorningHorde",
+      "name": "Bersérkers Beórnidas",
+      "category": "siege",
+      "recruitedAt": "Refugio Beórnida nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 90,
+      "health": 1100,
+      "buildTime": 50,
+      "armourSet": "BeorningArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "structures", "heroes"],
+      "weakAgainst": [],
+      "description": "El pueblo de Grimbeorn era conocida por su carácter y aspecto sombrío, y su ferocidad en el combate. Sus mejores guerreros fueron capaces de aprovechar los antiguos espíritus de la naturaleza, para descargar una gran e imparable furia en el campo de batalla.",
+      "abilities": [
+        {
+          "name": "Sangre Osuna",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Permite a los Bersérkers Beórnidas recuperarse rápidamente fuera del combate."
+        },
+        {
+          "name": "Exterior Rugoso",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Incrementa la resistencia al daño a distancia en +50% durante 20 segundos."
+        },
+        {
+          "name": "Rabia Salvaje",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Bersérkers Beórnidas entran en una furia de batalla incontrolable durante 20 segundos. Se vuelven resistentes a los golpes y su velocidad de movimiento, armadura y daño de ataque se incrementan en un 33%, pero no pueden controlarse mientras dure el efecto."
+        }
+      ],
+      "upgrades": [],
+      "damage": 225,
+      "damageType": "SIEGE",
+      "attackDelayMs": 633,
+      "attackRange": 9,
+      "speed": 60,
+      "battalionSize": 3,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 15,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIBeornings",
+        "portrait": "UPGreenwoodBeorning"
+      }
+    },
+    {
+      "slug": "mirkwood-warrior",
+      "object": "MirkwoodWarriorHorde",
+      "name": "Megilherdir",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones Reales",
+      "requirements": null,
+      "cost": 700,
+      "cp": 80,
+      "health": 500,
+      "buildTime": 30,
+      "armourSet": "GreenwoodWarriorArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Maestros Espadachines. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nDespués de presenciar de primera mano el terror de Mordor, Thranduil formó un ejército permanente de Elfos ricamente equipados para proteger su reino contra su inevitable regreso.",
+      "abilities": [
+        {
+          "name": "Afinidad Élfica",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Megilherdir y todos los Elfos del Reino del Bosque aliados cercanos ganan +20% de armadura durante 30 segundos. No se acumula consigo mismo."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 330,
+      "damageType": "SLASH",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIGreenwoodWarrior",
+        "portrait": "UPGreenwoodWarriors"
+      }
+    },
+    {
+      "slug": "greenwood-slayer",
+      "object": "GreenwoodSlayerHorde",
+      "name": "Theladagnyr",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones Reales",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": null,
+      "buildTime": 30,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Lanza-verdugos. Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nEstos guerreros, que empuñan cuchillas de doble hojas, son muy hábiles para abrirse camino a través de los siervos del Enemigo.",
+      "abilities": [
+        {
+          "name": "Proezas Élfica",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques consecutivos incrementan temporalmente."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 50,
+      "battalionSize": 10,
+      "stats": {},
+      "images": {
+        "button": "UIGreenwoodSlayer",
+        "portrait": "UPGreenwoodSlayers"
+      }
+    },
+    {
+      "slug": "greenwood-archer",
+      "object": "GreenwoodArcherHorde",
+      "name": "Cúmaethyr",
+      "category": "archers",
+      "recruitedAt": "Barracones Reales nivel 2",
+      "requirements": "Requiere Nivel 2 de los Barracones Reales",
+      "cost": 800,
+      "cp": 80,
+      "health": null,
+      "buildTime": 40,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Guerreros del Arco.\n\nEmpuñando poderosos arcos largos y un carcaj lleno de flechas con púas feroces, los arqueros del ejército de Thranduil están perfecta y mortalmente entrenados.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Precisión Élfica",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Incrementa el rango de ataque y el daño en un 25% a costa de un 50% de velocidad de movimiento durante 25 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Silvanas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Silvanas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 50,
+      "battalionSize": 10,
+      "stats": {},
+      "images": {
+        "button": "UIGreenwoodArcher",
+        "portrait": "UPGreenwoodArchers"
+      }
+    },
+    {
+      "slug": "mirkwood-palace-guard",
+      "object": "MirkwoodPalaceGuardHorde",
+      "name": "Tamastirnyr",
+      "category": "pikemen",
+      "recruitedAt": "Barracones Reales nivel 2",
+      "requirements": "Requiere Nivel 2 de los Barracones",
+      "cost": 800,
+      "cp": 80,
+      "health": 425,
+      "buildTime": 45,
+      "armourSet": "PalaceGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Vigilantes del Pasillo. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nA cargo de la protección de los salones del Rey Elfo, la Guardia de Palacio es un grupo de hábiles guerreros Elfos.",
+      "abilities": [
+        {
+          "name": "Deber Solemne",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Guardias de Palacio otorgan a Legolas y a Thranduil. Las estructuras cercanas ganan +25% de armadura."
+        },
+        {
+          "name": "Resistencia Élfica",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Guardia del Palacio obtiene +50% de armadura y es resistente a los golpes, pero pierde un 40% de velocidad durante 30 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 225,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMirkwoodPalaceGuard",
+        "portrait": "UPMirkwoodPalaceGuard"
+      }
+    },
+    {
+      "slug": "greenwood-sindar-noble",
+      "object": "GreenwoodSindarNobleHorde",
+      "name": "Faenrochyn",
+      "category": "cavalry",
+      "recruitedAt": "Barracones Reales nivel 3",
+      "requirements": "Requiere Nivel 3 de los Barracones Reales",
+      "cost": 1000,
+      "cp": 100,
+      "health": 650,
+      "buildTime": 45,
+      "armourSet": "AmrothKnightHeavyArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Jinetes Radiantes. Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nEn la guerra, la nobleza Sindar de Eryn Galen sirve como una compañía de guerreros élite montados que se lanzan a la batalla junto a su Rey Elfo.",
+      "abilities": [
+        {
+          "name": "Justa Indignación",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas se aterrorizan y los Nobles Sindar obtienen -33% de desaceleración por aplastamiento durante 20 segundos."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Escudos Sindar",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos Sindar. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Acero Silvano",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Verde",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": null,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1."
+        }
+      ],
+      "damage": 210,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UISindarNobles",
+        "portrait": "UPSindarNobles"
+      }
+    },
+    {
+      "slug": "mirkwood-battering-ram",
+      "object": "MirkwoodBatteringRam",
+      "name": "Ariete Beórnida",
+      "category": "siege",
+      "recruitedAt": "Recintos de Asedio",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nFuertes como osos, los Beórnidas del Valle de Anduin son bastante capaces de arrancar un árbol para derribar la puerta de entrada de un enemigo.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "UIGreenwoodRam",
+        "portrait": "UPGreenwoodBatteringRam"
+      }
+    },
+    {
+      "slug": "mirkwood-ballista",
+      "object": "MirkwoodBallista",
+      "name": "Haehadron",
+      "category": "siege",
+      "recruitedAt": "Recintos de Asedio nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 40,
+      "armourSet": "SiegeEngineArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Lanzador Distante.\n\nEl Haehadron (Balista) es una máquina elegante diseñada para una tarea poco elegante.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 7000,
+      "attackRange": 500,
+      "speed": 35,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 520,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIGreenwoodBallista",
+        "portrait": "UPGreenwoodBallista"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "mirkwood-galion",
+      "object": "MirkwoodGalion",
+      "name": "Galion",
+      "title": "Maestro de Vinos, Galion",
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 40,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Diga lo que quiera sobre nuestro malhumorado Rey: tiene un excelente gusto en el vino....'",
+      "abilities": [
+        {
+          "name": "Borracho Enojado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando está cerca de Viñedos y Pozos de Vino, Galion obtiene +33% de daño."
+        },
+        {
+          "name": "Miruvor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Cura moderadamente a las unidades aliadas cercanas. Cura en mayor medida en los niveles 6 y 9."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas dentro del radio reciben +50% de daño, pero pierden -25% de armadura durante 30 segundos. El radio se incrementa en los niveles 5 y 7."
+        },
+        {
+          "name": "Lote Malo",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Hace que las unidades objetivo se vuelvan hostiles entre sí durante 15 segundos."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodGalion",
+        "portrait": "HEMirkwoodGalion"
+      }
+    },
+    {
+      "slug": "mirkwood-tauriel",
+      "object": "MirkwoodTauriel",
+      "name": "Tauriel",
+      "title": "Capitán de la Guardia",
+      "recruitedAt": "Fortaleza",
+      "cost": 1400,
+      "buildTime": 40,
+      "health": 1500,
+      "armourSet": "TaurielArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'¿Cuándo permitimos que el mal se hiciera más fuerte que nosotros?'",
+      "abilities": [
+        {
+          "name": "Capitán Silvana",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades Silvanas cercanas obtienen +15% de visión y rango de ataque, +25% de experiencia. En el nivel 3, las unidades cercanas silvanas reducen sus tiempos de recarga de habilidades un 25%."
+        },
+        {
+          "name": "Ojos y Oídos",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Tauriel llama a un grupo de Exploradores Silvanos estacionarios para defender una posición objetivo. Son inmóviles, pero permanecen ocultos cuando no atacan."
+        },
+        {
+          "name": "Pies Ligeros",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La infantería cercana gana +20% de velocidad de movimiento durante 30 segundos."
+        },
+        {
+          "name": "Combate Cuerpo a Cuerpo",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Tauriel usa sus dagas gemelas durante 30 segundos. Incrementa el ataque un 33% asestando daño por proximidad."
+        },
+        {
+          "name": "Hija del Bosque",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Tauriel es capaz de desaparecer tras los árboles cuando ella lo desee. Tauriel se teletransporta a un área objetivo."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 60,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIMirkwoodTauriel",
+        "portrait": "HEMirkwoodTauriel"
+      }
+    },
+    {
+      "slug": "mirkwood-feren",
+      "object": "MirkwoodFeren",
+      "name": "Feren",
+      "title": "Guardia Real, Feren",
+      "recruitedAt": "Fortaleza",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Leal y de carácter severo, Feren pasó la mayor parte de sus largos años en solemne deber con el Rey Elfo, manteniendo seguras las fronteras del Bosque Verde.",
+      "abilities": [
+        {
+          "name": "Embestida de Escudo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Poderoso ataque que derriba a las unidades enemigas. En el rango 6, el radio se incrementa."
+        },
+        {
+          "name": "Comandante de Eryn Lasgalen",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca un batallón de Exploradores Silvanos. En el rango 5, incluye un batallón adicional de Lanceros del Bosque Verde. En el rango 8, incluye un batallón adicional de Exploradores Silvanos. En el rango 10, dos de ambos."
+        },
+        {
+          "name": "¡Sonad la Alarma!",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Feren sopla su cuerno. Puede lanzarse sobre una estructura para reducir el tiempo de reclutamiento en un 75% durante 90 segundos, sobre unidades aliadas para incrementar la velocidad de movimiento en un 25% durante 15 segundos o sobre unidades enemigas para reducir la velocidad de movimiento en un 25% durante 15 segundos. No puede ser lanzado en el Refugio Beórnida."
+        },
+        {
+          "name": "Destierro",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo queda inmovilizado y recibe +15% de daño de todas las fuentes durante 15 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodFeren",
+        "portrait": "HEMirkwoodFeren"
+      }
+    },
+    {
+      "slug": "mirkwood-radagast",
+      "object": "MirkwoodRadagast",
+      "name": "Radagast",
+      "title": "El Mago Pardo",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Radagast es, por supuesto, un mago digno, un maestro de las formas y los cambios de tonalidades; y tiene mucha sabiduría sobre hierbas y bestias, y los pájaros son especialmente sus amigos.'",
+      "abilities": [
+        {
+          "name": "Maestro de Formas y Tonalidades",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Radagast es invisible cuando está quieto.\n\nPermite que todos los aliados elegidos queden en sigilo durante 30 segundos."
+        },
+        {
+          "name": "Aiwendil",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Las unidades de Cazadores y Beórnidas cercanos obtienen +25% de experiencia. Los Cazadores obtienen además +33% de daño y +33% de armadura.\n\nLas unidades enemigas objetivo se ven acosadas por una bandada de pájaros, lo que les hace perder un 50% de visión y un 25% de armadura y recibir daño con el tiempo durante 15 segundos."
+        },
+        {
+          "name": "Guardián Fiel",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Radagast golpea su bastón en el suelo, aturdiendo a los enemigos que tiene delante durante 5 segundos. En el rango 8, la duración del aturdimiento se incrementa a 10 segundos."
+        },
+        {
+          "name": "Extraer Hechicería",
+          "level": 6,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Radagast cura continuamente a los héroes y unidades aliadas cercanas."
+        },
+        {
+          "name": "Ira del Bosque",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades enemigas en el radio objetivo reciben daño mágico."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodRadagast",
+        "portrait": "HEMirkwoodRadagast"
+      }
+    },
+    {
+      "slug": "mirkwood-grimbeorn",
+      "object": "MirkwoodGrimbeorn",
+      "name": "Grimbeorn",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "GrimbeornArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Recluta al hijo de Beorn. Grimbeorn el Viejo, hijo de Beorn, era ahora el señor de muchos hombres robustos, y en su tierra entre las Montañas y el Reino del Bosque ni los orcos ni los lobos se atrevían a ir.",
+      "abilities": [
+        {
+          "name": "Hijo de Beorn",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Otorga +33% de armadura a los Beórnidas cercanos. Grimbeorn inflige +33% de daño adicional contra Bolg.\n\nCuando se activa, Grimbeorn infunde terror en los corazones de todas las unidades de Orcos y Huargos durante 15 segundos."
+        },
+        {
+          "name": "Forzudo",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Grimbeorn balancea poderosamente su enorme hacha, causando daño a todo lo que lo rodea. Crece en fuerza a medida que sube de nivel."
+        },
+        {
+          "name": "Recaudador",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Se puede lanzar sobre cualquier estructura de recursos para generar un cofre de 850 unidades de recursos. Detiene la producción de recursos durante 30 segundos."
+        },
+        {
+          "name": "Guardaespaldas Beórnidas",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Grimbeorn convoca tres Beórnidas para proteger a un héroe o estructura aliado durante 45 segundos."
+        },
+        {
+          "name": "Alma Osuna",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "Grimbeorn asesta permanentemente daño por derribo.\n\nCuando se activa, Grimbeorn se transforma en un oso durante 90 segundos para causar estragos entre el enemigo obteniendo +25% de daño adicional y +50% de armadura. Hace huir despavoridos a los enemigos cercanos. Mientras está activo, Grimbeorn inflige +50% de daño adicional contra Bolg."
+        }
+      ],
+      "damage": 400,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodGrimbeorn",
+        "portrait": "HEMirkwoodGrimbeorn"
+      }
+    },
+    {
+      "slug": "mirkwood-legolas",
+      "object": "MirkwoodLegolas",
+      "name": "Legolas",
+      "title": "Príncipe del Reino del Bosque",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 2400,
+      "armourSet": "LegolasGreenwoodArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'Mas no abandonéis toda esperanza. Del día de mañana nada sabemos aún. La solución se encuentra a menudo al salir el Sol.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Flechas Gemelas",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ataque de Doble Flecha que inflige daño por proximidad."
+        },
+        {
+          "name": "Príncipe del Reino del Bosque",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Los arqueros objetivo obtienen buena experiencia.\n\nLas unidades aliadas cercanas son inmunes al miedo y al terror. En el nivel 6, las unidades aliadas cercanas obtienen +33% de daño y +25% de rango de visión."
+        },
+        {
+          "name": "Disparos Penetrantes",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Durante 15 segundos, las flechas de Legolas ignoran la armadura enemiga y ralentizan a sus objetivos un 40% durante 5 segundos."
+        },
+        {
+          "name": "Amigo-enano",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a Gimli hijo de Glóin en el campo de batalla."
+        },
+        {
+          "name": "Tiro de Halcón",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ataque de Doble Flecha que inflige daño por proximidad."
+        }
+      ],
+      "damage": 175,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 380,
+      "speed": 60,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIMirkwoodLegolas",
+        "portrait": "HEMirkwoodLegolas"
+      }
+    },
+    {
+      "slug": "mirkwood-thranduil",
+      "object": "MirkwoodThranduil",
+      "name": "Thranduil",
+      "title": "Rey Elfo",
+      "recruitedAt": "Fortaleza",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Esa es la naturaleza del mal. Allí, en la vasta ignorancia del mundo, se contagia y se propaga. Una sombra que crece en la oscuridad. Una malicia insomne tan negra como la pared de la noche que se aproxima. Así fue siempre. Así será siempre. Con el tiempo, todas las cosas inmundas surgen'",
+      "abilities": [
+        {
+          "name": "Rey Elfo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los aliados cerca de Thranduil obtienen +33% de armadura. En el nivel 7, Thranduil se pone su armadura obteniendo, +25% de armadura de forma permanente.\n\nmontado en Gran Alce o a pie."
+        },
+        {
+          "name": "Amor por la Plata y las Joyas",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Concede Armadura Sindarin a las unidades en el radio.\n\nArmadura Sindarin: otorga +25% de armadura a las unidades. Tiempo de reutilización se reduce en los Niveles 5, 7 y 10."
+        },
+        {
+          "name": "Nadie Puede Entrar",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El terreno objetivo se vuelve hostil hacia las unidades enemigas durante 60 segundos. Al pasar por encima, las unidades enemigas se ralentizan -15% y reciben daño con el tiempo."
+        },
+        {
+          "name": "Guerrero de Renombre",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Thranduil obtiene +10% de velocidad y +50% de armadura durante 30 segundos.\n\nRango 6: +10% de velocidad, +50% de armadura, +15% de daño.\n\nRango 7: +10% de velocidad, +50% de armadura, +25% de daño.\n\nRango 8: +10% de velocidad, +50% de armadura, +50% de daño.\n\nRango 9: +10% de velocidad, +50% de armadura, +50% de daño, -25% de desaceleración por aplastamiento.\n\nRango 10: +10% de velocidad, +150% de armadura, +50% de daño, -25% de desaceleración por aplastamiento."
+        },
+        {
+          "name": "Memoria de Mordor",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Thranduil está rodeado de recuerdos de la Tierra Negra durante 30 segundos. Las unidades enemigas se aterrorizan, reciben daño, pierden todo el liderazgo e infligen -50% de daño. Thranduil es invulnerable mientras el poder está activo, pero no puede atacar y es más lento en un 75%."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 500,
+      "attackRange": 15,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodThranduil",
+        "portrait": "HEMirkwoodThranduil"
+      }
+    },
+    {
+      "slug": "ring-hero-bilbo",
+      "object": "RingHeroBilbo",
+      "name": "Bilbo",
+      "title": "Noble hobbit de la Comarca",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "'¡Perdón! No quiero aventuras, gracias. Hoy no. ¡Buenos días! Pero por favor, ven a tomar el té, ¡cuando quieras! ¿Por qué no mañana? ¡Hasta mañana!'",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Creador de Acertijos",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas y los monstruos en el radio luchen entre sí durante 45 segundos."
+        },
+        {
+          "name": "Coraje de Bilbo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "Viejos Amigos",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a Gandalf el Gris."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIEreborBilbo",
+        "portrait": "HPEreborBilboHobbit"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "mirkwood-citadel",
+      "object": "MirkwoodCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor", "Tawartirio"],
+      "upgrades": [
+        {
+          "name": "Heráldica Silvana",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la Fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Fiesta de la Luz Estelar",
+          "cost": 800,
+          "hotkey": "E",
+          "level": null,
+          "description": "Cura a los aliados cercanos y repone a las unidades caídas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Protección del Emperador",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Desbloquea la habilidad Protección del emperador, que al activarse hace que las estructuras en un amplio radio alrededor de la fortaleza ganen +150% de armadura contra asedio, fuego y daño mágico durante 30 segundos. No afecta en las estructuras convocadas.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Río Encantado",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guarnición Silvana",
+          "cost": 1250,
+          "hotkey": "S",
+          "level": null,
+          "description": "Requisito previo para la mejora Tributo a Oromë. Estaciona arqueros en los parapetos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Tributo a Oromë",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Desbloquea el reclutamiento de la Guardia Dorada. Desbloquea la habilidad Cuerno de Tauron, que al activarse, hace que los enemigos cercanos a la fortaleza pierdan un 50% de armadura y queden aturdidos por el miedo.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Protección del Emperador",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Las estructuras en un amplio radio alrededor de la fortaleza ganan +150% de armadura contra asedio, fuego y daño mágico durante 30 segundos."
+        },
+        {
+          "name": "Cuerno de Tauron",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Los enemigos cercanos a la fortaleza pierden un 50% de armadura durante 20 segundos y quedan aturdidos por el miedo."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPGreenwoodFortress"
+      }
+    },
+    {
+      "slug": "mirkwood-hunting-lodge",
+      "object": "MirkwoodHuntingLodge",
+      "name": "Santuario de Caza",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona caza como recurso basado en el terreno disponible. Permite entrenar a los Feredir. Reduce el coste de las unidades Silvanas. Incrementa los puntos de mando en 50 unidades.",
+      "produces": ["Feredir"],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPHuntingShrine"
+      }
+    },
+    {
+      "slug": "mirkwood-vineyard",
+      "object": "MirkwoodVineyard",
+      "name": "Viñedo del Bosque",
+      "kind": "economy",
+      "cost": 350,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera vino como un recurso basado en el terreno disponible. Reduce el coste de las unidades del Bosque Verde. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPVineyard"
+      }
+    },
+    {
+      "slug": "mirkwood-training-grounds",
+      "object": "MirkwoodTrainingGrounds",
+      "name": "Claro Silvano",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades Silvanas.",
+      "produces": ["Taurdrim", "Sigilmaethyr", "Thelamaethyr", "Gwairochyn"],
+      "upgrades": [
+        {
+          "name": "Claro Silvano al Nivel 2",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Lanceros Silvanos y Jinetes Silvanos +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Claro Silvano al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPSilvanClearing"
+      }
+    },
+    {
+      "slug": "mirkwood-beorning-cabin",
+      "object": "MirkwoodBeorningCabin",
+      "name": "Refugio Beórnida",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 25,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 3,
+      "description": "Entrena Cazadores del Bosque y Beórnidas. Genera una gran cantidad de recursos según el terreno disponible.",
+      "produces": [
+        "Cazadores del Bosque",
+        "Druida de la Orden del Roble",
+        "Bersérkers Beórnidas"
+      ],
+      "upgrades": [
+        {
+          "name": "Apicultura",
+          "cost": 500,
+          "hotkey": "T",
+          "level": 3,
+          "description": "La producción de recursos del Refugio Beórnida se incrementa en un 250%.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Cabaña Beórnida al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Druidas de la Orden del Roble +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Cabaña Beórnida al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Bersérkers Beórnidas e investigar la mejora Apicultura +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Apicultura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La producción de recursos del Refugio Beórnida se incrementa en un 250%."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPBeorningLodge"
+      }
+    },
+    {
+      "slug": "mirkwood-royal-barracks",
+      "object": "MirkwoodRoyalBarracks",
+      "name": "Barracones Reales",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades élite del Bosque Verde.",
+      "produces": [
+        "Megilherdir",
+        "Theladagnyr",
+        "Cúmaethyr",
+        "Tamastirnyr",
+        "Faenrochyn"
+      ],
+      "upgrades": [
+        {
+          "name": "Barracones Reales al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Arqueros del Bosque Verde y a los Guardias del Palacio +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Barracones Reales al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Nobles Sindar +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPRoyalBarracks"
+      }
+    },
+    {
+      "slug": "mirkwood-treasury",
+      "object": "MirkwoodTreasury",
+      "name": "Tesorería de Thranduil",
+      "kind": "support",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Investiga mejoras para las unidades del Reino del Bosque.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Bosque Verde",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Acero Silvano",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Acero Silvano. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas Silvanas",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Flechas Silvanas. Cuando está equipado, incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Tesorería de Thranduil al Nivel 2",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite investigar la mejora del Acero Silvano.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Tesorería de Thranduil al Nivel 3",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite investigar la mejora de Flechas Silvanas.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPThranduilTreasury"
+      }
+    },
+    {
+      "slug": "mirkwood-siege-grounds",
+      "object": "MirkwoodSiegeGrounds",
+      "name": "Recintos de Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye máquinas de asedio. En el rango 2, repara las máquinas de asedio cercanas.",
+      "produces": ["Ariete Beórnida", "Haehadron"],
+      "upgrades": [
+        {
+          "name": "Recintos de Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Haehadron. Repara las máquinas de asedio cercanas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Recintos de Asedio al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Incrementa la reparación de las máquinas de asedio cercanas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPGreenwoodSiegeGrounds"
+      }
+    },
+    {
+      "slug": "mirkwood-cellar-door",
+      "object": "MirkwoodCellarDoor",
+      "name": "Puerta de la Bodega",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 45,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": 4,
+      "description": "Una entrada a los Salones de Thranduil. Genera una pequeña cantidad de recursos según el terreno disponible. Garantiza acceso al sistema de túneles.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Guardias de la Prisión",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a la Puerta de la Bodega convocar un batallón de Guardias de la Prisión.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Guardias de la Prisión",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un batallón de Guardias de la Prisión para defender la Puerta de la Bodega."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPCellarDoor"
+      }
+    },
+    {
+      "slug": "mirkwood-battle-tower",
+      "object": "MirkwoodBattleTower",
+      "name": "Atalaya del Bosque",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que disparará a las unidades enemigas. Se puede guarnecer con arqueros para incrementar su ataque.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas Silvanas",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Atalaya del Bosque con Flechas Silvanas. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "UPWoodlandLookout"
+      }
+    },
+    {
+      "slug": "mirkwood-well",
+      "object": "MirkwoodWell",
+      "name": "Pozo de Vino",
+      "kind": "support",
+      "cost": 350,
+      "buildTime": 45,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "¡Festín!",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Cura instantáneamente a las unidades de forma moderada, pero reduce su velocidad de movimiento un 66% durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPWellofWine"
+      }
+    },
+    {
+      "slug": "mirkwood-statue",
+      "object": "MirkwoodStatue",
+      "name": "Estatua de Oropher",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona bonificación de liderazgo a las unidades cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPStatueOropher"
+      }
+    },
+    {
+      "slug": "mirkwood-watchtower-expansion",
+      "object": "MirkwoodWatchtowerExpansion",
+      "name": "Atalaya",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara a las unidades enemigas cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "UIGreenwoodFletExpansion",
+        "portrait": "UPGreenwoodFletExpansion"
+      }
+    },
+    {
+      "slug": "mirkwood-ballista-expansion",
+      "object": "MirkwoodBallistaExpansion",
+      "name": "Balista",
+      "kind": "defence",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Balista",
+          "cost": 450,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reconstruye la ballesta en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPGreenwoodAntiSiegeExpansion"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "rallying-call-mpmirkwood",
+      "name": "Cuerno de la Puerta",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SBGreenwoodHorn"
+      },
+      "requires": []
+    },
+    {
+      "slug": "farsight-mirkwood",
+      "name": "Centinelas Ocultos",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Revela un área y convoca a tres Cazadores Silvanos.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBGreenwoodHidden"
+      },
+      "requires": []
+    },
+    {
+      "slug": "mirkwood-tree",
+      "name": "Los Elfos los Despertaron",
+      "tier": 1,
+      "position": "R",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Invoca un árbol que derriba unidades enemigas. No afecta a los héroes. Los enemigos cercanos sufren -15% de daño y armadura.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBGreenwoodMist"
+      },
+      "requires": []
+    },
+    {
+      "slug": "elvenking-road",
+      "name": "Camino del Rey Elfo",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una Piedra-guía Élfica. La Piedra-guía puede teletransportar unidades a su ubicación.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SBGreenwoodRoad"
+      },
+      "requires": ["Cuerno de la Puerta"]
+    },
+    {
+      "slug": "elvenking-patience",
+      "name": "La Paciencia del Rey Elfo",
+      "tier": 2,
+      "position": "LR",
+      "kind": "debuff",
+      "cost": 10,
+      "description": "Las unidades enemigas dentro del radio pierden todo el liderazgo y se ralentizan durante 30 segundos. Las unidades enemigas se ralentizan un 50% en los primeros 15 segundos, un 35% en los siguientes 5 segundos y un 20% en los últimos 10 segundos.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SBGreenwoodPatience"
+      },
+      "requires": ["Cuerno de la Puerta", "Centinelas Ocultos"]
+    },
+    {
+      "slug": "elvenking-feast",
+      "name": "Banquete del Rey Elfo",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca uno de los famosos Banquetes del Rey Thranduil. Las unidades cercanas se curan con el tiempo y ganan +25% de daño y armadura.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "SBGreenwoodFeast"
+      },
+      "requires": ["Centinelas Ocultos", "Los Elfos los Despertaron"]
+    },
+    {
+      "slug": "elvenking-decree",
+      "name": "Decreto del Rey Elfo",
+      "tier": 2,
+      "position": "RR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Durante 120 segundos, todas las muertes generan recursos extra y las unidades aliadas ganan +33% de experiencia.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SBGreenwoodDecree"
+      },
+      "requires": ["Los Elfos los Despertaron"]
+    },
+    {
+      "slug": "eotheod-allies",
+      "name": "Lanzas de Framsburg",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca un ejército de Éotheod comandado por Frumgar, hijo de Frumgar.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SBGreenwoodEotheod"
+      },
+      "requires": ["Camino del Rey Elfo", "La Paciencia del Rey Elfo"]
+    },
+    {
+      "slug": "mirkwood-lights",
+      "name": "Luces Apagadas",
+      "tier": 3,
+      "position": "C",
+      "kind": "utility",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas sufren -25% de visión y rango de ataque, -25% de ganancia de experiencia y -40% de daño de ataque durante 3 minutos.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "SBGreenwoodLights"
+      },
+      "requires": ["La Paciencia del Rey Elfo", "Banquete del Rey Elfo"]
+    },
+    {
+      "slug": "mirkwood-arrows",
+      "name": "Granizo de Flechas",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Dos rápidas andanadas de flechas Silvanas. La primera andanada es instantánea, la segunda viene después.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "SBGreenwoodArrows"
+      },
+      "requires": ["Banquete del Rey Elfo", "Decreto del Rey Elfo"]
+    },
+    {
+      "slug": "orome-call",
+      "name": "Gran Caza de Oromë",
+      "tier": 4,
+      "position": "L",
+      "kind": "heal",
+      "cost": 25,
+      "description": "Las unidades enemigas dentro del radio pierden. -50% de armadura y -50% de daño durante 30 segundos. Los Héroes recargan completamente sus habilidades y son moderadamente curados. Todas las unidades aliadas en el campo de batalla pueden pisotear temporalmente a los enemigos. Todas las unidades de caballería del campo de batalla ganan +100% de armadura contra lanceros durante 30 segundos.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "SBGreenwoodOromeCall"
+      },
+      "requires": ["Lanzas de Framsburg", "Luces Apagadas"]
+    },
+    {
+      "slug": "mirkwood-fortune",
+      "name": "Un Signo de Buena Fortuna",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca al Ciervo Blanco.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SBGreenwoodWhiteStag"
+      },
+      "requires": ["Luces Apagadas", "Granizo de Flechas"]
+    }
+  ]
+}

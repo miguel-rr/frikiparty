@@ -1,9 +1,7 @@
+type StatItem = { label: string; value: number | string | null | undefined };
+
 /** A compact row of labelled numbers (cost, command points, health…). Null values are skipped. */
-const StatStrip = ({
-  items,
-}: {
-  items: { label: string; value: number | string | null | undefined }[];
-}) => {
+const StatStrip = ({ items }: { items: StatItem[] }) => {
   const shown = items.filter(
     (i) => i.value !== null && i.value !== undefined && i.value !== '',
   );
@@ -24,4 +22,26 @@ const StatStrip = ({
   );
 };
 
-export { StatStrip };
+type CombatNumbers = {
+  damage: number | null;
+  attackDelayMs: number | null;
+  attackRange: number | null;
+  speed: number | null;
+  battalionSize?: number | null;
+};
+
+const seconds = (ms: number | null) =>
+  ms
+    ? `${(ms / 1000).toLocaleString('es-ES', { maximumFractionDigits: 1 })} s`
+    : null;
+
+/** The weapon numbers from the game files: damage per hit, time between hits, range, speed, battalion. */
+const combatStats = (n: CombatNumbers): StatItem[] => [
+  { label: 'daño', value: n.damage },
+  { label: 'cadencia', value: seconds(n.attackDelayMs) },
+  { label: 'alcance', value: n.attackRange },
+  { label: 'velocidad', value: n.speed },
+  { label: 'batallón', value: n.battalionSize },
+];
+
+export { combatStats, StatStrip };

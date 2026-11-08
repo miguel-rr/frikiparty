@@ -126,6 +126,12 @@ const factionHero = createTable('faction_hero', {
   health: integer('health'),
   armourSet: text('armour_set'),
   attackType: text('attack_type'),
+  // Primary weapon, straight from the game's INI files (10.0 onwards).
+  damage: integer('damage'),
+  damageType: text('damage_type'),
+  attackDelayMs: integer('attack_delay_ms'),
+  attackRange: integer('attack_range'),
+  speed: integer('speed'),
   // Summoned heroes (Elessar, Gwaihir) come from a power, not the fortress.
   isSummon: boolean('is_summon').notNull().default(false),
   description: text('description'),
@@ -163,6 +169,14 @@ const factionUnit = createTable('faction_unit', {
   attackType: text('attack_type'),
   // Cap on the battlefield (Swan Knights 3, Fountain Guards 2…); null: none.
   maxCount: integer('max_count'),
+  // Primary weapon, straight from the game's INI files (10.0 onwards).
+  damage: integer('damage'),
+  damageType: text('damage_type'),
+  attackDelayMs: integer('attack_delay_ms'),
+  attackRange: integer('attack_range'),
+  speed: integer('speed'),
+  // Members of one battalion (horde); null for single units.
+  battalionSize: integer('battalion_size'),
   isSummon: boolean('is_summon').notNull().default(false),
   // Closed tag lists so units of different factions can be crossed.
   strongAgainst: text('strong_against')

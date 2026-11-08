@@ -1,0 +1,2772 @@
+{
+  "code": "hostOfTheWest",
+  "units": [
+    {
+      "slug": "last-alliance-porter1",
+      "object": "LastAlliancePorter1",
+      "name": "Heraldo de la Última Alianza",
+      "category": "special",
+      "recruitedAt": "Asamblea de las Huestes",
+      "requirements": null,
+      "cost": 800,
+      "cp": 0,
+      "health": 1800,
+      "buildTime": 30,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Capaz de plantar Estandartes de la Última Alianza para conceder diversas bonificaciones.\n\nLos Heraldos de los Reyes del oeste llevaban grandes estandartes a la batalla, reuniendo a las huestes a su alrededor y transmitiendo órdenes militares.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": 80,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAdvLAHerald",
+        "portrait": "UPAdvLAHerald"
+      }
+    },
+    {
+      "slug": "second-age-dunedain-cavalry",
+      "object": "SecondAgeDunedainCavalryHorde",
+      "name": "Jinetes de Dor-en-Ernil",
+      "category": "cavalry",
+      "recruitedAt": "Asamblea de los Fieles nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 80,
+      "health": 350,
+      "buildTime": 35,
+      "armourSet": "HarondorRaiderArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nBonificación Lazos de amistad. Las unidades Dúnedain ganan un 25% de armadura cuando luchan junto a unidades Lindon.\n\nLa tierra de Dor-en-Ernil estaba gobernada por los Príncipes de Belfalas, una familia de fieles Númenóreanos que compartían parentesco con los Señores de Andúnië. Siempre aliados de Elendil, no dudaron en unirse a él en su guerra contra Mordor.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Armadura de Factura Élfica",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura de Factura Élfica. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de las Siete Estrellas",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 420,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 90,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAdvLADunedainRidersDorEnErnil",
+        "portrait": "UPAdvLARidersDorEnErnil"
+      }
+    },
+    {
+      "slug": "anadune-captain",
+      "object": "AnaduneCaptainHorde",
+      "name": "Bârim an-Nimruzîrim",
+      "category": "heroic",
+      "recruitedAt": "Asamblea de los Fieles nivel 3",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 90,
+      "health": 800,
+      "buildTime": 70,
+      "armourSet": "BodyguardArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Señores de los Amigos de los Elfos.\n\nElendil fue acompañado al campo de batalla por los miembros más leales de su Casa; aquellos que siempre habían sido fieles a su justa causa, y que ahora estaban ansiosos por cumplir los juramentos que habían hecho.",
+      "abilities": [
+        {
+          "name": "Larga Vida",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El héroe de la Última Alianza objetivo gana de forma permanente +250 de salud y +25% de velocidad de curación automática. No se acumula."
+        },
+        {
+          "name": "Maestros de Espadas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Bârim an-Nimruzîrim's attacks passively decrease armour by -15% and movement speed by -10% per hit. Debuff does not stack with itself."
+        },
+        {
+          "name": "Might of Anadûnê",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo queda marcado durante 20 segundos. Pierden -15% de velocidad de movimiento y no pueden atacar mientras dure el ataque."
+        },
+        {
+          "name": "Memoria de Akallabêth",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige un daño considerable a las estructuras durante 15 segundos e inhabilita la estructura objetivo durante 30 segundos. Se puede lanzar desde una gran distancia."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 370,
+      "damageType": "HERO",
+      "attackDelayMs": 615,
+      "attackRange": 25,
+      "speed": 50,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 535
+      },
+      "images": {
+        "button": "UIAdvLABarimAnNimruzirim",
+        "portrait": "UPAdvLABarimAnNimruzirim"
+      }
+    },
+    {
+      "slug": "noldor-noble-lord-la",
+      "object": "NoldorNobleLordLAHorde",
+      "name": "Artaheruvi-i-Élentara",
+      "category": "heroic",
+      "recruitedAt": "Tienda Noldor nivel 3",
+      "requirements": null,
+      "cost": 1600,
+      "cp": 90,
+      "health": 720,
+      "buildTime": 70,
+      "armourSet": "NandorHirHatholArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Nobles Señores del Rey de las Estrellas.\n\nEn ese momento desesperado, cuando Sauron por fin salió a luchar contra el Alto Rey de los Noldor, la guardia de Gil-galad realizó grandes hazañas de valor, manteniendo a raya a las interminables hordas de orcos.",
+      "abilities": [
+        {
+          "name": "Cambiar a Martillo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": "Espadas fuertes contra Infantería y Héroes. Martillos fuertes contra Edificios, Caballería, Monstruos y Máquinas de Asedio."
+        },
+        {
+          "name": "Guardias de la Estrella",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Gil-galad gana +10% a todas las estadísticas cuando está cerca de Artaheruvi-i-Élentara.\n\nCuando se activa, el héroe aliado objetivo gana +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Revelado en la Ira",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas se aterrorizan. Artaheruvi-i-Élentara gana +33% de armadura e inflige daño de derribo con martillos y daño por proximidad con espadas durante 30 segundos."
+        },
+        {
+          "name": "Tributo a Aulë",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Concede Armas de Imladris, Armadura de Factura Élfica y Flechas de Eregion a las unidades en el radio."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 20,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 10,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAdvLALindonNobles",
+        "portrait": "UPAdvLALindonNobles"
+      }
+    },
+    {
+      "slug": "last-alliance-trebuchet",
+      "object": "LastAllianceTrebuchet",
+      "name": "Trabuco Dúnedain",
+      "category": "siege",
+      "recruitedAt": "Asamblea del Asedio",
+      "requirements": null,
+      "cost": 600,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "TrebuchetArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Un trabuco lanza una enorme roca a una gran velocidad para astillar las defensas y aplastar a los guerreros enemigos.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 8000,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "UIAdvLATrebuchet",
+        "portrait": "UPAdvLATrebuchet"
+      }
+    },
+    {
+      "slug": "rivendell-hobbit-friends",
+      "object": "RivendellHobbitFriendsHorde",
+      "name": "Fronteros",
+      "category": "swordsmen",
+      "recruitedAt": "Campamento de las Tierras de Bree",
+      "requirements": null,
+      "cost": 200,
+      "cp": 48,
+      "health": 150,
+      "buildTime": 23,
+      "armourSet": "RivendellHobbitArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLos Fronterizos son guardianes de la paz, que patrullan los caminos, senderos y fronteras de la Comarca, resolviendo disputas y vigilando tanto a los malvados como a los extranjeros. Durante los últimos días de la Tercera Edad, su número aumentó considerablemente gracias al alcalde Pieblanco, que sentía que se estaban gestando problemas en las tierras salvajes de más allá.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Oficial",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 165,
+      "damageType": "SLASH",
+      "attackDelayMs": 833,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 100,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uirivbounder",
+        "portrait": "uprivbounder"
+      }
+    },
+    {
+      "slug": "took-archer",
+      "object": "TookArcherHorde",
+      "name": "Arqueros Tuk",
+      "category": "archers",
+      "recruitedAt": "Campamento de las Tierras de Bree",
+      "requirements": null,
+      "cost": 200,
+      "cp": 40,
+      "health": 180,
+      "buildTime": 20,
+      "armourSet": "TookArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nComo todos los Hobbits, estos arqueros son bendecidos con ojos agudos y manos firmes, con un coraje nativo de la familia de los Tuk.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Plumas de Cisne",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño base y añade daño de perforación adicional a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Oficial",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 125,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 300,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uirivtookarcher",
+        "portrait": "uprivtookarcher"
+      }
+    },
+    {
+      "slug": "arnor-breeland-guard",
+      "object": "ArnorBreelandGuardHorde",
+      "name": "Guardias del Pueblo de Bree",
+      "category": "pikemen",
+      "recruitedAt": "Campamento de las Tierras de Bree",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 30,
+      "armourSet": "RohanSpearmenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nAunque los Montaraces Dúnedain protegieron a los habitantes de Bree de la oscuridad que trató alcanzarlos, los ciudadanos aún mentenían una pequeña pero voluntariosa milicia para solucionar los problemas internos.",
+      "abilities": [
+        {
+          "name": "Armadura de los Túmulos",
+          "level": 3,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades ganan permanentemente un 33% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas con Inscripciones Tengwar",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño de las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Mejora Capitán Dúnedain",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 300,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uirivbreelander",
+        "portrait": "uprivbreelander"
+      }
+    },
+    {
+      "slug": "arnor-breeland-ram",
+      "object": "ArnorBreelandRam",
+      "name": "Ariete",
+      "category": "siege",
+      "recruitedAt": "Campamento de las Tierras de Bree nivel 2",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nUn ariete es una herramienta básica para la guerra de asedio. Fácil de hacer y simple de usar. Directo, como los Hombres de Bree.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "uirivram",
+        "portrait": "UPRivendellRam"
+      }
+    },
+    {
+      "slug": "arnor-ranger",
+      "object": "ArnorRangerHorde",
+      "name": "Montaraces del Norte",
+      "category": "archers",
+      "recruitedAt": "Asamblea Dúnedain",
+      "requirements": null,
+      "cost": 500,
+      "cp": 72,
+      "health": 250,
+      "buildTime": 35,
+      "armourSet": "NewDunedainRangerArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad versátil capaz de ser mejorada para diferentes situaciones. Equipada inicialmente con arcos. Fuerte a Largo Alcance. Pueden ocultarse tras los árboles.\n\nEstos hombres severos y silenciosos, ingratamente, protegen las fronteras de la Comarca y las tierras de Bree contra aquellos que lo verían arder.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Protectores de la Gente Pequeña",
+          "level": 2,
+          "hotkey": "V",
+          "kind": "leadership",
+          "description": "Los Montaraces del Norte otorgan a los Hobbits cercanos +15% de armadura.\n\nEl batallón se vuelve invisible cuando están quietos."
+        },
+        {
+          "name": "Lanzas Equipadas",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa el daño infligido a la caballería y los héroes."
+        },
+        {
+          "name": "Espadas Equipadas",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa el daño a la infantería y ligeramente la armadura."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Equipar Espadas",
+          "cost": 100,
+          "hotkey": "R",
+          "level": null,
+          "description": "Equipa permanentemente a los montaraces con espadas. Incrementa el daño hacia la infantería y aumenta ligeramente la armadura. Sólo se puede comprar una mejora a la vez.",
+          "stats": {
+            "researchTimeS": 3
+          }
+        },
+        {
+          "name": "Equipar Lanzas",
+          "cost": 100,
+          "hotkey": "T",
+          "level": null,
+          "description": "Equipa permanentemente a los montaraces con lanzas. Incrementa el daño infligido a la caballería y los héroes. Sólo se puede comprar una mejora a la vez.",
+          "stats": {
+            "researchTimeS": 3
+          }
+        },
+        {
+          "name": "Flechas Plumas de Cisne",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Equipa permanentemente a los montaraces con. Flechas Plumas de Cisne. Incrementa el daño base y añade daño perforante adicional a las flechas. Sólo se puede comprar una mejora a la vez.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Mejora Capitán Dúnedain",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la unidad a Nivel 2 y desbloquea el poder especial 'Protectores de la Gente Pequeña' Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas con Inscripciones Tengwar",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño de las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 225,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uirivdunedain",
+        "portrait": "uprivdunedain"
+      }
+    },
+    {
+      "slug": "rivendell-dunedain-outrider",
+      "object": "RivendellDunedainOutriderHorde",
+      "name": "Jinetes Dúnedain",
+      "category": "cavalry",
+      "recruitedAt": "Asamblea Dúnedain",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": 455,
+      "buildTime": 40,
+      "armourSet": "ArnorOutriderArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLas tierras salvajes de Ériador se extienden a lo largo y ancho y no todas pueden ser protegidas por hombres que deambulan a pie.",
+      "abilities": [
+        {
+          "name": "Destreza Forestal",
+          "level": 2,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Se vuelve sigiloso al permanecer inmóvil durante 20 segundos."
+        },
+        {
+          "name": "Jinetes Experimentados",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de los Naith cercanos obtienen +33% de armadura."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas con Inscripciones Tengwar",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño de las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Mejora Capitán Dúnedain",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la unidad al Nivel 2 y desbloquea el poder especial 'Destreza Forestal' Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Escudos",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 615,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 115,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uirivoutrider",
+        "portrait": "uprivoutrider"
+      }
+    },
+    {
+      "slug": "rivendell-grey-company",
+      "object": "RivendellGreyCompanyHorde",
+      "name": "Compañía Gris",
+      "category": "heroic",
+      "recruitedAt": "Asamblea Dúnedain",
+      "requirements": "Requiere La Balada de Leithian de la Biblioteca; Requiere Maestría Aguda",
+      "cost": 1500,
+      "cp": 120,
+      "health": 700,
+      "buildTime": 50,
+      "armourSet": "GreyCompanyArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": 1,
+      "strongAgainst": ["heroes"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles. Unidad Héroe. Sólo 1 unidad simultáneamente.\n\nReunidos por Halbarad, el Capitán de los Dúnedain, estos guerreros de cara siniestra cabalgaron hacia el sur en ayuda de Aragorn, su jefe.",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Resolución Severa",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Los enemigos cercanos pierden. -10% de armadura y -10% de daño. Cada vez que cae un miembro de la Compañía Gris, los demás miembros del batallón obtienen +10% de daño e incremento de armadura durante 3 segundos. No se acumula consigo mismo. Poder pasivo."
+        },
+        {
+          "name": "Defensores Silenciosos",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Aragorn, Halbarad y los Hijos de Elrond obtienen pasivamente +25% de daño alrededor de la Compañía Gris.\n\nCuando se activa, los Hobbits cercanos, los guardias de Bree y héroes Hobbit reclutados en el campamento obtienen +25% de armadura, mientras que las unidades Dúnedain obtienen +25% de daño durante durante 30 segundos."
+        },
+        {
+          "name": "Cazadores Hábiles",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Durante 30 segundos, la Compañía Gris marca una unidad o héroe objetivo. El objetivo comparte visión con el jugador, pierde -25% velocidad y recibe un 50% más de daño del ataque de la Compañía Gris y de los Dúnedain."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 180,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 400,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 480,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uirivgreycompany",
+        "portrait": "UPRivGreyCompany"
+      }
+    },
+    {
+      "slug": "elven-rivendell-inf",
+      "object": "ElvenRivendellInfHorde",
+      "name": "Macari",
+      "category": "swordsmen",
+      "recruitedAt": "Dormitorio de Rivendel",
+      "requirements": null,
+      "cost": 725,
+      "cp": 80,
+      "health": 550,
+      "buildTime": 30,
+      "armourSet": "RivendellGuardArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "siege"],
+      "weakAgainst": [],
+      "description": "Guardianes de Rivendel.\n\nNo hay elfo en Rivendel que no haya sido entrenado, en un momento u otro, para manejar con maestría una espada.",
+      "abilities": [
+        {
+          "name": "Canción de Finwë",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los curtidos guerreros cantan una canción de victorias pasadas. Los Guardias de Rivendel ganan +33% de daño durante 15 segundos."
+        },
+        {
+          "name": "Miruvor",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades élficas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Noldorin",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Noldorin. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas con Inscripciones Tengwar",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño de las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de los Noldorin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1000,
+      "damageType": "SLASH",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIRivelfSword",
+        "portrait": "UPRivelfSword"
+      }
+    },
+    {
+      "slug": "elven-rivendell-inf-glaivemen",
+      "object": "ElvenRivendellInfGlaivemenHorde",
+      "name": "Ehtyari",
+      "category": "pikemen",
+      "recruitedAt": "Dormitorio de Rivendel",
+      "requirements": null,
+      "cost": 700,
+      "cp": 80,
+      "health": 550,
+      "buildTime": 30,
+      "armourSet": "RivendellPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "siege", "heroes"],
+      "weakAgainst": [],
+      "description": "Lanceros de Rivendel. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nEl elegante arte de luchar con largas cuchillas es una tradición Noldor antigua y probada en la batalla.",
+      "abilities": [
+        {
+          "name": "Canción de Finwë",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los curtidos guerreros cantan una canción de victorias pasadas. Los Lanceros de Rivendel ganan +33% de armadura durante 15 segundos."
+        },
+        {
+          "name": "Miruvor",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades élficas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Armadura de los Túmulos",
+          "level": 3,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades ganan permanentemente un 33% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Noldorin",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Noldorin. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas con Inscripciones Tengwar",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño de las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de los Noldorin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Mejora Capitán Dúnedain",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 790,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIRivelfSpear",
+        "portrait": "UPRivelfSpear"
+      }
+    },
+    {
+      "slug": "elven-rivendell-inf-archer",
+      "object": "ElvenRivendellInfArcherHorde",
+      "name": "Quingar",
+      "category": "archers",
+      "recruitedAt": "Dormitorio de Rivendel nivel 2",
+      "requirements": null,
+      "cost": 750,
+      "cp": 80,
+      "health": null,
+      "buildTime": 35,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters", "siege"],
+      "weakAgainst": [],
+      "description": "Arqueros de Rivendel.\n\nEl Valle de Imladris está oculto en gran parte gracias al Anillo de Elrond, y en parte gracias a estos arqueros que se aseguran de que ningún enemigo invasor viva para contar su ubicación.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Canción de Finwë",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los curtidos guerreros cantan una canción de victorias pasadas. Los Arqueros de Rivendel ganan +20% de rango de ataque y visión durante 15 segundos."
+        },
+        {
+          "name": "Miruvor",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades élficas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Noldorin",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Noldorin. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Plumas de Cisne",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño base y agrega daño mágico a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de los Noldorin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {},
+      "images": {
+        "button": "UIRivelfArcher",
+        "portrait": "UPRivelfArcher"
+      }
+    },
+    {
+      "slug": "elven-rivendell-knight",
+      "object": "ElvenRivendellKnightHorde",
+      "name": "Roquentari",
+      "category": "cavalry",
+      "recruitedAt": "Dormitorio de Rivendel nivel 3",
+      "requirements": null,
+      "cost": 1300,
+      "cp": 100,
+      "health": 800,
+      "buildTime": 45,
+      "armourSet": "DolAmrothKnightLightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "archers", "siege"],
+      "weakAgainst": [],
+      "description": "Caballeros de Rivendel. Puede cambiar entre el arco y la lanza.\n\nCuando las tierras lejanas del Valle están en peligro, estos caballeros cabalgarán para vencer a cualquier horda de orcos que encuentren.",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Canción de Finwë",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los curtidos guerreros cantan una canción de victorias pasadas. Los Caballeros de Rivendel obtienen una reducción del -25% en la ralentización de pisoteo durante 15 segundos."
+        },
+        {
+          "name": "Miruvor",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades élficas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Noldorin",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Noldorin. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas con Inscripciones Tengwar",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño de las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de los Noldorin",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Plumas de Cisne",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Incrementa el daño base y agrega daño mágico a las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 640,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 300,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uirivelfknight",
+        "portrait": "uprivelfknight"
+      }
+    },
+    {
+      "slug": "noldor-warrior",
+      "object": "NoldorWarriorHorde",
+      "name": "Laurëthelyn",
+      "category": "heroic",
+      "recruitedAt": "Dormitorio de Rivendel nivel 3",
+      "requirements": null,
+      "cost": 2500,
+      "cp": 120,
+      "health": 720,
+      "buildTime": 70,
+      "armourSet": "LastAllianceVeteranArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Veteranos de la Última Alianza. Puede cambiar entre Arco y Espada.\n\nLa caída de Sauron tuvo un gran coste. Con Gil-galad muerto, muchos veteranos elfos eligieron quedarse en Rivendel, casa del heraldo de su difunto Rey.",
+      "abilities": [
+        {
+          "name": "Veteranos de Muchas Guerras",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": "Los Veteranos han luchado en muchas batallas y han sido testigos de grandes triunfos y trágicas derrotas, y son eruditos en el arte de la guerra."
+        },
+        {
+          "name": "Asedio de Eregion",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Veteranos estuvieron allí durante el ataque de Sauron al reino Noldorin de Eregion.\n\nEl batallón gana +33% de armadura y es inmune al derribo, al pisoteo y al miedo durante 30 segundos.\n\nSólo se puede activar una habilidad al mismo tiempo."
+        },
+        {
+          "name": "Guerra de la Última Alianza",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Veteranos estuvieron allí durante la Batalla de Dagorlad y el final del asedio de Barad-dûr.\n\nLos Dúnedain y guardias de Bree cercanos obtienen +50% de armadura durante 30 segundos, mientras que las unidades Elfas cercanas obtienen +50% de daño durante 30 segundos.\n\nSólo se puede activar una habilidad al mismo tiempo."
+        },
+        {
+          "name": "Caída de Angmar",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los Veteranos estuvieron allí junto a Glorfindel en la batalla decisiva contra el Señor de Angmar.\n\nLos ataques cuerpo a cuerpo infligen daño de área y +50% de daño contra estructuras. La velocidad de ataque a distancia se duplica. La velocidad de los ataques a distancia es incrementada. Los Veteranos no pueden cambiar de arma mientras dure la habilidad. Duración 30 segundos.\n\nSólo se puede activar una habilidad al mismo tiempo."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 140,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 450,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 600,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "uirivlastalliance",
+        "portrait": "uprivlastalliance"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "second-age-elrond-adventure",
+      "object": "SecondAgeElrondAdventure",
+      "name": "Elrond",
+      "title": "Elrond, el Heraldo de Gil-galad",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 1400,
+      "buildTime": 50,
+      "health": 2300,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "''Recuerdo bien el esplendor de sus estandartes de la Última Alianza -dijo-. Me recordó la gloria de los Días Antiguos y las huestes de Beleriand, tantos grandes príncipes y capitanes reunidos.''",
+      "abilities": [
+        {
+          "name": "Heraldo de Gil-galad",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los héroes aliados cerca de Elrond ganan experiencia un 33% más rápido.\n\nSe puede lanzar sobre un estandarte para subirlo un rango al instante."
+        },
+        {
+          "name": "¡Leithio I Philinn!",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Elrond llama a los arqueros elfos a bombardear en cualquier lugar dentro de un gran radio con una andanada de flechas."
+        },
+        {
+          "name": "Guardián de Imladris",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Elrond obtiene un 50% de daño mientras sus ataques infligen daño por proximidad durante 30 segundos."
+        },
+        {
+          "name": "Anillo del Aire",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Crea un santuario circular alrededor de Elrond durante 30 segundos. Las unidades aliadas ganan +50% de armadura mientras estén en el área. Las unidades enemigas cercanas sufren. -25% de daño, -20% de armadura y pierden todo el liderazgo."
+        }
+      ],
+      "damage": 180,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 65,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAElrond",
+        "portrait": "UPAdvLAElrond"
+      }
+    },
+    {
+      "slug": "second-age-anarion-adventure",
+      "object": "SecondAgeAnarionAdventure",
+      "name": "Anárion",
+      "title": "Anárion, el segundo hijo de Elendil",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Anárion sostuvo Osgiliath contra el Enemigo, y por ese tiempo lo hizo retroceder a las montañas; pero Sauron reunió su fuerza de nuevo, y Anárion supo que a menos que llegara ayuda su reino no resistiría mucho tiempo.'",
+      "abilities": [
+        {
+          "name": "Reglas Conjuntas",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Anárion gana +15% de daño y armadura cuando está cerca de Isildur."
+        },
+        {
+          "name": "Gloria de los Reinos en el Exilio",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo obtienen +33% de armadura y resistencia a los golpes durante 30 segundos."
+        },
+        {
+          "name": "Maestro del Asedio",
+          "level": 5,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los equipos de asedio cercanos ganan un 10% de alcance. Las unidades Dúnedain cercanas ganan un 25% de daño contra edificios."
+        },
+        {
+          "name": "Señor de Minas Anor",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cuando se lanza sobre un héroe aliado, incrementa el daño infligido en +100% durante 15 segundos. Cuando se lanza sobre un héroe enemigo, éste pierde -33% de armadura y velocidad durante 15 segundos."
+        },
+        {
+          "name": "Guerrero Experimentado",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a dos batallones de Bârim an-Nimruzîrim."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAIAnarion",
+        "portrait": "UPAdvLAAnarion"
+      }
+    },
+    {
+      "slug": "second-age-isildur-adventure",
+      "object": "SecondAgeIsildurAdventure",
+      "name": "Isildur",
+      "title": "Isildur, el heredero de Elendil",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Contemplé el último combate en las laderas de Orodruin, donde Gil-galad murió, y Elendil cayó... pero el propio Sauron fue derrocado, e Isildur le cortó el Anillo de la mano con el filo de la espada de su padre, y lo tomó como propio.'",
+      "abilities": [
+        {
+          "name": "Reglas Conjuntas",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Isildur gana +15% de daño y armadura cuando está cerca de Anárion."
+        },
+        {
+          "name": "Heredero del Alto Rey",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Cuando se activa, todas las unidades cercanas obtienen +33% de daño e inmunidad al miedo y al terror durante 20 segundos."
+        },
+        {
+          "name": "Guerrero Intrépido",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Isildur gana +50% de armadura e inflige daño contundente durante 30 segundos."
+        },
+        {
+          "name": "Táctica Desesperada",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Isildur realiza un ataque contra un único objetivo, infligiendo una enorme cantidad de daño al héroe objetivo y reduciendo su velocidad en un 50% durante 15 segundos."
+        },
+        {
+          "name": "Fruta de Armenelos",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Isildur planta la semilla del Árbol Blanco. Todas las unidades aliadas cercanas al árbol son inmunes al daño mágico, de fuego y de escarcha. Los héroes aliados cercanos al árbol tienen un 50% menos de tiempo de reutilización de habilidades."
+        },
+        {
+          "name": "Compensación por la muerte",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Isildur ha reclamado el Anillo Único. Las unidades aliadas cercanas ya no pueden ganar experiencia. Si Isildur muere, el Anillo Único se pierde para el resto de la partida."
+        },
+        {
+          "name": "Herencia de mi Reino",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Cuando se activa, incrementa los costes y el tiempo de reclutamiento de todas las unidades Dúnedain en un 50% durante 60 segundos."
+        },
+        {
+          "name": "Daño de Isildur",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "El Anillo busca traicionar a Isildur. Isildur pierde regularmente un 50% de armadura y velocidad de movimiento en combate durante 15 segundos."
+        },
+        {
+          "name": "Fácilmente Corruptible",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades aliadas seleccionadas se vuelven hostiles entre sí."
+        },
+        {
+          "name": "Arrepentimiento",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "La voluntad de Isildur logra vencer el mal del Anillo. Isildur deja caer el Anillo Único, permitiendo que sea llevado a la Asamblea de las Huestes para que se ponga en marcha su destrucción."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAIsildur",
+        "portrait": "UPAdvLAIsildur"
+      }
+    },
+    {
+      "slug": "second-age-elendil-adventure",
+      "object": "SecondAgeElendilAdventure",
+      "name": "Elendil el Alto",
+      "title": "Elendil el Alto, Alto Rey de los Reinos en el Exilio",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 2700,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Ahora Elendil y Gil-galad tomaron consejo juntos, pues percibieron que Sauron se haría demasiado fuerte y vencería a todos sus enemigos uno por uno...'",
+      "abilities": [
+        {
+          "name": "Alto Rey de los Dûnedain",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Todas las unidades Dúnedain cercanas a Elendil ganan un 33% de armadura y daño y son inmunes al miedo y al terror.\n\nPuede lanzarse a los aliados para curarlos. En el nivel 7 también refresca sus temporizadores de habilidades especiales."
+        },
+        {
+          "name": "Señor de Andúnië",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Elendil proclama su alta ascendencia como Señor de Andúnië. Los enemigos cercanos huyen aterrorizados.\n\nEn el nivel 6, todas las unidades dúnedain cercanas a Elendil son inmunes a los maleficios."
+        },
+        {
+          "name": "Juramento de Elendil",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Elendil gana +100% de daño y armadura e inflige daño por derribo durante 30 segundos. Mientras la habilidad está activa, los héroes cercanos ganan +20% de armadura y daño, y 50% de experiencia."
+        },
+        {
+          "name": "Líder de los Fieles",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca una guardia alrededor de Elendil. Las unidades cercanas se curan con el tiempo y las caídas se reponen rápidamente. Duración 60 segundos."
+        },
+        {
+          "name": "Nimruzîr",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Todas las unidades cercanas ganan +75% de daño y +150% de experiencia durante 30 segundos."
+        }
+      ],
+      "damage": 350,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAElendil",
+        "portrait": "UPAdvLAElendil"
+      }
+    },
+    {
+      "slug": "second-age-gil-galad-adventure",
+      "object": "SecondAgeGilGaladAdventure",
+      "name": "Alto Rey Gil-galad",
+      "title": "Gil-galad, Alto Rey de los Noldor",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'...si no se unían contra él. Por lo tanto, hicieron esa Liga que se llama la Última Alianza, y marcharon hacia el este, reuniendo una gran hueste de Elfos y Hombres.'",
+      "abilities": [
+        {
+          "name": "Último Alto Rey de los Noldor",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los elfos cercanos a Gil-galad obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Su Lanza Era Afilada",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Derriba e inmoviliza al héroe objetivo durante 15 segundos. Las unidades normales son derribadas y dañadas."
+        },
+        {
+          "name": "Escudo de Plata de la Luz Estelar",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Gil-galad gana un 200% de armadura y los enemigos cercanos quedan aturdidos durante 10 segundos."
+        },
+        {
+          "name": "Esplendor de los Noldor",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades objetivo obtienen experiencia."
+        },
+        {
+          "name": "Vástago de Finarfin",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Todas las unidades cercanas ganan +75% de daño y +150% de experiencia durante 30 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 65,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAGilGalad",
+        "portrait": "UPAdvLAGilGalad"
+      }
+    },
+    {
+      "slug": "last-alliance-durin-iv",
+      "object": "LastAllianceDurinIV",
+      "name": "Durin el Inmortal",
+      "title": "Rey del Pueblo de Durin",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2700,
+      "armourSet": "KingDainArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'De los enanos, pocos lucharon en ambos bandos; pero los parientes de Durin de Moria lucharon contra Sauron.'",
+      "abilities": [
+        {
+          "name": "Rey de Khazad-dûm",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los enanos cercanos a Durin el Inmortal ganan un 25% de daño, armadura y ganan experiencia un 33% más rápido."
+        },
+        {
+          "name": "Ira de los Naugrim",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo pierden. -20% de velocidad y -30% de armadura durante 30 segundos. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Anillo de Poder",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Puede lanzarse sobre una estructura aliada de la Última Alianza para generar un cofre con 1000 recursos. Las unidades enemigas cercanas a la estructura objetivo quedan aturdidas por el miedo durante 15 segundos y pierden -25% de daño y armadura durante 30 segundos."
+        },
+        {
+          "name": "Maestro de Piedra",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Durin el Inmortal invoca un pilar de Khazad-dûm desde las profundidades de la tierra para repeler a las unidades enemigas. Las unidades enemigas cercanas al Pilar pierden -33% de daño."
+        },
+        {
+          "name": "Inmortal",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Durin el Inmortal se vuelve invulnerable y gana +50% de daño durante 20 segundos."
+        }
+      ],
+      "damage": 400,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLADurin",
+        "portrait": "UPAdvLADurin"
+      }
+    },
+    {
+      "slug": "second-age-amdir-adventure",
+      "object": "SecondAgeAmdirAdventure",
+      "name": "Amdír",
+      "title": "Rey de Lórinand",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2700,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Amdír obedeció el llamado de Gil-galad y trajo una fuerza tan grande como pudo reunir...'",
+      "abilities": [
+        {
+          "name": "Malgalad",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cada vez que Amdír ataca, él y los aliados cercanos se curan ligeramente."
+        },
+        {
+          "name": "Ira Dorada",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Amdír derriba a las unidades enemigas y gana un 33% de velocidad de ataque, pero pierde un 20% de armadura durante 30 segundos. La curación de Malgalad se incrementa mientras dure."
+        },
+        {
+          "name": "Alegría de Combatir",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Amdír se teletransporta a la unidad enemiga objetivo, infligiendo daño de área de efecto al impactar."
+        },
+        {
+          "name": "Heredero Amado",
+          "level": 10,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca a Amroth Amdírion y a dos batallones de Amroth-na Armegil."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAAmdir",
+        "portrait": "UPAdvLAAmdir"
+      }
+    },
+    {
+      "slug": "second-age-oropher-alive-adventure",
+      "object": "SecondAgeOropherAliveAdventure",
+      "name": "Oropher",
+      "title": "Señor del Reino del Bosque",
+      "recruitedAt": "Asamblea de las Huestes",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Oropher reunió un gran ejército de su ahora numeroso pueblo, y uniéndose al ejército menor de Amdír de Lórien condujo a la hueste de los Elfos Silvanos a la batalla.'",
+      "abilities": [
+        {
+          "name": "Rey de Eryn Galen",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades aliadas cercanas quedan en sigilo cuando no están en combate."
+        },
+        {
+          "name": "Armamentos de Doriath",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Concede Hojas Forjadas a las unidades del radio."
+        },
+        {
+          "name": "Carga Imprudente",
+          "level": 6,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Rey Oropher y las unidades aliadas cercanas obtienen +75% de daño, pero pierden -25% de armadura y no ganan experiencia durante 20 segundos."
+        },
+        {
+          "name": "Última Batalla",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Crea un círculo alrededor de Oropher. Los enemigos sufren daño con el tiempo y se ralentizan un 15%. Duración 60 segundos."
+        },
+        {
+          "name": "Heredero Orgulloso",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca temporalmente a Thranduil Oropherion al campo de batalla."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 500,
+      "attackRange": 15,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAdvLAOropher",
+        "portrait": "UPAdvLAOropher"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "last-alliance-citadel",
+      "object": "LastAllianceCitadel",
+      "name": "Asamblea de las Huestes",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": null,
+      "description": null,
+      "produces": ["Heraldo de la Última Alianza"],
+      "upgrades": [
+        {
+          "name": "Siete Piedras Videntes",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Incrementa el rango de visión de la Asamblea.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Manos del Rey",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Cura a los aliados cercanos y repone a las unidades caídas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Esplendor del Oeste",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los aliados en un amplio radio alrededor de la Asamblea ganan +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "La Gran Marcha",
+          "cost": 1200,
+          "hotkey": "T",
+          "level": null,
+          "description": "Desbloquea la habilidad La Gran Marcha. Cuando se activa, todas las tiendas ganan un 100% de velocidad de producción de unidades durante 60 segundos.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Rutas de Abastecimiento Dúnedain",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Incrementa la producción de recursos de todas las estructuras en un 20%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Recintos de Congregación",
+          "cost": 1500,
+          "hotkey": "F",
+          "level": null,
+          "description": "Incrementa la armadura de todas las estructuras en un 33%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Orgullo de los Pueblos Libres",
+          "cost": 1000,
+          "hotkey": "W",
+          "level": null,
+          "description": "Estaciones permanentes de guardia para defender el Estandarte de los Pueblos Libres.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Maestría Aguda",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Incrementa permanentemente la armadura de los Estandartes de los Pueblos Libres en un 50%.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        },
+        {
+          "name": "Heráldica Espléndida",
+          "cost": 1300,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa permanentemente el rango de efecto de los Estandartes de los Pueblos Libres en un 100%.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "La Gran Marcha",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Todas las tiendas ganan un 100% de velocidad de producción de unidades durante 60 segundos."
+        },
+        {
+          "name": "El Asalto Final",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "El arma del Enemigo ha sido reclamada y es hora de asestar el golpe final a sus dispersas fuerzas. Las unidades y héroes aliados ganan en todo el mapa +50% de daño, +50% de armadura, +15% de velocidad de movimiento e inmunidad al miedo y al terror. Los tiempos de reutilización de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "Auto Reparación",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Permite que la estructura se repare de forma automática."
+        },
+        {
+          "name": "Desbloquear Comandantes",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Consigue acceso a Durin el Inmortal, Amdír y Oropher nivelando los Estándares de Khazad-dûm, Lórinand y Eryn Galen al nivel 3."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPLAGatheringHosts"
+      }
+    },
+    {
+      "slug": "laadventure-numenor-tent-foundation",
+      "object": "LAAdventureNumenorTentFoundation",
+      "name": "Asamblea de los Fieles",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Recluta a los Hombres de los Fieles. Genera recursos. Incrementa los puntos de mando en 100 unidades.",
+      "produces": ["Jinetes de Dor-en-Ernil", "Bârim an-Nimruzîrim"],
+      "upgrades": [
+        {
+          "name": "Asamblea de los Fieles al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Jinetes de Dor-en-Ernil +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPLAGatheringoftheFaithful"
+      }
+    },
+    {
+      "slug": "laadventure-noldor-tent-foundation",
+      "object": "LAAdventureNoldorTentFoundation",
+      "name": "Tienda Noldor",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Recluta a los Altos Elfos de los Noldor. Genera recursos. Incrementa los puntos de mando en 100 unidades.",
+      "produces": ["Artaheruvi-i-Élentara"],
+      "upgrades": [
+        {
+          "name": "Asamblea de los Noldor al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Guerreros y Arqueros de Lindon +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPLANoldorTent"
+      }
+    },
+    {
+      "slug": "last-alliance-smithing-tent-foundation",
+      "object": "LastAllianceSmithingTentFoundation",
+      "name": "Asamblea de Armas",
+      "kind": "support",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Investiga mejoras de armas y armaduras. Genera recursos. Incrementa los puntos de mando en 100 unidades. Bonificación de Acero - Reduce el coste de las mejoras 2 Asamblea de Armas: 5% 3 Asamblea de Armas: 10% 4 Asamblea de Armas: 15% 5 Asamblea de Armas: 20% 6+ Asamblea de Armas: 25%.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Estandartes de los Altos Reyes",
+          "cost": 400,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Estandartes de los Altos Reyes. Incrementa un batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armas de Imladris",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Adquirir la mejora Armas de Imladris. Incrementa el daño de las armas cuerpo a cuerpo.\n\nAntes de iniciar su campaña, Elendil y Gil-galad descansaron en Imladris durante tres años, forjando armas y haciendo planes.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura de Factura Élfica",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Comprar mejora Armadura de Factura Élfica. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Flechas de Eregion",
+          "cost": 1000,
+          "hotkey": "S",
+          "level": null,
+          "description": "Adquirir la mejora Flechas de Eregion. Incrementa el daño base y añade daño mágico o cortante a las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Asamblea de Armas al Nivel 2",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite investigar las mejoras Armas de Imladris y Armadura de Factura Élfica.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Asamblea de Armas al Nivel 3",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite investigar la mejora de Flechas de Eregion.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Congregar Aliados",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Activar para otorgar experiencia de libro de hechizos. La Asamblea de Armas produce -50% de recursos durante 60 segundos tras activar la habilidad."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPLAGatheringofArms"
+      }
+    },
+    {
+      "slug": "laadventure-siege-tent-foundation",
+      "object": "LAAdventureSiegeTentFoundation",
+      "name": "Asamblea del Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye Trabucos. Genera Recursos. Incrementa los puntos de mando en 100 unidades.",
+      "produces": ["Trabuco Dúnedain"],
+      "upgrades": [
+        {
+          "name": "Asamblea del Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Repara las máquinas de asedio cercanas. Desbloquea Siete años de Asedio +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Siete años de Asedio",
+          "level": 2,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "El Trabuco Dúnedain objetivo gana permanentemente +50% de daño y +15% de rango."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPAdvLAGatheringSiege"
+      }
+    },
+    {
+      "slug": "last-alliance-tower-foundation",
+      "object": "LastAllianceTowerFoundation",
+      "name": "Asamblea de la Guardia",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva, disparará a las unidades enemigas. Produce recursos. Incrementa el límite de puntos de mando en 100 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas de Eregion",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre de Batalla con Flechas de Eregion. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "UPLABattleTower"
+      }
+    },
+    {
+      "slug": "banner-stand",
+      "object": "BannerStand",
+      "name": "Cimientos de Construcción",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "InvulnerableArmor",
+      "maxCount": null,
+      "description": "Construir Fundación de Estandarte. Al mejorar la Fundación, se planta un Estandarte de los reyes, que proporciona diferentes bonificaciones a las unidades aliadas. Los Estandartes de la Última Alianza incrementan su fuerza al matar a los enemigos cercanos y otorgan bonificaciones más potentes a las unidades aliadas a medida que el Estandarte sube de nivel.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Estandarte de los Noldor",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Nivel 1: Los aliados cercanos al Estandarte ganan +25% de daño. Nivel 2: Los aliados cercanos al Estandarte ganan +33% de daño. Nivel 3: Los aliados cercanos al Estandarte ganan +55% de daño. Incrementa su fuerza al matar a los enemigos cercanos."
+        },
+        {
+          "name": "Estandarte de los Elendili",
+          "level": null,
+          "hotkey": "E",
+          "kind": "passive",
+          "description": "Nivel 1: Cura pasivamente a las unidades cercanas en un radio corto. Nivel 2: Cura a las unidades cercanas en un radio corto y otorga inmunidad al miedo y al terror. Nivel 3: Cura y repone a las unidades caídas en un radio corto y otorga inmunidad al miedo y al terror. Incrementa su fuerza al matar a los enemigos cercanos."
+        },
+        {
+          "name": "Estandarte de Khazad-dûm",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Nivel 1: Los aliados cercanos al Estandarte ganan un 25% de armadura. Nivel 2: Los aliados cercanos al Estandarte ganan un 33% de armadura. Nivel 3: Los aliados cercanos al Estandarte ganan un 33% de armadura y los enemigos cercanos al estandarte se ralentizan un 10%. Incrementa su fuerza al matar a los enemigos cercanos."
+        },
+        {
+          "name": "Estandarte de Eryn Galen",
+          "level": null,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Nivel 1: Los aliados cercanos al Estandarte ganan recursos por muerte. Nivel 2: Los aliados cercanos al Estandarte ganan recursos por muerte y +10% de velocidad. Nivel 3: Los aliados cercanos al estandarte ganan recursos por muerte y +10% de velocidad, mientras que los enemigos cercanos al Estandarte pierden un 10% de armadura. Incrementa su fuerza al matar a los enemigos cercanos."
+        },
+        {
+          "name": "Estandarte de Lórinand",
+          "level": null,
+          "hotkey": "S",
+          "kind": "passive",
+          "description": "Nivel 1: Los aliados cercanos al Estandarte ganan +33% de visión y rango de ataque. Nivel 2: Los aliados cercanos al Estandarte ganan un 33% de visión y rango de ataque y +50% de experiencia. Nivel 3: Los aliados cercanos al Estandarte ganan un 33% de visión y rango de ataque y +50% de experiencia, mientras que los enemigos cercanos al estandarte pierden un 10% de daño. Incrementa su fuerza al matar a los enemigos cercanos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPLABannerFoundation"
+      }
+    },
+    {
+      "slug": "rivendell-orchard",
+      "object": "RivendellOrchard",
+      "name": "Huerto de Rivendel",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera recursos según el terreno disponible. Incrementa los puntos de mando en 50 unidades. Bonificación de Frutas - Reduce el coste de la caballería 2 Huertos: 5% 3 Huertos: 10% 4 Huertos: 15% 5 Huertos: 20% 6+ Huertos: 25%.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellOrchard"
+      }
+    },
+    {
+      "slug": "rivendell-forge",
+      "object": "RivendellForge",
+      "name": "Forja de Rivendel",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Investiga mejoras de armas y armaduras. Genera recursos según el terreno disponible. Incrementa los puntos de mando en 50 unidades. Bonificación de Acero - Reduce el coste de las mejoras 2 Forjas: 5% 3 Forjas: 10% 4 Forjas: 15% 5 Forjas: 20% 6+ Forjas: 25%.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de los Noldorin",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes de los Noldorin. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas con Inscripciones Tengwar",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Adquirir la mejora Hojas con Inscripciones Tengwar. Incrementa el daño de las armas cuerpo a cuerpo. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura Noldorin",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Adquirir la mejora Armadura Noldorin. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Pluma de Cisne",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Adquirir la mejora Flechas de Pluma de Cisne. Incrementa el daño base y añade daño mágico a las flechas.\n\nMejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Andúril, La Llama del Oeste",
+          "cost": 800,
+          "hotkey": "S",
+          "level": null,
+          "description": "Reforja la espada de Elendil.\n\nAragorn asume su derecho al trono de Gondor. Aragorn obtiene +40% de daño mágico y +50% de daño contra Héroes.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellForge"
+      }
+    },
+    {
+      "slug": "rivendell-bree-land-encampment",
+      "object": "RivendellBreeLandEncampment",
+      "name": "Campamento de las Tierras de Bree",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 25,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Recluta Habitantes de Bree y Medianos de Eriador.",
+      "produces": [
+        "Fronteros",
+        "Arqueros Tuk",
+        "Guardias del Pueblo de Bree",
+        "Ariete"
+      ],
+      "upgrades": [
+        {
+          "name": "Campamento de las Tierras de Bree al Nivel 2",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Nivel 2: Permite el reclutamiento de Gordo Bolger y Arietes +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Campamento de las Tierras de Bree al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Nivel 3: Permite el reclutamiento de Maggot el Granjero. Repara las máquinas de asedio dañadas cercanas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Una Fiesta Inesperada",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "¡Ho! ¡Ho! ¡Ho! A la botella voy. Para curar mi corazón y ahogar mi pena. La lluvia puede caer y el viento puede soplar. Y muchas millas aún por recorrer. Pero bajo un árbol alto me acostaré. Y dejaré que las nubes pasen navegando."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellEncampment"
+      }
+    },
+    {
+      "slug": "rivendell-dunedain-gathering",
+      "object": "RivendellDunedainGathering",
+      "name": "Asamblea Dúnedain",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Llama a los Dúnedain del Norte.",
+      "produces": ["Montaraces del Norte", "Jinetes Dúnedain", "Compañía Gris"],
+      "upgrades": [
+        {
+          "name": "Centinelas Dúnedain",
+          "cost": 150,
+          "hotkey": "T",
+          "level": null,
+          "description": "Estaciona permanentemente centinelas Dúnedain dentro de la torre.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellGathering"
+      }
+    },
+    {
+      "slug": "rivendell-dormitory",
+      "object": "RivendellDormitory",
+      "name": "Dormitorio de Rivendel",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Reúne a los Elfos de Rivendel.",
+      "produces": ["Macari", "Ehtyari", "Quingar", "Roquentari", "Laurëthelyn"],
+      "upgrades": [
+        {
+          "name": "Dormitorio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Nivel 2: Permite reclutar Arqueros de Rivendel +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Dormitorio al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Nivel 3: Permite reclutar Veteranos de la Última Alianza y Caballeros de Rivendel. Estaciona un Arquero defensivo de Rivendel +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellDormitory"
+      }
+    },
+    {
+      "slug": "rivendell-library",
+      "object": "RivendellLibrary",
+      "name": "Biblioteca de Elrond",
+      "kind": "support",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 5000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": 1,
+      "description": "La Biblioteca de Elrond contiene muchos libros antiguos a los que se puede acceder para obtener mejoras y efectos únicos.\n\nLa Biblioteca ya está construida.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Compendio de Medicinas Élficas",
+          "cost": 800,
+          "hotkey": "W",
+          "level": null,
+          "description": "Escrito por el propio Elrond, este libro es material esencial para aquellos que deseen aprender los secretos de la curación.\n\nPermite a las unidades de Bree, Dúnedain y Hobbits curarse cuando están fuera de la batalla.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "La Balada de Leithian",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "La clásica historia de amor entre una doncella elfa y un hombre mortal. Traducido a la lengua común por Bilbo Bolson.\n\nPermite adquirir a la Compañía Gris desde la Asamblea de los Dúnedain, y Andúril de la Forja de Rivendel.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        },
+        {
+          "name": "Reverencia de Yavanna",
+          "cost": 1500,
+          "hotkey": "R",
+          "level": null,
+          "description": "Documentación de varios ritos y canciones sobre la Valië Yavanna, recopilada y editada por la dama Celebrian.\n\nIncrementa la producción de los Huertos un 15%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Aplicación Práctica de la Herrería Fëanoriana",
+          "cost": 1300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Este exhaustivo tratado sobre las técnicas de herrería Noldorin fue escrito por Celebrimbor.\n\nReduce permanentemente el coste de las mejoras de las unidades en un 20%.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Reflexiones Sobre la Batalla de Dagorlad",
+          "cost": 2000,
+          "hotkey": "S",
+          "level": null,
+          "description": "Una colección de escritos sobre la Batalla de Dagorlad. Cronologías, planos de batalla y poesía, reunidos por Valandil, hijo de Isildur.\n\nPermite reclutar un batallón adicional de Veteranos de la Última Alianza en el Dormitorio.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Una Malicia Insomne: Reflexiones Sobre la Naturaleza del Mal",
+          "cost": 1000,
+          "hotkey": "D",
+          "level": null,
+          "description": "Un apasionado llamamiento a la vigilancia y advertencia contra la inercia en tiempos de aparente paz, escrito por el Rey Thranduil.\n\nEstaciona permanentemente Laurëthalion en Huertos y Forjas.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellLibrary"
+      }
+    },
+    {
+      "slug": "rivendell-keep",
+      "object": "RivendellKeep",
+      "name": "Torre de Batalla",
+      "kind": "support",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas Plumas de Cisne",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre de Batalla de Arqueros con Flechas de Pluma de Cisne. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "BPRivendellTower"
+      }
+    },
+    {
+      "slug": "rivendell-well",
+      "object": "RivendellWell",
+      "name": "Fuente de Celebrian",
+      "kind": "support",
+      "cost": 350,
+      "buildTime": 45,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellWell"
+      }
+    },
+    {
+      "slug": "rivendell-statue",
+      "object": "RivendellStatue",
+      "name": "Estatua de Gil-galad",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Bonificación de liderazgo a las tropas cercanas. Reduce el coste de la infantería.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellStatue"
+      }
+    },
+    {
+      "slug": "rivendell-castle-wall-hub",
+      "object": "RivendellCastleWallHub",
+      "name": "Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "ElvenWallArmor",
+      "maxCount": null,
+      "description": "Permite la construcción de murallas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellHub"
+      }
+    },
+    {
+      "slug": "rivendell-fortress",
+      "object": "RivendellFortress",
+      "name": "Conservatorio",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": "Recluta Constructores y Héroes. Se puede reforzar con mejoras y expansiones.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPRivendellFortress"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "rallying-call-rivendell",
+      "name": "Cuerno de los Pueblos Libres",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uisplahornfreepeople"
+      },
+      "requires": []
+    },
+    {
+      "slug": "heal-rivendell",
+      "name": "Curadores Expertos",
+      "tier": 1,
+      "position": "C",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura parcialmente a las unidades y reemplaza a un muerto por batallón.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "uisplaskilledhealers"
+      },
+      "requires": []
+    },
+    {
+      "slug": "farsight-rivendell",
+      "name": "Exploradores de Eryn Galen",
+      "tier": 1,
+      "position": "R",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca a una pequeña horda de Faradrim. Los Faradrim son unidades rápidas que eliminan el velo y detectan el sigilo. Los Faradrim pueden colocar Trampas de Caza para aturdir a las unidades enemigas.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "uisplascoutsofgreenwood"
+      },
+      "requires": []
+    },
+    {
+      "slug": "old-kingdom",
+      "name": "Aliados de Lórinand",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca tres batallones de Tawarwaith al campo de batalla en el primer uso. En usos posteriores, convoca a un batallón de Tawarwaith. Una vez usado, desbloquea pasivamente la construcción del Estandarte de Lórinand.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "uisplalorinandallies"
+      },
+      "requires": ["Cuerno de los Pueblos Libres"]
+    },
+    {
+      "slug": "sons-of-elrond",
+      "name": "Aliados del Gran Bosque Verde",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca tres batallones de arqueros de Eryn Galen al campo de batalla en el primer uso. En usos posteriores, convoca a un batallón de arqueros de Eryn Galen. Una vez usado, desbloquea pasivamente la construcción del Estandarte de Eryn Galen.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "uisplaalliesofgreenwood"
+      },
+      "requires": ["Cuerno de los Pueblos Libres", "Curadores Expertos"]
+    },
+    {
+      "slug": "relicsofthe-past",
+      "name": "Aliados de Khazad-dûm",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca tres batallones de Guerreros de Khazad-dûm al campo de batalla en el primer uso. En usos posteriores, convoca a un batallón de Guerreros de Khazad-dûm. Una vez usado, desbloquea pasivamente la construcción del Estandarte de Khazad-dûm.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "uisplaalliesofkhazaddum"
+      },
+      "requires": ["Curadores Expertos", "Exploradores de Eryn Galen"]
+    },
+    {
+      "slug": "breath-of-manwe",
+      "name": "Señor de los Puertos",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca temporalmente a Círdan el Carpintero de Barcos.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uilordofthehavens"
+      },
+      "requires": ["Exploradores de Eryn Galen"]
+    },
+    {
+      "slug": "the-grey-pilgrim",
+      "name": "Aves y Bestias",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca un Águila Gigante, una bandada de Cuervos y dos Cuervos. Bandada de cuervos revela el velo y detecta unidades en sigilo. Las unidades enemigas cercanas sufren -15% de daño y armadura.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "uisplabirdsandbeasts"
+      },
+      "requires": ["Aliados de Lórinand", "Aliados del Gran Bosque Verde"]
+    },
+    {
+      "slug": "blessingof-ulmo",
+      "name": "El Tiempo en el Mundo",
+      "tier": 3,
+      "position": "C",
+      "kind": "heal",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Cura lentamente a las unidades aliadas y repone a las unidades caídas por todo el mapa durante 15 segundos.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "uisplaweatheroftheworld"
+      },
+      "requires": ["Aliados del Gran Bosque Verde", "Aliados de Khazad-dûm"]
+    },
+    {
+      "slug": "hall-of-fire",
+      "name": "Ira de Manwë",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Invoca un tornado destructivo sobre el campo de batalla.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "uisplawrathofmanwe"
+      },
+      "requires": ["Aliados de Khazad-dûm", "Señor de los Puertos"]
+    },
+    {
+      "slug": "rivendell-tom-bombadil",
+      "name": "Poder de los Eldar",
+      "tier": 4,
+      "position": "L",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Dos rápidas andanadas de flechas Noldor. La primera andanada es instantánea, la segunda viene después.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "uisplamightoftheeldar"
+      },
+      "requires": ["Aves y Bestias", "El Tiempo en el Mundo"]
+    },
+    {
+      "slug": "bruinen-flood",
+      "name": "Poder del Oeste",
+      "tier": 4,
+      "position": "R",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Bombardea el área objetivo con artillería devastadora.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "uisplamightofthewest"
+      },
+      "requires": ["El Tiempo en el Mundo", "Ira de Manwë"]
+    }
+  ]
+}

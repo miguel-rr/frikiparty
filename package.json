@@ -23,6 +23,8 @@
     "db:simulate:tournaments": "tsx --env-file=.env --tsconfig scripts/tsconfig.sim.json scripts/simulate-tournaments.ts",
     "db:seed:wiki": "tsx --env-file=.env scripts/seed-wiki.ts",
     "db:seed:wiki:prod": "tsx --env-file=.env.prod scripts/seed-wiki.ts",
+    "db:seed:wiki:10": "tsx --env-file=.env scripts/seed-wiki-10.ts",
+    "db:seed:wiki:10:prod": "tsx --env-file=.env.prod scripts/seed-wiki-10.ts",
     "db:studio": "drizzle-kit studio",
     "db:sync:translations:prod": "tsx --env-file=.env scripts/sync-translations-prod.ts",
     "audio:sync": "tsx --env-file=.env scripts/sync-audio.ts",

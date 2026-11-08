@@ -1,0 +1,1523 @@
+{
+  "code": "ruffians",
+  "units": [
+    {
+      "slug": "sharkey-porter",
+      "object": "SharkeyPorter",
+      "name": "Peón Mediano",
+      "category": "special",
+      "recruitedAt": "Aposentos del Jefe",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye edificios.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "uisharkeybuilder",
+        "portrait": "upsharkeybuilder"
+      }
+    },
+    {
+      "slug": "ruffian-boss-retinue",
+      "object": "RuffianBossRetinueHorde",
+      "name": "Séquito del Jefe",
+      "category": "heroic",
+      "recruitedAt": "Aposentos del Jefe",
+      "requirements": "Requiere la mejora Malicia de Sharkey; Requiere Malicia de Sharkey",
+      "cost": 1500,
+      "cp": 120,
+      "health": 625,
+      "buildTime": 40,
+      "armourSet": "IsengardFanaticArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Capaces de cambiar de formación para mejorar las capacidades defensivas.\n\nHombres altos y silenciosos, pocos en número. Estos guerreros con cota de malla venían de la misma Isengard, donde llevaban mucho tiempo sirviendo como guardia personal del Mago caído.",
+      "abilities": [
+        {
+          "name": "Reverencia a Curunír",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cerca de Sharkey, los ataques del Séquito del Jefe infligen daño en área y derriban. Los tiempos de recarga de las habilidades de Sharkey se reducen un -50% cerca del Séquito del Jefe."
+        },
+        {
+          "name": "Filas de Acero",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "El Séquito del Jefe es inmune permanentemente a los debilitamientos. Al activarse, el Séquito del Jefe obtiene +50% de armadura a cambio de un -25% de velocidad de movimiento durante 30 segundos."
+        },
+        {
+          "name": "Vigilancia Inquebrantable",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca a tres miembros del Séquito del Jefe para proteger a un héroe o estructura aliados durante 60 segundos. El Séquito del Jefe convocado derriba e inflige daño en área en todo momento."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 240,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 5,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uisharkeybossretinue",
+        "portrait": "upsharkeybossretinue"
+      }
+    },
+    {
+      "slug": "ruffian-press-gang",
+      "object": "RuffianPressGangHorde",
+      "name": "Leva Forzosa",
+      "category": "swordsmen",
+      "recruitedAt": "Taberna de Bandidos",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 190,
+      "buildTime": 20,
+      "armourSet": "SoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Rechazados y vagabundos, tramposos y mentirosos: Saruman dio la bienvenida a todos en su intento de conquistar y controlar la Comarca.",
+      "abilities": [
+        {
+          "name": "Rufianes de Sharkey",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Rufianes obtienen +25% de daño cerca de Sharkey."
+        },
+        {
+          "name": "Rateros",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Rufianes roban recursos de los enemigos muertos. A nivel 3, los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Hierro Fundido",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Hierro Fundido. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Sharkey el Ejecutor",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 405,
+      "damageType": "SLASH",
+      "attackDelayMs": 633,
+      "attackRange": 30,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uiruffian",
+        "portrait": "UPRuffian"
+      }
+    },
+    {
+      "slug": "adv-ruffian-bows",
+      "object": "AdvRuffianBowsHorde",
+      "name": "Cazadores Rufianes",
+      "category": "archers",
+      "recruitedAt": "Taberna de Bandidos",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 240,
+      "buildTime": 25,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Estos vagabundos furtivos y salteadores acudieron gustosos al servicio de Sharkey, buscando vengarse de quienes los habían mantenido fuera de las verdes tierras de la Comarca.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Rufianes de Sharkey",
+          "level": 2,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Rufianes obtienen +25% de daño cerca de Sharkey.\n\nLos Rufianes lanzan botellas ardientes al objetivo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Hierro Fundido",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Hierro Fundido. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Sharkey el Ejecutor",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 150,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIRuffianBows",
+        "portrait": "UPRuffianBows"
+      }
+    },
+    {
+      "slug": "ruffian-squint",
+      "object": "RuffianSquintHorde",
+      "name": "Guardianes de la Puerta Rufianes",
+      "category": "pikemen",
+      "recruitedAt": "Taberna de Bandidos",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 30,
+      "armourSet": "RohanSpearmenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Hombres de semblante malvado vigilaban los caminos y casas del mezquino reinado de Sharkey, maltratando a quienes no podían defenderse.",
+      "abilities": [
+        {
+          "name": "Rufianes de Sharkey",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Rufianes obtienen +25% de daño cerca de Sharkey. A nivel 2, los Rufianes roban recursos de los enemigos abatidos. A nivel 3, los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo."
+        },
+        {
+          "name": "¡Sumisión!",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Caudillos de Harondor pueden sacrificar a miembros de sus hordas para obtener +10% de velocidad y +15% de daño. Duración 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Hierro Fundido",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Hierro Fundido. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Sharkey el Ejecutor",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 320,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uidruffiansquints",
+        "portrait": "upruffiansquints"
+      }
+    },
+    {
+      "slug": "ruffian-battering-ram",
+      "object": "RuffianBatteringRam",
+      "name": "Martillo de Sharkey",
+      "category": "siege",
+      "recruitedAt": "Taberna de Bandidos nivel 2",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nAunque toscos, los arietes de Sharkey acaban rápido con las puertas de los agujeros hobbit, abriendo paso a sus Rufianes para silenciar a quienes se atreven a oponerse al Jefe.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "uisharkeyshammer",
+        "portrait": "upsharkeyshammer"
+      }
+    },
+    {
+      "slug": "ruffian-half-orc-bulwark",
+      "object": "RuffianHalfOrcBulwarkHorde",
+      "name": "Baluartes Medio Orcos",
+      "category": "swordsmen",
+      "recruitedAt": "Taberna de Bandidos nivel 3",
+      "requirements": null,
+      "cost": 800,
+      "cp": 72,
+      "health": 850,
+      "buildTime": 40,
+      "armourSet": "HalfOrcBulwarkArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Hombres corpulentos de pocas luces y gran crueldad, se rumoreaba que los Baluartes de Sharkey tenían un origen impío. Desde luego, sus caras no ayudaban a su causa.",
+      "abilities": [
+        {
+          "name": "Intimidación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Baluartes Medio Orcos infligen pasivamente +33% de daño contra Hobbits. Las unidades enemigas cercanas sufren -15% de velocidad de movimiento."
+        },
+        {
+          "name": "Travesura Orca",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Baluartes Medio Orcos obtienen +25% de daño e inmunidad a derribo y arrollamiento durante 20 segundos."
+        },
+        {
+          "name": "Diablura de Sharkey",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Coloca una Mina Explosiva que detona a los 10 segundos. Muy efectivo contra estructuras."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Sharkey el Ejecutor",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 240,
+      "damageType": "SLASH",
+      "attackDelayMs": 600,
+      "attackRange": 20,
+      "speed": 55,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 433
+      },
+      "images": {
+        "button": "uihalforcbulwarks",
+        "portrait": "uphalforcbulwarks"
+      }
+    },
+    {
+      "slug": "ruffian-sharkey-hound",
+      "object": "RuffianSharkeyHoundHorde",
+      "name": "Sabuesos de Sharkey",
+      "category": "cavalry",
+      "recruitedAt": "Establos Ruinosos",
+      "requirements": null,
+      "cost": 325,
+      "cp": 40,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "WargPackArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Caballería básica.\n\nGrandes sabuesos, contenidos con varas de hierro y órdenes crueles, acompañaban a las patrullas de Sharkey, aterrorizando a los habitantes de la otrora pacífica Comarca.",
+      "abilities": [
+        {
+          "name": "Bestias Indómitas",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Sabuesos de Sharkey obtienen +50% de daño y +25% de velocidad de movimiento, pero no pueden controlarse durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Fauces Desgarradoras",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Una vez investigado, los ataques de los Sabuesos de Sharkey infligen daño continuado adicional.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Manada Alfa",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 115,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "uisharkeyshounds",
+        "portrait": "upsharkeyshounds"
+      }
+    },
+    {
+      "slug": "ruffian-outrider",
+      "object": "RuffianOutriderHorde",
+      "name": "Batidores Rufianes",
+      "category": "cavalry",
+      "recruitedAt": "Establos Ruinosos nivel 2",
+      "requirements": "Requiere Establos Ruinosos de nivel 2",
+      "cost": 550,
+      "cp": 80,
+      "health": 475,
+      "buildTime": 40,
+      "armourSet": "PKnightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Los Batidores de Sharkey se creían casi caballeros, haciendo recados e imponiendo la voluntad de su Jefe. En verdad, no eran mucho más que bandidos montados en caballos de tiro robados.",
+      "abilities": [
+        {
+          "name": "Jinetes Experimentados",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de los Naith cercanos obtienen +33% de armadura."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Ladrones de Caballos",
+          "cost": 200,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora este batallón con Ladrones de Caballos. Los Batidores roban recursos cada vez que dañan estructuras enemigas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Armadura de Hierro Fundido",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Hierro Fundido. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Sharkey el Ejecutor",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Escudos",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 615,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 115,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiruffianoutriders",
+        "portrait": "upruffianoutriders"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "campaign-ted-sandyman",
+      "object": "CampaignTedSandyman",
+      "name": "Ted Arenas",
+      "title": "Molinero de Hobbiton y colaborador de Sharkey",
+      "recruitedAt": "Aposentos del Jefe",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 600,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'No podéis tocarme. Soy amigo del Jefe. Pero él sí que os tocará a todos, si me dais más palabrería.'",
+      "abilities": [
+        {
+          "name": "Informante de Sharkey",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Durante 30 segundos, la unidad o estructura enemiga elegida queda marcada por Ted Arenas. Las unidades enemigas elegidas pierden un -10% de armadura y velocidad de movimiento durante 30 segundos. Las estructuras enemigas elegidas pierden un -10% de armadura y producción durante 30 segundos."
+        },
+        {
+          "name": "Molinero Villano",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas elegidas sufren -25% de daño y -50% de experiencia ganada durante 30 segundos."
+        },
+        {
+          "name": "Co-conspirador",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Ted Arenas toca su cuerno para dar a las unidades aliadas cercanas resistencia al miedo, al terror, al derribo y al arrollamiento durante 30 segundos."
+        },
+        {
+          "name": "Actos Atroces",
+          "level": 7,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Fosos de Trabajo, Fábricas y el Molino Nuevo cercanos obtienen +15% de armadura y producción."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "uitedsandyman",
+        "portrait": "uptedsandyman"
+      }
+    },
+    {
+      "slug": "campaign-worm",
+      "object": "CampaignWorm",
+      "name": "Gusano",
+      "title": "Traicionero espía de Sharkey",
+      "recruitedAt": "Aposentos del Jefe",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Pobre Gríma! ¡Pobre Gríma! Siempre golpeado y maldecido. ¡Cómo lo odio! ¡Ojalá pudiera dejarlo!'",
+      "abilities": [
+        {
+          "name": "Desgraciado Marchito",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Gusano entra en sigilo y no puede ser atacado ni atacar durante 30 segundos."
+        },
+        {
+          "name": "Odiado por Todos",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Gusano se inflige daño a sí mismo. Todas las unidades cercanas, aliadas y enemigas, quedan aturdidas por el miedo durante 10 segundos."
+        },
+        {
+          "name": "Puñalada Trasera",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Inflige 500 de daño instantáneo y 800 de daño de veneno durante 10 segundos al enemigo elegido.\n\nEn el rango 10, el héroe enemigo objetivo no puede ganar experiencia, tiene su producción de daño reducida en un 50%, y pierde un 25% de velocidad de movimiento durante 30 segundos.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Hambre Voraz",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige un fuerte daño a la unidad enemiga elegida. Gusano se cura y obtiene +50% de armadura y daño durante 20 segundos."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uisharkeyworm",
+        "portrait": "upsharkeyworm"
+      }
+    },
+    {
+      "slug": "campaign-bill-ferny",
+      "object": "CampaignBillFerny",
+      "name": "Bill Helechal",
+      "title": "Hombretón del Jefe",
+      "recruitedAt": "Aposentos del Jefe",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 2600,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¿Qué es todo esto?', gruñó mientras se acercaba. '¿Rompiendo puertas? ¡Largaos u os romperé esos sucios cuellos!'",
+      "abilities": [
+        {
+          "name": "Malas Compañías",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Por cada 15 Rufianes aliados cercanos, Bill Helechal obtiene +5% de daño y armadura hasta un máximo del 25%. Los Rufianes cercanos obtienen +15% de daño y armadura y ganan experiencia un +25% más rápido.\n\nA nivel 5, convoca dos batallones de Leva Forzosa al activarse. A rango 10, incluye un batallón adicional de Baluartes Medio Orcos."
+        },
+        {
+          "name": "Hombretón del Jefe",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Bill Helechal y los Rufianes cercanos roban recursos con cada golpe a estructuras enemigas y se curan con cada golpe al atacar unidades enemigas."
+        },
+        {
+          "name": "Trabajo desde Dentro",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Inutiliza la estructura enemiga elegida durante 30 segundos y concede visión de la zona durante 60 segundos."
+        },
+        {
+          "name": "Cobarde Inmundo",
+          "level": 8,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando Bill Helechal tiene poca vida se vuelve invulnerable, pero no puede atacar durante 15 segundos. No puede volver a activarse en 90 segundos."
+        },
+        {
+          "name": "Coacción",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Toma el control de un batallón enemigo durante 30 segundos. No se puede usar sobre unidades heroicas."
+        }
+      ],
+      "damage": 480,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uibillferny",
+        "portrait": "upbillferny"
+      }
+    },
+    {
+      "slug": "campaign-sharkey",
+      "object": "CampaignSharkey",
+      "name": "Sharkey",
+      "title": "Sharkey, Istari Caído y Tirano de la Comarca",
+      "recruitedAt": "Aposentos del Jefe",
+      "cost": 3000,
+      "buildTime": 80,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Pero no creáis que al perder todos mis bienes perdí todo mi poder! Quien me golpee quedará maldito. Y si mi sangre mancha la Comarca, se marchitará y nunca más sanará.'",
+      "abilities": [
+        {
+          "name": "El Jefe",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Ataque a corta distancia que hace retroceder a los enemigos.\n\nLos enemigos cerca de Sharkey pierden todo liderazgo y no pueden ganar experiencia."
+        },
+        {
+          "name": "Istari Caído",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los temporizadores de habilidades de los enemigos elegidos se reinician como recién usados y las unidades enemigas en la zona huyen aterrorizadas."
+        },
+        {
+          "name": "Bienes Saqueados",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Inflige mucho daño y roba 300 recursos de la estructura elegida."
+        },
+        {
+          "name": "Paralizar",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe enemigo elegido queda lisiado y no puede infligir daño durante 10 segundos."
+        },
+        {
+          "name": "Voz de Saruman",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Controla a los enemigos objetivo durante 30 segundos.\n\nTiempo de recarga: 6 min."
+        },
+        {
+          "name": "Saruman el Multicolor",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Permite a Saruman atacar a gran distancia. Se puede utilizar para aplastar a las unidades enemigas.\n\nLas unidades cercanas obtienen +50% de daño y armadura, mayor incremento de experiencia e inmunidad al miedo. En el rango 5, los hornos cercanos ganan +50% de recursos. Los enemigos cercanos están aterrorizados."
+        },
+        {
+          "name": "Ira Ruinosa",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las llamas surgen del suelo bajo los enemigos objetivo durante 15 segundos."
+        },
+        {
+          "name": "Elocuencia Oscura",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Proporciona una excelente experiencia a las unidades objetivo. Reutilización más corta con el Anillo Único."
+        },
+        {
+          "name": "Tormenta de Orthanc",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Invoca una nube móvil que dispara rayos y ralentiza a los enemigos que se encuentran bajo ella."
+        },
+        {
+          "name": "El Anillo Gobernante",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Controla permanentemente a los enemigos objetivo."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 1566,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uisharkey",
+        "portrait": "upsharkey"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "ruffian-fortress-citadel",
+      "object": "RuffianFortressCitadel",
+      "name": "Aposentos del Jefe",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Peón Mediano", "Séquito del Jefe"],
+      "upgrades": [
+        {
+          "name": "Red de Espías",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Aumenta el alcance de visión de los Aposentos del Jefe y detecta unidades en sigilo.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Vicio del Jefe",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Reduce el coste de revivir a un Héroe un 20%. Reduce el tiempo de resucitar a un Héroe un 20%. Cura a los aliados cercanos y repone a las unidades caídas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Municiones Incendiarias",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Arma las Atalayas y las Expansiones de Atalaya con Flechas de Fuego.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Andamiaje Tosco",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Aumenta la armadura de los Aposentos del Jefe un 65%. Requisito para la Malicia de Sharkey.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Malicia de Sharkey",
+          "cost": 1000,
+          "hotkey": "S",
+          "level": null,
+          "description": "Permite reclutar al Séquito del Jefe. Da acceso a la Malicia de Sharkey.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Malicia: Odio a los Sabios",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Seleccionar para activar. Los héroes enemigos pierden un -10% de daño, armadura y velocidad de movimiento durante 120 segundos."
+        },
+        {
+          "name": "Malicia: Odio al Pueblo Libre",
+          "level": null,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Seleccionar para activar. La infantería enemiga pierde un -10% de daño, armadura y velocidad de movimiento durante 120 segundos."
+        },
+        {
+          "name": "Malicia: Odio a los Señores de los Caballos",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Seleccionar para activar. La caballería enemiga pierde un -10% de velocidad de movimiento, decelera un +10% más rápido y pierde un -25% de armadura contra picas durante 120 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "upsharkeychiefslodgings"
+      }
+    },
+    {
+      "slug": "ruffian-work-pit",
+      "object": "RuffianWorkPit",
+      "name": "Foso de trabajo",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona metales trabajados como un recurso según el terreno disponible. Incrementa el límite de puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Ratas de la Comarca",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca temporalmente una horda de Ratas de la Comarca. La producción de recursos del Foso de Trabajo se reduce a la mitad durante 60 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "upsharkeyworkpit"
+      }
+    },
+    {
+      "slug": "ruffian-lumber-mill",
+      "object": "RuffianLumberMill",
+      "name": "Serrería",
+      "kind": "economy",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Recolecta recursos de árboles cercanos. Reduce el coste de estructuras. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPLumberMillnew"
+      }
+    },
+    {
+      "slug": "ruffian-factory",
+      "object": "RuffianFactory",
+      "name": "Horno",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Fabrica armaduras gruesas y escudos anchos como un recurso según el terreno disponible. Mejoras en armas y armaduras. Reduce el coste de las mejoras. Incrementa el límite de puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Matones de Sharkey",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas comprar la mejora Matón de Sharkey. Incrementa una horda a Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura de Hierro Fundido",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas comprar la mejora Armadura de Hierro Fundido. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejora instantánea de todas las patrullas una vez adquirida la mejora. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cuchillas Crueles",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cuchillas Crueles. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejora instantánea de todas las patrullas una vez adquirida la mejora. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Fuego",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Fuego. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas y los arqueros de la torre al instante una vez comprada la mejora. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upsharkeyfactory"
+      }
+    },
+    {
+      "slug": "ruffian-shack",
+      "object": "RuffianShack",
+      "name": "Taberna de Bandidos",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades Rufianes.",
+      "produces": [
+        "Leva Forzosa",
+        "Cazadores Rufianes",
+        "Guardianes de la Puerta Rufianes",
+        "Martillo de Sharkey",
+        "Baluartes Medio Orcos"
+      ],
+      "upgrades": [
+        {
+          "name": "Taberna de Bandidos al Nivel 2",
+          "cost": 200,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar el Martillo de Sharkey +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 25
+          }
+        },
+        {
+          "name": "Taberna de Bandidos al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Baluartes Medio Orcos +25% de velocidad de construcción. Añade torre de flechas defensiva.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upruffianshack"
+      }
+    },
+    {
+      "slug": "ruffian-stables",
+      "object": "RuffianStables",
+      "name": "Establos Ruinosos",
+      "kind": "production",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena a los Sabuesos de Sharkey y a los Batidores Rufianes.",
+      "produces": ["Sabuesos de Sharkey", "Batidores Rufianes"],
+      "upgrades": [
+        {
+          "name": "Investigar Ladrones de Caballos",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones comprar la mejora Ladrones de Caballos. Una vez equipados, los Batidores roban recursos cada vez que dañan estructuras enemigas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Establos Ruinosos al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Batidores Rufianes +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Establos Ruinosos al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite investigar Ladrones de Caballos +25% de velocidad de construcción. Añade torre de flechas defensiva.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "updilapidatedstables"
+      }
+    },
+    {
+      "slug": "ruffian-watch-tower",
+      "object": "RuffianWatchTower",
+      "name": "Atalaya",
+      "kind": "defence",
+      "cost": 150,
+      "buildTime": 20,
+      "health": 1200,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upsharkeywatchtowerexpansion"
+      }
+    },
+    {
+      "slug": "ruffian-lock-hole",
+      "object": "RuffianLockHole",
+      "name": "Calabozo",
+      "kind": "support",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Defendido por Rufianes que atacarán a los enemigos cercanos. Genera una pequeña cantidad de recursos. Las unidades enemigas cercanas sufren -25% de daño y -20% de armadura.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upsharkeylockhole"
+      }
+    },
+    {
+      "slug": "ruffian-watchtower-expansion",
+      "object": "RuffianWatchtowerExpansion",
+      "name": "Expansión de Atalaya",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Dispara flechas a las unidades enemigas cercanas. Se beneficia de la mejora Municiones Incendiarias.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "uiuisharkeywatchtowerexp",
+        "portrait": "upsharkeywatchtowerexpansion"
+      }
+    },
+    {
+      "slug": "ruffian-white-hand-effigy-expansion",
+      "object": "RuffianWhiteHandEffigyExpansion",
+      "name": "Expansión Efigie de la Mano Blanca",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Hace huir despavoridas a las unidades enemigas. Las unidades enemigas cercanas pierden. -25% de daño y -20% de armadura.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upwhitehandeffigy"
+      }
+    },
+    {
+      "slug": "ruffian-lockhole-expansion",
+      "object": "RuffianLockholeExpansion",
+      "name": "Expansión de Calabozo",
+      "kind": "defence",
+      "cost": 450,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los Rufianes saldrán y atacarán a las unidades enemigas cercanas. Puede comprar la mejora Trabajos Forzados para convocar Ratas de la Comarca que protejan el Foso de Trabajo u Horno elegido y aumentar temporalmente su producción un +10% durante 45 segundos.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Mejora Trabajos Forzados",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite al Calabozo convocar Ratas de la Comarca para proteger el Foso de Trabajo u Horno elegido y aumentar temporalmente su producción un +10% durante 45 segundos.",
+          "stats": {
+            "researchTimeS": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Trabajos Forzados",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca Ratas de la Comarca para proteger el Foso de Trabajo u Horno elegido y aumentar temporalmente su producción un +10% durante 45 segundos."
+        }
+      ],
+      "images": {
+        "button": "uisharkeylockholeexp",
+        "portrait": "upsharkeylockholeexpansion"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "crebain",
+      "name": "Crebain de Dunland",
+      "tier": 1,
+      "position": "L",
+      "kind": "utility",
+      "cost": 5,
+      "description": "Revela el mapa y detecta las unidades en sigilo. Las unidades enemigas cercanas sufren -15% de daño y -15% de armadura.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uispsharkeycrebain"
+      },
+      "requires": []
+    },
+    {
+      "slug": "war-chant",
+      "name": "Matonismo",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "uispsharkeythuggery"
+      },
+      "requires": []
+    },
+    {
+      "slug": "palantir-vision",
+      "name": "Cuerda de Presos",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Aturde a todas las unidades enemigas en un área pequeña durante 4 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "uispsharkeychaingang"
+      },
+      "requires": []
+    },
+    {
+      "slug": "mordor-allies",
+      "name": "Remanente de Isengard",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca varias hordas de Orcos de Isengard dirigidas por un Bersérker Uruk-hai para luchar en tu bando.",
+      "requiresSlots": [1, 2],
+      "slot": 4,
+      "images": {
+        "button": "uispsharkeyremnant"
+      },
+      "requires": ["Crebain de Dunland", "Matonismo"]
+    },
+    {
+      "slug": "devastation",
+      "name": "Devastación",
+      "tier": 2,
+      "position": "LR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Los árboles se convierten al instante en recursos, hasta un máximo de 1300. Reduce a la mitad la producción de recursos de cualquier estructura de recursos dentro del área de efecto durante 45 segundos.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "uispsharkeydevastation"
+      },
+      "requires": ["Crebain de Dunland", "Matonismo"]
+    },
+    {
+      "slug": "isengard-taint",
+      "name": "Tierra Mancillada",
+      "tier": 2,
+      "position": "RL",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Mancha un área del terreno durante 5 minutos. Todas las unidades aliadas obtienen +50% de daño y +50% de armadura, y ganan recursos por cada baja.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "SBEvil_TaintAotR"
+      },
+      "requires": ["Matonismo", "Cuerda de Presos"]
+    },
+    {
+      "slug": "industry",
+      "name": "El Molino Nuevo",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca el Molino Nuevo. El Molino Nuevo recolecta una gran cantidad de recursos de los árboles cercanos. Permite reclutar a los Compinches de Sandyman.",
+      "requiresSlots": [5, 3],
+      "slot": 7,
+      "images": {
+        "button": "uispsharkeynewmill"
+      },
+      "requires": ["Cuerda de Presos", "Devastación"]
+    },
+    {
+      "slug": "fuelthe-fires",
+      "name": "Lobos de Isengard",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca tres batallones mejorados de Arqueros Jinetes de Huargos.",
+      "requiresSlots": [6, 4, 5],
+      "slot": 8,
+      "images": {
+        "button": "uispsharkeywolves"
+      },
+      "requires": ["Remanente de Isengard", "Devastación", "Tierra Mancillada"]
+    },
+    {
+      "slug": "freezing-rain",
+      "name": "Lluvia Paralizadora",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cubre el mapa de lluvia durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas sufren. Anula el liderazgo enemigo. Anula el liderazgo enemigo.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "uispsharkeyrain"
+      },
+      "requires": ["Devastación", "Tierra Mancillada"]
+    },
+    {
+      "slug": "longhouse",
+      "name": "¡Haced Restallar el Látigo!",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Durante 90 segundos, todas las unidades Rufianes obtienen +33% de daño, +15% de velocidad de movimiento e inmunidad al miedo y al terror a cambio de un -15% de armadura.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "uispsharkeycrackthewhip"
+      },
+      "requires": ["Tierra Mancillada", "El Molino Nuevo"]
+    },
+    {
+      "slug": "fell-storm",
+      "name": "Fuegos de Isengard",
+      "tier": 4,
+      "position": "L",
+      "kind": "attack",
+      "cost": 25,
+      "description": "Genera un alijo de Minas Explosivas que detonan a los 20 segundos. Inflige mucho daño a unidades y estructuras enemigas.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "uispsharkeyfiresofisengard"
+      },
+      "requires": ["Lobos de Isengard", "Lluvia Paralizadora"]
+    },
+    {
+      "slug": "avalanche",
+      "name": "Voz del Forjador de Anillos",
+      "tier": 4,
+      "position": "R",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Toma el control de las unidades enemigas en el radio durante 30 segundos. Cuando termina el poder, las unidades enemigas elegidas reciben daño.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "uispsharkeyvoice"
+      },
+      "requires": ["Lluvia Paralizadora", "¡Haced Restallar el Látigo!"]
+    }
+  ]
+}

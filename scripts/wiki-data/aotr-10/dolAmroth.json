@@ -1,0 +1,2180 @@
+{
+  "code": "dolAmroth",
+  "units": [
+    {
+      "slug": "dol-amroth-porter",
+      "object": "DolAmrothPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 500,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Entrena un Constructor. Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIGondorBuilder",
+        "portrait": "UPGondorPorternew"
+      }
+    },
+    {
+      "slug": "amrothian-militia",
+      "object": "AmrothianMilitiaHorde",
+      "name": "Milicia de Amroth",
+      "category": "swordsmen",
+      "recruitedAt": "Puesto de Guardia de Dol Amroth",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 30,
+      "armourSet": "LorienWarriorArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "En tiempos de agitación, el príncipe de Dol Amroth reforzaba su ejército con milicianos reclutados en diversas ciudades y asentamientos situados alrededor del promontorio.",
+      "abilities": [
+        {
+          "name": "¡Adelante!",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "¡Los soldados básicos de Dol Amroth se lanzan contra el enemigo! Incrementa temporalmente la velocidad de movimiento en un 15% durante 15 segundos."
+        },
+        {
+          "name": "Disciplina",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los soldados básicos de Dol Amroth están bien entrenados. Incrementa la salud y la armadura de la unidad en un 15%."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa con Relieve de Plata",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa con Relieve de Plata. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Cisne",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 325,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAmrothianMilitia",
+        "portrait": "UPAmrothianMilitia"
+      }
+    },
+    {
+      "slug": "amrothian-guardsmen",
+      "object": "AmrothianGuardsmenHorde",
+      "name": "Guardias de Amroth",
+      "category": "pikemen",
+      "recruitedAt": "Puesto de Guardia de Dol Amroth",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 215,
+      "buildTime": 20,
+      "armourSet": "PikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Las leyes del Principado se hacían cumplir en todas sus ciudades por una orden de guardias cuyo comandante dependía directamente del heredero del príncipe.",
+      "abilities": [
+        {
+          "name": "¡Adelante!",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "¡Los soldados básicos de Dol Amroth se lanzan contra el enemigo! Incrementa temporalmente la velocidad de movimiento en un 15% durante 15 segundos."
+        },
+        {
+          "name": "Disciplina",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los soldados básicos de Dol Amroth están bien entrenados. Incrementa la salud y la armadura de la unidad en un 15%."
+        },
+        {
+          "name": "Armamento de la Ciudad Blanca",
+          "level": 4,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades obtienen permanentemente +20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa con Relieve de Plata",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa con Relieve de Plata. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Cisne",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 200,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAmrothianGuardsmen",
+        "portrait": "UPAmrothianGuardsmen"
+      }
+    },
+    {
+      "slug": "belfalas-marines",
+      "object": "BelfalasMarinesHorde",
+      "name": "Marinos de Belfalas",
+      "category": "archers",
+      "recruitedAt": "Puesto de Guardia de Dol Amroth nivel 2",
+      "requirements": null,
+      "cost": 450,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 25,
+      "armourSet": "ArcherArmor",
+      "attackType": "Espada (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Puede cambiar entre jabalina y hacha.\n\nEn consonancia con sus tradiciones marítimas, la tierra costera de Dol Amroth mantenía una fuerza de soldados marítimos encargados de proteger las aguas entre Gondor y el Lejano Harad.",
+      "abilities": [
+        {
+          "name": "¡Hundirles!",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los ataques de los marinos infligen daño de fuego durante 30 segundos."
+        },
+        {
+          "name": "Malos Augurios",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los marinos creen que algunas criaturas son malos augurios. Los marinos obtienen +20% de daño contra monstruos y unidades voladoras."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "T",
+          "kind": "toggle",
+          "description": "Permite a los Marinos cambiar entre jabalina y hacha +50% de armadura e inflige +50% de daño contra máquinas de asedio."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Cisne",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 60,
+      "damageType": "SLASH",
+      "attackDelayMs": 1100,
+      "attackRange": 300,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIBelfalasMarines",
+        "portrait": "UPBelfalasMarines"
+      }
+    },
+    {
+      "slug": "dol-amroth-swordsmen",
+      "object": "DolAmrothSwordsmenHorde",
+      "name": "Hombres de Armas de Dol Amroth",
+      "category": "swordsmen",
+      "recruitedAt": "Cuartel Real de Dol Amroth",
+      "requirements": null,
+      "cost": 500,
+      "cp": 60,
+      "health": 300,
+      "buildTime": 25,
+      "armourSet": "SoldierEliteArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Los Hombres de Armas son el núcleo de los ejércitos principescos. Hombres aguerridos de valor excepcional, no se amilanan ante ningún enemigo.",
+      "abilities": [
+        {
+          "name": "Tácticas de Thorongil",
+          "level": 4,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Una táctica aprendida del misterioso capitán Thorongil al atacar Umbar. Los Hombres de Armas lanzan una descarga de bombas incendiarias, prendiendo fuego al área seleccionada."
+        },
+        {
+          "name": "¡Barco y Cisne!",
+          "level": 2,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Los héroes aliados cercanos obtienen +10% de daño durante 15 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa con Relieve de Plata",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa con Relieve de Plata. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Cisne",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 200,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIDolMenatArmArcher",
+        "portrait": "UPDolManatArmnew"
+      }
+    },
+    {
+      "slug": "dol-amroth-pikemen",
+      "object": "DolAmrothPikemenHorde",
+      "name": "Piqueros de Dol Amroth",
+      "category": "pikemen",
+      "recruitedAt": "Cuartel Real de Dol Amroth",
+      "requirements": null,
+      "cost": 500,
+      "cp": 60,
+      "health": 350,
+      "buildTime": 20,
+      "armourSet": "AmrothPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Armados con picas de excelente factura, estos valientes guerreros defenderán la línea contra cualquier incursión de los sureños.",
+      "abilities": [
+        {
+          "name": "Cazadores de Monstruos",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Piqueros de Dol Amroth tienen experiencia en la lucha contra los monstruos del sur. Los piqueros infligen +33% de daño a los monstruos, mientras que las unidades aliadas cercanas obtienen +25% de resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "¡Barco y Cisne!",
+          "level": 2,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Los héroes aliados cercanos obtienen +10% de armadura durante 15 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa con Relieve de Plata",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa con Relieve de Plata. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Cisne",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 420,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1200,
+      "attackRange": 20,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIDolAmrothPikemen",
+        "portrait": "UPDolAmrothPikemen"
+      }
+    },
+    {
+      "slug": "dol-amroth-trebuchet",
+      "object": "DolAmrothTrebuchet",
+      "name": "Trabuco",
+      "category": "siege",
+      "recruitedAt": "Cuartel Real de Dol Amroth nivel 2",
+      "requirements": "Requiere Nivel 2 del Cuartel Real de Dol Amroth",
+      "cost": 600,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "TrebuchetArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Un trabuco lanza una enorme roca a una gran velocidad para astillar las defensas y aplastar a los guerreros enemigos.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Rocas Incendiarias",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este trabuco con Rocas Incendiarias. Incrementa significativamente el daño de los Trabucos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 8000,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "UIAnorienTrebuchet",
+        "portrait": "UPGondorTrebuchet"
+      }
+    },
+    {
+      "slug": "royal-swan-guard",
+      "object": "RoyalSwanGuardHorde",
+      "name": "Campeones de Tirith Aear",
+      "category": "heroic",
+      "recruitedAt": "Cuartel Real de Dol Amroth nivel 3",
+      "requirements": "Requiere Nivel 3 del Cuartel Real de Dol Amroth y la mejora de la fortaleza Tirith Aear",
+      "cost": 1500,
+      "cp": 120,
+      "health": 800,
+      "buildTime": 80,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Ganadores indiscutibles de justas, combates cuerpo a cuerpo y otras competiciones caballerescas, los Campeones de Tirith Aear representan lo mejor de la caballería de Amroth.",
+      "abilities": [
+        {
+          "name": "Montar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "¡Hacia el abismo!",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Si uno de los miembros de la realeza de Amroth muere, los Campeones de Tirith Aear contraatacan durante 15 segundos y inmovilizan a los enemigos durante 5 segundos por cada ataque. Los Campeones sufren -50% de armadura durante este tiempo."
+        },
+        {
+          "name": "Fervor Radiante",
+          "level": null,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Si muere un Campeón de Tirith Aear, los demás Campeones obtienen temporalmente +15% de armadura y +15% de daño. En el nivel 5, los ataques de la Guardia del Cisne restauran una pequeña cantidad de salud a los aliados que se encuentran a su alrededor.\n\nEl héroe seleccionado obtiene temporalmente +25% de experiencia y +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Hazañas Valerosas",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Los Campeones de Tirith Aear se vuelven inmunes al miedo y al terror.\n\nCuando se activa, los Campeones de Tirith Aear obtienen +50% de armadura y daño de derribo durante 30 segundos. En el nivel 7, el efecto activo también otorga daño por proximidad."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": ""
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 615,
+      "attackRange": 25,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 535
+      },
+      "images": {
+        "button": "UIChampTirithAear",
+        "portrait": "UPChampionMinasAear"
+      }
+    },
+    {
+      "slug": "dol-amroth-squires",
+      "object": "DolAmrothSquiresHorde",
+      "name": "Escuderos de Dol Amroth",
+      "category": "cavalry",
+      "recruitedAt": "Establos Reales de Dol Amroth",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": 400,
+      "buildTime": 25,
+      "armourSet": "ArnorOutriderArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Para convertirse en caballero de Dol Amroth, hay que recorrer un largo camino de práctica y servicio a la orden caballeresca establecida.",
+      "abilities": [
+        {
+          "name": "Disciplina",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los soldados básicos de Dol Amroth están bien entrenados. Incrementa la salud y la armadura de la unidad en un 15%."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa con Relieve de Plata",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Placa con Relieve de Plata. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Imbuidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Imbuidas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Cisne",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 420,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIDolAmrothSquires",
+        "portrait": "UPDASquire"
+      }
+    },
+    {
+      "slug": "dol-amroth-black-swan-captain",
+      "object": "DolAmrothBlackSwanCaptain",
+      "name": "Capitán del Cisne Negro",
+      "category": "cavalry",
+      "recruitedAt": "Establos Reales de Dol Amroth nivel 2",
+      "requirements": "Requiere Nivel 2 de los Establos Reales",
+      "cost": 1000,
+      "cp": 50,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "HeroArmorMounted",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "archers"],
+      "weakAgainst": [],
+      "description": "Los Capitanes del Cisne Negro son caballeros con un único objetivo: acabar con los enemigos del príncipe. Huérfanos a causa de la guerra, estos guerreros fueron acogidos por Imrahil y entrenados por los Maestros de Armas reales.",
+      "abilities": [
+        {
+          "name": "Líder de la Carga",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "La caballería aliada cercana al Capitán del Cisne Negro obtiene +15% de armadura contra el daño especializado y -15% de desaceleración por pisoteo."
+        },
+        {
+          "name": "Golpe Devastador",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El héroe o monstruo enemigo objetivo queda inmovilizado durante 7 segundos. En el nivel 7, la duración del aturdimiento se incrementa a 10 segundos."
+        },
+        {
+          "name": "Guerrero Temible",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los ataques del Capitán del Cisne Negro provocan derribos y reducen la armadura del enemigo en un 50% durante 5 segundos. El efecto dura 30 segundos."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 200,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiblackswancaptain",
+        "portrait": "upblackswancaptain"
+      }
+    },
+    {
+      "slug": "gondor-knightsof-dol",
+      "object": "GondorKnightsofDolHorde",
+      "name": "Caballeros Cisne de Dol Amroth",
+      "category": "cavalry",
+      "recruitedAt": "Establos Reales de Dol Amroth nivel 3",
+      "requirements": "Requiere Nivel 3 de los Establos Reales",
+      "cost": 1300,
+      "cp": 100,
+      "health": 700,
+      "buildTime": 45,
+      "armourSet": "DolAmrothKnightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["infantry", "archers"],
+      "weakAgainst": [],
+      "description": "Los Caballeros Cisne de Dol Amroth eran conocidos como uno de los mejores regimientos de caballería de la Tierra Media.",
+      "abilities": [
+        {
+          "name": "Sangre de los Eldar",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades de Dol Amroth se recuperarán lentamente tras el combate."
+        },
+        {
+          "name": "Amroth por Gondor",
+          "level": 5,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Caballeros Cisne obtienen +33% de daño, +33% de armadura y -50% de desaceleración por aplastamiento durante 20 segundos. Ninguna fuerza puede frenar esta carga."
+        },
+        {
+          "name": "Inspiración",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La caballería de Gondor cercana gana +33% de daño, +33% de armadura y gana experiencia un 50% más rápido."
+        }
+      ],
+      "upgrades": [],
+      "damage": 115,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 115,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIDolAmrothKnight",
+        "portrait": "UPGondorDolAmrothnew"
+      }
+    },
+    {
+      "slug": "dol-amroth-handmaiden",
+      "object": "DolAmrothHandmaiden",
+      "name": "Dama de Compañía",
+      "category": "archers",
+      "recruitedAt": "Casa de Huéspedes de Amroth",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 1500,
+      "buildTime": 30,
+      "armourSet": "MahudChiefArmor",
+      "attackType": null,
+      "maxCount": 3,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de apoyo no combatiente. La Dama de Compañía está protegida por más escoltas a medida que sube de nivel.\n\nLas Damas de Compañía sirven a la princesa de Dol Amroth y, aunque son leales, a menudo se aburren bastante.",
+      "abilities": [
+        {
+          "name": "Rumorista",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Los secretos nunca permanecen ocultos en la corte. Los ataques de la sirvienta reducen la armadura del enemigo en -25% durante 5 segundos.\n\nActivar para revelar el velo en el área objetivo. En el nivel 5, todas las unidades en un radio pierden liderazgo durante 30 segundos."
+        },
+        {
+          "name": "Alta Sociedad",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "La Dama de Compañía está acompañada por varias figuras nobles de la corte.\n\nEn el nivel 1, la acompaña el Campeón de Tirith Aear. Las unidades aliadas cercanas obtienen +25% de resistencia al derribo. En el nivel 3, se le une un Escudero del Cisne Negro. Los héroes aliados cercanos ganan +10% de velocidad. Las unidades enemigas cercanas pierden -10% de velocidad. En el nivel 5, se le une una compañera Dama de Compañía. El efecto de Embelesarse se incrementa un 5% y la Dama de Compañía gana un 33% de armadura."
+        },
+        {
+          "name": "Embelesarse",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "¡La doncella se desmaya! ¿Afecto fingido o amor sincero, quién sabe?\n\nSi se usa en una unidad aliada, esta obtiene +20% de daño y armadura durante 30 segundos. Si se usa en una unidad enemiga, esta pierde -25% de daño durante 30 segundos.\n\nLa sirvienta también obtiene +33% de evasión a distancia."
+        },
+        {
+          "name": "Guía de Belecthor",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las sirvientas reciben educación sobre el comportamiento adecuado. Esta dama ha alcanzado la excelencia cortesana."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Guía de Belecthor",
+          "cost": 300,
+          "hotkey": "W",
+          "level": 3,
+          "description": "Las sirvientas reciben educación sobre el comportamiento adecuado. Sube de nivel a la Dama de Compañía seleccionada del nivel 1 al nivel 3.",
+          "stats": {
+            "researchTimeS": 20
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 35,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UILadyinWaiting",
+        "portrait": "UPLadyInWaiting"
+      }
+    },
+    {
+      "slug": "pelargir-noble",
+      "object": "PelargirNoble",
+      "name": "Noble de Pelargir",
+      "category": "swordsmen",
+      "recruitedAt": "Casa de Huéspedes de Amroth nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 1000,
+      "buildTime": 30,
+      "armourSet": "MahudChiefArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de apoyo, otorga mejoras permanentes a héroes y estructuras.\n\nPelargir tiene vínculos con la Casa Real y, como tal, muchos de sus nobles disfrutan de su estancia en Belfalas.",
+      "abilities": [
+        {
+          "name": "Clases de Baile",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "¡El Noble imparte clases de baile! Sorprendentemente, esto tiene beneficios. El héroe seleccionado obtiene un incremento permanente del 10% en su velocidad de movimiento."
+        },
+        {
+          "name": "Movilización",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El noble supervisa la movilización del ejército, incrementando permanentemente la velocidad de producción de edificios seleccionados en un 10%."
+        },
+        {
+          "name": "Planificación de la Ciudad",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Noble sabe un par de cosas sobre la Planificación de la Ciudad. La estructura objetivo obtiene +25% más de armadura contra asedios."
+        }
+      ],
+      "upgrades": [],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 15,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIPelargirNoble",
+        "portrait": "UPPelargirNoble"
+      }
+    },
+    {
+      "slug": "dol-amroth-master-at-arms",
+      "object": "DolAmrothMasterAtArms",
+      "name": "Maestro de Armas",
+      "category": "swordsmen",
+      "recruitedAt": "Casa de Huéspedes de Amroth nivel 3",
+      "requirements": null,
+      "cost": 750,
+      "cp": 80,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad Heroica.\n\nEl Maestro de Armas de Amroth ha instruido a todos los jóvenes príncipes de Dol Amroth en el arte de la esgrima. ¡Cuidado con un anciano en una profesión en la que los hombres mueren jóvenes!",
+      "abilities": [
+        {
+          "name": "Desarmar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El Maestro de Armas desarma a su oponente. El enemigo seleccionado no puede infligir daño durante 7 segundos.\n\nCuando se utiliza contra el Rey Brujo, el Nigromante, el Rey Dorado, Gimli, Thorin, Elessar, Éomer, Elrond, Glorfindel, Bolg, Lurtz, Celeborn o Thranduil, estos pierden un 25% de daño durante 7 segundos."
+        },
+        {
+          "name": "Gloria de Antaño",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Maestro de Armas lucha una vez más con el fuego de su juventud. El Maestro de Armas gana +50% de daño y +50% de armadura durante 30 segundos, pero pierde un 25% de su salud después."
+        },
+        {
+          "name": "¡Silencio!",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Maestro de Armas inspira respeto a quienes lo rodean. Los arqueros enemigos en un radio seleccionado sufren -50% de rango de ataque durante 30 segundos."
+        },
+        {
+          "name": "Curso de Repaso",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Maestro de Armas enseña una vez más a sus señores. Sube de nivel al héroe seleccionado. No funciona con Lothíriel."
+        },
+        {
+          "name": "Yo te Nombro",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El Maestro de Armas nombra caballero a una unidad en el nombre de Imrahil. Cuando se usa en una unidad mejorable, les otorga todas las mejoras de unidad. Cuando se usa en una unidad no mejorable, les otorga un 25% de ganancia de experiencia."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 81,
+        "attackRadius": 20,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UILAElendil",
+        "portrait": "UPDAMasterAtArms"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "dol-amroth-lothiriel",
+      "object": "DolAmrothLothiriel",
+      "name": "Princesa Lothíriel",
+      "title": "Princesa de Dol Amroth",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 1500,
+      "armourSet": "HeroArmor",
+      "attackType": null,
+      "isRing": false,
+      "description": "La hija menor y única hija de Imrahil no es una guerrera, sino una dama perfecta de modales impecables, administración exigente y terquedad sin igual. La princesa gana experiencia con su pueblo: sube de nivel con las mejoras de la fortaleza.",
+      "abilities": [
+        {
+          "name": "Princesa de Dol Amroth",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los ataques de la princesa incrementan la armadura de los aliados cercanos en +25% durante 7 segundos.\n\nCuando se activa, la princesa pide ayuda y convoca a un batallón de la Milicia de Amroth. En el nivel 3, la Milicia es reemplazada por Hombres de Armas de Dol Amroth. En el nivel 6, el batallón convocado está completamente mejorado. En el nivel 10, convoca a un batallón de Guerreros Rohirrim."
+        },
+        {
+          "name": "Favor de la Dama",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La unidad seleccionada obtiene un incremento permanente del +100% en el rango de visión. Si se usa en Éomer, también otorga +10% de velocidad de movimiento."
+        },
+        {
+          "name": "Banquete",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Lothíriel prepara un banquete para los aliados de su casa. El banquete cura a las unidades cercanas y otorga a Éomer un 50% más de velocidad de curación."
+        },
+        {
+          "name": "Administrador Astuto",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Incrementa la producción de recursos del edificio seleccionado en un 100% durante 30 segundos. Cuando se usa en Éomer, el rendimiento de Éadig se incrementa de forma permanente."
+        },
+        {
+          "name": "Reina de la Marca",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Lothíriel va acompañada en todo momento por tres guardias reales de Edoras, que montan o desmontan con ella. Cuando está cerca de Éomer, Lothíriel obtiene una gran evasión de rango y +25% de armadura."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "stats": {
+        "visionRange": 400
+      },
+      "images": {
+        "button": "UILothiriel",
+        "portrait": "UPLothiriel"
+      }
+    },
+    {
+      "slug": "dol-amroth-amrothos",
+      "object": "DolAmrothAmrothos",
+      "name": "Príncipe Amrothos",
+      "title": "Príncipe más joven de Dol Amroth",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 1900,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Amrothos es un marinero de pura cepa y a menudo se encuentra lejos de su hogar, embarcado en uno de sus grandes viajes. Sin embargo, en su corazón es un auténtico hijo de Imrahil, y siente un gran amor por su tierra y su familia.",
+      "abilities": [
+        {
+          "name": "Falmarínin",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "montado en Falmarínin o a pie."
+        },
+        {
+          "name": "Capitán de Renombre",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los Marinos de Belfalas cercanos obtienen +20% de rango y +20% de velocidad de ataque. Todos los barcos aliados obtienen +25% de armadura y +25% de daño. En el nivel 7, otorga armadura pesada a los Marinos de Belfalas en un área seleccionada."
+        },
+        {
+          "name": "Lengua Afilada",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Amrothos golpea al héroe objetivo con un golpe verbal y físico y reduce su velocidad en un 50 % durante 10 segundos. En el nivel 6, inmoviliza al objetivo durante 10 segundos."
+        },
+        {
+          "name": "Corazón de Oro",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "Amrothos demuestra su resiliencia y su corazón. Las unidades cercanas obtienen +50% de resistencia al pisotear y son inmunes al miedo, el terror y los derribos durante 30 segundos.\n\nAmrothos se pone su armadura de príncipe, lo que le otorga +50% de armadura."
+        }
+      ],
+      "damage": 220,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIAmrothos",
+        "portrait": "UPAmrothos"
+      }
+    },
+    {
+      "slug": "dol-amroth-erchirion",
+      "object": "DolAmrothErchirion",
+      "name": "Príncipe Erchirion",
+      "title": "Segundo príncipe de Dol Amroth",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Erchirion es un guerrero temible con un temperamento frío y letal. Al igual que su primo Boromir, de entre todos los miembros de la realeza de Amroth, es muy querido por todos y ama profundamente a todos.",
+      "abilities": [
+        {
+          "name": "Lïrdagnir",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "montado en Lïrdagnir o a pie."
+        },
+        {
+          "name": "Rabia Fría",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Erchirion derriba a las unidades enemigas y las unidades enemigas cercanas sufren -15% de armadura durante 30 segundos. En el nivel 6, Erchirion también obtiene +50% de daño durante 30 segundos."
+        },
+        {
+          "name": "Comandante Veterano",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Erchirion instala barreras para protegerse contra los proyectiles. Las unidades aliadas obtienen +66% de armadura contra ataques a distancia.\n\nLos enemigos que atacan a Erchirion sufren -10% de daño durante 15 segundos."
+        },
+        {
+          "name": "Aprendiz Destacado",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Erchirion demuestra por qué era el mejor espadachín de todos los hermanos Amrothian y obtiene +75% de armadura durante 30 segundos. Mientras está activo, el efecto del maleficio pasivo del comandante veterano se incrementa hasta -25% de daño."
+        },
+        {
+          "name": "Sacrificio Desesperado",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Erchirion pierde un 25% de salud y hace que el héroe objetivo sea inmune al daño durante 10 segundos. En el nivel 10, se puede lanzar sobre un héroe enemigo para establecer los temporizadores de sus habilidades como recién utilizados."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIErchirion",
+        "portrait": "UPErchirion"
+      }
+    },
+    {
+      "slug": "dol-amroth-elphir",
+      "object": "DolAmrothElphir",
+      "name": "Príncipe Elphir",
+      "title": "Hijo mayor de Imrahil",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Elphir, heredero aparente del señorío de Belfalas, es serio y pensativo. Más filósofo que guerrero, posee una gran sabiduría de la que se benefician todos los que le rodean. Protector de su familia y su país, atrapa a sus enemigos con astucia.",
+      "abilities": [
+        {
+          "name": "Heredero Aparente",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Elphir monta/desmonta su caballo de guerra Môrethir.\n\nCuando Elphir ataca, las unidades cercanas obtienen +25% de daño durante 5 segundos. En el nivel 3, Elphir está rodeado por 3 campeones de Tirith Aear, montan y desmontan con Elphir."
+        },
+        {
+          "name": "Preparativos Adecuados",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Elphir ha aprendido de sus enemigos del sur y ha hecho los preparativos necesarios. Las unidades aliadas cercanas a Elphir obtienen +20% de velocidad de movimiento y ataque, y regeneran soldados regularmente durante 30 segundos."
+        },
+        {
+          "name": "Entrampar",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Elphir aprende de sus aliados del Bosque Verde y prepara trampas para sus enemigos. Elphir coloca una trampa que, si es golpeada por unidades enemigas, ralentiza a las unidades enemigas en un radio amplio en un 33% durante 20 segundos. En el nivel 8, las unidades enemigas se ralentizan un 66%. En el nivel 10, los enemigos también sufren -33% de velocidad de ataque."
+        },
+        {
+          "name": "El Arte de la Guerra",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Elphir aprende del pasado: toda guerra se basa en el engaño. Teletransporta las unidades del área seleccionada a cualquier lugar del mapa. No funciona en unidades de asedio."
+        },
+        {
+          "name": "Amarga Lección Aprendida",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Elphir aprende de Mordor: matarlos en sus hogares. La estructura objetivo sufre un daño considerable, queda inutilizada y los enemigos que se encuentren a una distancia media sufren un daño considerable durante 10 segundos."
+        }
+      ],
+      "damage": 210,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "UIElphir",
+        "portrait": "UPElphir"
+      }
+    },
+    {
+      "slug": "dol-amroth-imrahil",
+      "object": "DolAmrothImrahil",
+      "name": "Príncipe Imrahil",
+      "title": "Gobernante de Dol Amroth",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 3500,
+      "buildTime": 80,
+      "health": 3500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Señor de Belfalas y jefe de los nobles de Gondor, Imrahil gobierna el Principado con mano firme, un coraje sobrecogedor y una sabiduría nada desdeñable.",
+      "abilities": [
+        {
+          "name": "Príncipe de Dol Amroth",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas a Imrahil obtienen +33% de daño y +33% de armadura, y son inmunes al miedo y al terror. Se acumula con Beneficios y Hechizos."
+        },
+        {
+          "name": "Padre Orgulloso",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Cuando está cerca de sus hijos, Imrahil obtiene varios beneficios. Lothíriel: +10% de velocidad de movimiento. Amrothos: +10% de ganancia de experiencia. Erchirion: +10% de daño. Elphir: +10% de armadura.\n\nEn el nivel 8, se puede activar para anular las maleficios de velocidad de un héroe y hacer que ese héroe sea inmune al daño mágico y de héroe, así como para refrescar los temporizadores de habilidades especiales cerca del objetivo. No se puede utilizar en el propio Imrahil."
+        },
+        {
+          "name": "Inspiración",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas son inmunes a los efectos negativos durante 30 segundos. En el nivel 5 también otorga un 75% de armadura contra el daño elemental y mágico. En el nivel 10, también hace que las unidades enemigas huyan aterrorizadas."
+        },
+        {
+          "name": "Indemne",
+          "level": 4,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Imrahil obtiene +50% de armadura, una alta evasión a distancia y +50% de daño durante 30 segundos. En el nivel 6, Imrahil obtiene +75% de armadura y daño. En el nivel 9, Imrahil obtiene inmunidad total al daño a distancia."
+        },
+        {
+          "name": "¡Amroth por Gondor!",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades cercanas obtienen +50% de armadura, pueden pisotear a los enemigos y obtienen -25% de desaceleración por pisotear durante 30 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 500,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIImrahilnew",
+        "portrait": "HEImrahilnew"
+      }
+    },
+    {
+      "slug": "dol-amroth-faramir",
+      "object": "DolAmrothFaramir",
+      "name": "Faramir",
+      "title": "Capitán de los Montaraces de Ithilien",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'No amo la espada brillante por su agudeza, ni la flecha por su rapidez, ni al guerrero por su gloria. Solo amo lo que defienden'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas a Faramir obtienen +33% de daño y +10% de velocidad de movimiento."
+        },
+        {
+          "name": "Volea Oculta",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Faramir llama a sus Montaraces para que bombardeen cualquier lugar en un gran radio con una andanada de flechas. En el nivel 5 obtiene +50% de daño y se incrementa el radio."
+        },
+        {
+          "name": "Capitán de Ithilien",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Faramir convoca a un grupo de Montaraces y a uno de sus lugartenientes para defender la ubicación objetivo. Son inmóviles, pero permanecen ocultos y atacarán a cualquier enemigo que se acerque. En el nivel 7, convoca a un grupo más grande de Montaraces."
+        },
+        {
+          "name": "Flecha Hiriente",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Ataque simple a distancia. Provoca que el monstruo objetivo huya. Sólo se puede utilizar con el arco equipado."
+        },
+        {
+          "name": "Calidad de Faramir",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Proporciona experiencia a las tropas aliadas objetivo."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIFaramirnew",
+        "portrait": "HEFaramirnew"
+      }
+    },
+    {
+      "slug": "dol-amroth-boromir",
+      "object": "DolAmrothBoromir",
+      "name": "Boromir",
+      "title": "Capitán de la Torre Blanca",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Luchador, apoyo de primera línea, apoya a las tropas de Minas Tirith. 'Que los ejércitos de Mordor sepan esto: ¡Nunca más la tierra de mi pueblo caerá en manos enemigas!'",
+      "abilities": [
+        {
+          "name": "Capitán de la Torre Blanca",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas a Boromir obtienen +33% de armadura y ganan experiencia un 50% más rápido. En el nivel 5, Boromir se pone su armadura gondoriana y obtiene +10% de armadurar."
+        },
+        {
+          "name": "Lanzar Cuchillo",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Boromir lanza su cuchillo a una unidad enemiga derribándola y reduciendo su armadura en un 25% durante 10 segundos."
+        },
+        {
+          "name": "Cuerno de Gondor",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Aturde a los enemigos con miedo durante 15 segundos."
+        },
+        {
+          "name": "¡Por Gondor!",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas obtienen +33% de daño, +20% de velocidad y resistencia al miedo y al terror durante 30 segundos."
+        },
+        {
+          "name": "Orgulloso, Terco, Fuerte",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "Otorga a las unidades objetivo aliadas una experiencia superior.\n\nCuando Boromir alcanza el 25% de salud, él obtiene +200% de armadura durante 15 segundos. No se puede volver a activar durante 60 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIBoromirNew",
+        "portrait": "HEBoromirnew"
+      }
+    },
+    {
+      "slug": "ring-hero-frodo",
+      "object": "RingHeroFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Fortaleza de Dol Amroth",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Frasco de Galadriel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas huyan."
+        },
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "El Guía y el Jardinero",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca al fiel jardinero de Frodo, Samsagaz Gamyi, y a Sméagol, su guía."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIFrodonew",
+        "portrait": "HEFrodonew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "dol-amroth-fortress-citadel",
+      "object": "DolAmrothFortressCitadel",
+      "name": "Fortaleza de Dol Amroth",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor"],
+      "upgrades": [
+        {
+          "name": "Estandartes del Cisne de Plata",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Cuartos de Huéspedes",
+          "cost": 800,
+          "hotkey": "E",
+          "level": null,
+          "description": "Incrementa la velocidad de producción de la Casa de Huéspedes y la experiencia obtenida por unidad de la Casa de Huéspedes en +25%. Desbloquea la habilidad Diplomacia Aburrida. Sube a Lothíriel al nivel 3.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Jardines Placenteros",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "-20% de costo de revivir héroes, -10% de tiempo de revivir héroes, las unidades alrededor de la fortaleza se curan y las unidades caídas se reponen. Sube a Lothíriel al nivel 6 cuando se alcancen los niveles anteriores.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guarnición de la Torre",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Otorga flechas incendiarias a la fortaleza y a las Fortalezas Costeras. También estaciona Marinos de Belfalas en la fortaleza y en las Fortalezas Costeras.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Foso Númenóreano",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Requisito para Tirith Aear. Sube a Lothíriel al nivel 10 cuando se alcancen los niveles anteriores.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Tirith Aear",
+          "cost": 1000,
+          "hotkey": "D",
+          "level": null,
+          "description": "La Torre de Tirith Aear se sitúa en la fortaleza. Incrementa considerablemente la visión de la fortaleza. Desbloquea la habilidad Luz de Tirith Aear en la fortaleza. Desbloquea a los Campeones de Tirith Aear en los Cuarteles Reales.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Diplomacia Aburrida",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Dol Amroth envía a un invitado bastante engreído para negociar en su nombre. Absortos en interminables discusiones sobre los términos de la rendición, las unidades enemigas que rodean la fortaleza pierden todo liderazgo durante 30 segundos."
+        },
+        {
+          "name": "Luz de Tirith Aear",
+          "level": null,
+          "hotkey": "F",
+          "kind": "active",
+          "description": "Acelera el reclutamiento de unidades de Dol Amroth durante 60 segundos e inflige daño prolongado a los enemigos cercanos a la fortaleza durante 20 segundos."
+        }
+      ],
+      "images": {
+        "button": "UIDolAmrothFortress",
+        "portrait": "UPDolAmrothFortress"
+      }
+    },
+    {
+      "slug": "dol-amroth-farm",
+      "object": "DolAmrothFarm",
+      "name": "Mercado de Pescado",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona pescado fresco como recurso basado en el terreno disponible. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Mejora Pescado Caducado",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite al Mercado de Pescado convocar un barril de pescado caducado durante 90 segundos. El olor acre del barril reduce el daño y la velocidad de movimiento de las unidades enemigas cercanas en -25%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Alta Demanda",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los barcos pesqueros aliados de todo el mapa obtienen un incremento del 10% en la producción de recursos. No se acumula."
+        },
+        {
+          "name": "Pescado Caducado",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un barril de pescado caducado junto al mercado durante 90 segundos. El olor acre del barril reduce el daño y la velocidad de movimiento de las unidades enemigas cercanas en -25%."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPDolAmrothFishMarket"
+      }
+    },
+    {
+      "slug": "amrothian-forge",
+      "object": "AmrothianForge",
+      "name": "Herrería",
+      "kind": "support",
+      "cost": 350,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Proporciona metales trabajados como un recurso basado en el terreno disponible. Investiga mejoras de armas y armaduras. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Cisne",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes del Cisne. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas Imbuidas",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Hojas Imbuidas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejora instantánea de todas las patrullas una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Placa con Relieve de Plata",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Placa con Relieve de Plata. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejora instantánea de todas las patrullas una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPDolAmrothForge"
+      }
+    },
+    {
+      "slug": "dol-amroth-guardhouse",
+      "object": "DolAmrothGuardhouse",
+      "name": "Puesto de Guardia de Dol Amroth",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Marinos de Belfalas, Guardias y Milicia de Amroth.",
+      "produces": [
+        "Milicia de Amroth",
+        "Guardias de Amroth",
+        "Marinos de Belfalas"
+      ],
+      "upgrades": [
+        {
+          "name": "Puesto de Guardia al Nivel 2",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Marinos de Belfalas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Puesto de Guardia al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "+25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPDolAmrothGuardhouse"
+      }
+    },
+    {
+      "slug": "dol-amroth-royal-barracks",
+      "object": "DolAmrothRoyalBarracks",
+      "name": "Cuartel Real de Dol Amroth",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Hombres de Armas y Piqueros de Dol Amroth, Trabucos y Campeones de Tirith Aear.",
+      "produces": [
+        "Hombres de Armas de Dol Amroth",
+        "Piqueros de Dol Amroth",
+        "Trabuco",
+        "Campeones de Tirith Aear"
+      ],
+      "upgrades": [
+        {
+          "name": "Cuartel Real al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Trabucos. Repara las máquinas de asedio cercanas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Cuartel Real al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Campeones de Tirith Aear y permite a los Trabucos investigar la mejora Piedras de Fuego. Incrementa la reparación de las máquinas de asedio cercanas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPDolAmrothRoyalBarracks"
+      }
+    },
+    {
+      "slug": "dol-amroth-royal-stable",
+      "object": "DolAmrothRoyalStable",
+      "name": "Establos Reales de Dol Amroth",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Escuderos de Dol Amroth, Capitanes del Cisne Negro y Caballeros del Cisne.",
+      "produces": [
+        "Escuderos de Dol Amroth",
+        "Capitán del Cisne Negro",
+        "Caballeros Cisne de Dol Amroth"
+      ],
+      "upgrades": [
+        {
+          "name": "Establos al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Capitanes del Cisne Negro +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Establos al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Caballeros Cisne. Añade torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPDolAmrothRoyalStables"
+      }
+    },
+    {
+      "slug": "dol-amroth-guest-house",
+      "object": "DolAmrothGuestHouse",
+      "name": "Casa de Huéspedes de Amroth",
+      "kind": "production",
+      "cost": 750,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 1,
+      "description": "Entrena Damas de Compañía, Nobles de Pelargir y Maestros de Armas.\n\nA menudo, la Casa Real de Amroth recibe invitados de Gondor y sus aliados. Además de ellos, también hay sirvientes de alto rango. Estas personas importantes se alojan en estas lujosas habitaciones.",
+      "produces": ["Dama de Compañía", "Noble de Pelargir", "Maestro de Armas"],
+      "upgrades": [
+        {
+          "name": "Casa de Huéspedes al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Nobles de Pelargir +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Casa de Huéspedes al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Maestro de Armas. Añade torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "UIAmrothianGuesthouse",
+        "portrait": "UPAmrothianGuesthouse"
+      }
+    },
+    {
+      "slug": "dol-amroth-battle-tower",
+      "object": "DolAmrothBattleTower",
+      "name": "Fortaleza Costera",
+      "kind": "defence",
+      "cost": 250,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Señal del Barco",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Puede activarse para otorgar experiencia en el libro de hechizos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Señal del Barco",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Activar para otorgar experiencia en el libro de hechizos."
+        }
+      ],
+      "images": {
+        "button": "UIDolAmrothCoastalStronghold",
+        "portrait": "UPDolAmrothCoastalStronghold"
+      }
+    },
+    {
+      "slug": "dol-amroth-statue",
+      "object": "DolAmrothStatue",
+      "name": "Monumento a Amroth Amdírion",
+      "kind": "support",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona bonificación de liderazgo a las unidades cercanas. Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.\n\nCuando el rey Elfo Amroth se ahogó frente a las costas de Belfalas, los hombres de la cercana Cobas Haven rebautizaron su fortaleza en su honor.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Linaje Elfo",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite al Monumento curar a las unidades en un radio determinado.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Linaje Elfo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Cura unidades en un radio medio."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPDolAmrothMonumenttoAmroth"
+      }
+    },
+    {
+      "slug": "men-arrow-tower-expansion",
+      "object": "MenArrowTowerExpansion",
+      "name": "Torre de Flechas",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva de corto alcance. Beneficios de la mejora Guarnición de la Torre.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BPGondorFortressTower",
+        "portrait": "BPGondorFortressTower"
+      }
+    },
+    {
+      "slug": "men-trebuchet-expansion",
+      "object": "MenTrebuchetExpansion",
+      "name": "Expansión de Trabuco",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Beneficios de la mejora Guarnición de la Torre.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Trabuco",
+          "cost": 450,
+          "hotkey": "W",
+          "level": null,
+          "description": "Reconstruye el trabuco en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "UPGondorTrebuchet"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "rallying-call-mpelves",
+      "name": "Curadores Expertos",
+      "tier": 1,
+      "position": "L",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura a las unidades parcialmente y reemplaza a un muerto por batallón.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "UIDolAmrothSkilledHealers"
+      },
+      "requires": []
+    },
+    {
+      "slug": "lorien-trap",
+      "name": "Protección del Príncipe",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Repara una estructura.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "UIPrincesProtection"
+      },
+      "requires": []
+    },
+    {
+      "slug": "arrow-volley-lorien",
+      "name": "Llamada de Clarion",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados elegidos obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "UIClarionCall"
+      },
+      "requires": []
+    },
+    {
+      "slug": "amroth-knights",
+      "name": "Baluarte Valiente",
+      "tier": 2,
+      "position": "LL",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Otorga permanentemente a la estructura seleccionada +50% de armadura. Cuando se usa en la fortaleza, solo otorga +25% de armadura.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "UIDoughtyBulwark"
+      },
+      "requires": ["Curadores Expertos"]
+    },
+    {
+      "slug": "silvan-allies",
+      "name": "Promontorio Frondoso",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un exuberante campo salpicado de rocas blancas al campo de batalla. Las unidades aliadas en el promontorio obtienen +50% de armadura, los enemigos se ralentizan un 33%. El promontorio está protegido por varios caballeros de Dol Amroth desmontados.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "UILushPromontory"
+      },
+      "requires": ["Curadores Expertos", "Protección del Príncipe"]
+    },
+    {
+      "slug": "radagast",
+      "name": "Ingeniería de Númenor",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un trabuco estacionario sobre el campo de batalla.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "UIDolAmrothNumenoreanEngineering"
+      },
+      "requires": ["Protección del Príncipe", "Llamada de Clarion"]
+    },
+    {
+      "slug": "elven-wood",
+      "name": "Primero Entre sus Iguales",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca temporalmente a 2 batallones de Hacheros de Lossarnach y 2 batallones de Arqueros del Valle Raíz Negra. Estas tropas vienen equipadas con armamento de la Ciudad Blanca y mejoras de armas.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "UIFirstAmongEquals"
+      },
+      "requires": ["Llamada de Clarion"]
+    },
+    {
+      "slug": "eagle-allies",
+      "name": "Ira de Belegaer",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "El Gran Mar es una fuerza inexorable en Belfalas. Invoca una gran ola que causa graves daños a los edificios. Inflige un daño mediocre a las unidades.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "UIDolAmrothWrathofBelegaer"
+      },
+      "requires": ["Baluarte Valiente", "Promontorio Frondoso"]
+    },
+    {
+      "slug": "cloud-break",
+      "name": "Brisa Marina",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Una suave brisa marina despeja los efectos meteorológicos y permite que brille el sol. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Concede una bonificación de velocidad del +33% a las unidades aliadas de todo el mapa durante 15 segundos.",
+      "requiresSlots": [5, 6, 7],
+      "slot": 9,
+      "images": {
+        "button": "UIDolAmrothSeaBreeze"
+      },
+      "requires": [
+        "Promontorio Frondoso",
+        "Ingeniería de Númenor",
+        "Primero Entre sus Iguales"
+      ]
+    },
+    {
+      "slug": "ringof-adamant",
+      "name": "Delegación de la Ciudad Blanca",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a una delegación de la Ciudad Blanca. Recluta a Faramir, Boromir y los Guardianes de la Torre Blanca.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "UIDolAmrothDelegationWC"
+      },
+      "requires": ["Ingeniería de Númenor", "Primero Entre sus Iguales"]
+    },
+    {
+      "slug": "mistof-lorien",
+      "name": "Unidos por la Sangre",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca permanentemente al rey Éomer Éadig acompañado por la Guardia Real Montada. Sus guardias son temporales, pero el rey permanece hasta su muerte.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "UIDolAmrothBoundbyBlood"
+      },
+      "requires": ["Ira de Belegaer", "Brisa Marina"]
+    },
+    {
+      "slug": "cast-down",
+      "name": "El Retorno del Rey",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca al Rey Elessar acompañado de sus Guardias Reales. Sus guardias son temporales, pero el Rey dura hasta su muerte. Las unidades cercanas obtienen inmunidad al miedo y al terror.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "UIDolAmrothReturnoftheKing"
+      },
+      "requires": ["Brisa Marina", "Delegación de la Ciudad Blanca"]
+    }
+  ]
+}

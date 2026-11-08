@@ -1,0 +1,2496 @@
+{
+  "code": "mordor",
+  "units": [
+    {
+      "slug": "mordor-porter",
+      "object": "MordorPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIPorterNew",
+        "portrait": "UPLaborernew"
+      }
+    },
+    {
+      "slug": "mordor-morgul-orc",
+      "object": "MordorMorgulOrcHorde",
+      "name": "Legión de Morgul",
+      "category": "swordsmen",
+      "recruitedAt": "Fortaleza",
+      "requirements": "Requiere mejora Brujería de Morgul; Requiere Brujería de Morgul",
+      "cost": 750,
+      "cp": 75,
+      "health": 300,
+      "buildTime": 20,
+      "armourSet": "BlackOrcHeavyArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Infantería Élite.\n\nEstos orcos se han curtido en batallas durante años de guerra con Gondor y son considerados la élite de los ejércitos de Sauron.",
+      "abilities": [
+        {
+          "name": "Acero Hechizado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 70,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 633
+      },
+      "images": {
+        "button": "UIMordorMorgulOrcs",
+        "portrait": "UPMordorMorgulOrcsNew"
+      }
+    },
+    {
+      "slug": "mordor-vanguard",
+      "object": "MordorVanguardHorde",
+      "name": "Vanguardia del Rey Brujo",
+      "category": "cavalry",
+      "recruitedAt": "Fortaleza",
+      "requirements": "Requiere mejora Torre de Morgul; Requiere Torre de Morgul",
+      "cost": 1700,
+      "cp": 100,
+      "health": 850,
+      "buildTime": 60,
+      "armourSet": "HelmingasWardensArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["infantry", "heroes"],
+      "weakAgainst": [],
+      "description": "Estos hombres sin alma han servido por mucho tiempo al Rey Brujo como sus guardaespaldas personales y la vanguardia de sus legiones.",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Acero Hechizado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo."
+        },
+        {
+          "name": "Comando del Rey Brujo",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Vanguardia del Rey Brujo se desliza entre los enemigos como el viento y se vuelve inmune a los golpes durante 30 segundos. Solo se puede usar cuando está montado."
+        },
+        {
+          "name": "Filas de Hierro",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La Vanguardia del Rey Brujo gana +33% de armadura e inflige daño por ataque a costa de -50% de velocidad de movimiento durante 30 segundos."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 105,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorMorgulVanguard",
+        "portrait": "UPMordorVanguard"
+      }
+    },
+    {
+      "slug": "mordor-fighter",
+      "object": "MordorFighterHorde",
+      "name": "Guerreros Orcos",
+      "category": "swordsmen",
+      "recruitedAt": "Fortín Orco",
+      "requirements": null,
+      "cost": 80,
+      "cp": 40,
+      "health": 75,
+      "buildTime": 25,
+      "armourSet": "MordorOrcArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Bonificaciones de Horda. Todos los Guerreros Orcos, Piqueros Orcos y Arqueros Orcos obtienen +25% de daño y armadura cuando se reúnen en grupos de 90 unidades o más.\n\nDesde que Sauron regresó a Mordor, sus orcos se han multiplicado y organizado en grandes legiones al servicio de Barad-dûr.",
+      "abilities": [
+        {
+          "name": "Marca del Ojo Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Orcos +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 20,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 633
+      },
+      "images": {
+        "button": "UIMordorOrcs",
+        "portrait": "UPMordorOrcWarrior"
+      }
+    },
+    {
+      "slug": "mordor-pikeman",
+      "object": "MordorPikemanHorde",
+      "name": "Piqueros Orcos",
+      "category": "pikemen",
+      "recruitedAt": "Fortín Orco",
+      "requirements": null,
+      "cost": 225,
+      "cp": 60,
+      "health": 125,
+      "buildTime": 25,
+      "armourSet": "MordorPikeArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Bonificaciones de Horda. Los Guerreros Orcos, Piqueros Orcos y Arqueros Orcos obtienen +25% de daño y armadura cuando se reúnen en grupos de 90 unidades o más.\n\nDesde que Sauron regresó a Mordor, sus orcos se han multiplicado y organizado en grandes legiones al servicio de Barad-dûr.",
+      "abilities": [
+        {
+          "name": "Marca del Ojo Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Orcos +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 35,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 25,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMordorOrcPikemen",
+        "portrait": "UPMordorPikemen"
+      }
+    },
+    {
+      "slug": "mordor-archer",
+      "object": "MordorArcherHorde",
+      "name": "Arqueros Orcos",
+      "category": "archers",
+      "recruitedAt": "Fortín Orco",
+      "requirements": null,
+      "cost": 225,
+      "cp": 60,
+      "health": 125,
+      "buildTime": 25,
+      "armourSet": "MordorArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Bonificaciones de Horda. Los Guerreros Orcos, Piqueros Orcos y Arqueros Orcos obtienen +25% de daño y armadura cuando se reúnen en grupos de 90 unidades o más.\n\nMal equipados y sin entrenamiento, los arqueros de Mordor son un buen ejemplo de fuerza en un gran número.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 20,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIMordorArchers",
+        "portrait": "UPMordorOrcArchers"
+      }
+    },
+    {
+      "slug": "mordor-black-orc",
+      "object": "MordorBlackOrcHorde",
+      "name": "Merodeadores Uruk Negros",
+      "category": "swordsmen",
+      "recruitedAt": "Fortín Orco nivel 2",
+      "requirements": null,
+      "cost": 400,
+      "cp": 60,
+      "health": 375,
+      "buildTime": 25,
+      "armourSet": "BlackUrukArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "structures"],
+      "weakAgainst": [],
+      "description": "Los Uruks Negros de Barad-dûr son la élite de los ejércitos orcos de Sauron, creados para devastar Ithilien.",
+      "abilities": [
+        {
+          "name": "Marca del Ojo Rojo",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Marca del Ojo Rojo garantiza +25% de daño."
+        },
+        {
+          "name": "Reyerta",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ordena a esta unidad matar Orcos aliados o Legiones de Morgul para ganar experiencia en combate."
+        },
+        {
+          "name": "Saqueador",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Merodeadores Uruk Negros ganan +25% de daño contra estructuras y extraen recursos al atacar estructuras durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 95,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 633
+      },
+      "images": {
+        "button": "UIMordorBlackUruks",
+        "portrait": "UPMordorBlackUruks"
+      }
+    },
+    {
+      "slug": "mordor-variag",
+      "object": "MordorVariagHorde",
+      "name": "Variags de Khand",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición del Este",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 260,
+      "buildTime": 22,
+      "armourSet": "VariagArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "archers"],
+      "weakAgainst": [],
+      "description": "Los Variags de Khand son una raza formidable de guerreros nacida de una larga historia de conflictos con las tierras de Gondor.",
+      "abilities": [
+        {
+          "name": "Corredores de las Llanuras",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Variags obtienen un 33% de velocidad a costa de un 10% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Cubierta de Escudo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los variags obtienen un 15% de armadura contra ataques a distancia siempre que haya más de 10 unidades en el batallón."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 65,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIMordorVariagsN",
+        "portrait": "UPMordorVariagsN"
+      }
+    },
+    {
+      "slug": "mordor-easterling",
+      "object": "MordorEasterlingHorde",
+      "name": "Khân-pâlainax",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición del Este",
+      "requirements": null,
+      "cost": 550,
+      "cp": 75,
+      "health": 350,
+      "buildTime": 25,
+      "armourSet": "RhunArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Falange del Gran Khân. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nLos Khân-pâlainax formaban el grueso de las fuerzas expedicionarias enviadas a Mordor. Avanzaron sobre sus enemigos en temible formación, escudos cerrados y picas al frente.",
+      "abilities": [
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 180,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMordorEasterlingPikes",
+        "portrait": "UPMordorEasterlingPikemen"
+      }
+    },
+    {
+      "slug": "mordor-easterling-archer",
+      "object": "MordorEasterlingArcherHorde",
+      "name": "Khân-yûn-âkhax",
+      "category": "archers",
+      "recruitedAt": "Guarnición del Este nivel 2",
+      "requirements": null,
+      "cost": 650,
+      "cp": 72,
+      "health": 200,
+      "buildTime": 40,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Arqueros del Gran Khân.\n\nLos khân-yûn-âkhax eran tiradores altamente entrenados que portaban pesados arcos de guerra y carcajs llenos de flechas de púas trenzadas, haciendo llover la muerte sobre el enemigo incluso cuando la falange avanzaba.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Púas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Púas. Incrementa el daño de las flechas, y agrega daño de corte.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 85,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 390,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorEasterlingArcherN",
+        "portrait": "UPMordorEasterlingArchers"
+      }
+    },
+    {
+      "slug": "mordor-easterling-kataphract",
+      "object": "MordorEasterlingKataphractHorde",
+      "name": "Khân-kâtaphranax",
+      "category": "cavalry",
+      "recruitedAt": "Guarnición del Este nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 90,
+      "health": 600,
+      "buildTime": 35,
+      "armourSet": "KataphraktArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Catafractos Dorados. Caballería de Élite.\n\nLos Khân-kâtaphranax estaban formados por nobles de alto y bajo rango. Estos corceles de armadura pesada avanzaban, sacudiendo la tierra y atronando la llanura, con una fuerza que pocos ejércitos podían resistir.",
+      "abilities": [
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 240,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorEasterlingKata",
+        "portrait": "UPMordorEasterlingKata"
+      }
+    },
+    {
+      "slug": "easterling-axe-men",
+      "object": "EasterlingAxeMenHorde",
+      "name": "Khân-bórainax",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición del Este nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 90,
+      "health": 500,
+      "buildTime": 40,
+      "armourSet": "HarbingerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Hacheros Dorados. Está Reuniendo Todo Mal Ante Él.\n\nTradicionalmente, los Khân-bórainax permanecían en la retaguardia de las legiones Rhûnic y sólo entraban en combate como reservas para relevar a una primera línea de falange cansada y aplastar al enemigo restante.",
+      "abilities": [
+        {
+          "name": "Indómito",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Hacheros Dorados obtienen +50% de daño e inmunidad al derribo y al pisoteo durante 20 segundos."
+        },
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Hacheros Dorados obtienen +20% de armadura y reflejan el daño cuerpo a cuerpo recibido a las unidades atacantes."
+        },
+        {
+          "name": "Sin Cuartel",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades Orientales y Variags cercanos obtienen +50% de armadura y resistencia al miedo y al terror durante 30 segundo."
+        }
+      ],
+      "upgrades": [],
+      "damage": 175,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIEasterlingSwords",
+        "portrait": "UPEasterlingSwords"
+      }
+    },
+    {
+      "slug": "mordor-mountain-troll",
+      "object": "MordorMountainTroll",
+      "name": "Troll de las Montañas",
+      "category": "siege",
+      "recruitedAt": "Jaula de Trolls",
+      "requirements": null,
+      "cost": 600,
+      "cp": 45,
+      "health": 2500,
+      "buildTime": 45,
+      "armourSet": "TrollArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "structures"],
+      "weakAgainst": [],
+      "description": "Los Olog-hai de Sauron son feroces y astutos, capaces de soportar la luz del sol mientras están bajo el dominio de la voluntad del Señor Oscuro.",
+      "abilities": [
+        {
+          "name": "Buscar Orco que Comer",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Busca un Orco para devorarlo. El trol de montaña se cura con el tiempo durante 10 segundos después de comerse a un Orco."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Tomar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Recoger un árbol o una roca para usarlos como arma."
+        }
+      ],
+      "upgrades": [],
+      "damage": 375,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 50,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorMTroll",
+        "portrait": "UPMordorMountainTroll"
+      }
+    },
+    {
+      "slug": "mordor-drummer-troll",
+      "object": "MordorDrummerTroll",
+      "name": "Troll con Tambor",
+      "category": "siege",
+      "recruitedAt": "Jaula de Trolls nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 35,
+      "health": 2700,
+      "buildTime": 30,
+      "armourSet": "DrummerTrollArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Proporciona liderazgo a los aliados cercanos.\n\nTrolls con tambores de piel de cuero son una gran forma de levantar la moral de los orcos y mantenerlos marchando en fila.",
+      "abilities": [
+        {
+          "name": "Tambores de Guerra",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los aliados cercanos al Troll con Tambor obtienen +33% de daño y +33% armadura y experiencia un 50% más rápido."
+        },
+        {
+          "name": "Rugido",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 110,
+      "damageType": "SIEGE",
+      "attackDelayMs": 2200,
+      "attackRange": 12,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 50,
+        "preAttackDelayMs": 800
+      },
+      "images": {
+        "button": "UIMordorDrummerTroll",
+        "portrait": "UPMordorDrummerTroll"
+      }
+    },
+    {
+      "slug": "mordor-attack-troll",
+      "object": "MordorAttackTroll",
+      "name": "Olog-hai",
+      "category": "siege",
+      "recruitedAt": "Jaula de Trolls nivel 3",
+      "requirements": null,
+      "cost": 1200,
+      "cp": 80,
+      "health": 3000,
+      "buildTime": 45,
+      "armourSet": "AttackTrollArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "cavalry", "structures"],
+      "weakAgainst": [],
+      "description": "Los más crueles e inteligentes de los Olog-hai fueron vestidos con armaduras negras dentadas y fueron enviados a la línea del frente para servir como algunos de los guerreros más temidos de Sauron.",
+      "abilities": [
+        {
+          "name": "Dominar Troll",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Toma el control de un troll enemigo objetivo."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 350,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1400,
+      "attackRange": 30,
+      "speed": 65,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 60,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMordorATroll",
+        "portrait": "UPMordorAttackTroll"
+      }
+    },
+    {
+      "slug": "mordor-battering-ram",
+      "object": "MordorBatteringRam",
+      "name": "Ariete",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nUna vez caída la puerta, pocas fortalezas pueden resistir los enjambres de Mordor.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "UIMordorBatteringRam",
+        "portrait": "UPMordor_BatteringRam"
+      }
+    },
+    {
+      "slug": "mordor-catapult",
+      "object": "MordorCatapult",
+      "name": "Catapulta",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 2",
+      "requirements": null,
+      "cost": 700,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "SiegeEngineArmor",
+      "attackType": "Fuego (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Estos viles artilugios hacen llover muerte y terror sobre los enemigos del Señor Oscuro.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        },
+        {
+          "name": "Lanzar Calaveras",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Lanza calaberas como munición. Causa terror a las unidades enemigas cercanas al impacto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "¡Liberen a los Prisioneros!",
+          "cost": 200,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a la Catapulta usar la habilidad Lanzar Calaveras. Lanza calaberas como munición. Causa terror a las unidades enemigas cercanas al impacto.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1601,
+      "damageType": "FLAME",
+      "attackDelayMs": 7500,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 550,
+        "attackRadius": 50,
+        "preAttackDelayMs": 800
+      },
+      "images": {
+        "button": "UIMordorCatapult",
+        "portrait": "UPMordorCatapultNew"
+      }
+    },
+    {
+      "slug": "mordor-great-beast",
+      "object": "MordorGreatBeast",
+      "name": "Gran Bestia",
+      "category": "monster",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 2",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 60,
+      "health": 7000,
+      "buildTime": 55,
+      "armourSet": "MumakilArmor",
+      "attackType": "Aplastamiento (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["structures", "cavalry"],
+      "weakAgainst": [],
+      "description": "Estas pesadas criaturas son nativas de las grandes llanuras cubiertas de cenizas de Gorgoroth, alimentándose de las gruesas raíces que crecen en el suelo seco de esa tierra estéril. Los orcos se dieron cuenta rápidamente de su potencial como bestias de carga y guerra, y durante mucho tiempo los criaron en cautiverio, colocándolos en la guerra de Sauron contra las tierras de Gondor.",
+      "abilities": [
+        {
+          "name": "Estampida",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordena a la Gran Bestia aplastar al enemigo."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        },
+        {
+          "name": "¡Dadles un Poco de Grog!",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Permite a los orcos tirar un barril de grog altamente volátil que explota sobre el campo de batalla."
+        },
+        {
+          "name": "Bestia de Guerra",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "¡Subid, Muchachos!",
+          "cost": 350,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora esta Gran Bestia con arqueros orcos apostados a su lomo. Los arqueros orcos se benefician de la mejora flecha de fuego.",
+          "stats": {
+            "researchTimeS": 20
+          }
+        },
+        {
+          "name": "¡Dadles un Poco de Grog!",
+          "cost": 500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta Gran Bestia con la habilidad de tirar un barril de grog altamente volátil.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Bestia de Guerra",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta Gran Bestia con la habilidad de hacer que las unidades enemigas se acobarden de miedo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1,
+      "damageType": "CRUSH",
+      "attackDelayMs": 105000,
+      "attackRange": 500,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "attackRadius": 1
+      },
+      "images": {
+        "button": "UIMordorBeast",
+        "portrait": "UPMordorBeast"
+      }
+    },
+    {
+      "slug": "mordor-grond",
+      "object": "MordorGrond",
+      "name": "Grond",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 3",
+      "requirements": null,
+      "cost": 5000,
+      "cp": 120,
+      "health": 45000,
+      "buildTime": 60,
+      "armourSet": "GrondArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "y a Gothmog. Extremadamente Fuerte contra Estructuras. No puede cruzar puentes.\n\nEste ariete gigante fue llamado después el Martillo del Inframundo - el arma preferida de Morgoth. Ninguna puerta puede interponerse en su camino.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 2500,
+      "damageType": "SIEGE",
+      "attackDelayMs": 5500,
+      "attackRange": 5,
+      "speed": 10,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 250,
+        "attackRadius": 5,
+        "preAttackDelayMs": 3000
+      },
+      "images": {
+        "button": "UIMordorGrond",
+        "portrait": "UPMordorGrond"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "mordor-gorbag",
+      "object": "MordorGorbag",
+      "name": "Gorbag",
+      "title": "Capitán orco de Cirith Ungol",
+      "recruitedAt": "Fortaleza",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Será para el Gran Ojo! Como todo lo demás.'",
+      "abilities": [
+        {
+          "name": "Rivalidad Feroz",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando está cerca de Shagrat, Gorbag lentamente recibe daño con el tiempo."
+        },
+        {
+          "name": "Astucia de Orco",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Crece en poder a medida que Gorbag sube de nivel. En el rango 1, Gorbag incrementa su evasión a distancia. En el rango 3, Gorbag puede permanecer en sigilo durante 30 segundos - Gorbag pierde el sigilo si ataca. En el rango 5, +25% de daño durante 30 segundos más los efectos anteriores. En el rango 7, obtiene pasivamente +25% de daño y +15% de velocidad. En el rango 10, obtiene pasivamente +25% de armadura."
+        },
+        {
+          "name": "Lanzar Patada",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Derriba las unidades cercanas. Aturde a los héroes objetivo durante 5 segundos. Puede usarse con Astucia de Orco."
+        },
+        {
+          "name": "Te Haré Sangrar",
+          "level": 4,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo recibe mucho daño durante 15 segundos."
+        },
+        {
+          "name": "Lealtad al Ojo Rojo",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo pierde -25% de armadura durante 30 segundos. Gorbag inflige +25% de daño al héroe objetivo mientras dure el efecto while Gorbag gains +50% armour for the duration."
+        }
+      ],
+      "damage": 180,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGorbag",
+        "portrait": "HPGorbag"
+      }
+    },
+    {
+      "slug": "mordor-shagrat",
+      "object": "MordorShagrat",
+      "name": "Shagrat",
+      "title": "Jefe Uruk de Cirith Ungol",
+      "recruitedAt": "Fortaleza",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡No acato órdenes de una apestosa rata de Morgul!'",
+      "abilities": [
+        {
+          "name": "Rivalidad Feroz",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando está cerca de Gorbag, Shagrat lentamente recibe daño con el tiempo. Desbloquea la habilidad Reyerta para los Merodeadores Uruk Negros que permiten matar Guerreros Orcos o Legiones de Morgul para ganar experiencia de combate."
+        },
+        {
+          "name": "Capitán de la Torre",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Las Torres de Mordor y los Arqueros Orcos cercanos a Shagrat obtienen +15% de visión, +15% de alcance y +15% de daño. En el rango 5, los Merodeadores Uruk Negros cercanos obtienen +25% de armadura."
+        },
+        {
+          "name": "Saqueadores de Cirith Ungol",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Shagrat genera una horda temporal de Merodeadores Uruk Negros cuando se usa en un edificio aliado o enemigo."
+        },
+        {
+          "name": "Lealtad a Lugbúrz",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Otorga +25% de daño a los Guerreros Orcos y Merodeadores Uruk Negros cercanos, así como daño por proximidad y derribo a Shagrat durante 20 segundos."
+        },
+        {
+          "name": "Codicioso Uruk",
+          "level": 7,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Shagrat y los Merodeadores Uruk Negros cercanos roban recursos de enemigos asesinados."
+        }
+      ],
+      "damage": 135,
+      "damageType": "HERO",
+      "attackDelayMs": 960,
+      "attackRange": 15,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIShagrat",
+        "portrait": "HPShagrat"
+      }
+    },
+    {
+      "slug": "mordor-akhorahil",
+      "object": "MordorAkhorahil",
+      "name": "Nazgûl",
+      "title": "Akhôrahil, el Rey de las Tormentas",
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Una vez fueron hombres; grandes reyes de los hombres. Entonces Sauron el Impostor les dio nueve Anillos de Poder.'",
+      "abilities": [
+        {
+          "name": "Los Nueve están en el Extranjero",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Chillido",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Búsqueda Incesante",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Nazgûl ganan +20% de velocidad de movimiento y +33% de armadura durante 30 segundos. Sólo se puede utilizar cuando está montado. Los Nazgûl no pueden desmontar mientras la habilidad está activa."
+        },
+        {
+          "name": "Aliento Oscuro",
+          "level": 10,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Aliento Oscuro emana de los Nazgûl. Las unidades enemigas cercanas atrapadas por el aliento reciben daño a lo largo del tiempo durante 15 segundos."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiNazgulNew",
+        "portrait": "HeNazgulNew"
+      }
+    },
+    {
+      "slug": "mordor-uvatha",
+      "object": "MordorUvatha",
+      "name": "Nazgûl",
+      "title": "Ûvatha, el Saqueador de Khand",
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Cegados por su avaricia, los tomaron sin preguntar, cayendo uno a uno en la oscuridad.'",
+      "abilities": [
+        {
+          "name": "Los Nueve están en el Extranjero",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Chillido",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Búsqueda Incesante",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Nazgûl ganan +20% de velocidad de movimiento y +33% de armadura durante 30 segundos. Sólo se puede utilizar cuando está montado. Los Nazgûl no pueden desmontar mientras la habilidad está activa."
+        },
+        {
+          "name": "Aliento Oscuro",
+          "level": 10,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Aliento Oscuro emana de los Nazgûl. Las unidades enemigas cercanas atrapadas por el aliento reciben daño a lo largo del tiempo durante 15 segundos."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiNazgulNew",
+        "portrait": "HeNazgulNew"
+      }
+    },
+    {
+      "slug": "mordor-gothmog",
+      "object": "MordorGothmog",
+      "name": "Gothmog",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Desbloquea a Grond. Recluta al Lugarteniente de Minas Morgul. 'La Edad de los Hombres ha terminado. El tiempo de los orcos ha llegado.'",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "Tiempo del Orco",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los orcos cercanos a Gothmog obtienen +33% de daño, +33% de armadura, inmunidad al miedo y al terror y ganan experiencia un 33% más rápido.\n\nEn el rango 5, puede activarse para lanzar un aluvión de cabezas cortadas a un área determinada, causando miedo a las unidades enemigas e infligiendo daño por veneno durante 20 segundos."
+        },
+        {
+          "name": "¡Formad Filas, Gusanos!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca una horda de piqueros de Morgul alrededor de Gothmog. Éstos garantizan un pequeño aumento de daño a los orcos arqueros cercanos. En el rango 7, convoca una horda adicinonal de Piqueros de Morgul. Gothmog solo puede lanzar cuando está desmontado."
+        },
+        {
+          "name": "Maestro del Asedio",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convierte permanentemente la Catapulta elegida en una Catapulta Troll."
+        },
+        {
+          "name": "A la Refriega",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades aliadas en un radio amplio obtienen +15% de velocidad de movimiento y +50% de daño durante 30 segundos."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiGothmogNew",
+        "portrait": "HEGothmogNew"
+      }
+    },
+    {
+      "slug": "mordor-mouth-of-sauron",
+      "object": "MordorMouthOfSauron",
+      "name": "Boca de Sauron",
+      "title": "Mensajero de Sauron",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2200,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Seguro que lo anhelas! Sauron no da nada. Si demandas por tu clemencia, entonces hará tu voluntad.'",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Brujería Oscura",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo sufren. -20% de daño y -20% de armadura durante 30 segundos. Anula el liderazgo enemigo.\n\nLas unidades aliadas objetivo obtienen +33% de daño y +33% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Embajador",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Boca de Sauron obtiene un 100% de armadura y es resistente a los golpes, pero inflige -25% de daño durante 20 segundos."
+        },
+        {
+          "name": "Lugarteniente de Barad-dûr",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Recarga completamente los temporizadores de las habilidades especiales de los héroes aliados. Cura ligeramente a los héroes en el radio."
+        },
+        {
+          "name": "Desleal y Maldito",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Hace que las unidades objetivo se vuelvan hostiles entre sí durante 35 segundos. Afecta a unidades enemigas y aliadas."
+        }
+      ],
+      "damage": 320,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMouthNew",
+        "portrait": "HEMouthNew"
+      }
+    },
+    {
+      "slug": "mordor-mollok",
+      "object": "MordorMollok",
+      "name": "Mollok",
+      "title": "Mollok, Señor de los Olog-hai",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "MollokArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "Una vez que Sauron se enteró del desafío de Aragorn, le ordenó a Mollok que matara personalmente al Rey de Gondor.",
+      "abilities": [
+        {
+          "name": "Voluntad de Sauron",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Mollok obtiene +15% de resistencia contra flechas."
+        },
+        {
+          "name": "Salto",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Mollok salta sobre una posición causando un gran daño sobre el área."
+        },
+        {
+          "name": "Señor de los Olog-hai",
+          "level": 5,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Trolls aliados cercanos obtienen +33% de daño y armadura y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Cortes Desgarradores",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Mollok obtiene +100% de daño y +25% de armadura y se cura pasivamente durante 20 segundos."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 1367,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMollokNew",
+        "portrait": "HEMollokNew"
+      }
+    },
+    {
+      "slug": "mordor-witch-king",
+      "object": "MordorWitchKing",
+      "name": "El Rey Brujo de Angmar",
+      "title": "Primero de los Nueve",
+      "recruitedAt": "Fortaleza",
+      "cost": 5000,
+      "buildTime": 80,
+      "health": 4300,
+      "armourSet": "DismountedWitchkingArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "'Enviad a todas las legiones. No detengáis el ataque hasta que la ciudad haya sido tomada. ¡Aniquiladlos!.'",
+      "abilities": [
+        {
+          "name": "Jefe de los Nueve",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -25% de armadura. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Escalofrío de Angmar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "El Rey Brujo refleja un 10% del daño que le infligen los enemigos cercanos.\n\nCuando se activa, el Rey Brujo se ve rodeado por una tormenta de granizo y escarcha durante 30 segundos, que daña a las unidades enemigas cercanas, más cuanto más cerca estén de él. En el nivel 5, inflige más daño. En el nivel 8, las unidades enemigas cercanas se aterrorizan."
+        },
+        {
+          "name": "Hoja de Morgul",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El enemigo objetivo recibe daño de veneno durante 10 segundos, y se convierte en espectros al morir. El héroe enemigo objetivo queda aturdido durante 10 segundos y sus temporizadores de habilidad se ajustan a recién usados."
+        },
+        {
+          "name": "Abrid en nombre de Mordor",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige daño a la estructura enemiga objetivo y la inhabilita durante 20 segundos. Las unidades enemigas cercanas a la estructura objetivo reciben daño a lo largo del tiempo y se convierten en espectros cuando mueren. Abre automáticamente la puerta objetivo."
+        },
+        {
+          "name": "¡Esta es Mi Hora!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Repele y daña a las unidades en un amplio radio alrededor del Rey Brujo."
+        },
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        }
+      ],
+      "damage": 350,
+      "damageType": "HERO",
+      "attackDelayMs": 1750,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiWitchKingNew",
+        "portrait": "HeWitchKingNew"
+      }
+    },
+    {
+      "slug": "mordor-sauron-ring-hero",
+      "object": "MordorSauron_RingHero",
+      "name": "Sauron",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 10000,
+      "buildTime": 180,
+      "health": 10000,
+      "armourSet": "SauronArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "isRing": true,
+      "description": "Usa el Anillo Único para convocar al Señor Oscuro. 'Ash nazg durbatulûk ash nazg gimbatul. Ash nazg thrakatulûk agh burzum-ishi krimpatul.'",
+      "abilities": [
+        {
+          "name": "Gorthaur",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Todas las unidades cercanas se encojen de miedo ya sea amigo o enemigo.\n\nCuando se activa, las unidades enemigas y los héroes cercanos quedan paralizados durante 10 segundos."
+        },
+        {
+          "name": "Conflagración",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Destruye al héroe enemigo objetivo (sólo inflige el 50% del daño total a Gandalf, Elessar, Saruman, Rey Brujo, Bolg, Galadriel, Elrond, Glorfindel, Thranduil, Théoden, Thorin, Nigromante, Rey Dáin, Durin el Inmortal, Rey Dorado)."
+        },
+        {
+          "name": "Annatar, Señor de los Dones",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convierte permanentemente a las unidades enemigas en un amplio radio."
+        },
+        {
+          "name": "El Señor de los Anillos",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Sauron gana +100% de daño, +10% de velocidad de movimiento e invulnerabilidad durante 20 segundos."
+        },
+        {
+          "name": "Sus Sirvientes Más Letales",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Sauron convoca permanentemente a cuatro. Espectros del Anillo. Máximo cuatro Espectros del Anillo pueden salir en cualquier momento."
+        }
+      ],
+      "damage": 2800,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1833,
+      "attackRange": 12,
+      "speed": 35,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HISauronNew",
+        "portrait": "HESauronNew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "mordor-fortress-citadel",
+      "object": "MordorFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": [
+        "Constructor",
+        "Legión de Morgul",
+        "Vanguardia del Rey Brujo"
+      ],
+      "upgrades": [
+        {
+          "name": "Heráldica del Señor Oscuro",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Llamas de Sammath Naur",
+          "cost": 600,
+          "hotkey": "E",
+          "level": null,
+          "description": "Daña a las unidades enemigas adyacentes a la Fortaleza.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Torres Sofocantes",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a la Fortaleza emitir humos nocivos para envenenar a las unidades enemigas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Terrenos de Crías",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Desbloquea Vuelo de los Halcones Infernales de Nazgûl. Desbloquea la habilidad Primero de los Nueve. Se puede lanzar para reemplazar el caballo del Rey Brujo por su Bestia Alada.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Brujería de Morgul",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Desbloquea Gothmog y Legiones de Morgul. Requisito previo para Torre de Morgul.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de Morgul",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Permite reclutar a la Vanguardia del Rey Brujo.\n\nSus Sirvientes más Mortíferos: Otorga pasivamente +10% de daño y +10% de armadura a todos los Nazgûl en el campo de batalla. No afecta a las Bestias Aladas.\n\nPermite a la Fortaleza usar la Almenara de Morgul: Todos los orcos del campo de batalla ganan un 15% de velocidad y +50% de daño y armadura durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Sus Sirvientes más Mortíferos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Otorga +10% de daño y +10% de armadura a todos los Nazgûl en el campo de batalla. No afecta a las Bestias Aladas."
+        },
+        {
+          "name": "Almenara de Morgul",
+          "level": null,
+          "hotkey": "G",
+          "kind": "active",
+          "description": "Todos los orcos del campo de batalla ganan un 15% de velocidad y +50% de daño y armadura durante 30 segundos."
+        },
+        {
+          "name": "Humos Nocivos",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Fortaleza emite humo venenoso. Los enemigos atrapados en el humo sufren daño durante 15 segundos."
+        },
+        {
+          "name": "Primero de los Nueve",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "El Rey Brujo de Angmar monta en su Bestia Alada en lugar de su caballo. El Rey Brujo debe estar presente para lanzar."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorFortressNew"
+      }
+    },
+    {
+      "slug": "mordor-slaughter-house-foundation",
+      "object": "MordorSlaughterHouseFoundation",
+      "name": "Granja de Esclavos",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona carne como recurso según el terreno disponible. Permite eliminar orcos aliados para obtener experiencia adicional. Reduce el coste de Trolls y Grandes Bestias de Gorgoroth. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorSlaughterHouse"
+      }
+    },
+    {
+      "slug": "mordor-armory-foundation",
+      "object": "MordorArmoryFoundation",
+      "name": "Fundidora de Gorgoroth",
+      "kind": "support",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Fabrica y comercializa armaduras como un recurso según el terreno disponible. Investiga mejoras en armas y armadura. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.\n\nAunque toscas en apariencia, las armas y armaduras que salían de las grandes forjas de Gorgoroth eran potentes y, con razón, temidas entre las filas Gondorianas.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Ojo Rojo",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Estandartes del Ojo Rojo. Incrementa la horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Fuego",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Fuego. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas y los arqueros de la torre al instante una vez comprada la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cuchillas Crueles",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cuchillas Crueles. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura de Acero Dentado",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Armadura de Acero Dentado. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorArmoury"
+      }
+    },
+    {
+      "slug": "mordor-lumber-mill-foundation",
+      "object": "MordorLumberMillFoundation",
+      "name": "Serrería",
+      "kind": "economy",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Recolecta recursos de árboles cercanos. Reduce el coste de estructuras. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPLumberMillnew"
+      }
+    },
+    {
+      "slug": "mordor-orc-pit-foundation",
+      "object": "MordorOrcPitFoundation",
+      "name": "Fortín Orco",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Orcos de Mordor y Uruks Negros.\n\nA lo largo de las Montañas de Ceniza y las áridas llanuras de Mordor se encontraban muchas fortificaciones orcas, desde donde los capitanes de la Torre Oscura controlaban las tierras circundantes, manteniendo alejados a los invasores y sometiendo a los orcos que vivían cerca.",
+      "produces": [
+        "Guerreros Orcos",
+        "Piqueros Orcos",
+        "Arqueros Orcos",
+        "Merodeadores Uruk Negros"
+      ],
+      "upgrades": [
+        {
+          "name": "Fortín Orco al Nivel 2",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Uruks Negros +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fortín Orco al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade dos Arqueros Orcos guarnecidos +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorBarracks"
+      }
+    },
+    {
+      "slug": "mordor-haradrim-palace-foundation",
+      "object": "MordorHaradrimPalaceFoundation",
+      "name": "Guarnición del Este",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Variags y Hombres del Este.\n\nLas temibles legiones del Este eran numerosas, tanto en Rhovanion, al norte, como en Mordor, donde establecieron grandes campamentos de guerra, a la espera de la señal de guerra del Señor Oscuro.",
+      "produces": [
+        "Variags de Khand",
+        "Khân-pâlainax",
+        "Khân-yûn-âkhax",
+        "Khân-kâtaphranax",
+        "Khân-bórainax"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Flechas de Púas",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Púas. Cuando está equipado, incrementa significativamente el daño de las flechas, y agrega daño de corte.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guarnición del Este al Nivel 2",
+          "cost": 750,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Arqueros del Gran Khân +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Guarnición del Este al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Desbloquea la investigación de Flechas de Púas y el reclutamiento de Khân-bórainax y Khân-kâtaphranax. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorEasterlingEncampment"
+      }
+    },
+    {
+      "slug": "mordor-troll-cage-foundation",
+      "object": "MordorTrollCageFoundation",
+      "name": "Jaula de Trolls",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Trolls de las Montañas, con Tambor y de Ataque.",
+      "produces": ["Troll de las Montañas", "Troll con Tambor", "Olog-hai"],
+      "upgrades": [
+        {
+          "name": "Jaula de Trolls al Nivel 2",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar al Troll con Tambor +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Jaula de Trolls al Nivel 3",
+          "cost": 900,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Trolls de Ataque +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorTrollCage"
+      }
+    },
+    {
+      "slug": "mordor-siege-works-foundation",
+      "object": "MordorSiegeWorksFoundation",
+      "name": "Gran Fábrica de Máquinas de Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye máquinas de asedio. En el rango 2, repara las máquinas de asedio cercanas. En el rango 3, cura a las Grandes Bestias cercanas.",
+      "produces": ["Ariete", "Catapulta", "Gran Bestia", "Grond"],
+      "upgrades": [
+        {
+          "name": "Gran Fábrica de Máquinas de Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite construir Catapultas y Grandes Bestias de Gorgoroth. Repara las máquinas de asedio cercanas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Gran Fábrica de Máquinas de Asedio al Nivel 3",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite reclutar a Grond. Cura a las Grandes Bestias cercanas. Incrementa la reparación de las máquinas de asedio cercanas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorSiegeWorks"
+      }
+    },
+    {
+      "slug": "mordor-battle-tower-foundation",
+      "object": "MordorBattleTowerFoundation",
+      "name": "Torre de Mordor",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos.\n\nCuando Sauron regresó a Mordor, ordenó la construcción de enormes y terribles torres, destinadas a vigilar las tierras limítrofes de Gondor.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego. Incrementa el daño de las flechas. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Barad-dûr",
+          "cost": 150,
+          "hotkey": "E",
+          "level": null,
+          "description": "Los aliados cercanos a la Torre obtienen +10% de daño.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Cirith Ungol",
+          "cost": 150,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa el rango de visión de la Torre en un 50%.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Minas Morgul",
+          "cost": 150,
+          "hotkey": "T",
+          "level": null,
+          "description": "Las unidades enemigas cercanas a la Torre sufren daños menores a lo largo del tiempo.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Estandarte de Rhûn",
+          "cost": 300,
+          "hotkey": "S",
+          "level": null,
+          "description": "Los Arqueros Orcos de la Torre son reemplazados por Arqueros del Gran Khân.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Estandarte de Barad-dûr",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos a la Torre obtienen +10% de daño."
+        },
+        {
+          "name": "Estandarte de Cirith Ungol",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa el rango de visión de la Torre en un 50%."
+        },
+        {
+          "name": "Estandarte de Minas Morgul",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas a la Torre sufren daños menores a lo largo del tiempo."
+        },
+        {
+          "name": "Estandarte de Rhûn",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Arqueros Orcos de la Torre son reemplazados por Arqueros del Gran Khân."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorBattleTower"
+      }
+    },
+    {
+      "slug": "mordor-wall-catapult-expansion",
+      "object": "MordorWallCatapultExpansion",
+      "name": "Expansión de Catapulta",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar catapulta",
+          "cost": 450,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reconstruye la catapulta en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPMordorCatapultNew"
+      }
+    },
+    {
+      "slug": "mordor-fortress-barricade-expansion",
+      "object": "MordorFortressBarricadeExpansion",
+      "name": "Expansión de Barricada",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva de arqueros que dispara a las unidades enemigas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorFortressBarricade"
+      }
+    },
+    {
+      "slug": "mordor-gate-watchers-expansion",
+      "object": "MordorGateWatchersExpansion",
+      "name": "Vigilantes de la Puerta",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Hace huir despavoridas a las unidades enemigas. Las unidades enemigas cercanas pierden. -25% de daño y -20% de armadura.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorFortressGateWatchers"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "mordor-generic-leadership",
+      "name": "Rastreadores de Cirith Ungol",
+      "tier": 1,
+      "position": "L",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca una pequeña horda de Rastreadores de Ungol. Los Rastreadores de Ungol son unidades de movimiento rápido que despejan el velo y detectan el sigilo. Las unidades enemigas cercanas sufren. -15% de daño y armadura.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uiungoltracker"
+      },
+      "requires": []
+    },
+    {
+      "slug": "war-chant-mordor",
+      "name": "Cuerno Orco",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos. Tiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBOrcHorn"
+      },
+      "requires": []
+    },
+    {
+      "slug": "crack-of-doom",
+      "name": "Grietas del Destino",
+      "tier": 1,
+      "position": "R",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Invoca una grieta volcánica sobre el terreno durante 15 segundos. Las unidades enemigas del interior reciben daño con el tiempo y se ralentizan -33%.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "BICracksOfDoom"
+      },
+      "requires": []
+    },
+    {
+      "slug": "haradrim-raiders",
+      "name": "Está Reuniendo Todo Mal Ante Él",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca dos batallones de Incursores Haradrim sobre el campo de batalla. Una vez utilizado, desbloquea pasivamente Hacheros Dorados.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "UIMordorHaradRaiders"
+      },
+      "requires": ["Rastreadores de Cirith Ungol"]
+    },
+    {
+      "slug": "barricade",
+      "name": "Barricada",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una torre defensiva guarecida con arqueros. Beneficios de la mejora de Flechas de Fuego.\n\nTodas las unidades aliadas cercanas ganan +25% de armadura.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "sbmordorbarricadespellbook"
+      },
+      "requires": ["Rastreadores de Cirith Ungol", "Cuerno Orco"]
+    },
+    {
+      "slug": "mordor-callthe",
+      "name": "Llamad a la Horda",
+      "tier": 2,
+      "position": "RL",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Incrementa la Velocidad de Producción de Orcos y Uruk durante 45 segundos. Una vez usado, otorga de forma permanente la Marca del Ojo Rojo a los guerreros orcos y a los piqueros orcos. A los Uruks Negros no se les concede la Marca del Ojo Rojo.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "UIMordorCalltheHordeNew"
+      },
+      "requires": ["Cuerno Orco", "Grietas del Destino"]
+    },
+    {
+      "slug": "industry",
+      "name": "Esclavos de Nurn",
+      "tier": 2,
+      "position": "RR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "La producción de recursos de la estructura elegida sube al 200% durante 5 minutos. No afecta a los Aserraderos.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SBForgeofBaradur"
+      },
+      "requires": ["Grietas del Destino"]
+    },
+    {
+      "slug": "shelob-summon",
+      "name": "Terror de Cirith Ungol",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a Ella-Laraña y tres hordas de su progenie. Las unidades enemigas dentro del radio de la telaraña se ralentizan un 33%.",
+      "requiresSlots": [5, 4],
+      "slot": 8,
+      "images": {
+        "button": "BIMordorFortressShelob"
+      },
+      "requires": ["Está Reuniendo Todo Mal Ante Él", "Barricada"]
+    },
+    {
+      "slug": "darkness",
+      "name": "Oscuridad",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cubre todo el mapa de oscuridad durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Todas las unidades aliadas obtienen +33% de daño y +33% de armadura.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "sbmordordarkness"
+      },
+      "requires": ["Barricada", "Llamad a la Horda"]
+    },
+    {
+      "slug": "wraith",
+      "name": "¡Espectros Alados!",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a dos Espectros Alados sobre el campo de batalla.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "SBEvil_SummonWraiths"
+      },
+      "requires": ["Llamad a la Horda", "Esclavos de Nurn"]
+    },
+    {
+      "slug": "eyeof-sauron-new",
+      "name": "Ojo de Sauron",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca al Ojo de Sauron. Revela enemigos en sigilo. Paraliza a todos los enemigos del mapa durante 10 segundos al invocarlo. Todas las unidades atrapadas en su mirada sufren daño constante y se ralentizan un 33%. Los aliados obtienen +33% de daño, +50% de armadura, inmunidad al miedo y al terror, y ganan experiencia un 50% más rápido.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "sbmordoreyesauronnew"
+      },
+      "requires": ["Terror de Cirith Ungol", "Oscuridad"]
+    },
+    {
+      "slug": "rain-of-fire",
+      "name": "Fuegos de Orodruin",
+      "tier": 4,
+      "position": "R",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Hace caer una lluvia de rocas fundidas sobre el área seleccionado.",
+      "requiresSlots": [7, 9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SBEvil_RainofFireNew"
+      },
+      "requires": ["Esclavos de Nurn", "Oscuridad", "¡Espectros Alados!"]
+    }
+  ]
+}

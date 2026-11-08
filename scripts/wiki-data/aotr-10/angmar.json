@@ -1,0 +1,2285 @@
+{
+  "code": "angmar",
+  "units": [
+    {
+      "slug": "guldur-porter",
+      "object": "GuldurPorter",
+      "name": "Sombra Atada",
+      "category": "special",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "requirements": null,
+      "cost": 100,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 20,
+      "armourSet": "GuldurPorterArmorWorking",
+      "attackType": null,
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Este espíritu incorpóreo Dúnadan puede invocar una estructura antes de que se desvanezca.",
+      "abilities": [
+        {
+          "name": "Presencia Fulminante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Sombra desaparecerá después de invocar una estructura. Las unidades enemigas cercanas sufren. -15% de velocidad, -10% de daño y -10% de armadura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 75,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIAngmarShade",
+        "portrait": "UPAngmarShade"
+      }
+    },
+    {
+      "slug": "angmar-snaga",
+      "object": "AngmarSnagaHorde",
+      "name": "Escoria de Angmar",
+      "category": "swordsmen",
+      "recruitedAt": "Torre de Angmar",
+      "requirements": null,
+      "cost": 70,
+      "cp": 40,
+      "health": 75,
+      "buildTime": 25,
+      "armourSet": "AngmarSnagaArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Arrastrándose sin cesar desde sus profundas madrigueras, estos constituían el rango más bajo y numeroso de los orcos, poco más que escudos de carne para su oscuro amo.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son continuamente drenadas por la magia del Rey Brujo, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Escalofriante de las estructuras cercanas de Angmar y el Rey Brujo."
+        },
+        {
+          "name": "Servidumbre Eterna",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cada unidad asesinada se reanima como un Muerto Resucitado. El Muerto Resucitado no sufre la corrupción del Nigromante."
+        },
+        {
+          "name": "Espíritus Crueles",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cuerpo a cuerpo de la Torre de Angmar convierten pasivamente a los enemigos muertos en Muertos de Arnor temporales."
+        }
+      ],
+      "upgrades": [],
+      "damage": 75,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 633
+      },
+      "images": {
+        "button": "UIAngmarSnaga",
+        "portrait": "UPAngmarSnaga"
+      }
+    },
+    {
+      "slug": "guldur-orc-pikeman",
+      "object": "GuldurOrcPikemanHorde",
+      "name": "Piqueros de Angmar",
+      "category": "pikemen",
+      "recruitedAt": "Torre de Angmar",
+      "requirements": null,
+      "cost": 225,
+      "cp": 60,
+      "health": 125,
+      "buildTime": 25,
+      "armourSet": "GuldurPikeArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "Se pueden ocultar tras los árboles.\n\nLos orcos de Angmar no tienen un destino mucho mejor que el de aquellos a los que atormentan. Al final, todos deben doblegarse y arrastrarse ante el poder oscuro del Rey Brujo.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son continuamente drenadas por la magia del Rey Brujo, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Escalofriante de las estructuras cercanas de Angmar y el Rey Brujo."
+        },
+        {
+          "name": "Espíritus Crueles",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cuerpo a cuerpo de la Torre de Angmar convierten pasivamente a los enemigos muertos en Muertos de Arnor temporales."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes de la Corona de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 105,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIAngmarOrcGaoler",
+        "portrait": "UPAngmarOrcGaoler"
+      }
+    },
+    {
+      "slug": "guldur-orc-archer",
+      "object": "GuldurOrcArcherHorde",
+      "name": "Cazadores de Angmar",
+      "category": "archers",
+      "recruitedAt": "Torre de Angmar",
+      "requirements": null,
+      "cost": 225,
+      "cp": 60,
+      "health": 125,
+      "buildTime": 25,
+      "armourSet": "GuldurArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Se pueden ocultar tras los árboles.\n\nCuando el mal se agita, los orcos se unen a él como polillas a la llama. No tardaron en responder a la llamada de su amo y enjambrar hacia el gélido norte.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son continuamente drenadas por la magia del Rey Brujo, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Escalofriante de las estructuras cercanas de Angmar y el Rey Brujo."
+        },
+        {
+          "name": "¡Derríbalo!",
+          "level": 2,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Cazadores Orcos obtienen +85% de daño contra monstruos y unidades voladoras."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego-cadáver",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego-cadáver. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Corona de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 20,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIAngmarOrcArcher",
+        "portrait": "UPAngmarOrcArcher"
+      }
+    },
+    {
+      "slug": "guldur-orc-ravager",
+      "object": "GuldurOrcRavagerHorde",
+      "name": "Devastadores de Angmar",
+      "category": "swordsmen",
+      "recruitedAt": "Torre de Angmar nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 72,
+      "health": 920,
+      "buildTime": 40,
+      "armourSet": "OrcRavagerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["structures", "infantry"],
+      "weakAgainst": [],
+      "description": "El Rey Brujo se interesaba especialmente por los más grandes y duros de sus esbirros, a los que maldecía con magia y convertía en cáscaras sin sentido e imparables, hechas estrictamente a su voluntad.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son continuamente drenadas por la magia del Rey Brujo, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Escalofriante de las estructuras cercanas de Angmar y el Rey Brujo."
+        },
+        {
+          "name": "Apetito por la Destrucción",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Devastadores de Angmar infligen daño por derribo y recuperan vida por impacto contra estructuras durante 20 segundos."
+        },
+        {
+          "name": "Espíritus Crueles",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cuerpo a cuerpo de la Torre de Angmar convierten pasivamente a los enemigos muertos en Muertos de Arnor temporales."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes de la Corona de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 630,
+      "damageType": "SLASH",
+      "attackDelayMs": 600,
+      "attackRange": 20,
+      "speed": 55,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 433
+      },
+      "images": {
+        "button": "UIAngmarOrcRavager",
+        "portrait": "UPAngmarOrcRavager"
+      }
+    },
+    {
+      "slug": "guldur-tomb-guard",
+      "object": "GuldurTombGuardHorde",
+      "name": "Guardias de la Tumba",
+      "category": "pikemen",
+      "recruitedAt": "Torre de Angmar nivel 3",
+      "requirements": null,
+      "cost": 800,
+      "cp": 80,
+      "health": 625,
+      "buildTime": 40,
+      "armourSet": "TombGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "Muchos túneles oscuros y tumbas fueron excavados en Carn Dûm para albergar a los súbditos del Rey Brujo y mantenerlos ocultos de las miradas indiscretas de los Reyes de Arnor. Estaban custodiadas por antiguos orcos de mente singular, podridos y descompuestos.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son continuamente drenadas por la magia del Rey Brujo, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Escalofriante de las estructuras cercanas de Angmar y el Rey Brujo."
+        },
+        {
+          "name": "Deber Pesado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando muere un Guardia de la Tumba, los guardias cercanos ganan +15% de armadura durante 8 segundos."
+        },
+        {
+          "name": "Espíritus Crueles",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cuerpo a cuerpo de la Torre de Angmar convierten pasivamente a los enemigos muertos en Muertos de Arnor temporales."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes de la Corona de Hierro",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 330,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 36,
+      "speed": 55,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIGuldurTombGuard",
+        "portrait": "UPAngmarTombGuard"
+      }
+    },
+    {
+      "slug": "angmar-wolf",
+      "object": "AngmarWolfHorde",
+      "name": "Lobos Blancos",
+      "category": "cavalry",
+      "recruitedAt": "Montículo Salvaje",
+      "requirements": null,
+      "cost": 325,
+      "cp": 40,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "WargPackArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Una manada de grandes y aterradores Lobos Blancos. Pueden usar su Aullido para aterrorizar temporalmente a las unidades enemigas.",
+      "abilities": [
+        {
+          "name": "Aullido de Temor",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los lobos blancos emiten un aullido escalofriante que aterroriza a las unidades enemigas cercanas durante 10 segundos."
+        },
+        {
+          "name": "Abrigo de Invierno",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La resistencia a la perforación se ve incrementada un 33%."
+        },
+        {
+          "name": "Aullido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huargos obtienen +33% de daño y +33% de armadura durante 45 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Perros Rabiosos",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Cuando se investiga, los Lobos Blancos infligen daño de veneno adicional por ataque.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Manada Alfa",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 115,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "UIAngmarWhiteWolf",
+        "portrait": "UPAngmarWhiteWolf"
+      }
+    },
+    {
+      "slug": "angmar-matriarch",
+      "object": "AngmarMatriarch",
+      "name": "Matriarca Temible",
+      "category": "cavalry",
+      "recruitedAt": "Montículo Salvaje nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 50,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "BlackWargAlphaArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Manadas de lobos descendieron sobre el reino de Arnor a instancias del Rey Brujo una vez que sus matriarcas fueron sometidas a su voluntad.",
+      "abilities": [
+        {
+          "name": "Lanzarse",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los Lobos Blancos cercanos obtienen +25% de daño y -25% de ralentización por aplastamiento.\n\nLa Matriarca Temible salta a un lugar causando daño de área."
+        },
+        {
+          "name": "Mirada Amenazante",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los enemigos dentro del radio quedan aturdidos durante 5 segundos y reciben daño de veneno durante 15 segundos."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 250,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1000,
+      "attackRange": 25,
+      "speed": 90,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIAngmarMatriarch",
+        "portrait": "UPAngmarMatriarch"
+      }
+    },
+    {
+      "slug": "angmar-snow-troll-despoiler",
+      "object": "AngmarSnowTrollDespoiler",
+      "name": "Saquedor-troll de las Nieves",
+      "category": "siege",
+      "recruitedAt": "Montículo Salvaje nivel 2",
+      "requirements": null,
+      "cost": 800,
+      "cp": 60,
+      "health": 4000,
+      "buildTime": 45,
+      "armourSet": "KaraddArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Aunque la mayoría de los Trolls de las Nieves prefieren esconderse entre la nieve, esperando a que los viajeros pasen a su lado, los hay que no poseen las facultades para tanta paciencia. Blandiendo enormes garrotes, buscan a su presa, dejando la muerte a su paso.",
+      "abilities": [
+        {
+          "name": "Golpe Frenético",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El Saquedor-troll de las Nieves golpea el suelo, dañando y haciendo retroceder a las unidades enemigas e infligiendo graves daños a las estructuras situadas en un radio reducido."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 225,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1500,
+      "attackRange": 35,
+      "speed": 70,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 60,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "UIAngmarSnowTrollDespoiler",
+        "portrait": "UPAngmarSnowTrollDespoiler"
+      }
+    },
+    {
+      "slug": "angmar-snow-troll-stalker",
+      "object": "AngmarSnowTrollStalker",
+      "name": "Acechador-troll de las Nieves",
+      "category": "siege",
+      "recruitedAt": "Montículo Salvaje nivel 3",
+      "requirements": null,
+      "cost": 1200,
+      "cp": 60,
+      "health": 3000,
+      "buildTime": 45,
+      "armourSet": "SnowTrollStalkerArmor",
+      "attackType": "Asedio (a distancia)",
+      "maxCount": 5,
+      "strongAgainst": ["structures", "swordsmen"],
+      "weakAgainst": [],
+      "description": "Incrementa los puntos de mando en 10 unidades.\n\nAstutos y sorprendentemente silenciosos, los Trolls de las Nieves son excepcionalmente hábiles acechando a los viajeros cegados por la nieve. Se sabe que algunos llevan arcos toscos pero enormes, con los que aplastan a sus presas desde grandes distancias.",
+      "abilities": [
+        {
+          "name": "Rompedor de Línea",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Causa daño y derribo a las unidades enemigas en un amplio radio."
+        },
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1000,
+      "attackRange": 500,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 15,
+        "preAttackDelayMs": 1400
+      },
+      "images": {
+        "button": "UIAngmarSnowTrollStalker",
+        "portrait": "UPAngmarSnowTrollStalker"
+      }
+    },
+    {
+      "slug": "oathsworn-warrior",
+      "object": "OathswornWarriorHorde",
+      "name": "Juramentados de Carn Dûm",
+      "category": "swordsmen",
+      "recruitedAt": "Salón Ancestral",
+      "requirements": null,
+      "cost": 750,
+      "cp": 75,
+      "health": 350,
+      "buildTime": 30,
+      "armourSet": "BlackNumenoreanArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Los confines septentrionales de Rhudaur estaban habitados por tribus de la gente de las colinas. La más importante de ellas era la de los Váldgoil, que habitaba cerca de Carn Dûm, o el Valle Rojo. En aquella tierra gélida, prestaron oscuros juramentos de servidumbre al Rey Brujo.",
+      "abilities": [
+        {
+          "name": "Fanáticos de Váldgoil",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Hombres de Carn Dûm están inmersos en la escolomancia del Rey Brujo y no se ven obstaculizados por la Decadencia Lenta."
+        },
+        {
+          "name": "Furia del Norte",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Juramentados de Carn Dûm ganan un 25% de daño adicional y +15% de velocidad de movimiento durante 30 segundos."
+        },
+        {
+          "name": "Oxidación Devastadora",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques de los Juramentados de Carn Dûm reducen de forma pasiva el daño infligido por el enemigo un 15% por golpe. El maleficio no se acumula consigo mismo."
+        },
+        {
+          "name": "Marca del Ojo Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Orcos +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 90,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 390,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIAngmarOathsworn",
+        "portrait": "UPAngmarOathsworn"
+      }
+    },
+    {
+      "slug": "angmar-necromancer",
+      "object": "AngmarNecromancerHorde",
+      "name": "Brujo de Carn Dûm",
+      "category": "archers",
+      "recruitedAt": "Salón Ancestral",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo del Campo de Batalla.\n\nSe sabía que los hombres de Carn Dûm realizaban sacrificios rituales, utilizando tanto la sangre de sus enemigos como la de los habitantes de las colinas para desatar un terrorífico frenesí en los corazones de los Váldgoil.",
+      "abilities": [
+        {
+          "name": "Fuego de Cadáveres",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques del Brujo de Carn Dûm infligen daño de hielo y reducen el daño infligido por los enemigos en -15%."
+        },
+        {
+          "name": "Maldición de la Noche más Oscura",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Invoca una Piedra mágica durante 60 segundos. Los Muertos de Arnor siguen apareciendo de la Piedra mágica hasta que son destruidos."
+        },
+        {
+          "name": "Maldición del Invierno Eterno",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas son atraídas hacia el centro del área de efecto del hechizo. Los enemigos afectados se ven ralentizados un 33% durante 20 segundos y sufren daño en el tiempo durante 15 segundos. No afecta a las unidades de caballería."
+        },
+        {
+          "name": "Maldición de la Temible Codicia",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La estructura objetivo obtiene un 100% más de recursos, pero todas las unidades cercanas pierden un 15% de armadura durante 30 segundos. Puede apuntar a estructuras de recursos enemigas."
+        },
+        {
+          "name": "Maldición del Granizo Abrasador",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Provoca una pequeña avalancha que daña a los enemigos y apaga los incendios."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 55,
+      "battalionSize": 7,
+      "stats": {
+        "visionRange": 480,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIAngmarWarlock",
+        "portrait": "UPAngmarWarlock"
+      }
+    },
+    {
+      "slug": "oathsworn-trapper",
+      "object": "OathswornTrapperHorde",
+      "name": "Tramperos Váldgoil",
+      "category": "archers",
+      "recruitedAt": "Salón Ancestral nivel 2",
+      "requirements": null,
+      "cost": 800,
+      "cp": 72,
+      "health": 210,
+      "buildTime": 40,
+      "armourSet": "ArcherEliteHeavyArmor",
+      "attackType": "Espada (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Tras la caída del reino de Rhudaur, solo los más astutos de las tribus de las colinas lograron sobrevivir a los crueles inviernos que siguieron. Los Váldgoil cazaban presas poderosas entre el granizo y la nieve, y afirmaban que sus huesos adquirían las características de sus enemigos caídos.",
+      "abilities": [
+        {
+          "name": "Fanáticos de Váldgoil",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Hombres de Carn Dûm están inmersos en la escolomancia del Rey Brujo y no se ven obstaculizados por la Decadencia Lenta."
+        },
+        {
+          "name": "Entrampar",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques de los Tramperos Váldgoil reducen pasivamente la velocidad de movimiento del enemigo un 10% por golpe. El maleficio no se acumula consigo mismo."
+        },
+        {
+          "name": "Hojas Serradas",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los Tramperos Váldgoil ignoran la armadura enemiga durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 60,
+      "damageType": "SLASH",
+      "attackDelayMs": 800,
+      "attackRange": 400,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 480,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIAngmarOathswornTrapper",
+        "portrait": "UPAngmarOathswornTrapper"
+      }
+    },
+    {
+      "slug": "angmar-harbinger",
+      "object": "AngmarHarbinger",
+      "name": "Heraldo Váldgoil",
+      "category": "heroic",
+      "recruitedAt": "Salón Ancestral nivel 2",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 45,
+      "health": 2500,
+      "buildTime": 25,
+      "armourSet": "CastellanArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Muy pocos de los váldgoil que buscan aprender magia sobreviven a la atroz escolomancia del Rey Brujo. Los que lo logran alcanzan puestos de gran importancia entre los de su especie, y utilizan los oscuros vestigios de la influencia de Morgoth para dominar el frío de Angmar.",
+      "abilities": [
+        {
+          "name": "Dwimmerlaik",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades de Angmar cercanas afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente.\n\nLas estructuras aliadas cercanas ganan +25% de armadura. Las unidades enemigas atacantes quedan envenenadas y pierden -15% de armadura durante 5 segundos."
+        },
+        {
+          "name": "Escarcha",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Los ataques de los Heraldos reducen pasivamente la armadura un 15% y la velocidad de movimiento un 10% por cada golpe. El maleficio no se acumula consigo mismo.\n\nSe puede lanzar sobre una estructura para infligir daño a lo largo del tiempo. En el rango 3, genera varios Tumularios temporales e incontrolables alrededor de la estructura seleccionada."
+        },
+        {
+          "name": "Fanatismo Voraz",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Los ataques de los Heraldos drenan la vida y convierten a los enemigos muertos en espectros.\n\nLas unidades enemigas afectadas quedan aterrorizadas durante 5 segundos. Los aliados cercanos se curan y ganan un 25% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 10,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 15,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAngmarHarbinger",
+        "portrait": "UPAngmarHarbinger"
+      }
+    },
+    {
+      "slug": "oathsworn-outrider",
+      "object": "OathswornOutriderHorde",
+      "name": "Vanguardia de Carn Dûm",
+      "category": "cavalry",
+      "recruitedAt": "Salón Ancestral nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 90,
+      "health": 600,
+      "buildTime": 60,
+      "armourSet": "KataphraktArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Caballería de Élite.\n\nLa vanguardia de las bandas de guerra de Váldgoil empuñaba lanzas de las que se decía que atravesaban tanto la carne como el espíritu. A medida que su acero se empapaba de la sangre de sus enemigos, el guerrero que la empuñaba adquiría la fuerza de su víctima; ¿y qué sangre podía ser más noble que la de los Señores del Oeste?",
+      "abilities": [
+        {
+          "name": "Fanáticos de Váldgoil",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Hombres de Carn Dûm están inmersos en la escolomancia del Rey Brujo y no se ven obstaculizados por la Decadencia Lenta."
+        },
+        {
+          "name": "Asalto Inquebrantable",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques consecutivos incrementan temporalmente la armadura un 5%, hasta un máximo del 20%."
+        },
+        {
+          "name": "Escarcha Avasalladora",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los ataques de la Vanguardia de Carn Dûm infligen daño de escarcha adicional durante 30 segundos."
+        },
+        {
+          "name": "Jinetes Experimentados",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de los Naith cercanos obtienen +33% de armadura."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Escudos",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 90,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAngmarOathswornOutrider",
+        "portrait": "UPAngmarOathswornOutrider"
+      }
+    },
+    {
+      "slug": "angmar-risen-dead",
+      "object": "AngmarRisenDeadHorde",
+      "name": "Muerto de Arnor",
+      "category": "swordsmen",
+      "recruitedAt": "Túmulo de Arnor",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 250,
+      "buildTime": 25,
+      "armourSet": "RisenDead",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Los espíritus crueles han perseguido durante mucho tiempo los castillos en ruinas de la antigua Angmar. Cuando el Rey Brujo cabalgó hacia el Norte a la búsqueda del Anillo, él envió estos espíritus para habitar los cuerpos de los soldados caídos de Arnor.",
+      "abilities": [
+        {
+          "name": "Sustento Oscuro",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Muertos de Arnor recuperan salud rápidamente y restauran su horda mientras están fuera de combate."
+        },
+        {
+          "name": "Toque de Ruina",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Muertos de Arnor reducen la armadura de aquellos a los que golpean un 10%."
+        }
+      ],
+      "upgrades": [],
+      "damage": 55,
+      "damageType": "SLASH",
+      "attackDelayMs": 633,
+      "attackRange": 30,
+      "speed": 70,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIAngmarRisenDead",
+        "portrait": "UPAngmarDeadArnor"
+      }
+    },
+    {
+      "slug": "wight-lord",
+      "object": "WightLord",
+      "name": "Morador del Túmulo de Rhudaur",
+      "category": "swordsmen",
+      "recruitedAt": "Túmulo de Arnor nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 1800,
+      "buildTime": 25,
+      "armourSet": "WightLordArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Bajo los grandes túmulos de la desolada Rhudaur moran los muertos inquietos, reanimados por espíritus malignos enviados por aquel que antaño fue el Señor de Angmar.",
+      "abilities": [
+        {
+          "name": "Señor de los Espectros",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "El Morador del Túmulo es inmune a todos los efectos de miedo y terror."
+        },
+        {
+          "name": "Toque de Ruina",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 20 segundos, el Morador del Túmulo reduce la armadura de aquellos a los que golpea un 10%."
+        },
+        {
+          "name": "Golpes Parasitante",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques contra unidades vivas restauran la salud del Morador del Túmulo."
+        },
+        {
+          "name": "Plaga de Angmar",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Morador del Túmulo maldice un área objetivo con su hechicería. Las unidades enemigas dentro del radio reciben daño con el tiempo y se convierten en Muertos Resucitados si mueren."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 17,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "UIWightLords",
+        "portrait": "UPWightLords"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "angmar-naglur",
+      "object": "AngmarNaglur",
+      "name": "Naglûr",
+      "title": "Jefe de la Grieta",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 800,
+      "buildTime": 40,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Las escarpadas cumbres que rodean las tierras de Angmar albergan escasos recursos. Como consecuencia, los conflictos son interminables, y los jefes surgen y caen al igual que las nieves. Todos menos Naglûr, cuya astucia y crueldad le han permitido mantenerse como jefe de los orcos de las grietas desde tiempos inmemoriales.",
+      "abilities": [
+        {
+          "name": "Acechador de la Nieve",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Naglûr puede desaparecer entre la nieve y es capaz de moverse sigilosamente sin que nadie lo note. Cuando se activa, Naglûr entra en modo sigiloso y no puede atacar ni ser atacado durante 30 segundos."
+        },
+        {
+          "name": "Jefe de la Grieta",
+          "level": 2,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Snagas, Piqueros y Cazadores de Angmar que se encuentren cerca de Naglûr obtienen +50% de experiencia y +35% de armadura. En el nivel 5, también afecta a los Devastadores de Angmar y Guardias de la Tumbaa."
+        },
+        {
+          "name": "Sangre Congelada",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas que se encuentren dentro del rango de efecto reciben daño en el tiempo y su velocidad se reduce un 33% durante 15 segundos."
+        },
+        {
+          "name": "Conocimiento Oscuro",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los orcos de Angmar seleccionados obtienen mucha experiencia."
+        },
+        {
+          "name": "Colmillo Temible",
+          "level": 9,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Naglûr hunde su hoja en su oponente. El héroe enemigo objetivo recibe daño en el tiempo durante y se convierte en un espectro al morir. Las unidades enemigas cercanas al héroe enemigo objetivo también reciben daño cuando se lanza la habilidad y se convierten en espectros al morir."
+        }
+      ],
+      "damage": 180,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uinaglur",
+        "portrait": "upnaglur"
+      }
+    },
+    {
+      "slug": "angmar-carghul",
+      "object": "AngmarCarghul",
+      "name": "Carghûl",
+      "title": "Capitán de los Condenados",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2800,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Carghûl, que en otro tiempo fue un valiente capitán de los Hombres, cayó en manos de las fuerzas oscuras; su espíritu fue desterrado y su cuerpo quedó sometido a la voluntad del Rey Brujo.",
+      "abilities": [
+        {
+          "name": "Espectro de Hielo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Carghûl se convierte en un Espectro de Hielo incorpóreo durante 60 segundos. Hace que las unidades enemigas huyan aterrorizadas tras transformarse en un Espectro de Hielo. Cuando adopta la forma de Espectro de Hielo, sus habilidades se potencian, pero su armadura se reduce un 25% y el daño que recibe se reduce un 33%."
+        },
+        {
+          "name": "Desgarro Espiritual",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La unidad enemiga seleccionada recibe daño. El daño infligido se absorbe, lo que cura a Carghûl en una cantidad moderada. Cuando el Espectro de Hielo está activo, los ataques infligen daño a los enemigos en un amplio radio."
+        },
+        {
+          "name": "Toque de Escarcha",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Cuando se activa, las unidades aliadas reciben una pequeña cantidad de vida con cada golpe de Carghûl durante 20 segundos. Cuando el Espectro de Hielo está activo, los ataques de Carghûl también repelen a las unidades enemigas."
+        },
+        {
+          "name": "Caminata Espectral",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Carghûl se teletransporta a el área objetivo y, al llegar, inflige +50% de daño durante 10 segundos. Cuando el Espectro de Hielo está activo, invoca a dos Tumularios al llegar."
+        },
+        {
+          "name": "Tormenta Temible",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Invoca una pequeña Tormenta Temible controlable durante 30 segundos. Todas las unidades, tanto aliadas como enemigas, sufren daños leves y se convierten en espectros al morir. Cuando el Espectro de Hielo está activo, la Tormenta Temible tiene un radio mayor y dura 45 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uicarghul",
+        "portrait": "upcarghul"
+      }
+    },
+    {
+      "slug": "angmar-nauroth",
+      "object": "AngmarNauroth",
+      "name": "Nauroth",
+      "title": "Mayores engendros de Carcharoth",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 4300,
+      "armourSet": "SaenathraArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Nauroth, un lobo negro de tamaño y astucia aterradores, fue convencido para servir al Rey Brujo con la promesa de saciar su hambre con la sangre de Arnor.",
+      "abilities": [
+        {
+          "name": "Lanzarse",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Nauroth obtiene +25% de armadura durante 10 segundos y salta a un lugar, causando daño de área de efecto."
+        },
+        {
+          "name": "Aullido Helador de sangre",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas que se encuentren dentro del radio no pueden ganar experiencia. Los lobos aliados que se encuentren en el radio infligen +50% de daño. La habilidad dura 30 segundos.\n\nEn el rango 6, también convoca una horda de Lobos Blancos."
+        },
+        {
+          "name": "Lobo con Piel de Cordero",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades objetivo se vuelvan hostiles entre sí durante 15 segundos."
+        },
+        {
+          "name": "Hambre Voraz",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Al igual que Carcharoth, Nauroth posee un hambre insaciable de carne. Cuando se activa, Nauroth inflige un daño considerable al enemigo seleccionado para recuperar salud y obtener +25% de velocidad de movimiento y +33% de daño durante 20 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1666,
+      "attackRange": 25,
+      "speed": 100,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIAngmarNauroth",
+        "portrait": "HEAngmarNauroth"
+      }
+    },
+    {
+      "slug": "angmar-valdugr",
+      "object": "AngmarValdugr",
+      "name": "Úlf el Váldúgr",
+      "title": "Líder de los Montañeses de Rhudaur",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 2200,
+      "buildTime": 60,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Los Váldgoil son una cultura muy antigua y dominante de los pueblos de las colinas del norte. Numerosas tribus y pueblos más pequeños se consideran a sí mismos Váldgoil y llevan a cabo guerras tradicionales para elevar a un guerrero de su propio grupo a Váldúgr -un hombre que encarna el espíritu del lobo-, un caudillo cuyo liderazgo se busca en tiempos de guerra con culturas ajenas.",
+      "abilities": [
+        {
+          "name": "Jefe de Guerra de los Váldgoil",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Reduce el costo de construcción del Salón Ancestral y de las unidades de Váldgoil un 25%. Las unidades de Váldgoil cercanas obtienen +25% de daño, +25% de armadura y resistencia al miedo y al terror."
+        },
+        {
+          "name": "Rito Sacrificial",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Úlf puede elegir un batallón enemigo o un héroe para sacrificarlo. Durante 30 segundos, Úlf y los aliados cercanos obtienen +33% de daño y +100% de experiencia cuando están cerca del enemigo elegido."
+        },
+        {
+          "name": "Grito Aterrador",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Úlf lanza un grito, provocando que las unidades enemigas huyan despavoridas."
+        },
+        {
+          "name": "Váldúgr",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Úlf asume el Espíritu del Lobo. Durante 30 segundos, cada ataque consecutivo convoca. En el rango 8, el máximo se incrementa a 5."
+        },
+        {
+          "name": "Frenesí Sangriento",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Úlf y las unidades de los Juramentados cercanas obtienen +50% de daño y armadura durante 20 segundos. Mientras está activo, los ataques de Úlf lo curan a él y a los aliados cercanos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIAngmarUlf",
+        "portrait": "HEAngmarUlf"
+      }
+    },
+    {
+      "slug": "angmar-akhorahil",
+      "object": "AngmarAkhorahil",
+      "name": "Akhôrahil, el Cuarto de los Nueve",
+      "title": "Lugarteniente de Carn Dûm",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 2500,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "GoldenKingArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "En vida, Akhôrahil fue el señor regente de una remota colonia de númenóreanos. Una vez que recibió un Anillo de Poder, su codicia llevó a su pueblo a la guerra contra las tribus Lossoth, lo que le otorgó al señor regente una hegemonía temporal, hasta que las nieves se la arrebataron. Ahora, su colonia abandonada se conoce únicamente como Mar-nu-lossë, la Tierra bajo la Nieve.",
+      "abilities": [
+        {
+          "name": "Lugarteniente de Carn Dûm",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Espectro del Anillo cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura. En el nivel 5, las unidades no muertas cercanas obtienen +15% de velocidad de movimiento y +25% de daño."
+        },
+        {
+          "name": "El Cuarto de los Nueve",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas afectadas huyen aterrorizadas y reciben daño en el tiempo durante 15 segundos. En el nivel 6, invoca Tumularios en la ubicación seleccionada."
+        },
+        {
+          "name": "Acero Maldito",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El enemigo seleccionado sufre daño por veneno a lo largo del tiempo y, al morir, se convierte en un espectro. El héroe enemigo seleccionado queda aturdido durante 10 segundos y los temporizadores de sus habilidades se reinician como si acabaran de usarse."
+        },
+        {
+          "name": "Palabras de Pestilencia",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Recarga completamente los temporizadores de las habilidades especiales de los héroes aliados. Cura ligeramente a los héroes en el radio."
+        },
+        {
+          "name": "Forodgûl",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas a Akhôrahil sufren daño con el tiempo. Cuando está activa, Akhôrahil obtiene +50% de armadura, inflige +33% de daño y provoca un retroceso durante 30 segundos. Los ataques de Akhôrahil tienen una probabilidad de congelar a los enemigos seleccionados durante 5 segundos mientras la habilidad está activa."
+        }
+      ],
+      "damage": 225,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIAngmarAkhorahil",
+        "portrait": "HEAngmarAkhorahil"
+      }
+    },
+    {
+      "slug": "gorg-the-wicked",
+      "object": "GorgTheWicked",
+      "name": "Gorg el Malvado",
+      "title": "Gorg el Malvado",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "RogashArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "Gorg, un troll de excepcional crueldad y escaso ingenio, ascendió despiadadamente entre las filas de Angmar, hasta que el Rey Brujo finalmente se fijó en él y lo puso a trabajar en un lugar donde sus talentos pudieran fructificar plenamente.",
+      "abilities": [
+        {
+          "name": "Jefe Troll",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca temporalmente a un Troll de las Nieves. En el nivel 3, convoca un Troll de las Nieves adicional. En el nivel 7, también convoca a una horda de trolls de las nieves lanzadores de lanzas."
+        },
+        {
+          "name": "Orden del Maestro",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Gorg tiene la tarea de eliminar a los Dúnedain. Inflige +33% de daño adicional contra Aragorn II, Halbarad, Faramir, Imrahil, Malbeth, Aranarth y Arvedui. En el rango 3, sus golpes también reducen la armadura de los enemigos en un radio pequeño en un 20%."
+        },
+        {
+          "name": "Lanzamiento Masivo",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Gorg lanza su enorme hacha de piedra a una unidad o estructura enemiga objetivo. Inflige daño de asedio en un radio pequeño."
+        },
+        {
+          "name": "¡Rompedles las Piernas!",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Gorg incapacita a un héroe enemigo durante 15 segundos. Hace que las unidades enemigas circundantes huyan despavoridas."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 1850,
+      "attackRange": 20,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIAngmarGorg",
+        "portrait": "HEAngmarGorg"
+      }
+    },
+    {
+      "slug": "angmar-witchking",
+      "object": "AngmarWitchking",
+      "name": "El Rey Brujo de Angmar",
+      "title": "Señor de Angmar",
+      "recruitedAt": "Santuario del Rey Brujo",
+      "cost": 4000,
+      "buildTime": 80,
+      "health": 4300,
+      "armourSet": "DismountedWitchkingArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "'El Señor de los Nazgûl entró a caballo en la Ciudad. Una gran forma negra recortada contra las llamas, agigantándose en una inmensa amenaza de desesperación. Así pasó el Señor de los Nazgûl bajo la arcada que ningún enemigo había franqueado antes, y todos huyeron ante él.'",
+      "abilities": [
+        {
+          "name": "Señor de Angmar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nAnula el liderazgo enemigo."
+        },
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el paso del tiempo. Las unidades de Angmar afectadas por la Decadencia Lenta se vuelven resistentes al miedo y al terror, reciben +33% de daño y armadura, y se curan ligeramente.\n\nEn el nivel 3, se puede activar para envolver al Rey Brujo en una tormenta de granizo y escarcha durante 30 segundos, lo que inflige daño a las unidades enemigas cercanas; cuanto más cerca estén de él, mayor será el daño."
+        },
+        {
+          "name": "Brujo Oscuro",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Rey Brujo lanza un hechizo necromántico sobre los enemigos en un radio determinado, infligiendo un daño considerable y resucitando a los muertos como Muertos Resucitados bajo el control del jugador. En el rango 5, puede lanzarse sobre sobre Túmulos Inquietos para invocar una horda de Muertos de Arnor - respeta el límite de puntos de mando. En el rango 6, daño incrementado. En el rango 10, daño incrementado."
+        },
+        {
+          "name": "Umbral Maldito",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige daño a la estructura enemiga objetivo y la inhabilita durante 20 segundos. Las unidades enemigas cercanas a la estructura objetivo reciben daño a lo largo del tiempo y se convierten en espectros cuando mueren. Abre automáticamente la puerta objetivo."
+        },
+        {
+          "name": "Jefe de los Nueve",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El Rey Brujo se revela como el Señor de los Nazgûl y siervo de Sauron. El Rey Brujo ahora refleja el 10% de todo el daño que le infligen los enemigos cercanos. Las unidades enemigas cercanas sufren. -25% de daño y -25% de armadura.\n\nRepele y daña a las unidades en un amplio radio alrededor del Rey Brujo."
+        },
+        {
+          "name": "Orden del Amo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el paso del tiempo. Las unidades de Angmar afectadas por la Decadencia Lenta se vuelven resistentes al miedo y al terror, reciben +33% de daño y armadura, y se curan ligeramente.\n\nEn el nivel 3, se puede activar para envolver al Rey Brujo en una tormenta de granizo y escarcha durante 30 segundos, lo que inflige daño a las unidades enemigas cercanas; cuanto más cerca estén de él, mayor será el daño."
+        }
+      ],
+      "damage": 400,
+      "damageType": "HERO",
+      "attackDelayMs": 1750,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 250
+      },
+      "images": {
+        "button": "HIAngmarWitchKing",
+        "portrait": "HEAngmarWitchKing"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "adventure-angmar-fortress-citadel",
+      "object": "AdventureAngmarFortressCitadel",
+      "name": "Santuario del Rey Brujo",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Sombra Atada"],
+      "upgrades": [
+        {
+          "name": "Enjambre de Murciélagos",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "La Fortaleza obtiene una bonificación de visión y puede detectar unidades con sigilo.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Palantír Capturado",
+          "cost": 600,
+          "hotkey": "E",
+          "level": null,
+          "description": "Se puede lanzar para revelar parte del mapa. Las unidades enemigas atrapadas en el radio reciben daños menores con el tiempo.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Intrusión Oscura",
+          "cost": 650,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reduce permanentemente todos los costes de estructura en un 33%. No afecta a la fortaleza.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Antorchas Pálidas",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Agrega daño de fuego a la Fortaleza y a todas las Ruinas Inquietas adjuntas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Congelación",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Requisito previo para la Tormenta Cruel. Las unidades enemigas que rodean la fortaleza reciben daño y se convierten en Espectros al morir.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Tormenta Cruel",
+          "cost": 2000,
+          "hotkey": "D",
+          "level": null,
+          "description": "Incrementa la armadura de la fortaleza un 65%. Permite utilizar la habilidad Tormenta Cruel. La fortaleza estalla en una Tormenta Cruel, causando graves daños a los enemigos que se encuentren en sus inmediaciones.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Palantír Capturado",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Se puede lanzar para revelar parte del mapa durante 2 minutos. Las unidades enemigas atrapadas en el radio sufren daños menores con el tiempo."
+        },
+        {
+          "name": "Entrampar",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Entrampar toma el control de las unidades enemigas dentro del radio durante 30 segundos. Los enemigos atrapados son invulnerables, pero cuando el hechizo se agota, reciben daño."
+        },
+        {
+          "name": "Tormenta Cruel",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "La fortaleza estalla en una Tormenta Cruel, causando graves daños a los enemigos que se encuentren en sus inmediaciones."
+        },
+        {
+          "name": "Nube de Murciélago",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige pequeñas cantidades de daño y detecta unidades en sigilo."
+        }
+      ],
+      "images": {
+        "button": "BIGuldurFortress",
+        "portrait": "BPAngmarFortress"
+      }
+    },
+    {
+      "slug": "angmar-mill",
+      "object": "AngmarMill",
+      "name": "Molino Esclavo",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona miseria como un recurso basado en el terreno disponible. Puede engendrar hordas de Escoria de Angmar. Reduce el coste de orcos básicos. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Muertos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Invoca a un Tumulario para que defienda la estructura."
+        },
+        {
+          "name": "Refrescar Esclavos",
+          "level": 2,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Convoca permanentemente una horda de Escoria de Angmar. Respeta el límite de puntos de mando. La producción de recursos se detiene durante 60 segundos."
+        },
+        {
+          "name": "Infestación",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Convoca un enjambre de arañas alrededor de la estructura durante 30 segundos que ralentiza la velocidad de ataque y movimiento de los enemigos cercanos un 10% e inflige daño leve a los enemigos cercanos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPAngmarMill"
+      }
+    },
+    {
+      "slug": "guldur-lumber-mill",
+      "object": "GuldurLumberMill",
+      "name": "Serrería",
+      "kind": "economy",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Recolecta recursos de los árboles cercanos.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Muertos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Invoca a un Tumulario para que defienda la estructura."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPLumberMillnew"
+      }
+    },
+    {
+      "slug": "angmar-bastion",
+      "object": "AngmarBastion",
+      "name": "Torre de Angmar",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Entrena Orcos de Angmar.",
+      "produces": [
+        "Escoria de Angmar",
+        "Piqueros de Angmar",
+        "Cazadores de Angmar",
+        "Devastadores de Angmar",
+        "Guardias de la Tumba"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de la Corona de Hierro",
+          "cost": 400,
+          "hotkey": "F",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Estandartes de la Corona de Hierro. Incrementa la horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Fuego-cadáver",
+          "cost": 1000,
+          "hotkey": "G",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora de Flechas de Fuego-cadáver. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas y los arqueros de la torre al instante una vez comprada la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de Angmar al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Devastadores de Angmar e investigar la mejora Flechas de Fuego-cadáver +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Torre de Angmar al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Guardias de la Tumba. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Muertos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Invoca a un Tumulario para que defienda la estructura."
+        },
+        {
+          "name": "Espíritus Crueles",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades no muertas de todo el mapa ganan pasivamente resistencia al miedo y al terror. Las unidades cuerpo a cuerpo de la Torre de Angmar convierten pasivamente a los enemigos muertos en Muertos de Arnor temporales. También genera Muertos de Arnor para defender las estructuras de Angmar."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPAngmarSpire"
+      }
+    },
+    {
+      "slug": "angmar-cairn",
+      "object": "AngmarCairn",
+      "name": "Montículo Salvaje",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Cría Lobos y Trolls de las nieves.",
+      "produces": [
+        "Lobos Blancos",
+        "Matriarca Temible",
+        "Saquedor-troll de las Nieves",
+        "Acechador-troll de las Nieves"
+      ],
+      "upgrades": [
+        {
+          "name": "Montículo Salvaje al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Matriarca Temible y Saquedor-troll de las Nieves +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Montículo Salvaje al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Acechador-troll de las Nieves +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Muertos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Invoca a un Tumulario para que defienda la estructura."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPAngmarCairn"
+      }
+    },
+    {
+      "slug": "ancestral-hall",
+      "object": "AncestralHall",
+      "name": "Salón Ancestral",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Montañeses de Rhudaur.",
+      "produces": [
+        "Juramentados de Carn Dûm",
+        "Brujo de Carn Dûm",
+        "Tramperos Váldgoil",
+        "Heraldo Váldgoil",
+        "Vanguardia de Carn Dûm"
+      ],
+      "upgrades": [
+        {
+          "name": "Salón Ancestral al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Tramperos Váldgoil y Heraldos Váldgoil +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Salón Ancestral al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Vanguardia de Carn Dûm +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Muertos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Invoca a un Tumulario para que defienda la estructura."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPAngmarHall"
+      }
+    },
+    {
+      "slug": "angmar-sentry-tower-independent",
+      "object": "AngmarSentryTower_Independent",
+      "name": "Torre Ruinosa",
+      "kind": "production",
+      "cost": 50,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Oculto tras los árboles. Reduce el coste de las Sombras.",
+      "produces": ["Sombra Atada"],
+      "upgrades": [
+        {
+          "name": "Centinela Oculto",
+          "cost": 150,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a esta Torre disparar flechas a los enemigos. Permite adquirir la mejora flechas de fuego.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Presencia Heladora de sangre",
+          "cost": 100,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa el radio de la Presencia Escalofriante de esta torre en un 50%. Incrementa la armadura de la torre en un 33%.\n\nOculta la torre a la vista.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego-cadáver",
+          "cost": 200,
+          "hotkey": "E",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego-cadáver. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Presencia Heladora de sangre",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPAngmarRuinousTower"
+      }
+    },
+    {
+      "slug": "arnorian-barrow",
+      "object": "ArnorianBarrow",
+      "name": "Túmulo de Arnor",
+      "kind": "production",
+      "cost": 450,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Desentierra Muertos de Arnor, Moradores de los Túmulos y Espectros Insepultos.",
+      "produces": ["Muerto de Arnor", "Morador del Túmulo de Rhudaur"],
+      "upgrades": [
+        {
+          "name": "Túmulo de Arnor al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Moradores de los Túmulos +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Túmulo de Arnor al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Espectros Insepultos +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Escalofriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Muertos Inquietos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una vez construida, el Túmulo de Arnor permite que la mayoría de las estructuras utilicen el poder Muertos Inquietos. Los Muertos Inquietos invoca a un Tumulario para defender la estructura."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPAngmarBarrow"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "guldur-carnage",
+      "name": "Masacre",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +50% de daño, a costa de -15% de armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SPAngmarCarnage"
+      },
+      "requires": []
+    },
+    {
+      "slug": "guldur-shade-decoy",
+      "name": "Desechos Congelados",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Congela un área del terreno durante 90 segundos. Todas las unidades aliadas obtienen +25% de daño y +25% de armadura. Las unidades enemigas sufren -10% de velocidad. Extingue todos los incendios.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SPAngmarFrozenLand"
+      },
+      "requires": []
+    },
+    {
+      "slug": "guldur-chill",
+      "name": "Escalofrío de la Tumba",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Las unidades enemigas se ralentizan un 30% y reciben daño con el tiempo durante 15 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SPGuldurGraveChill"
+      },
+      "requires": []
+    },
+    {
+      "slug": "guldur-fear-forest",
+      "name": "Escalofrío de Angmar",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Invoca una pequeña tormenta de nieve en el terreno objetivo durante 5 minutos. Las unidades cercanas de Angmar afectadas por la Decadencia Lenta ya no se drenan con el tiempo y reciben +15% de daño y armadura. Engendra 6 lobos blancos que atacan a todo lo que ven. Las unidades enemigas en el área objetivo reciben daño con el tiempo, pierden todo el liderazgo, sufren. -20% de velocidad y quedan aterrorizadas.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "uiangmarwhitewinter"
+      },
+      "requires": ["Masacre"]
+    },
+    {
+      "slug": "guldur-concealment",
+      "name": "Nieblas Heladas",
+      "tier": 2,
+      "position": "LR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Unidades y estructuras aliadas dentro del área se vuelven invisibles. Las unidades enemigas cercanas sufren. -25% de daño y -25% de armadura. Anula el liderazgo enemigo. Duración 60 segundos.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "UIAngmarFog"
+      },
+      "requires": ["Masacre", "Desechos Congelados"]
+    },
+    {
+      "slug": "guldur-dark-hysteria",
+      "name": "Morada Maldita",
+      "tier": 2,
+      "position": "RL",
+      "kind": "heal",
+      "cost": 10,
+      "description": "La estructura enemiga objetivo sufre daño en el tiempo durante 60 segundos. Las unidades enemigas cercanas a la estructura seleccionada reciben daño progresivo y se convierten en Espectro al morir. Las unidades de Angmar cercanas afectadas por la Decadencia Lenta ya no pierden vida con el tiempo, se vuelven resistentes al miedo y al terror, reciben un +33% de daño y armadura, y se curan ligeramente mientras la habilidad está activa.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "uiangmarcursedthreshold"
+      },
+      "requires": ["Desechos Congelados", "Escalofrío de la Tumba"]
+    },
+    {
+      "slug": "guldur-black-warg",
+      "name": "Alianza Orca",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca a 1 batallón de Cazadores, Guerreros y Brutos de Gundabad, y a un único Horror del Monte Gram. Los aliados que se encuentren cerca del Horror del Monte Gram obtienen recursos por cada muerte.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uiangmarorcishallegiance"
+      },
+      "requires": ["Escalofrío de la Tumba"]
+    },
+    {
+      "slug": "guldur-undead-troll",
+      "name": "Mamut Corrompido",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Invoca un Mamut no muerto.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "UIAngmarMammothSummon"
+      },
+      "requires": ["Escalofrío de Angmar", "Nieblas Heladas"]
+    },
+    {
+      "slug": "guldur-darkness",
+      "name": "Invierno Blanco",
+      "tier": 3,
+      "position": "C",
+      "kind": "utility",
+      "cost": 15,
+      "description": "Cubre el mapa en una tormenta de nieve durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas sufren -25% de daño, -20% de armadura y -30% de visión. Anula el liderazgo enemigo. Extingue todos los incendios.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SBEvil_WhiteWinter"
+      },
+      "requires": ["Nieblas Heladas", "Morada Maldita"]
+    },
+    {
+      "slug": "guldur-wither",
+      "name": "Tormenta del Norte",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Todas las unidades dentro del radio se dispersan y sufren daños.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "BIMMFellWind"
+      },
+      "requires": ["Morada Maldita", "Alianza Orca"]
+    },
+    {
+      "slug": "guldur-green-mist",
+      "name": "Regalo del Rey Brujo",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca un remolino de niebla azul controlable. Todas las unidades, aliadas o enemigas, reciben daño y se convierten en Espectros al morir.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "UIAngmarGiftSummon"
+      },
+      "requires": ["Mamut Corrompido", "Invierno Blanco"]
+    },
+    {
+      "slug": "summon-gwanthaur",
+      "name": "Ira de Carn Dûm",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca una avalancha que daña a las unidades y estructuras enemigas. Las unidades enemigas que atraviesen la nieve, perderán. -33% de velocidad.\n\nTiempo de recarga: 12 min.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "UIAngmarWrathCarnDum"
+      },
+      "requires": ["Invierno Blanco", "Tormenta del Norte"]
+    }
+  ]
+}

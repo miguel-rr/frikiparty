@@ -1,0 +1,1245 @@
+{
+  "code": "ithilien",
+  "units": [
+    {
+      "slug": "ithilien-pathfinder",
+      "object": "IthilienPathfinder",
+      "name": "Pionero de Ithilien",
+      "category": "swordsmen",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "requirements": null,
+      "cost": 300,
+      "cp": 0,
+      "health": 500,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Capaz de lanzar habilidades disruptivas y desplegarse en un Campamento Avanzado.\n\nLos Pioneros son hábiles hombres del bosque, que sobreviven en las tierras salvajes durante muchas semanas seguidas, rastreando al Enemigo y atendiendo los diversos santuarios que mantienen los montaraces de Ithilien.",
+      "abilities": [
+        {
+          "name": "Posición Avanzada",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El Pionero desempaca un Campamento Avanzado. Los aliados cercanos al Campamento Avanzado están protegidos, se reabastecen y obtienen +25% de daño, +25% de armadura y +33% de experiencia. Los Campamentos Avanzados se pueden empacar, permitiendo al Pionero reposicionarse."
+        },
+        {
+          "name": "Sentidos Agudos",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Pionero gana +100% de rango de visión durante 25 segundos."
+        },
+        {
+          "name": "Distracción",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Desactiva las estructuras defensivas dentro del radio. Los enemigos atrapados en el humo sufren. -90% de rango de visión. Duración 30 segundos."
+        },
+        {
+          "name": "Trampa de Caza",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Pionero pone una trampa de caza. Los enemigos que atraviesan la trampa resultan dañados al impactar y sufren daño prolongado durante 10 segundos."
+        }
+      ],
+      "upgrades": [],
+      "damage": 100,
+      "damageType": "SLASH",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 70,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiAIthilienPathfinder",
+        "portrait": "UPAIthilienPathfinder"
+      }
+    },
+    {
+      "slug": "ithilien-skirmisher",
+      "object": "IthilienSkirmisherHorde",
+      "name": "Escaramuzadores de Ithilien",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Ithilien",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 230,
+      "buildTime": 30,
+      "armourSet": "GreenwoodWardenArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Sigilo tras los árboles.\n\nAunque los Montaraces de Ithilien confiaban principalmente en las emboscadas, a veces no se podía evitar la batalla campal en Ithilien, y el arco se cambió por la espada.",
+      "abilities": [
+        {
+          "name": "Evasión",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Montaraces de Ithilien ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "Hojas Afiladas",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques infligen una pequeña cantidad de daño en el tiempo durante 15 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Capitán Montaraz",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 216,
+      "damageType": "SLASH",
+      "attackDelayMs": 850,
+      "attackRange": 12,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 750
+      },
+      "images": {
+        "button": "uiAIthilienSwords",
+        "portrait": "UPAIthilienSwords"
+      }
+    },
+    {
+      "slug": "ithilien-sentinel",
+      "object": "IthilienSentinelHorde",
+      "name": "Centinelas de Ithilien",
+      "category": "pikemen",
+      "recruitedAt": "Asamblea de Ithilien",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "GreenwoodPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Sigilo tras los árboles.\n\nMuchos eran los campamentos secretos y almacenes de los Montaraces de Ithilien, bien custodiados por guerreros acérrimos.",
+      "abilities": [
+        {
+          "name": "Evasión",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Montaraces de Ithilien ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Capitán Montaraz",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 225,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 30,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 650
+      },
+      "images": {
+        "button": "uiAIthilienSpears",
+        "portrait": "UPAIthilienSpears"
+      }
+    },
+    {
+      "slug": "ithilien-ranger",
+      "object": "IthilienRangerHorde",
+      "name": "Montaraces de Ithilien",
+      "category": "archers",
+      "recruitedAt": "Asamblea de Ithilien",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 220,
+      "buildTime": 30,
+      "armourSet": "MirkwoodArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Sigilo tras los árboles.\n\nLos Montaraces son los descendientes del pueblo que una vez habitó Ithilien, antes de que cayera bajo el control de Gondor.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Evasión",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Montaraces de Ithilien ganan un 25% de armadura, un 10% de velocidad y resistencia a los golpes durante 20 segundos."
+        },
+        {
+          "name": "Púas Espinosas",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Aturde unidades enemigas durante 5 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas con Puntas Bodkin",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas con Puntas Bodkin. Reduce la armadura enemiga contra perforación en un 25% al recibir un impacto. No se acumula.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Capitán Montaraz",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 70,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uiAIthilienArchers",
+        "portrait": "UPAIthilienArchers"
+      }
+    },
+    {
+      "slug": "ithilien-outrider",
+      "object": "IthilienOutriderHorde",
+      "name": "Jinetes de Ithilien",
+      "category": "cavalry",
+      "recruitedAt": "Asamblea de Ithilien",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": 400,
+      "buildTime": 50,
+      "armourSet": "ArnorOutriderArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Sigilo tras los árboles.\n\nEl camino de Ithilien a Minas Tirith era transitado por mensajeros vestidos de verde que llevaban y traían noticias de la Ciudad Blanca, informaban al Senescal de los movimientos del enemigo y traían nuevas órdenes a los Montaraces de Ithilien.",
+      "abilities": [
+        {
+          "name": "Jinetes Experimentados",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de los Naith cercanos obtienen +33% de armadura."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Capitán Montaraz",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Escudos",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 210,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 115,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiAIthilienOutrider",
+        "portrait": "UPAIthilienOutrider"
+      }
+    },
+    {
+      "slug": "ithilien-ram",
+      "object": "IthilienRam",
+      "name": "Ariete",
+      "category": "siege",
+      "recruitedAt": "Depósito de Ithilien",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nRápidamente construidos entre los bosques de Ithilien, estos arietes son tripulados por guerreros incondicionales, y pocas puertas enemigas pueden resistir su embestida.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "uiAIthilienBatteringRam",
+        "portrait": "UPIthilienRam"
+      }
+    },
+    {
+      "slug": "ithilien-trebuchet",
+      "object": "IthilienTrebuchet",
+      "name": "Trabuco de Ithilien",
+      "category": "siege",
+      "recruitedAt": "Depósito de Ithilien",
+      "requirements": null,
+      "cost": 600,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "TrebuchetArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Un trabuco lanza una enorme roca a una gran velocidad para astillar las defensas y aplastar a los guerreros enemigos.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 8000,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "uiAIthilienTrebuchet",
+        "portrait": "UPGondorTrebuchet"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "ithilien-damrod",
+      "object": "IthilienDamrod",
+      "name": "Damrod",
+      "title": "Hábil montaraz de Ithilien",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 1300,
+      "armourSet": "TaurielArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Pero el ruido se acercaba cada vez más. '¡Ya vienen!', gritó Damrod. Mirad. Algunos de los sureños se han escapado de la trampa y están volando por el camino. ¡Allá van! Nuestros hombres tras ellos, y el Capitán a la cabeza.",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Cazador Habilidoso",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se puede lanzar sobre unidades enemigas para seguir permanentemente sus movimientos. Sólo se puede utilizar con el arco equipado."
+        },
+        {
+          "name": "Despacho Rápido",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Damrod recibe +25% de velocidad de ataque y movimiento durante 30 segundos."
+        },
+        {
+          "name": "Refugio",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Damrod establece un Campamento Avanzado durante 90 segundos. Los aliados cercanos al Campamento Avanzado están protegidos, se curan, se reabastecen y obtienen +25% de daño, +25% de armadura y +33% de experiencia."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uidamrodnew",
+        "portrait": "UPDamrodnew"
+      }
+    },
+    {
+      "slug": "ithilien-mablung",
+      "object": "IthilienMablung",
+      "name": "Mablung",
+      "title": "Cazador de ojos agudos de Ithilien",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'Y van cada vez más despreocupados, aprendemos, pensando que el poder de su nuevo amo es suficientemente grande, de modo que la mera sombra de Sus colinas les protegerá. Venimos a enseñarles otra lección.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Ojo Avizor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Mablung gana +150% de rango de visión durante 25 segundos."
+        },
+        {
+          "name": "Puntería Letal",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los enemigos dentro del radio pierden -33% de armadura contra ataques a distancia durante 30 segundos."
+        },
+        {
+          "name": "Impacto Mortal",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Ataque pesado cuerpo a cuerpo que causa graves daños y provoca derribos. Mayor radio y daño en el nivel 7. El héroe enemigo objetivo sufre -50% de armadura durante 10 segundos en el nivel 10. Sólo se puede utilizar con lanza equipada."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uimablungnew",
+        "portrait": "UPMablungnew"
+      }
+    },
+    {
+      "slug": "ithilien-anborn",
+      "object": "IthilienAnborn",
+      "name": "Anborn",
+      "title": "Maestro explorador de Ithilien",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 1800,
+      "buildTime": 60,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'Tengo mi arco aquí, y he apostado otros arqueros, casi tan buenos tiradores como yo, en cada orilla. Sólo esperamos su orden para disparar, Capitán.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Disparos Venenosos",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las flechas de Anborn infligen daño durante 15 segundos. Sólo puede utilizarse con el arco equipado."
+        },
+        {
+          "name": "Explorador Experto",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas están camufladas."
+        },
+        {
+          "name": "Tomar Punto",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Anborn llama a un grupo de Montaraces para que defiendan el lugar elegido. Estan inmóviles, pero permanecen en sigilo y atacan a cualquier enemigo que se acerque. En el nivel 7, convoca a un grupo más grande de Montaraces."
+        },
+        {
+          "name": "Asalto Nocturno",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "Anborn y los Escaramuzadores, Centinelas y Jinetes de Ithilien cercanos roban recursos al atacar edificios.\n\nSe puede lanzar sobre una estructura de recursos enemiga para detener la producción durante 60 segundos."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uianbornnew",
+        "portrait": "UPAnbornnew"
+      }
+    },
+    {
+      "slug": "ithilien-beregond",
+      "object": "IthilienBeregond",
+      "name": "Beregond",
+      "title": "Guardián de la Ciudadela Beregond",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 1700,
+      "buildTime": 50,
+      "health": 2800,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Defensa de la base, apoya a los héroes, versátil. 'No soy capitan. Ni oficio ni rango ni señorío tengo yo, siendo un simple hombre de armas de la Tercera Compañía de la Ciudadela.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Lealtad Feroz",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Faramir y Boromir ganan +15% de armadura y daño cuando están cerca de Beregond."
+        },
+        {
+          "name": "Defensor del Príncipe (Arco)",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Dispara una flecha que causa graves daños y provoca derribos."
+        },
+        {
+          "name": "Capitán de la Compañía Blanca",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Las estructuras cercanas ganan +30% de armadura.\n\nEl héroe aliado objetivo es custodiado temporalmente por Guardias de la Ciudadela y obtiene +50% de armadura, +50% más rápido de experiencia y +75% más rápido de recarga de energía durante 30 segundos."
+        },
+        {
+          "name": "Devoción",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Beregond y las unidades cercanas de la Compañía Blanca ganan +50% de daño e inmunidad al daño a distancia y al derribo durante 20 segundos."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIBeregondnew",
+        "portrait": "HEBeregond"
+      }
+    },
+    {
+      "slug": "ithilien-madril",
+      "object": "IthilienMadril",
+      "name": "Madril",
+      "title": "Lugarteniente de mayor confianza de Faramir",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'Pero debemos mirar hacia nuestras propias fronteras. Faramir, los orcos están en movimiento. Sauron está reuniendo un ejército.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Montaraz Veterano",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Montaraces cerca de Madril ganan experiencia un 150% más rápido."
+        },
+        {
+          "name": "Maestro de Emboscadas",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Madril, un Montaraz experimentado, sabe cuál es la mejor manera de tender una emboscada a sus enemigos. Madril aturde a los enemigos cercanos durante 5 segundos."
+        },
+        {
+          "name": "Estratega",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Madril guía a las unidades aliadas desde un punto del campo de batalla a cualquier otro punto del mapa. No funciona con unidades de asedio."
+        },
+        {
+          "name": "Sacrificio",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Madril sufre mucho daño mientras que el héroe aliado objetivo se vuelve inmune al daño durante 10 segundos."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uimadrilnew",
+        "portrait": "UPMadrilnew"
+      }
+    },
+    {
+      "slug": "ithilien-faramir",
+      "object": "IthilienFaramir",
+      "name": "Faramir",
+      "title": "Capitán de los Montaraces de Ithilien",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 2500,
+      "buildTime": 70,
+      "health": 2800,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'No amo la espada brillante por su agudeza, ni la flecha por su rapidez, ni al guerrero por su gloria. Solo amo lo que defienden'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Volea Oculta",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Faramir llama a sus Montaraces para que bombardeen cualquier lugar en un gran radio con una andanada de flechas. En el nivel 5 obtiene +50% de daño y se incrementa el radio."
+        },
+        {
+          "name": "Capitán de Ithilien",
+          "level": null,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Los aliados cercanos a Faramir obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nEn el nivel 3, se puede lanzar sobre unidades de Ithilien para otorgarles +20% de armadura de forma permanente. Tiempo de reutilización se reduce en los Niveles 5, 7 y 10."
+        },
+        {
+          "name": "Flecha Hiriente",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Ataque simple a distancia. Provoca que el monstruo objetivo huya. Sólo se puede utilizar con el arco equipado."
+        },
+        {
+          "name": "Hijos de Gondor",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca temporalmente a Boromir al campo de batalla."
+        },
+        {
+          "name": "Calidad de Faramir",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Faramir inflige un golpe por ataque y gana +50% de armadura y daño durante 30 segundos. Sólo se puede utilizar con la espada equipada."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIFaramirnew",
+        "portrait": "HEFaramirnew"
+      }
+    },
+    {
+      "slug": "ring-hero-frodo",
+      "object": "RingHeroFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Ciudadela de Ithilien",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Frasco de Galadriel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas huyan."
+        },
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "El Guía y el Jardinero",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca al fiel jardinero de Frodo, Samsagaz Gamyi, y a Sméagol, su guía."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIFrodonew",
+        "portrait": "HEFrodonew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "ithilien-citadel",
+      "object": "IthilienCitadel",
+      "name": "Ciudadela de Ithilien",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": null,
+      "description": null,
+      "produces": ["Pionero de Ithilien"],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Refugio Seguro",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los aliados cercanos a la Ciudadela ganan +25% de daño, +25% de armadura, ganan experiencia un 33% más rápido y se vuelven inmunes al miedo y al terror. Los aliados cercanos se curan pasivamente.\n\nTeletransporta unidades aliadas desde un punto del campo de batalla a un radio de la Ciudadela. No funciona con unidades de asedio."
+        },
+        {
+          "name": "Ocultación",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo quedan en sigilo durante 60 segundos."
+        },
+        {
+          "name": "Auto Reparación",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Permite que la estructura se repare de forma automática."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "upithiliencitadel"
+      }
+    },
+    {
+      "slug": "ithilien-gathering-foundation",
+      "object": "IthilienGatheringFoundation",
+      "name": "Asamblea de Ithilien",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Llama a los Montaraces de Ithilien. Produce recursos. Incrementa el límite de puntos de mando en 100 unidades.",
+      "produces": [
+        "Escaramuzadores de Ithilien",
+        "Centinelas de Ithilien",
+        "Montaraces de Ithilien",
+        "Jinetes de Ithilien"
+      ],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upithiliengathering"
+      }
+    },
+    {
+      "slug": "ithilien-storehouse-foundation",
+      "object": "IthilienStorehouseFoundation",
+      "name": "Depósito de Ithilien",
+      "kind": "economy",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Investiga mejoras de las unidades de Ithilien. Construye equipo de asedio de Ithilien. Produce recursos. Incrementa el límite de puntos de mando en 100 unidades.",
+      "produces": ["Ariete", "Trabuco de Ithilien"],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Árbol Blanco",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes del Árbol Blanco. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas Templadas",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Corazas de Acero",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Corazas de Acero. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas con Puntas Bodkin",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los Montaraces de Ithilien comprar la mejora Flechas con Puntas Bodkin. Cuando está equipado, incrementa significativamente el daño.\n\nMejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upithilienstorehouse"
+      }
+    },
+    {
+      "slug": "ithilien-beacon-foundation",
+      "object": "IthilienBeaconFoundation",
+      "name": "Almenara de Ithilien",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Pide ayuda a la Ciudad Blanca de Minas Tirith. Produce recursos. Incrementa el límite de puntos de mando en 100 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upithiliensigfire"
+      }
+    },
+    {
+      "slug": "ithilien-watchtower-foundation",
+      "object": "IthilienWatchtowerFoundation",
+      "name": "Atalaya de Ithilien",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva, disparará a las unidades enemigas. Produce recursos. Incrementa el límite de puntos de mando en 100 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas con Puntas Bodkin",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta torre con flechas Bodkin. Incrementa el daño causado por las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Ojos Vigilantes",
+          "level": null,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Revela el velo y convoca a tres Montaraces de Ithilien en el área objetivo."
+        }
+      ],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "upithilientower"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "heal",
+      "name": "Curadores Expertos",
+      "tier": 1,
+      "position": "L",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura a las unidades parcialmente y reemplaza a un muerto por batallón.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SbGondorHealNew"
+      },
+      "requires": []
+    },
+    {
+      "slug": "rebuild",
+      "name": "Restauración",
+      "tier": 1,
+      "position": "C",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Repara una estructura.",
+      "requiresSlots": [1],
+      "slot": 2,
+      "images": {
+        "button": "SBGondorRebuildnew"
+      },
+      "requires": ["Curadores Expertos"]
+    },
+    {
+      "slug": "rallying-call-mpg",
+      "name": "Cuerno del Capitán",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados elegidos obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBGondorRallyingCallNew"
+      },
+      "requires": []
+    },
+    {
+      "slug": "spawn-lone-tower",
+      "name": "Tierras Mantenidas a Salvo",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una torre defensiva que puede ser guarnecida con arqueros. La torre está defendida por Escaramuzadores y Centinelas de Ithilien.",
+      "requiresSlots": [1, 2],
+      "slot": 4,
+      "images": {
+        "button": "SBGondorLoneTnew"
+      },
+      "requires": ["Curadores Expertos", "Restauración"]
+    },
+    {
+      "slug": "ithilien-garden",
+      "name": "Jardín de Ithilien",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un exuberante jardín en el campo de batalla durante 5 minutos. Todas las unidades aliadas obtienen +50% de daño y se vuelven inmunes al miedo y al terror. El Jardín está habitado por varios Montaraces de Ithilien.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SBGondorIthilienGNew"
+      },
+      "requires": ["Curadores Expertos", "Restauración"]
+    },
+    {
+      "slug": "spawn-trebuchet",
+      "name": "Ingeniería de Númenor",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un trabuco estacionario sobre el campo de batalla.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "SBGondorTrebuchetbuttonNEw"
+      },
+      "requires": ["Restauración", "Cuerno del Capitán"]
+    },
+    {
+      "slug": "sworn-allegiance",
+      "name": "Refuerzos de Henneth Annûn",
+      "tier": 2,
+      "position": "RR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Todas las Asamblea de Ithilien han reducido el tiempo de reclutamiento de las tropas de Ithilien en un 33%. Las tropas cuentan Espadas Templadas y Flechas Bodkin. El efecto dura 60 segundos.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uiAIthilienReinforcements"
+      },
+      "requires": ["Cuerno del Capitán"]
+    },
+    {
+      "slug": "rohan-allies",
+      "name": "Caballeros Reales",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a tres Caballeros de Minas Tirith como refuerzos.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "uiAIthilienRoyalKnights"
+      },
+      "requires": ["Tierras Mantenidas a Salvo", "Jardín de Ithilien"]
+    },
+    {
+      "slug": "western-winds",
+      "name": "Vientos del Oeste",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Concede una bonificación de velocidad del +33% a las unidades aliadas de todo el mapa durante 15 segundos.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SBGondorWesterWindsNew"
+      },
+      "requires": ["Jardín de Ithilien", "Ingeniería de Númenor"]
+    },
+    {
+      "slug": "dol-amroth-allies",
+      "name": "Ciudadela de la Compañía Blanca",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca una Ciudadela de la Compañía Blanca. Recluta a Beregond y a los Guardias y Veteranos de la Compañía Blanca.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "uiAIthilienWhiteCompany"
+      },
+      "requires": ["Ingeniería de Númenor", "Refuerzos de Henneth Annûn"]
+    },
+    {
+      "slug": "eagle-allies-gondor",
+      "name": "Los Mensajeros de Manwë",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Gwaihir el Señor de los Vientos y a 3 águilas.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "SBGondorEaglesSummonAotrnew"
+      },
+      "requires": ["Caballeros Reales", "Vientos del Oeste"]
+    },
+    {
+      "slug": "spawn-elessar",
+      "name": "El Anfitrión del Oeste",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Elessar y a la Hueste del Oeste. Cada batallón está liderado por un héroe. Si el héroe muere, todo el batallón muere.",
+      "requiresSlots": [10],
+      "slot": 12,
+      "images": {
+        "button": "uiAIthilienHostOfTheWest"
+      },
+      "requires": ["Ciudadela de la Compañía Blanca"]
+    }
+  ]
+}

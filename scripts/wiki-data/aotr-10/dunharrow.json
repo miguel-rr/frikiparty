@@ -1,0 +1,897 @@
+{
+  "code": "dunharrow",
+  "units": [
+    {
+      "slug": "dunharrow-sage",
+      "object": "DunharrowSage",
+      "name": "Sabio de los Perjuros",
+      "category": "special",
+      "recruitedAt": "Puerta de los Muertos",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Entrena un Constructor. Construye estructuras.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": null,
+        "portrait": "UPOathbreakerSage"
+      }
+    },
+    {
+      "slug": "dunharrow-warrior",
+      "object": "DunharrowWarriorHorde",
+      "name": "Guerreros Perjuros",
+      "category": "swordsmen",
+      "recruitedAt": "Monolito de los Condenados",
+      "requirements": null,
+      "cost": 750,
+      "cp": 100,
+      "health": 750,
+      "buildTime": 35,
+      "armourSet": "OrcRavagerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "'La gente dice que los Hombres Muertos de los Años Oscuros guardan el camino y no permiten que ningún hombre vivo se acerque a sus salas ocultas; pero a veces ellos mismos pueden ser vistos saliendo por la puerta como sombras y bajando por el camino pedregoso...'",
+      "abilities": [
+        {
+          "name": "Espectros Intrépidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Perjuros resisten el miedo y el arrollamiento y se curan pasivamente fuera de combate."
+        },
+        {
+          "name": "Reparar Estructura",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Reparar un edificio dañado."
+        }
+      ],
+      "upgrades": [],
+      "damage": 250,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 45,
+      "battalionSize": 5,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "uioathbreakerswordsman",
+        "portrait": "UPOathbreakerSwordsman"
+      }
+    },
+    {
+      "slug": "dunharrow-spearman",
+      "object": "DunharrowSpearmanHorde",
+      "name": "Lanceros Perjuros",
+      "category": "pikemen",
+      "recruitedAt": "Monolito de los Condenados",
+      "requirements": null,
+      "cost": 750,
+      "cp": 100,
+      "health": 750,
+      "buildTime": 35,
+      "armourSet": "UrukPikeHeavyArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "'Un gris matorral de lanzas temblorosas, tan frágil que un viento repentino lo dispersaría, pero que no deja de multiplicarse... un ejército de Hombres muertos que se reúne.'",
+      "abilities": [
+        {
+          "name": "Espectros Intrépidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Perjuros resisten el miedo y el arrollamiento y se curan pasivamente fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 170,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 45,
+      "battalionSize": 5,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "uioathbreakerspears",
+        "portrait": "UPOathbreakerSpearman"
+      }
+    },
+    {
+      "slug": "dunharrow-archer",
+      "object": "DunharrowArcherHorde",
+      "name": "Arqueros Perjuros",
+      "category": "archers",
+      "recruitedAt": "Monolito de los Condenados",
+      "requirements": null,
+      "cost": 800,
+      "cp": 100,
+      "health": 500,
+      "buildTime": 35,
+      "armourSet": "OathbreakerArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "'Se oía un leve eco de madera crujiente. El revoloteo de las plumas cruzando hilos fantasmales. Una andanada de dardos silenciosos atravesó el agua, invisibles salvo por un tenue destello rojo en sus puntas.'",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Espectros Intrépidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Perjuros resisten el miedo y el arrollamiento y se curan pasivamente fuera de combate."
+        },
+        {
+          "name": "Cadáver Intrépido",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Arqueros Inquietos son inmunes a todos los efectos de miedo y terror."
+        },
+        {
+          "name": "Sustento Oscuro",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Arqueros Inquietos recuperan salud rápidamente y restauran su horda mientras están fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 250,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 45,
+      "battalionSize": 5,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uioathbreakerarchers",
+        "portrait": "UPOathbreakerArcher"
+      }
+    },
+    {
+      "slug": "dunharrow-herald",
+      "object": "DunharrowHerald",
+      "name": "Heraldo de los Perjuros",
+      "category": "swordsmen",
+      "recruitedAt": "Monolito de los Condenados",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 500,
+      "buildTime": 30,
+      "armourSet": "DunharrowHeraldArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo.\n\n'Veo formas de Hombres y de caballos, y pálidos estandartes como jirones de nube...'",
+      "abilities": [
+        {
+          "name": "Estandarte de Carroña",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Perjuros cercanos obtienen +25% de armadura y daño. Se acumula con Beneficios y Hechizos."
+        },
+        {
+          "name": "Heraldo de los Muertos Insomnes",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Heraldo convoca lenta pero continuamente, Señores Perjuros individuales desde la tierra pero no puede moverse ni atacar."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 50,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 300
+      },
+      "images": {
+        "button": "uioathbreakerherald",
+        "portrait": "UPOathbreakerHerald"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "dunharrow-kingofthe-dead",
+      "object": "DunharrowKingoftheDead",
+      "name": "El Rey de los Muertos",
+      "title": "Rey de los Muertos",
+      "recruitedAt": "Puerta de los Muertos",
+      "cost": 0,
+      "buildTime": 60,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "El camino está cerrado. Fue hecho por los que están Muertos, y los Muertos lo guardan, hasta que llegue el momento. El camino está cerrado.",
+      "abilities": [
+        {
+          "name": "Rey Maldito",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "El Rey de los Muertos se fortalece al subir de nivel, infligiendo más daño a los niveles 3, 5 y 8.\n\nLas unidades enemigas cercanas pierden un -10% de armadura y los Perjuros cercanos obtienen +10% de armadura. Con cada nivel ganado, el efecto aumenta un 10% hasta un máximo del 50%. A nivel 5, los Perjuros cercanos obtienen +15% de velocidad de movimiento. A nivel 6, las unidades enemigas cercanas pierden un -10% de daño. Con cada nivel ganado, el efecto aumenta un 10% hasta un máximo del 50%."
+        },
+        {
+          "name": "Los Muertos Insomnes",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca una horda permanente de Muertos Insomnes. Se convoca una horda adicional a los niveles 3, 5, 7 y 9."
+        },
+        {
+          "name": "El Camino Está Cerrado",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas elegidas quedan aturdidas durante 5 segundos."
+        },
+        {
+          "name": "Golpe Pavoroso",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Rey de los Muertos se teletransporta junto a un héroe enemigo, drenándole vida e infligiendo mucho daño. El héroe enemigo elegido sufre daño continuado durante 30 segundos."
+        },
+        {
+          "name": "Embestida Espectral",
+          "level": 8,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca una oleada de Muertos Insomnes que matará y aterrorizará todo a su paso."
+        }
+      ],
+      "damage": 2340,
+      "damageType": "HERO",
+      "attackDelayMs": 2500,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uikotd",
+        "portrait": "UPKotD"
+      }
+    },
+    {
+      "slug": "dunharrow-spectral-seer",
+      "object": "DunharrowSpectralSeer",
+      "name": "El Vidente Espectral",
+      "title": "Vidente Espectral",
+      "recruitedAt": "Puerta de los Muertos",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2600,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "'No hubo respuesta, salvo un silencio absoluto más terrible que los susurros de antes; y luego llegó una ráfaga helada en la que las antorchas parpadearon y se apagaron, y no pudieron volver a encenderse.'",
+      "abilities": [
+        {
+          "name": "Espíritus Úrsidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "El Vidente Espectral siempre está rodeado de 2 Osos Espirituales que pueden controlarse por separado. Los Osos Espirituales cercanos obtienen +15 de armadura y +25 de daño."
+        },
+        {
+          "name": "Ira del Ancestro",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Vidente Espectral lanza un rugido escalofriante. Las unidades enemigas cercanas huyen despavoridas."
+        },
+        {
+          "name": "Eco de Artú",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Vidente Espectral recuerda el poder de Artú. Durante 30 segundos, cada ataque consecutivo convoca un Oso Espiritual temporal, hasta un máximo de 3, durante 10 segundos."
+        },
+        {
+          "name": "Moscas Cadavéricas",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades enemigas elegidas quedan envueltas en una nube de Moscas Cadavéricas, lo que les hace perder un 50% de visión y un 25% de armadura y reciben daño continuado durante 15 segundos."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uispectralseer",
+        "portrait": "UPOathbreakerSeer"
+      }
+    },
+    {
+      "slug": "dunharrow-treasonous-champion",
+      "object": "DunharrowTreasonousChampion",
+      "name": "Campeón Traidor",
+      "title": "Baluarte del Sagrario",
+      "recruitedAt": "Puerta de los Muertos",
+      "cost": 1800,
+      "buildTime": 60,
+      "health": 2800,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Se desenvainaron pálidas espadas; pero no sé si sus hojas aún herían, pues los Muertos ya no necesitaban más arma que el miedo. Nadie podía resistirlos.'",
+      "abilities": [
+        {
+          "name": "Campeón Mortal",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Los Perjuros cercanos obtienen +25% de armadura y experiencia. El Campeón Traidor refleja el 10% del daño que le infligen los enemigos cercanos. Al activarse, los Perjuros cercanos obtienen +50% de daño durante 20 segundos."
+        },
+        {
+          "name": "Tajo Segador",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Campeón blande su guadaña con fuerza, infligiendo un gran daño inicial y causando sangrado durante 10 segundos a las unidades a su alrededor. El Campeón recupera vida con cada golpe durante 30 segundos."
+        },
+        {
+          "name": "Baluarte del Sagrario",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Campeón clava su guadaña en el suelo, derribando a las unidades a su alrededor y aturdiéndolas durante 5 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uitreasonouschampion",
+        "portrait": "UPOathbreakerChampion"
+      }
+    },
+    {
+      "slug": "dunharrow-bone-witch",
+      "object": "DunharrowBoneWitch",
+      "name": "La Bruja de Hueso",
+      "title": "Bruja de Hueso",
+      "recruitedAt": "Puerta de los Muertos",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Magia (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Luego hubo silencio, y no se volvió a oír ni un susurro ni un suspiro en toda la larga noche. La Compañía acampó junto a la Piedra, pero durmieron poco, por el terror de las Sombras que los rodeaban.'",
+      "abilities": [
+        {
+          "name": "Espíritu Plañidero",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Todos los enemigos cercanos sufren -20% de velocidad y un ligero daño continuado."
+        },
+        {
+          "name": "Almas Perversas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La Bruja lanza una calavera voladora que derriba y daña a las unidades enemigas a su paso."
+        },
+        {
+          "name": "Susurro de Muerte",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Inflige un daño masivo a una unidad no muerta."
+        },
+        {
+          "name": "Lamento de la Banshee",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La Bruja lanza un grito escalofriante que aturde a unidades y héroes enemigos durante 5 segundos y reinicia sus habilidades como recién usadas."
+        }
+      ],
+      "damage": 340,
+      "damageType": "MAGIC",
+      "attackDelayMs": 2000,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uibonewitch",
+        "portrait": "UPOathbreakerBanshee"
+      }
+    },
+    {
+      "slug": "dunharrow-isildur",
+      "object": "DunharrowIsildur",
+      "name": "Sombra de Isildur",
+      "title": "Sombra de Isildur, ante quien los Hombres de la Montaña rompieron su juramento",
+      "recruitedAt": "Puerta de los Muertos",
+      "cost": 5000,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "'Entonces Isildur dijo a su rey: \"Tú serás el último rey. Y si el Oeste resulta más poderoso que tu Amo Negro, esta maldición os impongo a ti y a tu pueblo: no descansar nunca hasta que vuestro juramento se cumpla. Pues esta guerra durará años incontables, y seréis convocados una vez más antes del final.\"'",
+      "abilities": [
+        {
+          "name": "Maldición Solemne",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "La Sombra de Isildur maldice a los enemigos elegidos en un amplio radio, infligiendo mucho daño y resucitando a los muertos como Muertos Alzados bajo el control del jugador."
+        },
+        {
+          "name": "Guardián de Juramentos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Sombra de Isildur convoca temporalmente una Sombra de Gondor con cada ataque. Cada Sombra de Gondor permanece en el campo 10 segundos."
+        },
+        {
+          "name": "Locura del Terror",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Repele y daña a las unidades en un amplio radio alrededor de la Sombra de Isildur. Anula todos los efectos de liderazgo del mapa durante 30 segundos. Las unidades enemigas de todo el mapa huyen aterrorizadas durante 10 segundos."
+        },
+        {
+          "name": "Perdición de Isildur",
+          "level": null,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas no pueden ganar experiencia. Los temporizadores de habilidades especiales de los enemigos objetivo se restablecen a los recién usados."
+        },
+        {
+          "name": "Sin Escapatoria",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe enemigo elegido queda inmovilizado, rodeado de Perjuros, y sufre daño continuado durante 20 segundos."
+        }
+      ],
+      "damage": 375,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uishadeofisildur",
+        "portrait": "upshadeofisildur"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "dunharrow-fortress-citadel",
+      "object": "DunharrowFortressCitadel",
+      "name": "Puerta de los Muertos",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Sabio de los Perjuros"],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Muertos Insomnes",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca una horda de Muertos Insomnes. Los Muertos Insomnes no pueden atacar directamente, pero infligen daño pasivo a las unidades y estructuras enemigas cercanas.\n\n'Nada atacó a la compañía ni se opuso a su paso, y sin embargo el miedo crecía sin cesar en el Enano a medida que avanzaba... todos los caminos tras ellos estaban atestados de una hueste invisible que los seguía en la oscuridad...'"
+        },
+        {
+          "name": "Monolito de los Condenados",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca un Monolito de los Condenados. Recluta Perjuros, genera recursos e incrementa los puntos de mando en 50 unidades."
+        },
+        {
+          "name": "Pila de Calaveras",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca un Monolito de los Condenados. Desata Avalanchas de Calaveras, genera recursos e incrementa los puntos de mando en 50 unidades."
+        },
+        {
+          "name": "Rey de las Montañas",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "El Rey de los Muertos se fortalece y sube un rango al instante."
+        }
+      ],
+      "images": {
+        "button": "uiundeadcairn",
+        "portrait": "updunharrowfortress"
+      }
+    },
+    {
+      "slug": "dunharrow-monolith",
+      "object": "DunharrowMonolith",
+      "name": "Monolito de los Condenados",
+      "kind": "economy",
+      "cost": 0,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Convoca un Monolito de los Condenados. Recluta Perjuros, genera recursos e incrementa los puntos de mando en 50 unidades.",
+      "produces": [
+        "Guerreros Perjuros",
+        "Lanceros Perjuros",
+        "Arqueros Perjuros",
+        "Heraldo de los Perjuros"
+      ],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Muertos Insomnes",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca una horda de Muertos Insomnes. Los Muertos Insomnes no pueden atacar directamente, pero infligen daño pasivo a las unidades y estructuras enemigas cercanas.\n\n'Nada atacó a la compañía ni se opuso a su paso, y sin embargo el miedo crecía sin cesar en el Enano a medida que avanzaba... todos los caminos tras ellos estaban atestados de una hueste invisible que los seguía en la oscuridad...'"
+        },
+        {
+          "name": "Derrumbe Repentino",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "El Monolito de los Condenados se derrumba sobre sí mismo. Los enemigos cercanos son derribados y reciben un fuerte daño. El Monolito queda destruido."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "updunharrowmonolith"
+      }
+    },
+    {
+      "slug": "dunharrow-skull-pile",
+      "object": "DunharrowSkullPile",
+      "name": "Pila de Calaveras",
+      "kind": "economy",
+      "cost": 0,
+      "buildTime": 10,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Convoca un Monolito de los Condenados. Desata Avalanchas de Calaveras, genera recursos e incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Avalancha de Calaveras",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca una avalancha de calaveras sobre las unidades enemigas elegidas."
+        }
+      ],
+      "images": {
+        "button": "uidunhpileofskulls",
+        "portrait": "updunharrowpileofskulls"
+      }
+    },
+    {
+      "slug": "dunharrow-ensorcelled-tower",
+      "object": "DunharrowEnsorcelledTower",
+      "name": "Losa Hechizada",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Lanza calaveras a las unidades enemigas cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "uidunhensorcelledtowerexp",
+        "portrait": "updunharrowenstower"
+      }
+    },
+    {
+      "slug": "dunharrow-cursed-obelisk-expansion",
+      "object": "DunharrowCursedObeliskExpansion",
+      "name": "Osario Maldito",
+      "kind": "support",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los enemigos cercanos sufren -25% de daño y -20% de armadura. Hace huir despavoridas a las unidades enemigas. Puede comprar la mejora Huesos Inquietos, que permite al Osario Maldito convocar una horda de Muertos Infieles sobre batallones y máquinas de asedio enemigos.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "La mejora Huesos Inquietos",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite al Osario Maldito convocar una horda de Muertos Infieles.",
+          "stats": {
+            "researchTimeS": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Huesos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca una horda de Muertos Infieles."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "updunharrowobelisk"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "lone-scout",
+      "name": "Corazones Helados",
+      "tier": 1,
+      "position": "L",
+      "kind": "debuff",
+      "cost": 5,
+      "description": "Aturde a todas las unidades enemigas en un área pequeña durante 4 segundos. Las unidades enemigas elegidas pierden todo liderazgo durante 15 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SPFrozenHearts"
+      },
+      "requires": []
+    },
+    {
+      "slug": "draft",
+      "name": "Nieblas Arremolinadas",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca nieblas arremolinadas sobre el terreno durante 60 segundos. Las unidades enemigas en su interior pierden un -33% de armadura y velocidad de movimiento.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SPSwirlingMists"
+      },
+      "requires": []
+    },
+    {
+      "slug": "rohan-rebuild",
+      "name": "Presencia Putrefacta",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los Perjuros elegidos obtienen permanentemente +15% de daño contra estructuras.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SPDecayingPresence"
+      },
+      "requires": []
+    },
+    {
+      "slug": "muster-rohirrim",
+      "name": "Marcha de los Condenados",
+      "tier": 2,
+      "position": "LL",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Durante 60 segundos, todas las bajas otorgan recursos adicionales y las unidades aliadas obtienen +15% de velocidad de movimiento.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SPMarchDamned"
+      },
+      "requires": ["Corazones Helados"]
+    },
+    {
+      "slug": "westfold-horn",
+      "name": "La Cacería Pavorosa",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca permanentemente un batallón de Jinetes Perjuros al campo de batalla. Respeta el límite de puntos de mando.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "SPDreadHunt"
+      },
+      "requires": ["Corazones Helados", "Nieblas Arremolinadas"]
+    },
+    {
+      "slug": "pukel-statue",
+      "name": "Ira de la Banshee",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una oleada de calaveras voladoras que dañan y derriban a las unidades enemigas.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "SPWrathBanshee"
+      },
+      "requires": ["Nieblas Arremolinadas", "Presencia Putrefacta"]
+    },
+    {
+      "slug": "cirion-oath",
+      "name": "Atrapar al Desdichado",
+      "tier": 2,
+      "position": "RR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "El héroe enemigo elegido queda congelado y recibe 10 de daño adicional de los ataques de las unidades Perjuras durante 10 segundos.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SPEnsnareHapless"
+      },
+      "requires": ["Presencia Putrefacta"]
+    },
+    {
+      "slug": "bountiful-harvest",
+      "name": "Juramento Roto",
+      "tier": 3,
+      "position": "L",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Controla a los enemigos objetivo durante 30 segundos.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SPBrokenOath"
+      },
+      "requires": ["Marcha de los Condenados", "La Cacería Pavorosa"]
+    },
+    {
+      "slug": "rohan-cloud-break",
+      "name": "Los Muertos Errantes",
+      "tier": 3,
+      "position": "C",
+      "kind": "summon",
+      "cost": 15,
+      "description": "La fortaleza enemiga elegida sufre daño continuado durante 60 segundos. Se convocan periódicamente Muertos Infieles mientras dura el poder.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SPWanderingDead"
+      },
+      "requires": ["La Cacería Pavorosa", "Ira de la Banshee"]
+    },
+    {
+      "slug": "everholt-boar",
+      "name": "Libéranos",
+      "tier": 3,
+      "position": "R",
+      "kind": "attack",
+      "cost": 15,
+      "description": "La horda de Perjuros elegida muere para liberar una onda expansiva que derriba a las unidades enemigas e inflige un fuerte daño.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "SPReleaseUs"
+      },
+      "requires": ["Ira de la Banshee", "Atrapar al Desdichado"]
+    },
+    {
+      "slug": "last-march",
+      "name": "La Hueste Gris",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca 5 hordas de Guerreros Perjuros y 5 Señores Perjuros. Las unidades enemigas cercanas huyen despavoridas.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "SPGreyHost"
+      },
+      "requires": ["Juramento Roto", "Los Muertos Errantes"]
+    },
+    {
+      "slug": "stormcrow",
+      "name": "Salones Traicioneros",
+      "tier": 4,
+      "position": "R",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Desploma un túnel que daña a los enemigos.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SPTreacherousHalls"
+      },
+      "requires": ["Los Muertos Errantes", "Libéranos"]
+    }
+  ]
+}

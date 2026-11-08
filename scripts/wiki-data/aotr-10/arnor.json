@@ -1,0 +1,1312 @@
+{
+  "code": "arnor",
+  "units": [
+    {
+      "slug": "men-porter",
+      "object": "MenPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Entrena un Constructor. Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "uiarthedbuilder",
+        "portrait": "uparthedainbuilder"
+      }
+    },
+    {
+      "slug": "annuminas-captain",
+      "object": "AnnuminasCaptain",
+      "name": "Capitán de Annúminas",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición de Fornost nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 1500,
+      "buildTime": 30,
+      "armourSet": "MahudChiefArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidades de Apoyo Dúnedain.\n\nLa gran ciudad de Annúminas fue antaño el hogar del linaje real de Arnor, y aunque hace tiempo que está en ruinas, los capitanes de Arthedain aún se llaman como su antigua capital.",
+      "abilities": [
+        {
+          "name": "Disciplinado",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas ganan +50% de experiencia. Cuando se activa, el Capitán de Annúminas gana +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Ventaja Táctica",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo sufren -33% de armadura durante 30 segundos. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Llamada a las Armas",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Guarnición de Fornost objetivo incrementa temporalmente +75% la velocidad de producción de unidades durante 90 segundos."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 20,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uiarthedcaptain",
+        "portrait": "uparthedaincaptain"
+      }
+    },
+    {
+      "slug": "cardolan-longbowmen",
+      "object": "CardolanLongbowmenHorde",
+      "name": "Arqueros de Cardolan",
+      "category": "archers",
+      "recruitedAt": "Guarnición de Fornost nivel 2",
+      "requirements": null,
+      "cost": 750,
+      "cp": 75,
+      "health": 190,
+      "buildTime": 25,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Aunque este antiguo territorio de Arnor permaneció abandonado durante siglos, los reyes de Arthedain seguían enviando a veces partidas de exploración, deseosos de mantenerse informados de la amenaza que se cernía sobre estas tierras.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Sangre de Númenor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Arqueros de Cardolan ganan +25% de alcance durante 30 segundos. En el nivel 2, los Arqueros de Cardolan se curan pasivamente fuera de combate. En el nivel 3, los Arqueros de Cardolan se vuelven pasivamente inmunes al miedo y al terror. En el nivel 5, los disparos de los Arqueros de Cardolan derriban a la infantería enemiga durante 30 segundos."
+        },
+        {
+          "name": "Tiro de Precisión",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los arqueros bombardean con una andanada de flechas cualquier lugar en un radio amplio."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Acero",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Corazas de Acero. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de las Siete Estrellas",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 70,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uiarthedarchers",
+        "portrait": "uparthedainarchers"
+      }
+    },
+    {
+      "slug": "arthedain-knight",
+      "object": "ArthedainKnightHorde",
+      "name": "Caballeros de Arthedain",
+      "category": "cavalry",
+      "recruitedAt": "Guarnición de Fornost nivel 2",
+      "requirements": null,
+      "cost": 800,
+      "cp": 90,
+      "health": 600,
+      "buildTime": 45,
+      "armourSet": "RohirrimHeavyArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nVástagos de casas nobles, algunos descendientes de los días de Oesternesse, los Caballeros de Arthedain presenciaron feroces batallas durante los últimos días de su reino, pasando a la historia hechos de valor y grandes proezas.",
+      "abilities": [
+        {
+          "name": "Sangre de Númenor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Caballeros de Arthedain ganan +15% de velocidad de movimiento durante 15 segundos. En el nivel 2, los Caballeros de Arthedain se curan pasivamente fuera de combate. En el nivel 3, los Caballeros de Arthedain se vuelven pasivamente inmunes al miedo y al terror. En el nivel 5, los Caballeros de Arthedain se deslizan entre los enemigos como el viento durante 15 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Acero",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Corazas de Acero. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de las Siete Estrellas",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 180,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 90,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 300,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiarthedknights",
+        "portrait": "uparthedainknights"
+      }
+    },
+    {
+      "slug": "arnor-trebuchet",
+      "object": "ArnorTrebuchet",
+      "name": "Trabuco",
+      "category": "siege",
+      "recruitedAt": "Guarnición de Fornost nivel 3",
+      "requirements": null,
+      "cost": 600,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "TrebuchetArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Al igual que sus lejanos antepasados, los Dúnedain del Norte son hábiles ingenieros, capaces de construir poderosas máquinas de asedio.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        },
+        {
+          "name": "Intercambiar Munición",
+          "level": null,
+          "hotkey": "C",
+          "kind": "toggle",
+          "description": "Alternar entre rocas y pilas de rocas más pequeñas. Las rocas son fuertes contra estructuras, las pilas pequeñas contra unidades."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Rocas Incendiarias",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este trabuco con Rocas Incendiarias. Incrementa significativamente el daño de los Trabucos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 8000,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1100
+      },
+      "images": {
+        "button": "uiarthedtrebuchet",
+        "portrait": "uparthedaintrebuchetexpansion"
+      }
+    },
+    {
+      "slug": "annuminas-kingsguard",
+      "object": "AnnuminasKingsguardHorde",
+      "name": "Guardia Real de Fornost Erain",
+      "category": "heroic",
+      "recruitedAt": "Guarnición de Fornost nivel 3",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 120,
+      "health": 625,
+      "buildTime": 70,
+      "armourSet": "IsengardFanaticArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Guerreros de gran nobleza y renombre, la Guardia Real de Fornost eran defensores jurados de la sangre de Anadûnê, encargados de asegurar la supervivencia del linaje de Elendil.",
+      "abilities": [
+        {
+          "name": "Fieles Guardianes",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "La Guardia Real de Fornost Erain otorga a los héroes cercanos +10% a todas las estadísticas. El héroe aliado objetivo gana +50% de armadura durante 25 segundos."
+        },
+        {
+          "name": "Vigilancia Atenta",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La estructura aliada objetivo se vuelve invulnerable pero no puede producir durante 30 segundos."
+        },
+        {
+          "name": "Defensa Celosa",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Guardia Real de Fornost Erain inflige daño por proximidad en un amplio radio a costa de -33% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 120,
+      "damageType": "HERO",
+      "attackDelayMs": 615,
+      "attackRange": 25,
+      "speed": 50,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 535
+      },
+      "images": {
+        "button": "uiarthedkingsguard",
+        "portrait": "uparthedainkingsguard"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "arnor-malbeth",
+      "object": "ArnorMalbeth",
+      "name": "Malbeth el Vidente",
+      "title": "Consejero Real de Arthedain",
+      "recruitedAt": "Fortaleza",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 1500,
+      "armourSet": "HeroArmor",
+      "attackType": null,
+      "isRing": false,
+      "description": "\"A los Dúnedain les llegará una elección, y si toman la que parece menos esperanzadora, entonces se levantarán, y Arthedain se convertirá en un gran reino. Si no, entonces pasará mucho dolor y muchas vidas de hombres, hasta que los Dúnedain se unan de nuevo.",
+      "abilities": [
+        {
+          "name": "Previsión",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo ganan permanentemente +25% de visión y rango."
+        },
+        {
+          "name": "Preparativos Acelerados",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La producción de recursos del molino de arnor objetivo se incrementa un 300% durante 60 segundos."
+        },
+        {
+          "name": "Sabio Consejo",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades objetivo obtienen una gran experiencia."
+        },
+        {
+          "name": "Profecía de Reyes",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe aliado objetivo se cura en gran medida y sus tiempos de recarga de habilidades se reinician."
+        },
+        {
+          "name": "Consejero Real",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Malbeth puede apuntar a unidades enemigas. Los aliados alrededor del objetivo ganan un 33% de armadura."
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "stats": {
+        "visionRange": 400
+      },
+      "images": {
+        "button": "uimalbethhi",
+        "portrait": "upmalbeth"
+      }
+    },
+    {
+      "slug": "arnor-aranarth",
+      "object": "ArnorAranarth",
+      "name": "Aranarth",
+      "title": "Príncipe de Arthedain",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 60,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Hijo mayor de Arvedui, Aranarth ha demostrado una gran sabiduría desde muy joven. A pesar de enfrentarse a grandes adversidades, logró garantizar la supervivencia de su pueblo y de la línea real a la que pertenecía.",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Guerrero Astuto",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Aranarth explota la debilidad de un héroe enemigo, reduciendo su armadura y velocidad un 20% durante 30 segundos. En el nivel 3, reduce la armadura y la velocidad un 30%. En el nivel 6, reduce la armadura y la velocidad un 40%. En el nivel 10, reduce la armadura y la velocidad un 50%."
+        },
+        {
+          "name": "Tirador",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Un solo ataque a distancia. El enemigo objetivo sufre daño durante 15 segundos. Sólo se puede utilizar con el arco equipado."
+        },
+        {
+          "name": "Líneas Infranqueables",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades amigas cercanas ganan +30% de armadura y +50% de resistencia al derribo durante 30 segundos."
+        },
+        {
+          "name": "Jefe de los Dúnedain",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Aranarth despliega el Estandarte de Annúminas. Durante 60 segundos, las unidades aliadas en un radio amplio ganan +50% de armadura y se reponen constantemente. El tiempo de recarga de las habilidades de los héroes aliados cercanos se reduce un 25%. El estandarte puede ser destruido por el enemigo en este tiempo."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 60,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "uiaranarthhi",
+        "portrait": "uparanarthnew"
+      }
+    },
+    {
+      "slug": "arnor-arvedui",
+      "object": "ArnorArvedui",
+      "name": "Arvedui",
+      "title": "Último Rey de Arthedain",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 2800,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Último Rey de Arthedain, Arvedui lideró valientemente a su pueblo en la lucha contra el terrible Rey Brujo de Angmar, aunque al final no pudo imponerse.",
+      "abilities": [
+        {
+          "name": "Último Rey",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El Rey Arvedui está permanentemente acompañado por 3 Guardias Reales de Fornost Erain. Cuando se activa, las unidades enemigas cercanas huyen despavoridas."
+        },
+        {
+          "name": "Reliquias de Arnor",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se puede lanzar sobre una estructura de recursos aliada o enemiga para detener la producción durante 120 segundos. Genera un Cofre de Tributo que se puede retirar de la Fortaleza por 250 de recursos. Si eliminas el Cofre de Tributo antes de llegar a la Fortaleza, dejará caer un cofre con 125 de recursos."
+        },
+        {
+          "name": "Expedición Real",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca un Campamento Real. Cada 60 segundos, aparece una horda de Dúnedain escogidos totalmente mejorados. Respeta el límite de puntos de mando."
+        },
+        {
+          "name": "Asalto Desesperado",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades Arnor objetivo obtienen +200% de daño durante 20 segundos. Una vez transcurridos 20 segundos, las unidades afectadas reciben daño en el tiempo durante 5 segundos. No afecta a las unidades heroicas ni a las convocadas."
+        },
+        {
+          "name": "Guardián del Palantíri",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Revela todo el velo oculto durante 30 segundos. Detecta unidades en sigilo. Las unidades enemigas de todo el mapa pierden liderazgo y sufren daño con el tiempo durante 30 segundos."
+        }
+      ],
+      "damage": 650,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiarveduihi",
+        "portrait": "uparveduinew"
+      }
+    },
+    {
+      "slug": "arnor-elrond",
+      "object": "ArnorElrond",
+      "name": "Señor Elrond",
+      "title": "Señor de Rivendel para decidir el destino del Anillo Único",
+      "recruitedAt": "Fortaleza",
+      "cost": 4000,
+      "buildTime": 80,
+      "health": 3200,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "'Ahora, en circunstancias extremas, hemos de elegir un camino difícil, un camino imprevisto. Ésa es nuestra esperanza, si hay esperanza: ir hacia el peligro, ir a Mordor. Tenemos que echar el Anillo al Fuego.'",
+      "abilities": [
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "Heraldo de Gil-galad",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Elrond obtiene un 50% de daño mientras sus ataques infligen daño por proximidad y retroceso durante 30 segundos. En el nivel 5, incrementa aún más el radio de ataque."
+        },
+        {
+          "name": "¡Leithio I Philinn!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Elrond llama a los arqueros elfos para que bombardeen instantáneamente cualquier lugar en un gran radio con una salva de flechas. En el nivel 6, se dispara una segunda descarga poco después de la primera."
+        },
+        {
+          "name": "Veterano de la Última Alianza",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Elrond equipa su armadura pesada. Elrond gana +33% de armadura y +50% de resistencia a los golpes.\n\nEn el nivel 7, convoca permanentemente a un batallón de Veteranos de la Última Alianza."
+        },
+        {
+          "name": "La Última Casa Acogedora",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Cura a los aliados cercanos y recarga completamente sus habilidades especiales."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiarthedelrondhi",
+        "portrait": "uparthedainelrond"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "arnor-fortress-citadel",
+      "object": "ArnorFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor"],
+      "upgrades": [
+        {
+          "name": "Estandartes de los Elendili",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los enemigos cercanos sufren. -25% de daño y -20% de armadura.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Revistas de Congregación",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Desbloquea la habilidad Revistas de Congregación. Cuando se activa, reduce temporalmente el coste de reclutamiento de las unidades de Arthedain en un 25% y el tiempo de reclutamiento en un 50% durante 60 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de las Estrellas",
+          "cost": 1500,
+          "hotkey": "R",
+          "level": null,
+          "description": "Las unidades Dúnedain de todo el mapa ganan pasivamente +15% de daño, armadura y experiencia. Desbloquea la habilidad Torre de las Estrellas. Cuando se activa, repone una unidad caída de todos los batallones aliados del mapa.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guardianes de las Piedras Videntes",
+          "cost": 1800,
+          "hotkey": "T",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Desbloquea la habilidad Guardianes de las Piedras Videntes. Cuando se activa, todos los héroes aliados del mapa ganan +25% de rango de visión durante 60 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Revistas de Congregación",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Cuando se activa, reduce temporalmente el coste de reclutamiento de las unidades de Arthedain en un 25% y el tiempo de reclutamiento en un 50% durante 60 segundos."
+        },
+        {
+          "name": "Torre de las Estrellas",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Cuando se activa, se repone una unidad caída de todos los batallones aliados del mapa."
+        },
+        {
+          "name": "Guardianes de las Piedras Videntes",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Cuando se activa, todos los héroes aliados del mapa ganan +25% de rango de visión durante 60 segundos."
+        }
+      ],
+      "images": {
+        "button": "uiarthedfortress",
+        "portrait": "uparthedainfortress"
+      }
+    },
+    {
+      "slug": "arnor-farm",
+      "object": "ArnorFarm",
+      "name": "Molino de Arnor",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera recursos según el terreno disponible. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "uparthedainwindmill"
+      }
+    },
+    {
+      "slug": "arnor-forge",
+      "object": "ArnorForge",
+      "name": "Armería de Arnor",
+      "kind": "support",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Proporciona metales trabajados como un recurso basado en el terreno disponible. Investiga mejoras de armas y armaduras. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Estandartes de las Siete Estrellas",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes de las Siete Estrellas. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas Templadas",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Corazas de Acero",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Corazas de Acero. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "uparthedainblacksmith"
+      }
+    },
+    {
+      "slug": "fornost-garrison",
+      "object": "FornostGarrison",
+      "name": "Guarnición de Fornost",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena a los Dúnedain de Arnor.",
+      "produces": [
+        "Capitán de Annúminas",
+        "Arqueros de Cardolan",
+        "Caballeros de Arthedain",
+        "Trabuco",
+        "Guardia Real de Fornost Erain"
+      ],
+      "upgrades": [
+        {
+          "name": "Mejora Guarnición de Fornost al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite reclutar Capitanes de Annúminas, Caballeros de Arthedain y Arqueros de Cardolan +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "upfornostgarrison"
+      }
+    },
+    {
+      "slug": "arthedain-watchtower",
+      "object": "ArthedainWatchtower",
+      "name": "Atalaya de Arthedain",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Ojo de Amon-Sûl",
+          "cost": 300,
+          "hotkey": "W",
+          "level": null,
+          "description": "Cuando se adquiere, permite que la Atalaya de Arthedain revele parte del mapa durante 60 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Ojo de Amon-Sûl",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "La Atalaya de Arthedain revela parte del mapa durante 60 segundos."
+        }
+      ],
+      "images": {
+        "button": "uiarthedwatchtower",
+        "portrait": "uparhtedainwatchtower"
+      }
+    },
+    {
+      "slug": "statue-of-elendil",
+      "object": "StatueOfElendil",
+      "name": "Monumento a Tar-Araval",
+      "kind": "support",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona una bonificación de liderazgo a las unidades cercanas. Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.\n\nAraval, nieto de Arvedui, fue un poderoso rey de Arthedain que luchó contra las fuerzas oscuras de Angmar y regresó victorioso.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "uparthedainfountain"
+      }
+    },
+    {
+      "slug": "malbeth-study",
+      "object": "MalbethStudy",
+      "name": "Estudio de Malbeth",
+      "kind": "support",
+      "cost": 500,
+      "buildTime": 45,
+      "health": 5000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": 1,
+      "description": "El Estudio de Malbeth contiene muchos libros antiguos a los que se puede acceder para obtener mejoras y efectos únicos.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Ingeniería Númenóreana",
+          "cost": 1300,
+          "hotkey": "W",
+          "level": null,
+          "description": "Este tratado exhaustivo dedicado a las técnicas de ingeniería Númenóreana fue rescatado antes del Akallabêth.\n\nDesbloquea la habilidad Ingeniería Númenóreana, que al activarse hace que las estructuras en un amplio radio alrededor del Estudio ganen +150% de armadura contra asedio, fuego y daño mágico durante 30 segundos. Desbloquea Piedras de Fuego para Trabuquetes de Arnor.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Proeza Marcial",
+          "cost": 800,
+          "hotkey": "E",
+          "level": null,
+          "description": "Una colección de escritos realizados por los numerosos Maestros de Armas de Annúminas, en los que se detallan ampliamente los ejercicios de entrenamiento para los futuros soldados. Las tropas de Arthedain obtienen +15% adicional de daño y armadura cuando están en formación.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Agricultura de Cardolan",
+          "cost": 1500,
+          "hotkey": "R",
+          "level": null,
+          "description": "Documentación de diversas técnicas agrícolas, recopilada antes de la caída de Cardolan.\n\nIncrementa un 15% la producción del Molino de Arnor. Las unidades aliadas cercanas a los Molinos de Arnor ganan +15% de velocidad de movimiento.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Visión de la Piedra Vidente",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Escrito por el propio Malbeth, este libro es un material esencial para quienes deseen aprender los secretos del Palantíri.\n\nPermite a las Atalayas de Arthedain adquirir la habilidad Ojo de Amon-Sûl para espiar temporalmente el lugar objetivo.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        },
+        {
+          "name": "Memoria de Anadûnê",
+          "cost": 1000,
+          "hotkey": "S",
+          "level": null,
+          "description": "Una colección de escritos sobre el Reino de Númenor. Cronología, memorias y poesía, reunidos por Elendil, antes de partir hacia la Tierra Media.\n\nEl área de efecto y el índice de curación de Monumento a Tar-Araval se incrementan un 50%. Requisito previo para la mejora Hojas de Oesternesse.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Hojas de Oesternesse",
+          "cost": 2000,
+          "hotkey": "D",
+          "level": null,
+          "description": "Escrito por los Dúnedain de Cardolan, este tomo describe la forja de armas capaces de cortar los hechizos que unen a los sirvientes no vivos de Angmar a la voluntad del Rey Brujo.\n\nLos Dúnedain están permanentemente equipados con Hojas de Oesternesse, que infligen daño mágico adicional y daño extra contra unidades no muertas.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Ingeniería Númenóreana",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Cuando se activa, las estructuras en un amplio radio alrededor del Estudio ganan +150% de armadura contra asedio, fuego y daño mágico durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "upmalbethsstudy"
+      }
+    },
+    {
+      "slug": "arnor-embassy",
+      "object": "ArnorEmbassy",
+      "name": "Embajada",
+      "kind": "support",
+      "cost": 500,
+      "buildTime": 45,
+      "health": 2500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": 2,
+      "description": "Puede convocar batallones para proteger el área.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Ayuda de Gwathló",
+          "cost": 550,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a la Embajada convocar temporalmente a un batallón de Hombres de la Tribu Gwathló.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Ayuda de Forodwaith",
+          "cost": 605,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a la Embajada convocar temporalmente a un batallón de Cazadores Lossoth.",
+          "stats": {
+            "researchTimeS": 35
+          }
+        },
+        {
+          "name": "Ayuda de Rivendel",
+          "cost": 715,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a la Embajada convocar temporalmente a un batallón de Caballeros Noldor.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Ayuda de la Comarca",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca temporalmente a dos batallones de Fronteros."
+        },
+        {
+          "name": "Ayuda de Gwathló",
+          "level": null,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Convoca temporalmente a un batallón de Hombres de la Tribu Gwathló."
+        },
+        {
+          "name": "Ayuda de Forodwaith",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca temporalmente a un batallón de Cazadores Lossoth."
+        },
+        {
+          "name": "Ayuda de Rivendel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca temporalmente a un batallón de Caballeros Noldor."
+        }
+      ],
+      "images": {
+        "button": "uiarthedembassy",
+        "portrait": "uparthedainembassy"
+      }
+    },
+    {
+      "slug": "arnor-trebuchet-expansion",
+      "object": "ArnorTrebuchetExpansion",
+      "name": "Expansión Trabuquete",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Trabuco",
+          "cost": 450,
+          "hotkey": "W",
+          "level": null,
+          "description": "Reconstruye el trabuco en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "uiarthedtrebexpansion",
+        "portrait": "uparthedaintrebuchetexpansion"
+      }
+    },
+    {
+      "slug": "arnor-arrow-tower-expansion",
+      "object": "ArnorArrowTowerExpansion",
+      "name": "Expansión Torre Flecha",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva de corto alcance.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "uiarthedtowerexpansion",
+        "portrait": "uparthedainarrowtowerexp"
+      }
+    },
+    {
+      "slug": "arnor-garrison-tower-expansion",
+      "object": "ArnorGarrisonTowerExpansion",
+      "name": "Dormitorio",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Estructura defensiva de guarnición. Incrementa el valor de desmantelamiento de las unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BGBattleTower",
+        "portrait": "BPGFortress_Dormitory"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "heal",
+      "name": "Curadores Expertos",
+      "tier": 1,
+      "position": "L",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura a las unidades parcialmente y reemplaza a un muerto por batallón.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uiarthedskilledhealers"
+      },
+      "requires": []
+    },
+    {
+      "slug": "rebuild",
+      "name": "Jardín Real",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca un Jardín Real. Las unidades aliadas en su radio ganan +15% de armadura y se curan lentamente.",
+      "requiresSlots": [1],
+      "slot": 2,
+      "images": {
+        "button": "uiarthedroyalgarden"
+      },
+      "requires": ["Curadores Expertos"]
+    },
+    {
+      "slug": "rallying-call-mpg",
+      "name": "¡Lacho calad! ¡Drego morn!",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados elegidos obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "uilachocalad"
+      },
+      "requires": []
+    },
+    {
+      "slug": "spawn-lone-tower",
+      "name": "Vigilia del Norte",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una Atalaya de Arthedain protegida por Soldados y Guardianes de Fornost. La Atalaya de Arthedain puede lanzar la habilidad Ojo de Amon-Sûl para revelar parte del mapa durante 60 segundos.",
+      "requiresSlots": [1, 2],
+      "slot": 4,
+      "images": {
+        "button": "uisparthedwatchtower"
+      },
+      "requires": ["Curadores Expertos", "Jardín Real"]
+    },
+    {
+      "slug": "ithilien-garden",
+      "name": "Bravura Mediana",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un contingente de Arqueros Tuk.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "uiarthedhalflingbravery"
+      },
+      "requires": ["Curadores Expertos", "Jardín Real"]
+    },
+    {
+      "slug": "spawn-trebuchet",
+      "name": "Ayuda de los Puertos Grises",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca temporalmente a Círdan el Carpintero de Barcos.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "uiarthedaidhavens"
+      },
+      "requires": ["Jardín Real", "¡Lacho calad! ¡Drego morn!"]
+    },
+    {
+      "slug": "sworn-allegiance",
+      "name": "Armamento de Annúminas",
+      "tier": 2,
+      "position": "RR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Concede armadura pesada a las unidades en el radio. Sólo afecta a las unidades que pueden recibir Corazas de Acero.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uiarmamentsannuminas"
+      },
+      "requires": ["¡Lacho calad! ¡Drego morn!"]
+    },
+    {
+      "slug": "rohan-allies",
+      "name": "Protección de Peredhel",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Invoca un poderoso Torrente para aplastar unidades enemigas. Extingue los incendios.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "uiperedhprotect"
+      },
+      "requires": ["Vigilia del Norte", "Bravura Mediana"]
+    },
+    {
+      "slug": "western-winds",
+      "name": "Vientos del Oeste",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Concede una bonificación de velocidad del +33% a las unidades aliadas de todo el mapa durante 15 segundos.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "uiarthedwesternwinds"
+      },
+      "requires": ["Bravura Mediana", "Ayuda de los Puertos Grises"]
+    },
+    {
+      "slug": "dol-amroth-allies",
+      "name": "Estrella de Eärendil",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Concede experiencia a las unidades aliadas seleccionadas.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "uiarthedstarearend"
+      },
+      "requires": ["Ayuda de los Puertos Grises", "Armamento de Annúminas"]
+    },
+    {
+      "slug": "eagle-allies-gondor",
+      "name": "Viejos Amigos de los Elfos",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Glorfindel y a un ejército de guerreros de Rivendel.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "uielffriendsold"
+      },
+      "requires": ["Protección de Peredhel", "Vientos del Oeste"]
+    },
+    {
+      "slug": "spawn-elessar",
+      "name": "Lealtad de los Fieles",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca al Príncipe Eärnur y a un ejército de Caballeros de Gondor.",
+      "requiresSlots": [10],
+      "slot": 12,
+      "images": {
+        "button": "uisouthernallegiance"
+      },
+      "requires": ["Estrella de Eärendil"]
+    }
+  ]
+}

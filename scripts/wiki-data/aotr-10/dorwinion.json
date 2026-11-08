@@ -1,0 +1,2106 @@
+{
+  "code": "dorwinion",
+  "units": [
+    {
+      "slug": "mirkwood-porter",
+      "object": "MirkwoodPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye edificios.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIGreenwoodBuilder",
+        "portrait": "UPGreenwoodBuilder"
+      }
+    },
+    {
+      "slug": "dorwinion-heroic-equite",
+      "object": "DorwinionHeroicEquiteHorde",
+      "name": "Équites Heroicos",
+      "category": "cavalry",
+      "recruitedAt": "Fortaleza",
+      "requirements": "Requiere la mejora del Consejo de Lores; Requiere Consejo de Lores",
+      "cost": 2000,
+      "cp": 120,
+      "health": 800,
+      "buildTime": 60,
+      "armourSet": "HeroMiniMountedArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Los Señores de la Viña y el Valle rara vez disponen de caballería de origen de Dorwinion, sino que recurren a mercenarios a caballo de muchos tipos. La excepción son los équites, una clase de guerreros a caballo formada por ciudadanos adinerados. Servir en los équites se considera un gran honor y una prueba del valor y la destreza de un hijo de la nobleza.",
+      "abilities": [
+        {
+          "name": "Cosecha Abundante",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Todos los héroes cercanos ganan +15% de daño de ataque, 15% de velocidad de movimiento y +15% de armadura.\n\nCuando se activa, los aliados cercanos generan recursos por muertes enemigas durante 20 segundos."
+        },
+        {
+          "name": "Hojas Supurantes",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Los Équites Heroicos reflejan una pequeña cantidad del daño que se les inflige.\n\nCuando se activa, los Équites Heroicos ignoran la armadura enemiga durante 30 segundos."
+        },
+        {
+          "name": "Furia de Bladorthin",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Équites Heroicos comienzan una gran carga y ganan +40% de velocidad, +50% de armadura y se deslizan entre los enemigos como el viento durante 30 segundos."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 180,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 115,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uidorwinionequites",
+        "portrait": "updorwinionequites"
+      }
+    },
+    {
+      "slug": "dorwinion-legionnaire",
+      "object": "DorwinionLegionnaireHorde",
+      "name": "Legionarios de Dorwinion",
+      "category": "pikemen",
+      "recruitedAt": "Asamblea de Dorwinion",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 215,
+      "buildTime": 30,
+      "armourSet": "DorwinionArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "'Dorwinion es una tierra rica y fértil, que vende su excelente vino a precios elevados, y sus soldados, conocidos como legionarios, están bien alimentados y equipados, y a menudo bastante borrachos.'",
+      "abilities": [
+        {
+          "name": "Coraje Borracho",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Legionarios de Dorwinion obtienen +33% de daño y resistencia al miedo y al terror a costa de -15% de armadura durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Avarin",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Legado Gwinion",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 195,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 45,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uidorwinionlegionaireinn",
+        "portrait": "UPdorwinionlegionaireinn"
+      }
+    },
+    {
+      "slug": "dorwinion-guard",
+      "object": "DorwinionGuardHorde",
+      "name": "Guardias de Dorwinion",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Dorwinion",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 25,
+      "armourSet": "DorwinionGuardArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Estos lánguidos guerreros patrullan los somnolientos caminos de Dorwinion, asegurándose de que no ocurra ninguna fechoría y de que sus frascos estén siempre llenos.",
+      "abilities": [
+        {
+          "name": "Coraje Borracho",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Legionarios de Dorwinion obtienen +33% de daño y resistencia al miedo y al terror a costa de -15% de armadura durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Avarin",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Runas Khûzdul. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Legado Gwinion",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 50,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 45,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIDorwinionGuard",
+        "portrait": "UPDorwinionGuards"
+      }
+    },
+    {
+      "slug": "dorwinion-pilum",
+      "object": "DorwinionPilumHorde",
+      "name": "Auxiliares de Dorwinion",
+      "category": "archers",
+      "recruitedAt": "Asamblea de Dorwinion",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Procedentes de los rincones más recónditos del reino, los auxiliares de Dorwinion están motivados por salarios decentes y la oportunidad de permanecer al borde del campo de batalla una vez que han lanzado todo lo que tenían que lanzar.",
+      "abilities": [
+        {
+          "name": "Coraje Borracho",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Legionarios de Dorwinion obtienen +33% de daño y resistencia al miedo y al terror a costa de -15% de armadura durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Legado Gwinion",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "PIERCE",
+      "attackDelayMs": 2000,
+      "attackRange": 300,
+      "speed": 45,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1500
+      },
+      "images": {
+        "button": "uiwinpilum",
+        "portrait": "upwinpilum"
+      }
+    },
+    {
+      "slug": "dorwinion-captain",
+      "object": "DorwinionCaptain",
+      "name": "Héroe de Dorwinion",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea de Dorwinion nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 50,
+      "health": 1500,
+      "buildTime": 30,
+      "armourSet": "MahudChiefArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de apoyo única.\n\nAquellos Hombres, ya sean gremiales o no, que realizan grandes actos de valor en beneficio de la tierra de Dorwinion, reciben el título honorífico de Héroe de Dorwinion, junto con una parcela de tierra, una casa y sirvientes a los que llamar suyos. En tiempos de necesidad, se les pide que ayuden a defender los intereses de los Señores de la Viña y el Valle.",
+      "abilities": [
+        {
+          "name": "Embestida de Escudo",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Potente ataque que derriba a las unidades enemigas."
+        },
+        {
+          "name": "Sonad la Alarma",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Héroe de Dorwinion hace sonar su cuerno. Puede lanzarse sobre unidades aliadas para incrementar la velocidad de movimiento un 25% durante 15 segundos, o sobre unidades enemigas para reducirla un 25% durante 15 segundos."
+        },
+        {
+          "name": "Séquito Personal",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca temporalmente a un batallón de Guardias de Dorwinion. En el rango 4, incluye un batallón de Auxiliares de Dorwinion. En el rango 5, incluye un batallón adicional de Guardias de Dorwinion."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 20,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIDorwinionHero",
+        "portrait": "UPDorwinionHero"
+      }
+    },
+    {
+      "slug": "dale-royal-guard",
+      "object": "DaleRoyalGuardHorde",
+      "name": "Guardianes de Hársald",
+      "category": "heroic",
+      "recruitedAt": "Asamblea de Dorwinion nivel 3",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 90,
+      "health": 750,
+      "buildTime": 40,
+      "armourSet": "FountainGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nLos Guardianes de Hársald -o Alto Salón en Oestron- sirven como fieles protectores del Rey de Valle, desde que Bard reclamó este título tras la reconstrucción de la Ciudad.",
+      "abilities": [
+        {
+          "name": "Protección Real",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los guardianes de Hársald otorgan a los héroes cercanos +15% de armadura."
+        },
+        {
+          "name": "Lealtad Inquebrantable",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Los ataques consecutivos incrementan temporalmente el daño de ataque en un 5% hasta un máximo del 25%.\n\nPuede activarse para atraer a las unidades enemigas hacia los Guardianes."
+        },
+        {
+          "name": "Escudo del Rey",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe aliado objetivo es inmune a cualquier daño durante 30 segundos."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uidalecapt",
+        "portrait": "updalecapt"
+      }
+    },
+    {
+      "slug": "woodmen-marksmen",
+      "object": "WoodmenMarksmenHorde",
+      "name": "Cazadores del Bosque",
+      "category": "archers",
+      "recruitedAt": "Refugio Beórnida",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 375,
+      "buildTime": 30,
+      "armourSet": "WoodmanArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLos cazadores del bosque son guerreros veteranos que durante mucho tiempo han necesitado blandir sus grandes arcos en defensa de sus ataduras contra las hordas de Dol Guldur.",
+      "abilities": [
+        {
+          "name": "Cambiar de Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": "Los arcos son fuertes contra la infantería normal y monstruos. Las hachas son fuertes contra edificios."
+        },
+        {
+          "name": "Marca de Béma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La unidad o héroe objetivo es marcado por los Cazadores. Las unidades marcadas pierden -10% de armadura durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Compañeros Leales",
+          "cost": 150,
+          "hotkey": "T",
+          "level": null,
+          "description": "El batallón es defendido por perros de caza.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas Druidas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Druidas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Capitán Cazador",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 38,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIGreenwoodWoodmenMarksmen",
+        "portrait": "UPGreenwoodWoodmenMarksmen"
+      }
+    },
+    {
+      "slug": "mirkwood-eotheod",
+      "object": "MirkwoodEotheodHorde",
+      "name": "Guerreros Éotheod",
+      "category": "cavalry",
+      "recruitedAt": "Refugio Beórnida nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 80,
+      "health": 600,
+      "buildTime": 45,
+      "armourSet": "RohirrimArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Fue después de la Batalla de los Llanos cuando los Éothéod, un remanente de los Hombres del Norte, se convirtieron en un pueblo distinto, que habitaban en los Valles de Anduin entre la Carroca y los Campos Gladios.",
+      "abilities": [
+        {
+          "name": "Dominio del Caballo",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Guerreros Éothéod ganan +25% de armadura y +20% de velocidad durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Capitán Cazador",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 180,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 300,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uieotheod",
+        "portrait": "UPGreenwoodEotheod"
+      }
+    },
+    {
+      "slug": "mirkwood-battering-ram",
+      "object": "MirkwoodBatteringRam",
+      "name": "Ariete Beórnida",
+      "category": "siege",
+      "recruitedAt": "Refugio Beórnida nivel 2",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nFuertes como osos, los Beórnidas del Valle de Anduin son bastante capaces de arrancar un árbol para derribar la puerta de entrada de un enemigo.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "UIGreenwoodRam",
+        "portrait": "UPGreenwoodBatteringRam"
+      }
+    },
+    {
+      "slug": "mirkwood-beorning",
+      "object": "MirkwoodBeorningHorde",
+      "name": "Bersérkers Beórnidas",
+      "category": "siege",
+      "recruitedAt": "Refugio Beórnida nivel 3",
+      "requirements": null,
+      "cost": 900,
+      "cp": 90,
+      "health": 1100,
+      "buildTime": 50,
+      "armourSet": "BeorningArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "structures", "heroes"],
+      "weakAgainst": [],
+      "description": "El pueblo de Grimbeorn era conocida por su carácter y aspecto sombrío, y su ferocidad en el combate. Sus mejores guerreros fueron capaces de aprovechar los antiguos espíritus de la naturaleza, para descargar una gran e imparable furia en el campo de batalla.",
+      "abilities": [
+        {
+          "name": "Sangre Osuna",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Permite a los Bersérkers Beórnidas recuperarse rápidamente fuera del combate."
+        },
+        {
+          "name": "Exterior Rugoso",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Incrementa la resistencia al daño a distancia en +50% durante 20 segundos."
+        },
+        {
+          "name": "Rabia Salvaje",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Bersérkers Beórnidas entran en una furia de batalla incontrolable durante 20 segundos. Se vuelven resistentes a los golpes y su velocidad de movimiento, armadura y daño de ataque se incrementan en un 33%, pero no pueden controlarse mientras dure el efecto."
+        }
+      ],
+      "upgrades": [],
+      "damage": 225,
+      "damageType": "SIEGE",
+      "attackDelayMs": 633,
+      "attackRange": 9,
+      "speed": 60,
+      "battalionSize": 3,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 15,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIBeornings",
+        "portrait": "UPGreenwoodBeorning"
+      }
+    },
+    {
+      "slug": "mirkwood-druid",
+      "object": "MirkwoodDruid",
+      "name": "Druida de la Orden del Roble",
+      "category": "archers",
+      "recruitedAt": "Refugio Beórnida nivel 2",
+      "requirements": null,
+      "cost": 350,
+      "cp": 10,
+      "health": 650,
+      "buildTime": 30,
+      "armourSet": "NecromancerArmor",
+      "attackType": null,
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo.\n\nEstudiosos en los caminos ocultos de la naturaleza, estos sabios sirven como líderes y sanadores entre la gente de los Valles de Anduin.",
+      "abilities": [
+        {
+          "name": "Presagios Oscuros",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Druidas se enfocan en unidades para reducir su daño en un 15% y en los edificios para reducir su armadura en un 15%.\n\nLos Cazadores del Bosque cercanos ganan +33% de armadura de aplastamiento y resistencia al miedo y al terror."
+        },
+        {
+          "name": "Bendición de Aldaron",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Cazadores del Bosque cercanos se curan pasivamente con el tiempo. Se puede lanzar sobre batallones aliados para curarlos moderadamente y reponer una unidad caída por batallón."
+        },
+        {
+          "name": "Piedras Protectoras",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Coloca un círculo temporal de Piedras Protectoras. Las unidades aliadas dentro del círculo recibirán +33% de armadura."
+        },
+        {
+          "name": "Ritual del Roble",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca un Roble sagrado que produce una pequeña cantidad de recursos. Dura hasta que se destruye."
+        },
+        {
+          "name": "Poción de Potencia",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe objetivo se cura parcialmente y obtiene +25% de armadura durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Bendición de Aldaron",
+          "cost": 200,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los Cazadores del Bosque cercanos se curan pasivamente con el tiempo. Permite al Druida utilizar la habilidad Bendición de Aldaron. Se puede lanzar sobre batallones aliados para curarlos moderadamente y reponer una unidad caída por batallón.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Piedras Protectoras",
+          "cost": 200,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los Druidas usar la habilidad Piedras Protectoras. Coloca un círculo temporal de Piedras Protectoras. Las unidades aliadas dentro del círculo recibirán +33% de armadura.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Ritual del Roble",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a los Druidas usar la habilidad Ritual del Roble. Convoca un Roble sagrado que produce una pequeña cantidad de recursos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Poción de Potencia",
+          "cost": 800,
+          "hotkey": "V",
+          "level": null,
+          "description": "El Druida obtiene permanentemente 200 de salud. Permite a los Druidas usar la habilidad Poción de Potencia. El héroe objetivo se cura parcialmente y obtiene +25% de armadura durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 420,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIGreenwoodDruid",
+        "portrait": "UPGreenwoodDruids"
+      }
+    },
+    {
+      "slug": "kinnlai-warrior",
+      "object": "KinnlaiWarriorHorde",
+      "name": "Guerreros de los Kinn-lai",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición Kinn-lai",
+      "requirements": null,
+      "cost": 500,
+      "cp": 60,
+      "health": 275,
+      "buildTime": 30,
+      "armourSet": "TowerGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Capaces de cambiar de formación para mejorar capacidades defensivas.\n\nDe todas las diversas tribus Avari que permanecieron en el Este, los Kinn-lai eran las más numerosas y militaristas. Aunque su capital estaba situada muy al noreste, a veces habitaban cerca del Mar de Rhûn. Fue el comercio y la existencia de enemigos mutuos lo que los engendró con el señor Sindar del Reino del Bosque.",
+      "abilities": [
+        {
+          "name": "Arte de la Guerra",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Guerreros Kinn-lai obtienen +15% de armadura y reflejan una parte del daño que reciben."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Acero Avarin",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Avarin. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de los Avari",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 165,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "uikinnlaiwarriors",
+        "portrait": "UPKinnLaiWarriors"
+      }
+    },
+    {
+      "slug": "istari-acolyte",
+      "object": "IstariAcolyte",
+      "name": "Acólito Istari",
+      "category": "archers",
+      "recruitedAt": "Guarnición Kinn-lai nivel 2",
+      "requirements": null,
+      "cost": 350,
+      "cp": 10,
+      "health": 650,
+      "buildTime": 30,
+      "armourSet": "NecromancerArmor",
+      "attackType": "Magia (a distancia)",
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo.\n\nCuando los Ithryn Luin se asentaron en los confines de la Tierra Media, contrataron a sabios y hechiceros que trataban de oponerse a los siniestros zarcillos del mal que atenazaban los corazones de muchos de los Orientales, enseñándoles sutiles magias para encender la llama de la resistencia a la influencia del Señor Oscuro.",
+      "abilities": [
+        {
+          "name": "Presagios Oscuros",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Elfos de los Kinn-lai cercanos ganan +33% de armadura de aplastamiento y resistencia al miedo y al terror."
+        },
+        {
+          "name": "Bendición de Aldaron",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Cazadores del Bosque cercanos se curan pasivamente con el tiempo. Se puede lanzar sobre batallones aliados para curarlos moderadamente y reponer una unidad caída por batallón."
+        },
+        {
+          "name": "Piedras Protectoras",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Coloca un círculo temporal de Piedras Protectoras. Las unidades aliadas dentro del círculo recibirán +33% de armadura."
+        },
+        {
+          "name": "Discípulo de Ithryn Luin",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El edificio enemigo objetivo sufre graves daños."
+        },
+        {
+          "name": "Poción de Potencia",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe objetivo se cura parcialmente y obtiene +25% de armadura durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Bendición de Aldaron",
+          "cost": 200,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los Cazadores del Bosque cercanos se curan pasivamente con el tiempo. Permite al Druida utilizar la habilidad Bendición de Aldaron. Se puede lanzar sobre batallones aliados para curarlos moderadamente y reponer una unidad caída por batallón.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Piedras Protectoras",
+          "cost": 200,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los Druidas usar la habilidad Piedras Protectoras. Coloca un círculo temporal de Piedras Protectoras. Las unidades aliadas dentro del círculo recibirán +33% de armadura.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Discípulo de Ithryn Luin",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite al Acólito utilizar la habilidad Discípulo de Ithryn Luin. El edificio enemigo objetivo sufre graves daños.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Poción de Potencia",
+          "cost": 800,
+          "hotkey": "V",
+          "level": null,
+          "description": "El Druida obtiene permanentemente 200 de salud. Permite a los Druidas usar la habilidad Poción de Potencia. El héroe objetivo se cura parcialmente y obtiene +25% de armadura durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 100,
+      "damageType": "MAGIC",
+      "attackDelayMs": 5000,
+      "attackRange": 320,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 420,
+        "attackRadius": 10,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIIstariAcolyte",
+        "portrait": "UPIstariAcolyte"
+      }
+    },
+    {
+      "slug": "kinn-lai-veteran",
+      "object": "KinnLaiVeteranHorde",
+      "name": "Maestros Kinn-lai",
+      "category": "archers",
+      "recruitedAt": "Guarnición Kinn-lai nivel 3",
+      "requirements": null,
+      "cost": 675,
+      "cp": 80,
+      "health": 400,
+      "buildTime": 40,
+      "armourSet": "ElfWarriorHeavyArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Sabios sin medida y con la experiencia de siglos incontables, estos Avari han dominado el arte de la guerra, dedicándose a su oficio con inquebrantable dedicación.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Arte de la guerra",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Guerreros Kinn-lai obtienen +15% de armadura y reflejan una parte del daño que reciben."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud fuera del combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas Silvanas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas Silvanas. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de los Avari",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Acero Avarin",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Acero Avarin. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Arcos Mallorn",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Arcos Mallorn. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 80,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 380,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 410,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAvariMasters",
+        "portrait": "UPAvariMasters"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "mirkwood-galion",
+      "object": "MirkwoodGalion",
+      "name": "Galion",
+      "title": "Maestro de Vinos, Galion",
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 40,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Diga lo que quiera sobre nuestro malhumorado Rey: tiene un excelente gusto en el vino....'",
+      "abilities": [
+        {
+          "name": "Borracho Enojado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando está cerca de Viñedos y Pozos de Vino, Galion obtiene +33% de daño."
+        },
+        {
+          "name": "Miruvor",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Cura moderadamente a las unidades aliadas cercanas. Cura en mayor medida en los niveles 6 y 9."
+        },
+        {
+          "name": "Dorwinion Rojo",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas dentro del radio reciben +50% de daño, pero pierden -25% de armadura durante 30 segundos. El radio se incrementa en los niveles 5 y 7."
+        },
+        {
+          "name": "Lote Malo",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Hace que las unidades objetivo se vuelvan hostiles entre sí durante 15 segundos."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodGalion",
+        "portrait": "HEMirkwoodGalion"
+      }
+    },
+    {
+      "slug": "dorwinion-frumgar",
+      "object": "DorwinionFrumgar",
+      "name": "Frumgar",
+      "title": "Frumgar el Joven, hijo de Frumgar el Viejo, Campeón del Valle del Anduin",
+      "recruitedAt": "Fortaleza",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 2800,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Frumgar, el último vástago de una larga estirpe, es el Señor de los Éothéod y un guerrero temible. Con muchas hazañas de fuerza en su haber, pocos se atreven a oponérsele en los verdes y ondulados campos de Rhovanion.",
+      "abilities": [
+        {
+          "name": "Ira del Asesino de Dragones",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los aliados cercanos a Frumgar obtienen +33% de daño, +50% de armadura contra el fuego y son inmunes al miedo y al terror."
+        },
+        {
+          "name": "Veterano de Guerra Orco",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Frumgar habla del día en que mató a Mûzgash. Las unidades objetivo obtienen experiencia."
+        },
+        {
+          "name": "Hazaña de Leyendas",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Potente ataque a distancia con daño de radio. En el nivel 8, el héroe enemigo objetivo queda aturdido durante 15 segundos."
+        }
+      ],
+      "damage": 190,
+      "damageType": "HERO",
+      "attackDelayMs": 815,
+      "attackRange": 25,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodFrumgar",
+        "portrait": "HEMirkwoodFrumgar"
+      }
+    },
+    {
+      "slug": "dorwinion-legate-vidu",
+      "object": "DorwinionLegateVidu",
+      "name": "Legado Vidú",
+      "title": "Legado de Dorwinion",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "El Legado Vidú comanda una cohorte de experimentados guardias mercantes. Ha visto mucho de la Tierra Media, aunque su memoria de ella es a menudo irregular - en parte debido a los bienes que se paga para proteger.",
+      "abilities": [
+        {
+          "name": "A través del vino, Valor",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Las unidades Dorwinion cercanas obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nCuando se activa, las unidades aliadas cercanas se curan y se vuelven inmunes al miedo y al terror durante 20 segundos. Repone una unidad caída en batallones cercanos."
+        },
+        {
+          "name": "Sonad la Alarma",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Aturde a los enemigos con miedo durante 15 segundos."
+        },
+        {
+          "name": "Desafío Borracho",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Vidú desafía al héroe enemigo objetivo. El héroe enemigo objetivo pierde. -25% de armadura durante 30 segundos. Vidú inflige +25% de daño al héroe objetivo mientras dure el efecto."
+        },
+        {
+          "name": "Amigo de la Legión",
+          "level": 9,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cuando se activa, Vidú convoca una unidad de Dorwinion aleatoria con cada golpe que realiza durante 30 segundos."
+        }
+      ],
+      "damage": 360,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uividudorwinion",
+        "portrait": "upvidudorwinion"
+      }
+    },
+    {
+      "slug": "mirkwood-grimbeorn-dorwinion",
+      "object": "MirkwoodGrimbeorn_Dorwinion",
+      "name": "Grimbeorn",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "GrimbeornArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Recluta al hijo de Beorn. Grimbeorn el Viejo, hijo de Beorn, era ahora el señor de muchos hombres robustos, y en su tierra entre las Montañas y el Reino del Bosque ni los orcos ni los lobos se atrevían a ir.",
+      "abilities": [
+        {
+          "name": "Hijo de Beorn",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Otorga +33% de armadura a los Beórnidas cercanos. Grimbeorn inflige +33% de daño adicional contra Bolg.\n\nCuando se activa, Grimbeorn infunde terror en los corazones de todas las unidades de Orcos y Huargos durante 15 segundos."
+        },
+        {
+          "name": "Forzudo",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Grimbeorn balancea poderosamente su enorme hacha, causando daño a todo lo que lo rodea. Crece en fuerza a medida que sube de nivel."
+        },
+        {
+          "name": "Recaudador",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Se puede lanzar sobre cualquier estructura de recursos para generar un cofre de 850 unidades de recursos. Detiene la producción de recursos durante 30 segundos."
+        },
+        {
+          "name": "Guardaespaldas Beórnidas",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Grimbeorn convoca tres Beórnidas para proteger a un héroe o estructura aliado durante 45 segundos."
+        },
+        {
+          "name": "Alma Osuna",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "Grimbeorn asesta permanentemente daño por derribo.\n\nCuando se activa, Grimbeorn se transforma en un oso durante 90 segundos para causar estragos entre el enemigo obteniendo +25% de daño adicional y +50% de armadura. Hace huir despavoridos a los enemigos cercanos. Mientras está activo, Grimbeorn inflige +50% de daño adicional contra Bolg."
+        }
+      ],
+      "damage": 400,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIMirkwoodGrimbeorn",
+        "portrait": "HEMirkwoodGrimbeorn"
+      }
+    },
+    {
+      "slug": "morinehtar",
+      "object": "Morinehtar",
+      "name": "Morinehtar",
+      "title": "Asesino de la Oscuridad",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Morinehtar, gran guerrero y digno mago, fue enviado a Oriente para acabar con la oscuridad que allí supuraba desde hacía incontables años.",
+      "abilities": [
+        {
+          "name": "Ithryn Luin",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Cuando están cerca, los magos azules ganan +50% de armadura."
+        },
+        {
+          "name": "Asesino de la Oscuridad",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas reciben +25% de daño. En el rango 3, puede activarse para otorgar a Morinehtar +50% de daño durante 30 segundos."
+        },
+        {
+          "name": "Lanza de Oromë",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Morinehtar arroja la Lanza de Oromë, que derriba y daña a las unidades enemigas a su paso."
+        },
+        {
+          "name": "Guardián Azul",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Morinehtar se teletransporta al lugar objetivo y aturde a las unidades enemigas cercanas durante 5 segundos al llegar."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uimorinehtar",
+        "portrait": "upmorinehtar"
+      }
+    },
+    {
+      "slug": "romestamo",
+      "object": "Romestamo",
+      "name": "Rómestámo",
+      "title": "Ayudante del Este",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Mago sabio y astuto, Rómestámo acompañó a su amigo Morinehtar hacia el este en un intento de proteger a sus habitantes de los designios de Sauron.",
+      "abilities": [
+        {
+          "name": "Ithryn Luin",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Cuando están cerca, los magos azules ganan +50% de armadura."
+        },
+        {
+          "name": "Ayudante del Este",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Las unidades aliadas cercanas ganan +25% de armadura. En el rango 3, puede activarse para curar a las unidades aliadas cercanas y reemplazar a una unidad muerta por batallón."
+        },
+        {
+          "name": "Obstáculo al Mal",
+          "level": null,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -33% de daño y -25% de armadura. Anula el liderazgo enemigo. En el rango 6, los temporizadores de las habilidades especiales de los enemigos objetivo se reinician a recién usados."
+        },
+        {
+          "name": "Fragmento de Cobalto",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Coloca un Fragmento de Cobalto, que puede detonarse manualmente, aturdiendo a las unidades enemigas durante 5 segundos y causándoles daño durante 20 segundos. Los Fragmento de Cobalto también detonan si son destruidas por unidades enemigas."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiromestamo",
+        "portrait": "upromestamo"
+      }
+    },
+    {
+      "slug": "ring-hero-frodo",
+      "object": "RingHeroFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Frasco de Galadriel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas huyan."
+        },
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "El Guía y el Jardinero",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca al fiel jardinero de Frodo, Samsagaz Gamyi, y a Sméagol, su guía."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIFrodonew",
+        "portrait": "HEFrodonew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "dorwinion-citadel",
+      "object": "DorwinionCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor", "Équites Heroicos"],
+      "upgrades": [
+        {
+          "name": "Estandartes de Bladorthin",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la Fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Abundancia de la Viña y el Valle",
+          "cost": 800,
+          "hotkey": "E",
+          "level": null,
+          "description": "La fortaleza produce permanentemente más recursos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Gremio de Viticultores",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Desbloquea la habilidad Vendimia Fina. Cuando se activa, los aliados cercanos a la fortaleza se curan y se reponen durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Gremio de Artesanos",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Reduce el coste de las mejoras de las unidades de Dorwinion 1 Fortaleza con Gremio de Artesanos = 25% más barato 2 Fortalezas con Gremio de Artesanos = 35% más barato 3 Fortalezas con Gremio de Artesanos = 40% más barato 4 Fortalezas con Gremio de Artesanos = 45% más barato 5 Fortalezas con Gremio de Artesanos = 50% más barato.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Cuernos de Dorwinion",
+          "cost": 1250,
+          "hotkey": "S",
+          "level": null,
+          "description": "Desbloquea la habilidad Llamada de Alarma. Cuando se activa, los enemigos cercanos se acobardan durante 15 segundos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Consejo de Lores",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Desbloquea el reclutamiento de Équites Heroicos y Guardianes de Hársald. Desbloquea la habilidad Llamada a las Armas. Cuando se activa, el tiempo de reclutamiento de las unidades de Dorwinion se reduce un 50% durante 60 segundos. Todas las unidades de Dorwinion en el campo de batalla ganan un 15% de velocidad y +50% de daño y armadura durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Vendimia Fina",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Cuando se activa, los aliados cercanos a la fortaleza se curan y se reponen durante 30 segundos."
+        },
+        {
+          "name": "Llamada de Alarma",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Cuando se activa, los enemigos cercanos se acobardan durante 15 segundos."
+        },
+        {
+          "name": "Llamada a las Armas",
+          "level": null,
+          "hotkey": "F",
+          "kind": "active",
+          "description": "Cuando se activa, el tiempo de reclutamiento de las unidades de Dorwinion se reduce un 50% durante 60 segundos. Todas las unidades de Dorwinion en el campo de batalla ganan un 15% de velocidad y +50% de daño y armadura durante 30 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPDorwinionFortress"
+      }
+    },
+    {
+      "slug": "dorwinion-vineyard",
+      "object": "DorwinionVineyard",
+      "name": "Viñedo del Bosque",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Genera vino como un recurso basado en el terreno disponible. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPDorwinionVineyard"
+      }
+    },
+    {
+      "slug": "dorwinion-market",
+      "object": "DorwinionMarket",
+      "name": "Mercado de Dorwinion",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Proporciona bienes comercializados como recurso en función del terreno disponible. Investiga mejoras de armas y armaduras. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de Valle",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Acero Avarin",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Acero Avarin. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejora instantánea de todas las patrullas una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas Silvanas",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Flechas Silvanas. Cuando está equipado, incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPDorwinionMarket"
+      }
+    },
+    {
+      "slug": "dorwinion-barracks",
+      "object": "DorwinionBarracks",
+      "name": "Asamblea de Dorwinion",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Legionarios de Dorwinion y Bárdidos.",
+      "produces": [
+        "Legionarios de Dorwinion",
+        "Guardias de Dorwinion",
+        "Auxiliares de Dorwinion",
+        "Héroe de Dorwinion",
+        "Guardianes de Hársald"
+      ],
+      "upgrades": [
+        {
+          "name": "Asamblea de Dorwinion al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite reclutar Héroes de Dorwinion +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Asamblea de Dorwinion al Nivel 3",
+          "cost": 650,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite reclutar Guardianes de Hársald +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPEreborDaleGarrison"
+      }
+    },
+    {
+      "slug": "mirkwood-beorning-cabin",
+      "object": "MirkwoodBeorningCabin",
+      "name": "Refugio Beórnida",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 25,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 3,
+      "description": "Entrena Cazadores del Bosque y Beórnidas. Genera una gran cantidad de recursos según el terreno disponible.",
+      "produces": [
+        "Cazadores del Bosque",
+        "Guerreros Éotheod",
+        "Ariete Beórnida",
+        "Bersérkers Beórnidas",
+        "Druida de la Orden del Roble"
+      ],
+      "upgrades": [
+        {
+          "name": "Apicultura",
+          "cost": 500,
+          "hotkey": "S",
+          "level": 3,
+          "description": "La producción de recursos del Refugio Beórnida se incrementa en un 250%.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Cabaña Beórnida al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite reclutar Guerreros Éothéod y Arietes Beórnida +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Cabaña Beórnida al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Bersérkers Beórnidas e investigar la mejora Apicultura +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Apicultura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La producción de recursos del Refugio Beórnida se incrementa en un 250%."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPBeorningLodge"
+      }
+    },
+    {
+      "slug": "avari-barracks",
+      "object": "AvariBarracks",
+      "name": "Guarnición Kinn-lai",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Elfos de los Kinn-lai y Acólitos Istari.",
+      "produces": [
+        "Guerreros de los Kinn-lai",
+        "Acólito Istari",
+        "Maestros Kinn-lai"
+      ],
+      "upgrades": [
+        {
+          "name": "Guarnición Kinn-lai al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite reclutar Acólitos Istari +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guarnición Kinn-lai al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite reclutar a los Maestros Kinn-lai +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPAvariBarracks"
+      }
+    },
+    {
+      "slug": "dorwinion-cellar-door",
+      "object": "DorwinionCellarDoor",
+      "name": "Puerta de la Bodega",
+      "kind": "support",
+      "cost": 300,
+      "buildTime": 45,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": 4,
+      "description": "Una entrada a los Salones de Thranduil. Genera una pequeña cantidad de recursos según el terreno disponible. Garantiza acceso al sistema de túneles.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Guardias de la Prisión",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a la Puerta de la Bodega convocar un batallón de Guardias de la Prisión.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Guardias de la Prisión",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un batallón de Guardias de la Prisión para defender la Puerta de la Bodega."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPCellarDoor"
+      }
+    },
+    {
+      "slug": "statue-of-girion",
+      "object": "StatueOfGirion",
+      "name": "Estatua de Girion",
+      "kind": "support",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona una bonificación de liderazgo a las unidades cercanas. Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPStatueGirion"
+      }
+    },
+    {
+      "slug": "dorwinion-battle-tower",
+      "object": "DorwinionBattleTower",
+      "name": "Torre Bárdida",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas Punta de Mithril",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre de Batalla con Flechas Punta de Mithril. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "UIBardingTower",
+        "portrait": "UPBardingTower"
+      }
+    },
+    {
+      "slug": "dorwinion-watchtower-expansion",
+      "object": "DorwinionWatchtowerExpansion",
+      "name": "Atalaya",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara a las unidades enemigas cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "UIGreenwoodFletExpansion",
+        "portrait": "UPGreenwoodFletExpansion"
+      }
+    },
+    {
+      "slug": "dale-windlance-expansion",
+      "object": "DaleWindlanceExpansion",
+      "name": "Expansión Lanzadera de Viento",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Lanzadera de Viento",
+          "cost": 450,
+          "hotkey": "W",
+          "level": null,
+          "description": "Reconstruye Lanzadera de Viento en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "uidorwinionwindlance",
+        "portrait": "updalewindlance"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "rallying-call-mpmirkwood",
+      "name": "Cuerno de la Puerta",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SBGreenwoodHorn"
+      },
+      "requires": []
+    },
+    {
+      "slug": "farsight-mirkwood",
+      "name": "Cuervos de Erebor",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca a una bandada de Cuervos. Revela el mapa y detecta las unidades en sigilo. Las unidades enemigas cercanas sufren -25% de daño y -20% de armadura. Anula el liderazgo enemigo.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBEreborRavensofErebor"
+      },
+      "requires": []
+    },
+    {
+      "slug": "mirkwood-tree",
+      "name": "Habilidad Enana",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Repara una estructura.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBEreborDwarvenSkill"
+      },
+      "requires": []
+    },
+    {
+      "slug": "elvenking-road",
+      "name": "Camino del Rey Elfo",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una Piedra-guía Élfica. La Piedra-guía puede teletransportar unidades a su ubicación.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SBGreenwoodRoad"
+      },
+      "requires": ["Cuerno de la Puerta"]
+    },
+    {
+      "slug": "elvenking-patience",
+      "name": "Alianza de Rhovanion",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca al azar 3 batallones de todo Rhovanion.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SBRivendellRelicsOfThePast"
+      },
+      "requires": ["Cuerno de la Puerta", "Cuervos de Erebor"]
+    },
+    {
+      "slug": "elvenking-feast",
+      "name": "¡Enviad las Cabras!",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una poderosa estampida de cabras para aplastar a las unidades enemigas.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "SBEreborGoatBoys"
+      },
+      "requires": ["Cuervos de Erebor", "Habilidad Enana"]
+    },
+    {
+      "slug": "elvenking-decree",
+      "name": "Comercio de Dorwinion",
+      "tier": 2,
+      "position": "RR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "+15% de recursos de los Mercados de Dorwinion. Poder pasivo.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "UIElvenHealGreenwood"
+      },
+      "requires": ["Habilidad Enana"]
+    },
+    {
+      "slug": "eotheod-allies",
+      "name": "El Rey Bajo la Montaña",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca temporalmente al rey Dáin y a dos batallones de Khazâd-uzbadul.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "BIEreborLotREra"
+      },
+      "requires": ["Camino del Rey Elfo", "Alianza de Rhovanion"]
+    },
+    {
+      "slug": "mirkwood-lights",
+      "name": "Luces Apagadas",
+      "tier": 3,
+      "position": "C",
+      "kind": "utility",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas sufren -25% de visión y rango de ataque, -25% de ganancia de experiencia y -40% de daño de ataque durante 3 minutos.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "SBGreenwoodLights"
+      },
+      "requires": ["Alianza de Rhovanion", "¡Enviad las Cabras!"]
+    },
+    {
+      "slug": "mirkwood-arrows",
+      "name": "Granizo de Flechas",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Dos rápidas andanadas de flechas Silvanas. La primera andanada es instantánea, la segunda viene después.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "SBGreenwoodArrows"
+      },
+      "requires": ["¡Enviad las Cabras!", "Comercio de Dorwinion"]
+    },
+    {
+      "slug": "orome-call",
+      "name": "Cuerno de Palacendo",
+      "tier": 4,
+      "position": "L",
+      "kind": "heal",
+      "cost": 25,
+      "description": "Las unidades enemigas dentro del radio pierden. -50% de armadura y -50% de daño durante 30 segundos. Los Héroes recargan completamente sus habilidades y son moderadamente curados. Todas las unidades aliadas en el campo de batalla pueden pisotear temporalmente a los enemigos. Todas las unidades de caballería del campo de batalla ganan +100% de armadura contra lanceros durante 30 segundos.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "SBGreenwoodOromeCall"
+      },
+      "requires": ["El Rey Bajo la Montaña", "Luces Apagadas"]
+    },
+    {
+      "slug": "mirkwood-fortune",
+      "name": "Astucia de Haimenar",
+      "tier": 4,
+      "position": "R",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Conjura Niebla envolvente durante 60 segundos. Las unidades aliadas que se encuentren dentro de la niebla pasan a estar sigilosas, mientras que las unidades enemigas atrapadas en ella reciben daño con el tiempo. Las unidades enemigas cercanas sufren -33% de daño, -33% de armadura y -60% de velocidad. Anula el liderazgo enemigo. El maleficio persiste durante 15 segundos.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SBLorienMists"
+      },
+      "requires": ["Luces Apagadas", "Granizo de Flechas"]
+    }
+  ]
+}

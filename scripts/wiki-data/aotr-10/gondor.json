@@ -1,0 +1,2154 @@
+{
+  "code": "gondor",
+  "units": [
+    {
+      "slug": "men-porter",
+      "object": "MenPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Entrena un Constructor. Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIGondorBuilder",
+        "portrait": "UPGondorPorternew"
+      }
+    },
+    {
+      "slug": "gondor-fountain-guard",
+      "object": "GondorFountainGuardHorde",
+      "name": "Guardias de la Fuente",
+      "category": "heroic",
+      "recruitedAt": "Fortaleza",
+      "requirements": "Requiere mejora Torre de Ecthelion; Requiere Torre de Ecthelion",
+      "cost": 1500,
+      "cp": 120,
+      "health": 750,
+      "buildTime": 40,
+      "armourSet": "FountainGuardArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "Capaces de cambiar de formación para mejorar sus capacidades defensivas.\n\nEstos hombres son los silenciosos guardianes del Árbol Blanco. Sus armas y armaduras, con incrustaciones de Mithril, invocan el recuerdo de la Númenor perdida.",
+      "abilities": [
+        {
+          "name": "Esperanza Imperecedera",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Guardias de la Fuente obtienen +10% de armadura por cada batallón cercano de Minas Tirith, hasta +50% de armadura.\n\nCuando muere un Guardia de la Fuente, los aliados cercanos se curan una pequeña cantidad."
+        },
+        {
+          "name": "Expulsar",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Guardias de la Fuente infligen +33% de daño y derriban a las unidades enemigas durante 30 segundos."
+        },
+        {
+          "name": "Ardientes Defensores",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los Guardias de la Fuente están rodeados de un aura que debilita a enemigos y fortalece a aliados durante 30 segundos. Las unidades enemigas sufren -25% de daño y armadura. Las estructuras aliadas obtienen +100% de armadura. Los héroes aliados obtienen tiempos de recarga de energía un 50% más rápidos. Los batallones aliados cercanos se reponen con el tiempo."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 70,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIGondorTowerGuard",
+        "portrait": "UPGondorFountainnew"
+      }
+    },
+    {
+      "slug": "lamedon-clansmen",
+      "object": "LamedonClansmenHorde",
+      "name": "Hombres del Clan Lamedon",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 190,
+      "buildTime": 25,
+      "armourSet": "SoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Procedentes de las boscosas tierras altas de Lamedon, estos hombres han defendido durante mucho tiempo sus tierras de las incursiones sureñas.",
+      "abilities": [
+        {
+          "name": "Armamento de la Ciudad Blanca",
+          "level": 4,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades obtienen permanentemente +20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 50,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILamedonnew",
+        "portrait": "UPLamedonnew"
+      }
+    },
+    {
+      "slug": "gondor-linhir-sentry",
+      "object": "GondorLinhirSentryHorde",
+      "name": "Lanceros de Linhir",
+      "category": "pikemen",
+      "recruitedAt": "Barracones",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 215,
+      "buildTime": 20,
+      "armourSet": "PikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nDurante los últimos días de la Guerra del Anillo, los Hombres de Linhir se enfrentaron valientemente contra los asaltos combinados de Corsarios y Haradrim.",
+      "abilities": [
+        {
+          "name": "Armamento de la Ciudad Blanca",
+          "level": 4,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades obtienen permanentemente +20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 100,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILinhirnew",
+        "portrait": "UPLinhirnew"
+      }
+    },
+    {
+      "slug": "lossarnach-axe-men",
+      "object": "LossarnachAxeMenHorde",
+      "name": "Hacheros de Lossarnach",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones",
+      "requirements": "Requiere a Forlong",
+      "cost": 450,
+      "cp": 75,
+      "health": 200,
+      "buildTime": 25,
+      "armourSet": "SoldierArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "structures"],
+      "weakAgainst": [],
+      "description": "Las tierras de Lossarnach eran famosas por su belleza natural, y sus soldados por su ferocidad y lealtad a su Senescal.",
+      "abilities": [
+        {
+          "name": "Armamento de la Ciudad Blanca",
+          "level": 4,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades obtienen permanentemente +20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 195,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 8,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILossAxemennew",
+        "portrait": "UPLossAxemnennew"
+      }
+    },
+    {
+      "slug": "gondor-fighter",
+      "object": "GondorFighterHorde",
+      "name": "Soldados de Minas Tirith",
+      "category": "swordsmen",
+      "recruitedAt": "Barracones nivel 2",
+      "requirements": "Requiere Nivel 2 de los Barracones",
+      "cost": 500,
+      "cp": 75,
+      "health": 350,
+      "buildTime": 25,
+      "armourSet": "SoldierEliteArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nIncluso durante su decadencia a finales de la Tercera Edad, Minas Tirith mantuvo una considerable guarnición de hombres de armas.",
+      "abilities": [
+        {
+          "name": "Embestida",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ordena a los Soldados cargar contra el enemigo. Los soldados obtienen +50% de daño y +50% de armadura durante 20 segundos. Provoca un impacto severo."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Acero",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Corazas de Acero. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 80,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAnorienSoldier",
+        "portrait": "UPGondorSoldiernew"
+      }
+    },
+    {
+      "slug": "gondor-spearmen",
+      "object": "GondorSpearmenHorde",
+      "name": "Lanceros de Minas Tirith",
+      "category": "pikemen",
+      "recruitedAt": "Barracones nivel 2",
+      "requirements": "Requiere Nivel 2 de Barracones",
+      "cost": 500,
+      "cp": 75,
+      "health": 315,
+      "buildTime": 20,
+      "armourSet": "TowerGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nMantener un gran regimiento de lanceros ha demostrado ser invaluable durante las guerras de Anórien contra las ecuestres Haradrim.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Corazas de Acero",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Corazas de Acero. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 180,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAnorienSpearmen",
+        "portrait": "UPGondorPikemannew"
+      }
+    },
+    {
+      "slug": "blackroot-vale-archer",
+      "object": "BlackrootValeArcherHorde",
+      "name": "Arqueros del Valle Raíz Negra",
+      "category": "archers",
+      "recruitedAt": "Campo de Tiro",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 25,
+      "armourSet": "ArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Los habitantes del Valle Raíz Negra eran conocidos en Gondor por su habilidad con el arco, y su señor Duinhir llevó quinientos arqueros a la Batalla de los Campos del Pelennor.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Armamento de la Ciudad Blanca",
+          "level": 4,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades obtienen permanentemente +20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIBlackrootnew",
+        "portrait": "UPBlackrootnew"
+      }
+    },
+    {
+      "slug": "gondor-archer",
+      "object": "GondorArcherHorde",
+      "name": "Arqueros de Minas Tirith",
+      "category": "archers",
+      "recruitedAt": "Campo de Tiro nivel 2",
+      "requirements": "Requiere Nivel 2 del Campo de Tiro",
+      "cost": 500,
+      "cp": 75,
+      "health": 255,
+      "buildTime": 25,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nEmpuñando grandes arcos, los arqueros de Anórien desempeñaron un papel vital en la defensa de la Ciudad Blanca.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Acero",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Corazas de Acero. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas de Fuego. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 70,
+      "damageType": "PIERCE",
+      "attackDelayMs": 1500,
+      "attackRange": 350,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIAnorienArcher",
+        "portrait": "UPGondorArchernew"
+      }
+    },
+    {
+      "slug": "gondor-ranger",
+      "object": "GondorRangerHorde",
+      "name": "Montaraces de Ithilien",
+      "category": "archers",
+      "recruitedAt": "Campo de Tiro nivel 3",
+      "requirements": "Requiere Nivel 3 del Campo de Tiro y a Faramir",
+      "cost": 625,
+      "cp": 72,
+      "health": 250,
+      "buildTime": 35,
+      "armourSet": "IthilienRangerArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "monsters"],
+      "weakAgainst": [],
+      "description": "Sigilo tras los árboles. Pueden lanzar descargas de flechas a largas distancias.\n\nLos Montaraces son los descendientes del pueblo que una vez habitó Ithilien, antes de que cayera del control de Gondor.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "toggle",
+          "description": "Permite a los Montaraces cambiar entre arco y espada. Otorga +50% de armadura al usar espadas."
+        },
+        {
+          "name": "Disparo Largo",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los montaraces bombardean en cualquier lugar dentro de un gran radio con una descarga de flechas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas con Puntas Bodkin",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Flechas con Puntas Bodkin. Reduce la armadura enemiga contra perforación en un 25% al recibir un impacto. No se acumula.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 85,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 400,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 480,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIIthilienRanger",
+        "portrait": "UPIthilienRangernew"
+      }
+    },
+    {
+      "slug": "gondor-pinnath-gelin-rider",
+      "object": "GondorPinnathGelinRiderHorde",
+      "name": "Jinetes de las Colinas Verdes",
+      "category": "cavalry",
+      "recruitedAt": "Establos",
+      "requirements": null,
+      "cost": 500,
+      "cp": 70,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "PKnightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Cuando las Colinas Verdes fue una leal provincia de Gondor, Hirluin marchó con trescientos jinetes en ayuda de Minas Tirith durante la batalla de los Campos del Pelennor.",
+      "abilities": [
+        {
+          "name": "Armamento de la Ciudad Blanca",
+          "level": 4,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Las unidades obtienen permanentemente +20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 195,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIPinGelnew",
+        "portrait": "UPPinGelinNew"
+      }
+    },
+    {
+      "slug": "gondor-knight",
+      "object": "GondorKnightHorde",
+      "name": "Caballeros de Minas Tirith",
+      "category": "cavalry",
+      "recruitedAt": "Establos nivel 2",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": 400,
+      "buildTime": 25,
+      "armourSet": "AnorienKnightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Require Nivel 2 de los Establos. Capacidad de cambiar de formación para mejorar capacidades ofensivas.\n\nMinas Tirith mantiene una pequeña división de caballería de élite con el propósito de salir y acosar al enemigo.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Corazas de Acero",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Corazas de Acero. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Sólo puede ser equipado en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 210,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIAnorienKnight",
+        "portrait": "UPGondorKnightnew"
+      }
+    },
+    {
+      "slug": "gondor-trebuchet",
+      "object": "GondorTrebuchet",
+      "name": "Trabuco",
+      "category": "siege",
+      "recruitedAt": "Fábrica de Máquinas de Asedio",
+      "requirements": null,
+      "cost": 600,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "TrebuchetArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Un trabuco lanza una enorme roca a una gran velocidad para astillar las defensas y aplastar a los guerreros enemigos.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Rocas Incendiarias",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este trabuco con Rocas Incendiarias. Incrementa significativamente el daño de los Trabucos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 8000,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "UIAnorienTrebuchet",
+        "portrait": "UPGondorTrebuchet"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "gondor-pippin",
+      "object": "GondorPippin",
+      "name": "Pippin",
+      "title": "Temerario Hobbit",
+      "recruitedAt": "Fortaleza",
+      "cost": 325,
+      "buildTime": 20,
+      "health": 550,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Explorador, apoya a los héroes. '¡Os hace falta gente inteligente para este tipo de misión... cometido... cosa!'",
+      "abilities": [
+        {
+          "name": "Capa Élfica",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se vuelven invisibles cuando están quietos."
+        },
+        {
+          "name": "Hoja de Oesternesse",
+          "level": 3,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Inflige Pasivamente +200% de daño contra los Nazgûl."
+        },
+        {
+          "name": "Coraje Mediano",
+          "level": 5,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los héroes cercanos ganan experiencia un 15% más rápido. La salud de Pippin se incrementa. Habiliad pasiva."
+        },
+        {
+          "name": "Perdición de Troll",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Pippin gana +150% de armadura, resistencia a los golpes e inflige +250% de daño contra Monstruos durante 20 segundos."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 833,
+      "attackRange": 10,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIPippinnew",
+        "portrait": "HEPippinnew"
+      }
+    },
+    {
+      "slug": "gondor-forlong-new",
+      "object": "GondorForlongNew",
+      "name": "Forlong",
+      "title": "Señor de Lossarnach",
+      "recruitedAt": "Fortaleza",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2600,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Luchador, apoya a las tropas de los Feudos. '¡Verdadero corazón, verdadero amigo! ¡Forlong!'",
+      "abilities": [
+        {
+          "name": "Señor de Lossarnach",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las tropas del Feudo cerca de Forlong obtienen experiencia un 33% más rápido y son inmunes al miedo."
+        },
+        {
+          "name": "Vitalidad",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Forlong obtiene +50% de daño, +25% de velocidad e inflige derribo durante 30 segundos."
+        },
+        {
+          "name": "Corazón Verdadero, Verdadero Amigo",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Forlong potencia un héroe amigo, otorgándole un 50% de armadura, un 50% más de experiencia y un 75% más de tiempo de recarga de poder durante 30 segundos."
+        }
+      ],
+      "damage": 125,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIForlong",
+        "portrait": "UPGondorForlong"
+      }
+    },
+    {
+      "slug": "gondor-beregond",
+      "object": "GondorBeregond",
+      "name": "Beregond",
+      "title": "Guardián de la Ciudadela Beregond",
+      "recruitedAt": "Fortaleza",
+      "cost": 1400,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Defensa de la base, apoya a los héroes, versátil. 'No soy capitan. Ni oficio ni rango ni señorío tengo yo, siendo un simple hombre de armas de la Tercera Compañía de la Ciudadela.'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Defensor de la Ciudad Blanca (Arco)",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Dispara una flecha que causa un gran daño y produce un efecto de rebote."
+        },
+        {
+          "name": "Guardián de la Ciudadela",
+          "level": 5,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las estructuras cercanas obtienen +30% de armadura."
+        },
+        {
+          "name": "Lealtad Feroz",
+          "level": 7,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Faramir, Boromir y Pippin ganan +15% de armadura y daño cuando están cerca de Beregond."
+        },
+        {
+          "name": "Sacrificio",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Beregond sufre mucho daño mientras el héroe aliado objetivo se vuelve inmune al daño durante 10 segundos."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIBeregondnew",
+        "portrait": "HEBeregond"
+      }
+    },
+    {
+      "slug": "gondor-imrahil",
+      "object": "GondorImrahil",
+      "name": "Príncipe Imrahil",
+      "title": "Príncipe de Dol Amroth, Imrahil",
+      "recruitedAt": "Fortaleza",
+      "cost": 1700,
+      "buildTime": 50,
+      "health": 2800,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Apoya a las tropas de los Feudos, apoya a la caballería. 'Por un tiempo me paro en el lugar del Senescal de Gondor, y es deber mío pensar primero en su gente.'",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Señor Justo",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades del Feudo y Dol Amroth cercanas a Imrahil obtienen +33% de daño y armadura."
+        },
+        {
+          "name": "Indemne",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Imrahil se vuelve inmune al daño a distancia, obtiene +100% de daño, +10% de velocidad y es resistente al derribo durante 20 segundos."
+        },
+        {
+          "name": "Inspiración",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas a Imrahil ganan el doble de experiencia durante 60 segundos."
+        },
+        {
+          "name": "¡Amroth por Gondor!",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Imrahil y la caballería cercana, incluidos los Caballeros Cisne, obtienen +50% de armadura y -50% de desaceleración por aplastamiento durante 20 segundos. Imrahil debe ir montado para usar esta habilidad."
+        }
+      ],
+      "damage": 190,
+      "damageType": "HERO",
+      "attackDelayMs": 815,
+      "attackRange": 25,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIImrahilnew",
+        "portrait": "HEImrahilnew"
+      }
+    },
+    {
+      "slug": "gondor-denethor",
+      "object": "GondorDenethor",
+      "name": "Denethor",
+      "title": "Senescal de Gondor",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2200,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Apoyo de tropas, control de masas, convoca refuerzos. 'Y no lo he de olvidar. Y he de recompensar lo recibido a cambio. Fidelidad con amor, valor con honor, perjurio con venganza.'",
+      "abilities": [
+        {
+          "name": "Senescal de Gondor",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Denethor está protegido por sus guardias.\n\nRango 1: Los aliados cercanos a Denethor obtienen +25% de armadura. Faramir pierde -15% de armadura y -15% de experiencia. Rango 3: Los alidados cercanos a Denethor obtienen +25% de daño. Gandalf pierde -15% de armadura y -15% de experiencia. Rango 6: Los aliados cercanos a Denethor obtienen +25% de experiencia. Elessar pierde -15% de armadura."
+        },
+        {
+          "name": "Piedra de Anárion",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se puede lanzar para revelar el velo durante 2 minutos.\n\nLas unidades seleccionadas, tanto aliadas como enemigas, pierden todo el liderazgo durante 30 segundos."
+        },
+        {
+          "name": "Alta Autoridad",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Ordena a las unidades enemigas objetivo que huyan despavoridas."
+        },
+        {
+          "name": "En Servicio del Senescal",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca temporalmente un batallón de Guardias de la Ciudadela. En el nivel 10, también convoca temporalmente a Berethor."
+        },
+        {
+          "name": "Lucha de Voluntades",
+          "level": 9,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Cuando se lanza sobre un héroe aliado, incrementa el daño infligido en +100% a costa de -50% de armadura durante 15 segundos. Cuando se lanza sobre un héroe enemigo, éste pierde. -33% de armadura y velocidad durante 15 segundos."
+        }
+      ],
+      "damage": 100,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 121
+      },
+      "images": {
+        "button": "HIDenethornew",
+        "portrait": "HEDenethornew"
+      }
+    },
+    {
+      "slug": "gondor-faramir",
+      "object": "GondorFaramir",
+      "name": "Faramir",
+      "title": "Capitán de los Montaraces de Ithilien",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2000,
+      "armourSet": "LegolasArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "'No amo la espada brillante por su agudeza, ni la flecha por su rapidez, ni al guerrero por su gloria. Solo amo lo que defienden'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Volea Oculta",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Faramir llama a sus Montaraces para que bombardeen cualquier lugar en un gran radio con una andanada de flechas. En el nivel 5 obtiene +50% de daño y se incrementa el radio."
+        },
+        {
+          "name": "Cambiar Caballero/Montaraz",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "Capitán de Ithilien",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "leadership",
+          "description": "Faramir llama a un grupo de Montaraces y a uno de sus lugartenientes para que defiendan el lugar elegido. Están inmóviles, pero permanecen ocultos y atacarán a cualquier enemigo que se acerque. En el nivel 7, convoca a un grupo más grande de Montaraces.\n\nLos Montaraces de Ithilien cercanos a Faramir obtienen +15% de armadura y daño, y ganan experiencia un 33% más rápido."
+        },
+        {
+          "name": "Flecha Hiriente",
+          "level": 6,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Ataque simple a distancia. Provoca que el monstruo objetivo huya. Sólo se puede utilizar con el arco equipado."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 50,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIFaramirnew",
+        "portrait": "HEFaramirnew"
+      }
+    },
+    {
+      "slug": "gondor-boromir",
+      "object": "GondorBoromir",
+      "name": "Boromir",
+      "title": "Capitán de la Torre Blanca",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Luchador, apoyo de primera línea, apoya a las tropas de Minas Tirith. 'Que los ejércitos de Mordor sepan esto: ¡Nunca más la tierra de mi pueblo caerá en manos enemigas!'",
+      "abilities": [
+        {
+          "name": "Capitán de la Torre Blanca",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Soldados, Lanceros y Arqueros de Minas Tirith cercanos a Boromir obtienen +33% de daño y +25% de armadura.\n\nEn el nivel 5, Boromir se pone su armadura gondoriana y obtiene +15% de armadura."
+        },
+        {
+          "name": "Lanzar Cuchillo",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Boromir lanza su cuchillo a una unidad enemiga derribándola y reduciendo su armadura en un 25% durante 10 segundos."
+        },
+        {
+          "name": "Cuerno de Gondor",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Aturde a los enemigos con miedo durante 15 segundos."
+        },
+        {
+          "name": "¡Por Gondor!",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades aliadas cercanas obtienen +33% de daño, +20% de velocidad y resistencia al miedo y al terror durante 30 segundos."
+        },
+        {
+          "name": "Orgulloso, Terco, Fuerte",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "Otorga a las unidades objetivo aliadas una experiencia superior.\n\nCuando Boromir alcanza el 25% de salud, él obtiene +200% de armadura durante 15 segundos. No se puede volver a activar durante 60 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIBoromirNew",
+        "portrait": "HEBoromirnew"
+      }
+    },
+    {
+      "slug": "gondor-gandalf",
+      "object": "GondorGandalf",
+      "name": "Gandalf",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 5000,
+      "buildTime": 80,
+      "health": 2900,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Mithrandir, el Jinete Blanco. Apoya a las tropas aliadas, otorga inmunidad a los debilitamientos, lanza hechizos mortales sobre las tropas enemigas. 'Soy Gandalf el Blanco. Y en los albores de la tempestad, vuelvo a vosotros.'",
+      "abilities": [
+        {
+          "name": "Jefe de los Istari",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Desmontado: Ataque a corta distancia que hace retroceder a los enemigos.\n\nMontado: El héroe enemigo objetivo queda aturdido durante 10 segundos y recibe daño.\n\nLos aliados cercanos a Gandalf obtienen un 300% de armadura al daño mágico y elemental, ganan experiencia un 50% más rápido y se vuelven inmunes al miedo y al terror.\n\nBurbuja de Escudo. Gandalf gana ocasionalmente +75% de armadura y resistencia al derribo cuando es atacado. La burbuja dura 10 segundos y no se puede volver a activar durante 75 segundos. Habilidad pasiva pero puede ser activada manualmente usando el atajo (U)."
+        },
+        {
+          "name": "Montar Sombragris / Desmontar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "entre montar a Sombragris o ir a pie."
+        },
+        {
+          "name": "Corazones Reavivados",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Gandalf gana +25% de daño y armadura durante 30 segundos. Las unidades aliadas cercanas a Gandalf se vuelven inmunes a los maleficios y a los derribos mientras la habilidad está activa. Las estructuras cercanas de Gondor reclutan unidades un 50% más rápido durante 60 segundos."
+        },
+        {
+          "name": "Llama de Anor",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Emite una luz que daña a los enemigos. Bonificación frente a Balrogs y Nazgûl. Inflige más daño a Nivel 7. Inflige daño en un radio mayor y derriba a las unidades enemigas a Nivel 9."
+        },
+        {
+          "name": "¡No Puedes Pasar!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Repele y daña a unidades y héroes en un amplio radio alrededor de Gandalf."
+        },
+        {
+          "name": "Escudo de Burbuja",
+          "level": null,
+          "hotkey": "U",
+          "kind": "active",
+          "description": "Crea un escudo mágico alrededor de Gandalf. Otorga temporalmente +300% de armadura y resistencia a los ataques de derribo."
+        }
+      ],
+      "damage": 480,
+      "damageType": "HERO",
+      "attackDelayMs": 900,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGandalfnew",
+        "portrait": "UPGondorGandalfNew"
+      }
+    },
+    {
+      "slug": "ring-hero-frodo",
+      "object": "RingHeroFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Frasco de Galadriel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas huyan."
+        },
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "El Guía y el Jardinero",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca al fiel jardinero de Frodo, Samsagaz Gamyi, y a Sméagol, su guía."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIFrodonew",
+        "portrait": "HEFrodonew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "men-fortress-citadel",
+      "object": "MenFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor", "Guardias de la Fuente"],
+      "upgrades": [
+        {
+          "name": "Estandartes del Árbol Blanco",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura, y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Casa de la Curación",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Reduce el coste de revivir a un Héroe un 20%. Reduce el tiempo de resucitar a un Héroe un 20%. Cura a los aliados cercanos y repone a las unidades caídas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Baluarte del Oeste",
+          "cost": 1250,
+          "hotkey": "R",
+          "level": null,
+          "description": "Desbloquea la habilidad Defensa Incondicional. Puede utilizarse para convocar dos batallones de Guardias de la Ciudadela para defender la fortaleza.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Municiones Incendiarias",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Añade daño por fuego a todas las torres y máquinas conectadas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Trabajo de Piedra de Númenor",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza y las Murallas un 65%. Requisito para Torre de Ecthelion.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de Ecthelion",
+          "cost": 1000,
+          "hotkey": "D",
+          "level": null,
+          "description": "Proporciona poder de Visión del Palantír y permite el reclutamiento de Guardias de la Fuente. Incrementa el rango de visión de la Fortaleza.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Defensa Incondicional",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca a dos batallones de Guardias de la Ciudadela."
+        },
+        {
+          "name": "Palantír de la Torre Blanca",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Revela todo el mapa durante 30 segundos. Detecta unidades en sigilo."
+        }
+      ],
+      "images": {
+        "button": "UIGondorFortress",
+        "portrait": "BPGondorFortress"
+      }
+    },
+    {
+      "slug": "gondor-farm",
+      "object": "GondorFarm",
+      "name": "Granero",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona provisiones como recurso basado en el terreno disponible. Reduce el coste de la caballería. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorFarmnew"
+      }
+    },
+    {
+      "slug": "gondor-forge",
+      "object": "GondorForge",
+      "name": "Herrería",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Proporciona metales trabajados como un recurso basado en el terreno disponible. Investiga mejoras de armas y armaduras. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Árbol Blanco",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes del Árbol Blanco. Incrementa el batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas Templadas",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Corazas de Acero",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Corazas de Acero. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorBlacksmithnew"
+      }
+    },
+    {
+      "slug": "gondor-barracks",
+      "object": "GondorBarracks",
+      "name": "Barracones",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena a la infantería cuerpo a cuerpo de Gondor.",
+      "produces": [
+        "Hombres del Clan Lamedon",
+        "Lanceros de Linhir",
+        "Hacheros de Lossarnach",
+        "Soldados de Minas Tirith",
+        "Lanceros de Minas Tirith"
+      ],
+      "upgrades": [
+        {
+          "name": "Barracones al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Soldados y Lanceros de Minas Tirith +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Barracones al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorBarracksnew"
+      }
+    },
+    {
+      "slug": "gondor-archer-range",
+      "object": "GondorArcherRange",
+      "name": "Campo de Tiro",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 25,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena y mejora a los arqueros de Gondor.",
+      "produces": [
+        "Arqueros del Valle Raíz Negra",
+        "Arqueros de Minas Tirith",
+        "Montaraces de Ithilien"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Flechas de Fuego",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Flechas de Fuego. Cuando está equipado, incrementa significativamente el daño.\n\nPermite a los Montaraces de Ithilien adquirir la mejora de flechas con Puntas Bodkin. Cuando está equipado, reduce la armadura enemiga contra perforación en un 25% al recibir un impacto.\n\nMejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Campo de Tiro al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Arqueros de Minas Tirith +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Campo de Tiro al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Montaraces de Ithilien. Permite adquirir la mejora Flechas de Fuego. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorArcheryRangenew"
+      }
+    },
+    {
+      "slug": "gondor-stable",
+      "object": "GondorStable",
+      "name": "Establos",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena a la caballería de Gondor.",
+      "produces": [
+        "Jinetes de las Colinas Verdes",
+        "Caballeros de Minas Tirith"
+      ],
+      "upgrades": [
+        {
+          "name": "Establos al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Caballeros de Minas Tirith +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Establos al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorStablesnew"
+      }
+    },
+    {
+      "slug": "gondor-workshop",
+      "object": "GondorWorkshop",
+      "name": "Fábrica de Máquinas de Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye y mejora Trabucos. En el rango 2, repara las máquinas de asedio cercanas.",
+      "produces": ["Trabuco"],
+      "upgrades": [
+        {
+          "name": "Investigar Rocas Incendiarias",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los Trabucos adquirir la mejora Rocas Incendiarias. Cuando está equipado, incrementa el daño causado por los Trabucos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fábrica de Máquinas de Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite investigar la mejora Rocas Incendiarias. Repara las máquinas de asedio cercanas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fábrica de Máquinas de Asedio al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Incrementa la reparación de las máquinas de asedio cercanas. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorWorkshopnew"
+      }
+    },
+    {
+      "slug": "gondor-battle-tower",
+      "object": "GondorBattleTower",
+      "name": "Torre de Batalla",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarecer con arqueros para incrementar su ataque. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Centinela de Anórien",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Estaciona centinelas permanente en la torre.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "UIGondorBattleTower",
+        "portrait": "BPGondorTowernew"
+      }
+    },
+    {
+      "slug": "monument-to-elendil",
+      "object": "MonumentToElendil",
+      "name": "Monumento a Elendil",
+      "kind": "support",
+      "cost": 500,
+      "buildTime": 45,
+      "health": 1875,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona bonificación de liderazgo a las unidades cercanas. Cura a los aliados cercanos y repone a las unidades caídas. Detecta unidades en sigilo.\n\nEl Alto Rey de Gondor y Arnor siempre fue recordado en el Reino del Sur, incluso en sus días de decadencia.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorHeroicStatuenew"
+      }
+    },
+    {
+      "slug": "gondor-market-place",
+      "object": "GondorMarketPlace",
+      "name": "Mercado",
+      "kind": "economy",
+      "cost": 800,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": 1,
+      "description": "El Mercado crea mejoras económicas.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Gran Cosecha",
+          "cost": 600,
+          "hotkey": "W",
+          "level": null,
+          "description": "+12% de recursos de granjas. Se debe mantener un Mercado para beneficiarse de esta mejora.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        },
+        {
+          "name": "Materiales de Asedio",
+          "cost": 650,
+          "hotkey": "E",
+          "level": null,
+          "description": "Las estructuras destruidas devuelven un 50% de su costo. Para poderse beneficiar de esta mejora el jugador debe mantener un mercado.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorMarketplacenew"
+      }
+    },
+    {
+      "slug": "gondor-stone-maker",
+      "object": "GondorStoneMaker",
+      "name": "Cantera",
+      "kind": "support",
+      "cost": 650,
+      "buildTime": 45,
+      "health": 2500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 5,
+      "description": "Refuerza las estructuras cercanas. Reduce el costo de los edificios. Genera una pequeña cantidad de recursos. Incrementa los puntos de mando en 10 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Inspecciones de Construcción",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las estructuras cercanas obtienen +30% de armadura. Se necesita una Cantera para la mejora."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorStoneworkernew"
+      }
+    },
+    {
+      "slug": "men-wall-hub-small",
+      "object": "MenWallHubSmall",
+      "name": "Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "MenWallArmor",
+      "maxCount": null,
+      "description": "Los centros amurallados se pueden usar para construir murallas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGondorWallHubnew"
+      }
+    },
+    {
+      "slug": "men-arrow-tower-expansion",
+      "object": "MenArrowTowerExpansion",
+      "name": "Torre de Flechas",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva de corto alcance. Beneficios de la mejora Municiones Incendiarias.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BPGondorFortressTower",
+        "portrait": "BPGondorFortressTower"
+      }
+    },
+    {
+      "slug": "men-trebuchet-expansion",
+      "object": "MenTrebuchetExpansion",
+      "name": "Expansión de Trabuco",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Beneficios de la mejora Municiones Incendiarias.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Trabuco",
+          "cost": 450,
+          "hotkey": "W",
+          "level": null,
+          "description": "Reconstruye el trabuco en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BRBattleTower",
+        "portrait": "UPGondorTrebuchet"
+      }
+    },
+    {
+      "slug": "gondor-solemn-statue-expansion",
+      "object": "GondorSolemnStatueExpansion",
+      "name": "Expansión Estatua Solemne",
+      "kind": "defence",
+      "cost": 500,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los Guardianes de la Fuente defenderán la estatua y atacarán a los enemigos cercanos.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BIGuldurBoneyardExpansion",
+        "portrait": "UPSolemnStatue"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "heal",
+      "name": "Curadores Expertos",
+      "tier": 1,
+      "position": "L",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Cura a las unidades parcialmente y reemplaza a un muerto por batallón.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SbGondorHealNew"
+      },
+      "requires": []
+    },
+    {
+      "slug": "rebuild",
+      "name": "Restauración",
+      "tier": 1,
+      "position": "C",
+      "kind": "heal",
+      "cost": 5,
+      "description": "Repara una estructura.",
+      "requiresSlots": [1],
+      "slot": 2,
+      "images": {
+        "button": "SBGondorRebuildnew"
+      },
+      "requires": ["Curadores Expertos"]
+    },
+    {
+      "slug": "rallying-call-mpg",
+      "name": "Cuerno del Capitán",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados elegidos obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBGondorRallyingCallNew"
+      },
+      "requires": []
+    },
+    {
+      "slug": "spawn-lone-tower",
+      "name": "Tierras Mantenidas a Salvo",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una torre defensiva guarecida por arqueros. Los arqueros reciben flechas de fuego una vez comprada la mejora en el campo de tiro con arco. Todas las unidades aliadas cercanas ganan +25% de armadura.",
+      "requiresSlots": [1, 2],
+      "slot": 4,
+      "images": {
+        "button": "SBGondorLoneTnew"
+      },
+      "requires": ["Curadores Expertos", "Restauración"]
+    },
+    {
+      "slug": "ithilien-garden",
+      "name": "Jardín de Ithilien",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un exuberante jardín en el campo de batalla durante 5 minutos. Todas las unidades aliadas obtienen +50% de daño y se vuelven inmunes al miedo y al terror. El Jardín está habitado por varios Montaraces de Ithilien.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SBGondorIthilienGNew"
+      },
+      "requires": ["Curadores Expertos", "Restauración"]
+    },
+    {
+      "slug": "spawn-trebuchet",
+      "name": "Ingeniería de Númenor",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un trabuco estacionario sobre el campo de batalla.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "SBGondorTrebuchetbuttonNEw"
+      },
+      "requires": ["Restauración", "Cuerno del Capitán"]
+    },
+    {
+      "slug": "sworn-allegiance",
+      "name": "Lealtad Jurada",
+      "tier": 2,
+      "position": "RR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Todos los Barracones de Gondor, el Campos de Tiro con Arco, los Establos y las Ciudadelas de Dol Amroth reducen el tiempo de reclutamiento de las tropas del Feudo en un 33%. Las tropas cuentan con Armamentos de la Ciudad Blanca. El efecto dura 60 segundos. No afecta a los Caballeros Cisne.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SbGondorSwornAllegianceNew"
+      },
+      "requires": ["Cuerno del Capitán"]
+    },
+    {
+      "slug": "rohan-allies",
+      "name": "El Juramento de Eorl",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca tres batallones de Rohirrim en ayuda de Gondor.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SbGondorROhirrimSummonNew"
+      },
+      "requires": ["Tierras Mantenidas a Salvo", "Jardín de Ithilien"]
+    },
+    {
+      "slug": "western-winds",
+      "name": "Vientos del Oeste",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Concede una bonificación de velocidad del +33% a las unidades aliadas de todo el mapa durante 15 segundos.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SBGondorWesterWindsNew"
+      },
+      "requires": ["Jardín de Ithilien", "Ingeniería de Númenor"]
+    },
+    {
+      "slug": "dol-amroth-allies",
+      "name": "Ciudadela de Dol Amroth",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a la Ciudadela de Dol Amroth. Recluta al príncipe Imrahil, Hombres de Armas y Caballeros Cisnes.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "SBGondorsummonDolAmrothCNew"
+      },
+      "requires": ["Ingeniería de Númenor", "Lealtad Jurada"]
+    },
+    {
+      "slug": "eagle-allies-gondor",
+      "name": "Los Mensajeros de Manwë",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a Gwaihir el Señor de los Vientos y a 3 águilas.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "SBGondorEaglesSummonAotrnew"
+      },
+      "requires": ["El Juramento de Eorl", "Vientos del Oeste"]
+    },
+    {
+      "slug": "spawn-elessar",
+      "name": "El Retorno del Rey",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca al Rey Elessar acompañado de sus Guardias Reales. Sus guardias son temporales, pero el Rey dura hasta su muerte. Las unidades cercanas obtienen inmunidad al miedo y al terror.",
+      "requiresSlots": [10],
+      "slot": 12,
+      "images": {
+        "button": "SBGondorElessarNew"
+      },
+      "requires": ["Ciudadela de Dol Amroth"]
+    }
+  ]
+}

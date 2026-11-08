@@ -1,0 +1,2369 @@
+{
+  "code": "isengard",
+  "units": [
+    {
+      "slug": "isengard-porter",
+      "object": "IsengardPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye edificios.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIPorterNew",
+        "portrait": "UPLaborernew"
+      }
+    },
+    {
+      "slug": "isengard-scout",
+      "object": "IsengardScoutHorde",
+      "name": "Exploradores Uruk-hai",
+      "category": "archers",
+      "recruitedAt": "Foso de Uruk",
+      "requirements": null,
+      "cost": 375,
+      "cp": 60,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "UrukScoutArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "pikemen"],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 30 s. Nivel 2: +10% de vida, +10% de daño. Niveles 3-4: +9% de vida, +9% de daño. Nivel 5: +8% de vida, +8% de daño.\n\nSaruman envió una legión de exploradores para rastrear al Portador del Anillo y traer su premio.",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Sed de Sangre",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Uruk-hai +25% de daño."
+        },
+        {
+          "name": "Flechas de Caza",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Durante 20 segundos, las flechas de los Exploradores Uruk-hai ralentizan a los objetivos un 33% durante 5 segundos. Sólo se puede utilizar con arcos equipados.\n\nTiempo de recarga: 1 min 30 s."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes de la Mano Blanca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 600,
+        "preAttackDelayMs": 1500
+      },
+      "images": {
+        "button": "UIIsenUrukScout",
+        "portrait": "UPUrukscoutsnew"
+      }
+    },
+    {
+      "slug": "isengard-fighter",
+      "object": "IsengardFighterHorde",
+      "name": "Guerreros Uruk-hai",
+      "category": "swordsmen",
+      "recruitedAt": "Foso de Uruk nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 60,
+      "health": 305,
+      "buildTime": 30,
+      "armourSet": "UrukHaiArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Capaces de cambiar de formación para mejorar las capacidades defensivas.\n\nTiempo de reclutamiento: 30 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nCruzando orcos con hombres-trasgo, Saruman ha levantado un ejército con un único propósito: destruir el mundo de los Hombres.",
+      "abilities": [
+        {
+          "name": "Sed de Sangre",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Uruk-hai +25% de daño."
+        },
+        {
+          "name": "Marca del Ojo Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Orcos +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Mano Blanca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 100,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "UIIsenUruk",
+        "portrait": "UPUrukhainew"
+      }
+    },
+    {
+      "slug": "isengard-uruk-crossbow",
+      "object": "IsengardUrukCrossbowHorde",
+      "name": "Ballesteros Uruk-hai",
+      "category": "archers",
+      "recruitedAt": "Foso de Uruk nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 60,
+      "health": 265,
+      "buildTime": 30,
+      "armourSet": "CrossbowArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 30 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nEquipándolos con toscas ballestas, Saruman ha minimizado el entrenamiento requerido para que sus Uruks sean mortales a distancia.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Mano Blanca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 85,
+      "damageType": "PIERCE",
+      "attackDelayMs": 2000,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIIsenUrukCrossbow",
+        "portrait": "UPUrukhaiCrossbowsnew"
+      }
+    },
+    {
+      "slug": "isengard-pikeman",
+      "object": "IsengardPikemanHorde",
+      "name": "Piqueros Uruk-hai",
+      "category": "pikemen",
+      "recruitedAt": "Foso de Uruk nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 60,
+      "health": 305,
+      "buildTime": 30,
+      "armourSet": "UrukPikeArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Capaces de cambiar de formación para mejorar las capacidades defensivas.\n\nTiempo de reclutamiento: 30 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nPreparándose para erradicar a los Señores de los Caballos de Rohan, Saruman equipó a gran número de sus Uruks con largas picas.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Mano Blanca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 210,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIIsenUrukPike",
+        "portrait": "UPUrukhaiPikemen"
+      }
+    },
+    {
+      "slug": "uruk-shieldbearer",
+      "object": "UrukShieldbearerHorde",
+      "name": "Portadores de Escudo Uruk-hai",
+      "category": "swordsmen",
+      "recruitedAt": "Foso de Uruk nivel 2",
+      "requirements": null,
+      "cost": 400,
+      "cp": 30,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ShieldbearerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de apoyo fuertemente acorazada. Capaces de cambiar de formación para mejorar las capacidades defensivas.\n\nTiempo de reclutamiento: 30 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\n'Esto no es una turba de orcos sin seso. Son Uruk-hai. Su armadura es gruesa y sus escudos anchos.'",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Mano Blanca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 6,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "uiurukshieldbearer",
+        "portrait": "UPUrukShieldBearer"
+      }
+    },
+    {
+      "slug": "isengard-beserker",
+      "object": "IsengardBeserker",
+      "name": "Bersérker Uruk-hai",
+      "category": "swordsmen",
+      "recruitedAt": "Foso de Uruk nivel 2",
+      "requirements": null,
+      "cost": 450,
+      "cp": 50,
+      "health": 800,
+      "buildTime": 25,
+      "armourSet": "BerserkerArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "pikemen"],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 20 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nEn lugar de deshacerse de los primeros especímenes menos refinados de Uruk, Saruman utilizó a estas criaturas enloquecidas como mortíferas tropas de choque.",
+      "abilities": [
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Sangre Humana",
+          "cost": 200,
+          "hotkey": "R",
+          "level": null,
+          "description": "Empapa a este Bersérker con la sangre de sus enemigos. El radio de daño en área de los ataques del Bersérker aumenta permanentemente a 15. Cada ataque consecutivo aumenta el daño del Bersérker un 10% durante 5 segundos. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Piel Gruesa",
+          "cost": 200,
+          "hotkey": "T",
+          "level": null,
+          "description": "La larga exposición al castigo endurece la piel. El Bersérker obtiene permanentemente +33% de armadura contra todo tipo de daño y mayor resistencia al daño por aplastamiento. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Puño de Hierro",
+          "cost": 450,
+          "hotkey": "C",
+          "level": null,
+          "description": "Otorga a este Bersérker el rango de Capitán. El Bersérker obtiene permanentemente +10% de velocidad de movimiento. Los Uruks cercanos obtienen +15% de daño y +15% de velocidad de movimiento. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 225,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 10,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIIsenBeserker",
+        "portrait": "UPUrukhaiBeserkernew"
+      }
+    },
+    {
+      "slug": "isengard-mine-beserker",
+      "object": "IsengardMineBeserker",
+      "name": "Zapador de Isengard",
+      "category": "swordsmen",
+      "recruitedAt": "Foso de Uruk nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 50,
+      "health": 800,
+      "buildTime": 25,
+      "armourSet": "BerserkerArmor",
+      "attackType": "Fuego (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 20 s.\n\nEstos Uruk Bersérkers llevan pequeñas bombas en sus espaldas para prenderlas fuego, matándose a sí mismos y a toda la gente a su alrededor.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 1,
+      "damageType": "FLAME",
+      "attackDelayMs": 633,
+      "attackRange": 10,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIIsengardSapper",
+        "portrait": "UPIsengardSapper"
+      }
+    },
+    {
+      "slug": "isengard-berserker",
+      "object": "IsengardBerserkerHorde",
+      "name": "Cazadores de hombres Uruk-hai",
+      "category": "heroic",
+      "recruitedAt": "Foso de Uruk nivel 3",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 120,
+      "health": 625,
+      "buildTime": 70,
+      "armourSet": "IsengardFanaticArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 70 s. Niveles 2-5: +5% de vida, +5% de daño. Niveles 6-9: +4% de vida, +4% de daño. Nivel 10: +3% de vida, +3% de daño.\n\nEnloquecidos por el olor de la carne humana, estas locas criaturas son capaces de atravesar la armadura y mantener las heridas que matarían a los orcos ordinarios y uruks.",
+      "abilities": [
+        {
+          "name": "Perdición de los Rohirrim",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Cazadores de hombres son muy resistentes al derribo e inmunes al pisoteo."
+        },
+        {
+          "name": "Frenesí Retorcido",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Cazadores de Hombres obtienen +150% de daño a cambio de un -33% de armadura durante 20 segundos.\n\nTiempo de recarga: 2 min."
+        },
+        {
+          "name": "Aroma de Sangre",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Los Cazadores de Hombres recuperan vida con cada golpe.\n\nAl activarse, los Cazadores de Hombres obtienen +33% de velocidad de movimiento durante 20 segundos.\n\nTiempo de recarga: 3 min."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 120,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 5,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIIsenDB",
+        "portrait": "UPIsenDeathbringernew"
+      }
+    },
+    {
+      "slug": "isengard-wildman",
+      "object": "IsengardWildmanHorde",
+      "name": "Salvajes de Dunland",
+      "category": "swordsmen",
+      "recruitedAt": "Estancia del Clan",
+      "requirements": null,
+      "cost": 200,
+      "cp": 48,
+      "health": 150,
+      "buildTime": 20,
+      "armourSet": "WildmenArmor",
+      "attackType": "Fuego (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "structures"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nTiempo de reclutamiento: 20 s. Nivel 2: +10% de vida, +10% de daño. Niveles 3-4: +9% de vida, +9% de daño. Nivel 5: +8% de vida, +8% de daño.",
+      "abilities": [
+        {
+          "name": "Saqueo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Salvajes roban recursos cada vez que infligen daño a las estructuras enemigas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Antorchas",
+          "cost": 200,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Antorchas. Incrementa el ataque de las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Elegir Hersir",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 92,
+      "damageType": "FLAME",
+      "attackDelayMs": 633,
+      "attackRange": 30,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIIsenDunland",
+        "portrait": "UPWildmennew"
+      }
+    },
+    {
+      "slug": "isengard-wildman-spear",
+      "object": "IsengardWildmanSpearHorde",
+      "name": "Lanceros Salvajes",
+      "category": "pikemen",
+      "recruitedAt": "Estancia del Clan",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 150,
+      "buildTime": 20,
+      "armourSet": "WildmanPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nTiempo de reclutamiento: 20 s. Nivel 2: +10% de vida, +10% de daño. Niveles 3-4: +9% de vida, +9% de daño. Nivel 5: +8% de vida, +8% de daño.\n\nTemerosos de la maestría ecuestre de los cabezas de paja, a las hordas de Dunlendinos rara vez les faltaban lanzas en abundancia.",
+      "abilities": [
+        {
+          "name": "Saqueo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Salvajes roban recursos cada vez que infligen daño a las estructuras enemigas."
+        },
+        {
+          "name": "¡Sumisión!",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Caudillos de Harondor pueden sacrificar a miembros de sus hordas para obtener +10% de velocidad y +15% de daño. Duración 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Elegir Hersir",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 35,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIIsenDunlandSpear",
+        "portrait": "UPWildmenSpearsnew"
+      }
+    },
+    {
+      "slug": "isengard-wildman-axe",
+      "object": "IsengardWildmanAxeHorde",
+      "name": "Escaramuzadores Salvajes",
+      "category": "archers",
+      "recruitedAt": "Estancia del Clan nivel 2",
+      "requirements": null,
+      "cost": 250,
+      "cp": 60,
+      "health": 200,
+      "buildTime": 20,
+      "armourSet": "WildmenMissileArmor",
+      "attackType": "Espada (a distancia)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles. Fuerte a Largo Alcance.\n\nTiempo de reclutamiento: 20 s. Nivel 2: +10% de vida, +10% de daño. Niveles 3-4: +9% de vida, +9% de daño. Nivel 5: +8% de vida, +8% de daño.\n\nAunque los Dunlendinos solían considerar el arte del lanzamiento de hachas más bien como un deporte, algunos guerreros hábiles seguían empleándolo en la batalla.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Elegir Hersir",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 80,
+      "damageType": "SLASH",
+      "attackDelayMs": 1584,
+      "attackRange": 300,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 700
+      },
+      "images": {
+        "button": "UIIsenDunlandAxe",
+        "portrait": "UPWildmenAxeThrowernew"
+      }
+    },
+    {
+      "slug": "isengard-warg-rider",
+      "object": "IsengardWargRiderHorde",
+      "name": "Jinetes de Huargos",
+      "category": "cavalry",
+      "recruitedAt": "Foso de Huargo",
+      "requirements": null,
+      "cost": 425,
+      "cp": 70,
+      "health": 275,
+      "buildTime": 30,
+      "armourSet": "IsengardWargArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 30 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nPor generaciones, los orcos han montado huargos - no como maestros, si no como iguales - para rastrear y emboscar a los pueblos libres.",
+      "abilities": [
+        {
+          "name": "Aullido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huargos obtienen +50% de daño y +20% de velocidad durante 20 segundos.\n\nTiempo de recarga: 3 min."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Mano Blanca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 55,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "UIIsenWargRider",
+        "portrait": "UPWargRidersnew"
+      }
+    },
+    {
+      "slug": "isengard-dunland-axemen",
+      "object": "IsengardDunlandAxemenHorde",
+      "name": "Hacheros Dunlendinos",
+      "category": "swordsmen",
+      "recruitedAt": "Barracón Dunlendino",
+      "requirements": null,
+      "cost": 460,
+      "cp": 60,
+      "health": 250,
+      "buildTime": 25,
+      "armourSet": "DunlendingAxeArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Infantería de Élite.\n\nTiempo de reclutamiento: 30 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nUn hacha, un escudo y un casco. Estas son las posesiones más valiosas de cualquier guerrero de Dunland.",
+      "abilities": [
+        {
+          "name": "Grito de Guerra",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Salvajes y Dunlendinos cercanos obtienen resistencia al arrollamiento y +15% de velocidad de movimiento durante 30 segundos.\n\nTiempo de recarga: 6 min."
+        },
+        {
+          "name": "Marca del Ojo Rojo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de Sangre garantiza a los Orcos +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Placa Ennegrecida",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Placa Ennegrecida. Reduce significativamente la cantidad de daño recibido. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Cuervos",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 240,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 390,
+        "attackRadius": 8,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIDunlendingOutrider",
+        "portrait": "UPDunlendingAxemen"
+      }
+    },
+    {
+      "slug": "isengard-dunland-archer",
+      "object": "IsengardDunlandArcherHorde",
+      "name": "Arqueros Dunlendinos",
+      "category": "archers",
+      "recruitedAt": "Barracón Dunlendino nivel 2",
+      "requirements": "Requiere Nivel 2 del Barracón Dunlendino",
+      "cost": 600,
+      "cp": 72,
+      "health": 190,
+      "buildTime": 30,
+      "armourSet": "DunlandArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Arqueros de Élite.\n\nTiempo de investigación: 45 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\n'Las colinas rocosas de Dunland son difíciles de cultivar, lo que resulta en una extensa cultura de caza basada en la leyenda del Cuervo Blanco.'",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Ojos de Cuervo",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Arqueros de Arco Largo obtienen +25% de alcance y +25% de daño a cambio de un -25% de velocidad de movimiento durante 20 segundos.\n\nTiempo de recarga: 3 min."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego. Incrementa significativamente el daño de las flechas. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Cuervos",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 85,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 350,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 390,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIDunlendingArcher",
+        "portrait": "UPDunlendingArcher"
+      }
+    },
+    {
+      "slug": "isengard-dunland-rider",
+      "object": "IsengardDunlandRiderHorde",
+      "name": "Jinetes Dunnish",
+      "category": "cavalry",
+      "recruitedAt": "Barracón Dunlendino nivel 3",
+      "requirements": "Requiere Nivel 3 del Barracón Dunlendino",
+      "cost": 900,
+      "cp": 90,
+      "health": 700,
+      "buildTime": 40,
+      "armourSet": "RohirrimHeavyArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Caballería de Élite.\n\nTiempo de reclutamiento: 45 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\n'Los Hombres de Dunland no toman amablemente las nociones de superioridad ecuestre de los Rohirrin, alegando que sus Jinetes pueden igualar a cualquier Jinete de Rohan.'",
+      "abilities": [
+        {
+          "name": "Caza Salvaje",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Jinetes obtienen +15% de velocidad y pisoteo, a costa de -25% de armadura durante 20 segundos.\n\nTiempo de recarga: 3 min."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Cuervos",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa esta horda al Nivel 2. Solo se puede equipar en el Nivel 1. Tiempo de investigación: 10 s.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 210,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIDunlendingOutrider",
+        "portrait": "UPDunlendingOutrider"
+      }
+    },
+    {
+      "slug": "isengard-dunland-huskarl",
+      "object": "IsengardDunlandHuskarlHorde",
+      "name": "Huscarles Dunlendinos",
+      "category": "heroic",
+      "recruitedAt": "Barracón Dunlendino nivel 3",
+      "requirements": "Requiere Nivel 3 del Barracón Dunlendino",
+      "cost": 1000,
+      "cp": 90,
+      "health": 500,
+      "buildTime": 40,
+      "armourSet": "HarbingerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Infantería de Élite.\n\nTiempo de reclutamiento: 40 s. Niveles 2-3: +7% de vida, +7% de daño. Niveles 4-5: +6% de vida, +6% de daño.\n\nLos Huscarles de Frecalund son fieros combatientes, reunidos de casas respetables para servir como guardia personal del rey.",
+      "abilities": [
+        {
+          "name": "Agarre Mordhau",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huscarles Dunlendinos usan el agarre mordhau durante 20 segundos. Mientras está activo, los Huscarles ignoran la armadura de las unidades e infligen daño adicional contra héroes, pero no infligen daño en área.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Linaje Noble",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Salvajes y Dunlendinos cercanos reciben +50% de ganancia de experiencia y resistencia al miedo."
+        },
+        {
+          "name": "Golpes Despiadados",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques consecutivos incrementa temporalmente el daño de ataque en un 5%. Se acumula hasta un máximo del 25%."
+        }
+      ],
+      "upgrades": [],
+      "damage": 200,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uihuskarl",
+        "portrait": "UpHuskarl"
+      }
+    },
+    {
+      "slug": "isengard-battering-ram",
+      "object": "IsengardBatteringRam",
+      "name": "Ariete",
+      "category": "siege",
+      "recruitedAt": "Fábrica de Máquinas de Asedio",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nTiempo de reclutamiento: 30 s.\n\nFuertemente armados, los arietes de Saruman hacen el trabajo rápido contra las puertas enemigas, abriendo paso a las hordas de Uruks.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "BISiegeWorks_BatteringRam",
+        "portrait": "UPIsengardBatteringRamnew"
+      }
+    },
+    {
+      "slug": "isengard-ballista",
+      "object": "IsengardBallista",
+      "name": "Balista",
+      "category": "siege",
+      "recruitedAt": "Fábrica de Máquinas de Asedio nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 40,
+      "armourSet": "SiegeEngineArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures", "siege"],
+      "weakAgainst": [],
+      "description": "Tiempo de reclutamiento: 40 s.\n\nRelativamente simple de usar y apuntar, las balistas de Saruman sirven para eliminar grupos de tropas enemigas y debilitar sus estructuras.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        }
+      ],
+      "upgrades": [],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 7000,
+      "attackRange": 500,
+      "speed": 35,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 520,
+        "attackRadius": 50,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIIsenBalista",
+        "portrait": "UPIsengardBalistanew"
+      }
+    },
+    {
+      "slug": "isengard-explosive-mine",
+      "object": "IsengardExplosiveMine",
+      "name": "Mina Explosiva",
+      "category": "swordsmen",
+      "recruitedAt": "Fábrica de Máquinas de Asedio nivel 3",
+      "requirements": null,
+      "cost": 400,
+      "cp": 10,
+      "health": 1500,
+      "buildTime": 45,
+      "armourSet": "ExplosiveMineArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba estructuras, murallas y puertas.\n\nTiempo de reclutamiento: 45 s.\n\nRequiriendo un método de romper el muro bajo, Saruman produjo grandes cantidades de polvo explosivo.",
+      "abilities": [
+        {
+          "name": "Desplegar Mina",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Despliega un poderoso explosivo."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 200,
+        "preAttackDelayMs": 1466
+      },
+      "images": {
+        "button": "UIIsenMine",
+        "portrait": "UPIsengardMinenew"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "isengard-worm-tongue",
+      "object": "IsengardWormTongue",
+      "name": "Gríma Lengua de Serpiente",
+      "title": "Espía de Saruman",
+      "recruitedAt": "Fortaleza",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Asesino, debilita a las tropas enemigas, anula el liderazgo. 'Saruman el Blanco siempre ha sido nuestro amigo y aliado.'",
+      "abilities": [
+        {
+          "name": "Escapar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Lengua de Serpiente se mantiene oculto y no puede atacar ni ser atacado por 30 segundos.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Palabras Venenosas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo sufren -25% de daño y -20% de armadura durante 30 segundos. Anula el liderazgo enemigo.\n\nTiempo de recarga: 60 s."
+        },
+        {
+          "name": "Puñalada Trasera",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Inflige 500 de daño instantáneo y 800 de daño de veneno durante 10 segundos al enemigo elegido.\n\nEn el rango 10, el héroe enemigo objetivo no puede ganar experiencia, tiene su producción de daño reducida en un 50%, y pierde un 25% de velocidad de movimiento durante 30 segundos.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Malas Artes Perversas",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los temporizadores de las habilidades de los héroes enemigos se ajustan a lo que se acaba de usar.\n\nTiempo de recarga: 3 min."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIWormtongue",
+        "portrait": "HEGrimanew"
+      }
+    },
+    {
+      "slug": "isengard-sharku",
+      "object": "IsengardSharku",
+      "name": "Sharku",
+      "title": "Líder de los Jinetes de Huargos",
+      "recruitedAt": "Fortaleza",
+      "cost": 1400,
+      "buildTime": 40,
+      "health": 2300,
+      "armourSet": "HeroArmorMounted",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Apoya a los Jinetes de Huargos, fuerte contra la caballería enemiga. 'Está muerto. Dió un ligero traspiés junto al acantilado.'",
+      "abilities": [
+        {
+          "name": "Caza Sangrienta",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de Huargos aliados cerca de Sharku obtienen +25% de daño y armadura, y ganan experiencia un 50% más rápido."
+        },
+        {
+          "name": "Enviar a los Huargos",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca una oleada de Huargos a la carga para aplastar al enemigo, infligiendo un daño leve y derribo.\n\nTiempo de recarga: 2 min."
+        },
+        {
+          "name": "Lobos Acorazados",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El batallón de Jinetes de Huargos objetivo obtiene permanentemente +20% de salud y armadura pesada. Tiempo de recarga: 2 min 30 s.\n\nEn el rango 8, se reduce la reutilización de la habilidad activa y se incrementa el área de efecto. Tiempo de recarga: 2 min."
+        },
+        {
+          "name": "Devorador de Hombres",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Mata a la unidad de infantería enemiga elegida para recuperar un 30% de la vida de Sharku y obtener +25% de daño y armadura durante 20 segundos.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Convocar Matriarca Huargo",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca a la salvaje Matriarca Huargo al campo de batalla. Es hostil con todos salvo con Sharku.\n\nTiempo de recarga: 5 min."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 960,
+      "attackRange": 20,
+      "speed": 100,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HISharku",
+        "portrait": "HESharkunew"
+      }
+    },
+    {
+      "slug": "isengard-ugluk",
+      "object": "IsengardUgluk",
+      "name": "Uglúk",
+      "title": "Capitán de los Uruk, Uglúk",
+      "recruitedAt": "Fortaleza",
+      "cost": 1500,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Apoya a los Uruk-hai, convoca refuerzos. 'Ellos tienen algo. Un arma élfica. El Amo lo quiere para la guerra.'",
+      "abilities": [
+        {
+          "name": "Medicina de Orco",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Cura a los héroes aliados cercanos y a las unidades Uruk-hai.\n\nTiempo de recarga: 2 min."
+        },
+        {
+          "name": "A la Caza del Anillo",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Uglúk, la infantería y los héroes cercanos obtienen +15% de velocidad, +50% de experiencia y resistencia al miedo y al terror durante 20 segundos.\n\nTiempo de recarga: 4 min."
+        },
+        {
+          "name": "Cazador de Cabezas",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Uruk-hai cercanos obtienen +75% de daño y Uglúk recupera vida con cada ataque durante 20 segundos.\n\nTiempo de recarga: 4 min."
+        },
+        {
+          "name": "Refuerzos de Saruman",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca dos hordas de Asaltantes Uruk durante 60 segundos.\n\nEn el nivel 10, también convoca a Mauhúr.\n\nTiempo de recarga: 3 min."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 960,
+      "attackRange": 15,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIUgluknew",
+        "portrait": "HEUgluknew"
+      }
+    },
+    {
+      "slug": "isengard-wulfgar",
+      "object": "IsengardWulfgar",
+      "name": "Wulfgar",
+      "title": "Jefe de los Dunlendinos, Wulfgar",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Apoya a Salvajes y Dunlendinos, versátil. 'Wulfgar, que fue un noble jefe guerrero, se negó a las exigencias de Saruman de jurar lealtad, hasta que el Mago Blanco demostró su poder absoluto aplastando a los Rohirrim en los Vados del Isen.'",
+      "abilities": [
+        {
+          "name": "Subyugación de los Dunlendinos",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades de Dunlendinos y Salvajes cercanas obtienen +33% de daño.\n\nEn el rango 5, las unidades cercanas de Dunlendinos y Salvajes obtienen +50% de daño."
+        },
+        {
+          "name": "Montar en Svadilfari / Desmontar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "Alas Oscuras, Palabras Oscuras",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca a dos pájaros crebain, Huginn y Muninn, durante 90 segundos. Pueden explorar e infligen un fuerte daño contra héroes y monstruos.\n\nTiempo de recarga: 3 min."
+        },
+        {
+          "name": "Estandarte de Cuervo",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Wulfgar convoca un Estandarte del Cuervo durante 90 segundos. Los enemigos cerca del Estandarte del Cuervo pierden un -33% de armadura y un -33% de daño.\n\nA nivel 8, también convoca un batallón temporal de Huscarles Dunlendinos.\n\nTiempo de recarga: 5 min."
+        },
+        {
+          "name": "Rey de las Colinas",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Fortalece a los Dunlendinos y Salvajes cercanos, incrementando su armadura un 200% durante 20 segundos.\n\nTiempo de recarga: 4 min."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 960,
+      "attackRange": 15,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIWulfgar",
+        "portrait": "HPWulfgar"
+      }
+    },
+    {
+      "slug": "isengard-lurtz",
+      "object": "IsengardLurtz",
+      "name": "Lurtz",
+      "title": "Primer capitán de los Uruk-hai",
+      "recruitedAt": "Fortaleza",
+      "cost": 1900,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Apoya a los Uruk-hai, fuerte contra héroes enemigos. '¡Encuentra a los medianos!'",
+      "abilities": [
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Líder de la Caza",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Uruk-hai cerca de Lurtz obtienen +15% de daño y +15% de armadura. En el nivel 4, +33% de daño y +25% de armadura."
+        },
+        {
+          "name": "Guerrero Implacable",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Lurtz obtiene +50% de daño, +25% de armadura e inflige daño en área en un radio de 10 durante 20 segundos.\n\nCon cada nivel obtenido, el daño se incrementa un 25% hasta un máximo de +150% en el nivel 7. Sólo se puede utilizar con la espada equipada.\n\nTiempo de recarga: 2 min."
+        },
+        {
+          "name": "Lisiar",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inmoviliza al héroe enemigo durante 15 segundos.\n\nA rango 8, infunde miedo a los enemigos cercanos. Sólo se puede utilizar con el arco equipado.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Jefe Uruk",
+          "level": 10,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Lurtz está vestido con una armadura gruesa. Gana permanentemente +50% de armadura."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HILurtz",
+        "portrait": "HELurtznew"
+      }
+    },
+    {
+      "slug": "isengard-saruman",
+      "object": "IsengardSaruman",
+      "name": "Saruman",
+      "title": "Saruman el Sabio, Maestro de Isengard y Primero de los Istari",
+      "recruitedAt": "Fortaleza",
+      "cost": 4000,
+      "buildTime": 80,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Apoyo de tropas, lanza hechizos mortales sobre las tropas enemigas. 'Un nuevo poder está surgiendo. Su victoria está cerca. Solo tenemos que eliminar a aquellos que se oponen a nosotros.'",
+      "abilities": [
+        {
+          "name": "Señor de la Torre de Orthanc",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Ataque a corta distancia que hace retroceder a los enemigos.\n\nTiempo de recarga: 1 min 10 s.\n\nLos aliados cercanos a Saruman ganan un 300% de armadura al daño mágico y elemental, ganan experiencia un 50% más rápido y se vuelven inmunes al miedo y al terror."
+        },
+        {
+          "name": "Bola de Fuego",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Lanza una bola de energía.\n\nTiempo de recarga: 1 min 30 s."
+        },
+        {
+          "name": "Arte del Habla",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Proporciona una excelente experiencia a las unidades objetivo.\n\nTiempo de recarga: 2 min 30 s."
+        },
+        {
+          "name": "Ira de Caradhras",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Lanza un poderoso rayo contra enemigos objetivo.\n\nTiempo de recarga: 2 min 30 s."
+        },
+        {
+          "name": "Voz de Curunír",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Controla a los enemigos objetivo durante 30 segundos.\n\nTiempo de recarga: 6 min."
+        },
+        {
+          "name": "Saruman el Multicolor",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Permite a Saruman atacar a gran distancia. Se puede utilizar para aplastar a las unidades enemigas.\n\nLas unidades cercanas obtienen +50% de daño y armadura, mayor incremento de experiencia e inmunidad al miedo. En el rango 5, los hornos cercanos ganan +50% de recursos. Los enemigos cercanos están aterrorizados."
+        },
+        {
+          "name": "Ira Ruinosa",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las llamas surgen del suelo bajo los enemigos objetivo durante 15 segundos."
+        },
+        {
+          "name": "Elocuencia Oscura",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Proporciona una excelente experiencia a las unidades objetivo. Reutilización más corta con el Anillo Único."
+        },
+        {
+          "name": "Tormenta de Orthanc",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Invoca una nube móvil que dispara rayos y ralentiza a los enemigos que se encuentran bajo ella."
+        },
+        {
+          "name": "El Anillo Gobernante",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Controla permanentemente a los enemigos objetivo."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 1566,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HISaruman",
+        "portrait": "HESarumanNew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "isengard-fortress-citadel",
+      "object": "IsengardFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor"],
+      "upgrades": [
+        {
+          "name": "Bandada de Cuervos",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Incrementa el rango de visión de la Fortaleza y proporciona detección de sigilo. Tiempo de investigación: 15 s.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Excavaciones",
+          "cost": 600,
+          "hotkey": "E",
+          "level": null,
+          "description": "Las estructuras cercanas obtienen +25% de armadura. Tiempo de investigación: 15 s.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Forjas Ardientes",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reduce el coste de las mejoras de las unidades de Isengard 1 Fortaleza con Forja ardiente = 20% más baratas 2 Fortalezas con Forja ardiente = 35% más baratas 3 Fortalezas con Forja ardiente = 40% más baratas 4 Fortalezas con Forja ardiente = 45% más baratas 5 Fortalezas con Forja ardiente = 50% más baratas. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Municiones de Fuego Orco",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Arma a las torres defensivas con Flechas de Fuego. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Revestimiento de Hierro",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza y las Murallas un 65%. Requisito previo para Sabiduría de Curunír. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Sabiduría de Curunir",
+          "cost": 1000,
+          "hotkey": "D",
+          "level": null,
+          "description": "Da acceso a la Astucia de Curunír. Tiempo de investigación: 45 s.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenFortress"
+      }
+    },
+    {
+      "slug": "isengard-furnace-foundation",
+      "object": "IsengardFurnaceFoundation",
+      "name": "Horno",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Proporciona metales trabajados como un recurso según el terreno disponible. Reduce el coste de los Uruks. Incrementa el límite de puntos de mando en 50 unidades. Tiempo de construcción: 15 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenFurnace"
+      }
+    },
+    {
+      "slug": "isengard-lumber-mill-foundation",
+      "object": "IsengardLumberMillFoundation",
+      "name": "Serrería",
+      "kind": "economy",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Recolecta recursos de árboles cercanos. Reduce el coste de estructuras. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPLumberMillnew"
+      }
+    },
+    {
+      "slug": "isengard-uruk-pit-foundation",
+      "object": "IsengardUrukPitFoundation",
+      "name": "Foso de Uruk",
+      "kind": "production",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades de infantería Isengard.",
+      "produces": [
+        "Exploradores Uruk-hai",
+        "Guerreros Uruk-hai",
+        "Ballesteros Uruk-hai",
+        "Piqueros Uruk-hai",
+        "Portadores de Escudo Uruk-hai",
+        "Bersérker Uruk-hai",
+        "Zapador de Isengard",
+        "Cazadores de hombres Uruk-hai"
+      ],
+      "upgrades": [
+        {
+          "name": "Foso de Uruk al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Uruk-hai Acorazados y a los Bersérker Uruk. Tiempo de investigación: 60 s +1500 de vida +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Foso de Uruk al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Cazadores de hombres Uruk-hai. Tiempo de investigación: 45 s +1500 de vida +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenUrukPit"
+      }
+    },
+    {
+      "slug": "isengard-tavern-foundation",
+      "object": "IsengardTavernFoundation",
+      "name": "Estancia del Clan",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Hombres Salvajes. Tiempo de construcción: 30 s.",
+      "produces": [
+        "Salvajes de Dunland",
+        "Lanceros Salvajes",
+        "Escaramuzadores Salvajes"
+      ],
+      "upgrades": [
+        {
+          "name": "Estancia del Clan al Nivel 2",
+          "cost": 200,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Escaramuzadores Salvajes. Tiempo de investigación: 30 s +1500 de vida +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 25
+          }
+        },
+        {
+          "name": "Estancia del Clan al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Añade torre de flechas defensiva. Tiempo de investigación: 60 s +1500 de vida +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenDunlandGar"
+      }
+    },
+    {
+      "slug": "isengard-warg-pit-foundation",
+      "object": "IsengardWargPitFoundation",
+      "name": "Foso de Huargo",
+      "kind": "production",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Jinetes de Huargos. Tiempo de construcción: 30 s.",
+      "produces": ["Jinetes de Huargos"],
+      "upgrades": [
+        {
+          "name": "Foso de Huargo al Nivel 2",
+          "cost": 200,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Tiempo de investigación: 30 s +1500 de vida +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Foso de Huargo al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "de Centinelas Huargo. No se acumula +25% de velocidad de construcción. Tiempo de investigación: 45 s +1500 de vida +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenWargPit"
+      }
+    },
+    {
+      "slug": "dunlending-longhouse-foundation",
+      "object": "DunlendingLonghouseFoundation",
+      "name": "Barracón Dunlendino",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 35,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades de Dunlendinos. Tiempo de construcción: 45 s.",
+      "produces": [
+        "Hacheros Dunlendinos",
+        "Arqueros Dunlendinos",
+        "Jinetes Dunnish",
+        "Huscarles Dunlendinos"
+      ],
+      "upgrades": [
+        {
+          "name": "Barracón Dunlendino al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Arqueros Dunlendinos. Tiempo de investigación: 60 s +1500 de vida +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Barracón Dunlendino al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Jinetes Dunnish y Huscarles Dunlendinos. Añade torre de flechas defensiva. Tiempo de investigación: 60 s +1500 de vida +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPLonghouse"
+      }
+    },
+    {
+      "slug": "isengard-siege-works-foundation",
+      "object": "IsengardSiegeWorksFoundation",
+      "name": "Fábrica de Máquinas de Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye las Máquinas de Asedio de Isengard. En el rango 2, repara las máquinas de asedio cercanas. Tiempo de construcción: 30 s.",
+      "produces": ["Ariete", "Balista", "Mina Explosiva"],
+      "upgrades": [
+        {
+          "name": "Fábrica de Máquinas de Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite construir Balistas de Asedio. Repara las máquinas de asedio cercanas. Tiempo de investigación: 30 s +1500 de vida +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Fábrica de Máquinas de Asedio al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite construir Minas Explosivas. Añade una torre defensiva de flechas. Añade torre de flechas defensiva. Tiempo de investigación: 45 s +1500 de vida +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenSiegeWorks"
+      }
+    },
+    {
+      "slug": "isengard-battle-tower-foundation",
+      "object": "IsengardBattleTowerFoundation",
+      "name": "Atalaya",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre de flechas defensiva. Se puede guarnecer con arqueros para aumentar el daño. Tiempo de construcción: 45 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego. Incrementa el daño de las flechas. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenSentryTower"
+      }
+    },
+    {
+      "slug": "isengard-warg-sentry-foundation",
+      "object": "IsengardWargSentryFoundation",
+      "name": "Centinela Huargo",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Huargos defensivos que atacarán a los enemigos cercanos. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenWargCage"
+      }
+    },
+    {
+      "slug": "isengard-armory-foundation",
+      "object": "IsengardArmoryFoundation",
+      "name": "Arsenal",
+      "kind": "support",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Fabrica armaduras gruesas y escudos anchos como un recurso según el terreno disponible. Mejoras en armas y armaduras. Reduce el coste de las mejoras. Incrementa el límite de puntos de mando en 50 unidades. Tiempo de construcción: 15 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de la Mano Blanca",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas comprar la mejora Estandartes de la Mano Blanca. Incrementa una horda a Nivel 2. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Placa Ennegrecida",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Placa Ennegrecida. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Mejora instantánea de todas las patrullas una vez adquirida la mejora. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cuchillas Crueles",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cuchillas Crueles. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejora instantánea de todas las patrullas una vez adquirida la mejora. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Fuego",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Fuego. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas y los arqueros de la torre al instante una vez comprada la mejora. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenArmory"
+      }
+    },
+    {
+      "slug": "isengard-castle-wall-hub",
+      "object": "IsengardCastleWallHub",
+      "name": "Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 2500,
+      "healthByLevel": [],
+      "armourSet": "IsenWallArmor",
+      "maxCount": null,
+      "description": "Permite la construcción de murallas. Tiempo de construcción: 25 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenWallHub"
+      }
+    },
+    {
+      "slug": "isengard-tower-expansion",
+      "object": "IsengardTowerExpansion",
+      "name": "Torre de Flechas",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre Defensiva de flechas que dispara a los enemigos. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BIIsenFortressTower",
+        "portrait": "BPIsenFortressTower"
+      }
+    },
+    {
+      "slug": "isengard-ballista-expansion",
+      "object": "IsengardBallistaExpansion",
+      "name": "Balista",
+      "kind": "defence",
+      "cost": 500,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Balista",
+          "cost": 450,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reconstruye la ballesta en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "UPIsengardBalistanew"
+      }
+    },
+    {
+      "slug": "isengard-mine-launcher-expansion",
+      "object": "IsengardMineLauncherExpansion",
+      "name": "Lanzador de Minas",
+      "kind": "economy",
+      "cost": 750,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Lanza minas explosivas a los enemigos cercanos. Tiempo de construcción: 30 s.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPIsenFortressMineLauncher"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "crebain",
+      "name": "Crebain de Dunland",
+      "tier": 1,
+      "position": "L",
+      "kind": "utility",
+      "cost": 5,
+      "description": "Revela el mapa y detecta las unidades en sigilo. Las unidades enemigas cercanas sufren -15% de daño y -15% de armadura.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SBEvil_CrebainAotR"
+      },
+      "requires": []
+    },
+    {
+      "slug": "war-chant",
+      "name": "Cántico de Guerra",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBEvil_WarChantAotR"
+      },
+      "requires": []
+    },
+    {
+      "slug": "palantir-vision",
+      "name": "Visión del Palantír",
+      "tier": 1,
+      "position": "R",
+      "kind": "utility",
+      "cost": 5,
+      "description": "Espía a las fuerzas enemigas durante 60 segundos. Concede +15% de velocidad a unidades y héroes en la zona elegida durante 35 segundos.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBEvil_PalantirVisionAotR"
+      },
+      "requires": []
+    },
+    {
+      "slug": "mordor-allies",
+      "name": "Escoria de Lugbúrz",
+      "tier": 2,
+      "position": "LL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca dos hordas de Guerreros Orcos, una horda de Piqueros Orcos, una horda de Arqueros Orcos con flechas de fuego y a Grishnákh para luchar en tu bando durante 60 segundos.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [1, 2],
+      "slot": 4,
+      "images": {
+        "button": "UIMordorAlliesSummon"
+      },
+      "requires": ["Crebain de Dunland", "Cántico de Guerra"]
+    },
+    {
+      "slug": "devastation",
+      "name": "Devastación",
+      "tier": 2,
+      "position": "LR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Los árboles se convierten al instante en recursos, hasta un máximo de 1300. Reduce a la mitad la producción de recursos de cualquier estructura de recursos dentro del área de efecto durante 45 segundos.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SBEvil_DevastationAotR"
+      },
+      "requires": ["Crebain de Dunland", "Cántico de Guerra"]
+    },
+    {
+      "slug": "isengard-taint",
+      "name": "Tierra Mancillada",
+      "tier": 2,
+      "position": "RL",
+      "kind": "utility",
+      "cost": 10,
+      "description": "Mancha un área del terreno durante 5 minutos. Todas las unidades aliadas obtienen +50% de daño y +50% de armadura, y ganan recursos por cada baja.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "SBEvil_TaintAotR"
+      },
+      "requires": ["Cántico de Guerra", "Visión del Palantír"]
+    },
+    {
+      "slug": "industry",
+      "name": "Fuegos de la Industria",
+      "tier": 2,
+      "position": "RR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "La producción de recursos de la estructura elegida sube al 200% durante 5 minutos. Afecta a Hornos y Armerías.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [5, 3],
+      "slot": 7,
+      "images": {
+        "button": "SBEvil_IndustryAotR"
+      },
+      "requires": ["Visión del Palantír", "Devastación"]
+    },
+    {
+      "slug": "fuelthe-fires",
+      "name": "Alimentar los Fuegos",
+      "tier": 3,
+      "position": "L",
+      "kind": "utility",
+      "cost": 15,
+      "description": "+55% de recursos extra de la recogida de árboles. Desbloquea Explosión de Calor para los Hornos. Poder pasivo.",
+      "requiresSlots": [6, 4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SBEvil_FueltheFiresAotR"
+      },
+      "requires": ["Escoria de Lugbúrz", "Devastación", "Tierra Mancillada"]
+    },
+    {
+      "slug": "freezing-rain",
+      "name": "Lluvia Paralizadora",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cubre el mapa de lluvia durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas sufren. Anula el liderazgo enemigo. Anula el liderazgo enemigo.\n\nTiempo de recarga: 6 min.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SBEvil_FreezingRainAotR"
+      },
+      "requires": ["Devastación", "Tierra Mancillada"]
+    },
+    {
+      "slug": "longhouse",
+      "name": "Constrúyeme un Ejército",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca un Campamento de Guerra de Isengard que dura 5 minutos. Cada 45 segundos, una horda del Uruk-hai escogido con armaduras pesadas es engendrado. Respeta el límite de puntos de mando.\n\nTiempo de recarga: 9 min.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "BILonghousenew"
+      },
+      "requires": ["Tierra Mancillada", "Fuegos de la Industria"]
+    },
+    {
+      "slug": "fell-storm",
+      "name": "Tormenta Cruel",
+      "tier": 4,
+      "position": "L",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Lanza varios rayos de luz en el área objetivo. Fuerte frente a edificios.\n\nTiempo de recarga: 12 min.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "HIFellstormnew"
+      },
+      "requires": ["Alimentar los Fuegos", "Lluvia Paralizadora"]
+    },
+    {
+      "slug": "avalanche",
+      "name": "Ira de Caradhras",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca una avalancha que daña a los enemigos y apaga los fuegos. Las unidades enemigas que atraviesan el campo nevado sufren -33% de velocidad.\n\nTiempo de recarga: 12 min.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SBWrathofCahadrasnew"
+      },
+      "requires": ["Lluvia Paralizadora", "Constrúyeme un Ejército"]
+    }
+  ]
+}

@@ -1,0 +1,2421 @@
+{
+  "code": "lothlorien",
+  "units": [
+    {
+      "slug": "elven-porter",
+      "object": "ElvenPorter",
+      "name": "Lórilinde",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Cantante de Árbol. Construye edificios.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "uiLorienBuilder",
+        "portrait": "UPElven_PorterNew"
+      }
+    },
+    {
+      "slug": "elven-axe-elf-horde-recruited",
+      "object": "ElvenAxeElfHorde_Recruited",
+      "name": "Tawarwaith",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición Galadhrim",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 245,
+      "buildTime": 30,
+      "armourSet": "LorienWarriorArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Leva Silvana. Pueden ocultarse tras los árboles.\n\nAunque Lothlórien no cuenta con un ejército permanente, todos los elfos que viven dentro de sus fronteras, ya sean guerreros o artesanos, están dispuestos a tomar las armas para defender sus hogares en el bosque.",
+      "abilities": [
+        {
+          "name": "Capa Élfica",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se vuelve sigiloso durante 20 segundos."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 186,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiAxeElf",
+        "portrait": "UPAxeElf"
+      }
+    },
+    {
+      "slug": "elven-lorien-sentry",
+      "object": "ElvenLorienSentryHorde",
+      "name": "Tawar-na-Eithyr",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición Galadhrim",
+      "requirements": null,
+      "cost": 315,
+      "cp": 60,
+      "health": 240,
+      "buildTime": 30,
+      "armourSet": "PikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Centinelas Silvanos. Pueden ocultarse tras los árboles. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nSi los Guardias de Fronteras no pueden contener una amenaza, los voluntariosos Galadhrim tomarán las armas y marcharán para defender sus hogares.",
+      "abilities": [
+        {
+          "name": "Capa Élfica",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se vuelve sigiloso durante 20 segundos."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 150,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UILorienWarriorNew",
+        "portrait": "UPLorienWarriorNew"
+      }
+    },
+    {
+      "slug": "elven-lorien-archer",
+      "object": "ElvenLorienArcherHorde",
+      "name": "Tawar-na-Pengryn",
+      "category": "archers",
+      "recruitedAt": "Guarnición Galadhrim",
+      "requirements": null,
+      "cost": 325,
+      "cp": 60,
+      "health": null,
+      "buildTime": 30,
+      "armourSet": null,
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Exploradores Silvanos. Pueden ocultarse tras los árboles.\n\nBlandiendo grandes arcos largos y armados con siglos de experiencia, estos arqueros silvanos se encuentran entre los más mortíferos de toda la Tierra Media.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Capa Élfica",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se vuelve sigiloso durante 20 segundos."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Arcos Mallorn",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Arcos Mallorn. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {},
+      "images": {
+        "button": "UILorienArchersNew",
+        "portrait": "UPLorienArcherNew"
+      }
+    },
+    {
+      "slug": "elven-cerin-amroth-guard",
+      "object": "ElvenCerinAmrothGuardHorde",
+      "name": "Gwahaedhrim",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición Galadhrim nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 72,
+      "health": 425,
+      "buildTime": 40,
+      "armourSet": "AmrothPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Centinelas de Cerin Amroth. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nEstos guerreros tienen la misión de salvaguardar la venerada colina de Amroth, antaño hogar de Amroth Amdírion, el último rey de Lórien.",
+      "abilities": [
+        {
+          "name": "Escudos Dorados",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Centinelas de Cerin Amroth ganan +33% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 225,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 60,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UILorienCerinAmrothNew",
+        "portrait": "UPLorienCerinAmrothNew"
+      }
+    },
+    {
+      "slug": "lorien-stalker",
+      "object": "LorienStalkerHorde",
+      "name": "Tawar-na-Thirrad",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición Galadhrim nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 72,
+      "health": 500,
+      "buildTime": 45,
+      "armourSet": "LorienStalkerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Acechadoras Grises. Pueden ocultarse tras los árboles.\n\nEntrenadas en destreza forestal y en asesinato, estas elfas son algunas de las guerreras más confiables de Galadriel.",
+      "abilities": [
+        {
+          "name": "Choque de Sombras",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las Acechadoras Grises se vuelven completamente sigilosas e infligen +100% de daño durante 20 segundos."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        },
+        {
+          "name": "Incursores Costeros",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Corsarios obtienen temporalmente +50% de experiencia más rápido."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 360,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 6,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILorienStalker",
+        "portrait": "UPLorienStalker"
+      }
+    },
+    {
+      "slug": "galadhrim-warrior",
+      "object": "GaladhrimWarriorHorde",
+      "name": "Edrain-na-Maethyr",
+      "category": "archers",
+      "recruitedAt": "Guarnición Galadhrim nivel 3",
+      "requirements": null,
+      "cost": 700,
+      "cp": 80,
+      "health": 400,
+      "buildTime": 40,
+      "armourSet": "ElfWarriorArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Guardias de Fronteras. Puede cambiar entre Arco y Espada.\n\nLos Guardias de Fronteras son la única unidad militar dentro de Lothlórien que cuenta con los mejores guerreros entre sus filas. Ellos están encargados de proteger las fronteras de Lórien e informar al Señor Celeborn.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "toggle",
+          "description": "Incrementa significativamente la armadura contra espadachines y piqueros al blandir espadas."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Arcos Mallorn",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Arcos Mallorn. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 80,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 380,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILorienSindarNew",
+        "portrait": "UPLorienSindarNew"
+      }
+    },
+    {
+      "slug": "elven-rivendell-archer",
+      "object": "ElvenRivendellArcherHorde",
+      "name": "Naith-na-Lethril",
+      "category": "cavalry",
+      "recruitedAt": "Pradera Verde",
+      "requirements": null,
+      "cost": 450,
+      "cp": 70,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "NimrodelRiderArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "archers"],
+      "weakAgainst": [],
+      "description": "Jinetes de los Naith. Pueden ocultarse tras los árboles.\n\nCon el fuerte aumento de las incursiones orcas en su forntera oriental, los Galadhrim han comenzado a emplear arqueros montados para cortar y dispensar a los orcos antes de que puedan llegar a la línea de árboles.",
+      "abilities": [
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        },
+        {
+          "name": "Arcos Equipados",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los arcos están permanentemente equipados."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Equipar Arcos",
+          "cost": 100,
+          "hotkey": "W",
+          "level": null,
+          "description": "Equipa permanentemente a los Jinetes de los Naith con arcos.",
+          "stats": {
+            "researchTimeS": 3
+          }
+        },
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Arcos Mallorn",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Arcos Mallorn. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 165,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 420,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILorienNimrodelNew",
+        "portrait": "UPLorienNimrodelNew"
+      }
+    },
+    {
+      "slug": "elven-handmaiden",
+      "object": "ElvenHandmaiden",
+      "name": "Alcarwen",
+      "category": "swordsmen",
+      "recruitedAt": "Santuario Oculto",
+      "requirements": null,
+      "cost": 425,
+      "cp": 50,
+      "health": 2000,
+      "buildTime": 25,
+      "armourSet": "HandmaidenArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Doncella-radiante. Unidad fuerte que proporciona mejoras a las unidades aliadas.\n\nEstas elfas doncellas formaban parte del círculo más íntimo de la Dama. Adiestradas en la sutil magia de los Eldar, sus habilidades han sido infundidas con el esplendor de Nenya.",
+      "abilities": [
+        {
+          "name": "Servicio Fiel",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Doncella otorga +15% de armadura a Galadriel cuando está cerca."
+        },
+        {
+          "name": "Esplendor",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cada ataque consecutivo otorga a las unidades cuerpo a cuerpo de Lorien cercanas +5% de daño de ataque hasta un máximo del 20% durante 8 segundos."
+        },
+        {
+          "name": "Destello de Nenya",
+          "level": 3,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Empuñar un fragmento del poder de Nenya permite a la Doncella limpiar la tierra ante ella, derribando e infligiendo daño menor a las unidades enemigas en línea."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Lanza del Bosque Dorado",
+          "cost": 200,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora a la Doncella con una Lanza del Bosque Dorado. Cuando está equipado, añade daño por proximidad menor a los ataques de la Doncella.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 275,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 10,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "UIHandmaiden",
+        "portrait": "UPHandmaiden"
+      }
+    },
+    {
+      "slug": "elven-amroth-knight",
+      "object": "ElvenAmrothKnightHorde",
+      "name": "Amroth-na-Erphin",
+      "category": "cavalry",
+      "recruitedAt": "Santuario Oculto nivel 2",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 90,
+      "health": 590,
+      "buildTime": 45,
+      "armourSet": "DolAmrothKnightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers"],
+      "weakAgainst": [],
+      "description": "Caballeros de Amroth Amdírion. Caballería de Élite.\n\nAunque su Rey desapareció hace mucho tiempo, estos nobles Sindarin continúan manteniendo sus juramentos y cabalgan para defender Lórien como los guardianes de la casa de Amroth.",
+      "abilities": [
+        {
+          "name": "Jinetes Experimentados",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de los Naith cercanos obtienen +33% de armadura."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        },
+        {
+          "name": "Lembas",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades elfas recuperan salud cuando están fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Escudos",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 210,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILorienAmrothKnightNew",
+        "portrait": "UPLorienAmrothKnightNew"
+      }
+    },
+    {
+      "slug": "nandor-blademaster",
+      "object": "NandorBlademasterHorde",
+      "name": "Nandor Hîr-Hathol",
+      "category": "heroic",
+      "recruitedAt": "Santuario Oculto nivel 3",
+      "requirements": null,
+      "cost": 1600,
+      "cp": 100,
+      "health": 720,
+      "buildTime": 60,
+      "armourSet": "NandorHirHatholArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 2,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Antes de la llegada de los Galadhrim, estos elfos Teleri ya habían vivido en Lórien durante milenios. Llevan consigo una gran sabiduría y fuerza, y se encuentran entre los mayores guerreros en todo el Antiguo Reino.",
+      "abilities": [
+        {
+          "name": "Cambiar a Hacha",
+          "level": null,
+          "hotkey": "W",
+          "kind": "toggle",
+          "description": "Espadas fuertes contra Infantería y Héroes. Hachas fuertes contra Edificios, Caballería, Monstruos y Máquinas de Asedio."
+        },
+        {
+          "name": "Laegrim",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Nandor Hîr-Hathol son inmunes al miedo, al terror y a los derribos."
+        },
+        {
+          "name": "¡Por Lórinand!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Nandor Hîr-Hathol inflige temporalmente daño mágico adicional y reflejará el daño de los enemigos atacantes durante 30 segundos."
+        },
+        {
+          "name": "Tesoros de Ossiriand",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Concede Hojas Templadas, Armadura Elfa y Arcos Mallorn a las unidades dentro de su radio de acción."
+        },
+        {
+          "name": "Recuperación Valerosa",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        },
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": null,
+          "hotkey": "R",
+          "kind": "toggle",
+          "description": "Incrementa significativamente la armadura contra espadachines y piqueros al blandir espadas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Elfa",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Armadura Elfa. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Arcos Mallorn",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Arcos Mallorn. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UILorienNandorNew",
+        "portrait": "UPLorienNandorNew"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "rohan-tree-berd",
+      "object": "RohanTreeBerd",
+      "name": "Bárbol",
+      "title": null,
+      "recruitedAt": "Cámara de los Ents",
+      "cost": 1500,
+      "buildTime": 60,
+      "health": 5000,
+      "armourSet": "EntArmor",
+      "attackType": "Asedio (a distancia, en área)",
+      "isRing": false,
+      "description": "",
+      "abilities": [
+        {
+          "name": "La Marcha de los Ents",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Ents y Ucornos aliados cercanos a Bárbol obtienen +50% de armadura, +25% de visión y rango de ataque."
+        },
+        {
+          "name": "Rugido",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Bárbol emite un poderoso Rugido. Bárbol, Ents y Ucornos cercanos se enfurecen y ganan +50% de velocidad y +33% de armadura contra lanceros durante 30 segundos.\n\nEfecto Regalos de Lórien: Hace huir despavoridos a los enemigos cercanos."
+        }
+      ],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 4000,
+      "attackRange": 500,
+      "speed": 40,
+      "stats": {
+        "visionRange": 500
+      },
+      "images": {
+        "button": "UITreebeardgeneral",
+        "portrait": "HPTreebeardGeneral"
+      }
+    },
+    {
+      "slug": "elven-orophin",
+      "object": "ElvenOrophin",
+      "name": "Orophin",
+      "title": "Fuertemente armado Guardián de Lothlórien, Orophin",
+      "recruitedAt": "Fortaleza",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Orophin, un guardián rápido y silencioso del Bosque Dorado, lidera una fuerza de Guardias de Fronteras que mantenga a salvo la frontera sur de Lothlórien.",
+      "abilities": [
+        {
+          "name": "Gwedhanar",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Haldir y Rumil ganan +10% de daño y +5% de experiencia. No se acumula."
+        },
+        {
+          "name": "Megilherdir",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Orophin obtiene +25% de daño, +50% armadura durante 30 segundos. Orophin inflige daño de área."
+        },
+        {
+          "name": "Guardián de los Naith",
+          "level": 4,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas obtienen +15% de daño."
+        },
+        {
+          "name": "Defensa del Guardián",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Orophin y las unidades cercanas obtienen +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Sentencia de la Guardia Fronteriza",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Los temporizadores de las habilidades de los héroes enemigos se ajustan a lo que se acaba de usar."
+        }
+      ],
+      "damage": 170,
+      "damageType": "HERO",
+      "attackDelayMs": 1100,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIOrophinNew",
+        "portrait": "HPOrophinNew"
+      }
+    },
+    {
+      "slug": "elven-rumil",
+      "object": "ElvenRumil",
+      "name": "Rumil",
+      "title": "Guardián de las Fronteras de Lothlórien, Rumil",
+      "recruitedAt": "Fortaleza",
+      "cost": 1300,
+      "buildTime": 40,
+      "health": 1800,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe a distancia (a distancia)",
+      "isRing": false,
+      "description": "Rumil es un hábil arquero élfico, encargado de liderar a un grupo de Guardias de Fronteras para vigilar las orillas de Nimrodel, donde las incursiones de los orcos han aumentado en los últimos tiempos.",
+      "abilities": [
+        {
+          "name": "Gwedhanar",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Haldir y Orophin ganan +10% de daño y +5% de experiencia. No se acumula."
+        },
+        {
+          "name": "Cúthalion",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Un solo ataque a distancia. Hace que el monstruo objetivo huya."
+        },
+        {
+          "name": "Centinela de los Naith",
+          "level": 6,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Exploradores Silvanos, Leva Silvana, Centinelas Silvanos y Guardias de Fronteras cercanos obtienen +50% de rango de visión y los arqueros +15% de rango de ataque."
+        },
+        {
+          "name": "Voces Fingidas",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Invoca una ilusión de Exploradores Silvanos en la ubicación objetivo. Los arqueros ilusorios no infligen daño, pero restan un 33% de velocidad y daño a las unidades enemigas durante 3 segundos. No afecta a unidades heroicas ni a héroes."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO_RANGED",
+      "attackDelayMs": 1100,
+      "attackRange": 350,
+      "speed": 60,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIRumilNew",
+        "portrait": "HPRumilNew"
+      }
+    },
+    {
+      "slug": "elven-idrial",
+      "object": "ElvenIdrial",
+      "name": "Idrial",
+      "title": "Idrial, doncella de Galadriel",
+      "recruitedAt": "Fortaleza",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Idrial es una de las doncellas más confiables de Galadriel y fue enviada por ella para ayudar a Berethor en su búsqueda de Rivendel.",
+      "abilities": [
+        {
+          "name": "Golpe Fluido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ataque poderoso que causa un gran impacto. El daño se incrementa al subir de nivel."
+        },
+        {
+          "name": "Purificar Sombra",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Las Acosadoras Grises y Doncellas cercanas obtienen +25% de daño y +25% de armadura."
+        },
+        {
+          "name": "Regalo de Galadriel",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca un árbol dorado en el campo de batalla rodeado de niebla élfica. Las unidades aliadas dentro de la niebla se vuelven sigilosas. Las unidades enemigas cercanas pierden. -25% de daño y -20% de armadura. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Premura de los Elfos",
+          "level": 10,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Idrial recarga permanentemente sus poderes un 20% más rápido."
+        }
+      ],
+      "damage": 130,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIIdrialNew",
+        "portrait": "HPIdrialNew"
+      }
+    },
+    {
+      "slug": "elven-haldir",
+      "object": "ElvenHaldir",
+      "name": "Haldir",
+      "title": "Capitán de los Guardias de Fronteras",
+      "recruitedAt": "Fortaleza",
+      "cost": 1900,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'El mundo está lleno de peligros, y en él hay muchos lugares oscuros; pero aún hay muchas cosas que son justas, y aunque en todos los países el amor ahora se mezcla con el dolor, tal vez crezca aún más.'",
+      "abilities": [
+        {
+          "name": "Gwedhanar",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Orophin y Rumil ganan +10% de daño y +5% de experiencia. No se acumula."
+        },
+        {
+          "name": "Capitán de los Galadhrim",
+          "level": 5,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los aliados cercanos ganan +15% de daño y +15% de armadura. En el nivel 4, +25% daño y +25% armadura.\n\nEn el nivel 5, Haldir se pone su armadura pesada y gana un 25% de incremento de armadura.\n\nLas unidades cercanas ganan +33% de daño y +15% de velocidad durante 30 segundos."
+        },
+        {
+          "name": "Alternar Arma",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "toggle",
+          "description": ""
+        },
+        {
+          "name": "Guardias de Fronteras de Lothlórien",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Haldir guía a las unidades aliadas desde un lugar en el campo de batalla a cualquier parte del mapa. No funciona con máquinas de asedio."
+        },
+        {
+          "name": "Última Batalla",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Haldir recupera la mitad de su salud. Arco: Haldir obtiene +100% de daño, pero pierde. -50% de armadura durante 20 segundos. Espada: Haldir obtiene +100% de armadura, pierde. -25% de daño durante 20 segundos. Haldir no puede cambiar de arma mientras dure el poder."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 450
+      },
+      "images": {
+        "button": "HIHaldirNew",
+        "portrait": "HPHaldirNew"
+      }
+    },
+    {
+      "slug": "elven-celeborn",
+      "object": "ElvenCeleborn",
+      "name": "Celeborn",
+      "title": "Señor de los Galadhrim, Celeborn",
+      "recruitedAt": "Fortaleza",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'No desprecies la tradición que ha venido de años lejanos; Por lo general, es posible que las viejas esposas mantengan en la memoria palabras de cosas que alguna vez fueron necesarias para los sabios.'",
+      "abilities": [
+        {
+          "name": "Señor de los Galadhrim",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Todas las unidades aliadas cercanas obtienen +10% de velocidad, +50% de experiencia y resistencia al miedo. Celeborn también causa miedo a los enemigos cercanos."
+        },
+        {
+          "name": "El Anfitrión de Plata",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca a un batallón de Centinelas del Árbol Plateado. En el rango 4, incluye un batallón adicional de Centinelas del Árbol Plateado armados con espadas. En el rango 7, incluye un batallón adicional de Centinelas del Árbol Plateado armados con arcos. En el rango 10, dos de ambos."
+        },
+        {
+          "name": "Guerrero Astuto",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Celeborn obtiene +50% de armadura e inflige daño por proximidad durante 30 segundos. Las unidades enemigas a su alrededor pierden un 20% de daño y armadura mientras dure la habilidad."
+        },
+        {
+          "name": "Armamentos de Doriath",
+          "level": 6,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Celeborn empuña su antiguo armamento de Doriath y obtiene un incremento del 33% de armadura. Los ataques de Celeborn ahora infligen daño mágico."
+        },
+        {
+          "name": "Sabio Sin Medida",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las palabras de Celeborn garantizan a las unidades aliadas una gran experiencia."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HICelebornNew",
+        "portrait": "HPCelebornNew"
+      }
+    },
+    {
+      "slug": "elven-galadriel-lorien",
+      "object": "ElvenGaladrielLorien",
+      "name": "Galadriel",
+      "title": "Dama de los Galadhrim, Galadriel",
+      "recruitedAt": "Fortaleza",
+      "cost": 3500,
+      "buildTime": 70,
+      "health": 3300,
+      "armourSet": "GaladrielArmor",
+      "attackType": "Héroe (a distancia, en área)",
+      "isRing": false,
+      "description": "'Incluso la persona más pequeña puede cambiar el curso del futuro.'",
+      "abilities": [
+        {
+          "name": "Previsión",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Revela el velo en el área objetivo durante 60 segundos.\n\nLas unidades enemigas objetivo pierden todo el liderazgo y no pueden ganar experiencia durante 30 segundos."
+        },
+        {
+          "name": "La Dama de Lothlórien",
+          "level": 3,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Todos los Héroes aliados cercanos obtienen +33% de experiencia y sus tiempos de recarga disminuyen un 20%.\n\nHéroes y unidades heroicas enemigas cercanas sufren. -15% de daño."
+        },
+        {
+          "name": "Luz de Valinor",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Galadriel se revela en una luz blanca. Las unidades enemigas cercanas huyen despavoridas."
+        },
+        {
+          "name": "Portadora de Nenya",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "leadership",
+          "description": "Todas las estructuras aliadas cercanas obtienen +50% de armadura.\n\nLas estructuras aliadas o enemigas dentro del área de efecto no pueden producir, pero son inmunes al daño durante 30 segundos. Las unidades aliadas dentro del área de efecto se curan por completo y obtienen temporalmente +200% de armadura durante 30 segundos."
+        },
+        {
+          "name": "La Reina de la Tormenta",
+          "level": 9,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Galadriel toma la forma de la Reina de la Tormenta y temporalmente obtiene +50% de armadura, +300% de daño a Estructuras y sus ataques se convierten en ataques a distancia y de área de efecto. El efecto dura 30 segundos."
+        }
+      ],
+      "damage": 165,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 60,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGaladrielNew",
+        "portrait": "HPGaladrielNew"
+      }
+    },
+    {
+      "slug": "ring-hero-frodo",
+      "object": "RingHeroFrodo",
+      "name": "Frodo",
+      "title": "Noble Hobbit de la Comarca",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 70,
+      "health": 1800,
+      "armourSet": "FrodoRingHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": true,
+      "description": "",
+      "abilities": [
+        {
+          "name": "El Anillo Único",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hazte invisible. Pero ten cuidado con el Ojo de Sauron."
+        },
+        {
+          "name": "Frasco de Galadriel",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas huyan."
+        },
+        {
+          "name": "El Destino de la Tierra Media",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los aliados cercanos en un amplio radio obtienen +50% de daño, +50% de armadura, y ganan experiencia dos veces más rápido. Los tiempos de recarga de las habilidades de unidades y héroes cercanos se reducen un 25%."
+        },
+        {
+          "name": "El Guía y el Jardinero",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Convoca al fiel jardinero de Frodo, Samsagaz Gamyi, y a Sméagol, su guía."
+        }
+      ],
+      "damage": 60,
+      "damageType": "HERO",
+      "attackDelayMs": 800,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 200
+      },
+      "images": {
+        "button": "HIFrodonew",
+        "portrait": "HEFrodonew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "elven-citadel",
+      "object": "ElvenCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Lórilinde"],
+      "upgrades": [
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura, y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Nieblas del Anduin",
+          "cost": 600,
+          "hotkey": "E",
+          "level": null,
+          "description": "Los aliados cercanos se camuflan. Las unidades enemigas cercanas pierden. -25% de daño y -20% de armadura.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Aguas del Celebrant",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Proporciona curación a las tropas cercanas y repone las unidades caídas. Los héroes reviven un 25% más rápido en esta Fortaleza.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Protección de Nenya",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Guardianes Veteranos",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Coloca Exploradores Silvanos con Arcos Mallorn en la Fortaleza. Añade daño mágico a la Fortaleza. Desbloquea la 'Patrulla Fronteriza', que permite al jugador convocar a un trío de Guardias de Fronteras individuales en cualquier lugar del mapa para revelar la zona, detectar el sigilo y disparar a los enemigos cercanos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Faroles Bendecidos",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Las unidades enemigas cercanas a la fortaleza se ralentizan más cuanto más se acercan a ella, con un máximo de -33%. Requisito para la Guía de Eärendil.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guía de Eärendil",
+          "cost": 1000,
+          "hotkey": "F",
+          "level": null,
+          "description": "Desbloquea el poder de Guía de Eärendil. Incrementa el rango de visión de la Fortaleza.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Patrulla Fronteriza",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca a un trío de Guardias de Fronteras individuales en cualquier lugar del mapa para revelar el área, detectar el sigilo y disparar contra enemigos cercanos."
+        },
+        {
+          "name": "Guía de Eärendil",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Cubre de luz el área alrededor de la fortaleza durante 30 segundos, curando a las unidades aliadas cercanas y haciendo que las unidades enemigas cercanas huyan despavoridas."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienFortress"
+      }
+    },
+    {
+      "slug": "elven-niphredil-mallorn-tree-foundation",
+      "object": "ElvenNiphredilMallornTreeFoundation",
+      "name": "Árbol Mallorn",
+      "kind": "support",
+      "cost": 200,
+      "buildTime": 10,
+      "health": 1800,
+      "healthByLevel": [],
+      "armourSet": "MallornTreeArmor",
+      "maxCount": null,
+      "description": "Proporciona madera de Mallorn como un recurso basado en el terreno disponible. Puede especializarse para convertirse en Guarnición Galadhrim, Pradera Verde o Depósito.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Faroles de Luz-estelar",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Aguas Benditas",
+          "cost": 300,
+          "hotkey": "E",
+          "level": null,
+          "description": "El Mallorn es bañado en aguas benditas. Las unidades cercanas se curan y las caídas se reponen en su presencia.",
+          "stats": {
+            "researchTimeS": 25
+          }
+        },
+        {
+          "name": "Raíces del Mallorn",
+          "cost": 250,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los enemigos cercanos se ralentizan y sufren daños menores con el tiempo. El Árbol Mallorn recibe +25% de armadura.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Investigar Leva Silvana",
+          "cost": 350,
+          "hotkey": "T",
+          "level": null,
+          "description": "Convoca a una horda de Centinelas Silvanos para defender el Árbol Mallorn durante 35 segundos.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Floración de Niphredil",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Incrementa la producción de recursos del Árbol Mallorn. Incrementa los puntos de mando en 50 unidades."
+        },
+        {
+          "name": "Faroles de Luz-estelar",
+          "level": null,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos."
+        },
+        {
+          "name": "Leva Silvana",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca una horda temporal de Centinelas Silvanos para defender el Árbol Mallorn."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienMallornTree"
+      }
+    },
+    {
+      "slug": "eregion-forge-foundation",
+      "object": "EregionForgeFoundation",
+      "name": "Depósito del Bosque Dorado",
+      "kind": "support",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1800,
+      "healthByLevel": [],
+      "armourSet": "MallornTreeArmor",
+      "maxCount": null,
+      "description": "Genera recursos según el terreno disponible. Investiga las mejoras de unidades de Lórien. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes del Bosque Dorado",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Estandartes del Bosque Dorado. Incrementa un batallón al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura Elfa",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Armadura Elfa. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas Templadas",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Arcos Mallorn",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a los batallones adquirir la mejora Arcos Mallorn. Cuando está equipado, incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Depósito del Bosque Dorado al Nivel 2",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite investigar las mejoras Armadura Elfa y Hojas Templadas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Faroles de Luz-estelar",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Aguas Benditas",
+          "cost": 300,
+          "hotkey": "E",
+          "level": null,
+          "description": "El Mallorn es bañado en aguas benditas. Las unidades cercanas se curan y las caídas se reponen en su presencia.",
+          "stats": {
+            "researchTimeS": 25
+          }
+        },
+        {
+          "name": "Raíces del Mallorn",
+          "cost": 250,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los enemigos cercanos se ralentizan y sufren daños menores con el tiempo. El Árbol Mallorn recibe +25% de armadura.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Investigar Leva Silvana",
+          "cost": 350,
+          "hotkey": "T",
+          "level": null,
+          "description": "Convoca a una horda de Centinelas Silvanos para defender el Árbol Mallorn durante 35 segundos.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Depósito del Bosque Dorado al Nivel 3",
+          "cost": 1500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite investigar Arcos Mallorn. Añade una torre de flechas defensiva.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Mejora Primaria: Depósito",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Permite adquirir diversas mejoras. Incrementa la producción de recursos del Árbol Mallorn. Incrementa los puntos de mando en 50 unidades."
+        },
+        {
+          "name": "Faroles de Luz-estelar",
+          "level": null,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos."
+        },
+        {
+          "name": "Leva Silvana",
+          "level": null,
+          "hotkey": "F",
+          "kind": "active",
+          "description": "Convoca una horda temporal de Centinelas Silvanos para defender el Árbol Mallorn."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienStorehouse"
+      }
+    },
+    {
+      "slug": "elven-barracks-foundation",
+      "object": "ElvenBarracksFoundation",
+      "name": "Guarnición Galadhrim",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 1800,
+      "healthByLevel": [],
+      "armourSet": "MallornTreeBarracksArmor",
+      "maxCount": null,
+      "description": "Entrena a la Infantería y Arqueros de Lothlórien.",
+      "produces": [
+        "Tawarwaith",
+        "Tawar-na-Eithyr",
+        "Tawar-na-Pengryn",
+        "Gwahaedhrim",
+        "Tawar-na-Thirrad",
+        "Edrain-na-Maethyr"
+      ],
+      "upgrades": [
+        {
+          "name": "Guarnición Galadhrim al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Centinelas de Cerin Amroth y Acechadoras Grises +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Faroles de Luz-estelar",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Aguas Benditas",
+          "cost": 300,
+          "hotkey": "E",
+          "level": null,
+          "description": "El Mallorn es bañado en aguas benditas. Las unidades cercanas se curan y las caídas se reponen en su presencia.",
+          "stats": {
+            "researchTimeS": 25
+          }
+        },
+        {
+          "name": "Raíces del Mallorn",
+          "cost": 250,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los enemigos cercanos se ralentizan y sufren daños menores con el tiempo. El Árbol Mallorn recibe +25% de armadura.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Investigar Leva Silvana",
+          "cost": 350,
+          "hotkey": "T",
+          "level": null,
+          "description": "Convoca a una horda de Centinelas Silvanos para defender el Árbol Mallorn durante 35 segundos.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Guarnición Galadhrim al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a Guardias de Fronteras. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Mejora Primaria: Guarnición Galadhrim",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Permite reclutar unidades de infantería de Lothlórien. Incrementa la armadura del Árbol Mallorn en un 33%. Incrementa los puntos de mando en 25 unidades."
+        },
+        {
+          "name": "Faroles de Luz-estelar",
+          "level": null,
+          "hotkey": "G",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos."
+        },
+        {
+          "name": "Leva Silvana",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca una horda temporal de Centinelas Silvanos para defender el Árbol Mallorn."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienBarracks"
+      }
+    },
+    {
+      "slug": "elven-green-pasture-foundation",
+      "object": "ElvenGreenPastureFoundation",
+      "name": "Pradera Verde",
+      "kind": "economy",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 1800,
+      "healthByLevel": [],
+      "armourSet": "MallornTreeBarracksArmor",
+      "maxCount": null,
+      "description": "Entrena Caballería de Lothlórien.",
+      "produces": ["Naith-na-Lethril"],
+      "upgrades": [
+        {
+          "name": "Pradera Verde al Nivel 2",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Desbloquea el Pastoreo Silvano. La caballería de todo el mapa de Lothlórien gana +10% de armadura y daño +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Faroles de Luz-estelar",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Aguas Benditas",
+          "cost": 300,
+          "hotkey": "E",
+          "level": null,
+          "description": "El Mallorn es bañado en aguas benditas. Las unidades cercanas se curan y las caídas se reponen en su presencia.",
+          "stats": {
+            "researchTimeS": 25
+          }
+        },
+        {
+          "name": "Raíces del Mallorn",
+          "cost": 250,
+          "hotkey": "R",
+          "level": null,
+          "description": "Los enemigos cercanos se ralentizan y sufren daños menores con el tiempo. El Árbol Mallorn recibe +25% de armadura.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Investigar Leva Silvana",
+          "cost": 350,
+          "hotkey": "T",
+          "level": null,
+          "description": "Convoca a una horda de Centinelas Silvanos para defender el Árbol Mallorn durante 35 segundos.",
+          "stats": {
+            "researchTimeS": 8
+          }
+        },
+        {
+          "name": "Pradera Verde al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "La caballería de todo el mapa de Lothlórien gana +15% de armadura y daño. Añade una torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Mejora Primaria: Pradera Verde",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Permite reclutar Jinetes de los Naith. Incrementa la armadura del Árbol Mallorn en un 33%. Incrementa los puntos de mando en 25 unidades."
+        },
+        {
+          "name": "Cría de animales Silvanos",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La caballería de todo el mapa de Lothlórien gana +10% de armadura y daño. En el rango 3, +15% de armadura y daño."
+        },
+        {
+          "name": "Faroles de Luz-estelar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace que las unidades enemigas se acobarden durante 5 segundos."
+        },
+        {
+          "name": "Leva Silvana",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca una horda temporal de Centinelas Silvanos para defender el Árbol Mallorn."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienPasture"
+      }
+    },
+    {
+      "slug": "elven-hidden-sanctum-foundation",
+      "object": "ElvenHiddenSanctumFoundation",
+      "name": "Santuario Oculto",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 1,
+      "description": "Entrena Doncellas-radiantes, Caballeros de Amroth Amdírion y Nandor Hîr-Hathol.",
+      "produces": ["Alcarwen", "Amroth-na-Erphin", "Nandor Hîr-Hathol"],
+      "upgrades": [
+        {
+          "name": "Estatua de Amroth",
+          "cost": 400,
+          "hotkey": "D",
+          "level": 5,
+          "description": "+50% de velocidad de recarga para los hechizos del Santuario Oculto y -15% de desaceleración por aplastamiento para los Caballeros de Amroth Amdírion. Recarga los hechizos del Santuario Oculto al adquirirlo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Santuario Oculto al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Caballeros de Amroth Amdírion. Desbloquea la habilidad Armadura de Doriath +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Santuario Oculto al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Nandor Hîr-Hathol. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Larga Memoria",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Las unidades objetivo reciben una mejora permanente de +15% de rango de ataque, +25% de visión e inmunidad al terror, a costa de -33% de experiencia."
+        },
+        {
+          "name": "Armadura de Doriath",
+          "level": 2,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Las unidades objetivo se mejoran permanentemente con armaduras desgastadas por el tiempo. Las unidades objetivo se curan automáticamente un 50% más, ganan 60 puntos de vida y reflejan el daño recibido, pero pierden un 10% de velocidad de movimiento."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPHiddenSanctum"
+      }
+    },
+    {
+      "slug": "elven-ent-moot-foundation",
+      "object": "ElvenEntMootFoundation",
+      "name": "Cámara de los Ents",
+      "kind": "production",
+      "cost": 800,
+      "buildTime": 60,
+      "health": 6000,
+      "healthByLevel": [],
+      "armourSet": "EntMootArmor",
+      "maxCount": null,
+      "description": "Recluta Ents.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienEntmoot"
+      }
+    },
+    {
+      "slug": "elven-battle-tower-foundation",
+      "object": "ElvenBattleTowerFoundation",
+      "name": "Talan",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 45,
+      "health": 1800,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre de Flechas Defensiva. Puede ser guarnecida con arqueros para aumentar la producción de daño.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Volea Oculta",
+          "cost": 300,
+          "hotkey": "W",
+          "level": null,
+          "description": "Desbloquea la habilidad Volea Oculta.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Investigar Ramas Tenebrosas",
+          "cost": 400,
+          "hotkey": "E",
+          "level": null,
+          "description": "Desbloquea Ramas Tenebrosas, que oculta el Talan a la vista.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Radiante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "El Talán incrementa pasivamente la producción de los Mallorn cercanos en +10%."
+        },
+        {
+          "name": "Volea Oculta",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Una andanada de flechas inflige daño a los enemigos atacantes."
+        },
+        {
+          "name": "Guarnición de Guardias de Fronteras",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Convoca a un pequeño batallón de Guardias de Fronteras con arco durante 40 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienFlet"
+      }
+    },
+    {
+      "slug": "elven-mirror-of-galadriel-foundation",
+      "object": "ElvenMirrorOfGaladrielFoundation",
+      "name": "Espejo de Galadriel",
+      "kind": "support",
+      "cost": 600,
+      "buildTime": 40,
+      "health": 2500,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": 1,
+      "description": "Investiga mejoras especiales para la facción. Detecta unidades en sigilo.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Cosas que Fueron",
+          "cost": 400,
+          "hotkey": "E",
+          "level": null,
+          "description": "Reduce el coste de los Caballeros de los Amroth Amdírion y de Nandor Hîr-Hathol en un 20%. Se debe mantener un Espejo para beneficiarse de esta mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Cosas que Serán",
+          "cost": 800,
+          "hotkey": "R",
+          "level": null,
+          "description": "Otorga +25% de armadura a los Árboles Mallorn, los árboles de Floración de Niphredil y los Depósitos no mejorados. Se debe mantener un Espejo para beneficiarse de esta mejora.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Cosas Que Son",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Incrementa la velocidad de producción de Leva Silvana, Centinelas Silvanos, Exploradores Silvanos, Acechadoras Grises, Centinelas de Cerin Amroth y Guardias de Fronteras en un 100% durante 55 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienGaladrielMirror"
+      }
+    },
+    {
+      "slug": "lorien-hedge-wall-hub",
+      "object": "LorienHedgeWallHub",
+      "name": "Centro Amurallado",
+      "kind": "defence",
+      "cost": 300,
+      "buildTime": 50,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "ElvenWallArmor",
+      "maxCount": null,
+      "description": "Permite la construcción de murallas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Cancelar Tramo de Muralla",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Destruye el muro y reembolsa recursos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "UPLorienHub"
+      }
+    },
+    {
+      "slug": "elven-watchtower-expansion",
+      "object": "ElvenWatchtowerExpansion",
+      "name": "Expansión Talan",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 25,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Talan defensivo que dispara a las unidades enemigas cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPLorienFlet"
+      }
+    },
+    {
+      "slug": "elven-axe-elf-garrison-expansion",
+      "object": "ElvenAxeElfGarrisonExpansion",
+      "name": "Expansión Guarnición de Hachas del Bosque Dorado",
+      "kind": "defence",
+      "cost": 500,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los Elfos con Hachas defenderán la guarnición y atacarán a las unidades enemigas cercanas. Puedes comprar la mejora ¡Adelante, Elfos con Hachas!, que permite a la guarnición de los elfos con hachas convocar una horda de guerreros sobre los batallones enemigos y las máquinas de asedio.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Mejora ¡Adelante, Elfos con Hachas!",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a la Guarnición de Hachas convocar una horda de Elfos con Hachas.",
+          "stats": {
+            "researchTimeS": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "¡Adelante, Elfos con Hachas!",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca una horda de Elfos con Hachas para que luchen durante 40 segundos."
+        }
+      ],
+      "images": {
+        "button": "UIAxeElfGarrison",
+        "portrait": "BPAxeElfGarrison"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "rallying-call-mpelves",
+      "name": "Cuerno Élfico",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SBLorienHorn"
+      },
+      "requires": []
+    },
+    {
+      "slug": "lorien-trap",
+      "name": "No Puedes Ir Más Lejos",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Aturde a todas las unidades enemigas en un área pequeña durante 4 segundos.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SBLorienGoNoFurther"
+      },
+      "requires": []
+    },
+    {
+      "slug": "arrow-volley-lorien",
+      "name": "Leithio I Philinn",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Lanza una pequeña ráfaga de flechas en cualquier lugar del mapa. Las unidades enemigas dañadas sufren -25% de armadura durante 30 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SBLorienVolley"
+      },
+      "requires": []
+    },
+    {
+      "slug": "amroth-knights",
+      "name": "Regalos de Lórien",
+      "tier": 2,
+      "position": "LL",
+      "kind": "attack",
+      "cost": 10,
+      "description": "Los héroes de Lothlórien objetivo ganan bonificaciones a una de sus habilidades. Galadriel: 'Luz de Valinor' inflige daño a los enemigos. Celeborn: 'Señor de los Galadhrim' otorga a las unidades +33% de armadura. Idrial: 'Purificar Sombra' repone las unidades caídas en una gran área. Haldir: 'Capitán de los Galadhrim', otorga resistencia al derribo y al pisoteo. Rumil: 'Cúthalion' ralentiza al héroe enemigo objetivo durante 10 segundos. Orophin: 'Megilherdir' inflige daño por derribo y área en un radio mayor. Bárbol: 'Rugido' hace huir despavoridos a los enemigos cercanos.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SBLorienAmroth"
+      },
+      "requires": ["Cuerno Élfico"]
+    },
+    {
+      "slug": "silvan-allies",
+      "name": "Convocar Aliados Silvanos",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca 1 batallón de Exploradores, de Dagas y de Lanceros Silvanos, y un único Guardia Dorado del Bosque Verde. Los aliados cercanos a la Guardia ganan recursos por muerte.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "SBLorienMirkwoodSummon"
+      },
+      "requires": ["Cuerno Élfico", "No Puedes Ir Más Lejos"]
+    },
+    {
+      "slug": "radagast",
+      "name": "Aguas de Nimrodel",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una estatua de Nimrodel en el centro de un gran estanque de agua. Las unidades aliadas en el ámbito del estanque son inmunes a las maleficios. Incrementa un 10% la producción de recursos de los Árboles Mallorn en un radio amplio. Capacidad para reparar la estructura seleccionada.",
+      "requiresSlots": [3, 2],
+      "slot": 6,
+      "images": {
+        "button": "SBLorienRadagastSummon"
+      },
+      "requires": ["No Puedes Ir Más Lejos", "Leithio I Philinn"]
+    },
+    {
+      "slug": "elven-wood",
+      "name": "Malicia Retorcida",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca permanentemente un Ucorno al campo de batalla.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SBLorienMellyrnWood"
+      },
+      "requires": ["Leithio I Philinn"]
+    },
+    {
+      "slug": "eagle-allies",
+      "name": "Águilas de las Montañas",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca 2 Águilas Gigantes.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SBLorienEagleSummon"
+      },
+      "requires": ["Regalos de Lórien", "Convocar Aliados Silvanos"]
+    },
+    {
+      "slug": "cloud-break",
+      "name": "¡Aiya Eärendil!",
+      "tier": 3,
+      "position": "C",
+      "kind": "debuff",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Los héroes y unidades aliados obtienen temporalmente +50% de resistencia al daño mágico y elemental durante 30 segundos. Los héroes enemigos pierden -20% de velocidad y -15% de armadura durante 30 segundos.",
+      "requiresSlots": [5, 6, 7],
+      "slot": 9,
+      "images": {
+        "button": "SBLorienCloudbreak"
+      },
+      "requires": [
+        "Convocar Aliados Silvanos",
+        "Aguas de Nimrodel",
+        "Malicia Retorcida"
+      ]
+    },
+    {
+      "slug": "ringof-adamant",
+      "name": "El Anillo de Adamant",
+      "tier": 3,
+      "position": "R",
+      "kind": "heal",
+      "cost": 15,
+      "description": "Crea un área de terreno mágico mediante el poder de Nenya durante 60 segundos. Todas las unidades aliadas se curan lentamente, se reponen, obtienen +100% de armadura y se vuelven inmunes al miedo y al terror. Todas las estructuras obtienen +50% de armadura y se reparan con el tiempo.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "SBLorienAdamant"
+      },
+      "requires": ["Aguas de Nimrodel", "Malicia Retorcida"]
+    },
+    {
+      "slug": "mistof-lorien",
+      "name": "Niebla de Lothlórien",
+      "tier": 4,
+      "position": "L",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Conjura Niebla envolvente durante 60 segundos. Las unidades aliadas que se encuentren dentro de la niebla pasan a estar sigilosas, mientras que las unidades enemigas atrapadas en ella reciben daño con el tiempo. Las unidades enemigas cercanas sufren -33% de daño, -33% de armadura y -60% de velocidad. Anula el liderazgo enemigo. El maleficio persiste durante 15 segundos.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "SBLorienMists"
+      },
+      "requires": ["Águilas de las Montañas", "¡Aiya Eärendil!"]
+    },
+    {
+      "slug": "cast-down",
+      "name": "Derribando sus Muros",
+      "tier": 4,
+      "position": "R",
+      "kind": "buff",
+      "cost": 25,
+      "description": "Conjura un rugiente vendaval que causa graves daños a las estructuras y daños moderados a las unidades.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SBLorienCastDown"
+      },
+      "requires": ["¡Aiya Eärendil!", "El Anillo de Adamant"]
+    }
+  ]
+}

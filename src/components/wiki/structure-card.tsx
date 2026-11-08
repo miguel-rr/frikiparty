@@ -7,25 +7,27 @@ import type { FactionPageData } from '@/server/wiki/queries';
 
 type Structure = FactionPageData['structures'][number];
 
-/** A building: picture, cost and health per level, what it recruits, what it sells, what it casts. */
+/** A building: its game icon, cost and health per level, what it recruits, what it sells, what it casts. */
 const StructureCard = ({ structure: s }: { structure: Structure }) => (
   <li className={`${panel} flex flex-col gap-3 overflow-hidden`}>
-    {s.imageUrl ? (
-      <WikiImage
-        alt={s.name}
-        className="h-36 w-full object-cover"
-        src={s.imageUrl}
-      />
-    ) : null}
-    <div className="flex flex-col gap-3 px-4 pb-4">
-      <div className="flex flex-col">
-        <span className="d-display font-bold text-(--parchment) text-base uppercase leading-tight">
-          {s.name}
-        </span>
-        <span className="font-mono text-(--gold) text-2xs uppercase tracking-wider">
-          {s.kind ? STRUCTURE_KIND_LABELS[s.kind] : ''}
-          {s.maxCount ? ` · máx. ${s.maxCount}` : ''}
-        </span>
+    <div className="flex flex-col gap-3 p-4">
+      <div className="flex items-start gap-3">
+        {s.imageUrl ? (
+          <WikiImage
+            alt=""
+            className="size-16 shrink-0 rounded-full border border-(--hair) object-cover"
+            src={s.imageUrl}
+          />
+        ) : null}
+        <div className="flex min-w-0 flex-col">
+          <span className="d-display font-bold text-(--parchment) text-base uppercase leading-tight">
+            {s.name}
+          </span>
+          <span className="font-mono text-(--gold) text-2xs uppercase tracking-wider">
+            {s.kind ? STRUCTURE_KIND_LABELS[s.kind] : ''}
+            {s.maxCount ? ` · máx. ${s.maxCount}` : ''}
+          </span>
+        </div>
       </div>
       <StatStrip
         items={[

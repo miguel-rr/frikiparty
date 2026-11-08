@@ -1,6 +1,6 @@
 import { panel, panelGold } from '@/components/theme/primitives';
 import { AbilityList } from '@/components/wiki/ability-list';
-import { StatStrip } from '@/components/wiki/stat-strip';
+import { combatStats, StatStrip } from '@/components/wiki/stat-strip';
 import { WikiImage } from '@/components/wiki/wiki-image';
 import type { FactionPageData } from '@/server/wiki/queries';
 
@@ -18,12 +18,14 @@ const HeroCard = ({ hero, ringHero }: { hero: Hero; ringHero: boolean }) => (
         src={hero.imageUrl}
       />
     ) : null}
-    <div className="flex flex-col gap-3 px-4 pb-4">
+    <div
+      className={`flex flex-col gap-3 px-4 pb-4 ${hero.imageUrl ? '' : 'pt-4'}`}
+    >
       <div className="flex items-start gap-3">
         {hero.portraitUrl ? (
           <WikiImage
             alt=""
-            className="size-14 shrink-0 rounded-lg border border-(--hair-gold) object-cover"
+            className="size-16 shrink-0 rounded-full border border-(--hair-gold) object-cover"
             src={hero.portraitUrl}
           />
         ) : null}
@@ -57,6 +59,7 @@ const HeroCard = ({ hero, ringHero }: { hero: Hero; ringHero: boolean }) => (
           },
         ]}
       />
+      <StatStrip items={combatStats(hero)} />
       {hero.description ? (
         <p className="text-(--parchment)/90 text-sm">{hero.description}</p>
       ) : null}

@@ -1,0 +1,2504 @@
+{
+  "code": "haradwaith",
+  "units": [
+    {
+      "slug": "harad-porter",
+      "object": "HaradPorter",
+      "name": "Arquitecto",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye edificios.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIharadporter",
+        "portrait": "UPHaradPorter"
+      }
+    },
+    {
+      "slug": "trade-caravan",
+      "object": "TradeCaravan",
+      "name": "Caravana Comercial Sureña",
+      "category": "monster",
+      "recruitedAt": "Bazar",
+      "requirements": null,
+      "cost": 600,
+      "cp": 0,
+      "health": 3000,
+      "buildTime": 30,
+      "armourSet": "DwarvenDemolisherHeavyArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Estructura económica móvil. Puede desplegarse para producir recursos y adquirir experiencia. Puede proporcionar mejoras a las unidades cercanas. Reduce el coste de las mejoras de las unidades cuando se despliegan.\n\nNumerosas rutas comerciales bien trazadas conectan los a menudo distantes y dispares lugares de habitación de Haradwaith. Los mercaderes y comerciantes son de gran importancia, ya que traen consigo los medios de supervivencia y noticias del ancho mundo que les rodea.",
+      "abilities": [
+        {
+          "name": "Desplegar Caravana",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "La Caravana se inmoviliza y produce recursos."
+        },
+        {
+          "name": "Competencia Feroz",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las Caravanas Comerciales se curan con el tiempo cuando están cerca de los Bazares."
+        },
+        {
+          "name": "Comercio: Estandartes de Seda",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas a la Caravana pueden ser mejoradas con Estandartes de Seda."
+        },
+        {
+          "name": "Comercio: Hojas de Acero Forjado",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Caravana comercia con Khand por Hojas de Acero Forjado. Las unidades cercanas a la caravana pueden ser mejoradas con Hojas de Acero Forjado. Una vez desbloqueada, todas las demás caravanas pueden comerciar con esta mejora. También mejora las patrullas de edificios."
+        },
+        {
+          "name": "Comercio: Corazas de Bronce",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La caravana comercia con Rhûn por Corazas de Bronce. Las unidades cercanas a la caravana pueden ser mejoradas con Corazas de Bronce. Una vez desbloqueada, todas las demás caravanas pueden comerciar con esta mejora. También mejora las patrullas de edificios."
+        },
+        {
+          "name": "Comercio: Flechas de Punta Aceitosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Caravana comercia con Umbar por. Flechas de Punta Aceitosa. Las unidades cercanas a la Caravana pueden ser mejoradas con Flechas de Punta Aceitosa. Una vez desbloqueada, todas las demás caravanas pueden comerciar con esta mejora. También mejora las patrullas de edificios."
+        },
+        {
+          "name": "Guardia Dalish",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Crea temporalmente un batallón aleatorio de la Ciudad del Lago."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 50,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiharadcaravan",
+        "portrait": "UPHaradCaravan"
+      }
+    },
+    {
+      "slug": "harad-nomad",
+      "object": "HaradNomadHorde",
+      "name": "Caravana Âmazhir",
+      "category": "special",
+      "recruitedAt": "Bazar",
+      "requirements": null,
+      "cost": 600,
+      "cp": 0,
+      "health": 250,
+      "buildTime": 30,
+      "armourSet": "NoArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Estructura de apoyo móvil. Puede desplegarse para otorgar a las unidades aliadas cercanas armadura, daño y experiencia adicionales.\n\nLos Âmazhir son una antigua tribu de nómadas. Nadie conoce mejor las vastas tierras del sur de la Tierra Media ni está más al tanto de sus muchos secretos.",
+      "abilities": [
+        {
+          "name": "Acampar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "La Caravana Âmazhir se despliega para convertirse en el Campamento Âmazhir. El Campamento de Âmazhir otorga pasivamente varios potenciadores y puede reabastecer a las unidades con Té Negrísimo."
+        },
+        {
+          "name": "Té Negrísimo",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La caravana debe estar desplegada. Repone una unidad caída en batallones cercanos."
+        },
+        {
+          "name": "Bendición de Mâhan",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "La caravana debe estar desplegada. Los aliados cercanos al Campamento ganan +33% de armadura."
+        },
+        {
+          "name": "Bendición de Shâhad",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "La caravana debe estar desplegada. Los aliados cercanos al Campamento ganan +33% de daño."
+        },
+        {
+          "name": "Favor del Demonio del Viento",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "La caravana debe estar desplegada. Los aliados cercanos al Campamento ganan experiencia un 50% más rápido."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": 6,
+      "stats": {
+        "visionRange": 121
+      },
+      "images": {
+        "button": "UIbedouincaravan",
+        "portrait": "UPHaradBedouinCaravan"
+      }
+    },
+    {
+      "slug": "harad-warlord",
+      "object": "HaradWarlord",
+      "name": "Caudillo de Harondor",
+      "category": "swordsmen",
+      "recruitedAt": "Puesto Avanzado de Harondor",
+      "requirements": null,
+      "cost": 200,
+      "cp": 50,
+      "health": 500,
+      "buildTime": 20,
+      "armourSet": "HarondorWarlordArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Capaz de convocar a diversas unidades de miembros de la tribu para que le sirvan.\n\nLos mensajeros de Mordor provocaron un gran malestar en las vastas tierras tribales de Haradwaith. Aquellos jefes que se doblegaron más profundamente fueron elevados a poderosos señores de la guerra, subyugando tribus y conduciéndolas a su perdición en las guerras del norte.",
+      "abilities": [
+        {
+          "name": "Mentiras y Amenazas",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Incrementa la armadura de los Caudillos de Harondor."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        },
+        {
+          "name": "Hacheros Tribales",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Costo: GRATIS. Convoca Hacheros Tribales para que te sirvan."
+        },
+        {
+          "name": "Arqueros Tribales",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca Arqueros Tribales para que te sirvan."
+        },
+        {
+          "name": "Lanceros Tribales",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca Lanceros Tribales para que te sirvan."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Hacheros Tribales",
+          "cost": 0,
+          "hotkey": "R",
+          "level": null,
+          "description": "Costo: GRATIS. Convoca Hacheros Tribales para que te sirvan.",
+          "stats": {
+            "researchTimeS": 1
+          }
+        },
+        {
+          "name": "Arqueros Tribales",
+          "cost": 50,
+          "hotkey": "T",
+          "level": null,
+          "description": "Convoca Arqueros Tribales para que te sirvan.",
+          "stats": {
+            "researchTimeS": 1
+          }
+        },
+        {
+          "name": "Lanceros Tribales",
+          "cost": 50,
+          "hotkey": "C",
+          "level": null,
+          "description": "Convoca Lanceros Tribales para que te sirvan.",
+          "stats": {
+            "researchTimeS": 1
+          }
+        }
+      ],
+      "damage": 20,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 300
+      },
+      "images": {
+        "button": "uiharondorwarlord",
+        "portrait": "UPHarondorWarlord"
+      }
+    },
+    {
+      "slug": "haradwaith-harondor-raider",
+      "object": "HaradwaithHarondorRaiderHorde",
+      "name": "Incursores de Harondor",
+      "category": "cavalry",
+      "recruitedAt": "Puesto Avanzado de Harondor nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 80,
+      "health": 365,
+      "buildTime": 35,
+      "armourSet": "HarondorRaiderArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["archers", "swordsmen"],
+      "weakAgainst": [],
+      "description": "Estos incursores eran conocidos en Gondor por golpear duro y rápido, y luego retirarse antes de que pudiera organizarse ninguna represalia.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Corazas de Bronce",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Corazas de Bronce. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas de Acero Forjado",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Hojas de Acero Forjado. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Seda",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 205,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uihwharadrimraiders",
+        "portrait": "UPHaradwaithHarondorRaiders"
+      }
+    },
+    {
+      "slug": "harad-harondor-spearmen",
+      "object": "HaradHarondorSpearmenHorde",
+      "name": "Lanceros de Harondor",
+      "category": "pikemen",
+      "recruitedAt": "Puesto Avanzado de Harondor nivel 2",
+      "requirements": null,
+      "cost": 550,
+      "cp": 75,
+      "health": 320,
+      "buildTime": 25,
+      "armourSet": "HarondorSpearmenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "El grueso de las fuerzas de Sûladan estaba formado por guerreros de lanza capaces de marchar a través de vastas distancias a gran velocidad.",
+      "abilities": [],
+      "upgrades": [
+        {
+          "name": "Corazas de Bronce",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Corazas de Bronce. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas de Acero Forjado",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Hojas de Acero Forjado. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Seda",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 189,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "uihwharadrimspearmen",
+        "portrait": "UPHWHaradrimSpearmen"
+      }
+    },
+    {
+      "slug": "harondor-archer",
+      "object": "HarondorArcherHorde",
+      "name": "Arqueros de Harondor",
+      "category": "archers",
+      "recruitedAt": "Puesto Avanzado de Harondor nivel 3",
+      "requirements": null,
+      "cost": 550,
+      "cp": 72,
+      "health": 235,
+      "buildTime": 40,
+      "armourSet": "ArcherEliteArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Los arqueros de las filas de Sûladan estaban bien entrenados y equipados, y lanzaban grandes andanadas de flechas sobre sus desprevenidos enemigos.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Bronce",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Corazas de Bronce. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Punta Aceitosa",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Punta Aceitosa. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Seda",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 85,
+      "damageType": "PIERCE",
+      "attackDelayMs": 200,
+      "attackRange": 350,
+      "speed": 55,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 360,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uihwharadrimarchers",
+        "portrait": "UPHWHaradrimArchers"
+      }
+    },
+    {
+      "slug": "harad-guardsofthe-serpent",
+      "object": "HaradGuardsoftheSerpentHorde",
+      "name": "Guardias de la Serpiente",
+      "category": "heroic",
+      "recruitedAt": "Puesto Avanzado de Harondor nivel 3",
+      "requirements": null,
+      "cost": 1800,
+      "cp": 100,
+      "health": 625,
+      "buildTime": 60,
+      "armourSet": "HelmingasWardensArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["infantry", "cavalry"],
+      "weakAgainst": [],
+      "description": "Capacidad de ir montados o a pie.\n\nSûladan se rodea de un grupo de guerreros veteranos. Ferozmente leales y con una destreza marcial como pocas, los Guardias de la Serpiente son temidos con razón por el opresor del norte.",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Mordida de la Serpiente",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Envenena a los enemigos objetivo causándoles daño durante 15 segundos."
+        },
+        {
+          "name": "Carga Inflexible",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Incursores de Harondor, la Vanguardia de Númenóreanos Negros y Sûladan ganan +100% de armadura contra daño especializado durante 20 segundos. Sólo se puede lanzar estando montado."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 90,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uiguardsoftheserpent",
+        "portrait": "UPGuardsoftheSerpent"
+      }
+    },
+    {
+      "slug": "harad-mahud-warrior",
+      "object": "HaradMahudWarriorHorde",
+      "name": "Guerreros Mahûd",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea Mahûd",
+      "requirements": null,
+      "cost": 335,
+      "cp": 60,
+      "health": 250,
+      "buildTime": 25,
+      "armourSet": "MahudWarriorArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Se pueden ocultar tras los árboles.\n\nSe dice que los guerreros del Mahûd son intrépidos en la batalla, pues saben que el momento de su gloriosa desaparición está predestinado por los numerosos dioses de la muerte.",
+      "abilities": [
+        {
+          "name": "Canto de Guerra",
+          "level": 3,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Guerreros Mahûd obtienen +25% de daño durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Indunâ",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 86,
+      "damageType": "SLASH",
+      "attackDelayMs": 800,
+      "attackRange": 12,
+      "speed": 65,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uimahudwarrior",
+        "portrait": "UPMahudWarriors"
+      }
+    },
+    {
+      "slug": "harad-mahud-headhunter",
+      "object": "HaradMahudHeadhunterHorde",
+      "name": "Cazadores de Cabezas Mahûd",
+      "category": "archers",
+      "recruitedAt": "Asamblea Mahûd",
+      "requirements": null,
+      "cost": 450,
+      "cp": 60,
+      "health": 220,
+      "buildTime": 30,
+      "armourSet": "MahudHeadhunterArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Se pueden ocultar tras los árboles.\n\nEntre las tribus Mahûddin, la virilidad debe ganarse a través de varias pruebas, una de las cuales consiste en capturar a un enemigo utilizando dardos con la punta de un veneno debilitador.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Amante de Crepúsculo",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Cazadores de Cabezas mojan sus dardos en el veneno Amante de Crepúsculo, causando daño de veneno a las unidades enemigas durante 20 segundos."
+        },
+        {
+          "name": "Veneno de la Serpiente Roja",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Los Cazadores de Cabezas mojan sus dardos en el veneno de la Serpiente Roja. Durante 20 segundos, sus ataques aturden a las unidades de infantería objetivo durante 5 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Indunâ",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 58,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 300,
+      "speed": 65,
+      "battalionSize": 12,
+      "stats": {
+        "visionRange": 320,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "uimahudheadhunter",
+        "portrait": "UPMahudHeadhunters"
+      }
+    },
+    {
+      "slug": "mahud-chief",
+      "object": "MahudChief",
+      "name": "Cacique Mahûd",
+      "category": "swordsmen",
+      "recruitedAt": "Asamblea Mahûd nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 1500,
+      "buildTime": 25,
+      "armourSet": "MahudChiefArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Apoya unidades Mahûd y Mûmak.\n\nLos jefes guerreros Mahûd establecen lazos de lealtad excepcionales con sus Mûmak, a los que cuidan durante muchos años hasta que pueden conducirlos y dirigirlos como si fueran una prolongación de su propio cuerpo.",
+      "abilities": [
+        {
+          "name": "Estandarte del Cacique",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cada Cacique Mahûd en el campo disminuye el coste de los Mûmakil de Guerra y de Asedio en un 5%, hasta un máximo del 20%.\n\nCada vez que el cacique ataca, las tropas Mahûd ganan +33% de armadura durante 6 segundos. En el rango 3, las tropas Mahûd también reciben +33% de daño."
+        },
+        {
+          "name": "Recuperación Rápida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Recupera salud fuera de combate."
+        },
+        {
+          "name": "Doma a la Bestia",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Se puede lanzar sobre una guarida para convertirla al bando del jugador."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Doma a la Bestia",
+          "cost": 500,
+          "hotkey": "R",
+          "level": 3,
+          "description": "Una vez comprada, se puede lanzar sobre una guarida para convertirla al bando del jugador.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 173,
+      "damageType": "HERO",
+      "attackDelayMs": 633,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 20,
+        "preAttackDelayMs": 567
+      },
+      "images": {
+        "button": "uimahudchief",
+        "portrait": "UPMahudChief"
+      }
+    },
+    {
+      "slug": "mordor-mumakil",
+      "object": "MordorMumakil",
+      "name": "Mûmak",
+      "category": "monster",
+      "recruitedAt": "Asamblea Mahûd nivel 2",
+      "requirements": null,
+      "cost": 1600,
+      "cp": 60,
+      "health": 8000,
+      "buildTime": 75,
+      "armourSet": "MumakilArmor",
+      "attackType": "Aplastamiento (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["structures", "cavalry"],
+      "weakAgainst": [],
+      "description": "Los Mûmakil de Harad fueron domesticados y utilizados como bestias de guerra por los Haradrim, que los emplearon con efectos devastadores durante la Batalla del Pelennor.",
+      "abilities": [
+        {
+          "name": "Bestia de Guerra del Sur",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Cuando se activa, el Mûmak obtiene +40% de velocidad de movimiento durante 5 segundos."
+        },
+        {
+          "name": "Grande como una Casa",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas obtienen +15% de armadura de armadura contra ataques a distancia. Las estructuras cercanas obtienen +15% de armadura."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Arte de Guerra Mahûddin",
+          "cost": null,
+          "hotkey": "R",
+          "level": 7,
+          "description": "Adquirir mejoras para el Mûmak de Guerra."
+        },
+        {
+          "name": "Atrás",
+          "cost": null,
+          "hotkey": "W",
+          "level": 6,
+          "description": "Regresar al conjunto de botones anterior."
+        },
+        {
+          "name": "Dominio Mahûd",
+          "cost": 400,
+          "hotkey": "R",
+          "level": 5,
+          "description": "Mejora este Mûmak con Dominio Mahûd. El Mûmak y los Mûmakil cercanos obtienen permanentemente +35% de daño.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Pintura de Guerra",
+          "cost": 500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este Mûmak con Pintura de Guerra. Incrementa significativamente la resistencia al daño a distancia.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Colmillos Acorazados",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este Mûmak con Colmillos Acorazados. Incrementa significativamente la resistencia al daño de los piqueros.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1,
+      "damageType": "CRUSH",
+      "attackDelayMs": 105000,
+      "attackRange": 500,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "attackRadius": 1
+      },
+      "images": {
+        "button": "uiwarmumak",
+        "portrait": "UPWarMumak"
+      }
+    },
+    {
+      "slug": "harad-siege-mumak",
+      "object": "HaradSiegeMumak",
+      "name": "Mûmak de Asedio",
+      "category": "siege",
+      "recruitedAt": "Asamblea Mahûd nivel 3",
+      "requirements": null,
+      "cost": 1600,
+      "cp": 60,
+      "health": 8000,
+      "buildTime": 75,
+      "armourSet": "SiegeMumakilArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures", "cavalry"],
+      "weakAgainst": [],
+      "description": "Cuando el Visir Negro llegó al poder sobre las tribus de los Mahûd, les instruyó en la construcción de máquinas de asedio, que debían colocarse fuera del alcance del enemigo, a lomos del gigante Mûmakil.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Pintura de Guerra",
+          "cost": 500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este Mûmak con Pintura de Guerra. Incrementa significativamente la resistencia al daño a distancia.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Colmillos Acorazados",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este Mûmak con Colmillos Acorazados. Incrementa significativamente la resistencia al daño de los piqueros.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1200,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 44,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "attackRadius": 140,
+        "preAttackDelayMs": 1400
+      },
+      "images": {
+        "button": "uisiegemumak",
+        "portrait": "UPSiegeMumak"
+      }
+    },
+    {
+      "slug": "harad-cultistsof-zigur",
+      "object": "HaradCultistsofZigurHorde",
+      "name": "Cultistas de Zigûr",
+      "category": "archers",
+      "recruitedAt": "Santuario de Zigûr",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo del Campo de Batalla.\n\nConocedores de los antiguos ritos y costumbres del Culto de Zigûr, estos fanáticos cultistas buscan ganarse el favor del Señor Oscuro y ejercer parte de su poder mediante el sacrificio de Hombres vivos.",
+      "abilities": [
+        {
+          "name": "Desolación",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El área objetivo se cubre de calor abrasador durante 30 segundos. Las unidades enemigas que entran en el área pierden. -33% de velocidad de movimiento."
+        },
+        {
+          "name": "Puño del Inframundo",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Morgoth, aunque encerrado en el Vacío, aún influye en el mundo a través de su corrupción rezumante. Invoca la Ira de Morgoth desde las profundidades del suelo. Los enemigos del área objetivo son derribados y sufren daño moderado."
+        },
+        {
+          "name": "Paralizar Almas",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades afectadas están congeladas y no pueden moverse, atacar o recibir mejoras."
+        },
+        {
+          "name": "Pozo de Almas",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas en el área objetivo sufren un daño medio con el tiempo y se convierten en Espectros al morir. Cura a las unidades aliadas cercanas."
+        },
+        {
+          "name": "Lluvia de Cadáveres",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades en el área objetivo reciben un gran daño y se envenenan gravemente."
+        },
+        {
+          "name": "Máscara de la Muerte",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Fanatismo",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo quedan aterrorizadas durante 3 segundos. Los aliados cercanos se curan y obtienen un 25% de armadura durante 20 segundos."
+        },
+        {
+          "name": "Corazones de Fuego",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo infligen permanentemente daño de fuego añadido con sus ataques y a los enemigos que las atacan. Otorga también un 50% de armadura contra el fuego. Sólo puede usarse en unidades cuerpo a cuerpo Haradwaith. No afecta a las unidades heroicas ni a los monstruos."
+        },
+        {
+          "name": "Espíritu de Zigûr",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Invoca las llamas de Zigûr que queman todo a su paso."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Especialización: Fanatismo",
+          "cost": 200,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite especializarse en el poder Fanatismo. Las unidades enemigas objetivo quedan aterrorizadas durante 3 segundos. Los aliados cercanos se curan y obtienen un 25% de armadura durante 20 segundos. Los Cultistas pueden especializarse en un solo poder.",
+          "stats": {
+            "researchTimeS": 3
+          }
+        },
+        {
+          "name": "Especialización: Corazones de Fuego",
+          "cost": 200,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite especializarse en el poder Corazones de fuego. Las unidades aliadas objetivo infligen permanentemente daño de fuego añadido con sus ataques y a los enemigos que las atacan. Otorga también un 50% de armadura contra el fuego. Sólo se puede usar en infantería cuerpo a cuerpo no heroica y no monstruosa. Los Cultistas pueden especializarse en un solo poder.",
+          "stats": {
+            "researchTimeS": 3
+          }
+        },
+        {
+          "name": "Especialización: Espíritu de Zigûr",
+          "cost": 400,
+          "hotkey": "V",
+          "level": null,
+          "description": "Permite especializarse en el poder Espíritu de Zigûr. Los Cultistas de Zigûr invocan las llamas de Zigûr, que queman todo a su paso. Los Cultistas pueden especializarse en un solo poder.",
+          "stats": {
+            "researchTimeS": 3
+          }
+        }
+      ],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 55,
+      "battalionSize": 7,
+      "stats": {
+        "visionRange": 480,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIZigurCultist",
+        "portrait": "UPZigurCultists"
+      }
+    },
+    {
+      "slug": "harad-corsairs-of-umbar",
+      "object": "HaradCorsairsOfUmbarHorde",
+      "name": "Corsarios de Umbar",
+      "category": "swordsmen",
+      "recruitedAt": "Ciudadela Umbarian",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 330,
+      "buildTime": 30,
+      "armourSet": "CorsairsArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen", "structures"],
+      "weakAgainst": [],
+      "description": "Bonificación por Saqueo. Los corsarios de Umbar obtienen +5% de daño por cada horda de corsarios cercana, hasta un máximo de +35% de daño.\n\n\"Hay una gran flota acercándose a las bocas del Anduin, tripulada por los corsarios de Umbar en el Sur. Hace tiempo que han dejado de temer el poderío de Gondor, y se han aliado con el Enemigo, y ahora asestan un duro golpe a su causa...",
+      "abilities": [
+        {
+          "name": "Incursores Costeros",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Corsarios de Umbar obtienen +5% de daño por cada horda de corsarios cercana, hasta un máximo de +35% de daño.\n\nLos Corsarios roban recursos de las estructuras enemigas con cuchillos equipados."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Juramentado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 158,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uihwcorsairsumbar",
+        "portrait": "UPHWCorsairsofUmbar"
+      }
+    },
+    {
+      "slug": "harad-black-numenoran-warriors",
+      "object": "HaradBlackNumenoranWarriorsHorde",
+      "name": "Guerreros Númenóreanos Negros",
+      "category": "swordsmen",
+      "recruitedAt": "Ciudadela Umbarian nivel 2",
+      "requirements": null,
+      "cost": 700,
+      "cp": 80,
+      "health": 525,
+      "buildTime": 30,
+      "armourSet": "BlackNumenoreanArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Los pocos Umbarianos que aún afirman ser de noble herencia númenóreana acuden a la batalla armados con orgullo y las mejores armas y armaduras que el oro puede comprar.",
+      "abilities": [
+        {
+          "name": "Mirada Severa",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -10% de armadura."
+        },
+        {
+          "name": "Corazones Trémulos",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 20 segundos, los enemigos golpeados infligen. -25% de daño."
+        },
+        {
+          "name": "Embestida",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ordena a los Númenóreanos Negros que carguen contra el enemigo. Tipo: Beneficios. Los Númenóreanos Negros obtienen +50% de daño y +50% de armadura. Causa impacto severo."
+        },
+        {
+          "name": "Máscara de la Muerte",
+          "level": 4,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -25% de daño y -20% de armadura."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Bronce",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Corazas de Bronce. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas de Acero Forjado",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Hojas de Acero Forjado. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Seda",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 104,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "uihwblacknumenoreanwarriors",
+        "portrait": "UPHWBlackNumenoreanWarriors"
+      }
+    },
+    {
+      "slug": "harad-black-numenorean-vanguard",
+      "object": "HaradBlackNumenoreanVanguardHorde",
+      "name": "Vanguardia de Númenóreanos Negros",
+      "category": "cavalry",
+      "recruitedAt": "Ciudadela Umbarian nivel 3",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 90,
+      "health": 675,
+      "buildTime": 35,
+      "armourSet": "DolAmrothKnightLightArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Los nobles a caballo de Umbar son conocidos por haber aplastado insurrecciones tribales incluso en gran inferioridad numérica.",
+      "abilities": [
+        {
+          "name": "Mirada Severa",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -10% de armadura."
+        },
+        {
+          "name": "Carga Acorazada",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 15 segundos, la Vanguardia inflige -25% de daño cuerpo a cuerpo, pero obtiene +15% de armadura y una reducción del -50% en la desaceleración por aplastamiento."
+        },
+        {
+          "name": "Jinetes Experimentados",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los Jinetes de los Naith cercanos obtienen +33% de armadura."
+        },
+        {
+          "name": "Glorias Pasadas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Todas las tropas aliadas cercanas obtienen +100% de experiencia durante 1 minuto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Corazas de Bronce",
+          "cost": 300,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Corazas de Bronce. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas de Acero Forjado",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Hojas de Acero Forjado. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de Seda",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa este batallón al Nivel 2. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Escudos",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora este batallón con Ecudos. Reduce el de daño recibido de picas y arqueros en +25%.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Hojas Templadas",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora este batallón con Hojas Templadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Bosque Dorado",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa una unidad al Nivel 2. Permite recuperar salud fuera del combate. Solo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 206,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uihwblacknumenoreanvanguard",
+        "portrait": "UPHWBlackNumenoreanVanguard"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "harad-beruthiel",
+      "object": "HaradBeruthiel",
+      "name": "Berúthiel",
+      "title": "Reina Negra de Umbar",
+      "recruitedAt": "Fortaleza",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 2000,
+      "armourSet": "HeroLightArmor",
+      "attackType": "Espada (a distancia)",
+      "isRing": false,
+      "description": "Concubina de Câssimir y Burôdapân, la Reina Negra robó su nombre de una antigua Reina Negra Númenóreana. Los espías de Berúthiel son muchos, y su influencia es profunda.",
+      "abilities": [
+        {
+          "name": "Ojos y Oídos",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "La Reina Negra convoca a uno de sus gatos para espiar al enemigo."
+        },
+        {
+          "name": "Desdén",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo sufren -25% de daño y no pueden ganar experiencia durante 30 segundos."
+        },
+        {
+          "name": "Histeria Fingida",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades enemigas cercanas pierden todo el liderazgo y -25% de armadura durante 30 segundos. Berúthiel se vuelve invisible durante 30 segundos, lo que le permite escapar."
+        },
+        {
+          "name": "Escolta de la Reina",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "La Reina Negra convoca a un batallón de Guardianes de Umbar completamente armados."
+        },
+        {
+          "name": "Ascenso al Poder",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La reina Berúthiel ha manipulado su camino hacia las altas esferas de la sociedad Númenóreana Negra. Berúthiel no puede subir más de rango."
+        }
+      ],
+      "damage": 1,
+      "damageType": "SLASH",
+      "attackDelayMs": 3000,
+      "attackRange": 150,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hiberuthiel",
+        "portrait": "HPBeruthiel"
+      }
+    },
+    {
+      "slug": "harad-syar-rhul",
+      "object": "HaradSyarRhul",
+      "name": "Syâr-Rhul",
+      "title": "Visir Negro",
+      "recruitedAt": "Fortaleza",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2200,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "El principal consejero del Rey Dorado en todos los asuntos, pero particularmente en aquellos relacionados con el sometimiento de los Haradrim y su esclavitud a la voluntad de Sauron.",
+      "abilities": [
+        {
+          "name": "Visir del Rey Dorado",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Las unidades Tribales y de Harondor ganan +15% de experiencia, +15% de armadura y +15% de daño. Rango 3: El liderazgo se amplía para incluir unidades Mahûd. Rango 6: El liderazgo se amplía para incluir unidades del Santuario de Zigûr. Rango 10: El liderazgo se amplía para incluir unidades de Númenóreanos Negros.\n\nCuando está cerca del Rey Dorado, el Visir Negro gana +50% de armadura."
+        },
+        {
+          "name": "Ejecutor",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Puede lanzarse sobre una estructura de recursos aliada o enemiga para detener la producción durante 60 segundos. Engendra un Cofre de Tributo que puede retirarse de la Fortaleza por 250 recursos. Si eliminas al Cofre del Tributo antes de llegar a la Fortaleza, dejará caer un cofre con 125 recursos."
+        },
+        {
+          "name": "Sacrificio Oscuro",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades aliadas objetivo obtienen +50% de daño durante 30 segundos."
+        },
+        {
+          "name": "Árbitro de la Fe",
+          "level": 9,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Syâr-Rhul extiende la fe a un héroe objetivo.\n\nSi se usa en un héroe aliado, éste gana el doble de experiencia y sus habilidades se recargan un 50% más rápido durante 60 segundos. Convoca dos Asesinos Hasharin para defender al héroe aliado objetivo.\n\nSi se utiliza en un héroe enemigo, no podrá ganar experiencia y sus habilidades se enfriarán un 50% más lento durante 60 segundos. Convoca dos Asesinos Hasharin para atacar al héroe enemigo objetivo."
+        },
+        {
+          "name": "Falsas Promesas",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Proporciona una excelente experiencia a las unidades objetivo."
+        }
+      ],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hiblackvizier",
+        "portrait": "HPBlackVizier"
+      }
+    },
+    {
+      "slug": "harad-burodapan",
+      "object": "HaradBurodapan",
+      "name": "Burôdapân",
+      "title": "Señor Corsario de Umbar",
+      "recruitedAt": "Fortaleza",
+      "cost": 1600,
+      "buildTime": 50,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Uno de los dos hijos rivales de Kathuphazgân, el último Señor Negro de Umbar. Burôdapân es un feroz señor corsario que exige tributos e impuestos a la mayoría de la flota de Umbar.",
+      "abilities": [
+        {
+          "name": "Señor de las Olas",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Los corsarios cercanos ganan +33% de armadura y daño y +33% de experiencia. En el nivel 5, Burôdapân y los Corsarios cercanos ganan recursos por muerte."
+        },
+        {
+          "name": "Toma todo lo que Puedas",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Toma el control de un único batallón enemigo durante 30 segundos. No se puede utilizar en unidades heroicas."
+        },
+        {
+          "name": "No Dar Nada a Cambio",
+          "level": 6,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Incendia el área seleccionada, causando graves daños a las unidades."
+        },
+        {
+          "name": "Tumbas Acuosas",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige un daño considerable a las estructuras durante 15 segundos. Se puede lanzar a gran distancia."
+        },
+        {
+          "name": "Cuerno de Kârna",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Burôdapân convoca el Cuerno de Kârna. Cuando suena, el cuerno invoca la Furia de las Profundidades, que hace que las unidades cercanas luchen entre ellas durante 30 segundos. El Cuerno de Kârna se limita a 1."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 700,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hiburodapan",
+        "portrait": "HPBurodapan"
+      }
+    },
+    {
+      "slug": "harad-suladan",
+      "object": "HaradSuladan",
+      "name": "Sûladan",
+      "title": "Señor de la Serpiente",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Sûladan, un poderoso señor de la guerra de las tierras devastadas de Harondor, ha ganado renombre a lo largo de sus numerosas escaramuzas con los opresores Gondorianos, expulsándolos de Harondor para reclamarlo para su propio pueblo.",
+      "abilities": [
+        {
+          "name": "La Serpiente Negra",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Cuando están montados, los Incursores de Harondor cerca de Sûladan obtienen +20% de armadura y -15% de desaceleración por arrollamiento.\n\nAl desmontar, la infantería de Harondor obtiene +33% de daño, +25% de armadura y +25% de experiencia."
+        },
+        {
+          "name": "Golpe Cortante",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Un único golpe de espada que inflige un gran daño a la unidad o al héroe. Si un enemigo muere por el Golpe Cortante, las unidades de Harondor cercanas reciben +33% de daño durante 30 segundos. En el rango 3, el enemigo objetivo recibe daño con el tiempo y se ralentiza -33% durante 30 segundos. En el rango 6, el daño del golpe inicial se incrementa."
+        },
+        {
+          "name": "Mirada del Señor de la Serpiente",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas sufren -15% de velocidad."
+        },
+        {
+          "name": "Tierras Retomadas",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convoca el Estandarte de la Serpiente Negra, defendido por varios soldados de infantería de Harondor. Las estructuras enemigas cercanas pierden -25% de armadura. Las fortalezas enemigas cercanas pierden -15% de armadura. Las granjas enemigas cercanas producen menos recursos. El estandarte dura 90 segundos."
+        },
+        {
+          "name": "Arremetida",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Sûladan y la caballería cercana ganan +50% de armadura y -100% de desaceleración por pisoteo durante 20 segundos."
+        }
+      ],
+      "damage": 250,
+      "damageType": "HERO",
+      "attackDelayMs": 615,
+      "attackRange": 25,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hisuladan",
+        "portrait": "HPSuladan"
+      }
+    },
+    {
+      "slug": "harad-cassimir",
+      "object": "HaradCassimir",
+      "name": "Câssimir",
+      "title": "Líder de los Númenóreanos Negros de Umbar",
+      "recruitedAt": "Fortaleza",
+      "cost": 2200,
+      "buildTime": 60,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Uno de los dos hijos rivales de Kathuphazgân, el último Señor Negro de Umbar. Câssimir es un hombre duro y cruel que domina la lealtad de la nobleza Númenóreana Negra que aún vive en Umbar.",
+      "abilities": [
+        {
+          "name": "Señor de las Piedras",
+          "level": 8,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Tipo de Mdificador: Liderazgo. Las unidades Númenóreanas Negras cercanas obtienen +25% de armadura, +33% de daño y +25% de experiencia.\n\nTodas las unidades aliadas cercanas obtienen +50% de armadura durante 30 segundos."
+        },
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Gobierno de los Hombres del Rey",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Câssimir planta el Estandarte de los Hombres del Rey. Las unidades cercanas obtienen resistencia al miedo, al terror y al derribo. Los batallones cercanos repondrán las unidades caídas. El estandarte dura 60 segundos."
+        },
+        {
+          "name": "Juicio Frío",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio quedan aturdidas durante 5 segundos y tienen -33% de armadura durante 10 segundos."
+        },
+        {
+          "name": "Trituración de Filas",
+          "level": 9,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Câssimir derriba e inmoviliza al héroe objetivo durante 15 segundos. Las unidades normales son derribadas y dañadas. Posteriormente, el daño y la armadura de Câssimir se incrementan en un 50% durante 30 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 866,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hicassimir",
+        "portrait": "HPCassimir"
+      }
+    },
+    {
+      "slug": "harad-caran-lambar",
+      "object": "HaradCaranLambar",
+      "name": "Caran-Lambar",
+      "title": "Cacique de los Nâfarati",
+      "recruitedAt": "Fortaleza",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 3000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Caran-Lambar, antaño respetado cacique de una prominente tribu Nâfarati, fue atrapado por el Rey Dorado y, mediante magia oscura, se ha transformado en un brutal defensor de su causa.",
+      "abilities": [
+        {
+          "name": "Cacique Loco",
+          "level": null,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Por cada 15 unidades aliadas Haradwaith cercanas, Caran-Lambar gana +5% de daño y velocidad de movimiento hasta un máximo del 25%. En el nivel 5, las unidades Nâfarati cercanas ganan +30% de armadura."
+        },
+        {
+          "name": "Rompedor de Piedras",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Caran-Lambar golpea el suelo, dañando y haciendo retroceder a las unidades enemigas e infligiendo graves daños a las estructuras situadas en un radio reducido."
+        },
+        {
+          "name": "Trastorno Mental",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "leadership",
+          "description": "Las unidades aliadas cercanas ganan resistencia al miedo y al terror.\n\nCuando se activa, Caran-Lambar se inflige daño a sí mismo. Las unidades enemigas cercanas pierden -50% de daño y velocidad de ataque durante 30 segundos."
+        },
+        {
+          "name": "Graves Aprietos",
+          "level": 8,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando la salud de Caran-Lambar es inferior al 25%, entra en una furia aterradora que inflige un 150% más de daño y recupera salud por golpe durante 15 segundos. No se puede volver a activar durante 60 segundos."
+        },
+        {
+          "name": "Furia Ensortijada",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Caran-Lambar atrae hacia sí a todos los enemigos cercanos. Durante 30 segundos, Caran-Lambar gana +50% de armadura y velocidad de movimiento y puede aplastar a las unidades enemigas."
+        }
+      ],
+      "damage": 600,
+      "damageType": "HERO",
+      "attackDelayMs": 600,
+      "attackRange": 15,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "hicaranlambar",
+        "portrait": "HPCaranLambar"
+      }
+    },
+    {
+      "slug": "harad-golden-king",
+      "object": "HaradGoldenKing",
+      "name": "El Rey Dorado",
+      "title": "Misterioso Rey Hechicero",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3200,
+      "armourSet": "GoldenKingArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "El antiguo e inmensamente cruel rey del legendario Abrakhân. Ha regresado recientemente, ha reconstruido su antiguo poder y pretende subyugar a todo Haradwaith bajo su negro estandarte.",
+      "abilities": [
+        {
+          "name": "Guardia de Abrakhân",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "El Rey Dorado siempre va acompañado de tres feroces guerreros.\n\nCuando se activa, los guardias se sacrifican para invocar una horda de Espectros durante 60 segundos. Los Espectros ignoran la armadura enemiga y recuperan salud por impacto. Las unidades enemigas cercanas a los Espectros pierden. -20% de armadura y -25% de daño."
+        },
+        {
+          "name": "El Rey Dorado",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los liderazgos enemigos cercanos se anulan pasivamente. Cuando está cerca del Visir Negro, el Rey Dorado gana +25% de armadura.\n\nEn el rango 5, convoca dos batallones de guerreros de Abrakhân cuando se activa."
+        },
+        {
+          "name": "Señor de los Espectros",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas objetivo huyen despavoridas y reciben daño durante 15 segundos."
+        },
+        {
+          "name": "Subyugación Oscura",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Las unidades Haradwaith objetivo obtienen +200% de daño y resistencia al miedo y el terror durante 20 segundos. Una vez transcurridos 20 segundos, las unidades afectadas reciben daño en el tiempo durante 5 segundos. No afecta a monstruos, unidades heroicas o unidades invocadas."
+        },
+        {
+          "name": "El Rey Desenmascarado",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "passive",
+          "description": "El Rey Dorado de Harad se revela como Hoarmûrath, el Tercero de los Nueve. Hoarmûrath gana +50% de daño de ataque y +25% de armadura, además de daño por veneno adicional. Las unidades enemigas cercanas a Hoarmûrath sufren daño con el tiempo.\n\nCuando se activa, Hoarmûrath invoca temporal y continuamente Carroñas Resucitadas y únicas de la tierra durante 60 segundos."
+        }
+      ],
+      "damage": 225,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "higoldenking",
+        "portrait": "HPGoldenKing"
+      }
+    },
+    {
+      "slug": "harad-zigur-ring-hero",
+      "object": "HaradZigur_RingHero",
+      "name": "Zigûr",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 10000,
+      "buildTime": 100,
+      "health": 10000,
+      "armourSet": "SauronArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "isRing": true,
+      "description": "Usa el Anillo Único para convocar al Sumo Sacerdote de Melkor. Zigûr es uno de los muchos disfraces de Sauron. Presentándose como el Sumo Sacerdote de Melkor, el Grande que puede proporcionar la salvación a cambio de veneración, ha corrompido los corazones de muchas de las tribus Haradrim.",
+      "abilities": [
+        {
+          "name": "Sumo Sacerdote de Melkor",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas cercanas pierden -50% de armadura, -15% de velocidad de movimiento y reciben daño con el tiempo."
+        },
+        {
+          "name": "Ritos de Sacrificio",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio reciben daño en el tiempo durante 30 segundos. Si una unidad muere, Zigûr recibe +5% de armadura y daño durante 8 segundos. Se acumula hasta un 25% de armadura y daño."
+        },
+        {
+          "name": "Susurros Siniestro",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades y monstruos objetivo se vuelvan hostiles entre sí durante 45 segundos."
+        },
+        {
+          "name": "Tirano Temible",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cancela todos los efectos de liderazgo del mapa durante 30 segundos. Las unidades aliadas y enemigas cercanas se congelan de miedo durante 5 segundos."
+        },
+        {
+          "name": "Pilar de Llamas",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Invoca un Torbellino de Fuego controlable. El Torbellino absorbe unidades e incendia el terreno circundante."
+        }
+      ],
+      "damage": 2800,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1833,
+      "attackRange": 12,
+      "speed": 40,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIZigur",
+        "portrait": "UPZigur"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "angmar-fortress-citadel",
+      "object": "AngmarFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 0,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Arquitecto"],
+      "upgrades": [
+        {
+          "name": "Amenaza de Mordor",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los enemigos cercanos sufren. -25% de daño y -20% de armadura.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Subyugación: Nâfarat",
+          "cost": 800,
+          "hotkey": "E",
+          "level": null,
+          "description": "Proporciona curación a las tropas cercanas y repone las unidades caídas.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Subyugación: Cercano Harad",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Disminuye permanentemente el tiempo de construcción de las unidades Harondor en un 20%. Requerido para el reclutamiento de Guardias de la Serpiente. Permite a los Campamentos Tribales convocar unidades de Harondor. Añade daño por fuego a todas las torres adjuntas.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Subyugación: Mahûd",
+          "cost": 1500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Requisito previo para la mejora Hegemonía. Reduce permanentemente el coste y el tiempo de construcción de las unidades Mûmakil en un 20%. Permite a la Fortaleza convocar temporalmente a un Olifante.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Hegemonía",
+          "cost": 2000,
+          "hotkey": "S",
+          "level": null,
+          "description": "Incrementa la armadura de la fortaleza un 65%. Reduce un 15% el coste de reclutamiento de las unidades de Corsarios y Númenóreanos Negros. Desbloquea Recompensa de Sauron.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Convocar Olifante",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca temporalmente a un Olifante."
+        },
+        {
+          "name": "Recompensa de Sauron",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Potencia permanentemente al héroe objetivo con +25% de armadura y +25% de daño. No funciona con el Rey Dorado ni con Zigûr. No se acumula."
+        }
+      ],
+      "images": {
+        "button": "uiharadfortress",
+        "portrait": "bpharadfortress"
+      }
+    },
+    {
+      "slug": "haradwaith-bazaar",
+      "object": "HaradwaithBazaar",
+      "name": "Bazar",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "StructureArmor",
+      "maxCount": null,
+      "description": "Puede reclutar Caravanas Comerciales y Caravanas Âmazhir para apoyar a unidades aliadas y ofrecer mejoras a las unidades. Incrementa los puntos de mando en 50 unidades.\n\nLos bulliciosos Bazares son habituales en todos los asentamientos de las vastas Tierras del Sur de la Tierra Media.",
+      "produces": ["Caravana Comercial Sureña", "Caravana Âmazhir"],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPHaradBazaar"
+      }
+    },
+    {
+      "slug": "harondor-outpost",
+      "object": "HarondorOutpost",
+      "name": "Puesto Avanzado de Harondor",
+      "kind": "production",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades Unidades de Harondor y Cercano Harad.\n\nPétreos puestos avanzados en el desierto salpican las tierras secas y devastadas por la guerra de Harondor, construidos por los guerreros de Sûladan y utilizados para protegerse de los invasores gondorianos.",
+      "produces": [
+        "Caudillo de Harondor",
+        "Incursores de Harondor",
+        "Lanceros de Harondor",
+        "Arqueros de Harondor",
+        "Guardias de la Serpiente"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Mentiras y Amenazas",
+          "cost": 650,
+          "hotkey": "E",
+          "level": null,
+          "description": "Incrementa la armadura de los Caudillos de Harondor. Desbloquea la habilidad \"¡Sumisión!\" para las hordas tribales.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Puesto Avanzado de Harondor al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a los Incursores y Lanceros de Harondor +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Estandartes de Thrór",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas comprar la mejora Portaestandarte. Incrementa una horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Hojas de Hierro Oscuro",
+          "cost": 1000,
+          "hotkey": "L",
+          "level": null,
+          "description": "Permite a las hordas comprar la mejora Hojas de Hierro Oscuro. Cuando está equipado, incrementa significativamente el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cota de Hierro Oscuro",
+          "cost": 1000,
+          "hotkey": "M",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cota de Hierro Oscuro. Cuando está equipado, reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Hielo",
+          "cost": 1000,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Flechas de Hielo. Cuando está equipado, incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Puesto Avanzado de Harondor al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Arqueros de Harondor y a los Guardias de la Serpiente. Añade una torre de flechas defensiva +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPHarondorOutpost"
+      }
+    },
+    {
+      "slug": "mahud-gathering",
+      "object": "MahudGathering",
+      "name": "Asamblea Mahûd",
+      "kind": "production",
+      "cost": 450,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades Mahûd y Mûmakil.\n\nLos asentamientos Mahûddin se erigen entre los huesos de sus animales caídos, lo que significa el gran vínculo que comparten.",
+      "produces": [
+        "Guerreros Mahûd",
+        "Cazadores de Cabezas Mahûd",
+        "Cacique Mahûd",
+        "Mûmak",
+        "Mûmak de Asedio"
+      ],
+      "upgrades": [
+        {
+          "name": "Asamblea Mahûd al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a Jefes Mahûd y Mûmakil de Guerra +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Asamblea Mahûd al Nivel 3",
+          "cost": 800,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Mûmakil de Asedio. Permite mejorar a los Mûmakil con Colmillos Acorazados y Pintura de Guerra. Cura a los Mûmakil cercanos +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPMahudGathering"
+      }
+    },
+    {
+      "slug": "sanctumof-zigur",
+      "object": "SanctumofZigur",
+      "name": "Santuario de Zigûr",
+      "kind": "production",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": 1,
+      "description": "Entrena Cultistas de Zigûr y Asesinos Hasharin.\n\nEl culto a Zigûr es una práctica antigua entre los pocos iniciados que la recuerdan. Bajo el terrible reinado del Rey Dorado, ha vuelto a cobrar importancia.",
+      "produces": ["Cultistas de Zigûr"],
+      "upgrades": [
+        {
+          "name": "Adoración Oscura: Fanatismo",
+          "cost": 500,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a los Cultistas especializarse en el poder Fanatismo.\n\nLas unidades enemigas objetivo quedan aterrorizadas durante 3 segundos. Los aliados cercanos se curan y obtienen un 25% de armadura durante 20 segundos.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Adoración Oscura: Corazones de Fuego",
+          "cost": 400,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a los Cultistas especializarse en el poder. Corazones de Fuego.\n\nLas unidades aliadas objetivo infligen permanentemente daño de fuego añadido con sus ataques y a los enemigos que las atacan. Otorga también un 50% de armadura contra el fuego. Sólo se puede usar en infantería cuerpo a cuerpo no heroica y no monstruosa.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Adoración Oscura: Espíritu de Zigûr",
+          "cost": 700,
+          "hotkey": "T",
+          "level": 2,
+          "description": "Permite a los Cultistas especializarse en el poder. Espíritu de Zigûr.\n\nLos Cultistas de Zigûr invocan las llamas de Zigûr, que queman todo a su paso.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Santuario de Zigûr al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Asesinos Hasharin e investigar. Espíritu de Zigûr +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 35
+          }
+        },
+        {
+          "name": "Santuario de Zigûr al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Desbloquea la habilidad Bendición de Belegûr +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Bendición de Belegûr",
+          "level": 3,
+          "hotkey": "D",
+          "kind": "active",
+          "description": "Sacrifica a todos los cultistas del campo de batalla para invocar la ira de Melkor."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPSanctumofZigur"
+      }
+    },
+    {
+      "slug": "umbarian-citadel",
+      "object": "UmbarianCitadel",
+      "name": "Ciudadela Umbarian",
+      "kind": "fortress",
+      "cost": 450,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Unidades de Númenóreanos Negros y Vigilantes de Kârna.\n\nLas grandes torres de piedra de Umbar se erigen como solemne recordatorio de una ascendencia compartida, alcanzada por siglos de conflicto.",
+      "produces": [
+        "Corsarios de Umbar",
+        "Guerreros Númenóreanos Negros",
+        "Vanguardia de Númenóreanos Negros"
+      ],
+      "upgrades": [
+        {
+          "name": "Ciudadela Umbarian al Nivel 2",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Guerreros Númenóreanos Negros +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Ciudadela Umbarian al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Vigilantes de Kârna y a la Vanguardia de Númenóreanos Negros +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPUmbarianCitadel"
+      }
+    },
+    {
+      "slug": "harad-desert-lookout",
+      "object": "HaradDesertLookout",
+      "name": "Mirador del Desierto",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Se puede guarnecer con arqueros para incrementar el daño.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Centinela",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Estaciona centinelas permanente en la torre.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Flechas de Fuego",
+          "cost": 200,
+          "hotkey": "E",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego. Incrementa el daño de las flechas. Tiempo de investigación: 30 s.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": null,
+        "portrait": "BPHaradGuardTower"
+      }
+    },
+    {
+      "slug": "harad-sandstone-tower-expansion",
+      "object": "HaradSandstoneTowerExpansion",
+      "name": "Expansión Torre Abovedada",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre Defensiva de Corto Alcance.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "uiharadtowerexpansion",
+        "portrait": "bpharadguardtowerexpansion"
+      }
+    },
+    {
+      "slug": "harad-scorpion-expansion",
+      "object": "HaradScorpionExpansion",
+      "name": "Expansión Guarida de Escorpiones",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Vigilado por escorpiones que atacan a los enemigos cercanos.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "uiharadscorpionexpansion",
+        "portrait": "bpharadscorpionpitexpansion"
+      }
+    },
+    {
+      "slug": "harad-catapult-expansion",
+      "object": "HaradCatapultExpansion",
+      "name": "Expansión de Catapulta",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma Defensiva de Largo Alcance.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Trabuco",
+          "cost": 450,
+          "hotkey": "W",
+          "level": null,
+          "description": "Reconstruye el trabuco en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "uiharadcatapultexpansion",
+        "portrait": "bpharadcatapultexpansion"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "serpent-lord-horn",
+      "name": "Cuerno del Señor de la Serpiente",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos.\n\nTiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uihornserpentlord"
+      },
+      "requires": []
+    },
+    {
+      "slug": "dry-spell",
+      "name": "Hechizo de Sequía",
+      "tier": 1,
+      "position": "C",
+      "kind": "utility",
+      "cost": 5,
+      "description": "Reduce la producción de cualquier estructura de recursos dentro del área de efecto durante 150 segundos. La producción de recursos disminuye en -75%.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "uidryspell"
+      },
+      "requires": []
+    },
+    {
+      "slug": "southron-sentry-tower",
+      "name": "Guardia Sureña",
+      "tier": 1,
+      "position": "R",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Convoca una Torre Centinela que genera una pequeña cantidad de recursos, proporciona una buena línea de visión y detecta el sigilo.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "uisouthronsentry"
+      },
+      "requires": []
+    },
+    {
+      "slug": "threat-of-mordor",
+      "name": "Marcha hacia la Guerra",
+      "tier": 2,
+      "position": "LL",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Durante 60 segundos, las unidades aliadas de todo el mapa ganan +20% de daño, +15% de armadura y son inmunes a los maleficios.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "uithreatmordor"
+      },
+      "requires": ["Cuerno del Señor de la Serpiente"]
+    },
+    {
+      "slug": "wind-demon-curse",
+      "name": "Maldición del Demonio del Viento",
+      "tier": 2,
+      "position": "LR",
+      "kind": "debuff",
+      "cost": 10,
+      "description": "Todas las unidades dentro del radio se dispersan y sufren daños.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "uicursewinddemon"
+      },
+      "requires": ["Cuerno del Señor de la Serpiente", "Hechizo de Sequía"]
+    },
+    {
+      "slug": "forth-men-of-darkness",
+      "name": "Adelante, Hombres de las Tinieblas",
+      "tier": 2,
+      "position": "RL",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca a dos batallones de Falanges del Gran Khân con armaduras pesadas y dirigidos por un Acólito del Gran Khân.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "uiforthmenofdarkness"
+      },
+      "requires": ["Hechizo de Sequía", "Guardia Sureña"]
+    },
+    {
+      "slug": "tribesof-harad",
+      "name": "Tribus de Harad",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca un Campamento Tribal. El Campamento Tribal puede convocar permanentemente Hacheros, Arqueros y Lanceros Tribales. Cuando la Subyugación: 'Cercano Harad' es investiga, el Campamento Tribal puede convocar permanentemente Lanceros, Arqueros e Incursores de Harondor.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uitribesofharad"
+      },
+      "requires": ["Guardia Sureña"]
+    },
+    {
+      "slug": "khandish-charioteers",
+      "name": "Cuadrigueros Khandish",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca tres Cuadrigas Khandish.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "uikhandishcharioteersspell"
+      },
+      "requires": ["Marcha hacia la Guerra", "Maldición del Demonio del Viento"]
+    },
+    {
+      "slug": "unrelenting-sun",
+      "name": "Sol Implacable",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Las unidades enemigas de todo el mapa se ralentizan. -33% y reciben daño con el tiempo durante 15 segundos. Las unidades Haradwaith ganan +20% de velocidad de movimiento durante 15 segundos.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "uiunrelentingsun"
+      },
+      "requires": [
+        "Maldición del Demonio del Viento",
+        "Adelante, Hombres de las Tinieblas"
+      ]
+    },
+    {
+      "slug": "oasis",
+      "name": "Oasis",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Invoca una palmera rodeada por un foso natural de agua clara. Las unidades cercanas se curan pasivamente y las caídas se reponen. Las unidades pueden fortalecerse con aguas purificantes del Oasis.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "uiharadoasisspell"
+      },
+      "requires": ["Adelante, Hombres de las Tinieblas", "Tribus de Harad"]
+    },
+    {
+      "slug": "burning-sands",
+      "name": "Arenas Ardientes",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca un rayo ardiente de luz solar para abrasar el campo de batalla. Aturde a las criaturas sensibles a la luz.",
+      "requiresSlots": [8, 9],
+      "slot": 11,
+      "images": {
+        "button": "uiburningsands"
+      },
+      "requires": ["Cuadrigueros Khandish", "Sol Implacable"]
+    },
+    {
+      "slug": "aicanaroc",
+      "name": "La Matriarca Negra",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Convoca a la Matriarca Negra, una antigua e imponente Mûmak, de piel negra y ojos rojo fuego. Una bestia de destrucción fuertemente acorazada y casi imparable.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "uiaicanarocspell"
+      },
+      "requires": ["Sol Implacable", "Oasis"]
+    }
+  ]
+}

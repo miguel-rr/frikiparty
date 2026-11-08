@@ -1,7 +1,7 @@
 import { panel } from '@/components/theme/primitives';
 import { AbilityList, UpgradeList } from '@/components/wiki/ability-list';
 import { CounterTags } from '@/components/wiki/counter-tags';
-import { StatStrip } from '@/components/wiki/stat-strip';
+import { combatStats, StatStrip } from '@/components/wiki/stat-strip';
 import { WikiImage } from '@/components/wiki/wiki-image';
 import { CATEGORY_LABELS } from '@/lib/wiki/labels';
 import type { FactionPageData } from '@/server/wiki/queries';
@@ -21,12 +21,14 @@ const UnitCard = ({ unit }: { unit: Unit }) => (
         src={unit.imageUrl}
       />
     ) : null}
-    <div className="flex flex-col gap-3 px-4 pb-4">
+    <div
+      className={`flex flex-col gap-3 px-4 pb-4 ${unit.imageUrl ? '' : 'pt-4'}`}
+    >
       <div className="flex items-start gap-3">
         {unit.portraitUrl ? (
           <WikiImage
             alt=""
-            className="size-12 shrink-0 rounded-lg border border-(--hair) object-cover"
+            className="size-16 shrink-0 rounded-full border border-(--hair) object-cover"
             src={unit.portraitUrl}
           />
         ) : null}
@@ -61,6 +63,7 @@ const UnitCard = ({ unit }: { unit: Unit }) => (
           },
         ]}
       />
+      <StatStrip items={combatStats(unit)} />
       <CounterTags strong={unit.strongAgainst} weak={unit.weakAgainst} />
       {unit.description ? (
         <p className="text-(--parchment)/90 text-sm">{unit.description}</p>

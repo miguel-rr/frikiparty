@@ -1,0 +1,2244 @@
+{
+  "code": "morgul",
+  "units": [
+    {
+      "slug": "mordor-porter",
+      "object": "MordorPorter",
+      "name": "Constructor",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 500,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 30,
+      "armourSet": "PorterArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Construye estructuras.",
+      "abilities": [
+        {
+          "name": "Extinguir Fuego",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Extingue el fuego cercano para evitar daños en la estructura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 60,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIPorterNew",
+        "portrait": "UPLaborernew"
+      }
+    },
+    {
+      "slug": "mordor-vanguard",
+      "object": "MordorVanguardHorde",
+      "name": "Vanguardia del Rey Brujo",
+      "category": "cavalry",
+      "recruitedAt": "Fortaleza",
+      "requirements": "Requiere mejora Torre de Morgul; Requiere Torre de Morgul",
+      "cost": 1700,
+      "cp": 100,
+      "health": 850,
+      "buildTime": 60,
+      "armourSet": "HelmingasWardensArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": ["infantry", "heroes"],
+      "weakAgainst": [],
+      "description": "Estos hombres sin alma han servido por mucho tiempo al Rey Brujo como sus guardaespaldas personales y la vanguardia de sus legiones.",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        },
+        {
+          "name": "Acero Hechizado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo."
+        },
+        {
+          "name": "Comando del Rey Brujo",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Vanguardia del Rey Brujo se desliza entre los enemigos como el viento y se vuelve inmune a los golpes durante 30 segundos. Solo se puede usar cuando está montado."
+        },
+        {
+          "name": "Filas de Hierro",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La Vanguardia del Rey Brujo gana +33% de armadura e inflige daño por ataque a costa de -50% de velocidad de movimiento durante 30 segundos."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 105,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIMordorMorgulVanguard",
+        "portrait": "UPMordorVanguard"
+      }
+    },
+    {
+      "slug": "morgul-blade",
+      "object": "MorgulBladeHorde",
+      "name": "Espadas de Morgul",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición de Morgul",
+      "requirements": null,
+      "cost": 300,
+      "cp": 60,
+      "health": 275,
+      "buildTime": 30,
+      "armourSet": "MorgulBladeArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Estos orcos se han curtido en batallas durante años de guerra con Gondor y son considerados la élite de los ejércitos de Sauron.",
+      "abilities": [
+        {
+          "name": "Marca de la Luna Pálida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de sangre otorga a los Orcos de Morgul +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Embrujada",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura Embrujada. Reduce significativamente la cantidad de daño recibido. Un pequeño porcentaje del daño recibido se redirige al atacante.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Embrujadas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Embrujadas. Incrementa el daño infligido por las armas cuerpo a cuerpo. Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Luna Pálida",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 70,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 633
+      },
+      "images": {
+        "button": "UIMordorMorgulOrcs",
+        "portrait": "UPMordorMorgulOrcsNew"
+      }
+    },
+    {
+      "slug": "morgul-pikemen",
+      "object": "MorgulPikemenHorde",
+      "name": "Piqueros de Morgul",
+      "category": "pikemen",
+      "recruitedAt": "Guarnición de Morgul",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 270,
+      "buildTime": 30,
+      "armourSet": "MorgulPikemenArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry", "heroes"],
+      "weakAgainst": [],
+      "description": "Una vez que el Señor Oscuro hubo dado la señal, los orcos de Minas Morgul salieron en tropel de la ciudad muerta, muchos de ellos portando alabardas, lanzas y largas picas.",
+      "abilities": [
+        {
+          "name": "Marca de la Luna Pálida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de sangre otorga a los Orcos de Morgul +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Embrujada",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura Embrujada. Reduce significativamente la cantidad de daño recibido. Un pequeño porcentaje del daño recibido se redirige al atacante.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Embrujadas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Embrujadas. Incrementa el daño infligido por las armas cuerpo a cuerpo. Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Luna Pálida",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 75,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 35,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIMorgulPikemen",
+        "portrait": "UPMorgulPikemen"
+      }
+    },
+    {
+      "slug": "morgul-hunter",
+      "object": "MorgulHunter",
+      "name": "Cazador de Morgul",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición de Morgul",
+      "requirements": null,
+      "cost": 250,
+      "cp": 10,
+      "health": 650,
+      "buildTime": 15,
+      "armourSet": "PorterArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Puede moverse mientras este en sigilo.\n\nSaliendo a hurtadillas del Valle de Morgul durante las noches sin luna, estos malvados cazadores se aprovechan de cualquier gondoriano desprevenido que se acerque demasiado a la oscuridad de las Montañas de la Sombra.",
+      "abilities": [
+        {
+          "name": "Astucia de Orcos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El cazador de Morgul queda en sigilo durante 30 segundos, pero perderá el sigilo si ataca."
+        },
+        {
+          "name": "Tiro de Morgul",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El enemigo objetivo recibe daño de veneno durante 10 segundos y se convierte en un espectro al morir."
+        },
+        {
+          "name": "Captura",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El cazador coloca trampas que aturde a los enemigos cercanos durante 5 segundos. No afecta a bestias salvajes."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Cazadores de Morgul recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 70,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "uimorgulhunter",
+        "portrait": "upungoltracker"
+      }
+    },
+    {
+      "slug": "morgul-archer",
+      "object": "MorgulArcherHorde",
+      "name": "Arqueros de Morgul",
+      "category": "archers",
+      "recruitedAt": "Guarnición de Morgul nivel 2",
+      "requirements": null,
+      "cost": 350,
+      "cp": 60,
+      "health": 225,
+      "buildTime": 40,
+      "armourSet": "MorgulArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen"],
+      "weakAgainst": [],
+      "description": "Armados con arcos dentados, los arqueros de Morgul lanzan lluvias de dardos mortíferos desde sombríos puntos de observación.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Embrujada",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura Embrujada. Reduce significativamente la cantidad de daño recibido. Un pequeño porcentaje del daño recibido se redirige al atacante.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Llama-cadáver",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Llama-cadáver. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Luna Pálida",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 60,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 370,
+      "speed": 60,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uimorgularcher",
+        "portrait": "upmorgularcher"
+      }
+    },
+    {
+      "slug": "morgul-shieldbearer",
+      "object": "MorgulShieldbearerHorde",
+      "name": "Portadores de Escudo Morgul",
+      "category": "swordsmen",
+      "recruitedAt": "Guarnición de Morgul nivel 2",
+      "requirements": null,
+      "cost": 400,
+      "cp": 30,
+      "health": 275,
+      "buildTime": 30,
+      "armourSet": "MorgulShieldbearerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de apoyo Fuertemente Acorazado. Capacidad de cambiar de formación para mejorar capacidades defensivas.\n\nEstos orcos fueron enviados directamente a la primera línea, para mantener a raya al enemigo mientras cubrían a los piqueros a sus espaldas.",
+      "abilities": [
+        {
+          "name": "Marca de la Luna Pálida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Sed de sangre otorga a los Orcos de Morgul +25% de daño."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Embrujada",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura Embrujada. Reduce significativamente la cantidad de daño recibido. Un pequeño porcentaje del daño recibido se redirige al atacante.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Embrujadas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Embrujadas. Incrementa el daño infligido por las armas cuerpo a cuerpo. Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Luna Pálida",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 40,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 6,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1200
+      },
+      "images": {
+        "button": "uimorgulshieldbearer",
+        "portrait": "upmorgulshieldbearer"
+      }
+    },
+    {
+      "slug": "morgul-warg-rider",
+      "object": "MorgulWargRiderHorde",
+      "name": "Jinetes de Huargos de Morgul",
+      "category": "cavalry",
+      "recruitedAt": "Guarnición de Morgul nivel 3",
+      "requirements": null,
+      "cost": 650,
+      "cp": 80,
+      "health": 350,
+      "buildTime": 30,
+      "armourSet": "MorgulWargArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "La mayoría de las fortalezas orcas mantenían una jauría de huargos, pues los caballos no transportaban a los orcos y sus piernas dobladas apenas podían llevar a cabo el intercambio de mensajes con la premura y diligencia que requería el Capitán Negro.",
+      "abilities": [
+        {
+          "name": "Aullido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Los Huargos obtienen +33% de daño y +33% de armadura durante 45 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura Embrujada",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura Embrujada. Reduce significativamente la cantidad de daño recibido. Un pequeño porcentaje del daño recibido se redirige al atacante.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Embrujadas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Embrujadas. Incrementa el daño infligido por las armas cuerpo a cuerpo. Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Luna Pálida",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 75,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 2000,
+      "attackRange": 25,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 666
+      },
+      "images": {
+        "button": "uimorgulwargrider",
+        "portrait": "upmorgulwargrider"
+      }
+    },
+    {
+      "slug": "morgul-captured-thrall",
+      "object": "MorgulCapturedThrallHorde",
+      "name": "Esclavos Capturados",
+      "category": "swordsmen",
+      "recruitedAt": "Calabozo de Morgul",
+      "requirements": null,
+      "cost": 100,
+      "cp": 60,
+      "health": 90,
+      "buildTime": 25,
+      "armourSet": "BrokenRabbleArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Arrancados de sus hogares en Ithilien y más allá, estos Hombres han sido torturados y mutilados. Con la mente destrozada, cumplen las órdenes del Capitán Negro y se alzan en armas contra sus parientes.",
+      "abilities": [
+        {
+          "name": "Destino Oscuro",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cada Esclavo Capturado asesinado es reanimado temporalmente como un Espectro."
+        },
+        {
+          "name": "Reparar Estructura",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Reparar un edificio dañado."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Cuchillas Embrujadas",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Embrujadas. Incrementa el daño infligido por las armas cuerpo a cuerpo. Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes de la Luna Pálida",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 50,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "uimorgulthrall",
+        "portrait": "upmorgulthrall"
+      }
+    },
+    {
+      "slug": "morgul-sorcerer",
+      "object": "MorgulSorcererHorde",
+      "name": "Hechicero de Minas Morgul",
+      "category": "swordsmen",
+      "recruitedAt": "Calabozo de Morgul nivel 2",
+      "requirements": null,
+      "cost": 500,
+      "cp": 50,
+      "health": 300,
+      "buildTime": 30,
+      "armourSet": "ArcherArmor",
+      "attackType": null,
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Unidad de Apoyo del Campo de Batalla.\n\nPracticantes de la hechicería oscura, crueles y de corazón negro, estos Hombres de Negro de origen númenóreano llegaron voluntariamente a Minas Morgul para estudiar en la escolomancia del Rey Brujo. Utilizando el poder nigromántico, atormentan a los enemigos de Mordor mediante el sacrificio de sus acólitos.",
+      "abilities": [
+        {
+          "name": "Elegidos del Capitán Negro",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "El batallón de Orcos de Morgul objetivo recibe +50% de daño de forma permanente, pero pierde salud lentamente con el tiempo. Las unidades caídas del batallón afectado resurgen temporalmente como Espectros."
+        },
+        {
+          "name": "El Vacío Llama",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas son arrastradas al centro del área del hechizo. Inflige un daño mínimo. No afecta a la caballería."
+        },
+        {
+          "name": "Servidumbre Eterna",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Desata una oleada de Sombras de Ithil para infligir daño a las unidades enemigas."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 55,
+      "battalionSize": 7,
+      "stats": {
+        "visionRange": 480
+      },
+      "images": {
+        "button": "uimorgulsorcerer",
+        "portrait": "upmorgulsorcerer"
+      }
+    },
+    {
+      "slug": "morgul-shade-of-ithil",
+      "object": "MorgulShadeOfIthilHorde",
+      "name": "Sombras de Ithil",
+      "category": "swordsmen",
+      "recruitedAt": "Calabozo de Morgul nivel 3",
+      "requirements": null,
+      "cost": 750,
+      "cp": 80,
+      "health": 450,
+      "buildTime": 35,
+      "armourSet": "HarbingerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Unidad Especializada.\n\nLos espíritus de valientes guerreros gondorianos, capturados por las fuerzas oscuras, retorcidos y difamados, maldecidos por la oscura Brujería de Morgul para servir al Rey Brujo a perpetuidad.",
+      "abilities": [
+        {
+          "name": "Espíritus Intrépidos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las Sombras de Ithil son inmunes a todos los efectos de miedo y terror."
+        },
+        {
+          "name": "Golpes Parasitante",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques contra unidades vivas restauran la salud a las Sombras de Ithil."
+        },
+        {
+          "name": "Plaga de Minas Morgul",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las Sombras de Ithil maldicen el área objetivo con su hechicería. Las unidades enemigas dentro del radio reciben daño con el tiempo y se convierten en Muertos Resucitados si mueren."
+        },
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        },
+        {
+          "name": "Endurecido por la Guerra",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Espadachines del Gran Khân obtienen +50% de armadura y resistencia al miedo y al terror durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 200,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "uishadesofithil",
+        "portrait": "upshadesofithil"
+      }
+    },
+    {
+      "slug": "morgul-castellan",
+      "object": "MorgulCastellan",
+      "name": "Castellano de Morgul",
+      "category": "monster",
+      "recruitedAt": "Calabozo de Morgul nivel 3",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 45,
+      "health": 2500,
+      "buildTime": 25,
+      "armourSet": "CastellanArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Los Castellanos de Mordor, espectros caídos atados con trajes de acero con incrustaciones de hechizos, son los guardianes silenciosos de las avenidas y almenas apagadas de la ciudad.",
+      "abilities": [
+        {
+          "name": "Castellano de Minas Morgul",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Otorga +25% de armadura a las estructuras aliadas cercanas. Las unidades enemigas atacantes quedan envenenadas y pierden -15% de armadura durante 5 segundos."
+        },
+        {
+          "name": "Incorpóreo",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Castellano Acorazado se vuelve inmune al daño durante 30 segundos, pero no puede moverse ni atacar."
+        },
+        {
+          "name": "Explosión Nigromántica",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas son lanzadas recibiendo daño. Las unidades asesinadas se convierten en espectros."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 1750,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 15,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "uimorgulcastellan",
+        "portrait": "UPGuldurCastellan"
+      }
+    },
+    {
+      "slug": "mordor-battering-ram",
+      "object": "MordorBatteringRam",
+      "name": "Ariete",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio",
+      "requirements": null,
+      "cost": 300,
+      "cp": 30,
+      "health": 2500,
+      "buildTime": 30,
+      "armourSet": "BatteringRamArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Derriba las puertas del castillo y estructuras enemigas.\n\nUna vez caída la puerta, pocas fortalezas pueden resistir los enjambres de Mordor.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 600,
+      "damageType": "SIEGE",
+      "attackDelayMs": 3000,
+      "attackRange": 10,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 1300
+      },
+      "images": {
+        "button": "UIMordorBatteringRam",
+        "portrait": "UPMordor_BatteringRam"
+      }
+    },
+    {
+      "slug": "mordor-catapult",
+      "object": "MordorCatapult",
+      "name": "Catapulta",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 2",
+      "requirements": null,
+      "cost": 700,
+      "cp": 30,
+      "health": 2000,
+      "buildTime": 30,
+      "armourSet": "SiegeEngineArmor",
+      "attackType": "Fuego (a distancia, en área)",
+      "maxCount": null,
+      "strongAgainst": ["structures"],
+      "weakAgainst": [],
+      "description": "Estos viles artilugios hacen llover muerte y terror sobre los enemigos del Señor Oscuro.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Bombardea el área objetivo con artillería devastadora."
+        },
+        {
+          "name": "Lanzar Calaveras",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Lanza calaberas como munición. Causa terror a las unidades enemigas cercanas al impacto."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "¡Liberen a los Prisioneros!",
+          "cost": 200,
+          "hotkey": "C",
+          "level": null,
+          "description": "Permite a la Catapulta usar la habilidad Lanzar Calaveras. Lanza calaberas como munición. Causa terror a las unidades enemigas cercanas al impacto.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1601,
+      "damageType": "FLAME",
+      "attackDelayMs": 7500,
+      "attackRange": 500,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 550,
+        "attackRadius": 50,
+        "preAttackDelayMs": 800
+      },
+      "images": {
+        "button": "UIMordorCatapult",
+        "portrait": "UPMordorCatapultNew"
+      }
+    },
+    {
+      "slug": "mordor-great-beast",
+      "object": "MordorGreatBeast",
+      "name": "Gran Bestia",
+      "category": "monster",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 2",
+      "requirements": null,
+      "cost": 1500,
+      "cp": 60,
+      "health": 7000,
+      "buildTime": 55,
+      "armourSet": "MumakilArmor",
+      "attackType": "Aplastamiento (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["structures", "cavalry"],
+      "weakAgainst": [],
+      "description": "Estas pesadas criaturas son nativas de las grandes llanuras cubiertas de cenizas de Gorgoroth, alimentándose de las gruesas raíces que crecen en el suelo seco de esa tierra estéril. Los orcos se dieron cuenta rápidamente de su potencial como bestias de carga y guerra, y durante mucho tiempo los criaron en cautiverio, colocándolos en la guerra de Sauron contra las tierras de Gondor.",
+      "abilities": [
+        {
+          "name": "Estampida",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Ordena a la Gran Bestia aplastar al enemigo."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        },
+        {
+          "name": "¡Dadles un Poco de Grog!",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Permite a los orcos tirar un barril de grog altamente volátil que explota sobre el campo de batalla."
+        },
+        {
+          "name": "Bestia de Guerra",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "¡Subid, Muchachos!",
+          "cost": 350,
+          "hotkey": "R",
+          "level": null,
+          "description": "Mejora esta Gran Bestia con arqueros orcos apostados a su lomo. Los arqueros orcos se benefician de la mejora flecha de fuego.",
+          "stats": {
+            "researchTimeS": 20
+          }
+        },
+        {
+          "name": "¡Dadles un Poco de Grog!",
+          "cost": 500,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta Gran Bestia con la habilidad de tirar un barril de grog altamente volátil.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Bestia de Guerra",
+          "cost": 500,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta Gran Bestia con la habilidad de hacer que las unidades enemigas se acobarden de miedo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 1,
+      "damageType": "CRUSH",
+      "attackDelayMs": 105000,
+      "attackRange": 500,
+      "speed": 45,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 400,
+        "attackRadius": 1
+      },
+      "images": {
+        "button": "UIMordorBeast",
+        "portrait": "UPMordorBeast"
+      }
+    },
+    {
+      "slug": "morgul-olog-reaper",
+      "object": "MorgulOlogReaper",
+      "name": "Olog-segador",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 3",
+      "requirements": null,
+      "cost": 1150,
+      "cp": 80,
+      "health": 3000,
+      "buildTime": 45,
+      "armourSet": "AttackTrollArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": null,
+      "strongAgainst": ["swordsmen", "cavalry", "structures"],
+      "weakAgainst": [],
+      "description": "Los más crueles e inteligentes de los Olog-hai fueron vestidos con armaduras negras dentadas y fueron enviados a la línea del frente para servir como algunos de los guerreros más temidos de Sauron.",
+      "abilities": [
+        {
+          "name": "Rugido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Golpe Penetrante",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Inflige un fuerte golpe al héroe enemigo objetivo para drenar su vida. El héroe enemigo objetivo pierde. -25% de velocidad y sufre daño con el tiempo durante 10 segundos."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 350,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1400,
+      "attackRange": 20,
+      "speed": 65,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 60,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "uiologreaper",
+        "portrait": "upologreaper"
+      }
+    },
+    {
+      "slug": "mordor-grond",
+      "object": "MordorGrond",
+      "name": "Grond",
+      "category": "siege",
+      "recruitedAt": "Gran Fábrica de Máquinas de Asedio nivel 3",
+      "requirements": null,
+      "cost": 5000,
+      "cp": 120,
+      "health": 45000,
+      "buildTime": 60,
+      "armourSet": "GrondArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": 1,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "y el Rey Brujo. Extremadamente Fuerte contra Estructuras. No puede cruzar puentes.\n\nEste ariete gigante fue llamado después el Martillo del Inframundo - el arma preferida de Morgoth. Ninguna puerta puede interponerse en su camino.",
+      "abilities": [],
+      "upgrades": [],
+      "damage": 2500,
+      "damageType": "SIEGE",
+      "attackDelayMs": 5500,
+      "attackRange": 5,
+      "speed": 10,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 250,
+        "attackRadius": 5,
+        "preAttackDelayMs": 3000
+      },
+      "images": {
+        "button": "UIMordorGrond",
+        "portrait": "UPMordorGrond"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "morgul-gorbag",
+      "object": "MorgulGorbag",
+      "name": "Gorbag",
+      "title": "Capitán orco de Cirith Ungol",
+      "recruitedAt": "Fortaleza",
+      "cost": 1000,
+      "buildTime": 40,
+      "health": 2000,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'¡Será para el Gran Ojo! Como todo lo demás.'",
+      "abilities": [
+        {
+          "name": "Rivalidad Feroz",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando está cerca de Shagrat, Gorbag lentamente recibe daño con el tiempo."
+        },
+        {
+          "name": "Astucia de Orco",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Crece en poder a medida que Gorbag sube de nivel. En el rango 1, Gorbag incrementa su evasión a distancia. En el rango 3, Gorbag puede permanecer en sigilo durante 30 segundos - Gorbag pierde el sigilo si ataca. En el rango 5, +25% de daño durante 30 segundos más los efectos anteriores. En el rango 7, obtiene pasivamente +25% de daño y +15% de velocidad. En el rango 10, obtiene pasivamente +25% de armadura."
+        },
+        {
+          "name": "Lanzar Patada",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Derriba las unidades cercanas. Aturde a los héroes objetivo durante 5 segundos. Puede usarse con Astucia de Orco."
+        },
+        {
+          "name": "Te Haré Sangrar",
+          "level": 4,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo recibe mucho daño durante 15 segundos."
+        },
+        {
+          "name": "Lealtad al Ojo Rojo",
+          "level": 7,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El héroe enemigo objetivo pierde -25% de armadura durante 30 segundos. Gorbag inflige +25% de daño al héroe objetivo mientras dure el efecto while Gorbag gains +50% armour for the duration."
+        }
+      ],
+      "damage": 180,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGorbag",
+        "portrait": "HPGorbag"
+      }
+    },
+    {
+      "slug": "mordor-murgash",
+      "object": "MordorMurgash",
+      "name": "Murgash el Ejecutor",
+      "title": "Ejecutor de Minas Morgul",
+      "recruitedAt": "Fortaleza",
+      "cost": 1200,
+      "buildTime": 40,
+      "health": 2500,
+      "armourSet": "ToughHeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Murgash el Ejecutor es un bruto orco cuyo ingenio no está a la altura de la fuerza de su revés de hierro.",
+      "abilities": [
+        {
+          "name": "Ejecutor de la Ciudad Muerta",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Las Torres de Morgul y los arqueros de Morgul cercanos a Murgash obtienen +15% de visión, +15% de rango y +15% de daño.\n\nEn el rango 3, genera una horda temporal de Espadas de Morgul cuando se usa en un edificio aliado o enemigo."
+        },
+        {
+          "name": "Lealtad al Capitán Negro",
+          "level": 5,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "Las Espadas de Morgul cercanas ganan +25% de armadura. Puede activarse para otorgar +25% de daño a las Espadas de Morgul cercanas, así como daño por proximidad y de impacto a Murgash durante 20 segundos."
+        },
+        {
+          "name": "Escoria Saqueadora",
+          "level": 7,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Murgash y los cercanos Orcos de Morgul roban recursos de los enemigos abatidos."
+        }
+      ],
+      "damage": 135,
+      "damageType": "HERO",
+      "attackDelayMs": 960,
+      "attackRange": 15,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uimurgash",
+        "portrait": "upmurgash"
+      }
+    },
+    {
+      "slug": "mordor-guritz",
+      "object": "MordorGuritz",
+      "name": "Guritz",
+      "title": "Sádico Orco de Minas Morgul",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2600,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Guritz, mano derecha de Gothmog, se deleita en la crueldad y utiliza el miedo a sus malvadas represalias para mantener a raya a sus guerreros.",
+      "abilities": [
+        {
+          "name": "Golpe Ineludible",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Guritz blande su guadaña con fuerza, causando daño y derribando todo lo que le rodea."
+        },
+        {
+          "name": "Desmoralizar",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas en el radio objetivo no pueden ganar experiencia durante 30 segundos. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Táctico Cruel",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La estructura enemiga objetivo pierde -33% de armadura durante 20 segundos."
+        },
+        {
+          "name": "¡Liberen a los Prisioneros!",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Lanza un aluvión de cabezas cortadas a un área determinada, causando miedo a las unidades enemigas e infligiendo daño venenoso durante 20 segundos."
+        }
+      ],
+      "damage": 125,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiguritz",
+        "portrait": "upguritz"
+      }
+    },
+    {
+      "slug": "morgul-gothmog",
+      "object": "MorgulGothmog",
+      "name": "Gothmog",
+      "title": "Lugarteniente de Minas Morgul",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 2400,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'La Edad de los Hombres ha terminado. El tiempo de los orcos ha llegado.'",
+      "abilities": [
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": ""
+        },
+        {
+          "name": "Tiempo del Orco",
+          "level": null,
+          "hotkey": "R",
+          "kind": "leadership",
+          "description": "Los orcos cercanos a Gothmog obtienen +33% de daño, +33% de armadura, inmunidad al miedo y al terror y ganan experiencia un 33% más rápido.\n\nEn el rango 5, se puede lanzar sobre una Guarnición de Morgul aliada para reducir a la mitad el tiempo de producción de los orcos de Morgul durante 60 segundos. Los orcos reclutados en este periodo están totalmente mejorados."
+        },
+        {
+          "name": "¡Formad Filas, Gusanos!",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca una horda de Piqueros de Morgul alrededor de Gothmog. Los Piqueros de Morgul otorgan una pequeña bonificación de daño a los arqueros orcos cercanos. A rango 5, también convoca un Bruto del Morannon. A rango 7, convoca una horda adicional de Piqueros de Morgul. A rango 10, convoca un Bruto del Morannon adicional. Gothmog solo puede lanzarlo desmontado."
+        },
+        {
+          "name": "Maestro del Asedio",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Convierte permanentemente la Catapulta elegida en una Catapulta Troll."
+        },
+        {
+          "name": "A la Refriega",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Las unidades aliadas en un radio amplio obtienen +15% de velocidad de movimiento y +50% de daño durante 30 segundos."
+        }
+      ],
+      "damage": 200,
+      "damageType": "HERO",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiGothmogNew",
+        "portrait": "HEGothmogNew"
+      }
+    },
+    {
+      "slug": "morgul-nazgul-a",
+      "object": "MorgulNazgulA",
+      "name": "Nazgûl",
+      "title": "Akhôrahil, el Rey de las Tormentas",
+      "recruitedAt": "Fortaleza",
+      "cost": 2200,
+      "buildTime": 60,
+      "health": 2700,
+      "armourSet": "DismountedKhamulArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Una vez fueron hombres; grandes reyes de los hombres. Entonces Sauron el Impostor les dio nueve Anillos de Poder.'",
+      "abilities": [
+        {
+          "name": "Los Nueve están en el Extranjero",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Chillido",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Aliento Oscuro",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Aliento Oscuro emana de los Nazgûl. Las unidades enemigas cercanas atrapadas por el aliento reciben daño a lo largo del tiempo durante 15 segundos."
+        },
+        {
+          "name": "Palabras de Muerte",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Nazgûl coloca un Círculo Rúnico en el área objetivo. Las unidades aliadas dentro del Círculo Rúnico obtienen +75% de armadura al daño a Distancia, Fuego, Escarcha y Magia durante 60 segundos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiNazgulNew",
+        "portrait": "HeNazgulNew"
+      }
+    },
+    {
+      "slug": "morgul-nazgul-b",
+      "object": "MorgulNazgulB",
+      "name": "Nazgûl",
+      "title": "Ûvatha, el Saqueador de Khand",
+      "recruitedAt": "Fortaleza",
+      "cost": 2200,
+      "buildTime": 60,
+      "health": 2700,
+      "armourSet": "DismountedKhamulArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "'Cegados por su avaricia, los tomaron sin preguntar, cayendo uno a uno en la oscuridad.'",
+      "abilities": [
+        {
+          "name": "Los Nueve están en el Extranjero",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Chillido",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Aliento Oscuro",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Aliento Oscuro emana de los Nazgûl. Las unidades enemigas cercanas atrapadas por el aliento reciben daño a lo largo del tiempo durante 15 segundos."
+        },
+        {
+          "name": "Palabras de Pestilencia",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Recarga completamente los temporizadores de las habilidades especiales de los héroes aliados. Cura ligeramente a los héroes en el radio."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiNazgulNew",
+        "portrait": "HeNazgulNew"
+      }
+    },
+    {
+      "slug": "morgul-burghash",
+      "object": "MorgulBurghash",
+      "name": "Bûrghâsh el Conflagrante",
+      "title": "Bûrghâsh el Conflagrante",
+      "recruitedAt": "Fortaleza",
+      "cost": 3000,
+      "buildTime": 70,
+      "health": 3000,
+      "armourSet": "RogashArmor",
+      "attackType": "Fuego (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "Los trolls de los hornos fueron una vil creación de Sauron, criados para soportar el inmenso calor del Monte del Destino y mantener los fuegos que avivaron a Grond en su forja. Bûrghâsh fue el principal de estos Trolls y sirvió como guardián de Grond.",
+      "abilities": [
+        {
+          "name": "Calor Abrasador",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas sufren pasivamente daño de fuego en un pequeño radio alrededor de Bûrghâsh. Las unidades aliadas también sufren daño de fuego si Inmolación está activa."
+        },
+        {
+          "name": "Fanático de la Cabeza de Lobo",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Ataque poderoso que causa un impacto severo y daño masivo a las estructuras."
+        },
+        {
+          "name": "Martillo del Inframundo",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Bûrghâsh golpea el suelo, dañando y derribando a las unidades enemigas, y abrasa la tierra durante 15 segundos. Las unidades en la zona abrasada sufren daño continuado y se ralentizan un -33%."
+        }
+      ],
+      "damage": 250,
+      "damageType": "FLAME",
+      "attackDelayMs": 2930,
+      "attackRange": 40,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "uiburgash",
+        "portrait": "upburgash"
+      }
+    },
+    {
+      "slug": "morgul-witch-king",
+      "object": "MorgulWitchKing",
+      "name": "El Rey Brujo de Angmar",
+      "title": "Primero de los Nueve",
+      "recruitedAt": "Fortaleza",
+      "cost": 5000,
+      "buildTime": 80,
+      "health": 4500,
+      "armourSet": "DismountedWitchkingArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "'Enviad a todas las legiones. No detengáis el ataque hasta que la ciudad haya sido tomada. ¡Aniquiladlos!.'",
+      "abilities": [
+        {
+          "name": "Jefe de los Nueve",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Nazgûl cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -25% de armadura. Anula el liderazgo enemigo."
+        },
+        {
+          "name": "Escalofrío de Angmar",
+          "level": null,
+          "hotkey": "R",
+          "kind": "passive",
+          "description": "El Rey Brujo refleja un 10% del daño que le infligen los enemigos cercanos.\n\nCuando se activa, el Rey Brujo se ve rodeado por una tormenta de granizo y escarcha durante 30 segundos, que daña a las unidades enemigas cercanas, más cuanto más cerca estén de él. En el nivel 5, inflige más daño. En el nivel 8, las unidades enemigas cercanas se aterrorizan."
+        },
+        {
+          "name": "Hoja de Morgul",
+          "level": 4,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El enemigo objetivo recibe daño de veneno durante 10 segundos, y se convierte en espectros al morir. El héroe enemigo objetivo queda aturdido durante 10 segundos y sus temporizadores de habilidad se ajustan a recién usados."
+        },
+        {
+          "name": "Abrid en nombre de Mordor",
+          "level": 6,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige daño a la estructura enemiga objetivo y la inhabilita durante 20 segundos. Las unidades enemigas cercanas a la estructura objetivo reciben daño a lo largo del tiempo y se convierten en espectros cuando mueren. Abre automáticamente la puerta objetivo."
+        },
+        {
+          "name": "¡Esta es Mi Hora!",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Repele y daña a las unidades en un amplio radio alrededor del Rey Brujo."
+        },
+        {
+          "name": "Montar / Desmontar",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "ir montado o a pie."
+        }
+      ],
+      "damage": 350,
+      "damageType": "HERO",
+      "attackDelayMs": 1750,
+      "attackRange": 12,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HiWitchKingNew",
+        "portrait": "HeWitchKingNew"
+      }
+    },
+    {
+      "slug": "mordor-sauron-ring-hero",
+      "object": "MordorSauron_RingHero",
+      "name": "Sauron",
+      "title": null,
+      "recruitedAt": "Fortaleza",
+      "cost": 10000,
+      "buildTime": 180,
+      "health": 10000,
+      "armourSet": "SauronArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "isRing": true,
+      "description": "Usa el Anillo Único para convocar al Señor Oscuro. 'Ash nazg durbatulûk ash nazg gimbatul. Ash nazg thrakatulûk agh burzum-ishi krimpatul.'",
+      "abilities": [
+        {
+          "name": "Gorthaur",
+          "level": null,
+          "hotkey": "W",
+          "kind": "leadership",
+          "description": "Todas las unidades cercanas se encojen de miedo ya sea amigo o enemigo.\n\nCuando se activa, las unidades enemigas y los héroes cercanos quedan paralizados durante 10 segundos."
+        },
+        {
+          "name": "Conflagración",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Destruye al héroe enemigo objetivo (sólo inflige el 50% del daño total a Gandalf, Elessar, Saruman, Rey Brujo, Bolg, Galadriel, Elrond, Glorfindel, Thranduil, Théoden, Thorin, Nigromante, Rey Dáin, Durin el Inmortal, Rey Dorado)."
+        },
+        {
+          "name": "Annatar, Señor de los Dones",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convierte permanentemente a las unidades enemigas en un amplio radio."
+        },
+        {
+          "name": "El Señor de los Anillos",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Sauron gana +100% de daño, +10% de velocidad de movimiento e invulnerabilidad durante 20 segundos."
+        },
+        {
+          "name": "Sus Sirvientes Más Letales",
+          "level": null,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Sauron convoca permanentemente a cuatro. Espectros del Anillo. Máximo cuatro Espectros del Anillo pueden salir en cualquier momento."
+        }
+      ],
+      "damage": 2800,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1833,
+      "attackRange": 12,
+      "speed": 35,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HISauronNew",
+        "portrait": "HESauronNew"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "morgul-fortress-citadel",
+      "object": "MorgulFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Constructor", "Vanguardia del Rey Brujo"],
+      "upgrades": [
+        {
+          "name": "Heráldica de la Luna Pálida",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "Los aliados cercanos a la fortaleza obtienen +33% de daño, +33% de armadura y ganan experiencia un 50% más rápido.\n\nReduce el costo del Héroe en un 10%. Reduce el tiempo de reclutamiento del Héroe en un 10%. Reduce el coste de los constructores en un 20%.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Foso de Morgulduin",
+          "cost": 600,
+          "hotkey": "E",
+          "level": null,
+          "description": "Daña a las unidades enemigas adyacentes a la Fortaleza.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Torres Sofocantes",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a la Fortaleza emitir humos nocivos para envenenar a las unidades enemigas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Terrenos de Crías",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Desbloquea Vuelo de los Halcones Infernales de Nazgûl. Desbloquea la habilidad Primero de los Nueve. Se puede lanzar para reemplazar el caballo del Rey Brujo por su Bestia Alada.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Brujería de Morgul",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Desbloquea Brujería de Morgul para todas las estructuras: incrementa pasivamente la armadura de la estructura en +15% y causa daño temporal a los enemigos cercanos, además de aturdirlos de miedo cuando se activa. Desbloquea Esclavo del Rey Brujo para las Torres de Morgul. Requisito previo para Torre de Morgul.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de Morgul",
+          "cost": 1500,
+          "hotkey": "D",
+          "level": null,
+          "description": "Permite reclutar a la Vanguardia del Rey Brujo.\n\nSus Sirvientes más Mortíferos: Otorga pasivamente +10% de daño y +10% de armadura a todos los Nazgûl en el campo de batalla. No afecta a las Bestias Aladas.\n\nPermite a la Fortaleza usar la Almenara de Morgul: Todos los orcos del campo de batalla ganan un 15% de velocidad y +50% de daño y armadura durante 30 segundos.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Sus Sirvientes más Mortíferos",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Otorga +10% de daño y +10% de armadura a todos los Nazgûl en el campo de batalla. No afecta a las Bestias Aladas."
+        },
+        {
+          "name": "Almenara de Morgul",
+          "level": null,
+          "hotkey": "F",
+          "kind": "active",
+          "description": "Todos los orcos del campo de batalla ganan un 15% de velocidad y +50% de daño y armadura durante 30 segundos."
+        },
+        {
+          "name": "Humos Nocivos",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La Fortaleza emite humo venenoso. Los enemigos atrapados en el humo sufren daño durante 15 segundos."
+        },
+        {
+          "name": "Primero de los Nueve",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "El Rey Brujo de Angmar monta en su Bestia Alada en lugar de su caballo. El Rey Brujo debe estar presente para lanzar."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorFortressNew"
+      }
+    },
+    {
+      "slug": "morgul-slave-mill",
+      "object": "MorgulSlaveMill",
+      "name": "Molino Esclavo",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona miseria como un recurso basado en el terreno disponible. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Brujería de Morgul",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "La armadura de la estructura se incrementa en +15%. Cuando se activa, las unidades enemigas cercanas sufren daño en el tiempo durante 10 segundos y quedan temporalmente aturdidas por el miedo durante 5 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurMill"
+      }
+    },
+    {
+      "slug": "morgul-foundry",
+      "object": "MorgulFoundry",
+      "name": "Fundidora de Morgul",
+      "kind": "economy",
+      "cost": 400,
+      "buildTime": 15,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "TechnologyArmor",
+      "maxCount": null,
+      "description": "Fabrica y comercializa armaduras como un recurso según el terreno disponible. Investiga mejoras en armas y armadura. Reduce el coste de las mejoras. Incrementa los puntos de mando en 50 unidades.\n\nAunque toscas en apariencia, las armas y armaduras que salían de las grandes forjas de Gorgoroth eran potentes y, con razón, temidas entre las filas Gondorianas.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes de la Luna Pálida",
+          "cost": 400,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora. Estandartes de la Luna Pálida. Incrementa una horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Cuchillas Embrujadas",
+          "cost": 1000,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Cuchillas Embrujadas. Cuando está equipado, incrementa el daño infligido por las armas cuerpo a cuerpo. Los ataques cuerpo a cuerpo reducen la armadura enemiga un 15% durante 5 segundos. El maleficio no se acumula consigo mismo. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Llama-cadáver",
+          "cost": 1000,
+          "hotkey": "R",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora de Flechas de Llama-cadáver. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas y los arqueros de la torre al instante una vez comprada la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Armadura Embrujada",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Armadura Embrujada. Cuando está equipado, reduce significativamente la cantidad de daño recibido. Un pequeño porcentaje del daño recibido se redirige al atacante. Mejorará todas las patrullas al instante una vez adquirida la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Brujería de Morgul",
+          "level": null,
+          "hotkey": "S",
+          "kind": "passive",
+          "description": "La armadura de la estructura se incrementa en +15%. Cuando se activa, las unidades enemigas cercanas sufren daño en el tiempo durante 10 segundos y quedan temporalmente aturdidas por el miedo durante 5 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorArmoury"
+      }
+    },
+    {
+      "slug": "morgul-garrison",
+      "object": "MorgulGarrison",
+      "name": "Guarnición de Morgul",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Orcos de Minas Morgul.\n\nA lo largo de las Montañas de Ceniza y las áridas llanuras de Mordor se encontraban muchas fortificaciones orcas, desde donde los capitanes de la Torre Oscura controlaban las tierras circundantes, manteniendo alejados a los invasores y sometiendo a los orcos que vivían cerca.",
+      "produces": [
+        "Espadas de Morgul",
+        "Piqueros de Morgul",
+        "Cazador de Morgul",
+        "Arqueros de Morgul",
+        "Portadores de Escudo Morgul",
+        "Jinetes de Huargos de Morgul"
+      ],
+      "upgrades": [
+        {
+          "name": "Guarnición de Morgul al Nivel 2",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Arqueros de Morgul y Portadores de Escudo de Morgul +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Guarnición de Morgul al Nivel 3",
+          "cost": 300,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Jinetes de Huargos de Morgul +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Brujería de Morgul",
+          "level": null,
+          "hotkey": "F",
+          "kind": "passive",
+          "description": "La armadura de la estructura se incrementa en +15%. Cuando se activa, las unidades enemigas cercanas sufren daño en el tiempo durante 10 segundos y quedan temporalmente aturdidas por el miedo durante 5 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorBarracks"
+      }
+    },
+    {
+      "slug": "morgul-dungeon",
+      "object": "MorgulDungeon",
+      "name": "Calabozo de Morgul",
+      "kind": "production",
+      "cost": 350,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena Esclavos, Hechiceros y Espíritus bajo el mando del Rey Brujo.",
+      "produces": [
+        "Esclavos Capturados",
+        "Hechicero de Minas Morgul",
+        "Sombras de Ithil",
+        "Castellano de Morgul"
+      ],
+      "upgrades": [
+        {
+          "name": "Calabozo de Morgul al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar Hechiceros de Minas Morgul +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Calabozo de Morgul al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar Sombras de Ithil y Castellanos de Morgul +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Brujería de Morgul",
+          "level": null,
+          "hotkey": "S",
+          "kind": "passive",
+          "description": "La armadura de la estructura se incrementa en +15%. Cuando se activa, las unidades enemigas cercanas sufren daño en el tiempo durante 10 segundos y quedan temporalmente aturdidas por el miedo durante 5 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorDolGuldurDungeon"
+      }
+    },
+    {
+      "slug": "morgul-siege-works",
+      "object": "MorgulSiegeWorks",
+      "name": "Gran Fábrica de Máquinas de Asedio",
+      "kind": "production",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Construye máquinas de asedio. En el rango 2, repara las máquinas de asedio cercanas. En el rango 3, cura a las Grandes Bestias cercanas.",
+      "produces": [
+        "Ariete",
+        "Catapulta",
+        "Gran Bestia",
+        "Olog-segador",
+        "Grond"
+      ],
+      "upgrades": [
+        {
+          "name": "Gran Fábrica de Máquinas de Asedio al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite construir Catapultas y Grandes Bestias de Gorgoroth. Repara las máquinas de asedio cercanas +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Gran Fábrica de Máquinas de Asedio al Nivel 3",
+          "cost": 1000,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Incrementa la curación de las máquinas de asedio cercanas dañadas, permite el reclutamiento de Grandes Bestias y Olog-segadores +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Brujería de Morgul",
+          "level": null,
+          "hotkey": "D",
+          "kind": "passive",
+          "description": "La armadura de la estructura se incrementa en +15%. Cuando se activa, las unidades enemigas cercanas sufren daño en el tiempo durante 10 segundos y quedan temporalmente aturdidas por el miedo durante 5 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorSiegeWorks"
+      }
+    },
+    {
+      "slug": "morgul-battle-tower",
+      "object": "MorgulBattleTower",
+      "name": "Torre de Morgul",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 45,
+      "health": 1500,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos.\n\nCuando Sauron regresó a Mordor, ordenó la construcción de enormes y terribles torres, destinadas a vigilar las tierras limítrofes de Gondor.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Flechas de Llama-cadáver",
+          "cost": 200,
+          "hotkey": "W",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Llama-cadáver. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Brujería de Morgul",
+          "level": null,
+          "hotkey": "E",
+          "kind": "passive",
+          "description": "La armadura de la estructura se incrementa en +15%. Cuando se activa, las unidades enemigas cercanas sufren daño en el tiempo durante 10 segundos y quedan temporalmente aturdidas por el miedo durante 5 segundos."
+        },
+        {
+          "name": "Esclavo del Rey Brujo",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Invoca temporalmente a la Sombra de Eärnur para infligir daño a las unidades enemigas cercanas."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPMordorBattleTower"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "mordor-generic-leadership",
+      "name": "Espectros de Morgul",
+      "tier": 1,
+      "position": "L",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Invoca una pequeña horda de Espectros Oscuros. Los Espectros Oscuros son unidades de movimiento rápido que despejan la sombra y detectan el sigilo. Las unidades enemigas cercanas sufren. -25% de daño y -20% de armadura.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "uidarkenedwraithsummon"
+      },
+      "requires": []
+    },
+    {
+      "slug": "war-chant-mordor",
+      "name": "Señal de Pavor",
+      "tier": 1,
+      "position": "C",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +25% de daño y armadura durante 60 segundos. Tiempo de recarga: 3 min.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "uimorgulbeacon"
+      },
+      "requires": []
+    },
+    {
+      "slug": "crack-of-doom",
+      "name": "Tierra Maldita",
+      "tier": 1,
+      "position": "R",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Invoca una grieta maldita durante 15 segundos. Las unidades enemigas del interior reciben daño con el tiempo y se ralentizan -33%.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "uimorgulaccursedground"
+      },
+      "requires": []
+    },
+    {
+      "slug": "haradrim-raiders",
+      "name": "Histeria Oscura",
+      "tier": 2,
+      "position": "LL",
+      "kind": "heal",
+      "cost": 10,
+      "description": "Hace que los batallones objetivos se vuelvan hostiles hacia sus aliados durante 20 segundos.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SPGuldurDarkHysteria"
+      },
+      "requires": ["Espectros de Morgul"]
+    },
+    {
+      "slug": "barricade",
+      "name": "Barricada",
+      "tier": 2,
+      "position": "LR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca una torre defensiva guarecida con arqueros. Beneficios de la mejora de Flechas de Fuego.\n\nTodas las unidades aliadas cercanas ganan +25% de armadura.",
+      "requiresSlots": [1, 2],
+      "slot": 5,
+      "images": {
+        "button": "sbmordorbarricadespellbook"
+      },
+      "requires": ["Espectros de Morgul", "Señal de Pavor"]
+    },
+    {
+      "slug": "mordor-callthe",
+      "name": "Llamad a la Horda",
+      "tier": 2,
+      "position": "RL",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Incrementa la Velocidad de Producción de Orcos durante 45 segundos. Una vez usado, otorga de forma permanente la Marca de la Luna Pálida a las Espadas de Morgul, los Piqueros y los Portadores de Escudos.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "UIMordorCalltheHordeNew"
+      },
+      "requires": ["Señal de Pavor", "Tierra Maldita"]
+    },
+    {
+      "slug": "industry",
+      "name": "Floración Nociva",
+      "tier": 2,
+      "position": "RR",
+      "kind": "utility",
+      "cost": 10,
+      "description": "La producción de recursos de la estructura seleccionada se incrementa al 275% durante 5 minutos. Sólo afecta a las Fundidoras de Morgul.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "uimorgulnoxiousbloom"
+      },
+      "requires": ["Tierra Maldita"]
+    },
+    {
+      "slug": "shelob-summon",
+      "name": "Terror de Cirith Ungol",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a Ella-Laraña y tres hordas de su progenie. Las unidades enemigas dentro del radio de la telaraña se ralentizan un 33%.",
+      "requiresSlots": [5, 4],
+      "slot": 8,
+      "images": {
+        "button": "BIMordorFortressShelob"
+      },
+      "requires": ["Histeria Oscura", "Barricada"]
+    },
+    {
+      "slug": "darkness",
+      "name": "Oscuridad",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cubre todo el mapa de oscuridad durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Todas las unidades aliadas obtienen +33% de daño y +33% de armadura.",
+      "requiresSlots": [6, 5],
+      "slot": 9,
+      "images": {
+        "button": "sbmordordarkness"
+      },
+      "requires": ["Barricada", "Llamad a la Horda"]
+    },
+    {
+      "slug": "wraith",
+      "name": "¡Espectros Alados!",
+      "tier": 3,
+      "position": "R",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Convoca a dos Espectros Alados sobre el campo de batalla.",
+      "requiresSlots": [7, 6],
+      "slot": 10,
+      "images": {
+        "button": "SBEvil_SummonWraiths"
+      },
+      "requires": ["Llamad a la Horda", "Floración Nociva"]
+    },
+    {
+      "slug": "eyeof-sauron-new",
+      "name": "Ojo de Sauron",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca al Ojo de Sauron. Revela enemigos en sigilo. Paraliza a todos los enemigos del mapa durante 10 segundos al invocarlo. Todas las unidades atrapadas en su mirada sufren daño constante y se ralentizan un 33%. Los aliados obtienen +33% de daño, +50% de armadura, inmunidad al miedo y al terror, y ganan experiencia un 50% más rápido.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "sbmordoreyesauronnew"
+      },
+      "requires": ["Terror de Cirith Ungol", "Oscuridad"]
+    },
+    {
+      "slug": "rain-of-fire",
+      "name": "La Ciudad Muerta",
+      "tier": 4,
+      "position": "R",
+      "kind": "debuff",
+      "cost": 25,
+      "description": "Crea un área de terreno maldito mediante el poder de Minas Morgul durante 30 segundos. Las estructuras enemigas situadas dentro del radio reciben daño con el tiempo, no pueden producir durante 15 segundos y pierden -50% de armadura durante 30 segundos.",
+      "requiresSlots": [7, 9, 10],
+      "slot": 12,
+      "images": {
+        "button": "uimorguldeadcity"
+      },
+      "requires": ["Floración Nociva", "Oscuridad", "¡Espectros Alados!"]
+    }
+  ]
+}

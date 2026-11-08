@@ -1,0 +1,1985 @@
+{
+  "code": "dolGuldur",
+  "units": [
+    {
+      "slug": "guldur-porter",
+      "object": "GuldurPorter",
+      "name": "Sombra Atada",
+      "category": "special",
+      "recruitedAt": "Fortaleza",
+      "requirements": null,
+      "cost": 100,
+      "cp": 0,
+      "health": 625,
+      "buildTime": 20,
+      "armourSet": "GuldurPorterArmorWorking",
+      "attackType": null,
+      "maxCount": 5,
+      "strongAgainst": [],
+      "weakAgainst": [],
+      "description": "Este espíritu Elfo incorpóreo puede invocar una estructura antes de desvanecerse.",
+      "abilities": [
+        {
+          "name": "Presencia Fulminante",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Sombra desaparecerá después de invocar una estructura. Las unidades enemigas cercanas sufren. -15% de velocidad, -10% de daño y -10% de armadura."
+        }
+      ],
+      "upgrades": [],
+      "damage": null,
+      "damageType": null,
+      "attackDelayMs": null,
+      "attackRange": null,
+      "speed": 75,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 300
+      },
+      "images": {
+        "button": "UIGuldurShade",
+        "portrait": "UPGuldurShade"
+      }
+    },
+    {
+      "slug": "guldur-woodsmen",
+      "object": "GuldurWoodsmenHorde",
+      "name": "Tramperos Marchitos",
+      "category": "archers",
+      "recruitedAt": "Fuente de Corrupción nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 80,
+      "health": 220,
+      "buildTime": 35,
+      "armourSet": "BlightedTrappersArmor",
+      "attackType": "Espada (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["archers", "monsters"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles.\n\nLas esporas parasitarias que se propagan desde los estanques corruptos del sur del Bosque Negro han infectado a parte de la población nativa de leñadores. Fueron vistos por última vez caminando hacia la fortaleza embrujada de la colina árida...",
+      "abilities": [
+        {
+          "name": "Inoculación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Decadencia Lenta de la magia del Nigromante no afecta a los que ya han sido consumidos por ella."
+        },
+        {
+          "name": "Dardos Nocivos",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Tramperos Marchitos infligen daño por veneno. Inflige daño adicional a las estructuras."
+        },
+        {
+          "name": "Abrazo Parasitario",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "passive",
+          "description": "Los arqueros enemigos golpeados por los Tramperos Marchitos sufren -20% de daño durante 5 segundos.\n\nLas unidades enemigas del área objetivo se infectan y pierden -50% de visión y -25% de alcance durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 110,
+      "damageType": "SLASH",
+      "attackDelayMs": 1600,
+      "attackRange": 350,
+      "speed": 60,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 400,
+        "preAttackDelayMs": 900
+      },
+      "images": {
+        "button": "UIGuldurTrapper",
+        "portrait": "UPGuldurTrapper"
+      }
+    },
+    {
+      "slug": "guldur-entwife",
+      "object": "GuldurEntwife",
+      "name": "Ent-mujer Corrompida",
+      "category": "siege",
+      "recruitedAt": "Fuente de Corrupción nivel 3",
+      "requirements": null,
+      "cost": 650,
+      "cp": 60,
+      "health": 1650,
+      "buildTime": 40,
+      "armourSet": "EntArmor",
+      "attackType": "Asedio (cuerpo a cuerpo, en área)",
+      "maxCount": 8,
+      "strongAgainst": ["structures", "swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Durante la Guerra de la Última Alianza, Sauron incendió las Tierras Pardas, que durante mucho tiempo habían sido el hogar de las Ents-mujeres. La mayoría pereció en el infierno, pero algunas fueron capturadas por las Fuerzas Oscuras y posteriormente corrompidas.",
+      "abilities": [
+        {
+          "name": "Inoculación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Decadencia Lenta de la magia del Nigromante no afecta a los que ya han sido consumidos por ella."
+        },
+        {
+          "name": "Bellota Tumoral",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una vez que las Ents-mujeres son asesinadas, sueltan una. Bellota Tumoral, que hará reaparecer a la Ents-mujeres si se la deja sola."
+        },
+        {
+          "name": "Botánica Retorcida",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las Ents-mujeres recuperan salud fuera de combate.\n\nLas Ents-mujeres pueden entrar en la Fuente para otorgarle un 30% de producción de recursos."
+        }
+      ],
+      "upgrades": [],
+      "damage": 350,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1000,
+      "attackRange": 30,
+      "speed": 65,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 500,
+        "attackRadius": 50,
+        "preAttackDelayMs": 733
+      },
+      "images": {
+        "button": "UIGuldurEntwife",
+        "portrait": "UPGuldurEntwife"
+      }
+    },
+    {
+      "slug": "guldur-broken-rabble",
+      "object": "GuldurBrokenRabbleHorde",
+      "name": "Gentuza Rota",
+      "category": "swordsmen",
+      "recruitedAt": "Prisión de Guldur",
+      "requirements": null,
+      "cost": 100,
+      "cp": 45,
+      "health": 100,
+      "buildTime": 25,
+      "armourSet": "BrokenRabbleArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["pikemen"],
+      "weakAgainst": [],
+      "description": "Horda formada por elfos, hombres del bosque y enanos torturados y esclavizados.\n\n'Los sirvientes del Nigromante cazaban y atrapaban a innumerables vagabundos en los alrededores sur del Bosque Negro. Torturados y destrozados, fueron enviados con las legiones de Dol Guldur, para hacer la guerra a sus antiguos amigos y familiares.'",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son drenadas continuamente por la magia del Nigromante, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Oscura de las estructuras cercanas de Dol Guldur y el Nigromante."
+        },
+        {
+          "name": "Servidumbre Eterna",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cada unidad asesinada se reanima como un Muerto Resucitado. El Muerto Resucitado no sufre la corrupción del Nigromante."
+        },
+        {
+          "name": "Reparar Estructura",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Reparar un edificio dañado."
+        }
+      ],
+      "upgrades": [],
+      "damage": 50,
+      "damageType": "SLASH",
+      "attackDelayMs": 1200,
+      "attackRange": 12,
+      "speed": 55,
+      "battalionSize": 15,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 400
+      },
+      "images": {
+        "button": "UIGuldurBrokenRabble",
+        "portrait": "UPGuldurBrokenRabble"
+      }
+    },
+    {
+      "slug": "guldur-orc-pikeman",
+      "object": "GuldurOrcPikemanHorde",
+      "name": "Carceleros Orcos",
+      "category": "pikemen",
+      "recruitedAt": "Prisión de Guldur",
+      "requirements": null,
+      "cost": 225,
+      "cp": 60,
+      "health": 125,
+      "buildTime": 25,
+      "armourSet": "GuldurPikeArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "Se pueden ocultar tras los árboles.\n\nA los carceleros de Dol Guldur no se les otorgan destinos mucho mejores que aquellos a los que capturan. Al final, todos deben doblegarse ante el poder oscuro del Nigromante.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son drenadas continuamente por la magia del Nigromante, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Oscura de las estructuras cercanas de Dol Guldur y el Nigromante."
+        },
+        {
+          "name": "Nigromancia",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convierte la horda en Muertos Resucitados."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 35,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 25,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIGuldurOrcGaoler",
+        "portrait": "UPGuldurOrcGaoler"
+      }
+    },
+    {
+      "slug": "guldur-orc-archer",
+      "object": "GuldurOrcArcherHorde",
+      "name": "Cazadores Orcos",
+      "category": "archers",
+      "recruitedAt": "Prisión de Guldur",
+      "requirements": null,
+      "cost": 225,
+      "cp": 60,
+      "health": 125,
+      "buildTime": 25,
+      "armourSet": "GuldurArcherArmor",
+      "attackType": "Perforante (flechas) (a distancia)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Se pueden ocultar tras los árboles.\n\nCuando el mal se agita, los orcos se juntan como polillas a una llama. No tardaron mucho en responder la llamada de su maestro y marchar hacia el sur de Bosque Negro.",
+      "abilities": [
+        {
+          "name": "Bombardear",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Bombardea continuamente el área objetivo con una descarga de proyectiles."
+        },
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son drenadas continuamente por la magia del Nigromante, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Oscura de las estructuras cercanas de Dol Guldur y el Nigromante."
+        },
+        {
+          "name": "Nigromancia",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convierte la horda en Muertos Resucitados."
+        },
+        {
+          "name": "¡Derríbalo!",
+          "level": 2,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Durante 20 segundos, los Cazadores Orcos obtienen +85% de daño contra monstruos y unidades voladoras."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Flechas de Fuego-cadáver",
+          "cost": 300,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Flechas de Fuego-cadáver. Incrementa significativamente el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2 y desbloquea la habilidad ¡Derríbalo! Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 20,
+      "damageType": "PIERCE",
+      "attackDelayMs": null,
+      "attackRange": 320,
+      "speed": 55,
+      "battalionSize": 20,
+      "stats": {
+        "visionRange": 375,
+        "preAttackDelayMs": 1000
+      },
+      "images": {
+        "button": "UIGuldurOrcArcher",
+        "portrait": "UPGuldurOrcArcher"
+      }
+    },
+    {
+      "slug": "guldur-orc-ravager",
+      "object": "GuldurOrcRavagerHorde",
+      "name": "Orcos Devastadores",
+      "category": "swordsmen",
+      "recruitedAt": "Prisión de Guldur nivel 2",
+      "requirements": null,
+      "cost": 600,
+      "cp": 72,
+      "health": 920,
+      "buildTime": 40,
+      "armourSet": "OrcRavagerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "El Nigromante tomó un interés especial en los más grande y duros de sus secuaces, maldiciéndoles con magia y convirtiéndoles en cáscaras sin sentido e imparables, adaptadas estrictamente a su voluntad.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son drenadas continuamente por la magia del Nigromante, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Oscura de las estructuras cercanas de Dol Guldur y el Nigromante."
+        },
+        {
+          "name": "Apetito por la Destrucción",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Orcos Devastadores infligen daño por derribo y recuperan salud por impacto contra estructuras durante 20 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 210,
+      "damageType": "SLASH",
+      "attackDelayMs": 600,
+      "attackRange": 20,
+      "speed": 55,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 7,
+        "preAttackDelayMs": 433
+      },
+      "images": {
+        "button": "UIGuldurOrcRavager",
+        "portrait": "UPGuldurOrcRavager"
+      }
+    },
+    {
+      "slug": "guldur-tomb-guard",
+      "object": "GuldurTombGuardHorde",
+      "name": "Guardias de la Tumba",
+      "category": "pikemen",
+      "recruitedAt": "Prisión de Guldur nivel 3",
+      "requirements": null,
+      "cost": 800,
+      "cp": 80,
+      "health": 625,
+      "buildTime": 40,
+      "armourSet": "TombGuardArmor",
+      "attackType": "Pica (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["cavalry"],
+      "weakAgainst": [],
+      "description": "En Amon Lanc se excavaron muchos túneles oscuros y tumbas para albergar a los súbditos del Nigromante y mantenerlos ocultos de las miradas indiscretas del Consejo Blanco. Estaban custodiados por antiguos orcos de mente singular, podridos y descompuestos.",
+      "abilities": [
+        {
+          "name": "Decadencia Lenta",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades son drenadas continuamente por la magia del Nigromante, perdiendo salud lentamente con el tiempo. La Decadencia Lenta puede ser contrarrestada por la Presencia Oscura de las estructuras cercanas de Dol Guldur y el Nigromante."
+        },
+        {
+          "name": "Deber Pesado",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando muere un Guardia de la Tumba, los guardias cercanos ganan +15% de armadura durante 8 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Estandartes Negros",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 110,
+      "damageType": "SPECIALIST",
+      "attackDelayMs": 900,
+      "attackRange": 36,
+      "speed": 55,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 600
+      },
+      "images": {
+        "button": "UIGuldurTombGuard",
+        "portrait": "UPGuldurTombGuard"
+      }
+    },
+    {
+      "slug": "guldur-fell-brood",
+      "object": "GuldurFellBroodHorde",
+      "name": "Prole Arácnida",
+      "category": "cavalry",
+      "recruitedAt": "Guarida de Arañas",
+      "requirements": null,
+      "cost": 450,
+      "cp": 70,
+      "health": 320,
+      "buildTime": 30,
+      "armourSet": "FellBroodArmor",
+      "attackType": "Carga (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry"],
+      "weakAgainst": [],
+      "description": "Pueden ocultarse tras los árboles. Bonificación de Enjambre Chillón. Toda la Prole Cruel obtiene +25% de daño y +25% de armadura cuando se reúne en grupos de 30 o más.\n\nEstas inmundas criaturas eran la progenie de Saenathra y, aunque no eran tan grandes como su matriarca, aún podían sorprender a los viajeros incautos y darse un festín con su carne.",
+      "abilities": [
+        {
+          "name": "Inoculación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Decadencia Lenta de la magia del Nigromante no afecta a los que ya han sido consumidos por ella."
+        },
+        {
+          "name": "Enjambre Chirriante",
+          "level": null,
+          "hotkey": null,
+          "kind": "active",
+          "description": "Bonificaciones de Horda. Todas las Crías de Arañas obtienen +25% de daño y armadura cuando se reúnen en grupos de 30 unidades o más."
+        },
+        {
+          "name": "Chillido",
+          "level": 2,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La caballería enemiga cercana se aterroriza. También disminuye pasivamente la velocidad de la caballería en -15%."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Sacos de Veneno",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Sacos de Veneno. Incrementa el daño de la Prole Arácnida en un 25%. Inflige veneno a los enemigos causándoles daño en el tiempo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Matriarca",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 95,
+      "damageType": "CAVALRY",
+      "attackDelayMs": 1666,
+      "attackRange": 25,
+      "speed": 105,
+      "battalionSize": 10,
+      "stats": {
+        "visionRange": 175,
+        "preAttackDelayMs": 900
+      },
+      "images": {
+        "button": "UIGuldurBrood",
+        "portrait": "UPGuldurBrood"
+      }
+    },
+    {
+      "slug": "guldur-great-spider",
+      "object": "GuldurGreatSpider",
+      "name": "Hermana de Saenathra",
+      "category": "siege",
+      "recruitedAt": "Guarida de Arañas nivel 2",
+      "requirements": null,
+      "cost": 575,
+      "cp": 50,
+      "health": 2750,
+      "buildTime": 35,
+      "armourSet": "SpiderSisterArmor",
+      "attackType": "Asedio (cuerpo a cuerpo)",
+      "maxCount": null,
+      "strongAgainst": ["infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Una simple araña gigante que pisotea las unidades enemigas y causa un poderoso daño de asedio.",
+      "abilities": [
+        {
+          "name": "Inoculación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "La Decadencia Lenta de la magia del Nigromante no afecta a los que ya han sido consumidos por ella."
+        },
+        {
+          "name": "Madriguera",
+          "level": 2,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Permite a la Araña hacer un túnel bajo el suelo y emerger en cualquier ubicación."
+        },
+        {
+          "name": "Telarañas Envolventes",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Inhabilita las estructuras enemigas e inflige daño leve durante 20 segundos."
+        },
+        {
+          "name": "Recuperación Monstruosa",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades monstruosas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 250,
+      "damageType": "SIEGE",
+      "attackDelayMs": 1666,
+      "attackRange": 25,
+      "speed": 90,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 18,
+        "preAttackDelayMs": 900
+      },
+      "images": {
+        "button": "UIGuldurSister",
+        "portrait": "UPGuldurSister"
+      }
+    },
+    {
+      "slug": "guldur-castellan",
+      "object": "GuldurCastellan",
+      "name": "Castellano Acorazado",
+      "category": "monster",
+      "recruitedAt": "Torre de Hechicería nivel 2",
+      "requirements": null,
+      "cost": 1000,
+      "cp": 45,
+      "health": 2500,
+      "buildTime": 25,
+      "armourSet": "CastellanArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["swordsmen", "archers"],
+      "weakAgainst": [],
+      "description": "Sin nombre y sin voluntad propia, los temidos Castellanos Acorazados de Dol Guldur están eternamente atados a las órdenes del Señor Oscuro.",
+      "abilities": [
+        {
+          "name": "Castellano de Dol Guldur",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente.\n\nLas estructuras aliadas cercanas ganan +25% de armadura. Las unidades enemigas atacantes quedan envenenadas y pierden -15% de armadura durante 5 segundos."
+        },
+        {
+          "name": "Incorpóreo",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "El Castellano Acorazado se vuelve inmune al daño durante 30 segundos, pero no puede moverse ni atacar."
+        },
+        {
+          "name": "Explosión Nigromántica",
+          "level": 7,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades enemigas son lanzadas recibiendo daño. Las unidades asesinadas se convierten en espectros."
+        },
+        {
+          "name": "Recuperación Indebida",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades heroicas recuperan salud fuera de combate."
+        }
+      ],
+      "upgrades": [],
+      "damage": 150,
+      "damageType": "HERO",
+      "attackDelayMs": 997,
+      "attackRange": 12,
+      "speed": 40,
+      "battalionSize": null,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 15,
+        "preAttackDelayMs": 633
+      },
+      "images": {
+        "button": "UIGuldurCastellan",
+        "portrait": "UPGuldurCastellan"
+      }
+    },
+    {
+      "slug": "guldur-harbinger",
+      "object": "GuldurHarbingerHorde",
+      "name": "Heraldos de la Sombra",
+      "category": "swordsmen",
+      "recruitedAt": "Torre de Hechicería nivel 3",
+      "requirements": null,
+      "cost": 750,
+      "cp": 88,
+      "health": 450,
+      "buildTime": 35,
+      "armourSet": "DGHarbingerArmor",
+      "attackType": "Espada (cuerpo a cuerpo)",
+      "maxCount": 3,
+      "strongAgainst": ["heroes", "infantry", "structures"],
+      "weakAgainst": [],
+      "description": "Unidad Especializada.\n\nDurante el largo escondite de Sauron en las misteriosas tierras del Este, atrajo a un oscuro grupo de hechiceros y señores de la brujería. Estos hombres malvados crecieron aprendiendo las artes oscuras de Morgoth, con el tiempo se transformarían en los Heraldos de la Sombra que seguirían a Sauron en su viaje de regreso a las tierras de sus más acérrimos enemigos.",
+      "abilities": [
+        {
+          "name": "Podredumbre Profunda",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Se puede lanzar sobre una estructura para infligir daño durante 15 segundos. En el rango 3, genera varios Espectros incontrolables alrededor de la estructura objetivo. Estos Espectros duran poco tiempo pero pueden convertir a unidades enemigas en Espectros."
+        },
+        {
+          "name": "Acero Helado",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los ataques de los Heraldos reducen pasivamente la armadura -15% y la velocidad de movimiento -10% por impacto. El maleficio no se acumula consigo mismo."
+        },
+        {
+          "name": "Toque Fulminante",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Las unidades dentro del radio reciben daño en el tiempo durante 20 segundos. Afecta tanto a enemigos como aliados. Los Muertos Resucitados son inmunes."
+        },
+        {
+          "name": "Armadura Serrada",
+          "level": 3,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una pequeña cantidad del daño cuerpo a cuerpo recibido se refleja en el atacante."
+        },
+        {
+          "name": "Endurecido por la Guerra",
+          "level": 4,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Los Espadachines del Gran Khân obtienen +50% de armadura y resistencia al miedo y al terror durante 30 segundos."
+        }
+      ],
+      "upgrades": [
+        {
+          "name": "Armadura de Acero Dentado",
+          "cost": 250,
+          "hotkey": "T",
+          "level": null,
+          "description": "Mejora esta horda con Armadura de Acero Dentado. Reduce significativamente la cantidad de daño recibido.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Cuchillas Crueles",
+          "cost": 250,
+          "hotkey": "C",
+          "level": null,
+          "description": "Mejora esta horda con Cuchillas Crueles. Incrementa el daño infligido por las armas cuerpo a cuerpo.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Estandartes del Ojo Rojo",
+          "cost": 100,
+          "hotkey": "V",
+          "level": null,
+          "description": "Incrementa la horda al Nivel 2. Sólo se puede equipar en el Nivel 1.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        }
+      ],
+      "damage": 200,
+      "damageType": "SLASH",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 60,
+      "battalionSize": 8,
+      "stats": {
+        "visionRange": 175,
+        "attackRadius": 5,
+        "preAttackDelayMs": 500
+      },
+      "images": {
+        "button": "UIGuldurHarbinger",
+        "portrait": "UPGuldurHarbinger"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "slug": "guldur-thrain",
+      "object": "GuldurThrain",
+      "name": "Thráin el Roto",
+      "title": "Enano Roto",
+      "recruitedAt": "Fortaleza",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 500,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "El otrora orgulloso hijo de Thrór fue capturado cerca de las Lindes del Bosque Negro en su búsqueda para recuperar las riquezas de Erebor, llevado a las Calabozo de Dol Guldur y torturado durante largas décadas hasta que finalmente se rompió.",
+      "abilities": [
+        {
+          "name": "Disminuido",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Thráin no es más que una delgada sombra de su antiguo ser, y es capaz de escabullirse sin que nadie lo note. Cuando se activa, Thráin se vuelve invisible y no puede atacar ni ser atacado durante 30 segundos."
+        },
+        {
+          "name": "Huésped Cautivo",
+          "level": 2,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "La Gentuza Rota cercana a Thráin obtiene +50% de experiencia y +35% de armadura."
+        },
+        {
+          "name": "Sin Escape",
+          "level": 5,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Cuando Thráin tiene poca salud, se vuelve invulnerable, pero no puede atacar durante 15 segundos. No se puede volver a activar durante 60 segundos."
+        },
+        {
+          "name": "Recuerdos Oscuros",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "La Gentuza Rota objetivo obtiene una gran experiencia."
+        }
+      ],
+      "damage": 110,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 60,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGuldurThrain",
+        "portrait": "HEGuldurThrain"
+      }
+    },
+    {
+      "slug": "guldur-krimpul",
+      "object": "GuldurKrimpul",
+      "name": "Krimpûl el Torturador",
+      "title": "Un orco de expecional crueldad",
+      "recruitedAt": "Fortaleza",
+      "cost": 1400,
+      "buildTime": 50,
+      "health": 2600,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Krimpûl se elevó sin piedad a través de las filas de la guarnición de orcos de Dol Guldur, hasta que su Lugarteniente finalmente se dio cuenta y lo puso a trabajar en un lugar donde sus talentos podrían llegar a buen término.",
+      "abilities": [
+        {
+          "name": "Jefe Orco",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un batallón de Carceleros Orcos. En el rango 3, incluye un batallón adicional de Cazadores Orcos. En el rango 7, incluye un batallón adicional de Orcos Devastadores."
+        },
+        {
+          "name": "Orden del Amo",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Krimpûl ha recibido la tarea de recuperar los Anillos de Poder. Inflige +33% de daño adicional contra Gandalf el Blanco, Elrond, Galadriel y Thorin Escudo de Roble. En el rango 3, sus golpes también reducen la armadura de los enemigos un 20%."
+        },
+        {
+          "name": "Amo de la Mazmorra",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Convoca una pequeña prisión que arroja Presencia Oscura y puede reclutar Gentuza Rota."
+        },
+        {
+          "name": "Aprisionar",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Krimpûl incapacita a un héroe enemigo durante 15 segundos. Hace que las unidades enemigas circundantes se acobarden de miedo."
+        }
+      ],
+      "damage": 160,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 20,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGuldurKrimpul",
+        "portrait": "HEGuldurKrimpul"
+      }
+    },
+    {
+      "slug": "guldur-cargast",
+      "object": "GuldurCargast",
+      "name": "Cargást",
+      "title": "Señor de los Túmulos",
+      "recruitedAt": "Fortaleza",
+      "cost": 1800,
+      "buildTime": 50,
+      "health": 2800,
+      "armourSet": "HeroArmor",
+      "attackType": "Héroe (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "Un gran rey de Rhovanion en vida, Cargást ha olvidado por mucho tiempo su verdadero nombre. Fue uno de los primeros en levantarse cuando el Nigromante descubrió los túmulos de sus parientes, para servir a su amo con un fervor oscuro.",
+      "abilities": [
+        {
+          "name": "Señor de los Túmulos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Los enemigos cercanos son ralentizados pasivamente un 15%. El radio de este efecto se incrementa con cada nivel.\n\nSe puede activar para infligir un golpe contundente a un enemigo, drenándole vida y derribándolo."
+        },
+        {
+          "name": "Marcha de los Muertos",
+          "level": 3,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Cargást gana permanentemente +15% de velocidad de movimiento.\n\nLas unidades aliadas cercanas ganan +15% de velocidad de movimiento y +50% de experiencia."
+        },
+        {
+          "name": "Tesoro Maldecido",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "La estructura objetivo gana +100% más de recursos, pero todas las unidades cercanas pierden -15% de armadura durante 30 segundos. Puede apuntar a estructuras de recursos enemigas."
+        },
+        {
+          "name": "Hechizos de los Túmulos",
+          "level": 7,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Los enemigos objetivos se acobardan de miedo. Cualquier Muerto Resucitado cerca de Cargást inflige +50% de daño durante 20 segundos."
+        },
+        {
+          "name": "Despertar Oscuro",
+          "level": 10,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Cargást invoca lenta pero continuamente. Guerreros Inquietos temporales y únicos de la tierra durante 60 segundos."
+        }
+      ],
+      "damage": 500,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 50,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGuldurCargast",
+        "portrait": "HEGuldurCargast"
+      }
+    },
+    {
+      "slug": "guldur-saenathra",
+      "object": "GuldurSaenathra",
+      "name": "Reina Saenathra",
+      "title": "Mayor hija de Ella-Laraña",
+      "recruitedAt": "Fortaleza",
+      "cost": 2000,
+      "buildTime": 60,
+      "health": 4300,
+      "armourSet": "SaenathraArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "",
+      "abilities": [
+        {
+          "name": "Madriguera",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Permite a Saenathra excavar un túnel bajo el suelo y emerger en cualquier localización."
+        },
+        {
+          "name": "¡Festín, Mis Niños!",
+          "level": 3,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Las unidades enemigas dentro del radio se ralentizan un 33%. Saenathra y las arañas aliadas en el radio infligen +50% de daño. La habilidad dura 30 segundos.\n\nEn el rango 6, también convoca una horda de Prole Arácnida."
+        },
+        {
+          "name": "Telarañas de Mentiras",
+          "level": 5,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Hace que las unidades objetivo se vuelvan hostiles entre sí durante 15 segundos."
+        },
+        {
+          "name": "Hambre Infinita",
+          "level": 8,
+          "hotkey": "C",
+          "kind": "passive",
+          "description": "Al igual que Ungoliant, Saenathra posee un hambre insaciable de carne y objetos preciosos. Saenathra puede moverse por terreno infranqueable, y roba recursos cuando inflige daño a unidades y estructuras enemigas.\n\nCuando se activa, Saenathra recupera un 30% de salud."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1666,
+      "attackRange": 25,
+      "speed": 90,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGuldurSaenathra",
+        "portrait": "HEGuldurSaenathra"
+      }
+    },
+    {
+      "slug": "guldur-khamul",
+      "object": "GuldurKhamul",
+      "name": "Khamûl",
+      "title": "Sombra del Este",
+      "recruitedAt": "Fortaleza",
+      "cost": 2200,
+      "buildTime": 60,
+      "health": 2700,
+      "armourSet": "DismountedKhamulArmor",
+      "attackType": "Héroe (cuerpo a cuerpo)",
+      "isRing": false,
+      "description": "Khamûl, antaño un gran rey de los Páramos del Este, fue atrapado por Sauron a través de uno de sus Grandes Anillos. Durante muchos siglos Khamûl ha servido, realizando actos de gran terror y crueldad con solemne dedicación a su Maestro.",
+      "abilities": [
+        {
+          "name": "Los Nueve están en el Extranjero",
+          "level": 2,
+          "hotkey": "W",
+          "kind": "passive",
+          "description": "Mientras más Nazgûl se reúnen, su fuerza crece +10% de daño y armadura por cada Espectro del Anillo cercano.\n\nLas unidades enemigas cercanas sufren. -25% de daño y -20% de armadura."
+        },
+        {
+          "name": "Chillido",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Hace huir despavoridas a las unidades enemigas."
+        },
+        {
+          "name": "Lugarteniente de Dol Guldur",
+          "level": 3,
+          "hotkey": null,
+          "kind": "leadership",
+          "description": "Khamûl asume su papel como Lugarteniente de Dol Guldur. Las unidades aliadas cercanas obtienen +33% de daño.\n\nEn el rango 5, Khamûl se pone su armadura, lo que le otorga +25% de armadura y hace que las unidades enemigas cercanas sufran daño con el tiempo."
+        },
+        {
+          "name": "Protector Letal",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Cuando se activa, coloca un Círculo Rúnico alrededor de Khamûl. Las unidades aliadas dentro del Círculo Rúnico obtienen +75% de armadura al daño a Distancia, Fuego, Escarcha y Magia durante 60 segundos."
+        },
+        {
+          "name": "El Oriental Negro",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "Khamûl y las unidades aliadas cercanas obtienen +75% de daño y +20% de velocidad, pero pierden -25% de armadura y no ganan experiencia durante 20 segundos. También invoca a cuatro Guardias Malditos."
+        }
+      ],
+      "damage": 300,
+      "damageType": "HERO",
+      "attackDelayMs": 1000,
+      "attackRange": 12,
+      "speed": 55,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGuldurKhamul",
+        "portrait": "HEGuldurKhamul"
+      }
+    },
+    {
+      "slug": "guldur-necromancer",
+      "object": "GuldurNecromancer",
+      "name": "El Nigromante",
+      "title": "Presencia Oscura que se esconde en las ruinas embrujadas de Dol Guldur",
+      "recruitedAt": "Fortaleza",
+      "cost": 2500,
+      "buildTime": 60,
+      "health": 3000,
+      "armourSet": "GuldurNecromancerArmor",
+      "attackType": "Magia (cuerpo a cuerpo, en área)",
+      "isRing": false,
+      "description": "'Un Poder Oscuro habita allí, como nunca antes había sentido. Es la sombra de un antiguo horror, uno que puede convocar a los espíritus de los muertos. Lo vi, Gandalf, desde la oscuridad. Un Nigromante ha llegado.'",
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, se vuelven resistentes al miedo y al terror, reciben +15% de daño y armadura y se curan ligeramente. En el nivel 4 las unidades reciben +25% de daño y armadura. En el nivel 8 las unidades reciben +33% de daño y armadura."
+        },
+        {
+          "name": "Señor de los Lobos",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Invoca un Gran Huargo Negro. Máximo tres pueden salir en cualquier momento. No se puede usar mientras se usa Malicia Sin Forma."
+        },
+        {
+          "name": "El Temor Aborrecido",
+          "level": 3,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "El Nigromante lanza un hechizo nigromántico sobre los enemigos que se encuentren en un radio determinado, infligiendo un gran daño y resucitando a los muertos como Muertos Resucitados bajo el control del jugador. En el rango 5, se puede lanzar sobre Túmulos Inquietos para invocar una horda de Guerreros Inquietos - respeta el límite de puntos de mando. En el rango 6, daño incrementado. En el rango 10, daño incrementado. No se puede usar mientras se usa Malicia Sin Forma."
+        },
+        {
+          "name": "Malicia Sin Forma",
+          "level": 5,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "El Nigromante se vuelve incorpóreo, permitiéndole moverse rápidamente a través del mapa mientras aterroriza a las unidades enemigas cercanas. Malicia Sin Forma no le permite atacar."
+        },
+        {
+          "name": "Envuelto en Llamas",
+          "level": 8,
+          "hotkey": "V",
+          "kind": "active",
+          "description": "El Nigromante estalla en llamas, derribando a los enemigos y prendiendo fuego al área circundante. No se puede usar mientras se usa Malicia Sin Forma."
+        },
+        {
+          "name": "Presencia Temible",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, se vuelven resistentes al miedo y al terror, reciben +33% de daño y armadura y se curan ligeramente. Inflige daño a los enemigos cercanos."
+        },
+        {
+          "name": "El Señor de los Nueve",
+          "level": null,
+          "hotkey": "R",
+          "kind": "active",
+          "description": "Invoca un Espectro del Anillo. Máximo tres pueden salir en cualquier momento."
+        }
+      ],
+      "damage": 400,
+      "damageType": "MAGIC",
+      "attackDelayMs": 1833,
+      "attackRange": 12,
+      "speed": 45,
+      "stats": {
+        "visionRange": 175
+      },
+      "images": {
+        "button": "HIGuldurNecromancer",
+        "portrait": "HEGuldurNecromancer"
+      }
+    }
+  ],
+  "structures": [
+    {
+      "slug": "guldur-fortress-citadel",
+      "object": "GuldurFortressCitadel",
+      "name": "Fortaleza",
+      "kind": "fortress",
+      "cost": 5000,
+      "buildTime": 120,
+      "health": 7500,
+      "healthByLevel": [],
+      "armourSet": "FortressArmor",
+      "maxCount": 5,
+      "description": null,
+      "produces": ["Sombra Atada"],
+      "upgrades": [
+        {
+          "name": "Enjambre de Murciélagos",
+          "cost": 500,
+          "hotkey": "W",
+          "level": null,
+          "description": "La Fortaleza obtiene una bonificación de visión y puede detectar unidades con sigilo.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Palantír de Guldur",
+          "cost": 600,
+          "hotkey": "E",
+          "level": null,
+          "description": "Se puede lanzar para revelar parte del mapa. Las unidades enemigas atrapadas en el radio reciben daños menores con el tiempo.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Intrusión Oscura",
+          "cost": 650,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reduce permanentemente todos los costes de estructura en un 33%. No afecta a la fortaleza.",
+          "stats": {
+            "researchTimeS": 15
+          }
+        },
+        {
+          "name": "Antorchas Pálidas",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": null,
+          "description": "Agrega daño de fuego a la Fortaleza y a todas las Ruinas Inquietas adjuntas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Plaga",
+          "cost": 1500,
+          "hotkey": "S",
+          "level": null,
+          "description": "Requisito previo para la Colina de la Hechicería. Las unidades enemigas cercanas a la Fortaleza reciben daño y se convierten en Espectros tras su muerte.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Colina de la Hechicería",
+          "cost": 2000,
+          "hotkey": "D",
+          "level": null,
+          "description": "Incrementa la armadura de la Fortaleza un 65%. Permite usar la habilidad Entrampar. Entrampar toma el control de las unidades enemigas dentro del radio durante 30 segundos. Cuando se agota Entrampar, los enemigos atrapados reciben daño.",
+          "stats": {
+            "researchTimeS": 60
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Palantír de Guldur",
+          "level": null,
+          "hotkey": "T",
+          "kind": "active",
+          "description": "Se puede lanzar para revelar parte del mapa durante 2 minutos. Las unidades enemigas atrapadas en el radio sufren daños menores con el tiempo."
+        },
+        {
+          "name": "Entrampar",
+          "level": null,
+          "hotkey": "S",
+          "kind": "active",
+          "description": "Entrampar toma el control de las unidades enemigas dentro del radio durante 30 segundos. Los enemigos atrapados son invulnerables, pero cuando el hechizo se agota, reciben daño."
+        },
+        {
+          "name": "Nube de Murciélago",
+          "level": null,
+          "hotkey": "C",
+          "kind": "active",
+          "description": "Inflige pequeñas cantidades de daño y detecta unidades en sigilo."
+        }
+      ],
+      "images": {
+        "button": "BIGuldurFortress",
+        "portrait": "BPGuldurFortress"
+      }
+    },
+    {
+      "slug": "guldur-slave-mill",
+      "object": "GuldurSlaveMill",
+      "name": "Molino Esclavo",
+      "kind": "economy",
+      "cost": 300,
+      "buildTime": 15,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "ResourceArmor",
+      "maxCount": null,
+      "description": "Proporciona miseria como un recurso basado en el terreno disponible. Puede generar hordas de Gentuza Rota. Reduce el coste de orcos básicos. Incrementa los puntos de mando en 50 unidades.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Infestación",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un enjambre de arañas alrededor de la estructura durante 30 segundos que ralentiza la velocidad de ataque y movimiento de los enemigos cercanos un 10% e inflige daño leve a los enemigos cercanos."
+        },
+        {
+          "name": "Refrescar Esclavos",
+          "level": 2,
+          "hotkey": "E",
+          "kind": "active",
+          "description": "Convoca permanentemente a una horda de Gentuza Rota. Respeta el límite de puntos de mando. La producción de recursos se detiene durante 60 segundos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurMill"
+      }
+    },
+    {
+      "slug": "guldur-fount-of-corruption",
+      "object": "GuldurFountOfCorruption",
+      "name": "Fuente de Corrupción",
+      "kind": "economy",
+      "cost": 450,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Proporciona corrupción como un recurso basado en el terreno disponible. Entrena Tramperos Marchitos y Ents-mujeres Corrompidas. Reduce el coste de las arañas. Incrementa los puntos de mando en 50 unidades.",
+      "produces": ["Tramperos Marchitos", "Ent-mujer Corrompida"],
+      "upgrades": [
+        {
+          "name": "Fuente de Corrupción al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Incrementa la producción de recursos. Permite entrenar a Tramperos Marchitos.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Fuente de Corrupción al Nivel 3",
+          "cost": 600,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Incrementa la producción de recursos. Permite entrenar a Ents-mujeres Corrompidas. La Plaga rodea la zona de la Fuente.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Infestación",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un enjambre de arañas alrededor de la estructura durante 30 segundos que ralentiza la velocidad de ataque y movimiento de los enemigos cercanos un 10% e inflige daño leve a los enemigos cercanos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurFount"
+      }
+    },
+    {
+      "slug": "guldur-gaol",
+      "object": "GuldurGaol",
+      "name": "Prisión de Guldur",
+      "kind": "production",
+      "cost": 300,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Entrena Gentuza Rota y unidades de Orcos.",
+      "produces": [
+        "Gentuza Rota",
+        "Carceleros Orcos",
+        "Cazadores Orcos",
+        "Orcos Devastadores",
+        "Guardias de la Tumba"
+      ],
+      "upgrades": [
+        {
+          "name": "Investigar Estandartes Negros",
+          "cost": 400,
+          "hotkey": "F",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora Estandartes Negros. Incrementa la horda al Nivel 2.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Investigar Flechas de Fuego-cadáver",
+          "cost": 1000,
+          "hotkey": "G",
+          "level": null,
+          "description": "Permite a las hordas adquirir la mejora de Flechas de Fuego-cadáver. Cuando está equipado, incrementa significativamente el daño de las flechas. Mejorará todas las patrullas y los arqueros de la torre al instante una vez comprada la mejora.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Prisión de Guldur al Nivel 2",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a Orcos Devastadores e investigar la mejora Flechas de Fuego-cadáver +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 40
+          }
+        },
+        {
+          "name": "Prisión de Guldur al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite entrenar a los Guardias de la Tumba. Añade una torre defensiva de flechas +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Infestación",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un enjambre de arañas alrededor de la estructura durante 30 segundos que ralentiza la velocidad de ataque y movimiento de los enemigos cercanos un 10% e inflige daño leve a los enemigos cercanos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurGaol"
+      }
+    },
+    {
+      "slug": "guldur-spider-lair",
+      "object": "GuldurSpiderLair",
+      "name": "Guarida de Arañas",
+      "kind": "production",
+      "cost": 400,
+      "buildTime": 30,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Entrena y mejora Arañas.",
+      "produces": ["Prole Arácnida", "Hermana de Saenathra"],
+      "upgrades": [
+        {
+          "name": "Guarida de Arañas al Nivel 2",
+          "cost": 400,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite entrenar a las Hermanas de Saenathra +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        },
+        {
+          "name": "Guarida de Arañas al Nivel 3",
+          "cost": 350,
+          "hotkey": "A",
+          "level": 3,
+          "description": "+25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 45
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Infestación",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Una vez construidas, las Guaridas de Arañas permiten a la mayoría de las estructuras utilizar el poder de Infestación. La Infestación convoca un enjambre de arañas alrededor de una estructura que ralentiza un 10% la velocidad de ataque y movimiento de los enemigos cercanos e inflige daño leve."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurSpiderLair"
+      }
+    },
+    {
+      "slug": "guldur-sorcery-tower",
+      "object": "GuldurSorceryTower",
+      "name": "Torre de Hechicería",
+      "kind": "production",
+      "cost": 900,
+      "buildTime": 45,
+      "health": 3000,
+      "healthByLevel": [],
+      "armourSet": "FactoryArmor",
+      "maxCount": null,
+      "description": "Entrena unidades especializadas. Daña a los enemigos cercanos y los convierte en espectros al morir. Garantiza acceso a la mejora Nigromancia.",
+      "produces": ["Castellano Acorazado", "Heraldos de la Sombra"],
+      "upgrades": [
+        {
+          "name": "Gran Plaga",
+          "cost": 1000,
+          "hotkey": "T",
+          "level": 3,
+          "description": "Incrementa enormemente el radio de acción de la Plaga, dañando a los enemigos cercanos y convirtiéndoles en espectros tras su muerte.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Torre de Hechicería al Nivel 2",
+          "cost": 750,
+          "hotkey": "A",
+          "level": 2,
+          "description": "Permite el uso de la Plaga y el entrenamiento de Castellanos Acorazados +10% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 50
+          }
+        },
+        {
+          "name": "Torre de Hechicería al Nivel 3",
+          "cost": 500,
+          "hotkey": "A",
+          "level": 3,
+          "description": "Permite investigar la mejora Gran Plaga y el entrenamiento de los Heraldos de la Sombra +25% de velocidad de construcción.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Nigromancia",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Los Cazadores y Carceleros Orcos pueden convertirse en Muertos Resucitados, tropas de choque de rápido movimiento que no sufren la corrupción del Nigromante. También genera Muertos Resucitados para defender las estructuras de Dol Guldur."
+        },
+        {
+          "name": "Plaga",
+          "level": 2,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades enemigas que rodean la Almenara reciben daño y se convierten en Espectros al morir."
+        },
+        {
+          "name": "Infestación",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Convoca un enjambre de arañas alrededor de la estructura durante 30 segundos que ralentiza la velocidad de ataque y movimiento de los enemigos cercanos un 10% e inflige daño leve a los enemigos cercanos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurSpire"
+      }
+    },
+    {
+      "slug": "guldur-ruinous-tower",
+      "object": "GuldurRuinousTower",
+      "name": "Torre Ruinosa",
+      "kind": "production",
+      "cost": 50,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Torre defensiva que dispara flechas a los enemigos cercanos. Oculto tras los árboles. Reduce el coste de las Sombras.",
+      "produces": ["Sombra Atada"],
+      "upgrades": [
+        {
+          "name": "Centinela Oculto",
+          "cost": 150,
+          "hotkey": "E",
+          "level": null,
+          "description": "Permite a esta Torre disparar flechas a los enemigos. Permite adquirir la mejora flechas de fuego.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        },
+        {
+          "name": "Presencia Temible",
+          "cost": 100,
+          "hotkey": "R",
+          "level": null,
+          "description": "Incrementa el radio de la Presencia Oscura de esta torre en un 50%. Incrementa la armadura de la torre en un 33%.\n\nOculta la torre a la vista.",
+          "stats": {
+            "researchTimeS": 10
+          }
+        },
+        {
+          "name": "Flechas de Fuego-cadáver",
+          "cost": 200,
+          "hotkey": "E",
+          "level": null,
+          "description": "Mejora esta Torre con Flechas de Fuego-cadáver. Incrementa el daño de las flechas.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        },
+        {
+          "name": "Presencia Temible",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurRuinousTower"
+      }
+    },
+    {
+      "slug": "guldur-restless-barrow",
+      "object": "GuldurRestlessBarrow",
+      "name": "Túmulo Inquieto",
+      "kind": "production",
+      "cost": 450,
+      "buildTime": 30,
+      "health": 1250,
+      "healthByLevel": [],
+      "armourSet": "GuldurStructureArmor",
+      "maxCount": null,
+      "description": "Unidades defensivas que atacarán a los enemigos cercanos. Desentierra los Espectros Insepultos.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [
+        {
+          "name": "Presencia Oscura",
+          "level": null,
+          "hotkey": null,
+          "kind": "passive",
+          "description": "Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo, reciben +15% de daño y armadura, y se curan ligeramente."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurBarrow"
+      }
+    },
+    {
+      "slug": "guldur-boneyard-expansion",
+      "object": "GuldurBoneyardExpansion",
+      "name": "Expansión Patio de Huesos",
+      "kind": "defence",
+      "cost": 500,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los Muertos Resucitados emergerán y atacarán a las unidades enemigas cercanas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BIGuldurBoneyardExpansion",
+        "portrait": "BPGuldurBoneyardExpansion"
+      }
+    },
+    {
+      "slug": "guldur-statue-expansion",
+      "object": "GuldurStatueExpansion",
+      "name": "Estatua Abandonada",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Los enemigos cercanos sufren. -25% de daño y -20% de armadura. Hace huir despavoridas a las unidades enemigas. Puedes comprar la mejora Huesos Inquietos, que permite a la Estatua Abandonada invocar una horda de guerreros esqueléticos sobre los batallones enemigos y las máquinas de asedio.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "La mejora Huesos Inquietos",
+          "cost": 150,
+          "hotkey": "W",
+          "level": null,
+          "description": "Permite a la Estatua Abandonada invocar una horda de guerreros esqueléticos.",
+          "stats": {
+            "researchTimeS": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Huesos Inquietos",
+          "level": null,
+          "hotkey": "W",
+          "kind": "active",
+          "description": "Invoca una horda de guerreros esqueléticos."
+        }
+      ],
+      "images": {
+        "button": null,
+        "portrait": "BPGuldurStatueExpansion"
+      }
+    },
+    {
+      "slug": "guldur-barricade-expansion-b",
+      "object": "GuldurBarricadeExpansionB",
+      "name": "Expansión Ruina Inquieta",
+      "kind": "defence",
+      "cost": 400,
+      "buildTime": 10,
+      "health": 1000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Dispara flechas a las unidades enemigas cercanas. Se beneficia de la mejora Antorchas Pálidas.",
+      "produces": [],
+      "upgrades": [],
+      "abilities": [],
+      "images": {
+        "button": "BIGuldurTowerExpansion",
+        "portrait": "BPGuldurTowerExpansion"
+      }
+    },
+    {
+      "slug": "guldur-catapult-expansion",
+      "object": "GuldurCatapultExpansion",
+      "name": "Expansión de Catapulta Orca",
+      "kind": "defence",
+      "cost": 600,
+      "buildTime": 30,
+      "health": 2000,
+      "healthByLevel": [],
+      "armourSet": "FortressExpansionArmor",
+      "maxCount": null,
+      "description": "Arma defensiva de largo alcance.",
+      "produces": [],
+      "upgrades": [
+        {
+          "name": "Reemplazar Catapulta",
+          "cost": 450,
+          "hotkey": "R",
+          "level": null,
+          "description": "Reconstruye la catapulta en la plataforma.",
+          "stats": {
+            "researchTimeS": 30
+          }
+        }
+      ],
+      "abilities": [],
+      "images": {
+        "button": "BIGuldurCatapult",
+        "portrait": "BPGuldurCatapultExpansion"
+      }
+    }
+  ],
+  "powers": [
+    {
+      "slug": "guldur-carnage",
+      "name": "Masacre",
+      "tier": 1,
+      "position": "L",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Los aliados objetivo obtienen +50% de daño, a costa de -15% de armadura durante 60 segundos.",
+      "requiresSlots": [],
+      "slot": 1,
+      "images": {
+        "button": "SPGuldurCarnage"
+      },
+      "requires": []
+    },
+    {
+      "slug": "guldur-shade-decoy",
+      "name": "No Sigas las Luces",
+      "tier": 1,
+      "position": "C",
+      "kind": "summon",
+      "cost": 5,
+      "description": "Invoca un espíritu de la Ciénaga de los Muertos, de aspecto idéntico al de una Sombra Atada, durante 60 segundos. Si es atacado, el espíritu desaparecerá, aturdiendo a las unidades enemigas durante 5 segundos y reduciendo su visión en un 50% durante 30 segundos.",
+      "requiresSlots": [],
+      "slot": 2,
+      "images": {
+        "button": "SPGuldurDontFollow"
+      },
+      "requires": []
+    },
+    {
+      "slug": "guldur-chill",
+      "name": "Escalofrío de la Tumba",
+      "tier": 1,
+      "position": "R",
+      "kind": "buff",
+      "cost": 5,
+      "description": "Las unidades enemigas se ralentizan un 30% y reciben daño con el tiempo durante 15 segundos.",
+      "requiresSlots": [],
+      "slot": 3,
+      "images": {
+        "button": "SPGuldurGraveChill"
+      },
+      "requires": []
+    },
+    {
+      "slug": "guldur-fear-forest",
+      "name": "Bosque del Miedo",
+      "tier": 2,
+      "position": "LL",
+      "kind": "debuff",
+      "cost": 10,
+      "description": "Corrompe un área del terreno durante 5 minutos. Las unidades cercanas de Dol Guldur afectadas por la Decadencia Lenta ya no se drenan con el tiempo y reciben +15% de daño y armadura. Engendra un gran número de arañas salvajes que atacan todo lo que ven. Las unidades enemigas en el área objetivo pierden todo el liderazgo, sufren -20% de velocidad y quedan aterrorizadas.",
+      "requiresSlots": [1],
+      "slot": 4,
+      "images": {
+        "button": "SPGuldurFearForest"
+      },
+      "requires": ["Masacre"]
+    },
+    {
+      "slug": "guldur-concealment",
+      "name": "Hechizo de Ocultamiento",
+      "tier": 2,
+      "position": "LR",
+      "kind": "buff",
+      "cost": 10,
+      "description": "Unidades y estructuras aliadas dentro del área se vuelven invisibles. Las unidades enemigas cercanas sufren. -25% de daño y -25% de armadura. Anula el liderazgo enemigo. Duración 60 segundos.",
+      "requiresSlots": [2, 1],
+      "slot": 5,
+      "images": {
+        "button": "SPGuldurConcealment"
+      },
+      "requires": ["Masacre", "No Sigas las Luces"]
+    },
+    {
+      "slug": "guldur-dark-hysteria",
+      "name": "Histeria Oscura",
+      "tier": 2,
+      "position": "RL",
+      "kind": "heal",
+      "cost": 10,
+      "description": "Hace que los batallones objetivos se vuelvan hostiles hacia sus aliados durante 20 segundos.",
+      "requiresSlots": [2, 3],
+      "slot": 6,
+      "images": {
+        "button": "SPGuldurDarkHysteria"
+      },
+      "requires": ["No Sigas las Luces", "Escalofrío de la Tumba"]
+    },
+    {
+      "slug": "guldur-black-warg",
+      "name": "Engendro de Carcharoth",
+      "tier": 2,
+      "position": "RR",
+      "kind": "summon",
+      "cost": 10,
+      "description": "Convoca dos hordas de Huargos Negros lideradas por su Gran Alfa.",
+      "requiresSlots": [3],
+      "slot": 7,
+      "images": {
+        "button": "SPGuldurBlackWarg"
+      },
+      "requires": ["Escalofrío de la Tumba"]
+    },
+    {
+      "slug": "guldur-undead-troll",
+      "name": "Monstruosidad No-Muerta",
+      "tier": 3,
+      "position": "L",
+      "kind": "summon",
+      "cost": 15,
+      "description": "Invoca a un Troll no muerto con armadura.",
+      "requiresSlots": [4, 5],
+      "slot": 8,
+      "images": {
+        "button": "SPGuldurUndeadTroll"
+      },
+      "requires": ["Bosque del Miedo", "Hechizo de Ocultamiento"]
+    },
+    {
+      "slug": "guldur-darkness",
+      "name": "Oscuridad",
+      "tier": 3,
+      "position": "C",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Cubre todo el mapa de oscuridad durante 3 minutos. Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces apagadas, Invierno Blanco y Oscuridad. Todas las unidades aliadas obtienen +33% de daño y +33% de armadura.",
+      "requiresSlots": [5, 6],
+      "slot": 9,
+      "images": {
+        "button": "SPGuldurDarkness"
+      },
+      "requires": ["Hechizo de Ocultamiento", "Histeria Oscura"]
+    },
+    {
+      "slug": "guldur-wither",
+      "name": "Marchitar",
+      "tier": 3,
+      "position": "R",
+      "kind": "buff",
+      "cost": 15,
+      "description": "Daña las estructuras en un radio y las inutiliza durante 30 segundos.",
+      "requiresSlots": [6, 7],
+      "slot": 10,
+      "images": {
+        "button": "SPGuldurWither"
+      },
+      "requires": ["Histeria Oscura", "Engendro de Carcharoth"]
+    },
+    {
+      "slug": "guldur-green-mist",
+      "name": "Regalo del Nigromante",
+      "tier": 4,
+      "position": "L",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca una niebla verde giratoria y controlable. Todas las unidades, aliadas y enemigas, reciben daño y se convierten en Espectros tras su muerte.",
+      "requiresSlots": [9, 8],
+      "slot": 11,
+      "images": {
+        "button": "SPGuldurNecromancerGift"
+      },
+      "requires": ["Monstruosidad No-Muerta", "Oscuridad"]
+    },
+    {
+      "slug": "summon-gwanthaur",
+      "name": "Perdición del Bosque Verde",
+      "tier": 4,
+      "position": "R",
+      "kind": "summon",
+      "cost": 25,
+      "description": "Invoca un corrupto y ancestral espíritu del bosque bajo tu control.",
+      "requiresSlots": [9, 10],
+      "slot": 12,
+      "images": {
+        "button": "SPGuldurGwanthaur"
+      },
+      "requires": ["Oscuridad", "Marchitar"]
+    }
+  ]
+}
