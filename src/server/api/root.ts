@@ -1,5 +1,6 @@
 import { editionRouter } from '@/server/api/routers/edition';
 import { formationRouter } from '@/server/api/routers/formation';
+import { gameFilesRouter } from '@/server/api/routers/game-files';
 import { liveRouter } from '@/server/api/routers/live';
 import { matchRouter } from '@/server/api/routers/match';
 import { mediaRouter } from '@/server/api/routers/media';
@@ -16,6 +17,7 @@ import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 const appRouter = createTRPCRouter({
   edition: editionRouter,
   formation: formationRouter,
+  gameFiles: gameFilesRouter,
   live: liveRouter,
   match: matchRouter,
   media: mediaRouter,

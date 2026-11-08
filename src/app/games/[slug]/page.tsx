@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { GameFiles } from '@/components/games/game-files';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
   btn,
@@ -14,7 +15,10 @@ import {
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { Prose } from '@/components/wiki/prose';
 import { factionSlug } from '@/lib/wiki/faction-slug';
+import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
+import { listGameFiles } from '@/server/games/files';
+import { resolveArchiveAccess } from '@/server/media/access';
 import { getGame } from '@/server/wiki/queries';
 
 export const generateMetadata = async ({
@@ -27,12 +31,17 @@ export const generateMetadata = async ({
   return { title: g ? `${g.name} — Frikiparty` : 'Juego — Frikiparty' };
 };
 
-/** A game: its versions (newest first, with the editions that played them), its factions and maps. */
+/** A game: its versions (newest first, with the editions that played them), its factions, maps and, for members, its files. */
 const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const g = await getGame(db, slug);
   if (!g) notFound();
   const latest = g.versions[0];
+  const session = await getSession();
+  const access = await resolveArchiveAccess(db, session?.user);
+  // The files are for members only, like the archive; the page itself stays public.
+  const files =
+    session && access.allowed ? await listGameFiles(db, g.id) : null;
   const core = g.factions.filter((f) => f.kind === 'core');
   const alternates = g.factions.filter((f) => f.kind === 'alternate');
   return (
@@ -147,6 +156,19 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
                 ))}
               </ul>
             </div>
+          ) : null}
+
+          {session && files ? (
+            <GameFiles
+              canModerate={access.canModerate}
+              defaultVersionId={latest?.id ?? null}
+              files={files}
+              gameId={g.id}
+              maps={g.maps.map((m) => ({ id: m.id, name: m.name }))}
+              slug={slug}
+              versions={g.versions.map((v) => ({ id: v.id, name: v.version }))}
+              viewerId={session.user.id}
+            />
           ) : null}
         </Section>
       </main>

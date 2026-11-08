@@ -27,6 +27,7 @@ import {
 } from '@/server/db/schema';
 import { resolveArchiveAccess } from '@/server/media/access';
 import { processVideo } from '@/server/media/process-video';
+import { contentDisposition } from '@/server/storage/content-disposition';
 import {
   deleteObjects,
   getObject,
@@ -84,14 +85,10 @@ const mediaTypeOf = (contentType: UploadType) =>
 /**
  * Download name and disposition for a document: the PDF opens inline (the
  * figure embeds it), the presentation downloads under its original name
- * instead of "original.pptx". Both spellings of the name travel: a plain
- * ASCII one and the RFC 5987 UTF-8 one for accents.
+ * instead of "original.pptx".
  */
-const contentDispositionFor = (contentType: UploadType, fileName: string) => {
-  const kind = isPdf(contentType) ? 'inline' : 'attachment';
-  const ascii = fileName.replace(/[^\x20-\x7e]/g, '_').replace(/"/g, '');
-  return `${kind}; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(fileName)}`;
-};
+const contentDispositionFor = (contentType: UploadType, fileName: string) =>
+  contentDisposition(isPdf(contentType) ? 'inline' : 'attachment', fileName);
 
 /** "Reglas 2026" from "Reglas 2026.pptx": the caption a document gets when none is typed. */
 const captionFromFileName = (fileName: string) =>
