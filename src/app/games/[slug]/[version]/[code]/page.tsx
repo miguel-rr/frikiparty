@@ -13,6 +13,7 @@ import {
   td,
   th,
 } from '@/components/theme/primitives';
+import { CardGroups } from '@/components/wiki/card-groups';
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { HeroCard } from '@/components/wiki/hero-card';
 import { Prose } from '@/components/wiki/prose';
@@ -133,6 +134,10 @@ const FactionPage = async ({ params }: { params: Params }) => {
   const summoned = page.units.filter((u) => u.isSummon);
   const heroes = page.heroes.filter((h) => !h.isSummon);
   const summonedHeroes = page.heroes.filter((h) => h.isSummon);
+  // 10.0 portraits were cropped from the game's own textures.
+  const imagesFromGame = [...page.units, ...page.heroes].some((x) =>
+    x.portraitUrl?.includes('/aotr-10/'),
+  );
   return (
     <SiteShell>
       <main>
@@ -297,24 +302,15 @@ const FactionPage = async ({ params }: { params: Params }) => {
                     Unidades
                   </h3>
                   <UnitsSummary units={recruited} />
-                  {CATEGORY_ORDER.map((category) => {
-                    const group = recruited.filter(
-                      (u) => u.category === category,
-                    );
-                    if (group.length === 0) return null;
-                    return (
-                      <div className="flex flex-col gap-3" key={category}>
-                        <span className={subheading}>
-                          {CATEGORY_LABELS[category]}
-                        </span>
-                        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                          {group.map((u) => (
-                            <UnitCard key={u.id} unit={u} />
-                          ))}
-                        </ul>
-                      </div>
-                    );
-                  })}
+                  <CardGroups
+                    groups={CATEGORY_ORDER.map((category) => ({
+                      key: category,
+                      label: CATEGORY_LABELS[category],
+                      cards: recruited
+                        .filter((u) => u.category === category)
+                        .map((u) => <UnitCard key={u.id} unit={u} />),
+                    }))}
+                  />
                   {summoned.length > 0 ? (
                     <div className="flex flex-col gap-3">
                       <span className={subheading}>Invocadas</span>
@@ -333,24 +329,16 @@ const FactionPage = async ({ params }: { params: Params }) => {
                   <h3 className={heading} id="structures">
                     Estructuras
                   </h3>
-                  {STRUCTURE_ORDER.map((kind) => {
-                    const group = page.structures.filter(
-                      (s) => (s.kind ?? 'production') === kind,
-                    );
-                    if (group.length === 0) return null;
-                    return (
-                      <div className="flex flex-col gap-3" key={kind}>
-                        <span className={subheading}>
-                          {STRUCTURE_KIND_LABELS[kind]}
-                        </span>
-                        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                          {group.map((s) => (
-                            <StructureCard key={s.id} structure={s} />
-                          ))}
-                        </ul>
-                      </div>
-                    );
-                  })}
+                  <CardGroups
+                    fillGaps
+                    groups={STRUCTURE_ORDER.map((kind) => ({
+                      key: kind,
+                      label: STRUCTURE_KIND_LABELS[kind],
+                      cards: page.structures
+                        .filter((s) => (s.kind ?? 'production') === kind)
+                        .map((s) => <StructureCard key={s.id} structure={s} />),
+                    }))}
+                  />
                 </div>
               ) : null}
 
@@ -374,8 +362,10 @@ const FactionPage = async ({ params }: { params: Params }) => {
                   >
                     las notas del mod
                   </a>{' '}
-                  y la wiki de la comunidad (CC BY-SA), de donde salen las
-                  imágenes. Los textos son nuestros.
+                  {imagesFromGame
+                    ? 'y los ficheros del juego, de donde salen las imágenes.'
+                    : 'y la wiki de la comunidad (CC BY-SA), de donde salen las imágenes.'}{' '}
+                  Los textos son nuestros.
                 </p>
               ) : null}
             </>
