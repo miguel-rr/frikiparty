@@ -5,8 +5,10 @@ import { usePathname } from 'next/navigation';
 import { type ReactNode, useState } from 'react';
 
 import { btn, pageWidth } from '@/components/theme/primitives';
+import { authClient } from '@/server/better-auth/client';
 
-type NavLink = { href: string; text: string };
+/** `signedInOnly` links are left out of the nav for visitors (the page itself stays reachable). */
+type NavLink = { href: string; text: string; signedInOnly?: boolean };
 
 const DEFAULT_LINKS: NavLink[] = [
   { href: '#champions', text: 'Ediciones' },
@@ -30,13 +32,17 @@ const isActivePath = (pathname: string, href: string) =>
  */
 const TopNav = ({
   authSlot,
-  links = DEFAULT_LINKS,
+  links: allLinks = DEFAULT_LINKS,
 }: {
   authSlot?: ReactNode;
   links?: NavLink[];
 }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { data: session } = authClient.useSession();
+  const links = session?.user
+    ? allLinks
+    : allLinks.filter((link) => !link.signedInOnly);
   const hasLinks = links.length > 0;
   return (
     <nav className="sticky top-0 z-40 border-(--hair) border-b bg-(--night)/82 backdrop-blur-md">

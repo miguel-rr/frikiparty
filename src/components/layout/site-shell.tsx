@@ -17,7 +17,8 @@ const NAV_LINKS = [
   { href: '/champions', text: 'Los Portadores' },
   { href: '/ranking', text: 'Ranking' },
   { href: '/editions', text: 'Ediciones' },
-  { href: '/games', text: 'Juegos' },
+  // The wiki is reachable by URL but only listed for signed-in users.
+  { href: '/games', text: 'Juegos', signedInOnly: true },
   { href: '/council', text: 'El Concilio' },
 ];
 
