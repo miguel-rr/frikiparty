@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 import { SiteShell } from '@/components/layout/site-shell';
 import {
@@ -22,6 +22,7 @@ import { SpellbookTree } from '@/components/wiki/spellbook-tree';
 import { StructureCard } from '@/components/wiki/structure-card';
 import { UnitCard } from '@/components/wiki/unit-card';
 import { WikiImage } from '@/components/wiki/wiki-image';
+import { factionSlug } from '@/lib/wiki/faction-slug';
 import { CATEGORY_LABELS, STRUCTURE_KIND_LABELS } from '@/lib/wiki/labels';
 import type { StructureKind } from '@/lib/wiki/types';
 import { db } from '@/server/db';
@@ -128,6 +129,9 @@ const UnitsSummary = ({ units }: { units: FactionPageData['units'] }) => (
  */
 const FactionPage = async ({ params }: { params: Params }) => {
   const { slug, version, code } = await params;
+  // Old camelCase links (`battleOfFiveArmies`) move to the hyphenated slug.
+  if (factionSlug(code) !== code)
+    permanentRedirect(`/games/${slug}/${version}/${factionSlug(code)}`);
   const page = await getFactionPage(db, slug, version, code);
   if (!page) notFound();
   const { faction, revision } = page;
@@ -195,7 +199,7 @@ const FactionPage = async ({ params }: { params: Params }) => {
                 </Link>
               ))}
               <FactionSwitcher
-                currentCode={code}
+                currentCode={faction.code ?? ''}
                 factions={page.siblings}
                 slug={slug}
                 version={version}

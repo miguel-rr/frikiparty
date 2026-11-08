@@ -13,6 +13,7 @@ import {
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { Prose } from '@/components/wiki/prose';
 import { WikiImage } from '@/components/wiki/wiki-image';
+import { factionSlug } from '@/lib/wiki/faction-slug';
 import { db } from '@/server/db';
 import { getGameVersionPage } from '@/server/wiki/queries';
 
@@ -181,7 +182,10 @@ const FactionList = ({
       return (
         <li key={f.id}>
           {f.code ? (
-            <Link className={cls} href={`/games/${slug}/${version}/${f.code}`}>
+            <Link
+              className={cls}
+              href={`/games/${slug}/${version}/${factionSlug(f.code)}`}
+            >
               {inner}
             </Link>
           ) : (

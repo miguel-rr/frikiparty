@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { btn } from '@/components/theme/primitives';
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { WikiImage } from '@/components/wiki/wiki-image';
+import { factionSlug } from '@/lib/wiki/faction-slug';
 
 type SwitcherFaction = {
   code: string | null;
@@ -91,7 +92,7 @@ const FactionSwitcher = ({
                   <FactionLink
                     current={f.code === currentCode}
                     faction={f}
-                    href={`/games/${slug}/${version}/${f.code}`}
+                    href={`/games/${slug}/${version}/${factionSlug(f.code)}`}
                     key={f.code}
                   />
                 ) : null,

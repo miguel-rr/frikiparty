@@ -1,5 +1,6 @@
 import { and, asc, desc, eq, getTableName, lte, sql } from 'drizzle-orm';
 
+import { factionSlug } from '@/lib/wiki/faction-slug';
 import type { db as Db } from '@/server/db';
 import {
   edition,
@@ -249,7 +250,7 @@ const getGameVersionPage = async (
   };
 };
 
-/** /games/<slug>/<version>/<code>: the faction as it was in that version. */
+/** /games/<slug>/<version>/<faction slug>: the faction as it was in that version. */
 const getFactionPage = async (
   db: Database,
   slug: string,
@@ -258,7 +259,9 @@ const getFactionPage = async (
 ) => {
   const versionPage = await getGameVersionPage(db, slug, version);
   if (!versionPage) return null;
-  const entry = versionPage.factions.find((f) => f.code === code);
+  const entry = versionPage.factions.find(
+    (f) => f.code !== null && factionSlug(f.code) === factionSlug(code),
+  );
   if (!entry) return null;
   const revision = entry.revision;
   const [heroes, units, structures, powers] = revision
@@ -349,7 +352,11 @@ const listWikiParams = async (db: Database) => {
       out.push({ slug: g.slug, version: v.version });
       for (const f of factions) {
         if (f.code && availableIn(f, v.releaseOrder))
-          out.push({ slug: g.slug, version: v.version, code: f.code });
+          out.push({
+            slug: g.slug,
+            version: v.version,
+            code: factionSlug(f.code),
+          });
       }
     }
   }

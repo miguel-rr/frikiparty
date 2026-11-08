@@ -13,6 +13,7 @@ import {
 } from '@/components/theme/primitives';
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { Prose } from '@/components/wiki/prose';
+import { factionSlug } from '@/lib/wiki/faction-slug';
 import { db } from '@/server/db';
 import { getGame } from '@/server/wiki/queries';
 
@@ -186,7 +187,10 @@ const FactionGrid = ({
       return (
         <li key={f.id}>
           {version && f.code ? (
-            <Link className={cls} href={`/games/${slug}/${version}/${f.code}`}>
+            <Link
+              className={cls}
+              href={`/games/${slug}/${version}/${factionSlug(f.code)}`}
+            >
               {body}
             </Link>
           ) : (
