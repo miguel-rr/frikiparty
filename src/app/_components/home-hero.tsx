@@ -1,10 +1,14 @@
 import Link from 'next/link';
 
 import { DaysUntil } from '@/app/_components/days-until';
-import { linkGold, pageWidth, tag } from '@/components/theme/primitives';
+import {
+  type ConvocationAvatar,
+  HomeConvocation,
+} from '@/app/_components/home-convocation';
+import { pageWidth, tag } from '@/components/theme/primitives';
 import { TheRing } from '@/components/theme/ring';
 import { openingInstant, todayInMadrid } from '@/lib/countdown';
-import { formatDateRange, formatShortDateRange } from '@/lib/dates';
+import { formatShortDateRange } from '@/lib/dates';
 
 type NextEdition = {
   year: number;
@@ -19,7 +23,13 @@ type NextEdition = {
 };
 
 /** Hero for an announced (or running) edition. */
-const HomeHero = ({ edition }: { edition: NextEdition }) => {
+const HomeHero = ({
+  confirmed,
+  edition,
+}: {
+  confirmed: ConvocationAvatar[];
+  edition: NextEdition;
+}) => {
   const hasDates = edition.startsAt !== null && edition.endsAt !== null;
   // "In play" from the moment the door opens (14:00 Madrid, day one) until
   // the last day is over by Madrid's calendar; before that, the countdown.
@@ -68,34 +78,17 @@ const HomeHero = ({ edition }: { edition: NextEdition }) => {
             <br />
             <span className="d-gold-text">vuelve a reunirse</span>
           </h1>
-          <p className="max-w-[52ch] text-(--faded) text-lg">
-            {hasDates
-              ? `${formatDateRange(edition.startsAt as string, edition.endsAt as string)} · `
-              : null}
-            {edition.venueSlug && edition.venueIsPlace ? (
-              <Link
-                className="text-(--parchment) transition-colors hover:text-(--gold-hi)"
-                href={`/venues/${edition.venueSlug}`}
-              >
-                {edition.venueName}
-              </Link>
-            ) : (
-              edition.venueName
-            )}
-            . Age of the Ring, juegos de mesa hasta las tantas y cuentas
-            pendientes desde 2005.
-          </p>
-          {edition.venueMapsUrl ? (
-            <a
-              className={linkGold}
-              href={edition.venueMapsUrl}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Cómo llegar →
-            </a>
-          ) : null}
         </div>
+        <HomeConvocation
+          confirmed={confirmed}
+          endsAt={edition.endsAt}
+          startsAt={edition.startsAt}
+          venue={{
+            name: edition.venueName,
+            mapsUrl: edition.venueMapsUrl,
+            photoUrl: edition.venuePhotoUrl,
+          }}
+        />
       </div>
       <HeroRidge />
     </section>
