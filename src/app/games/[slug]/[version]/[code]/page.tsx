@@ -15,6 +15,7 @@ import {
 } from '@/components/theme/primitives';
 import { CardGroups } from '@/components/wiki/card-groups';
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
+import { FactionSwitcher } from '@/components/wiki/faction-switcher';
 import { HeroCard } from '@/components/wiki/hero-card';
 import { Prose } from '@/components/wiki/prose';
 import { SpellbookTree } from '@/components/wiki/spellbook-tree';
@@ -193,6 +194,12 @@ const FactionPage = async ({ params }: { params: Params }) => {
                   {page.revisionVersions.includes(v.version) ? '' : ' ↩'}
                 </Link>
               ))}
+              <FactionSwitcher
+                currentCode={code}
+                factions={page.siblings}
+                slug={slug}
+                version={version}
+              />
             </div>
             {revision?.inherited ? (
               <p className="text-(--faded) text-xs">

@@ -323,6 +323,13 @@ const getFactionPage = async (
     powers,
     versionsWithFaction,
     revisionVersions,
+    // Every faction of this version, for jumping to another one.
+    siblings: versionPage.factions.map((f) => ({
+      code: f.code,
+      name: f.name,
+      kind: f.kind,
+      imageUrl: f.imageUrl,
+    })),
   };
 };
 
