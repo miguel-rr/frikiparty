@@ -11,7 +11,7 @@ import {
   Section,
   SectionHeader,
 } from '@/components/theme/primitives';
-import { FactionScenes } from '@/components/wiki/faction-scenes';
+import { FactionBanners } from '@/components/wiki/faction-banners';
 import { Prose } from '@/components/wiki/prose';
 import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
@@ -67,7 +67,7 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
               Facciones
             </h3>
-            <FactionScenes
+            <FactionBanners
               factions={g.factions}
               slug={slug}
               version={latest?.version}
