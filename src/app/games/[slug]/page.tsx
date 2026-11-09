@@ -42,11 +42,7 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     <SiteShell>
       <main>
         <Section id="game">
-          <SectionHeader
-            eyebrowHref="/games"
-            eyebrowText="Los juegos"
-            title={g.name}
-          />
+          <SectionHeader title={g.name} />
           <Prose className="mx-auto max-w-[68ch]" text={g.description} />
           {g.websiteUrl ? (
             <div className="flex justify-center">
