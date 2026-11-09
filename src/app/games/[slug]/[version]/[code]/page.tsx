@@ -18,12 +18,14 @@ import {
   subheading,
 } from '@/components/wiki/army-views';
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
+import { FactionGuide } from '@/components/wiki/faction-guide';
 import { FactionSwitcher } from '@/components/wiki/faction-switcher';
 import { HeroCard } from '@/components/wiki/hero-card';
 import { Prose } from '@/components/wiki/prose';
 import { SpellbookTree } from '@/components/wiki/spellbook-tree';
 import { WikiImage } from '@/components/wiki/wiki-image';
 import { factionSlug } from '@/lib/wiki/faction-slug';
+import { factionGuideOf, factionVideosOf, guidesOf } from '@/lib/wiki/guides';
 import { db } from '@/server/db';
 import { getFactionPage, listWikiParams } from '@/server/wiki/queries';
 
@@ -78,6 +80,10 @@ const FactionPage = async ({ params }: { params: Params }) => {
   const imagesFromGame = [...page.units, ...page.heroes].some((x) =>
     x.portraitUrl?.includes('/aotr-10/'),
   );
+  // "Cómo jugarla": hand-written guide (core factions) and videos.
+  const guide = factionGuideOf(slug, faction.code);
+  const videos = factionVideosOf(slug, faction.code);
+  const hasGuide = guide !== null || videos.length > 0;
   return (
     <SiteShell>
       <main>
@@ -195,6 +201,11 @@ const FactionPage = async ({ params }: { params: Params }) => {
               ) : null}
 
               <nav className="flex flex-wrap justify-center gap-2">
+                {hasGuide ? (
+                  <a className={btn.outline} href="#guide">
+                    Cómo jugarla
+                  </a>
+                ) : null}
                 {(
                   [
                     ['#heroes', 'Héroes', page.heroes.length],
@@ -213,6 +224,13 @@ const FactionPage = async ({ params }: { params: Params }) => {
                     </a>
                   ))}
               </nav>
+
+              <FactionGuide
+                currentVersion={guidesOf(slug)?.start.version ?? version}
+                guide={guide}
+                slug={slug}
+                videos={videos}
+              />
 
               {page.heroes.length > 0 ? (
                 <div className="flex flex-col gap-4">

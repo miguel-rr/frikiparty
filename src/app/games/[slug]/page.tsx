@@ -13,6 +13,7 @@ import {
 } from '@/components/theme/primitives';
 import { FactionBanners } from '@/components/wiki/faction-banners';
 import { Prose } from '@/components/wiki/prose';
+import { guidesOf } from '@/lib/wiki/guides';
 import { db } from '@/server/db';
 import { getGame, listWikiParams } from '@/server/wiki/queries';
 
@@ -44,8 +45,18 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
         <Section id="game">
           <SectionHeader title={g.name} />
           <Prose className="mx-auto max-w-[68ch]" text={g.description} />
-          {g.websiteUrl ? (
-            <div className="flex justify-center">
+          <div className="flex flex-wrap justify-center gap-2">
+            {guidesOf(slug) ? (
+              <>
+                <Link className={btn.outline} href={`/games/${slug}/guide`}>
+                  Empieza aquí
+                </Link>
+                <Link className={btn.outline} href={`/games/${slug}/videos`}>
+                  Vídeos
+                </Link>
+              </>
+            ) : null}
+            {g.websiteUrl ? (
               <a
                 className={btn.outline}
                 href={g.websiteUrl}
@@ -54,8 +65,8 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
               >
                 Página del mod
               </a>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
 
           <div className="flex flex-col gap-4">
             <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
