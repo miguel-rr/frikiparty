@@ -15,7 +15,7 @@ const AOTR_FACTION_GUIDES: Record<FactionId, FactionGuide> = {
     style:
       'Un poco de todo y muy defensiva: aguanta, mejora sus tropas y gana la partida larga.',
     opening: [
-      'Graneros separados con los dos constructores, y un tercer constructor desde la Fortaleza.',
+      'Cuatro Graneros separados con los dos constructores.',
       'Barracones: Lanceros de Linhir para frenar caballería y Hombres del Clan Lamedon para el cuerpo a cuerpo.',
       'Campo de Tiro con Arqueros del Valle Raíz Negra detrás de la infantería.',
       'Herrería y subir los Barracones a nivel 2 para pasar a los Soldados y Lanceros de Minas Tirith.',
@@ -97,7 +97,7 @@ const AOTR_FACTION_GUIDES: Record<FactionId, FactionGuide> = {
     style:
       'Pocas tropas muy buenas y héroes de los más fuertes: calidad por encima de cantidad.',
     opening: [
-      'Huertos de Rivendel separados y un tercer constructor.',
+      'Cuatro Huertos de Rivendel separados con los dos constructores.',
       'Campamento de las Tierras de Bree: Fronteros, Arqueros Tuk y Guardias del Pueblo de Bree, baratos para aguantar el principio.',
       'Asamblea Dúnedain para los Montaraces del Norte.',
       'Forja de Rivendel y Dormitorio de Rivendel en cuanto haya dinero para la tropa élfica.',
@@ -217,7 +217,7 @@ const AOTR_FACTION_GUIDES: Record<FactionId, FactionGuide> = {
     style:
       'Enanos durísimos y hombres del Lago: avanzar despacio y no dejar que nadie te mueva.',
     opening: [
-      'Minas Enanas separadas y un tercer constructor.',
+      'Cuatro Minas Enanas separadas con los dos constructores.',
       'Salón de los Guerreros de Erebor: Âzagh-baruk (espadas), Sigin-udrîg (picas) y Rakhâs-abzâg (arcos).',
       'Asamblea de Erebor para los hombres del Lago y los bárdidos, que dan número y arqueros.',
       'Subir el Salón y la Asamblea de nivel para la élite enana.',
@@ -254,7 +254,7 @@ const AOTR_FACTION_GUIDES: Record<FactionId, FactionGuide> = {
     difficulty: 'easy',
     style: 'Marea de orcos baratos, trolls para romper y héroes que dan miedo.',
     opening: [
-      'Granjas de Esclavos separadas y un tercer constructor.',
+      'Cuatro Granjas de Esclavos separadas con los dos constructores.',
       'Fortín Orco: Guerreros Orcos (solo 80) para cubrir el mapa, y Arqueros y Piqueros Orcos.',
       'Serrería y más economía.',
       'Subir el Fortín a nivel 2 para los Merodeadores Uruk Negros, y Jaula de Trolls.',
@@ -375,7 +375,7 @@ const AOTR_FACTION_GUIDES: Record<FactionId, FactionGuide> = {
     style:
       'Debilitar con maldiciones y miedo, y rematar con lo que queda: pide mucho manejo.',
     opening: [
-      'Molinos Esclavos separados. Sus constructores (Sombra Atada) son baratos.',
+      'Molinos Esclavos separados. Empiezas con cuatro constructores (Sombra Atada) y cada uno cuesta solo 100, con un máximo de cinco: reparte la economía más rápido que nadie.',
       'Prisión de Guldur: Gentuza Rota (100) como carne de cañón, y Carceleros y Cazadores Orcos.',
       'Guarida de Arañas: la Prole Arácnida es rápida para acosar.',
       'Fuente de Corrupción para más economía y unidades raras.',

@@ -33,7 +33,7 @@ const AOTR_START_GUIDE: StartGuide = {
       blocks: [
         {
           kind: 'text',
-          text: 'Empiezas con tu fortaleza y dos constructores. Todo sale de un único recurso, y lo producen los edificios de economía de cada facción: granjas, granjas de esclavos, minas, hornos, serrerías…',
+          text: 'Empiezas con tu fortaleza y dos constructores (Dol Guldur, cuatro y más baratos). Todo sale de un único recurso, y lo producen los edificios de economía de cada facción: granjas, granjas de esclavos, minas, hornos, serrerías…',
         },
         {
           kind: 'tip',
@@ -155,11 +155,9 @@ const AOTR_START_GUIDE: StartGuide = {
         {
           kind: 'steps',
           items: [
-            'Los dos constructores levantan edificios de economía, separados entre sí y de la fortaleza.',
-            'Recluta otro constructor en la fortaleza. Con tres se construye mucho más rápido.',
-            'Primer edificio de reclutamiento. Saca uno o dos batallones baratos para defenderte y para coger parcelas del mapa.',
-            'Más economía, hasta tener cuatro o cinco edificios repartidos.',
-            'Segundo edificio de reclutamiento: arqueros si el primero era de infantería, y al revés.',
+            'Empieza con tus dos constructores: cuatro edificios de economía y dos cuarteles (tres y uno si el rival aprieta pronto). Repártelos separados entre sí y de la fortaleza.',
+            'Saca uno o dos batallones baratos para defenderte y para coger parcelas del mapa. Mejor de tipos distintos: si un cuartel da infantería, que el otro dé arqueros o picas.',
+            'Compra otro constructor más adelante, cuando te sobre oro y quieras expandirte: cuesta 500, casi lo mismo que dos granjas.',
             'Un héroe barato que acompañe al primer ejército.',
             'Sube de nivel el edificio de reclutamiento principal y pide la primera mejora de armas o armaduras.',
           ],
