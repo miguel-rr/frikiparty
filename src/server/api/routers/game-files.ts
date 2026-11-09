@@ -21,6 +21,7 @@ import {
   gameFileKey,
   gameFileThumbnailKey,
   isGameFileThumbnailKey,
+  listGameFiles,
 } from '@/server/games/files';
 import { contentDisposition } from '@/server/storage/content-disposition';
 import {
@@ -129,6 +130,24 @@ const loadEditable = async (
  * file. Same access rule as the archive.
  */
 const gameFilesRouter = createTRPCRouter({
+  /**
+   * The list the game and version pages show to members. Loaded from the
+   * browser so those pages can be built statically. With a version, only
+   * that version's files and the ones meant for any version.
+   */
+  list: archiveProcedure
+    .input(
+      z.object({
+        gameId: z.string().uuid(),
+        gameVersionId: z.string().uuid().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => ({
+      files: await listGameFiles(ctx.db, input.gameId, input.gameVersionId),
+      canModerate: ctx.access.canModerate,
+      viewerId: ctx.session.user.id,
+    })),
+
   start: archiveProcedure
     .input(
       z.object({

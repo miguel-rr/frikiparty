@@ -9,13 +9,22 @@ type Structure = FactionPageData['structures'][number];
 
 /** A building: its game icon, cost and health per level, what it recruits, what it sells, what it casts. */
 const StructureCard = ({ structure: s }: { structure: Structure }) => (
-  <li className={`${panel} flex flex-col gap-3 overflow-hidden`}>
-    <div className="flex flex-col gap-3 p-4">
+  <li className={`${panel} relative flex flex-col gap-3 overflow-hidden`}>
+    {/* Wood-plank background, gold fillet and square portrait set buildings apart from the round-portrait unit cards. */}
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0_39px,rgba(0,0,0,0.35)_39px_41px),repeating-linear-gradient(0deg,transparent_0_6px,rgba(255,220,170,0.025)_6px_7px,transparent_7px_11px,rgba(0,0,0,0.06)_11px_12px),linear-gradient(160deg,rgba(150,105,60,0.24),rgba(110,72,40,0.2)_50%,rgba(60,38,20,0.32))]"
+    />
+    <span
+      aria-hidden
+      className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-(--gold)/80 to-transparent"
+    />
+    <div className="relative flex flex-col gap-3 p-4">
       <div className="flex items-start gap-3">
         {s.imageUrl ? (
           <WikiImage
             alt=""
-            className="size-16 shrink-0 rounded-full border border-(--hair) object-cover"
+            className="m-1 size-14 shrink-0 rounded-sm border border-(--hair-gold) object-cover shadow-[0_0_0_3px_rgba(0,0,0,0.45),0_0_0_4px_rgba(201,165,87,0.4)]"
             src={s.imageUrl}
           />
         ) : null}

@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 
 import {
@@ -170,9 +169,9 @@ const FileRow = ({
   canEdit: boolean;
   onEdit: () => void;
 }) => {
-  const router = useRouter();
+  const utils = api.useUtils();
   const remove = api.gameFiles.remove.useMutation({
-    onSuccess: () => router.refresh(),
+    onSuccess: () => utils.gameFiles.list.invalidate(),
   });
   const confirmRemove = () => {
     if (window.confirm(`¿Borrar «${file.title}»? No se puede deshacer.`)) {
@@ -280,7 +279,7 @@ const FileDialog = ({
   editing,
   onClose,
 }: GameFilesProps & { editing?: GameFileRow; onClose: () => void }) => {
-  const router = useRouter();
+  const utils = api.useUtils();
   const start = api.gameFiles.start.useMutation();
   const complete = api.gameFiles.complete.useMutation();
   const abort = api.gameFiles.abort.useMutation();
@@ -437,7 +436,7 @@ const FileDialog = ({
         thumbnailKey,
         placement: toInput(placement),
       });
-      router.refresh();
+      await utils.gameFiles.list.invalidate();
       onClose();
     } catch (error) {
       if (ref) {
@@ -476,7 +475,7 @@ const FileDialog = ({
         ...toInput(placement),
         thumbnail,
       });
-      router.refresh();
+      await utils.gameFiles.list.invalidate();
       onClose();
     } catch (error) {
       setState({

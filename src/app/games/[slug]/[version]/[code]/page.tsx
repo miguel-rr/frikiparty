@@ -10,26 +10,39 @@ import {
   Section,
   SectionHeader,
   tag,
-  td,
-  th,
 } from '@/components/theme/primitives';
-import { CardGroups } from '@/components/wiki/card-groups';
+import { ArmySection, ArmyViewSwitch } from '@/components/wiki/army-section';
+import {
+  BuildingView,
+  heading,
+  subheading,
+} from '@/components/wiki/army-views';
 import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { FactionSwitcher } from '@/components/wiki/faction-switcher';
 import { HeroCard } from '@/components/wiki/hero-card';
 import { Prose } from '@/components/wiki/prose';
 import { SpellbookTree } from '@/components/wiki/spellbook-tree';
-import { StructureCard } from '@/components/wiki/structure-card';
-import { UnitCard } from '@/components/wiki/unit-card';
 import { WikiImage } from '@/components/wiki/wiki-image';
 import { factionSlug } from '@/lib/wiki/faction-slug';
-import { CATEGORY_LABELS, STRUCTURE_KIND_LABELS } from '@/lib/wiki/labels';
-import type { StructureKind } from '@/lib/wiki/types';
 import { db } from '@/server/db';
-import type { UnitCategory } from '@/server/db/schema';
-import { type FactionPageData, getFactionPage } from '@/server/wiki/queries';
+import { getFactionPage, listWikiParams } from '@/server/wiki/queries';
+
+import { loadTypeView } from './actions';
 
 type Params = Promise<{ slug: string; version: string; code: string }>;
+
+/**
+ * Every faction of every version, built up front (redeploy to refresh). The
+ * page carries the default "Por edificio" view; "Por tipo" loads on demand.
+ */
+export const generateStaticParams = async () =>
+  (await listWikiParams(db))
+    .filter((p) => p.code)
+    .map((p) => ({
+      slug: p.slug,
+      version: p.version as string,
+      code: p.code as string,
+    }));
 
 export const generateMetadata = async ({
   params,
@@ -45,82 +58,6 @@ export const generateMetadata = async ({
   };
 };
 
-const CATEGORY_ORDER: UnitCategory[] = [
-  'swordsmen',
-  'pikemen',
-  'archers',
-  'cavalry',
-  'siege',
-  'monster',
-  'heroic',
-  'special',
-];
-
-const STRUCTURE_ORDER: StructureKind[] = [
-  'fortress',
-  'economy',
-  'production',
-  'defence',
-  'support',
-  'summoned',
-];
-
-const heading =
-  'd-display font-bold text-(--parchment) text-xl uppercase scroll-mt-24';
-const subheading = 'font-mono text-(--gold) text-2xs uppercase tracking-2xl';
-
-/** Health bought per 100 resources: the first number anyone compares. */
-const healthPer100 = (u: { cost: number | null; health: number | null }) =>
-  u.cost && u.health ? Math.round((u.health / u.cost) * 100) : null;
-
-const UnitsSummary = ({ units }: { units: FactionPageData['units'] }) => (
-  <div className={`${panel} overflow-x-auto`}>
-    <table className="w-full min-w-140 border-collapse text-sm">
-      <thead>
-        <tr>
-          <th className={th}>Unidad</th>
-          <th className={th}>Tipo</th>
-          <th className={`${th} text-right`}>Coste</th>
-          <th className={`${th} text-right`}>PM</th>
-          <th className={`${th} text-right`}>Vida</th>
-          <th className={`${th} text-right`} title="Vida por cada 100 recursos">
-            Vida/100
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {units.map((u) => (
-          <tr key={u.id}>
-            <td className={td}>
-              <a
-                className="text-(--parchment) hover:text-(--gold-hi)"
-                href={`#u-${u.id}`}
-              >
-                {u.name}
-              </a>
-            </td>
-            <td className={`${td} text-(--faded)`}>
-              {CATEGORY_LABELS[u.category]}
-            </td>
-            <td className={`${td} text-right font-mono text-(--gold)`}>
-              {u.cost ?? '—'}
-            </td>
-            <td className={`${td} text-right font-mono text-(--faded)`}>
-              {u.commandPoints ?? '—'}
-            </td>
-            <td className={`${td} text-right font-mono text-(--faded)`}>
-              {u.health ?? '—'}
-            </td>
-            <td className={`${td} text-right font-mono text-(--faded)`}>
-              {healthPer100(u) ?? '—'}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-);
-
 /**
  * A faction as it was in a version: the revision that applies (its own,
  * or inherited from an earlier version), with every hero, unit, structure
@@ -135,8 +72,6 @@ const FactionPage = async ({ params }: { params: Params }) => {
   const page = await getFactionPage(db, slug, version, code);
   if (!page) notFound();
   const { faction, revision } = page;
-  const recruited = page.units.filter((u) => !u.isSummon);
-  const summoned = page.units.filter((u) => u.isSummon);
   const heroes = page.heroes.filter((h) => !h.isSummon);
   const summonedHeroes = page.heroes.filter((h) => h.isSummon);
   // 10.0 portraits were cropped from the game's own textures.
@@ -260,19 +195,20 @@ const FactionPage = async ({ params }: { params: Params }) => {
               ) : null}
 
               <nav className="flex flex-wrap justify-center gap-2">
-                {[
-                  ['#heroes', 'Héroes', page.heroes.length],
-                  ['#units', 'Unidades', page.units.length],
-                  ['#structures', 'Estructuras', page.structures.length],
-                  ['#spellbook', 'Árbol de poderes', page.powers.length],
-                ]
-                  .filter(([, , n]) => (n as number) > 0)
+                {(
+                  [
+                    ['#heroes', 'Héroes', page.heroes.length],
+                    [
+                      '#army',
+                      'Edificios y unidades',
+                      page.structures.length + page.units.length,
+                    ],
+                    ['#spellbook', 'Árbol de poderes', page.powers.length],
+                  ] as const
+                )
+                  .filter(([, , n]) => n > 0)
                   .map(([href, text, n]) => (
-                    <a
-                      className={btn.outline}
-                      href={href as string}
-                      key={href as string}
-                    >
+                    <a className={btn.outline} href={href} key={href}>
                       {text} · {n}
                     </a>
                   ))}
@@ -307,50 +243,17 @@ const FactionPage = async ({ params }: { params: Params }) => {
                 </div>
               ) : null}
 
-              {page.units.length > 0 ? (
-                <div className="flex flex-col gap-4">
-                  <h3 className={heading} id="units">
-                    Unidades
-                  </h3>
-                  <UnitsSummary units={recruited} />
-                  <CardGroups
-                    groups={CATEGORY_ORDER.map((category) => ({
-                      key: category,
-                      label: CATEGORY_LABELS[category],
-                      cards: recruited
-                        .filter((u) => u.category === category)
-                        .map((u) => <UnitCard key={u.id} unit={u} />),
-                    }))}
-                  />
-                  {summoned.length > 0 ? (
-                    <div className="flex flex-col gap-3">
-                      <span className={subheading}>Invocadas</span>
-                      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        {summoned.map((u) => (
-                          <UnitCard key={u.id} unit={u} />
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                </div>
-              ) : null}
-
-              {page.structures.length > 0 ? (
-                <div className="flex flex-col gap-4">
-                  <h3 className={heading} id="structures">
-                    Estructuras
-                  </h3>
-                  <CardGroups
-                    fillGaps
-                    groups={STRUCTURE_ORDER.map((kind) => ({
-                      key: kind,
-                      label: STRUCTURE_KIND_LABELS[kind],
-                      cards: page.structures
-                        .filter((s) => (s.kind ?? 'production') === kind)
-                        .map((s) => <StructureCard key={s.id} structure={s} />),
-                    }))}
-                  />
-                </div>
+              {page.units.length + page.structures.length > 0 ? (
+                <ArmySection
+                  building={
+                    <BuildingView
+                      structures={page.structures}
+                      switcher={<ArmyViewSwitch />}
+                      units={page.units}
+                    />
+                  }
+                  loadTypeView={loadTypeView.bind(null, slug, version, code)}
+                />
               ) : null}
 
               {page.powers.length > 0 ? (

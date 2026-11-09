@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { GameFiles } from '@/components/games/game-files';
+import { MemberGameFiles } from '@/components/games/member-game-files';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
   btn,
@@ -15,11 +15,14 @@ import { FactionEmblem } from '@/components/wiki/faction-emblem';
 import { Prose } from '@/components/wiki/prose';
 import { WikiImage } from '@/components/wiki/wiki-image';
 import { factionSlug } from '@/lib/wiki/faction-slug';
-import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
-import { listGameFiles } from '@/server/games/files';
-import { resolveArchiveAccess } from '@/server/media/access';
-import { getGameVersionPage } from '@/server/wiki/queries';
+import { getGameVersionPage, listWikiParams } from '@/server/wiki/queries';
+
+/** Built up front, one page per version; redeploy to refresh. */
+export const generateStaticParams = async () =>
+  (await listWikiParams(db))
+    .filter((p) => p.version && !p.code)
+    .map((p) => ({ slug: p.slug, version: p.version as string }));
 
 export const generateMetadata = async ({
   params,
@@ -44,11 +47,6 @@ const GameVersionPage = async ({
   const { slug, version } = await params;
   const v = await getGameVersionPage(db, slug, version);
   if (!v) notFound();
-  const session = await getSession();
-  const access = await resolveArchiveAccess(db, session?.user);
-  // Members only, like the archive; the page itself stays public.
-  const files =
-    session && access.allowed ? await listGameFiles(db, v.gameId, v.id) : null;
   const core = v.factions.filter((f) => f.kind === 'core');
   const alternates = v.factions.filter((f) => f.kind === 'alternate');
   return (
@@ -131,22 +129,19 @@ const GameVersionPage = async ({
             </div>
           ) : null}
 
-          {session && files ? (
-            <GameFiles
-              canModerate={access.canModerate}
-              defaultVersionId={v.id}
-              files={files}
-              gameId={v.gameId}
-              maps={v.maps.map((m) => ({ id: m.id, name: m.name }))}
-              slug={slug}
-              versionLabel={v.version}
-              versions={[...v.allVersions].reverse().map((other) => ({
-                id: other.id,
-                name: other.version,
-              }))}
-              viewerId={session.user.id}
-            />
-          ) : null}
+          {/* Members only, like the archive: the list loads in the browser. */}
+          <MemberGameFiles
+            defaultVersionId={v.id}
+            gameId={v.gameId}
+            listVersionId={v.id}
+            maps={v.maps.map((m) => ({ id: m.id, name: m.name }))}
+            slug={slug}
+            versionLabel={v.version}
+            versions={[...v.allVersions].reverse().map((other) => ({
+              id: other.id,
+              name: other.version,
+            }))}
+          />
         </Section>
       </main>
     </SiteShell>
