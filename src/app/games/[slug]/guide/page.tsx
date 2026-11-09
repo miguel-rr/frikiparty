@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
   btn,
+  linkGold,
   panel,
   Section,
   SectionHeader,
@@ -12,6 +13,7 @@ import {
 } from '@/components/theme/primitives';
 import { heading } from '@/components/wiki/army-views';
 import { GuideBlocks } from '@/components/wiki/guide-blocks';
+import { VideoList } from '@/components/wiki/video-list';
 import { factionSlug } from '@/lib/wiki/faction-slug';
 import {
   DIFFICULTY_LABELS,
@@ -51,6 +53,7 @@ const GuidePage = async ({ params }: { params: Params }) => {
   const { start } = guides;
   const latest = g.versions[0]?.version;
   const core = g.factions.filter((f) => f.kind === 'core' && f.code);
+  const featuredVideos = guides.videos.filter((v) => v.featured);
   return (
     <SiteShell>
       <main>
@@ -130,6 +133,21 @@ const GuidePage = async ({ params }: { params: Params }) => {
               })}
             </ul>
           </div>
+
+          {featuredVideos.length > 0 ? (
+            <div className="flex flex-col gap-4">
+              <h3 className={heading} id="videos">
+                Vídeos destacados
+              </h3>
+              <VideoList
+                currentVersion={start.version}
+                videos={featuredVideos}
+              />
+              <Link className={linkGold} href={`/games/${slug}/videos`}>
+                Ver todos los vídeos →
+              </Link>
+            </div>
+          ) : null}
         </Section>
       </main>
     </SiteShell>
