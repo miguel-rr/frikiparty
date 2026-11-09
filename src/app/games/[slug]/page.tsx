@@ -10,11 +10,9 @@ import {
   panelGold,
   Section,
   SectionHeader,
-  tag,
 } from '@/components/theme/primitives';
-import { FactionEmblem } from '@/components/wiki/faction-emblem';
+import { FactionScenes } from '@/components/wiki/faction-scenes';
 import { Prose } from '@/components/wiki/prose';
-import { factionSlug } from '@/lib/wiki/faction-slug';
 import { getSession } from '@/server/better-auth/server';
 import { db } from '@/server/db';
 import { listGameFiles } from '@/server/games/files';
@@ -42,8 +40,6 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   // The files are for members only, like the archive; the page itself stays public.
   const files =
     session && access.allowed ? await listGameFiles(db, g.id) : null;
-  const core = g.factions.filter((f) => f.kind === 'core');
-  const alternates = g.factions.filter((f) => f.kind === 'alternate');
   return (
     <SiteShell>
       <main>
@@ -66,6 +62,17 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
               </a>
             </div>
           ) : null}
+
+          <div className="flex flex-col gap-4">
+            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
+              Facciones
+            </h3>
+            <FactionScenes
+              factions={g.factions}
+              slug={slug}
+              version={latest?.version}
+            />
+          </div>
 
           <div className="flex flex-col gap-4">
             <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
@@ -106,58 +113,6 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             ) : null}
           </div>
 
-          <div className="flex flex-col gap-4">
-            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
-              Facciones
-            </h3>
-            <FactionGrid
-              factions={core}
-              slug={slug}
-              version={latest?.version}
-            />
-            {alternates.length > 0 ? (
-              <>
-                <span className={tag}>
-                  Facciones alternativas · ligadas a mapas concretos
-                </span>
-                <FactionGrid
-                  factions={alternates}
-                  slug={slug}
-                  version={latest?.version}
-                />
-              </>
-            ) : null}
-          </div>
-
-          {g.maps.length > 0 ? (
-            <div className="flex flex-col gap-4">
-              <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
-                Mapas
-              </h3>
-              <ul className="flex flex-wrap gap-2">
-                {g.maps.map((m) => (
-                  <li
-                    className={`${panel} px-3 py-2 text-sm`}
-                    key={m.id}
-                    title={m.description ?? undefined}
-                  >
-                    <span className="text-(--parchment)">{m.name}</span>
-                    {m.players ? (
-                      <span className="ml-2 font-mono text-(--faded) text-2xs">
-                        {m.players} jug.
-                      </span>
-                    ) : null}
-                    {m.introducedVersion ? (
-                      <span className="ml-2 font-mono text-(--gold) text-2xs">
-                        desde {m.introducedVersion}
-                      </span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
           {session && files ? (
             <GameFiles
               canModerate={access.canModerate}
@@ -175,53 +130,5 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     </SiteShell>
   );
 };
-
-const FactionGrid = ({
-  factions,
-  slug,
-  version,
-}: {
-  factions: {
-    id: string;
-    name: string;
-    code: string | null;
-    introducedVersion: string;
-    removedVersion: string | null;
-  }[];
-  slug: string;
-  version: string | undefined;
-}) => (
-  <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-    {factions.map((f) => {
-      const body = (
-        <>
-          <FactionEmblem className="text-(--gold)" code={f.code} size={44} />
-          <span className="d-display font-bold text-(--parchment) text-base uppercase">
-            {f.name}
-          </span>
-          <span className="font-mono text-(--faded) text-3xs uppercase tracking-wider">
-            desde {f.introducedVersion}
-            {f.removedVersion ? ` · hasta ${f.removedVersion}` : ''}
-          </span>
-        </>
-      );
-      const cls = `${panel} flex h-full flex-col items-center gap-2 p-4 text-center transition-colors hover:border-(--gold)`;
-      return (
-        <li key={f.id}>
-          {version && f.code ? (
-            <Link
-              className={cls}
-              href={`/games/${slug}/${version}/${factionSlug(f.code)}`}
-            >
-              {body}
-            </Link>
-          ) : (
-            <div className={cls}>{body}</div>
-          )}
-        </li>
-      );
-    })}
-  </ul>
-);
 
 export default GamePage;
