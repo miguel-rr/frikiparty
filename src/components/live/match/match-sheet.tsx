@@ -5,7 +5,11 @@ import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { EpicFaceOff, epicKind } from '@/components/live/match/epic-face-off';
-import { GameCard, type Viewer } from '@/components/live/match/game-card';
+import {
+  GameCard,
+  MapField,
+  type Viewer,
+} from '@/components/live/match/game-card';
 import { phaseTitle } from '@/components/live/phase/phase-view';
 import { CommentThread } from '@/components/social/comment-thread';
 import { btn, panelGold, tag } from '@/components/theme/primitives';
@@ -87,6 +91,8 @@ const MatchSheet = ({
     onError: (e) => setError('message' in e ? e.message : 'Error'),
   });
   const epic = teamA && teamB ? epicKind(phase, m) : null;
+  // On the booklet's maps the map comes first: picking it opens the game.
+  const needsBoard = state.maps.some((x) => x.board);
 
   return (
     <div className="flex flex-col gap-8">
@@ -179,16 +185,25 @@ const MatchSheet = ({
                   : `Partida ${m.games.length + 1}`}
               </span>
               <p className="max-w-[48ch] text-(--faded) text-sm">
-                Cuando los dos capitanes pulsen «Listos» se sortean las
-                facciones.
+                {needsBoard
+                  ? 'Primero se elige el mapa; cuando los dos capitanes pulsen «Listos» se sortean las facciones y el lado de cada equipo.'
+                  : 'Cuando los dos capitanes pulsen «Listos» se sortean las facciones.'}
                 {viewer.captainOf
                   ? ' Eres capitán: cuando estéis, dale.'
                   : viewer.isAdmin
                     ? ' Como organizador puedes anotar un resultado directamente.'
                     : ''}
               </p>
+              {needsBoard ? (
+                <MapField
+                  editable={viewer.isAdmin || viewer.captainOf !== null}
+                  game={null}
+                  matchId={m.id}
+                  state={state}
+                />
+              ) : null}
               <div className="flex flex-wrap justify-center gap-2">
-                {viewer.captainOf ? (
+                {viewer.captainOf && !needsBoard ? (
                   <ReadyButton matchId={m.id} tournamentId={state.id} />
                 ) : null}
                 {viewer.isAdmin ? (

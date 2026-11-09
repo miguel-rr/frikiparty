@@ -7,8 +7,10 @@ import {
   type FactionRef,
 } from '@/components/live/match/faction-chip';
 import { LineupEditor } from '@/components/live/match/lineup-editor';
+import { MapBoardView, type RingView } from '@/components/live/match/map-board';
 import { ReplayBox } from '@/components/live/match/replay-box';
 import { btn, input, panel, panelGold } from '@/components/theme/primitives';
+import type { RingSides } from '@/lib/live/map-board';
 import { teamLabel } from '@/lib/live/team-label';
 import type { LiveGame, LiveMatch } from '@/server/live/phases';
 import type { LiveState } from '@/server/live/state';
@@ -69,6 +71,26 @@ const TeamBlock = ({
     team.members.some((m) => m.playerId === l.playerId),
   );
   const [error, setError] = useState<string | null>(null);
+  const map = state.maps.find((x) => x.id === game.mapId);
+  const board = map?.board ?? null;
+  const needsBoard = state.maps.some((x) => x.board);
+  // The public snapshot hides the line-up until the game starts; the
+  // captain reads the team's own plan to pick up where it was left.
+  const planning = isMine && game.status === 'factions_drawn';
+  const plan = api.match.myTeamPlan.useQuery(
+    { tournamentId: state.id, matchId },
+    { enabled: planning },
+  );
+  const refetchPlan = plan.refetch;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new snapshot version may carry a reset plan
+  useEffect(() => {
+    if (planning) void refetchPlan();
+  }, [planning, refetchPlan, state.version]);
+  const positions = game.positions;
+  const slotOf = (playerId: string) => {
+    const ring = positions.find((p) => p.playerId === playerId)?.ring;
+    return ring === undefined ? null : (board?.rings[ring]?.slot ?? null);
+  };
   const readyMutation = api.match.ready.useMutation({
     onError: (e) => setError(errorText(e)),
   });
@@ -106,10 +128,11 @@ const TeamBlock = ({
       {game.status === 'pending' && isMine && !ready ? (
         <button
           className={btn.primary}
-          disabled={readyMutation.isPending}
+          disabled={readyMutation.isPending || (needsBoard && !board)}
           onClick={() =>
             readyMutation.mutate({ tournamentId: state.id, matchId })
           }
+          title={needsBoard && !board ? 'Elegid antes el mapa' : undefined}
           type="button"
         >
           {readyMutation.isPending ? 'Un momento…' : '¡Listos!'}
@@ -118,24 +141,45 @@ const TeamBlock = ({
 
       {game.status === 'factions_drawn' ? (
         isMine ? (
-          <LineupEditor
-            confirmed={Boolean(confirmed)}
-            error={error}
-            factions={drawn}
-            initial={lineup}
-            key={`${game.id}-${lineup.map((l) => l.factionId).join()}`}
-            members={members}
-            onConfirm={async (assignments) => {
-              setError(null);
-              await setLineup.mutateAsync({
-                tournamentId: state.id,
-                matchId,
-                assignments,
-              });
-              await confirm.mutateAsync({ tournamentId: state.id, matchId });
-            }}
-            pending={setLineup.isPending || confirm.isPending}
-          />
+          plan.data === undefined ? (
+            <span className="font-mono text-(--faded) text-3xs uppercase">
+              Cargando vuestro reparto…
+            </span>
+          ) : (
+            <LineupEditor
+              confirmed={Boolean(confirmed)}
+              error={error}
+              factions={drawn}
+              initial={(plan.data?.lineup ?? []).map((l) => ({
+                ...l,
+                ring:
+                  plan.data?.positions.find((p) => p.playerId === l.playerId)
+                    ?.ring ?? null,
+              }))}
+              key={`${game.id}-${JSON.stringify(plan.data)}-${JSON.stringify(game.ringSides)}`}
+              members={members}
+              onConfirm={async (assignments) => {
+                setError(null);
+                await setLineup.mutateAsync({
+                  tournamentId: state.id,
+                  matchId,
+                  assignments,
+                });
+                await confirm.mutateAsync({ tournamentId: state.id, matchId });
+              }}
+              pending={setLineup.isPending || confirm.isPending}
+              placement={
+                board && game.ringSides
+                  ? {
+                      board,
+                      mapName: map?.name ?? '',
+                      sides: game.ringSides,
+                      side,
+                    }
+                  : null
+              }
+            />
+          )
         ) : (
           <>
             <div
@@ -171,6 +215,11 @@ const TeamBlock = ({
                   {m.name}
                 </span>
                 {faction ? <FactionChip faction={faction} size="sm" /> : null}
+                {slotOf(m.playerId) !== null ? (
+                  <span className="font-mono text-(--faded) text-3xs uppercase tracking-wider">
+                    pos. {slotOf(m.playerId)}
+                  </span>
+                ) : null}
               </li>
             );
           })}
@@ -183,7 +232,12 @@ const TeamBlock = ({
   );
 };
 
-/** Map name, editable by the captains and the organiser. */
+/**
+ * Map name, editable by the captains and the organiser. With illustrated
+ * sheets the map is picked from the booklet's list; with no game open yet
+ * (`game` null) picking it opens the next game, since it comes before
+ * "Listos".
+ */
 const MapField = ({
   state,
   matchId,
@@ -192,51 +246,241 @@ const MapField = ({
 }: {
   state: LiveState;
   matchId: string;
-  game: LiveGame;
+  game: LiveGame | null;
   editable: boolean;
 }) => {
-  const [value, setValue] = useState(game.map ?? '');
-  useEffect(() => setValue(game.map ?? ''), [game.map]);
-  const setMap = api.match.setMap.useMutation();
-  const save = () => {
-    if ((game.map ?? '') === value.trim()) return;
+  const current = game?.map ?? '';
+  const [value, setValue] = useState(current);
+  useEffect(() => setValue(current), [current]);
+  const [error, setError] = useState<string | null>(null);
+  const setMap = api.match.setMap.useMutation({
+    onError: (e) => {
+      setError(errorText(e));
+      setValue(current);
+    },
+    onSuccess: () => setError(null),
+  });
+  const boardMaps = state.maps.filter((m) => m.board);
+  const fieldId = `map-${game?.id ?? matchId}`;
+  const save = (next: string) => {
+    if (current === next.trim()) return;
     setMap.mutate({
       tournamentId: state.id,
       matchId,
-      gameId: game.id,
-      map: value.trim() || null,
+      gameId: game?.id ?? null,
+      map: next.trim() || null,
       mapId:
         state.maps.find(
-          (m) => m.name.toLowerCase() === value.trim().toLowerCase(),
+          (m) => m.name.toLowerCase() === next.trim().toLowerCase(),
         )?.id ?? null,
     });
   };
   if (!editable)
-    return game.map ? (
+    return current ? (
       <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
-        Mapa · <span className="text-(--parchment)">{game.map}</span>
+        Mapa · <span className="text-(--parchment)">{current}</span>
       </span>
     ) : null;
   return (
-    <label className="flex items-center gap-2 font-mono text-(--faded) text-2xs uppercase tracking-xl">
-      Mapa
-      <input
-        className={`${input} max-w-56 py-1 text-xs normal-case tracking-normal`}
-        list={`maps-${game.id}`}
-        onBlur={save}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
-        }}
-        placeholder="¿Dónde se juega?"
-        value={value}
+    <div className="flex flex-wrap items-center gap-2 font-mono text-(--faded) text-2xs uppercase tracking-xl">
+      <label htmlFor={fieldId}>Mapa</label>
+      {boardMaps.length > 0 ? (
+        <select
+          className={`${input} max-w-64 py-1 text-xs normal-case tracking-normal`}
+          disabled={setMap.isPending}
+          id={fieldId}
+          onChange={(e) => {
+            setValue(e.target.value);
+            save(e.target.value);
+          }}
+          value={value}
+        >
+          <option disabled value="">
+            Elige el mapa del dossier
+          </option>
+          {boardMaps.map((m) => (
+            <option key={m.id} value={m.name}>
+              {m.name}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <>
+          <input
+            className={`${input} max-w-56 py-1 text-xs normal-case tracking-normal`}
+            id={fieldId}
+            list={`maps-${game?.id ?? matchId}`}
+            onBlur={() => save(value)}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+            }}
+            placeholder="¿Dónde se juega?"
+            value={value}
+          />
+          <datalist id={`maps-${game?.id ?? matchId}`}>
+            {state.maps.map((m) => (
+              <option key={m.id} value={m.name} />
+            ))}
+          </datalist>
+        </>
+      )}
+      {error ? (
+        <span className="text-(--ember) text-xs normal-case tracking-normal">
+          {error}
+        </span>
+      ) : null}
+    </div>
+  );
+};
+
+/** Which side holds a ring, from a game's split. */
+const sideOfRing = (sides: RingSides | null, ring: number) =>
+  sides?.A.includes(ring) ? 'A' : sides?.B.includes(ring) ? 'B' : null;
+
+/**
+ * The organiser re-splits the rings between the teams: tap a ring to move
+ * it A → B → nobody's. A team whose rings change places and confirms again.
+ */
+const RingSidesEditor = ({
+  state,
+  matchId,
+  game,
+  mapName,
+  board,
+}: {
+  state: LiveState;
+  matchId: string;
+  game: LiveGame & { ringSides: RingSides };
+  mapName: string;
+  board: NonNullable<LiveState['maps'][number]['board']>;
+}) => {
+  const [sides, setSides] = useState<RingSides>(game.ringSides);
+  const [error, setError] = useState<string | null>(null);
+  const save = api.match.setRingSides.useMutation({
+    onError: (e) => setError(errorText(e)),
+    onSuccess: () => setError(null),
+  });
+  const changed = JSON.stringify(sides) !== JSON.stringify(game.ringSides);
+  const cycle = (ring: number) => {
+    const now = sideOfRing(sides, ring);
+    const next = now === 'A' ? 'B' : now === 'B' ? null : 'A';
+    setSides({
+      A: [
+        ...sides.A.filter((r) => r !== ring),
+        ...(next === 'A' ? [ring] : []),
+      ],
+      B: [
+        ...sides.B.filter((r) => r !== ring),
+        ...(next === 'B' ? [ring] : []),
+      ],
+    });
+  };
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="font-mono text-(--gold) text-2xs uppercase tracking-xl">
+        Organizador · anillos de cada equipo
+      </span>
+      <MapBoardView
+        board={board}
+        name={mapName}
+        onRing={cycle}
+        rings={board.rings.map((_, index) => ({
+          side: sideOfRing(sides, index),
+        }))}
       />
-      <datalist id={`maps-${game.id}`}>
-        {state.maps.map((m) => (
-          <option key={m.id} value={m.name} />
-        ))}
-      </datalist>
-    </label>
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="font-mono text-(--faded) text-3xs uppercase tracking-wider">
+          Toca un anillo para pasarlo de azul (A) a rojo (B) o a ninguno
+        </span>
+        <button
+          className={`${btn.outline} text-2xs`}
+          disabled={!changed || save.isPending}
+          onClick={() =>
+            save.mutate({ tournamentId: state.id, matchId, sides })
+          }
+          type="button"
+        >
+          {save.isPending ? 'Guardando…' : 'Guardar anillos'}
+        </button>
+        {changed ? (
+          <button
+            className={`${btn.ghost} text-2xs`}
+            onClick={() => setSides(game.ringSides)}
+            type="button"
+          >
+            Deshacer
+          </button>
+        ) : null}
+        {error ? <span className="text-(--ember) text-xs">{error}</span> : null}
+      </div>
+    </div>
+  );
+};
+
+/**
+ * The game's map sheet as everyone sees it: the rings before the draw, the
+ * teams' sides while the captains place their players (who stands where
+ * stays secret), and every player on their ring once the game starts.
+ */
+const GameBoard = ({
+  state,
+  matchId,
+  game,
+  teamA,
+  teamB,
+  viewer,
+}: {
+  state: LiveState;
+  matchId: string;
+  game: LiveGame;
+  teamA: Team;
+  teamB: Team;
+  viewer: Viewer;
+}) => {
+  const map = state.maps.find((x) => x.id === game.mapId);
+  const board = map?.board;
+  if (!map || !board) return null;
+  const { ringSides } = game;
+  if (
+    viewer.isAdmin &&
+    game.status === 'factions_drawn' &&
+    ringSides !== null
+  ) {
+    return (
+      <RingSidesEditor
+        board={board}
+        game={{ ...game, ringSides }}
+        key={JSON.stringify(ringSides)}
+        mapName={map.name}
+        matchId={matchId}
+        state={state}
+      />
+    );
+  }
+  // The captains place theirs in their own editor.
+  if (game.status === 'factions_drawn' && viewer.captainOf) return null;
+  const names = new Map(
+    [...teamA.members, ...teamB.members].map((m) => [m.playerId, m.name]),
+  );
+  const rings: RingView[] = board.rings.map((_, index) => {
+    const standing = game.positions.find((p) => p.ring === index);
+    return {
+      side: sideOfRing(ringSides, index),
+      label: standing ? (names.get(standing.playerId) ?? null) : null,
+    };
+  });
+  return (
+    <div className="flex flex-col gap-1.5">
+      <MapBoardView board={board} name={map.name} rings={rings} />
+      <span className="font-mono text-(--faded) text-3xs uppercase tracking-wider">
+        {game.status === 'pending'
+          ? 'El lado de cada equipo se sortea con las facciones'
+          : game.status === 'factions_drawn'
+            ? `Azul: ${teamLabel(teamA)} · Rojo: ${teamLabel(teamB)} · las posiciones se verán cuando confirmen los dos capitanes`
+            : `Azul: ${teamLabel(teamA)} · Rojo: ${teamLabel(teamB)} · el número es la posición en el lobby`}
+      </span>
+    </div>
   );
 };
 
@@ -287,7 +531,13 @@ const GameCard = ({
       : game.winnerTeamId === teamB.id
         ? teamB
         : null;
-  const canEditMap = viewer.isAdmin || viewer.captainOf !== null;
+  // The map is chosen before "Listos"; once drawn, only the organiser moves it.
+  const canEditMap =
+    game.status === 'pending'
+      ? viewer.isAdmin || viewer.captainOf !== null
+      : game.status === 'factions_drawn'
+        ? viewer.isAdmin
+        : !game.ringSides && (viewer.isAdmin || viewer.captainOf !== null);
   const args = { tournamentId: state.id, matchId: m.id };
 
   return (
@@ -333,6 +583,15 @@ const GameCard = ({
           viewer={viewer}
         />
       </div>
+
+      <GameBoard
+        game={game}
+        matchId={m.id}
+        state={state}
+        teamA={teamA}
+        teamB={teamB}
+        viewer={viewer}
+      />
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-(--hair) border-t pt-4">
         <MapField
@@ -415,4 +674,4 @@ const GameCard = ({
   );
 };
 
-export { GameCard, type Viewer };
+export { GameCard, MapField, type Viewer };

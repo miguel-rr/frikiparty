@@ -1,6 +1,12 @@
 import { TRPCError } from '@trpc/server';
 import { and, eq, inArray } from 'drizzle-orm';
 
+import {
+  type RingSides,
+  ringSidesProblem,
+  sameRings,
+  sidesFromHalves,
+} from '@/lib/live/map-board';
 import { matchScore } from '@/lib/live/match-score';
 import {
   champion,
@@ -15,6 +21,7 @@ import {
   matchGame,
   matchGameFactionDraw,
   matchGamePlayerFaction,
+  matchGamePlayerPosition,
   team,
   tournament,
 } from '@/server/db/schema';
@@ -82,6 +89,23 @@ const assertPlayable = (state: LiveState, { match: m }: Located) => {
   if (!m.teamAId || !m.teamBId) throw bad('Faltan equipos en este partido.');
 };
 
+/** The illustrated sheet of the game's map, if it has one. */
+const boardOf = (state: LiveState, game: LiveGame) =>
+  state.maps.find((m) => m.id === game.mapId)?.board ?? null;
+
+/**
+ * Whether games of this tournament are played on the booklet's maps: once
+ * its game has illustrated sheets, every game needs one, so the captains
+ * can place their players before it starts.
+ */
+const needsBoard = (state: LiveState) => state.maps.some((m) => m.board);
+
+/** Which rings each team uses: the board's halves, sides drawn at random. */
+const drawRingSides = (state: LiveState, game: LiveGame): RingSides | null => {
+  const board = boardOf(state, game);
+  return board ? sidesFromHalves(board.halves, Math.random() < 0.5) : null;
+};
+
 const gameRowToLive = (row: typeof matchGame.$inferSelect): LiveGame => ({
   id: row.id,
   gameNumber: row.gameNumber,
@@ -97,6 +121,8 @@ const gameRowToLive = (row: typeof matchGame.$inferSelect): LiveGame => ({
   playedAt: row.playedAt?.toISOString() ?? null,
   draws: [],
   lineup: [],
+  ringSides: row.ringSides ?? null,
+  positions: [],
   saveFiles: [],
 });
 
@@ -178,7 +204,11 @@ const drawForGame = async (
   if (all.length === 0) {
     await tx
       .update(matchGame)
-      .set({ status: 'ready', startedAt: new Date() })
+      .set({
+        status: 'ready',
+        startedAt: new Date(),
+        ringSides: drawRingSides(state, game),
+      })
       .where(eq(matchGame.id, game.id));
     await emit({
       stream: 'match',
@@ -220,9 +250,10 @@ const drawForGame = async (
     })),
   ];
   if (rows.length > 0) await tx.insert(matchGameFactionDraw).values(rows);
+  const ringSides = drawRingSides(state, game);
   await tx
     .update(matchGame)
-    .set({ status: 'factions_drawn' })
+    .set({ status: 'factions_drawn', ringSides })
     .where(eq(matchGame.id, game.id));
   await emit({
     stream: 'match',
@@ -236,6 +267,7 @@ const drawForGame = async (
         [b.id]: { factionIds: result.b.factionIds, relaxed: result.b.relaxed },
       },
       rules,
+      ringSides,
     },
   });
 };
@@ -250,6 +282,8 @@ const readyGame = async (
   assertPlayable(state, located);
   const game = await ensureGame(ctx, located);
   if (game.status !== 'pending') throw bad('Esta partida ya está sorteada.');
+  if (needsBoard(state) && !boardOf(state, game))
+    throw bad('Elegid antes un mapa del dossier.');
   const column = side === 'A' ? 'readyTeamAAt' : 'readyTeamBAt';
   if (game[column]) return game.id;
   const now = new Date();
@@ -282,7 +316,7 @@ const setLineup = async (
   located: Located,
   team: LiveState['teams'][number],
   side: 'A' | 'B',
-  assignments: { playerId: string; factionId: string }[],
+  assignments: { playerId: string; factionId: string; ring?: number | null }[],
 ) => {
   assertPlayable(state, located);
   const game = openGame(located.match);
@@ -305,6 +339,15 @@ const setLineup = async (
       'Cada jugador del equipo recibe exactamente una facción sorteada.',
     );
   }
+  const ownRings = game.ringSides?.[side] ?? null;
+  const rings = assignments.map((a) => a.ring);
+  if (
+    ownRings &&
+    (rings.some((r) => r == null || !ownRings.includes(r)) ||
+      new Set(rings).size !== rings.length)
+  ) {
+    throw bad('Cada jugador va en un anillo distinto de vuestro lado.');
+  }
   await ctx.tx
     .delete(matchGamePlayerFaction)
     .where(
@@ -320,6 +363,23 @@ const setLineup = async (
       factionId: a.factionId,
     })),
   );
+  await ctx.tx
+    .delete(matchGamePlayerPosition)
+    .where(
+      and(
+        eq(matchGamePlayerPosition.matchGameId, game.id),
+        inArray(matchGamePlayerPosition.playerId, members),
+      ),
+    );
+  if (ownRings) {
+    await ctx.tx.insert(matchGamePlayerPosition).values(
+      assignments.map((a) => ({
+        matchGameId: game.id,
+        playerId: a.playerId,
+        ring: a.ring as number,
+      })),
+    );
+  }
   // A new distribution needs confirming again.
   await ctx.tx
     .update(matchGame)
@@ -353,6 +413,9 @@ const confirmLineup = async (
   const assigned = new Set(game.lineup.map((l) => l.playerId));
   if (team.members.some((m) => !assigned.has(m.playerId)))
     throw bad('Reparte todas las facciones antes de confirmar.');
+  const placed = new Set(game.positions.map((p) => p.playerId));
+  if (game.ringSides && team.members.some((m) => !placed.has(m.playerId)))
+    throw bad('Coloca a todos en el mapa antes de confirmar.');
   const now = new Date();
   const column = side === 'A' ? 'confirmedTeamAAt' : 'confirmedTeamBAt';
   const otherConfirmed =
@@ -381,35 +444,122 @@ const confirmLineup = async (
   return game.id;
 };
 
+/**
+ * Names the map of a game; with no game yet, opens the next one, since the
+ * map comes before "Listos". Once the factions are drawn only the organiser
+ * changes it, and the new map's sides are drawn again: placements start over.
+ */
 const setMap = async (
   ctx: TournamentTx,
   state: LiveState,
   located: Located,
-  gameId: string,
+  gameId: string | null,
   map: { name: string | null; mapId: string | null },
+  byAdmin: boolean,
 ) => {
-  const game = located.match.games.find((g) => g.id === gameId);
+  if (!gameId) assertPlayable(state, located);
+  const game = gameId
+    ? located.match.games.find((g) => g.id === gameId)
+    : await ensureGame(ctx, located);
   if (!game) throw bad('Esa partida no existe.');
   const known = map.mapId
     ? (state.maps.find((m) => m.id === map.mapId) ?? null)
     : (state.maps.find(
         (m) => m.name.toLowerCase() === (map.name ?? '').trim().toLowerCase(),
       ) ?? null);
+  const live = game.status === 'pending' || game.status === 'factions_drawn';
+  if (live && needsBoard(state) && !known?.board)
+    throw bad('Ese mapa no está en el dossier.');
+  if (game.ringSides && !live)
+    throw bad('Esta partida ya se juega en su mapa.');
+  const redraw = game.status === 'factions_drawn';
+  if (redraw && !byAdmin)
+    throw bad(
+      'Con las facciones sorteadas, sólo el organizador cambia el mapa.',
+    );
+  const mapId = known?.id ?? null;
   await ctx.tx
     .update(matchGame)
     .set({
       map: known?.name ?? map.name?.trim() ?? null,
-      mapId: known?.id ?? null,
+      mapId,
+      ...(redraw
+        ? {
+            ringSides: drawRingSides(state, { ...game, mapId }),
+            confirmedTeamAAt: null,
+            confirmedTeamBAt: null,
+          }
+        : {}),
     })
-    .where(eq(matchGame.id, gameId));
+    .where(eq(matchGame.id, game.id));
+  if (redraw) {
+    await ctx.tx
+      .delete(matchGamePlayerPosition)
+      .where(eq(matchGamePlayerPosition.matchGameId, game.id));
+  }
   await ctx.emit({
     stream: 'match',
     type: 'map_set',
     payload: {
       matchId: located.match.id,
-      gameId,
+      gameId: game.id,
       map: known?.name ?? map.name,
     },
+  });
+  return game.id;
+};
+
+/**
+ * The organiser re-splits the rings between the teams. A team whose rings
+ * change places its players again and confirms again.
+ */
+const setRingSides = async (
+  ctx: TournamentTx,
+  state: LiveState,
+  located: Located,
+  sides: RingSides,
+) => {
+  assertPlayable(state, located);
+  const game = openGame(located.match);
+  const board = game ? boardOf(state, game) : null;
+  if (!game || !board || !game.ringSides || game.status !== 'factions_drawn')
+    throw bad('Los anillos se reparten tras el sorteo y antes de empezar.');
+  const a = teamOf(state, located.match.teamAId);
+  const b = teamOf(state, located.match.teamBId);
+  if (!a || !b) throw bad('Faltan equipos en este partido.');
+  const problem = ringSidesProblem(sides, board.rings.length, {
+    A: a.members.length,
+    B: b.members.length,
+  });
+  if (problem) throw bad(problem);
+  const changed = (['A', 'B'] as const).filter(
+    (side) => !sameRings(sides[side], game.ringSides?.[side] ?? []),
+  );
+  await ctx.tx
+    .update(matchGame)
+    .set({
+      ringSides: sides,
+      ...(changed.includes('A') ? { confirmedTeamAAt: null } : {}),
+      ...(changed.includes('B') ? { confirmedTeamBAt: null } : {}),
+    })
+    .where(eq(matchGame.id, game.id));
+  const replaced = changed.flatMap((side) =>
+    (side === 'A' ? a : b).members.map((m) => m.playerId),
+  );
+  if (replaced.length > 0) {
+    await ctx.tx
+      .delete(matchGamePlayerPosition)
+      .where(
+        and(
+          eq(matchGamePlayerPosition.matchGameId, game.id),
+          inArray(matchGamePlayerPosition.playerId, replaced),
+        ),
+      );
+  }
+  await ctx.emit({
+    stream: 'match',
+    type: 'ring_sides_set',
+    payload: { matchId: located.match.id, gameId: game.id, sides, changed },
   });
 };
 
@@ -884,6 +1034,7 @@ export {
   readyGame,
   setLineup,
   setMap,
+  setRingSides,
   sideOf,
   teamOf,
   undoGame,

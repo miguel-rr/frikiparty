@@ -1,5 +1,6 @@
 import { and, asc, desc, eq, gte, isNotNull, ne, sql } from 'drizzle-orm';
 
+import type { MapBoard } from '@/lib/live/map-board';
 import type { AuctionLiveState } from '@/lib/tournament/auction-live';
 import type { DraftLiveState } from '@/lib/tournament/draft-live';
 import { combineBallotsToRanking } from '@/lib/tournament/ranking';
@@ -10,6 +11,7 @@ import {
   editionPlayer,
   game,
   gameMap,
+  gameMapBoard,
   gameVersion,
   liveRoom,
   liveVersion,
@@ -109,12 +111,14 @@ const loadBallots = async (db: Database, tournamentId: string) =>
  * with each phase of the live plan. Participants come from the ranking
  * snapshot, which is also the participant list. Pass `privileged` for an
  * admin reader: the deliberation (ranking, votes' aggregate, pots) is
- * only included for everyone else once the pots are published.
+ * only included for everyone else once the pots are published. Pass
+ * `secrets` only to act on the snapshot server-side: it carries the
+ * line-ups and positions of games that have not started.
  */
 const getLiveState = async (
   db: Database,
   tournamentId: string,
-  options: { privileged?: boolean } = {},
+  options: { privileged?: boolean; secrets?: boolean } = {},
 ) => {
   const [head] = await db
     .select({
@@ -221,7 +225,7 @@ const getLiveState = async (
       })
       .from(liveRoom)
       .where(eq(liveRoom.tournamentId, tournamentId)),
-    loadPhases(db, tournamentId),
+    loadPhases(db, tournamentId, { secrets: options.secrets }),
     // The draw pool: the core factions of the tournament's game version.
     head.gameVersionId
       ? listCoreFactionsForVersion(db, head.gameVersionId).then((rows) =>
@@ -230,10 +234,38 @@ const getLiveState = async (
       : Promise.resolve([]),
     head.gameId
       ? db
-          .select({ id: gameMap.id, name: gameMap.name })
+          .select({
+            id: gameMap.id,
+            name: gameMap.name,
+            imageUrl: gameMapBoard.imageUrl,
+            width: gameMapBoard.width,
+            height: gameMapBoard.height,
+            rings: gameMapBoard.rings,
+            halves: gameMapBoard.halves,
+          })
           .from(gameMap)
+          .leftJoin(gameMapBoard, eq(gameMapBoard.gameMapId, gameMap.id))
           .where(eq(gameMap.gameId, head.gameId))
           .orderBy(asc(gameMap.name))
+          .then((rows) =>
+            rows.map(
+              ({ id, name, imageUrl, width, height, rings, halves }) => ({
+                id,
+                name,
+                // The illustrated sheet, for maps the captains place players on.
+                board:
+                  imageUrl && width && height && rings && halves
+                    ? ({
+                        imageUrl,
+                        width,
+                        height,
+                        rings,
+                        halves,
+                      } satisfies MapBoard)
+                    : null,
+              }),
+            ),
+          )
       : Promise.resolve([]),
   ]);
 

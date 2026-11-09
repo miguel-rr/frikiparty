@@ -10,7 +10,7 @@ import {
   unique,
   uuid,
 } from 'drizzle-orm/pg-core';
-
+import type { BoardHalves, BoardRing } from '@/lib/live/map-board';
 import type {
   Ability,
   CounterTag,
@@ -268,6 +268,27 @@ const gameMap = createTable(
   (table) => [unique().on(table.gameId, table.name)],
 );
 
+/**
+ * The illustrated sheet of a map (the 4v4 booklet's art): where its start
+ * rings sit on the image, which lobby slot each ring is, and how the rings
+ * split into the two sides by default. Captains place their players on
+ * these rings before a game; the organiser can re-split them per game.
+ */
+const gameMapBoard = createTable('game_map_board', {
+  gameMapId: uuid('game_map_id')
+    .primaryKey()
+    .references(() => gameMap.id, { onDelete: 'cascade' }),
+  // Public path of the image, e.g. /maps/aotr/evendim.webp.
+  imageUrl: text('image_url').notNull(),
+  // Pixel size of the art the ring coordinates are measured on.
+  width: integer('width').notNull(),
+  height: integer('height').notNull(),
+  rings: jsonb('rings').notNull().$type<BoardRing[]>(),
+  // Ring indexes of each side, before the draw says which team gets which.
+  halves: jsonb('halves').notNull().$type<BoardHalves>(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 /** Free-form tag catalog, scoped to media for now. Grows as users type new tags. */
 const tag = createTable('tag', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -284,6 +305,7 @@ export {
   factionUnit,
   game,
   gameMap,
+  gameMapBoard,
   gameVersion,
   tag,
   type UnitCategory,

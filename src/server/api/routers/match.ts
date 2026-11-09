@@ -28,6 +28,7 @@ import {
   readyGame,
   setLineup,
   setMap,
+  setRingSides,
   sideOf,
   undoGame,
 } from '@/server/live/matches';
@@ -49,7 +50,10 @@ const loadState = async (
   db: Parameters<typeof getLiveState>[0],
   tournamentId: string,
 ): Promise<LiveState> => {
-  const state = await getLiveState(db, tournamentId, { privileged: true });
+  const state = await getLiveState(db, tournamentId, {
+    privileged: true,
+    secrets: true,
+  });
   if (!state) throw new TRPCError({ code: 'NOT_FOUND' });
   return state;
 };
@@ -100,7 +104,14 @@ const matchRouter = createTRPCRouter({
       z.object({
         tournamentId: id,
         matchId: id,
-        assignments: z.array(z.object({ playerId: id, factionId: id })),
+        assignments: z.array(
+          z.object({
+            playerId: id,
+            factionId: id,
+            // The ring of the map's board the player starts on.
+            ring: z.number().int().min(0).max(15).nullable().optional(),
+          }),
+        ),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -138,7 +149,8 @@ const matchRouter = createTRPCRouter({
       z.object({
         tournamentId: id,
         matchId: id,
-        gameId: id,
+        // Null opens the next game with this map (the map comes before "Listos").
+        gameId: id.nullable(),
         map: z.string().trim().max(80).nullable(),
         mapId: id.nullable(),
       }),
@@ -146,7 +158,8 @@ const matchRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const state = await loadState(ctx.db, input.tournamentId);
       const located = locate(state, input.matchId);
-      if (!isAdmin(ctx.session.user)) {
+      const byAdmin = isAdmin(ctx.session.user);
+      if (!byAdmin) {
         const player = await getPlayerForUser(ctx.db, ctx.session.user.id);
         if (!player) throw new TRPCError({ code: 'FORBIDDEN' });
         captainSide(state, located.match, player.id);
@@ -156,12 +169,65 @@ const matchRouter = createTRPCRouter({
         input.tournamentId,
         actorFromSession(ctx.session),
         (tctx) =>
-          setMap(tctx, state, located, input.gameId, {
-            name: input.map,
-            mapId: input.mapId,
-          }),
+          setMap(
+            tctx,
+            state,
+            located,
+            input.gameId,
+            { name: input.map, mapId: input.mapId },
+            byAdmin,
+          ),
       );
       return { ok: true };
+    }),
+
+  /** The organiser re-splits the board's rings between the two teams. */
+  setRingSides: adminProcedure
+    .input(
+      z.object({
+        tournamentId: id,
+        matchId: id,
+        sides: z.object({
+          A: z.array(z.number().int().min(0).max(15)),
+          B: z.array(z.number().int().min(0).max(15)),
+        }),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const state = await loadState(ctx.db, input.tournamentId);
+      const located = locate(state, input.matchId);
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        (tctx) => setRingSides(tctx, state, located, input.sides),
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * The open game's line-up and positions of the viewer's own team: the
+   * public snapshot hides them until both captains confirm, but the team
+   * sees its own plan.
+   */
+  myTeamPlan: playerProcedure
+    .input(z.object({ tournamentId: id, matchId: id }))
+    .query(async ({ ctx, input }) => {
+      const state = await loadState(ctx.db, input.tournamentId);
+      const { match: m } = locate(state, input.matchId);
+      const mine = state.teams.find(
+        (t) =>
+          (t.id === m.teamAId || t.id === m.teamBId) &&
+          t.members.some((p) => p.playerId === ctx.player.id),
+      );
+      const game = openGame(m);
+      if (!mine || !game) return null;
+      const members = new Set(mine.members.map((p) => p.playerId));
+      return {
+        gameId: game.id,
+        lineup: game.lineup.filter((l) => members.has(l.playerId)),
+        positions: game.positions.filter((p) => members.has(p.playerId)),
+      };
     }),
 
   /** "Hemos perdido": a captain can only concede their own team's game. */

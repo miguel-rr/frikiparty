@@ -8,6 +8,7 @@ import {
   unique,
   uuid,
 } from 'drizzle-orm/pg-core';
+import type { RingSides } from '@/lib/live/map-board';
 import { user } from '@/server/db/schema/auth';
 import { faction, gameMap } from '@/server/db/schema/catalog';
 import { createTable } from '@/server/db/schema/create-table';
@@ -92,6 +93,10 @@ const matchGame = createTable('match_game', {
   confirmedTeamAAt: timestamp('confirmed_team_a_at'),
   confirmedTeamBAt: timestamp('confirmed_team_b_at'),
   startedAt: timestamp('started_at'),
+  // Which rings of the map's board each team places its players on: drawn
+  // with the factions, re-split by the organiser if needed. Null for maps
+  // without a board.
+  ringSides: jsonb('ring_sides').$type<RingSides>(),
   // 1-based order within the match for hand-entered results ("ganaron la
   // primera"); live games can rely on playedAt instead, so it's nullable.
   gameNumber: integer('game_number'),
@@ -139,6 +144,29 @@ const matchGamePlayerFaction = createTable(
   (table) => [unique().on(table.matchGameId, table.playerId)],
 );
 
+/**
+ * Where each player starts: a ring of the map's board (index into
+ * `game_map_board.rings`). Secret until both captains confirm, like the
+ * faction distribution it is confirmed with.
+ */
+const matchGamePlayerPosition = createTable(
+  'match_game_player_position',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    matchGameId: uuid('match_game_id')
+      .notNull()
+      .references(() => matchGame.id, { onDelete: 'cascade' }),
+    playerId: uuid('player_id')
+      .notNull()
+      .references(() => player.id),
+    ring: integer('ring').notNull(),
+  },
+  (table) => [
+    unique().on(table.matchGameId, table.playerId),
+    unique().on(table.matchGameId, table.ring),
+  ],
+);
+
 const matchGameSaveFile = createTable('match_game_save_file', {
   id: uuid('id').primaryKey().defaultRandom(),
   matchGameId: uuid('match_game_id')
@@ -159,5 +187,6 @@ export {
   matchGame,
   matchGameFactionDraw,
   matchGamePlayerFaction,
+  matchGamePlayerPosition,
   matchGameSaveFile,
 };
