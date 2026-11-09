@@ -17,6 +17,7 @@ import {
   GAME_FILE_MAX_BYTES,
   titleFromFileName,
 } from '@/lib/games/files';
+import { mapPreviewFromZip, thumbnailFromImage } from '@/lib/games/map-preview';
 import type { GameFileCategory } from '@/server/db/schema/game-file';
 import type { GameFileRow } from '@/server/games/files';
 import { api } from '@/trpc/react';
@@ -46,6 +47,19 @@ type Placement = {
 };
 
 const select = `${input} appearance-none`;
+
+type Thumbnail = { blob: Blob; url: string };
+
+const putThumbnail = async (url: string, blob: Blob) => {
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'image/jpeg' },
+    body: blob,
+  });
+  if (!response.ok) {
+    throw new Error(`El almacén respondió ${response.status}.`);
+  }
+};
 
 const formatDate = (value: Date | string) =>
   new Date(value).toLocaleDateString('es-ES', { dateStyle: 'medium' });
@@ -178,22 +192,45 @@ const FileRow = ({
     <li
       className={`${panel} flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between`}
     >
-      <div className="flex min-w-0 flex-col gap-1">
-        <span className="d-display font-bold text-(--parchment) text-base">
-          {file.title}
-        </span>
-        <span className="font-mono text-(--faded) text-2xs uppercase tracking-wider">
-          {meta.join(' · ')}
-        </span>
-        <span className="truncate text-(--faded) text-xs">{file.fileName}</span>
-        {file.description ? (
-          <p className="whitespace-pre-line text-(--faded) text-sm">
-            {file.description}
-          </p>
+      <div className="flex min-w-0 items-start gap-4">
+        {file.thumbnailUrl ? (
+          <a
+            className="shrink-0"
+            href={file.thumbnailUrl}
+            rel="noreferrer"
+            target="_blank"
+            title="Ver la imagen"
+          >
+            {/* biome-ignore lint/performance/noImgElement: R2 thumbnail, already sized */}
+            <img
+              alt=""
+              className="size-20 rounded-md border border-(--hair) object-cover sm:size-24"
+              loading="lazy"
+              src={file.thumbnailUrl}
+            />
+          </a>
         ) : null}
-        {remove.error ? (
-          <span className="text-(--ember) text-xs">{remove.error.message}</span>
-        ) : null}
+        <div className="flex min-w-0 flex-col gap-1">
+          <span className="d-display font-bold text-(--parchment) text-base">
+            {file.title}
+          </span>
+          <span className="font-mono text-(--faded) text-2xs uppercase tracking-wider">
+            {meta.join(' · ')}
+          </span>
+          <span className="truncate text-(--faded) text-xs">
+            {file.fileName}
+          </span>
+          {file.description ? (
+            <p className="whitespace-pre-line text-(--faded) text-sm">
+              {file.description}
+            </p>
+          ) : null}
+          {remove.error ? (
+            <span className="text-(--ember) text-xs">
+              {remove.error.message}
+            </span>
+          ) : null}
+        </div>
       </div>
       <div className="flex shrink-0 flex-wrap items-center gap-2">
         {canEdit ? (
@@ -248,6 +285,7 @@ const FileDialog = ({
   const complete = api.gameFiles.complete.useMutation();
   const abort = api.gameFiles.abort.useMutation();
   const update = api.gameFiles.update.useMutation();
+  const presignThumbnail = api.gameFiles.presignThumbnail.useMutation();
   const fieldId = useId();
 
   const [file, setFile] = useState<File | null>(null);
@@ -260,6 +298,11 @@ const FileDialog = ({
       : (defaultVersionId ?? ''),
     gameMapId: editing?.gameMapId ?? '',
   }));
+  // The map's own preview, found in the zip; a hand-picked image wins over it.
+  const [detected, setDetected] = useState<Thumbnail | null>(null);
+  const [manual, setManual] = useState<Thumbnail | null>(null);
+  // Editing: the stored thumbnail stays unless removed or replaced.
+  const [keepStored, setKeepStored] = useState(true);
   const [state, setState] = useState<UploadState>({ status: 'idle' });
   const controllerRef = useRef<AbortController | null>(null);
   const busy = state.status === 'uploading' || state.status === 'finishing';
@@ -291,6 +334,60 @@ const FileDialog = ({
     };
   }, []);
 
+  useEffect(
+    () => () => {
+      if (detected) URL.revokeObjectURL(detected.url);
+    },
+    [detected],
+  );
+  useEffect(
+    () => () => {
+      if (manual) URL.revokeObjectURL(manual.url);
+    },
+    [manual],
+  );
+
+  const pickFile = async (picked: File | null) => {
+    setFile(picked);
+    setDetected(null);
+    setState({ status: 'idle' });
+    if (!picked) {
+      return;
+    }
+    const preview = await mapPreviewFromZip(picked);
+    if (preview) {
+      setDetected({ blob: preview, url: URL.createObjectURL(preview) });
+    }
+  };
+
+  const pickImage = async (picked: File | null) => {
+    if (!picked) {
+      return;
+    }
+    const thumbnail = await thumbnailFromImage(picked);
+    if (thumbnail) {
+      setManual({ blob: thumbnail, url: URL.createObjectURL(thumbnail) });
+    } else {
+      setState({ status: 'error', message: 'No se pudo leer esa imagen.' });
+    }
+  };
+
+  // What will be stored: a hand-picked image, else (maps only) the zip's preview.
+  const chosen = manual ?? (placement.category === 'map' ? detected : null);
+  const storedUrl =
+    editing && keepStored && !manual ? editing.thumbnailUrl : null;
+  const shownUrl = chosen?.url ?? storedUrl;
+
+  const removeThumbnail = () => {
+    if (manual) {
+      setManual(null);
+    } else if (detected && placement.category === 'map') {
+      setDetected(null);
+    } else {
+      setKeepStored(false);
+    }
+  };
+
   const patch = (changes: Partial<Placement>) =>
     setPlacement((current) => ({ ...current, ...changes }));
 
@@ -314,6 +411,7 @@ const FileDialog = ({
         gameId,
         fileName: file.name,
         fileSize: file.size,
+        withThumbnail: chosen !== null,
       });
       ref = { id: signed.id, uploadId: signed.uploadId, fileName: file.name };
       await uploadParts({
@@ -325,10 +423,18 @@ const FileDialog = ({
           setState({ status: 'uploading', progress, startedAt }),
       });
       setState({ status: 'finishing' });
+      // A thumbnail that fails to upload isn't worth losing the file over.
+      const thumbnailKey =
+        chosen && signed.thumbnail
+          ? await putThumbnail(signed.thumbnail.url, chosen.blob)
+              .then(() => signed.thumbnail?.key ?? null)
+              .catch(() => null)
+          : null;
       await complete.mutateAsync({
         ...ref,
         gameId,
         mimeType: file.type || null,
+        thumbnailKey,
         placement: toInput(placement),
       });
       router.refresh();
@@ -354,7 +460,22 @@ const FileDialog = ({
     }
     setState({ status: 'finishing' });
     try {
-      await update.mutateAsync({ id: editing.id, ...toInput(placement) });
+      let thumbnail:
+        | { action: 'keep' }
+        | { action: 'remove' }
+        | { action: 'replace'; key: string } = { action: 'keep' };
+      if (manual) {
+        const signed = await presignThumbnail.mutateAsync({ id: editing.id });
+        await putThumbnail(signed.url, manual.blob);
+        thumbnail = { action: 'replace', key: signed.key };
+      } else if (!keepStored && editing.thumbnailUrl) {
+        thumbnail = { action: 'remove' };
+      }
+      await update.mutateAsync({
+        id: editing.id,
+        ...toInput(placement),
+        thumbnail,
+      });
       router.refresh();
       onClose();
     } catch (error) {
@@ -408,8 +529,7 @@ const FileDialog = ({
                 onChange={(event) => {
                   const picked = event.target.files?.[0] ?? null;
                   event.target.value = '';
-                  setFile(picked);
-                  setState({ status: 'idle' });
+                  void pickFile(picked);
                 }}
                 type="file"
               />
@@ -501,6 +621,66 @@ const FileDialog = ({
                 </select>
               </div>
             ) : null}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <span className={label}>Imagen</span>
+            <div className="flex items-center gap-4">
+              <div className="grid size-24 shrink-0 place-items-center overflow-hidden rounded-md border border-(--hair) bg-(--night-2)">
+                {shownUrl ? (
+                  // biome-ignore lint/performance/noImgElement: local object URL or R2 thumbnail
+                  <img
+                    alt=""
+                    className="size-full object-cover"
+                    src={shownUrl}
+                  />
+                ) : (
+                  <span className="px-2 text-center font-mono text-(--faded) text-3xs uppercase tracking-wider">
+                    Sin imagen
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col items-start gap-1">
+                <input
+                  accept="image/*"
+                  className="sr-only"
+                  disabled={busy}
+                  id={`${fieldId}-image`}
+                  onChange={(event) => {
+                    const picked = event.target.files?.[0] ?? null;
+                    event.target.value = '';
+                    void pickImage(picked);
+                  }}
+                  type="file"
+                />
+                {busy ? null : (
+                  <label
+                    className={`${btn.ghost} cursor-pointer px-0`}
+                    htmlFor={`${fieldId}-image`}
+                  >
+                    {shownUrl ? 'Cambiar imagen' : 'Elegir imagen'}
+                  </label>
+                )}
+                {shownUrl && !busy ? (
+                  <button
+                    className={`${btn.ghost} px-0`}
+                    onClick={removeThumbnail}
+                    type="button"
+                  >
+                    Quitar imagen
+                  </button>
+                ) : null}
+                <span className="text-(--faded) text-xs">
+                  {manual
+                    ? 'Imagen elegida a mano.'
+                    : chosen
+                      ? 'Preview del lobby, sacado del zip.'
+                      : placement.category === 'map'
+                        ? 'Si subes el .zip del mapa, se saca su preview del lobby.'
+                        : 'Opcional.'}
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col">

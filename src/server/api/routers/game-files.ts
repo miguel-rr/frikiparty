@@ -17,7 +17,11 @@ import {
   gameMap,
   gameVersion,
 } from '@/server/db/schema';
-import { gameFileKey } from '@/server/games/files';
+import {
+  gameFileKey,
+  gameFileThumbnailKey,
+  isGameFileThumbnailKey,
+} from '@/server/games/files';
 import { contentDisposition } from '@/server/storage/content-disposition';
 import {
   abortMultipartUpload,
@@ -25,6 +29,7 @@ import {
   createMultipartUpload,
   deleteObjects,
   headObject,
+  presignUpload,
   presignUploadPart,
 } from '@/server/storage/r2';
 
@@ -85,6 +90,20 @@ const assertPlacement = async (
   }
 };
 
+/** Signs the PUT for a thumbnail, which the browser renders as JPEG (the one format every browser encodes). */
+const signThumbnail = async (id: string) => {
+  const key = gameFileThumbnailKey(id);
+  return { key, url: await presignUpload(key, 'image/jpeg') };
+};
+
+/** The thumbnail key, if it's this file's own and actually reached R2. */
+const verifiedThumbnail = async (id: string, key: string | null) => {
+  if (!key || !isGameFileThumbnailKey(id, key)) {
+    return null;
+  }
+  return (await headObject(key)) ? key : null;
+};
+
 /** The row, if the caller uploaded it or moderates the archive. */
 const loadEditable = async (
   ctx: TRPCContext & { access: { canModerate: boolean } },
@@ -116,6 +135,7 @@ const gameFilesRouter = createTRPCRouter({
         gameId: z.string().uuid(),
         fileName: fileNameSchema,
         fileSize: z.number().int().positive().max(GAME_FILE_MAX_BYTES),
+        withThumbnail: z.boolean().default(false),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -140,7 +160,14 @@ const gameFilesRouter = createTRPCRouter({
           presignUploadPart(key, uploadId, index + 1),
         ),
       );
-      return { id, uploadId, partSize: GAME_FILE_PART_SIZE, partUrls };
+      const thumbnail = input.withThumbnail ? await signThumbnail(id) : null;
+      return {
+        id,
+        uploadId,
+        partSize: GAME_FILE_PART_SIZE,
+        partUrls,
+        thumbnail,
+      };
     }),
 
   complete: archiveProcedure
@@ -148,6 +175,7 @@ const gameFilesRouter = createTRPCRouter({
       uploadRefSchema.extend({
         gameId: z.string().uuid(),
         mimeType: z.string().trim().max(200).nullable(),
+        thumbnailKey: z.string().max(200).nullable().default(null),
         placement: placementSchema,
       }),
     )
@@ -189,6 +217,7 @@ const gameFilesRouter = createTRPCRouter({
         fileName: input.fileName,
         mimeType: input.mimeType || 'application/octet-stream',
         storageKey: key,
+        thumbnailKey: await verifiedThumbnail(input.id, input.thumbnailKey),
         fileSize: stored.size,
         uploadedByUserId: ctx.session.user.id,
       });
@@ -204,11 +233,46 @@ const gameFilesRouter = createTRPCRouter({
     return { id: input.id };
   }),
 
+  /** A PUT for a new thumbnail on a file being edited. */
+  presignThumbnail: archiveProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      await loadEditable(ctx, input.id);
+      return signThumbnail(input.id);
+    }),
+
   update: archiveProcedure
-    .input(placementSchema.extend({ id: z.string().uuid() }))
+    .input(
+      placementSchema.extend({
+        id: z.string().uuid(),
+        // Keep the current thumbnail, drop it, or swap in a new upload.
+        thumbnail: z
+          .discriminatedUnion('action', [
+            z.object({ action: z.literal('keep') }),
+            z.object({ action: z.literal('remove') }),
+            z.object({
+              action: z.literal('replace'),
+              key: z.string().max(200),
+            }),
+          ])
+          .default({ action: 'keep' }),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const row = await loadEditable(ctx, input.id);
       await assertPlacement(ctx.db, row.gameId, input);
+      let thumbnailKey = row.thumbnailKey;
+      if (input.thumbnail.action === 'remove') {
+        thumbnailKey = null;
+      } else if (input.thumbnail.action === 'replace') {
+        thumbnailKey = await verifiedThumbnail(input.id, input.thumbnail.key);
+        if (!thumbnailKey) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'La imagen no llegó al almacén. Vuelve a intentarlo.',
+          });
+        }
+      }
       await ctx.db
         .update(gameFile)
         .set({
@@ -217,8 +281,12 @@ const gameFilesRouter = createTRPCRouter({
           description: input.description || null,
           gameVersionId: input.gameVersionId,
           gameMapId: input.category === 'map' ? input.gameMapId : null,
+          thumbnailKey,
         })
         .where(eq(gameFile.id, input.id));
+      if (row.thumbnailKey && row.thumbnailKey !== thumbnailKey) {
+        await deleteObjects([row.thumbnailKey]);
+      }
       return { id: input.id };
     }),
 
@@ -228,7 +296,11 @@ const gameFilesRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const row = await loadEditable(ctx, input.id);
       await ctx.db.delete(gameFile).where(eq(gameFile.id, input.id));
-      await deleteObjects([row.storageKey]);
+      await deleteObjects(
+        [row.storageKey, row.thumbnailKey].filter(
+          (key): key is string => key !== null,
+        ),
+      );
       return { id: input.id };
     }),
 });

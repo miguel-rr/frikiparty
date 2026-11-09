@@ -1,0 +1,1 @@
+ALTER TABLE "frikiparty_game_file" ADD COLUMN "thumbnail_key" text;

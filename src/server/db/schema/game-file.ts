@@ -37,6 +37,9 @@ const gameFile = createTable('game_file', {
   mimeType: text('mime_type').notNull(),
   // R2 object key, never a full URL (see media.storageKey).
   storageKey: text('storage_key').notNull(),
+  // A JPEG the browser makes at upload: a map's lobby preview (from the
+  // zip's <map>_art.tga) or any image picked by hand. Null when none.
+  thumbnailKey: text('thumbnail_key'),
   // bigint: installers go past the 2 GB an integer holds.
   fileSize: bigint('file_size', { mode: 'number' }).notNull(),
   downloadCount: integer('download_count').notNull().default(0),
