@@ -6,13 +6,20 @@ import { MemberGameFiles } from '@/components/games/member-game-files';
 import { SiteShell } from '@/components/layout/site-shell';
 import {
   btn,
+  linkGold,
   panel,
   panelGold,
   Section,
   SectionHeader,
 } from '@/components/theme/primitives';
 import { FactionBanners } from '@/components/wiki/faction-banners';
+import {
+  EssentialHotkeys,
+  StartSummary,
+} from '@/components/wiki/guide-overview';
 import { Prose } from '@/components/wiki/prose';
+import { SectionNav } from '@/components/wiki/section-nav';
+import { VideoList } from '@/components/wiki/video-list';
 import { guidesOf } from '@/lib/wiki/guides';
 import { db } from '@/server/db';
 import { getGame, listWikiParams } from '@/server/wiki/queries';
@@ -33,30 +40,54 @@ export const generateMetadata = async ({
   return { title: g ? `${g.name} — Frikiparty` : 'Juego — Frikiparty' };
 };
 
+const block = 'flex scroll-mt-32 flex-col gap-4';
+const blockTitle = 'd-display font-bold text-(--parchment) text-xl uppercase';
+
+/** A section title with its "see everything" link on the right. */
+const BlockHeader = ({
+  title,
+  link,
+  href,
+}: {
+  title: string;
+  link: string;
+  href: string;
+}) => (
+  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h3 className={blockTitle}>{title}</h3>
+    <Link className={linkGold} href={href}>
+      {link}
+    </Link>
+  </div>
+);
+
 /** A game: its versions (newest first, with the editions that played them), its factions, maps and, for members, its files. */
 const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const g = await getGame(db, slug);
   if (!g) notFound();
   const latest = g.versions[0];
+  const guides = guidesOf(slug);
+  const nav = [
+    { id: 'factions', label: 'Facciones' },
+    ...(guides
+      ? [
+          { id: 'start', label: 'Empieza aquí' },
+          { id: 'hotkeys', label: 'Teclas' },
+          { id: 'videos', label: 'Vídeos' },
+        ]
+      : []),
+    { id: 'versions', label: 'Versiones' },
+    { id: 'files', label: 'Ficheros' },
+  ];
   return (
     <SiteShell>
       <main>
         <Section id="game">
           <SectionHeader title={g.name} />
           <Prose className="mx-auto max-w-[68ch]" text={g.description} />
-          <div className="flex flex-wrap justify-center gap-2">
-            {guidesOf(slug) ? (
-              <>
-                <Link className={btn.outline} href={`/games/${slug}/guide`}>
-                  Empieza aquí
-                </Link>
-                <Link className={btn.outline} href={`/games/${slug}/videos`}>
-                  Vídeos
-                </Link>
-              </>
-            ) : null}
-            {g.websiteUrl ? (
+          {g.websiteUrl ? (
+            <div className="flex justify-center">
               <a
                 className={btn.outline}
                 href={g.websiteUrl}
@@ -65,13 +96,13 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
               >
                 Página del mod
               </a>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
 
-          <div className="flex flex-col gap-4">
-            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
-              Facciones
-            </h3>
+          <SectionNav items={nav} />
+
+          <div className={block} id="factions">
+            <h3 className={blockTitle}>Facciones</h3>
             <FactionBanners
               factions={g.factions}
               slug={slug}
@@ -79,10 +110,51 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             />
           </div>
 
-          <div className="flex flex-col gap-4">
-            <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
-              Versiones
-            </h3>
+          {guides ? (
+            <>
+              <div className={block} id="start">
+                <BlockHeader
+                  href={`/games/${slug}/guide`}
+                  link="Leer la guía completa →"
+                  title="Empieza aquí"
+                />
+                <p className="text-(--faded) text-sm">{guides.start.lead}</p>
+                <StartSummary
+                  sections={guides.start.sections.filter(
+                    (sec) => sec.id !== 'keys' && sec.id !== 'glossary',
+                  )}
+                  slug={slug}
+                />
+                <p className="text-(--faded) text-sm">
+                  Y para cada facción, su «Cómo jugarla» dentro de su ficha.
+                </p>
+              </div>
+
+              <div className={block} id="hotkeys">
+                <BlockHeader
+                  href={`/games/${slug}/hotkeys`}
+                  link="Todas las teclas →"
+                  title="Teclas imprescindibles"
+                />
+                <EssentialHotkeys groups={guides.hotkeys} />
+              </div>
+
+              <div className={block} id="videos">
+                <BlockHeader
+                  href={`/games/${slug}/videos`}
+                  link={`Ver los ${guides.videos.length} vídeos →`}
+                  title="Vídeos destacados"
+                />
+                <VideoList
+                  currentVersion={guides.start.version}
+                  videos={guides.videos.filter((v) => v.featured)}
+                />
+              </div>
+            </>
+          ) : null}
+
+          <div className={block} id="versions">
+            <h3 className={blockTitle}>Versiones</h3>
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {g.versions.map((v) => (
                 <li key={v.id}>
@@ -119,13 +191,15 @@ const GamePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           </div>
 
           {/* Members only, like the archive: the list loads in the browser. */}
-          <MemberGameFiles
-            defaultVersionId={latest?.id ?? null}
-            gameId={g.id}
-            maps={g.maps.map((m) => ({ id: m.id, name: m.name }))}
-            slug={slug}
-            versions={g.versions.map((v) => ({ id: v.id, name: v.version }))}
-          />
+          <div className="scroll-mt-32" id="files">
+            <MemberGameFiles
+              defaultVersionId={latest?.id ?? null}
+              gameId={g.id}
+              maps={g.maps.map((m) => ({ id: m.id, name: m.name }))}
+              slug={slug}
+              versions={g.versions.map((v) => ({ id: v.id, name: v.version }))}
+            />
+          </div>
         </Section>
       </main>
     </SiteShell>

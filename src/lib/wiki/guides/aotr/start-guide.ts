@@ -12,6 +12,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'before',
       title: 'Antes de jugar',
+      summary: 'Launcher, versión 10.0 y cómo entrar en la partida de la LAN.',
       blocks: [
         {
           kind: 'list',
@@ -27,6 +28,8 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'economy',
       title: 'La economía',
+      summary:
+        'Edificios de economía separados: el error que más partidas cuesta.',
       blocks: [
         {
           kind: 'text',
@@ -51,6 +54,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'army',
       title: 'Ejército y puntos de mando',
+      summary: 'Batallones, puntos de mando, niveles de edificio y veteranía.',
       blocks: [
         {
           kind: 'list',
@@ -66,6 +70,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'counters',
       title: 'Quién gana a quién',
+      summary: 'Picas, espadas, arcos, caballería: quién gana a quién.',
       blocks: [
         {
           kind: 'text',
@@ -105,6 +110,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'heroes',
       title: 'Héroes',
+      summary: 'Cuándo sacarlos, qué desbloquean y cómo no perderlos.',
       blocks: [
         {
           kind: 'list',
@@ -120,6 +126,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'powers',
       title: 'Poderes',
+      summary: 'El libro de poderes: cómo se gana y en qué gastarlo.',
       blocks: [
         {
           kind: 'text',
@@ -138,6 +145,8 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'first-minutes',
       title: 'Los primeros cinco minutos',
+      summary:
+        'Una apertura paso a paso que sirve para casi todas las facciones.',
       blocks: [
         {
           kind: 'text',
@@ -160,6 +169,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'team',
       title: 'Jugar en equipo (4 contra 4)',
+      summary: 'Cómo ganar un 4 contra 4 sin ir cada uno por su lado.',
       blocks: [
         {
           kind: 'list',
@@ -176,6 +186,7 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'mistakes',
       title: 'Los errores de cada año',
+      summary: 'Los errores que se repiten cada año.',
       blocks: [
         {
           kind: 'list',
@@ -196,21 +207,30 @@ const AOTR_START_GUIDE: StartGuide = {
     {
       id: 'keys',
       title: 'Controles básicos',
+      summary: 'Las teclas imprescindibles y la hoja con todas.',
       blocks: [
         {
           kind: 'list',
           items: [
-            'Ctrl + número guarda la selección en un grupo; pulsar el número la recupera, y pulsarlo dos veces centra la cámara en ella.',
-            'Doble clic en un batallón selecciona todos los de ese tipo que hay en pantalla.',
-            'Cada botón muestra su tecla rápida al pasar el ratón: aprenderte las del edificio que más uses ahorra mucho tiempo.',
-            'Clic en un aviso del minimapa lleva la cámara a donde está pasando algo.',
+            'Clic izquierdo selecciona y clic derecho da la orden: mover, atacar o usar.',
+            'Ctrl + número guarda lo seleccionado como grupo, y el número lo vuelve a seleccionar. Alt + número además lleva la cámara hasta él.',
+            'Q selecciona todo tu ejército, H te lleva a tu base y Espacio, al último aviso: donde te están atacando.',
+            'La tecla º, a la izquierda del 1, abre el libro de poderes.',
+            'Cada botón muestra su tecla al pasar el ratón: aprenderte las del edificio que más uses ahorra mucho tiempo.',
           ],
+        },
+        {
+          kind: 'link',
+          href: '/games/age-of-the-ring/hotkeys',
+          label: 'Ver todas las teclas',
+          text: 'Todas las teclas rápidas del juego en una sola página, agrupadas y con las imprescindibles marcadas.',
         },
       ],
     },
     {
       id: 'glossary',
       title: 'Glosario',
+      summary: 'La jerga que oirás en las partidas.',
       blocks: [
         {
           kind: 'table',

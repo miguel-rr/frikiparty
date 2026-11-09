@@ -66,6 +66,9 @@ const GuidePage = async ({ params }: { params: Params }) => {
             <Link className={btn.outline} href={`/games/${slug}/videos`}>
               Vídeos
             </Link>
+            <Link className={btn.outline} href={`/games/${slug}/hotkeys`}>
+              Teclas rápidas
+            </Link>
           </div>
 
           <nav className="flex flex-wrap justify-center gap-2">

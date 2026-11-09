@@ -1,4 +1,6 @@
-import { panel, panelGold, td, th } from '@/components/theme/primitives';
+import Link from 'next/link';
+
+import { btn, panel, panelGold, td, th } from '@/components/theme/primitives';
 import type { GuideBlock } from '@/lib/wiki/guides/types';
 
 const bodyText = 'text-(--parchment)/90';
@@ -36,6 +38,17 @@ const Block = ({ block }: { block: GuideBlock }) => {
             {block.title}
           </span>
           <p className={`${bodyText} text-sm`}>{block.text}</p>
+        </div>
+      );
+    case 'link':
+      return (
+        <div
+          className={`${panelGold} flex flex-col items-start gap-3 p-4 sm:flex-row sm:items-center sm:justify-between`}
+        >
+          <p className={`${bodyText} text-sm`}>{block.text}</p>
+          <Link className={`${btn.outline} shrink-0`} href={block.href}>
+            {block.label}
+          </Link>
         </div>
       );
     case 'table':

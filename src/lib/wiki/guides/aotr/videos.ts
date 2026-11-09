@@ -10,6 +10,7 @@ const AOTR_VIDEOS: GuideVideo[] = [
   // --------------------------------------------------------------- general
   {
     youtubeId: '_6J0xKOIzbk',
+    featured: true,
     title: 'Age of the Ring 10.0 Nueva Actualización · Guía para Novatos',
     channel: 'Josepht Royelo',
     language: 'es',
@@ -19,6 +20,7 @@ const AOTR_VIDEOS: GuideVideo[] = [
   },
   {
     youtubeId: 'v2t62kA4nHc',
+    featured: true,
     title: 'How to Play Age of the Ring 10.0 Online! (Also Other New Features)',
     channel: 'The Dwarven Hold',
     language: 'en',
@@ -37,6 +39,7 @@ const AOTR_VIDEOS: GuideVideo[] = [
   },
   {
     youtubeId: 'jQZN2q5ovNU',
+    featured: true,
     title: 'Age of the Ring 9.0 · La Mejor Facción para Nuevos en Multijugador',
     channel: 'Josepht Royelo',
     language: 'es',

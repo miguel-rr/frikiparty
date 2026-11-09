@@ -1,9 +1,11 @@
 import { AOTR_FACTION_GUIDES } from '@/lib/wiki/guides/aotr/faction-guides';
+import { AOTR_HOTKEYS } from '@/lib/wiki/guides/aotr/hotkeys';
 import { AOTR_START_GUIDE } from '@/lib/wiki/guides/aotr/start-guide';
 import { AOTR_VIDEOS } from '@/lib/wiki/guides/aotr/videos';
 import type {
   FactionGuide,
   GuideVideo,
+  HotkeyGroup,
   StartGuide,
 } from '@/lib/wiki/guides/types';
 
@@ -11,6 +13,7 @@ type GameGuides = {
   start: StartGuide;
   factions: Partial<Record<string, FactionGuide>>;
   videos: GuideVideo[];
+  hotkeys: HotkeyGroup[];
 };
 
 /** Guides by game slug. Only Age of the Ring has them for now. */
@@ -19,6 +22,7 @@ const GUIDES: Record<string, GameGuides> = {
     start: AOTR_START_GUIDE,
     factions: AOTR_FACTION_GUIDES,
     videos: AOTR_VIDEOS,
+    hotkeys: AOTR_HOTKEYS,
   },
 };
 

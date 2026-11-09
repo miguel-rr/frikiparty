@@ -9,12 +9,15 @@ type GuideBlock =
   | { kind: 'list'; items: string[] }
   | { kind: 'steps'; items: string[] }
   | { kind: 'tip'; title: string; text: string }
-  | { kind: 'table'; head: string[]; rows: string[][] };
+  | { kind: 'table'; head: string[]; rows: string[][] }
+  | { kind: 'link'; href: string; label: string; text: string };
 
 type GuideSection = {
   /** Anchor in the page, kebab-case. */
   id: string;
   title: string;
+  /** One line for the summary card on the game page. */
+  summary: string;
   blocks: GuideBlock[];
 };
 
@@ -61,6 +64,25 @@ type GuideVideo = {
   faction?: FactionId;
   /** Why it is worth watching, one line, ours. */
   why: string;
+  /** Shown on the game page too. */
+  featured?: boolean;
+};
+
+/** One shortcut: alternatives, each a combination of keys pressed together. */
+type HotkeyEntry = {
+  keys: string[][];
+  action: string;
+  detail?: string;
+  /** One of the handful worth learning first. */
+  essential?: boolean;
+};
+
+type HotkeyGroup = {
+  /** Anchor in the page, kebab-case. */
+  id: string;
+  title: string;
+  note?: string;
+  entries: HotkeyEntry[];
 };
 
 export type {
@@ -69,6 +91,8 @@ export type {
   GuideBlock,
   GuideSection,
   GuideVideo,
+  HotkeyEntry,
+  HotkeyGroup,
   StartGuide,
   VideoLanguage,
   VideoTopic,
