@@ -7,8 +7,11 @@
  *
  * Which image: <map>_art.tga is what the game shows in the lobby (the
  * parchment drawing); <map>_pic.tga, the loading screen, is the fallback,
- * and any other .tga the last resort.
+ * and any other .tga the last resort. On the lobby art go the start
+ * rings, as the lobby draws them, from the waypoints in the .map.
  */
+
+import { type MapStarts, readMapStarts } from '@/lib/games/sage-map';
 
 const THUMBNAIL_MAX_SIDE = 512;
 // Transparent pixels of the lobby art sit on parchment in the game.
@@ -226,11 +229,53 @@ const tgaRank = (name: string) => {
   return 2;
 };
 
+/**
+ * The lobby's start marker: a black disc in a gold ring, about a seventh
+ * of the preview across (measured on a lobby capture).
+ */
+const drawStartRings = (
+  context: CanvasRenderingContext2D,
+  side: { width: number; height: number },
+  map: MapStarts,
+) => {
+  const outer = Math.min(side.width, side.height) * 0.07;
+  const band = outer * 0.24;
+  for (const start of map.starts) {
+    // World y grows northwards; the preview has north at the top.
+    const x = (start.x / map.width) * side.width;
+    const y = (1 - start.y / map.height) * side.height;
+    context.save();
+    context.shadowColor = 'rgba(0, 0, 0, 0.55)';
+    context.shadowBlur = outer * 0.35;
+    context.shadowOffsetX = outer * 0.06;
+    context.shadowOffsetY = outer * 0.1;
+    const gold = context.createLinearGradient(x, y - outer, x, y + outer);
+    gold.addColorStop(0, '#f6d465');
+    gold.addColorStop(0.5, '#d9a21f');
+    gold.addColorStop(1, '#9c6a12');
+    context.fillStyle = gold;
+    context.beginPath();
+    context.arc(x, y, outer, 0, Math.PI * 2);
+    context.fill();
+    context.restore();
+    context.fillStyle = '#000';
+    context.beginPath();
+    context.arc(x, y, outer - band, 0, Math.PI * 2);
+    context.fill();
+    context.lineWidth = Math.max(1, outer * 0.05);
+    context.strokeStyle = '#4a3208';
+    context.beginPath();
+    context.arc(x, y, outer, 0, Math.PI * 2);
+    context.stroke();
+  }
+};
+
 /** Any drawable source scaled to fit the thumbnail, on parchment, as JPEG. */
 const toThumbnail = async (
   source: CanvasImageSource,
   width: number,
   height: number,
+  rings: MapStarts | null = null,
 ): Promise<Blob | null> => {
   const scale = Math.min(1, THUMBNAIL_MAX_SIDE / Math.max(width, height));
   const canvas = document.createElement('canvas');
@@ -244,7 +289,35 @@ const toThumbnail = async (
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.imageSmoothingQuality = 'high';
   context.drawImage(source, 0, 0, canvas.width, canvas.height);
+  if (rings) {
+    drawStartRings(context, canvas, rings);
+  }
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.88));
+};
+
+const folderOf = (name: string) => name.slice(0, name.lastIndexOf('/') + 1);
+
+/** The start positions from the .map next to the lobby art; null if unreadable (no rings, nothing else lost). */
+const startsFor = async (
+  file: File,
+  entries: ZipEntry[],
+  artName: string,
+): Promise<MapStarts | null> => {
+  const maps = entries.filter((entry) =>
+    entry.name.toLowerCase().endsWith('.map'),
+  );
+  const map =
+    maps.find((entry) => folderOf(entry.name) === folderOf(artName)) ??
+    (maps.length === 1 ? maps[0] : undefined);
+  if (!map) {
+    return null;
+  }
+  try {
+    const bytes = await readZipEntry(file, map);
+    return bytes ? readMapStarts(bytes) : null;
+  } catch {
+    return null;
+  }
 };
 
 /** The lobby preview of the map inside a zip, as a JPEG; null when there's none to find. */
@@ -267,8 +340,12 @@ const mapPreviewFromZip = async (file: File): Promise<Blob | null> => {
       if (!image) {
         continue;
       }
+      const rings =
+        tgaRank(entry.name) === 0
+          ? await startsFor(file, entries ?? [], entry.name)
+          : null;
       const bitmap = await createImageBitmap(image);
-      return await toThumbnail(bitmap, image.width, image.height);
+      return await toThumbnail(bitmap, image.width, image.height, rings);
     }
   } catch {
     // A damaged or unusual zip just means no preview.
