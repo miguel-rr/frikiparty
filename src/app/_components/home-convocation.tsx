@@ -64,6 +64,11 @@ const DAY_PLANS = [
   'Cuentas saldadas y despedidas',
 ];
 
+/** The game version this edition is played on, and its release notes. */
+const GAME_VERSION = '10.0';
+const GAME_VERSION_URL =
+  'https://www.moddb.com/mods/the-horse-lords-a-total-modification-for-bfme/news/age-of-the-ring-100-released';
+
 const Glyph = ({ children }: { children: ReactNode }) => (
   <svg
     aria-hidden="true"
@@ -314,21 +319,27 @@ const HomeConvocation = ({
       <div className="flex w-full max-w-2xl flex-col gap-12 sm:gap-7">
         {days.length > 0 ? <DayRail days={days} /> : null}
         {/* One plaque for the rest: venue (the Maps link), roster, game.
-            On phones it stacks venue and roster as two full-width rows, so
-            the faces never fight the text for room; the game waits for the
-            wider, three-cell plaque. */}
+            On phones the three stack as full-width rows, so the faces
+            never fight the text for room; from sm they share one row. */}
         <div className="d-scape grid grid-cols-1 overflow-hidden rounded-xl border border-(--hair-gold) text-left shadow-[inset_0_1px_0_#f0d48a1f,0_12px_34px_#00000066] sm:grid-cols-[1.2fr_1.3fr_1fr]">
           <VenueLink venue={venue} />
           <Link
-            className="group transition-colors hover:bg-(--panel-2)/60 sm:border-(--hair-gold) sm:border-r"
+            className="group border-(--hair-gold) border-b transition-colors hover:bg-(--panel-2)/60 sm:border-r sm:border-b-0"
             href={`/council#${ASPIRANTS_ANCHOR}`}
           >
             <PlaqueCell>
-              {/* The phone row runs full width: room for five faces. The
-                  desktop cell shares the plaque with two others: two faces
-                  and the tally. */}
-              <span className="contents sm:hidden">
+              {/* The phone row runs full width: as many faces as the row
+                  holds next to the tally (five on the narrowest phones, six
+                  from 360px, seven from 400px). The desktop cell shares the
+                  plaque with two others: two faces and the tally. */}
+              <span className="contents min-[360px]:hidden">
                 <AvatarStack avatars={confirmed} max={5} />
+              </span>
+              <span className="hidden min-[360px]:contents min-[400px]:hidden">
+                <AvatarStack avatars={confirmed} max={6} />
+              </span>
+              <span className="hidden sm:hidden min-[400px]:contents">
+                <AvatarStack avatars={confirmed} max={7} />
               </span>
               <span className="hidden sm:contents">
                 <AvatarStack avatars={confirmed} max={2} />
@@ -344,7 +355,7 @@ const HomeConvocation = ({
               </span>
             </PlaqueCell>
           </Link>
-          <PlaqueCell className="hidden sm:flex">
+          <PlaqueCell>
             <span
               className={`${plaqueIcon} flex items-center justify-center bg-(--panel-2)`}
             >
@@ -354,9 +365,14 @@ const HomeConvocation = ({
               <span className="font-bold text-(--parchment) text-sm leading-tight">
                 Age of the Ring
               </span>
-              <span className="text-(--faded) text-xs">
-                equipos e individual
-              </span>
+              <a
+                className="font-bold text-(--gold) text-xs transition-colors hover:text-(--gold-hi)"
+                href={GAME_VERSION_URL}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Versión {GAME_VERSION}
+              </a>
             </span>
           </PlaqueCell>
         </div>
