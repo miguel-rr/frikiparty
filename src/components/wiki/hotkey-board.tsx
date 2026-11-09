@@ -38,9 +38,15 @@ const EssentialMark = ({ on }: { on: boolean }) => (
   />
 );
 
-const Group = ({ group }: { group: HotkeyGroup }) => (
+const Group = ({
+  group,
+  fill = false,
+}: {
+  group: HotkeyGroup;
+  fill?: boolean;
+}) => (
   <section
-    className={`${panel} mb-3 flex scroll-mt-32 break-inside-avoid flex-col gap-2.5 p-3.5`}
+    className={`${panel} ${fill ? 'xl:flex-1' : ''} mb-3 flex scroll-mt-32 break-inside-avoid flex-col gap-2.5 p-3.5 xl:mb-0`}
     id={group.id}
   >
     <h3 className="d-display border-(--hair-gold) border-b pb-1.5 font-bold text-(--gold) text-sm uppercase tracking-2xl">
@@ -73,7 +79,9 @@ const Group = ({ group }: { group: HotkeyGroup }) => (
       ))}
     </ul>
     {group.note ? (
-      <p className="text-(--faded) text-xs leading-snug">{group.note}</p>
+      <p className="mt-auto text-(--faded) text-xs leading-snug">
+        {group.note}
+      </p>
     ) : null}
   </section>
 );
@@ -88,15 +96,16 @@ const pairs = (groups: HotkeyGroup[]) =>
  * All the shortcuts at once, each row reading "what it does … which keys".
  * From xl up, five columns of two related groups each (mouse, selection,
  * orders, camera, chat and upgrades), so a laptop screen shows the whole
- * sheet. Below that the pairs dissolve (`contents`) and the groups flow
+ * sheet; the second group of each column stretches so that all five
+ * columns end on the same line. Below that the pairs dissolve (`contents`) and the groups flow
  * through two or three balanced columns, or one under another on phones.
  */
 const HotkeyBoard = ({ groups }: { groups: HotkeyGroup[] }) => (
-  <div className="gap-3 sm:columns-2 lg:columns-3 xl:grid xl:grid-cols-5 xl:items-start">
+  <div className="gap-3 sm:columns-2 lg:columns-3 xl:grid xl:grid-cols-5">
     {pairs(groups).map((pair) => (
-      <div className="contents xl:flex xl:flex-col" key={pair[0]?.id}>
-        {pair.map((group) => (
-          <Group group={group} key={group.id} />
+      <div className="contents xl:flex xl:flex-col xl:gap-3" key={pair[0]?.id}>
+        {pair.map((group, i) => (
+          <Group fill={i === pair.length - 1} group={group} key={group.id} />
         ))}
       </div>
     ))}
