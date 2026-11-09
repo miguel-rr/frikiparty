@@ -1392,12 +1392,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca varias hordas de Orcos de Isengard dirigidas por un Bersérker Uruk-hai para luchar en tu bando.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "uispsharkeyremnant"
       },
-      "requires": ["Crebain de Dunland", "Matonismo"]
+      "requires": ["Crebain de Dunland"]
     },
     {
       "slug": "devastation",
@@ -1437,12 +1437,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca el Molino Nuevo. El Molino Nuevo recolecta una gran cantidad de recursos de los árboles cercanos. Permite reclutar a los Compinches de Sandyman.",
-      "requiresSlots": [5, 3],
+      "requiresSlots": [3],
       "slot": 7,
       "images": {
         "button": "uispsharkeynewmill"
       },
-      "requires": ["Cuerda de Presos", "Devastación"]
+      "requires": ["Cuerda de Presos"]
     },
     {
       "slug": "fuelthe-fires",
@@ -1452,12 +1452,12 @@
       "kind": "summon",
       "cost": 15,
       "description": "Convoca tres batallones mejorados de Arqueros Jinetes de Huargos.",
-      "requiresSlots": [6, 4, 5],
+      "requiresSlots": [4, 5],
       "slot": 8,
       "images": {
         "button": "uispsharkeywolves"
       },
-      "requires": ["Remanente de Isengard", "Devastación", "Tierra Mancillada"]
+      "requires": ["Remanente de Isengard", "Devastación"]
     },
     {
       "slug": "freezing-rain",

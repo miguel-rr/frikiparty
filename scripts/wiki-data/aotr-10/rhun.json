@@ -2040,16 +2040,12 @@
       "kind": "summon",
       "cost": 25,
       "description": "Convoca a Khâronax el Opulento, el Dragón de Fuego del Este.",
-      "requiresSlots": [7, 9, 10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "uirhunspawnglaurung"
       },
-      "requires": [
-        "Esclavos de Nurn",
-        "Crepúsculo Interminable",
-        "Cabalgata de la Serpiente Negra"
-      ]
+      "requires": ["Crepúsculo Interminable", "Cabalgata de la Serpiente Negra"]
     }
   ]
 }

@@ -2361,16 +2361,12 @@
       "kind": "debuff",
       "cost": 15,
       "description": "Cancela Lluvia Paralizadora, Bendición de Ulmo, Luces Apagadas, Invierno Blanco y Oscuridad. Aturde a las unidades enemigas durante 15 segundos. Los héroes y unidades aliados obtienen temporalmente +50% de resistencia al daño mágico y elemental durante 30 segundos. Los héroes enemigos pierden -20% de velocidad y -15% de armadura durante 30 segundos.",
-      "requiresSlots": [5, 6, 7],
+      "requiresSlots": [5, 6],
       "slot": 9,
       "images": {
         "button": "SBLorienCloudbreak"
       },
-      "requires": [
-        "Convocar Aliados Silvanos",
-        "Aguas de Nimrodel",
-        "Malicia Retorcida"
-      ]
+      "requires": ["Convocar Aliados Silvanos", "Aguas de Nimrodel"]
     },
     {
       "slug": "ringof-adamant",

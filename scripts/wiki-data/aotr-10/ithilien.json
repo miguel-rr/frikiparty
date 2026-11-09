@@ -1084,12 +1084,12 @@
       "kind": "heal",
       "cost": 5,
       "description": "Repara una estructura.",
-      "requiresSlots": [1],
+      "requiresSlots": [],
       "slot": 2,
       "images": {
         "button": "SBGondorRebuildnew"
       },
-      "requires": ["Curadores Expertos"]
+      "requires": []
     },
     {
       "slug": "rallying-call-mpg",
@@ -1114,12 +1114,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca una torre defensiva que puede ser guarnecida con arqueros. La torre está defendida por Escaramuzadores y Centinelas de Ithilien.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "SBGondorLoneTnew"
       },
-      "requires": ["Curadores Expertos", "Restauración"]
+      "requires": ["Curadores Expertos"]
     },
     {
       "slug": "ithilien-garden",
@@ -1234,12 +1234,12 @@
       "kind": "summon",
       "cost": 25,
       "description": "Convoca a Elessar y a la Hueste del Oeste. Cada batallón está liderado por un héroe. Si el héroe muere, todo el batallón muere.",
-      "requiresSlots": [10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "uiAIthilienHostOfTheWest"
       },
-      "requires": ["Ciudadela de la Compañía Blanca"]
+      "requires": ["Vientos del Oeste", "Ciudadela de la Compañía Blanca"]
     }
   ]
 }

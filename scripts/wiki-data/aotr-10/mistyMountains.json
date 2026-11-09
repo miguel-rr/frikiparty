@@ -2253,12 +2253,12 @@
       "kind": "attack",
       "cost": 10,
       "description": "Un Túnel Orco o de Gusano elegido engendra 2 batallones permanentes de Orcos-chillones de Moria y un Troll Destructor. Los Orcos de Moria respetan el límite de puntos de mando, mientras que el Troll Destructor no.",
-      "requiresSlots": [4, 2, 1],
+      "requiresSlots": [1, 2],
       "slot": 5,
       "images": {
         "button": "BIMMTheyAreComing"
       },
-      "requires": ["Viento Destructor", "Desechos Congelados", "Carroñero"]
+      "requires": ["Viento Destructor", "Desechos Congelados"]
     },
     {
       "slug": "angmar-citadel",
@@ -2268,16 +2268,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca una Ruina abandonada de Angmar. La Ruina permite el reclutamiento de Muertos de Arnor y Lobos Blancos, así como desencadenar una ventisca local.",
-      "requiresSlots": [4, 3, 2],
+      "requiresSlots": [2, 3],
       "slot": 6,
       "images": {
         "button": "BIAngmarCitadel"
       },
-      "requires": [
-        "Desechos Congelados",
-        "Murciélagos de las Cavernas",
-        "Carroñero"
-      ]
+      "requires": ["Desechos Congelados", "Murciélagos de las Cavernas"]
     },
     {
       "slug": "untamed-allegiance",
@@ -2287,12 +2283,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca temporalmente una olla de Estofado de Trolls, custodiada por Tom, Bert y William. El Estofado de Trolls proporciona curación y otorga +15% de armadura y daño a las unidades cercanas y detecta unidades en sigilo.",
-      "requiresSlots": [4, 3],
+      "requiresSlots": [3],
       "slot": 7,
       "images": {
         "button": "UITrollishStew"
       },
-      "requires": ["Murciélagos de las Cavernas", "Carroñero"]
+      "requires": ["Murciélagos de las Cavernas"]
     },
     {
       "slug": "awaken-wyrm",
@@ -2332,16 +2328,12 @@
       "kind": "summon",
       "cost": 15,
       "description": "Convoca al Vigilante en el Agua. Causando un daño severo a los enemigos.",
-      "requiresSlots": [3, 7, 6],
+      "requiresSlots": [6, 7],
       "slot": 10,
       "images": {
         "button": "SBEvil_SummonWatcherAotR"
       },
-      "requires": [
-        "Murciélagos de las Cavernas",
-        "Ruina de Angmar",
-        "Estofado de Trolls"
-      ]
+      "requires": ["Ruina de Angmar", "Estofado de Trolls"]
     },
     {
       "slug": "balrog-ally",

@@ -2127,12 +2127,12 @@
       "kind": "utility",
       "cost": 5,
       "description": "Revela el área seleccionada durante 60 segundos.\n\nOtorga una bonificación temporal de +15% de velocidad a las unidades en su área objetivo durante 35 segundos. Siempre acumula.",
-      "requiresSlots": [1],
+      "requiresSlots": [],
       "slot": 2,
       "images": {
         "button": "SBRivendellWisdom"
       },
-      "requires": ["Curadores Expertos"]
+      "requires": []
     },
     {
       "slug": "rallying-call-mpg",
@@ -2157,12 +2157,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca una torre defensiva guarecida por arqueros. Los arqueros reciben flechas de fuego una vez comprada la mejora en la forja.\n\nTodas las unidades aliadas cercanas ganan +25% de armadura.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "SBGondorLoneTnew"
       },
-      "requires": ["Curadores Expertos", "Sabiduría de los Eldar"]
+      "requires": ["Curadores Expertos"]
     },
     {
       "slug": "ithilien-garden",
@@ -2277,12 +2277,12 @@
       "kind": "summon",
       "cost": 25,
       "description": "Invoca un poderoso Torrente para aplastar unidades enemigas. Extingue los incendios.",
-      "requiresSlots": [10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "SBRivendellBruinenFlood"
       },
-      "requires": ["Montículo de Dwimorberg"]
+      "requires": ["Vientos del Oeste", "Montículo de Dwimorberg"]
     }
   ]
 }

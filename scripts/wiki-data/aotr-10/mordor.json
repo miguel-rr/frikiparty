@@ -2485,12 +2485,12 @@
       "kind": "buff",
       "cost": 25,
       "description": "Hace caer una lluvia de rocas fundidas sobre el área seleccionado.",
-      "requiresSlots": [7, 9, 10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "SBEvil_RainofFireNew"
       },
-      "requires": ["Esclavos de Nurn", "Oscuridad", "¡Espectros Alados!"]
+      "requires": ["Oscuridad", "¡Espectros Alados!"]
     }
   ]
 }

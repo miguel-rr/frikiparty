@@ -2233,12 +2233,12 @@
       "kind": "debuff",
       "cost": 25,
       "description": "Crea un área de terreno maldito mediante el poder de Minas Morgul durante 30 segundos. Las estructuras enemigas situadas dentro del radio reciben daño con el tiempo, no pueden producir durante 15 segundos y pierden -50% de armadura durante 30 segundos.",
-      "requiresSlots": [7, 9, 10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "uimorguldeadcity"
       },
-      "requires": ["Floración Nociva", "Oscuridad", "¡Espectros Alados!"]
+      "requires": ["Oscuridad", "¡Espectros Alados!"]
     }
   ]
 }

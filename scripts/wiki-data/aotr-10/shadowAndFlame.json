@@ -1489,12 +1489,12 @@
       "kind": "buff",
       "cost": 10,
       "description": "Incrementa la Velocidad de Producción de Orcos de Moria y Uruks Negros durante 45 segundos.",
-      "requiresSlots": [4, 2, 1],
+      "requiresSlots": [1, 2],
       "slot": 5,
       "images": {
         "button": "BIMMTheyAreComing"
       },
-      "requires": ["Viento Ardiente", "Cuerno Orco", "Carroñero"]
+      "requires": ["Viento Ardiente", "Cuerno Orco"]
     },
     {
       "slug": "angmar-citadel",
@@ -1504,12 +1504,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Invoca un anillo de fuego alrededor del área objetivo durante 5 minutos. Las unidades aliadas dentro del anillo ganan +50% de daño, +50% de armadura y se vuelven inmunes al miedo y al terror.",
-      "requiresSlots": [4, 3, 2],
+      "requiresSlots": [2, 3],
       "slot": 6,
       "images": {
         "button": "UIWheelOfFire"
       },
-      "requires": ["Cuerno Orco", "Murciélagos de las Cavernas", "Carroñero"]
+      "requires": ["Cuerno Orco", "Murciélagos de las Cavernas"]
     },
     {
       "slug": "untamed-allegiance",
@@ -1519,12 +1519,12 @@
       "kind": "buff",
       "cost": 10,
       "description": "Conjura Humos Nocivos durante 60 segundos. Las unidades enemigas atrapadas en los humos reciben daño con el tiempo.",
-      "requiresSlots": [4, 3],
+      "requiresSlots": [3],
       "slot": 7,
       "images": {
         "button": "UIMoriaFumes"
       },
-      "requires": ["Murciélagos de las Cavernas", "Carroñero"]
+      "requires": ["Murciélagos de las Cavernas"]
     },
     {
       "slug": "awaken-wyrm",
@@ -1564,16 +1564,12 @@
       "kind": "summon",
       "cost": 15,
       "description": "Convoca al Vigilante en el Agua. Causando un daño severo a los enemigos.",
-      "requiresSlots": [3, 7, 6],
+      "requiresSlots": [6, 7],
       "slot": 10,
       "images": {
         "button": "SBEvil_SummonWatcherAotR"
       },
-      "requires": [
-        "Murciélagos de las Cavernas",
-        "Rueda de Fuego",
-        "Humos Nocivos"
-      ]
+      "requires": ["Rueda de Fuego", "Humos Nocivos"]
     },
     {
       "slug": "balrog-ally",

@@ -1151,12 +1151,12 @@
       "kind": "summon",
       "cost": 5,
       "description": "Convoca un Jardín Real. Las unidades aliadas en su radio ganan +15% de armadura y se curan lentamente.",
-      "requiresSlots": [1],
+      "requiresSlots": [],
       "slot": 2,
       "images": {
         "button": "uiarthedroyalgarden"
       },
-      "requires": ["Curadores Expertos"]
+      "requires": []
     },
     {
       "slug": "rallying-call-mpg",
@@ -1181,12 +1181,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca una Atalaya de Arthedain protegida por Soldados y Guardianes de Fornost. La Atalaya de Arthedain puede lanzar la habilidad Ojo de Amon-Sûl para revelar parte del mapa durante 60 segundos.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "uisparthedwatchtower"
       },
-      "requires": ["Curadores Expertos", "Jardín Real"]
+      "requires": ["Curadores Expertos"]
     },
     {
       "slug": "ithilien-garden",
@@ -1301,12 +1301,12 @@
       "kind": "summon",
       "cost": 25,
       "description": "Convoca al Príncipe Eärnur y a un ejército de Caballeros de Gondor.",
-      "requiresSlots": [10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "uisouthernallegiance"
       },
-      "requires": ["Estrella de Eärendil"]
+      "requires": ["Vientos del Oeste", "Estrella de Eärendil"]
     }
   ]
 }

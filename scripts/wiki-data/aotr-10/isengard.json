@@ -2238,12 +2238,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca dos hordas de Guerreros Orcos, una horda de Piqueros Orcos, una horda de Arqueros Orcos con flechas de fuego y a Grishnákh para luchar en tu bando durante 60 segundos.\n\nTiempo de recarga: 6 min.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "UIMordorAlliesSummon"
       },
-      "requires": ["Crebain de Dunland", "Cántico de Guerra"]
+      "requires": ["Crebain de Dunland"]
     },
     {
       "slug": "devastation",
@@ -2283,12 +2283,12 @@
       "kind": "utility",
       "cost": 10,
       "description": "La producción de recursos de la estructura elegida sube al 200% durante 5 minutos. Afecta a Hornos y Armerías.\n\nTiempo de recarga: 6 min.",
-      "requiresSlots": [5, 3],
+      "requiresSlots": [3],
       "slot": 7,
       "images": {
         "button": "SBEvil_IndustryAotR"
       },
-      "requires": ["Visión del Palantír", "Devastación"]
+      "requires": ["Visión del Palantír"]
     },
     {
       "slug": "fuelthe-fires",
@@ -2298,12 +2298,12 @@
       "kind": "utility",
       "cost": 15,
       "description": "+55% de recursos extra de la recogida de árboles. Desbloquea Explosión de Calor para los Hornos. Poder pasivo.",
-      "requiresSlots": [6, 4, 5],
+      "requiresSlots": [4, 5],
       "slot": 8,
       "images": {
         "button": "SBEvil_FueltheFiresAotR"
       },
-      "requires": ["Escoria de Lugbúrz", "Devastación", "Tierra Mancillada"]
+      "requires": ["Escoria de Lugbúrz", "Devastación"]
     },
     {
       "slug": "freezing-rain",

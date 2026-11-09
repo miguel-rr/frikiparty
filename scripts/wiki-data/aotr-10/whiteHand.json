@@ -2849,12 +2849,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca a tres hordas de rufianes.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "uisharkeyslackeys"
       },
-      "requires": ["Masacrar a los Débiles", "Cántico de Guerra"]
+      "requires": ["Masacrar a los Débiles"]
     },
     {
       "slug": "devastation",
@@ -2894,12 +2894,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca una Torre del Supervisor. Las estructuras de recursos cercanas generan un 15% de recursos adicionales. Se puede mejorar con Excavaciones de la fortaleza para incrementar la armadura de las estructuras cercanas en un 20%.\n\nTambién puede reclutar orcos de Isengard.",
-      "requiresSlots": [5, 3],
+      "requiresSlots": [3],
       "slot": 7,
       "images": {
         "button": "uioverseertower"
       },
-      "requires": ["Visión del Palantír", "Devastación"]
+      "requires": ["Visión del Palantír"]
     },
     {
       "slug": "fuelthe-fires",
@@ -2909,12 +2909,12 @@
       "kind": "buff",
       "cost": 15,
       "description": "Todos los Orcos de Isengard y Uruk-hai en el campo de batalla obtienen permanentemente Sed de Sangre, lo que les otorga +25% de daño adicional. Durante 60 segundos, todos los Guerreros Uruk-hai, los Piqueros Uruk-hai, los Portadores de Escudo Uruk-hai, los Hacheros Uruk-hai, los Guerreros y Piqueros Orcos de Isengard entran en un frenesí arrebatador que les quita salud con cada golpe.",
-      "requiresSlots": [6, 4, 5],
+      "requiresSlots": [4, 5],
       "slot": 8,
       "images": {
         "button": "uibloodrapture"
       },
-      "requires": ["Lacayos de Sharkey", "Devastación", "Tierra Mancillada"]
+      "requires": ["Lacayos de Sharkey", "Devastación"]
     },
     {
       "slug": "freezing-rain",

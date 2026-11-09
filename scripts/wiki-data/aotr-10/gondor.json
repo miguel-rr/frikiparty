@@ -1993,12 +1993,12 @@
       "kind": "heal",
       "cost": 5,
       "description": "Repara una estructura.",
-      "requiresSlots": [1],
+      "requiresSlots": [],
       "slot": 2,
       "images": {
         "button": "SBGondorRebuildnew"
       },
-      "requires": ["Curadores Expertos"]
+      "requires": []
     },
     {
       "slug": "rallying-call-mpg",
@@ -2023,12 +2023,12 @@
       "kind": "summon",
       "cost": 10,
       "description": "Convoca una torre defensiva guarecida por arqueros. Los arqueros reciben flechas de fuego una vez comprada la mejora en el campo de tiro con arco. Todas las unidades aliadas cercanas ganan +25% de armadura.",
-      "requiresSlots": [1, 2],
+      "requiresSlots": [1],
       "slot": 4,
       "images": {
         "button": "SBGondorLoneTnew"
       },
-      "requires": ["Curadores Expertos", "Restauración"]
+      "requires": ["Curadores Expertos"]
     },
     {
       "slug": "ithilien-garden",
@@ -2143,12 +2143,12 @@
       "kind": "summon",
       "cost": 25,
       "description": "Convoca al Rey Elessar acompañado de sus Guardias Reales. Sus guardias son temporales, pero el Rey dura hasta su muerte. Las unidades cercanas obtienen inmunidad al miedo y al terror.",
-      "requiresSlots": [10],
+      "requiresSlots": [9, 10],
       "slot": 12,
       "images": {
         "button": "SBGondorElessarNew"
       },
-      "requires": ["Ciudadela de Dol Amroth"]
+      "requires": ["Vientos del Oeste", "Ciudadela de Dol Amroth"]
     }
   ]
 }
