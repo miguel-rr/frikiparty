@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { ReorderList } from '@/components/live/reorder-list';
+import {
+  MarketControls,
+  MarketStart,
+} from '@/components/live/setup/market-desk';
 import { btn, input, label, panelGold } from '@/components/theme/primitives';
 import {
   type AuctionConfig,
@@ -14,7 +18,7 @@ import { groupsFor, needsQuotaFormation } from '@/lib/tournament/pot-groups';
 import type { LiveState } from '@/server/live/state';
 import { api } from '@/trpc/react';
 
-type Method = 'random' | 'pots_random' | 'draft' | 'auction';
+type Method = 'random' | 'pots_random' | 'draft' | 'auction' | 'market_auction';
 
 const select =
   'w-full appearance-none rounded-lg border border-(--hair) bg-(--night-2) px-3.5 py-2 text-(--parchment) transition-colors hover:border-(--hair-gold) focus:border-(--gold) focus:outline-none';
@@ -22,8 +26,10 @@ const select =
 const METHOD_LABELS: Record<Method, string> = {
   random: 'Aleatorio total',
   pots_random: 'Aleatorio por bombos',
-  draft: 'Draft',
-  auction: 'Subasta',
+  draft: 'Draft por bombos',
+  auction: 'Subasta abierta por bombos',
+  market_auction:
+    'Subasta general (sobre cerrado o abierta, mercado, nominación)',
 };
 
 /**
@@ -104,6 +110,12 @@ const FormationPanel = ({
       ) : null}
       {!room && method === 'auction' ? (
         <AuctionStart onStarted={refresh} state={state} />
+      ) : null}
+      {!room && method === 'market_auction' ? (
+        <MarketStart onStarted={refresh} state={state} />
+      ) : null}
+      {room?.kind === 'market' ? (
+        <MarketControls onDone={onDone} state={state} />
       ) : null}
 
       {room?.kind === 'auction' ? (

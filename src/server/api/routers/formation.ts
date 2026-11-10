@@ -2,7 +2,7 @@ import { TRPCError } from '@trpc/server';
 import { and, asc, eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
-
+import { isAdmin } from '@/lib/roles';
 import {
   changeConfig,
   confirmNext,
@@ -25,15 +25,30 @@ import {
   undoPick,
 } from '@/lib/tournament/draft-live';
 import {
+  changeMarketConfig,
+  DEFAULT_MARKET_CONFIG,
+  type MarketConfig,
+  type MarketState,
+  marketBid,
+  marketNext,
+  maxBidFor,
+  nominate,
+  pauseMarket,
+  resumeMarket,
+  startMarketEvents,
+} from '@/lib/tournament/market-auction';
+import {
   dealRandomByGroups,
   groupsFor,
   needsQuotaFormation,
 } from '@/lib/tournament/pot-groups';
 import { shuffle } from '@/lib/tournament/ranking';
 import { playerProcedure } from '@/server/api/player-procedure';
+import { getPlayerForUser } from '@/server/api/routers/player';
 import {
   adminProcedure,
   createTRPCRouter,
+  protectedProcedure,
   publicProcedure,
   type TRPCContext,
 } from '@/server/api/trpc';
@@ -94,6 +109,49 @@ const loadFormationState = async (
     });
   }
   return state;
+};
+
+const marketConfigSchema = z.object({
+  bidding: z.enum(['open', 'sealed']),
+  sealedPrice: z.enum(['own', 'second_plus_one']),
+  reveal: z.enum(['all', 'winner', 'end']),
+  lotOrder: z.enum(['random', 'nomination']),
+  turnOrder: z.enum(['draw', 'ranking', 'inverse_ranking']),
+  budget: z.number().int().min(1).max(100_000),
+  compensationPerPlace: z.number().int().min(0).max(10_000),
+  minBids: z.array(z.number().int().min(0)),
+  reserve: z.enum(['none', 'one', 'minimum']),
+  lotTimeMs: z.number().int().min(5_000).max(600_000),
+  countdownMs: z.number().int().min(3_000).max(120_000),
+  timeBankMs: z.number().int().min(0).max(3_600_000),
+});
+
+/**
+ * Who a bid or nomination is for: the signed-in captain, or — for an
+ * admin — the captain they name (or the nominator on turn).
+ */
+const actingCaptain = async (
+  ctx: {
+    db: TRPCContext['db'];
+    session: { user: { id: string; role?: string | null } };
+  },
+  state: LiveState,
+  named: string | null,
+) => {
+  const me = await getPlayerForUser(ctx.db, ctx.session.user.id);
+  if (me && teamOfCaptain(state, me.id) && (!named || named === me.id)) {
+    return me.id;
+  }
+  if (!isAdmin(ctx.session.user)) {
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: 'Sólo los capitanes actúan aquí.',
+    });
+  }
+  if (named && !teamOfCaptain(state, named)) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message: 'Ese no es capitán.' });
+  }
+  return named;
 };
 
 /**
@@ -172,7 +230,13 @@ const formationRouter = createTRPCRouter({
     .input(
       z.object({
         tournamentId: id,
-        method: z.enum(['random', 'pots_random', 'draft', 'auction']),
+        method: z.enum([
+          'random',
+          'pots_random',
+          'draft',
+          'auction',
+          'market_auction',
+        ]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -469,9 +533,23 @@ const formationRouter = createTRPCRouter({
     }),
 
   pause: adminProcedure
-    .input(z.object({ tournamentId: id, kind: z.enum(['draft', 'auction']) }))
+    .input(
+      z.object({
+        tournamentId: id,
+        kind: z.enum(['draft', 'auction', 'market']),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      if (input.kind === 'auction') {
+      if (input.kind === 'market') {
+        await settleAuctionTimers(ctx.db, input.tournamentId);
+        await applyRoomCommand(
+          ctx.db,
+          input.tournamentId,
+          actorFromSession(ctx.session),
+          'market',
+          (room) => pauseMarket(room, Date.now()),
+        );
+      } else if (input.kind === 'auction') {
         await settleAuctionTimers(ctx.db, input.tournamentId);
         await applyRoomCommand(
           ctx.db,
@@ -493,9 +571,22 @@ const formationRouter = createTRPCRouter({
     }),
 
   resume: adminProcedure
-    .input(z.object({ tournamentId: id, kind: z.enum(['draft', 'auction']) }))
+    .input(
+      z.object({
+        tournamentId: id,
+        kind: z.enum(['draft', 'auction', 'market']),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      if (input.kind === 'auction') {
+      if (input.kind === 'market') {
+        await applyRoomCommand(
+          ctx.db,
+          input.tournamentId,
+          actorFromSession(ctx.session),
+          'market',
+          (room, events) => resumeMarket(room, events, Date.now()),
+        );
+      } else if (input.kind === 'auction') {
         await applyRoomCommand(
           ctx.db,
           input.tournamentId,
@@ -558,7 +649,12 @@ const formationRouter = createTRPCRouter({
     .input(z.object({ tournamentId: id }))
     .mutation(async ({ ctx, input }) => {
       const state = await loadFormationState(ctx.db, input.tournamentId);
-      const kind = state.formationMethod === 'auction' ? 'auction' : 'draft';
+      const kind =
+        state.formationMethod === 'auction'
+          ? 'auction'
+          : state.formationMethod === 'market_auction'
+            ? 'market'
+            : 'draft';
       await runTournamentTx(
         ctx.db,
         input.tournamentId,
@@ -576,7 +672,10 @@ const formationRouter = createTRPCRouter({
             });
           }
           const rosters: Record<string, string[]> = {};
-          if (kind === 'auction') {
+          if (kind === 'market') {
+            // The log is the record: sealed bids and all stay in it.
+            Object.assign(rosters, (room as MarketState).rosters);
+          } else if (kind === 'auction') {
             const auctionRoom =
               room as import('@/lib/tournament/auction-live').AuctionLiveState;
             Object.assign(rosters, auctionRoom.rosters);
@@ -675,6 +774,162 @@ const formationRouter = createTRPCRouter({
       );
       revalidatePath('/council');
       return { ok: true };
+    }),
+
+  /** Opens the general auction with its options. */
+  startMarket: adminProcedure
+    .input(z.object({ tournamentId: id, config: marketConfigSchema }))
+    .mutation(async ({ ctx, input }) => {
+      const state = await loadFormationState(ctx.db, input.tournamentId);
+      const captainIds = captainsOf(state);
+      const config: MarketConfig = {
+        ...DEFAULT_MARKET_CONFIG,
+        ...input.config,
+      };
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        'market',
+        (room) =>
+          room.startedAt
+            ? { error: 'La subasta ya está en marcha.' }
+            : {
+                events: startMarketEvents({
+                  pots: state.pots,
+                  groups: groupsFor(state.pots, state.rankingMeta?.groups),
+                  captainIds,
+                  captainPotIndex: state.captainPotIndex,
+                  teamSize: state.teamSize ?? state.pots.length,
+                  ranking: state.ranking ?? [],
+                  config,
+                  now: Date.now(),
+                }),
+              },
+      );
+      return { ok: true };
+    }),
+
+  /** Organiser: next group, lot, turn, raffle or the end. */
+  marketNext: adminProcedure
+    .input(z.object({ tournamentId: id }))
+    .mutation(async ({ ctx, input }) => {
+      await settleAuctionTimers(ctx.db, input.tournamentId);
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        'market',
+        (room) => marketNext(room, Date.now()),
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * The nominator puts a player up with an opening bid. The organiser can
+   * do it on their behalf (a captain without a phone).
+   */
+  marketNominate: protectedProcedure
+    .input(
+      z.object({
+        tournamentId: id,
+        playerId: id,
+        amount: z.number().int().min(0),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const state = await loadFormationState(ctx.db, input.tournamentId);
+      const captainId = await actingCaptain(ctx, state, null);
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        'market',
+        (room) =>
+          nominate(
+            room,
+            captainId ?? room.nominatorId ?? '',
+            input.playerId,
+            input.amount,
+            Date.now(),
+          ),
+      );
+      return { ok: true };
+    }),
+
+  /** A captain's bid (sealed or open); the organiser may bid for a captain. */
+  marketBid: protectedProcedure
+    .input(
+      z.object({
+        tournamentId: id,
+        amount: z.number().int().min(0),
+        captainId: id.optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const state = await loadFormationState(ctx.db, input.tournamentId);
+      const captainId = await actingCaptain(
+        ctx,
+        state,
+        input.captainId ?? null,
+      );
+      if (!captainId) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Di por qué capitán pujas.',
+        });
+      }
+      await settleAuctionTimers(ctx.db, input.tournamentId);
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        'market',
+        (room) => marketBid(room, captainId, input.amount, Date.now()),
+      );
+      return { ok: true };
+    }),
+
+  /** Live-tunable timers and reveal of the general auction. */
+  updateMarketConfig: adminProcedure
+    .input(
+      z.object({
+        tournamentId: id,
+        config: marketConfigSchema
+          .pick({ lotTimeMs: true, countdownMs: true, reveal: true })
+          .partial(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        'market',
+        () => changeMarketConfig(input.config, Date.now()),
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * A captain's own sealed bid on the lot on the table (only theirs: the
+   * public state keeps every envelope closed).
+   */
+  myMarketBid: playerProcedure
+    .input(z.object({ tournamentId: id }))
+    .query(async ({ ctx, input }) => {
+      const room = await ctx.db.transaction((tx) =>
+        loadRoom(tx, input.tournamentId, 'market'),
+      );
+      const mine = room.state.lot?.bids.find(
+        (bid) => bid.captainId === ctx.player.id,
+      );
+      return {
+        amount: mine?.amount ?? null,
+        bank: room.state.banks[ctx.player.id] ?? 0,
+        maxBid: maxBidFor(room.state, ctx.player.id),
+        budget: room.state.budgets[ctx.player.id] ?? 0,
+      };
     }),
 
   /** A captain names their team (players stay the point; the name is a flourish). */

@@ -9,17 +9,26 @@ import {
   settle,
 } from '@/lib/tournament/auction-live';
 import { type DraftLiveState, foldDraft } from '@/lib/tournament/draft-live';
+import {
+  foldMarket,
+  type MarketState,
+  settleMarket,
+} from '@/lib/tournament/market-auction';
 import type { db as Db } from '@/server/db';
 import { liveRoom, tournamentEvent } from '@/server/db/schema';
 import { type Actor, runTournamentTx, type Tx } from '@/server/live/tx';
 
 type Database = typeof Db;
 
-type RoomKind = 'draft' | 'auction';
+type RoomKind = 'draft' | 'auction' | 'market';
 
 type RoomState<K extends RoomKind> = K extends 'auction'
   ? AuctionLiveState
-  : DraftLiveState;
+  : K extends 'market'
+    ? MarketState
+    : DraftLiveState;
+
+type AnyRoomState = AuctionLiveState | DraftLiveState | MarketState;
 
 /** The stream's events, folded state and the room row, inside a tx. */
 const loadRoom = async <K extends RoomKind>(
@@ -51,32 +60,34 @@ const loadRoom = async <K extends RoomKind>(
     undoneBySeq: row.undoneBySeq,
   }));
   const state = (
-    kind === 'auction' ? foldAuction(events) : foldDraft(events)
+    kind === 'auction'
+      ? foldAuction(events)
+      : kind === 'market'
+        ? foldMarket(events)
+        : foldDraft(events)
   ) as RoomState<K>;
   return { events, state };
 };
 
-const roomStatus = (state: AuctionLiveState | DraftLiveState) =>
+const roomStatus = (state: AnyRoomState) =>
   state.phase === 'closed'
     ? 'closed'
     : state.phase === 'paused'
       ? 'paused'
       : 'open';
 
-const roomDeadline = (
-  kind: RoomKind,
-  state: AuctionLiveState | DraftLiveState,
-) =>
-  kind === 'auction' && (state as AuctionLiveState).deadlineAt !== null
-    ? new Date((state as AuctionLiveState).deadlineAt as number)
-    : null;
+const roomDeadline = (kind: RoomKind, state: AnyRoomState) => {
+  if (kind === 'draft') return null;
+  const deadlineAt = (state as AuctionLiveState | MarketState).deadlineAt;
+  return deadlineAt === null ? null : new Date(deadlineAt);
+};
 
 /** Writes the folded state as the room's projection. */
 const saveRoom = async (
   tx: Tx,
   tournamentId: string,
   kind: RoomKind,
-  state: AuctionLiveState | DraftLiveState,
+  state: AnyRoomState,
 ) => {
   await tx
     .insert(liveRoom)
@@ -172,40 +183,46 @@ const applyRoomCommand = async <K extends RoomKind>(
  * a stalled server catches up in one go with the original timestamps.
  */
 const settleAuctionTimers = async (db: Database, tournamentId: string) => {
-  const [due] = await db
-    .select({ id: liveRoom.id })
+  const due = await db
+    .select({ kind: liveRoom.kind })
     .from(liveRoom)
     .where(
       and(
         eq(liveRoom.tournamentId, tournamentId),
-        eq(liveRoom.kind, 'auction'),
+        inArray(liveRoom.kind, ['auction', 'market']),
         eq(liveRoom.status, 'open'),
         lte(liveRoom.deadlineAt, new Date()),
       ),
     );
-  if (!due) return false;
-  await runTournamentTx(
-    db,
-    tournamentId,
-    { userId: null },
-    async ({ tx, emit }) => {
-      let { state } = await loadRoom(tx, tournamentId, 'auction');
-      for (let guard = 0; guard < 10; guard += 1) {
-        const dueEvents = settle(state, Date.now());
-        if (dueEvents.length === 0) break;
-        for (const event of dueEvents) {
-          await emit({
-            stream: 'auction',
-            type: event.type,
-            payload: event.payload,
-            at: event.at === undefined ? undefined : new Date(event.at),
-          });
+  if (due.length === 0) return false;
+  for (const { kind } of due) {
+    const stream = kind === 'market' ? 'market' : 'auction';
+    await runTournamentTx(
+      db,
+      tournamentId,
+      { userId: null },
+      async ({ tx, emit }) => {
+        let { state } = await loadRoom(tx, tournamentId, stream);
+        for (let guard = 0; guard < 10; guard += 1) {
+          const dueEvents =
+            stream === 'market'
+              ? settleMarket(state as MarketState, Date.now())
+              : settle(state as AuctionLiveState, Date.now());
+          if (dueEvents.length === 0) break;
+          for (const event of dueEvents) {
+            await emit({
+              stream,
+              type: event.type,
+              payload: event.payload,
+              at: event.at === undefined ? undefined : new Date(event.at),
+            });
+          }
+          ({ state } = await loadRoom(tx, tournamentId, stream));
         }
-        ({ state } = await loadRoom(tx, tournamentId, 'auction'));
-      }
-      await saveRoom(tx, tournamentId, 'auction', state);
-    },
-  );
+        await saveRoom(tx, tournamentId, stream, state);
+      },
+    );
+  }
   return true;
 };
 

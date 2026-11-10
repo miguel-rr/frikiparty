@@ -46,7 +46,7 @@ const tournamentEvent = createTable(
   (table) => [unique().on(table.tournamentId, table.seq)],
 );
 
-type EventStream = 'auction' | 'draft' | 'match' | 'admin';
+type EventStream = 'auction' | 'market' | 'draft' | 'match' | 'admin';
 
 /**
  * The draft/auction in progress, as the engine's own state object. A
@@ -64,7 +64,7 @@ const liveRoom = createTable(
     tournamentId: uuid('tournament_id')
       .notNull()
       .references(() => tournament.id, { onDelete: 'cascade' }),
-    kind: text('kind').notNull().$type<'draft' | 'auction'>(),
+    kind: text('kind').notNull().$type<'draft' | 'auction' | 'market'>(),
     state: jsonb('state').notNull(),
     version: integer('version').notNull().default(0),
     lastSeq: integer('last_seq').notNull().default(0),

@@ -24,7 +24,12 @@ const stageIndex = (stage: TournamentStage) => TOURNAMENT_STAGES.indexOf(stage);
 
 type RankingSource = 'historical' | 'vote' | 'combined';
 
-type FormationMethod = 'random' | 'pots_random' | 'draft' | 'auction';
+type FormationMethod =
+  | 'random'
+  | 'pots_random'
+  | 'draft'
+  | 'auction'
+  | 'market_auction';
 
 export {
   type FormationMethod,

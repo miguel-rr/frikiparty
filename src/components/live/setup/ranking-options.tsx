@@ -1287,6 +1287,7 @@ export {
   CriterionMovesNotice,
   CutTiesNotice,
   FormationOptionsSection,
+  OptionCard,
   PotLayoutSection,
   PotTiebreakSection,
   RecountPanel,

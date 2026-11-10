@@ -3,6 +3,7 @@
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { AuctionStage } from '@/components/live/formation/auction-stage';
 import { DraftStage } from '@/components/live/formation/draft-stage';
+import { MarketStage } from '@/components/live/formation/market-stage';
 import { panel } from '@/components/theme/primitives';
 import type { LiveState } from '@/server/live/state';
 import { api } from '@/trpc/react';
@@ -44,7 +45,8 @@ const FormationRoom = ({ live, tv }: { live: LiveState; tv?: boolean }) => {
             ? 'El sorteo está a punto'
             : live.formationMethod === 'draft'
               ? 'El draft está a punto'
-              : live.formationMethod === 'auction'
+              : live.formationMethod === 'auction' ||
+                  live.formationMethod === 'market_auction'
                 ? 'La subasta está a punto'
                 : 'Los capitanes se preparan'}
         </span>
@@ -66,6 +68,16 @@ const FormationRoom = ({ live, tv }: { live: LiveState; tv?: boolean }) => {
         captainId={myCaptainId}
         live={live}
         onBid={(amount) => bid.mutate({ tournamentId: live.id, amount })}
+        tv={tv}
+      />
+    );
+  }
+  if (live.room.kind === 'market') {
+    return (
+      <MarketStage
+        captainId={myCaptainId}
+        live={live}
+        market={live.room.state}
         tv={tv}
       />
     );

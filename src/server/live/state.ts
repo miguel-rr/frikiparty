@@ -4,6 +4,10 @@ import type { MapBoard } from '@/lib/live/map-board';
 import type { AuctionLiveState } from '@/lib/tournament/auction-live';
 import type { DraftLiveState } from '@/lib/tournament/draft-live';
 import { parseFormationConfig } from '@/lib/tournament/formation-config';
+import {
+  type MarketState,
+  publicMarket,
+} from '@/lib/tournament/market-auction';
 import { stageIndex, type TournamentStage } from '@/lib/tournament/stages';
 import { countVotes } from '@/lib/tournament/vote-count';
 import type { db as Db } from '@/server/db';
@@ -298,7 +302,9 @@ const getLiveState = async (
 
   // The formation room, if one runs. Mid-lot, the high bidder's identity is
   // nobody's business (core-logic): only the amount leaves the server.
-  const roomRow = rooms.find((row) => row.kind === head.formationMethod);
+  const roomKind =
+    head.formationMethod === 'market_auction' ? 'market' : head.formationMethod;
+  const roomRow = rooms.find((row) => row.kind === roomKind);
   const room: LiveRoom | null = roomRow
     ? roomRow.kind === 'auction'
       ? {
@@ -307,12 +313,20 @@ const getLiveState = async (
           status: roomRow.status,
           state: hideBidder(roomRow.state as AuctionLiveState),
         }
-      : {
-          kind: 'draft',
-          version: roomRow.version,
-          status: roomRow.status,
-          state: roomRow.state as DraftLiveState,
-        }
+      : roomRow.kind === 'market'
+        ? {
+            kind: 'market',
+            version: roomRow.version,
+            status: roomRow.status,
+            // Sealed bids and hidden prices never leave the server.
+            state: publicMarket(roomRow.state as MarketState),
+          }
+        : {
+            kind: 'draft',
+            version: roomRow.version,
+            status: roomRow.status,
+            state: roomRow.state as DraftLiveState,
+          }
     : null;
 
   const teamMap = new Map<
@@ -423,6 +437,7 @@ type LiveRoom =
       status: string;
       state: AuctionLiveState;
     }
+  | { kind: 'market'; version: number; status: string; state: MarketState }
   | { kind: 'draft'; version: number; status: string; state: DraftLiveState };
 
 const hideBidder = (state: AuctionLiveState): AuctionLiveState =>
