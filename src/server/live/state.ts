@@ -385,6 +385,11 @@ const getLiveState = async (
     rankingMeta,
     ...rest
   } = head;
+  // With captains volunteering after the ranking, the ranking goes public
+  // while the pots wait for the window to close.
+  const rankingPublic =
+    reveal ||
+    (stage === 'pots_review' && rankingMeta?.awaitingVolunteers === true);
   return {
     ...rest,
     stage,
@@ -398,9 +403,9 @@ const getLiveState = async (
       submittedPlayerIds: voters.map((row) => row.playerId),
     },
     /** Tournament ranking (best first); null until computed or while private. */
-    ranking: reveal ? (teamRankingSnapshot ?? null) : null,
+    ranking: rankingPublic ? (teamRankingSnapshot ?? null) : null,
     /** Ties in the ranking and how the cuts were settled; private like it. */
-    rankingMeta: reveal ? (rankingMeta ?? null) : null,
+    rankingMeta: rankingPublic ? (rankingMeta ?? null) : null,
     formationConfig,
     voteRanking,
     pots: reveal ? pots : [],

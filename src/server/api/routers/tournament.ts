@@ -13,13 +13,16 @@ import {
   POT_TIEBREAKS,
   parseFormationConfig,
   type RankingMeta,
+  VOLUNTEER_SURPLUSES,
   VOTE_COUNTS,
+  volunteerWindowOpen,
 } from '@/lib/tournament/formation-config';
 import {
   buildPotGroups,
   meetsCriterion,
   type PotLayoutOptions,
   requota,
+  selectVolunteerCaptains,
 } from '@/lib/tournament/pot-groups';
 import {
   breakTie,
@@ -29,6 +32,7 @@ import {
 } from '@/lib/tournament/pot-tiebreak';
 import { keepContiguousTies } from '@/lib/tournament/ranking';
 import { teamsLayout } from '@/lib/tournament/teams-layout';
+import { playerProcedure } from '@/server/api/player-procedure';
 import { getHistoricalRanking } from '@/server/api/routers/player';
 import {
   adminProcedure,
@@ -333,6 +337,123 @@ const writePots = async (tx: Tx, tournamentId: string, pots: string[][]) => {
   if (rows.length > 0) {
     await tx.insert(teamFormationPotPlayer).values(rows);
   }
+};
+
+/**
+ * The pots for a final ranking with the configured layout and captain
+ * source (volunteers picked here, with their surplus or reserve rule).
+ */
+const dealPotsFor = (input: {
+  order: string[];
+  teamSize: number;
+  config: FormationConfig;
+  rings: Record<string, { rings: number; individualRings: number }>;
+}) => {
+  const { order, teamSize, config } = input;
+  const teamCount = teamsLayout(order.length, teamSize).teamCount;
+  const captainPick =
+    config.captainSource === 'volunteers'
+      ? selectVolunteerCaptains({
+          order,
+          volunteers: config.captainVolunteers,
+          teamCount,
+          surplus: config.volunteerSurplus,
+        })
+      : null;
+  const built = buildPotGroups({
+    order,
+    teamCount,
+    teamSize,
+    rings: input.rings,
+    layout: config.potLayout,
+    criterion: config.potCriterion,
+    surplus: config.criterionSurplus,
+    shortage: config.criterionShortage,
+    captains: captainPick?.captains,
+    ruleIsCaptains: config.captainSource === 'criterion',
+  });
+  return { built, captainPick };
+};
+
+/** What dealing the pots leaves in the ranking meta. */
+const dealtMeta = (
+  built: ReturnType<typeof dealPotsFor>['built'],
+  captainPick: ReturnType<typeof dealPotsFor>['captainPick'],
+): Partial<RankingMeta> => ({
+  awaitingVolunteers: false,
+  groups: built.groups,
+  criterionMoves: {
+    movedOut: built.movedOut,
+    filledIn: built.filledIn,
+    drawn: built.drawn,
+  },
+  captainPick: captainPick
+    ? {
+        leftOut: captainPick.leftOut,
+        drafted: captainPick.drafted,
+        drawn: captainPick.drawn,
+      }
+    : undefined,
+});
+
+/** The stored formation options, read inside a write so none is lost. */
+const configInTx = async (tx: Tx, tournamentId: string) => {
+  const [row] = await tx
+    .select({ formationConfig: tournament.formationConfig })
+    .from(tournament)
+    .where(eq(tournament.id, tournamentId));
+  return parseFormationConfig(row?.formationConfig);
+};
+
+/**
+ * Adds or removes a captain volunteer. Players only while the window is
+ * open; the organiser at any point before the pots are dealt.
+ */
+const writeVolunteer = async (
+  ctx: {
+    db: TRPCContext['db'];
+    session: Parameters<typeof actorFromSession>[0];
+  },
+  current: Awaited<ReturnType<typeof loadTournament>>,
+  playerId: string,
+  volunteer: boolean,
+  byPlayer: boolean,
+) => {
+  const config = parseFormationConfig(current.formationConfig);
+  const open = byPlayer
+    ? volunteerWindowOpen(current.stage, config, current.rankingMeta)
+    : ['setup', 'voting', 'ranking_review'].includes(current.stage) ||
+      (current.stage === 'pots_review' &&
+        current.rankingMeta?.awaitingVolunteers === true);
+  if (config.captainSource !== 'volunteers' || !open) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'El plazo para apuntarse como capitán no está abierto.',
+    });
+  }
+  await runTournamentTx(
+    ctx.db,
+    current.id,
+    actorFromSession(ctx.session),
+    async ({ tx, emit }) => {
+      const latest = await configInTx(tx, current.id);
+      const others = latest.captainVolunteers.filter((id) => id !== playerId);
+      await tx
+        .update(tournament)
+        .set({
+          formationConfig: {
+            ...latest,
+            captainVolunteers: volunteer ? [...others, playerId] : others,
+          },
+        })
+        .where(eq(tournament.id, current.id));
+      await emit({
+        stream: 'admin',
+        type: 'captain_volunteer',
+        payload: { playerId, volunteer, byPlayer },
+      });
+    },
+  );
 };
 
 /** Pot size the ranking is cut at: as many players per pot as teams. */
@@ -823,31 +944,144 @@ const tournamentRouter = createTRPCRouter({
           message: 'Los equipos ya se están formando: las opciones no cambian.',
         });
       }
-      const config: FormationConfig = {
-        ...parseFormationConfig(current.formationConfig),
-        ...Object.fromEntries(
-          Object.entries(input.patch).filter(
-            ([, value]) => value !== undefined,
-          ),
-        ),
-      };
-      await runTournamentTx(
+      const changes = Object.fromEntries(
+        Object.entries(input.patch).filter(([, value]) => value !== undefined),
+      );
+      const config = await runTournamentTx(
         ctx.db,
         input.tournamentId,
         actorFromSession(ctx.session),
         async ({ tx, emit }) => {
+          const next: FormationConfig = {
+            ...(await configInTx(tx, input.tournamentId)),
+            ...changes,
+          };
           await tx
             .update(tournament)
-            .set({ formationConfig: config })
+            .set({ formationConfig: next })
             .where(eq(tournament.id, input.tournamentId));
           await emit({
             stream: 'admin',
             type: 'formation_config_changed',
             payload: { patch: input.patch },
           });
+          return next;
         },
       );
       return config;
+    }),
+
+  /**
+   * A participant says they want to be captain (or takes it back), while
+   * the volunteers' window is open.
+   */
+  setMyCaptainVolunteer: playerProcedure
+    .input(
+      z.object({ tournamentId: z.string().uuid(), volunteer: z.boolean() }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      const roster = await loadHistoricalOrder(ctx.db, input.tournamentId);
+      if (!roster.includes(ctx.player.id)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'No juegas este torneo.',
+        });
+      }
+      await writeVolunteer(ctx, current, ctx.player.id, input.volunteer, true);
+      return { ok: true };
+    }),
+
+  /** The organiser adds or removes a volunteer by hand, until pots are dealt. */
+  setCaptainVolunteer: adminProcedure
+    .input(
+      z.object({
+        tournamentId: z.string().uuid(),
+        playerId: z.string().uuid(),
+        volunteer: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      const roster = await loadHistoricalOrder(ctx.db, input.tournamentId);
+      if (!roster.includes(input.playerId)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Ese jugador no juega este torneo.',
+        });
+      }
+      await writeVolunteer(
+        ctx,
+        current,
+        input.playerId,
+        input.volunteer,
+        false,
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * Closes the volunteers' window that opened after the ranking: captains
+   * are picked and the pots dealt around them, for review.
+   */
+  dealPots: adminProcedure
+    .input(z.object({ tournamentId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (
+        current.stage !== 'pots_review' ||
+        !current.rankingMeta?.awaitingVolunteers ||
+        !current.teamRankingSnapshot
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'No hay plazo de capitanes abierto.',
+        });
+      }
+      const order = current.teamRankingSnapshot;
+      const historical = await loadHistoricalRanking(
+        ctx.db,
+        input.tournamentId,
+      );
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          const config = await configInTx(tx, input.tournamentId);
+          const { built, captainPick } = dealPotsFor({
+            order,
+            teamSize: current.teamSize ?? 1,
+            config,
+            rings: historical.rings,
+          });
+          await writePots(tx, input.tournamentId, built.pots);
+          await tx
+            .update(tournament)
+            .set({
+              captainPotIndex: built.captainPotIndex ?? current.captainPotIndex,
+              rankingMeta: {
+                ...(current.rankingMeta ?? { tieGroups: [] }),
+                ...dealtMeta(built, captainPick),
+              },
+            })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'pots_generated',
+            payload: {
+              pots: built.pots,
+              groups: built.groups,
+              layout: config.potLayout,
+              captainSource: config.captainSource,
+              volunteers: config.captainVolunteers,
+              captainPick,
+            },
+          });
+        },
+      );
+      revalidateLive();
+      return { ok: true };
     }),
 
   /**
@@ -867,7 +1101,13 @@ const tournamentRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const current = await loadTournament(ctx.db, input.tournamentId);
-      if (!['setup', 'voting', 'ranking_review'].includes(current.stage)) {
+      const awaitingVolunteers =
+        current.stage === 'pots_review' &&
+        current.rankingMeta?.awaitingVolunteers === true;
+      if (
+        !['setup', 'voting', 'ranking_review'].includes(current.stage) &&
+        !awaitingVolunteers
+      ) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'Los bombos ya están hechos: no hay nada que previsualizar.',
@@ -915,7 +1155,8 @@ const tournamentRouter = createTRPCRouter({
               historicalWeightPercent: null,
               config: { voteCount: 'borda', voteOutlierThreshold: null },
             }).vote?.distances ?? []);
-      const reviewing = current.stage === 'ranking_review';
+      const reviewing =
+        current.stage === 'ranking_review' || awaitingVolunteers;
       const order =
         (reviewing ? current.teamRankingSnapshot : null) ?? historical.order;
       const tieGroups =
@@ -961,8 +1202,49 @@ const tournamentRouter = createTRPCRouter({
           ...layoutWith({ layout: ruleLayout, shortage }),
         })),
       };
+      const teamCount = teamsLayout(order.length, teamSize).teamCount;
+      const volunteerPick = (surplus: 'ranking' | 'draw') =>
+        selectVolunteerCaptains({
+          order,
+          volunteers: config.captainVolunteers,
+          teamCount,
+          surplus,
+        });
+      const captains = {
+        volunteers: config.captainVolunteers,
+        sources: {
+          pot: buildPotGroups({
+            order,
+            teamCount,
+            teamSize,
+            rings: historical.rings,
+            layout: config.potLayout,
+            criterion: config.potCriterion,
+            surplus: config.criterionSurplus,
+            shortage: config.criterionShortage,
+          }),
+          volunteers: dealPotsFor({
+            order,
+            teamSize,
+            config: { ...config, captainSource: 'volunteers' },
+            rings: historical.rings,
+          }).built,
+          criterion: dealPotsFor({
+            order,
+            teamSize,
+            config: { ...config, captainSource: 'criterion' },
+            rings: historical.rings,
+          }).built,
+        },
+        surpluses: VOLUNTEER_SURPLUSES.map((surplus) => ({
+          surplus,
+          ...volunteerPick(surplus),
+        })),
+        captainPotIndex: current.captainPotIndex,
+      };
       return {
         pots,
+        captains,
         source,
         ballots: ballots.length,
         historical: {
@@ -1018,16 +1300,16 @@ const tournamentRouter = createTRPCRouter({
           message: 'No hay papeletas que recontar.',
         });
       }
-      const config: FormationConfig = {
-        ...parseFormationConfig(current.formationConfig),
-        voteCount: input.voteCount,
-        voteOutlierThreshold: input.voteOutlierThreshold,
-      };
       await runTournamentTx(
         ctx.db,
         input.tournamentId,
         actorFromSession(ctx.session),
         async ({ tx, emit }) => {
+          const config: FormationConfig = {
+            ...(await configInTx(tx, input.tournamentId)),
+            voteCount: input.voteCount,
+            voteOutlierThreshold: input.voteOutlierThreshold,
+          };
           await tx
             .update(tournament)
             .set({
@@ -1087,17 +1369,18 @@ const tournamentRouter = createTRPCRouter({
           ),
         },
       );
-      const built = buildPotGroups({
-        order: dealt,
-        teamCount: teamsLayout(dealt.length, current.teamSize ?? 1).teamCount,
-        teamSize: current.teamSize ?? 1,
-        rings: historical.rings,
-        layout: config.potLayout,
-        criterion: config.potCriterion,
-        surplus: config.criterionSurplus,
-        shortage: config.criterionShortage,
-      });
-      const { pots } = built;
+      const awaiting =
+        config.captainSource === 'volunteers' &&
+        config.volunteerWindow === 'after_ranking';
+      const { built, captainPick } = awaiting
+        ? { built: null, captainPick: null }
+        : dealPotsFor({
+            order: dealt,
+            teamSize: current.teamSize ?? 1,
+            config,
+            rings: historical.rings,
+          });
+      const pots = built?.pots ?? [];
       await runTournamentTx(
         ctx.db,
         input.tournamentId,
@@ -1110,18 +1393,15 @@ const tournamentRouter = createTRPCRouter({
               stage: 'pots_review',
               stageChangedAt: new Date(),
               teamRankingSnapshot: dealt,
-              ...(built.captainPotIndex === null
+              ...(built?.captainPotIndex == null
                 ? {}
                 : { captainPotIndex: built.captainPotIndex }),
               rankingMeta: {
                 ...meta,
                 cutTies: resolutions,
-                groups: built.groups,
-                criterionMoves: {
-                  movedOut: built.movedOut,
-                  filledIn: built.filledIn,
-                  drawn: built.drawn,
-                },
+                ...(built
+                  ? dealtMeta(built, captainPick)
+                  : { awaitingVolunteers: true }),
               },
             })
             .where(eq(tournament.id, input.tournamentId));
@@ -1137,18 +1417,28 @@ const tournamentRouter = createTRPCRouter({
               payload: resolution,
             });
           }
-          await emit({
-            stream: 'admin',
-            type: 'pots_generated',
-            payload: {
-              pots,
-              groups: built.groups,
-              layout: config.potLayout,
-              movedOut: built.movedOut,
-              filledIn: built.filledIn,
-              drawn: built.drawn,
-            },
-          });
+          if (built) {
+            await emit({
+              stream: 'admin',
+              type: 'pots_generated',
+              payload: {
+                pots,
+                groups: built.groups,
+                layout: config.potLayout,
+                captainSource: config.captainSource,
+                movedOut: built.movedOut,
+                filledIn: built.filledIn,
+                drawn: built.drawn,
+                captainPick,
+              },
+            });
+          } else {
+            await emit({
+              stream: 'admin',
+              type: 'captain_window_opened',
+              payload: { order: dealt },
+            });
+          }
           await emit({
             stream: 'admin',
             type: 'stage_changed',

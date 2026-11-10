@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { ReorderList } from '@/components/live/reorder-list';
 import { potLabels } from '@/components/live/setup/pot-labels';
 import {
+  CaptainPickNotice,
+  CaptainSourceSection,
   CriterionMovesNotice,
   CutTiesNotice,
   PotLayoutSection,
@@ -179,6 +181,7 @@ const RankingReviewPanel = ({ state, onDone }: PanelProps) => {
         }}
       />
       <PotLayoutSection editable={!confirm.isPending} state={state} />
+      <CaptainSourceSection editable={!confirm.isPending} state={state} />
       <PotTiebreakSection editable={!confirm.isPending} state={state} />
       <div className="flex flex-wrap items-center gap-3">
         <button
@@ -212,8 +215,53 @@ const RankingReviewPanel = ({ state, onDone }: PanelProps) => {
   );
 };
 
+/**
+ * The ranking is out and the volunteers' window is open: the sign-ups so
+ * far and the lever that closes it and deals the pots.
+ */
+const VolunteerWindowPanel = ({ state }: { state: LiveState }) => {
+  const utils = api.useUtils();
+  const deal = api.tournament.dealPots.useMutation({
+    onSuccess: () =>
+      utils.tournament.setup.invalidate({ tournamentId: state.id }),
+  });
+  return (
+    <section className={`${panelGold} flex flex-col gap-4 p-5 sm:p-7`}>
+      <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
+        Plazo de capitanes
+      </h3>
+      <p className="text-(--faded) text-sm">
+        El ranking es público y los jugadores se están apuntando desde El
+        Concilio. Al cerrar el plazo se eligen los capitanes y se hacen los
+        bombos, que pasan a revisión.
+      </p>
+      <CaptainSourceSection editable state={state} />
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          className={btn.primary}
+          disabled={deal.isPending}
+          onClick={() => deal.mutate({ tournamentId: state.id })}
+          type="button"
+        >
+          {deal.isPending ? 'Haciendo bombos…' : 'Cerrar el plazo → bombos'}
+        </button>
+      </div>
+      {deal.error ? (
+        <p className="text-(--ember) text-sm">{deal.error.message}</p>
+      ) : null}
+    </section>
+  );
+};
+
 /** Pots review: move players between tiers, then publish and crown captains. */
 const PotsReviewPanel = ({ state, onDone }: PanelProps) => {
+  if (state.rankingMeta?.awaitingVolunteers) {
+    return <VolunteerWindowPanel state={state} />;
+  }
+  return <PotsReview onDone={onDone} state={state} />;
+};
+
+const PotsReview = ({ state, onDone }: PanelProps) => {
   const utils = api.useUtils();
   const [pots, setPots] = useState<string[][] | null>(null);
   const save = api.tournament.setPots.useMutation({
@@ -257,6 +305,7 @@ const PotsReviewPanel = ({ state, onDone }: PanelProps) => {
         }}
         pots={current}
       />
+      <CaptainPickNotice state={state} />
       <CriterionMovesNotice state={state} />
       <CutTiesNotice state={state} />
       <div className="flex flex-wrap items-center gap-3">

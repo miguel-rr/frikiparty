@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { useSessionUser } from '@/components/layout/auth-slot';
 import { Calendar } from '@/components/live/calendar';
+import { CaptainVolunteers } from '@/components/live/captain-volunteers';
 import { CouncilWall } from '@/components/live/council/council-wall';
 import { FinalStandings } from '@/components/live/council/final-standings';
 import { MatchesDigest } from '@/components/live/council/matches-digest';
@@ -90,6 +91,11 @@ const LiveHub = ({ initial }: { initial: LiveState }) => {
       />
 
       {state.stage === 'voting' ? <VotingStatus state={state} /> : null}
+      <CaptainVolunteers state={state} />
+      {state.stage === 'pots_review' &&
+      state.rankingMeta?.awaitingVolunteers ? (
+        <RankingBlock state={state} />
+      ) : null}
 
       {state.stage === 'formation' ? (
         <>

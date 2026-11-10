@@ -36,9 +36,11 @@ type CriterionSurplus = 'best_out' | 'worst_out' | 'draw_out' | 'double';
 /**
  * Fewer players meet the rule than there are teams:
  * - `fill_worst`: the lowest ranked of the rest complete the pot;
+ * - `fill_best`: the best ranked of the rest complete it (the reserve
+ *   rule, for when the rule's pot is the captains);
  * - `leave_short`: the pot stays short and some teams take none.
  */
-type CriterionShortage = 'fill_worst' | 'leave_short';
+type CriterionShortage = 'fill_worst' | 'fill_best' | 'leave_short';
 
 type GroupKind = 'ranking' | 'captains' | 'criterion' | 'market';
 
@@ -62,6 +64,13 @@ type PotLayoutOptions = {
 type BuildPotGroupsInput = PotLayoutOptions & {
   /** Final ranking, best first. */
   order: string[];
+  /**
+   * Captains chosen beforehand (volunteers): they make the first pot and
+   * leave every other group.
+   */
+  captains?: string[];
+  /** The rule's pot is the captains' pot (it must then have one per team). */
+  ruleIsCaptains?: boolean;
   teamCount: number;
   teamSize: number;
   rings: Record<string, RingCount>;
@@ -157,11 +166,14 @@ const criterionPot = (input: BuildPotGroupsInput) => {
       quota: 'one' as const,
     };
   }
-  if (meeting.length < teamCount && shortage === 'fill_worst') {
+  if (meeting.length < teamCount && shortage !== 'leave_short') {
     const inPot = new Set(meeting);
-    const filledIn = order
-      .filter((id) => !inPot.has(id))
-      .slice(-(teamCount - meeting.length));
+    const others = order.filter((id) => !inPot.has(id));
+    const missing = teamCount - meeting.length;
+    const filledIn =
+      shortage === 'fill_best'
+        ? others.slice(0, missing)
+        : others.slice(-missing);
     const members = new Set([...meeting, ...filledIn]);
     return {
       pot: order.filter((id) => members.has(id)),
@@ -187,7 +199,23 @@ const criterionPot = (input: BuildPotGroupsInput) => {
  * the rule's pot, and their pot comes first.
  */
 const buildPotGroups = (input: BuildPotGroupsInput): BuiltPotGroups => {
-  const { order, teamCount, teamSize, layout } = input;
+  const { teamCount, teamSize, layout } = input;
+  if (input.captains) return buildAroundCaptains(input, input.captains);
+  if (input.ruleIsCaptains) {
+    // Captains must be exactly one per team: no pairs, no short pot.
+    const rule = criterionPot({
+      ...input,
+      surplus: input.surplus === 'double' ? 'best_out' : input.surplus,
+      shortage: input.shortage === 'leave_short' ? 'fill_best' : input.shortage,
+    });
+    return {
+      ...buildAroundCaptains(input, rule.pot),
+      movedOut: rule.movedOut,
+      filledIn: rule.filledIn,
+      drawn: rule.drawn,
+    };
+  }
+  const { order } = input;
   if (layout === 'ranking') {
     const { pots } = generatePots(order, teamSize);
     return {
@@ -236,6 +264,100 @@ const buildPotGroups = (input: BuildPotGroupsInput): BuiltPotGroups => {
     movedOut: rule.movedOut,
     filledIn: rule.filledIn,
     drawn: rule.drawn,
+  };
+};
+
+/**
+ * Pots around captains decided beforehand (volunteers, or the rule's pot
+ * as captains): they're the first pot; the rest follows the layout, with
+ * a rule pot of its own only for the volunteers' case.
+ */
+const buildAroundCaptains = (
+  input: BuildPotGroupsInput,
+  captains: string[],
+): BuiltPotGroups => {
+  const { teamCount, layout } = input;
+  const chosen = new Set(captains);
+  const captainPot = input.order.filter((id) => chosen.has(id));
+  const rest = input.order.filter((id) => !chosen.has(id));
+  const pots: string[][] = [captainPot];
+  const groups: PotGroup[] = [{ kind: 'captains', quota: 'one' }];
+  const ruleOwnPot =
+    !input.ruleIsCaptains &&
+    (layout === 'criterion_ranking' || layout === 'criterion_market');
+  const rule = ruleOwnPot
+    ? criterionPot({ ...input, order: rest })
+    : {
+        pot: [],
+        movedOut: [],
+        filledIn: [],
+        drawn: false,
+        quota: 'one' as const,
+      };
+  const ruled = new Set(rule.pot);
+  const remaining = rest.filter((id) => !ruled.has(id));
+  const chunked = layout === 'ranking' || layout === 'criterion_ranking';
+  if (chunked) {
+    for (const pot of chunk(remaining, teamCount)) {
+      pots.push(pot);
+      groups.push(rankingGroup(pot, teamCount));
+    }
+  }
+  if (rule.pot.length > 0) {
+    pots.push(rule.pot);
+    groups.push({ kind: 'criterion', quota: rule.quota });
+  }
+  if (!chunked && remaining.length > 0) {
+    pots.push(remaining);
+    groups.push({ kind: 'market', quota: 'fill' });
+  }
+  return {
+    pots,
+    groups,
+    captainPotIndex: 0,
+    movedOut: rule.movedOut,
+    filledIn: rule.filledIn,
+    drawn: rule.drawn,
+  };
+};
+
+/**
+ * Captains from volunteers: if there are too many, the best ranked (or a
+ * draw) go through; if too few, the best ranked of the rest complete
+ * them and can't refuse.
+ */
+const selectVolunteerCaptains = (input: {
+  order: string[];
+  volunteers: string[];
+  teamCount: number;
+  surplus: 'ranking' | 'draw';
+  random?: () => number;
+}) => {
+  const random = input.random ?? Math.random;
+  const willing = new Set(input.volunteers);
+  const volunteers = input.order.filter((id) => willing.has(id));
+  if (volunteers.length >= input.teamCount) {
+    const captains =
+      input.surplus === 'ranking'
+        ? volunteers.slice(0, input.teamCount)
+        : pickRandom(volunteers, input.teamCount, random);
+    const chosen = new Set(captains);
+    return {
+      captains,
+      leftOut: volunteers.filter((id) => !chosen.has(id)),
+      drafted: [] as string[],
+      drawn: input.surplus === 'draw' && volunteers.length > input.teamCount,
+    };
+  }
+  const drafted = input.order
+    .filter((id) => !willing.has(id))
+    .slice(0, input.teamCount - volunteers.length);
+  const chosen = new Set([...volunteers, ...drafted]);
+  return {
+    captains: input.order.filter((id) => chosen.has(id)),
+    leftOut: [] as string[],
+    drafted,
+    drawn: false,
   };
 };
 
@@ -367,4 +489,5 @@ export {
   type PotLayoutOptions,
   type RingCount,
   requota,
+  selectVolunteerCaptains,
 };

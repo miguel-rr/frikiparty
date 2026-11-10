@@ -22,6 +22,61 @@ type PotLayout = FormationConfig['potLayout'];
 type PotCriterion = FormationConfig['potCriterion'];
 type CriterionSurplus = FormationConfig['criterionSurplus'];
 type CriterionShortage = FormationConfig['criterionShortage'];
+type CaptainSource = FormationConfig['captainSource'];
+type VolunteerWindow = FormationConfig['volunteerWindow'];
+type VolunteerSurplus = FormationConfig['volunteerSurplus'];
+
+const CAPTAIN_SOURCE_INFO: Record<
+  CaptainSource,
+  { title: string; summary: string }
+> = {
+  pot: {
+    title: 'Un bombo del ranking',
+    summary:
+      'Los capitanes son los del bombo de capitanes: el 1 con los bombos de siempre, o los mejores fuera del bombo de la regla.',
+  },
+  volunteers: {
+    title: 'Voluntarios',
+    summary:
+      'Cada jugador marca si quiere ser capitán. Los capitanes salen de su bombo y el resto se reparte como esté configurado.',
+  },
+  criterion: {
+    title: 'El bombo de la regla',
+    summary:
+      'Los que cumplen la regla (por ejemplo, sin anillo) son los capitanes. Tiene que haber justo uno por equipo: si sobran o faltan se aplican las opciones de la regla, sin equipos con dos ni bombo corto.',
+  },
+};
+
+const VOLUNTEER_WINDOW_INFO: Record<
+  VolunteerWindow,
+  { title: string; summary: string }
+> = {
+  before_ranking: {
+    title: 'Antes del ranking',
+    summary:
+      'Se apuntan durante la votación y su revisión, sin saber dónde quedarán. Los bombos salen al confirmar el ranking.',
+  },
+  after_ranking: {
+    title: 'Después del ranking',
+    summary:
+      'Al confirmar el ranking se publica y se abre el plazo. Se apuntan sabiendo su puesto, y los bombos salen cuando cierras el plazo.',
+  },
+};
+
+const VOLUNTEER_SURPLUS_INFO: Record<
+  VolunteerSurplus,
+  { title: string; summary: string }
+> = {
+  ranking: {
+    title: 'Por ranking',
+    summary: 'Si sobran voluntarios, entran los mejor situados.',
+  },
+  draw: {
+    title: 'Por sorteo',
+    summary:
+      'Si sobran voluntarios, se sortea quién entra al hacer los bombos. Lo de abajo es solo un ejemplo.',
+  },
+};
 
 const LAYOUT_INFO: Record<PotLayout, { title: string; summary: string }> = {
   ranking: {
@@ -86,6 +141,11 @@ const SHORTAGE_INFO: Record<
     title: 'Se completa con los últimos',
     summary:
       'Los peor situados del resto entran en el bombo hasta que haya uno por equipo.',
+  },
+  fill_best: {
+    title: 'Se completa con los primeros',
+    summary:
+      'Los mejor situados del resto entran en el bombo hasta que haya uno por equipo.',
   },
   leave_short: {
     title: 'Se queda corto',
@@ -481,6 +541,7 @@ const FormationOptionsSection = ({ state }: { state: LiveState }) => {
         </>
       ) : null}
       <PotLayoutSection editable state={state} />
+      <CaptainSourceSection editable state={state} />
       <PotTiebreakSection editable state={state} />
       {update.error ? (
         <p className="text-(--ember) text-sm">{update.error.message}</p>
@@ -714,6 +775,204 @@ const PotLayoutSection = ({
       ) : null}
       {update.error ? (
         <p className="text-(--ember) text-sm">{update.error.message}</p>
+      ) : null}
+    </div>
+  );
+};
+
+/**
+ * Who the captains are, each source with the captains it would give, and
+ * for volunteers the window, the surplus rule and the sign-up list.
+ */
+const CaptainSourceSection = ({
+  state,
+  editable,
+}: {
+  state: LiveState;
+  editable: boolean;
+}) => {
+  const update = useConfigUpdate(state.id);
+  const utils = api.useUtils();
+  const setVolunteer = api.tournament.setCaptainVolunteer.useMutation({
+    onSuccess: () => {
+      utils.tournament.setup.invalidate({ tournamentId: state.id });
+      utils.tournament.rankingPreview.invalidate();
+    },
+  });
+  const config = state.formationConfig;
+  const preview = api.tournament.rankingPreview.useQuery({
+    tournamentId: state.id,
+    voteOutlierThreshold: config.voteOutlierThreshold,
+    historicalWeightPercent: state.historicalWeightPercent,
+  });
+  const names = new Map(state.participants.map((p) => [p.id, p.name]));
+  const patch = (value: Partial<FormationConfig>) =>
+    update.mutate({ tournamentId: state.id, patch: value });
+  const disabled = !editable || update.isPending;
+  const data = preview.data?.captains;
+  const captainsOf = (source: CaptainSource) => {
+    const built = data?.sources[source];
+    if (!built) return [];
+    return built.pots[built.captainPotIndex ?? data.captainPotIndex] ?? [];
+  };
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <span className={label}>Quién es capitán</span>
+        <div className="grid gap-2 sm:grid-cols-3">
+          {(Object.keys(CAPTAIN_SOURCE_INFO) as CaptainSource[]).map(
+            (source) => (
+              <OptionCard
+                active={config.captainSource === source}
+                disabled={disabled}
+                key={source}
+                onSelect={() => patch({ captainSource: source })}
+                title={CAPTAIN_SOURCE_INFO[source].title}
+              >
+                <span>{CAPTAIN_SOURCE_INFO[source].summary}</span>
+                {data ? (
+                  <span className="text-(--parchment)">
+                    Capitanes: {nameList(captainsOf(source), names)}
+                    {source === 'volunteers'
+                      ? ` (con ${data.volunteers.length} apuntados ahora)`
+                      : ''}
+                    .
+                  </span>
+                ) : null}
+              </OptionCard>
+            ),
+          )}
+        </div>
+      </div>
+      {config.captainSource === 'volunteers' ? (
+        <>
+          <div className="flex flex-col gap-2">
+            <span className={label}>Cuándo se apuntan</span>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {(Object.keys(VOLUNTEER_WINDOW_INFO) as VolunteerWindow[]).map(
+                (option) => (
+                  <OptionCard
+                    active={config.volunteerWindow === option}
+                    disabled={disabled || state.stage === 'ranking_review'}
+                    key={option}
+                    onSelect={() => patch({ volunteerWindow: option })}
+                    title={VOLUNTEER_WINDOW_INFO[option].title}
+                  >
+                    {VOLUNTEER_WINDOW_INFO[option].summary}
+                  </OptionCard>
+                ),
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className={label}>Si se apuntan más que equipos hay</span>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {(Object.keys(VOLUNTEER_SURPLUS_INFO) as VolunteerSurplus[]).map(
+                (surplus) => {
+                  const pick = data?.surpluses.find(
+                    (entry) => entry.surplus === surplus,
+                  );
+                  return (
+                    <OptionCard
+                      active={config.volunteerSurplus === surplus}
+                      disabled={disabled}
+                      key={surplus}
+                      onSelect={() => patch({ volunteerSurplus: surplus })}
+                      title={VOLUNTEER_SURPLUS_INFO[surplus].title}
+                    >
+                      <span>{VOLUNTEER_SURPLUS_INFO[surplus].summary}</span>
+                      {pick ? (
+                        <span className="text-(--parchment)">
+                          Capitanes: {nameList(pick.captains, names)}.
+                          {pick.leftOut.length > 0
+                            ? ` Se quedan fuera: ${nameList(pick.leftOut, names)}.`
+                            : ''}
+                          {pick.drafted.length > 0
+                            ? ` Faltan voluntarios y entran por ranking: ${nameList(pick.drafted, names)}.`
+                            : ''}
+                        </span>
+                      ) : null}
+                    </OptionCard>
+                  );
+                },
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className={label}>
+              Apuntados · {config.captainVolunteers.length} (puedes cambiarlo a
+              mano)
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {state.participants.map((participant) => {
+                const on = config.captainVolunteers.includes(participant.id);
+                return (
+                  <button
+                    aria-pressed={on}
+                    className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                      on
+                        ? 'border-(--gold) bg-(--gold)/12 text-(--gold-hi)'
+                        : 'border-(--hair) text-(--faded) hover:border-(--hair-gold)'
+                    }`}
+                    disabled={setVolunteer.isPending}
+                    key={participant.id}
+                    onClick={() =>
+                      setVolunteer.mutate({
+                        tournamentId: state.id,
+                        playerId: participant.id,
+                        volunteer: !on,
+                      })
+                    }
+                    type="button"
+                  >
+                    {on ? '★ ' : ''}
+                    {participant.name}
+                  </button>
+                );
+              })}
+            </div>
+            {setVolunteer.error ? (
+              <p className="text-(--ember) text-sm">
+                {setVolunteer.error.message}
+              </p>
+            ) : null}
+          </div>
+        </>
+      ) : null}
+      {update.error ? (
+        <p className="text-(--ember) text-sm">{update.error.message}</p>
+      ) : null}
+    </div>
+  );
+};
+
+/** Volunteers' outcome once the pots are dealt. */
+const CaptainPickNotice = ({ state }: { state: LiveState }) => {
+  const pick = state.rankingMeta?.captainPick;
+  if (!pick || (pick.leftOut.length === 0 && pick.drafted.length === 0)) {
+    return null;
+  }
+  const names = new Map(state.participants.map((p) => [p.id, p.name]));
+  return (
+    <div className="flex flex-col gap-1 text-(--faded) text-sm">
+      {pick.leftOut.length > 0 ? (
+        <p>
+          Sobraban voluntarios y se quedan sin capitanía
+          {pick.drawn ? ' por sorteo' : ' por ranking'}:{' '}
+          <span className="text-(--parchment)">
+            {nameList(pick.leftOut, names)}
+          </span>
+          .
+        </p>
+      ) : null}
+      {pick.drafted.length > 0 ? (
+        <p>
+          Faltaban voluntarios, y son capitanes por ranking:{' '}
+          <span className="text-(--parchment)">
+            {nameList(pick.drafted, names)}
+          </span>
+          .
+        </p>
       ) : null}
     </div>
   );
@@ -1023,6 +1282,8 @@ const CriterionMovesNotice = ({ state }: { state: LiveState }) => {
 };
 
 export {
+  CaptainPickNotice,
+  CaptainSourceSection,
   CriterionMovesNotice,
   CutTiesNotice,
   FormationOptionsSection,

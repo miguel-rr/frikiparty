@@ -7,6 +7,7 @@ import {
   needsQuotaFormation,
   type PotLayoutOptions,
   type RingCount,
+  selectVolunteerCaptains,
 } from './pot-groups';
 
 // 12 players, 3 teams of 4. p1 best … p12 worst.
@@ -149,5 +150,56 @@ describe('dealRandomByGroups', () => {
         }
       }
     }
+  });
+});
+
+describe('captains decided beforehand', () => {
+  it('takes volunteers out of every other pot', () => {
+    const built = buildPotGroups({
+      ...base,
+      ...options({ layout: 'criterion_market' }),
+      captains: ['p2', 'p5', 'p12'],
+    });
+    assert.deepEqual(built.pots[0], ['p2', 'p5', 'p12']);
+    const rest = built.pots.slice(1).flat();
+    assert.ok(!rest.includes('p2') && !rest.includes('p12'));
+    // Ringless left after p2/p12 are captains: p7, p9, p11.
+    assert.deepEqual(built.pots[1], ['p7', 'p9', 'p11']);
+    assert.equal(built.groups[2]?.kind, 'market');
+  });
+
+  it('makes the rule pot the captains, one per team', () => {
+    const built = buildPotGroups({
+      ...base,
+      ...options({ layout: 'criterion_ranking', surplus: 'double' }),
+      ruleIsCaptains: true,
+    });
+    assert.deepEqual(built.pots[0], ['p9', 'p11', 'p12']);
+    assert.deepEqual(built.movedOut, ['p2', 'p7']);
+    assert.equal(built.pots.length, 4);
+  });
+});
+
+describe('selectVolunteerCaptains', () => {
+  it('keeps the best ranked volunteers', () => {
+    const picked = selectVolunteerCaptains({
+      order,
+      volunteers: ['p9', 'p3', 'p5', 'p1'],
+      teamCount: 3,
+      surplus: 'ranking',
+    });
+    assert.deepEqual(picked.captains, ['p1', 'p3', 'p5']);
+    assert.deepEqual(picked.leftOut, ['p9']);
+  });
+
+  it('completes with the best ranked of the rest', () => {
+    const picked = selectVolunteerCaptains({
+      order,
+      volunteers: ['p9'],
+      teamCount: 3,
+      surplus: 'ranking',
+    });
+    assert.deepEqual(picked.drafted, ['p1', 'p2']);
+    assert.deepEqual(picked.captains, ['p1', 'p2', 'p9']);
   });
 });

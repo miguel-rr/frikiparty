@@ -23,7 +23,10 @@ const CRITERION_SURPLUSES = [
   'draw_out',
   'double',
 ] as const;
-const CRITERION_SHORTAGES = ['fill_worst', 'leave_short'] as const;
+const CRITERION_SHORTAGES = ['fill_worst', 'fill_best', 'leave_short'] as const;
+const CAPTAIN_SOURCES = ['pot', 'volunteers', 'criterion'] as const;
+const VOLUNTEER_WINDOWS = ['before_ranking', 'after_ranking'] as const;
+const VOLUNTEER_SURPLUSES = ['ranking', 'draw'] as const;
 
 /** The options as an admin sets them: strict, every key optional. */
 const formationConfigPatchSchema = z
@@ -42,6 +45,12 @@ const formationConfigPatchSchema = z
     criterionSurplus: z.enum(CRITERION_SURPLUSES),
     /** Fewer players meet the rule than there are teams. */
     criterionShortage: z.enum(CRITERION_SHORTAGES),
+    /** Who the captains are: a pot, volunteers, or the rule's pot. */
+    captainSource: z.enum(CAPTAIN_SOURCES),
+    /** Volunteers sign up while the vote runs, or once the ranking is out. */
+    volunteerWindow: z.enum(VOLUNTEER_WINDOWS),
+    /** Too many volunteers: the best ranked go through, or a draw. */
+    volunteerSurplus: z.enum(VOLUNTEER_SURPLUSES),
   })
   .partial();
 
@@ -54,6 +63,11 @@ const formationConfigSchema = z.object({
   potCriterion: z.enum(POT_CRITERIA).catch('no_team_ring'),
   criterionSurplus: z.enum(CRITERION_SURPLUSES).catch('best_out'),
   criterionShortage: z.enum(CRITERION_SHORTAGES).catch('fill_worst'),
+  captainSource: z.enum(CAPTAIN_SOURCES).catch('pot'),
+  volunteerWindow: z.enum(VOLUNTEER_WINDOWS).catch('before_ranking'),
+  volunteerSurplus: z.enum(VOLUNTEER_SURPLUSES).catch('ranking'),
+  /** Who said "I want to be captain"; written by the players themselves. */
+  captainVolunteers: z.array(z.string()).catch([]),
 });
 
 type FormationConfig = z.infer<typeof formationConfigSchema>;
@@ -67,6 +81,10 @@ const DEFAULT_FORMATION_CONFIG: FormationConfig = {
   potCriterion: 'no_team_ring',
   criterionSurplus: 'best_out',
   criterionShortage: 'fill_worst',
+  captainSource: 'pot',
+  volunteerWindow: 'before_ranking',
+  volunteerSurplus: 'ranking',
+  captainVolunteers: [],
 };
 
 const parseFormationConfig = (value: unknown): FormationConfig => {
@@ -101,11 +119,36 @@ type RankingMeta = {
   }[];
   /** What kind of group each pot is and its quota (set when pots are dealt). */
   groups?: PotGroup[];
+  /** Volunteers' outcome: left out by surplus, or drafted to fill. */
+  captainPick?: { leftOut: string[]; drafted: string[]; drawn: boolean };
+  /**
+   * The ranking is confirmed and public, and the pots wait for the
+   * volunteers' window to close.
+   */
+  awaitingVolunteers?: boolean;
   /** The rule's pot: who left it (surplus) or was added (shortage). */
   criterionMoves?: { movedOut: string[]; filledIn: string[]; drawn: boolean };
 };
 
+/**
+ * Whether players can sign up as captain now: before the ranking (while
+ * the vote and its review run) or after it (once it's public and before
+ * the pots are dealt), as configured.
+ */
+const volunteerWindowOpen = (
+  stage: string,
+  config: FormationConfig,
+  meta: RankingMeta | null | undefined,
+) => {
+  if (config.captainSource !== 'volunteers') return false;
+  if (config.volunteerWindow === 'before_ranking') {
+    return stage === 'voting' || stage === 'ranking_review';
+  }
+  return stage === 'pots_review' && meta?.awaitingVolunteers === true;
+};
+
 export {
+  CAPTAIN_SOURCES,
   CRITERION_SHORTAGES,
   CRITERION_SURPLUSES,
   DEFAULT_FORMATION_CONFIG,
@@ -118,5 +161,8 @@ export {
   POT_TIEBREAKS,
   parseFormationConfig,
   type RankingMeta,
+  VOLUNTEER_SURPLUSES,
+  VOLUNTEER_WINDOWS,
   VOTE_COUNTS,
+  volunteerWindowOpen,
 };
