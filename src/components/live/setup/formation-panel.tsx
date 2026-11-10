@@ -10,6 +10,7 @@ import {
   DEFAULT_AUCTION_CONFIG,
 } from '@/lib/tournament/auction-live';
 import { isDraftComplete } from '@/lib/tournament/draft-live';
+import { groupsFor, needsQuotaFormation } from '@/lib/tournament/pot-groups';
 import type { LiveState } from '@/server/live/state';
 import { api } from '@/trpc/react';
 
@@ -45,6 +46,12 @@ const FormationPanel = ({
   const setMethod = api.formation.setMethod.useMutation({ onSuccess: refresh });
   const method = state.formationMethod;
   const room = state.room;
+  // Market or "one or two" pots: only the random deal knows quotas yet.
+  const quotaPots = needsQuotaFormation(
+    groupsFor(state.pots, state.rankingMeta?.groups),
+  );
+  const unavailable = (m: Method) =>
+    quotaPots && (m === 'draft' || m === 'auction');
 
   return (
     <section className={`${panelGold} flex flex-col gap-5 p-5 sm:p-7`}>
@@ -73,11 +80,19 @@ const FormationPanel = ({
           >
             <option value="">Elegir…</option>
             {(Object.keys(METHOD_LABELS) as Method[]).map((m) => (
-              <option key={m} value={m}>
+              <option disabled={unavailable(m)} key={m} value={m}>
                 {METHOD_LABELS[m]}
+                {unavailable(m) ? ' (no sirve con estos bombos)' : ''}
               </option>
             ))}
           </select>
+          {quotaPots ? (
+            <span className="text-(--faded) text-xs">
+              Estos bombos tienen mercado libre o un bombo del que se cogen dos.
+              El draft por bombos y la subasta abierta reparten uno de cada
+              bombo, así que de momento solo sirve el reparto aleatorio.
+            </span>
+          ) : null}
         </div>
       ) : null}
 
@@ -125,7 +140,7 @@ const RandomStart = ({
       </button>
       <span className="text-(--faded) text-xs">
         {state.formationMethod === 'pots_random'
-          ? 'Un jugador de cada bombo por equipo, al azar dentro del bombo.'
+          ? 'Cada equipo se lleva su cupo de cada bombo al azar; el mercado y los sobrantes van a los equipos con más plazas libres.'
           : 'Todos menos los capitanes, repartidos al azar.'}
       </span>
       {start.error ? (

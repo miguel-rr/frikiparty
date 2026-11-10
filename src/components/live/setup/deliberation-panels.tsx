@@ -3,8 +3,11 @@
 import { useState } from 'react';
 
 import { ReorderList } from '@/components/live/reorder-list';
+import { potLabels } from '@/components/live/setup/pot-labels';
 import {
+  CriterionMovesNotice,
   CutTiesNotice,
+  PotLayoutSection,
   PotTiebreakSection,
   RecountPanel,
 } from '@/components/live/setup/ranking-options';
@@ -175,6 +178,7 @@ const RankingReviewPanel = ({ state, onDone }: PanelProps) => {
           );
         }}
       />
+      <PotLayoutSection editable={!confirm.isPending} state={state} />
       <PotTiebreakSection editable={!confirm.isPending} state={state} />
       <div className="flex flex-wrap items-center gap-3">
         <button
@@ -236,6 +240,12 @@ const PotsReviewPanel = ({ state, onDone }: PanelProps) => {
       </div>
       <PotBoard
         getPlayerName={(id) => byId.get(id) ?? id}
+        labels={potLabels(
+          current,
+          state.rankingMeta?.groups,
+          state.formationConfig.potCriterion,
+          state.captainPotIndex,
+        )}
         onMove={(playerId, from, to) => {
           const next = current.map((pot) => [...pot]);
           const fromPot = next[from];
@@ -247,6 +257,7 @@ const PotsReviewPanel = ({ state, onDone }: PanelProps) => {
         }}
         pots={current}
       />
+      <CriterionMovesNotice state={state} />
       <CutTiesNotice state={state} />
       <div className="flex flex-wrap items-center gap-3">
         <button
@@ -270,8 +281,8 @@ const PotsReviewPanel = ({ state, onDone }: PanelProps) => {
           {confirm.isPending ? 'Publicando…' : 'Bombos definitivos → capitanes'}
         </button>
         <span className="text-(--faded) text-xs">
-          El bombo {state.captainPotIndex + 1} debe tener exactamente un jugador
-          por equipo. Al publicar, El Concilio revela los bombos.
+          El bombo de capitanes debe tener exactamente un jugador por equipo. Al
+          publicar, El Concilio revela los bombos.
         </span>
       </div>
       {error ? <p className="text-(--ember) text-sm">{error.message}</p> : null}

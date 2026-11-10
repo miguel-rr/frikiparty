@@ -37,6 +37,12 @@ const loadHistoricalRanking = async (db: Database, tournamentId: string) => {
       new Map(rows.map((row) => [row.id, row])),
     ),
     names: Object.fromEntries(rows.map((row) => [row.id, row.name])),
+    rings: Object.fromEntries(
+      rows.map((row) => [
+        row.id,
+        { rings: row.rings, individualRings: row.individualRings },
+      ]),
+    ),
   };
 };
 

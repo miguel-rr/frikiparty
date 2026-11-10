@@ -24,6 +24,11 @@ import {
   startDraftEvents,
   undoPick,
 } from '@/lib/tournament/draft-live';
+import {
+  dealRandomByGroups,
+  groupsFor,
+  needsQuotaFormation,
+} from '@/lib/tournament/pot-groups';
 import { shuffle } from '@/lib/tournament/ranking';
 import { playerProcedure } from '@/server/api/player-procedure';
 import {
@@ -89,6 +94,21 @@ const loadFormationState = async (
     });
   }
   return state;
+};
+
+/**
+ * The pot-by-pot draft and the open auction take one player of each pot
+ * per team; pots with a free market or a "one or two" quota need the
+ * free draft or the general auction instead.
+ */
+const assertOnePerPot = (state: LiveState) => {
+  if (needsQuotaFormation(groupsFor(state.pots, state.rankingMeta?.groups))) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message:
+        'Estos bombos tienen mercado libre o un bombo del que se cogen dos: el draft por bombos y la subasta abierta no sirven. Usa el reparto aleatorio (o el draft libre y la subasta general, cuando estén).',
+    });
+  }
 };
 
 const captainsOf = (state: LiveState) =>
@@ -191,13 +211,18 @@ const formationRouter = createTRPCRouter({
         captains.map((captainId) => [captainId, [] as string[]]),
       );
       if (state.formationMethod === 'pots_random') {
-        state.pots.forEach((pot, potIndex) => {
-          if (potIndex === state.captainPotIndex) return;
-          shuffle(pot).forEach((playerId, index) => {
-            const captainId = captains[index % captains.length];
-            if (captainId) rosters[captainId]?.push(playerId);
-          });
-        });
+        // Each team takes its quota of every group; flexible players go
+        // to the teams with the most free seats.
+        Object.assign(
+          rosters,
+          dealRandomByGroups({
+            pots: state.pots,
+            groups: groupsFor(state.pots, state.rankingMeta?.groups),
+            captainPotIndex: state.captainPotIndex,
+            teamKeys: captains,
+            teamSize: state.teamSize ?? state.pots.length,
+          }),
+        );
       } else if (state.formationMethod === 'random') {
         const captainSet = new Set(captains);
         const rest = shuffle(
@@ -252,6 +277,7 @@ const formationRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const state = await loadFormationState(ctx.db, input.tournamentId);
+      assertOnePerPot(state);
       const captains = captainsOf(state);
       if (input.baseOrder) {
         const given = new Set(input.baseOrder);
@@ -303,6 +329,7 @@ const formationRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const state = await loadFormationState(ctx.db, input.tournamentId);
+      assertOnePerPot(state);
       const config = { ...DEFAULT_AUCTION_CONFIG, ...input.config };
       await ctx.db
         .insert(auction)

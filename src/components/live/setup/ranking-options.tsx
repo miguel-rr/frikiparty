@@ -1,12 +1,16 @@
 'use client';
 
 import { type ReactNode, useState } from 'react';
-
+import { CRITERION_TEXT, potLabels } from '@/components/live/setup/pot-labels';
 import { btn, label, panel } from '@/components/theme/primitives';
 import type {
   FormationConfig,
   RankingMeta,
 } from '@/lib/tournament/formation-config';
+import {
+  needsQuotaFormation,
+  type PotGroup,
+} from '@/lib/tournament/pot-groups';
 import { sharedPlaces } from '@/lib/tournament/ranking';
 import type { LiveState } from '@/server/live/state';
 import { api, type RouterOutputs } from '@/trpc/react';
@@ -14,6 +18,81 @@ import { api, type RouterOutputs } from '@/trpc/react';
 type Preview = RouterOutputs['tournament']['rankingPreview'];
 type VoteCount = FormationConfig['voteCount'];
 type PotTiebreak = FormationConfig['potTiebreak'];
+type PotLayout = FormationConfig['potLayout'];
+type PotCriterion = FormationConfig['potCriterion'];
+type CriterionSurplus = FormationConfig['criterionSurplus'];
+type CriterionShortage = FormationConfig['criterionShortage'];
+
+const LAYOUT_INFO: Record<PotLayout, { title: string; summary: string }> = {
+  ranking: {
+    title: 'Bombos por ranking',
+    summary:
+      'El ranking se corta en trozos seguidos, uno por bombo, y cada equipo se lleva uno de cada bombo. Lo de siempre.',
+  },
+  criterion_ranking: {
+    title: 'Bombo por regla y bombos',
+    summary:
+      'Los que cumplen la regla forman su propio bombo, que garantiza uno por equipo. Los capitanes son los mejores del resto, y lo demás se corta en bombos.',
+  },
+  criterion_market: {
+    title: 'Bombo por regla y mercado',
+    summary:
+      'El bombo de la regla garantiza uno por equipo. Los capitanes son los mejores del resto, y todos los demás van al mercado libre.',
+  },
+  market: {
+    title: 'Sin bombos',
+    summary:
+      'Solo hay capitanes, los mejores del ranking. Todos los demás van a un único mercado, y cada capitán completa su equipo desde ahí.',
+  },
+};
+
+const CRITERION_INFO: Record<PotCriterion, string> = {
+  no_team_ring:
+    'Nunca ha ganado el torneo por equipos. Los anillos individuales no cuentan.',
+  no_ring: 'Nunca ha ganado nada: ni por equipos ni individual.',
+};
+
+const SURPLUS_INFO: Record<
+  CriterionSurplus,
+  { title: string; summary: string }
+> = {
+  best_out: {
+    title: 'Salen los mejor situados',
+    summary:
+      'Los que sobran, empezando por el mejor del ranking, pasan al resto.',
+  },
+  worst_out: {
+    title: 'Salen los peor situados',
+    summary:
+      'Los que sobran, empezando por el último del ranking, pasan al resto.',
+  },
+  draw_out: {
+    title: 'Sorteo',
+    summary:
+      'Se sortea quién sale al confirmar el ranking. Lo de abajo es solo un ejemplo.',
+  },
+  double: {
+    title: 'Equipos con dos',
+    summary:
+      'No sale nadie: algunos equipos se llevan dos de este bombo, nunca tres.',
+  },
+};
+
+const SHORTAGE_INFO: Record<
+  CriterionShortage,
+  { title: string; summary: string }
+> = {
+  fill_worst: {
+    title: 'Se completa con los últimos',
+    summary:
+      'Los peor situados del resto entran en el bombo hasta que haya uno por equipo.',
+  },
+  leave_short: {
+    title: 'Se queda corto',
+    summary:
+      'Algunos equipos no tendrán a nadie de este bombo y completarán con el resto.',
+  },
+};
 
 const VOTE_COUNT_INFO: Record<
   VoteCount,
@@ -365,7 +444,7 @@ const FormationOptionsSection = ({ state }: { state: LiveState }) => {
     <section className={`${panel} flex flex-col gap-6 p-5 sm:p-7`}>
       <div className="flex flex-col gap-1">
         <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
-          Recuento y desempates
+          Recuento, bombos y desempates
         </h3>
         <p className="text-(--faded) text-sm">
           Se puede cambiar hasta la revisión del ranking, donde se ve el efecto
@@ -401,14 +480,242 @@ const FormationOptionsSection = ({ state }: { state: LiveState }) => {
           </div>
         </>
       ) : null}
-      <PotTiebreakSection
-        editable={state.stage !== 'pots_review'}
-        state={state}
-      />
+      <PotLayoutSection editable state={state} />
+      <PotTiebreakSection editable state={state} />
       {update.error ? (
         <p className="text-(--ember) text-sm">{update.error.message}</p>
       ) : null}
     </section>
+  );
+};
+
+type BuiltPreview = {
+  pots: string[][];
+  groups: PotGroup[];
+  movedOut: string[];
+  filledIn: string[];
+};
+
+/** Every group of a layout with its players, as one compact list. */
+const GroupsPreview = ({
+  built,
+  names,
+  criterion,
+}: {
+  built: BuiltPreview;
+  names: Map<string, string>;
+  criterion: PotCriterion;
+}) => {
+  const labels = potLabels(built.pots, built.groups, criterion, 0);
+  return (
+    <span className="flex flex-col gap-1">
+      {built.pots.map((pot, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: positional pots.
+        <span className="text-(--parchment)" key={index}>
+          <span className="text-(--gold)">
+            {labels[index]?.title} ({pot.length})
+          </span>
+          : {nameList(pot, names)}
+        </span>
+      ))}
+      {built.movedOut.length > 0 ? (
+        <span>Salen de la regla: {nameList(built.movedOut, names)}.</span>
+      ) : null}
+      {built.filledIn.length > 0 ? (
+        <span>Entran sin cumplirla: {nameList(built.filledIn, names)}.</span>
+      ) : null}
+      {needsQuotaFormation(built.groups) ? (
+        <span>
+          Sirve el reparto aleatorio; el draft por bombos y la subasta abierta
+          no.
+        </span>
+      ) : null}
+    </span>
+  );
+};
+
+/**
+ * How the pots are made: the layout, and for a rule's pot the rule and
+ * what happens with too many or too few. Every option shows the pots it
+ * would give with the current ranking.
+ */
+const PotLayoutSection = ({
+  state,
+  editable,
+}: {
+  state: LiveState;
+  editable: boolean;
+}) => {
+  const update = useConfigUpdate(state.id);
+  const config = state.formationConfig;
+  const preview = api.tournament.rankingPreview.useQuery({
+    tournamentId: state.id,
+    voteOutlierThreshold: config.voteOutlierThreshold,
+    historicalWeightPercent: state.historicalWeightPercent,
+  });
+  const names = new Map(state.participants.map((p) => [p.id, p.name]));
+  const patch = (value: Partial<FormationConfig>) =>
+    update.mutate({ tournamentId: state.id, patch: value });
+  const disabled = !editable || update.isPending;
+  const data = preview.data?.pots;
+  const meeting =
+    data?.criteria.find((entry) => entry.criterion === config.potCriterion)
+      ?.meeting.length ?? 0;
+  const withRule = config.potLayout.startsWith('criterion');
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <span className={label}>Cómo se forman los bombos</span>
+        <p className="text-(--faded) text-xs">
+          Cada opción muestra los bombos que saldrían con{' '}
+          {preview.data?.cutSource === 'historical'
+            ? 'el ranking histórico (el definitivo puede cambiar)'
+            : 'el ranking actual'}
+          {data ? ` y ${data.teamCount} equipos` : ''}. Los bombos se pueden
+          retocar a mano en su revisión.
+        </p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {(Object.keys(LAYOUT_INFO) as PotLayout[]).map((layout) => {
+            const built = data?.layouts.find(
+              (entry) => entry.layout === layout,
+            );
+            return (
+              <OptionCard
+                active={config.potLayout === layout}
+                disabled={disabled}
+                key={layout}
+                onSelect={() => patch({ potLayout: layout })}
+                title={LAYOUT_INFO[layout].title}
+              >
+                <span>{LAYOUT_INFO[layout].summary}</span>
+                {built ? (
+                  <GroupsPreview
+                    built={built}
+                    criterion={config.potCriterion}
+                    names={names}
+                  />
+                ) : null}
+              </OptionCard>
+            );
+          })}
+        </div>
+      </div>
+      {withRule ? (
+        <>
+          <div className="flex flex-col gap-2">
+            <span className={label}>La regla del bombo</span>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {(Object.keys(CRITERION_INFO) as PotCriterion[]).map(
+                (criterion) => {
+                  const who =
+                    data?.criteria.find(
+                      (entry) => entry.criterion === criterion,
+                    )?.meeting ?? [];
+                  return (
+                    <OptionCard
+                      active={config.potCriterion === criterion}
+                      disabled={disabled}
+                      key={criterion}
+                      onSelect={() => patch({ potCriterion: criterion })}
+                      title={CRITERION_TEXT[criterion]}
+                    >
+                      <span>{CRITERION_INFO[criterion]}</span>
+                      {data ? (
+                        <span className="text-(--parchment)">
+                          {who.length} jugadores para {data.teamCount} equipos:{' '}
+                          {nameList(who, names) || 'nadie'}.
+                        </span>
+                      ) : null}
+                    </OptionCard>
+                  );
+                },
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className={label}>
+              Si cumplen la regla más que equipos hay
+            </span>
+            {data ? (
+              <p className="text-(--faded) text-xs">
+                {meeting > data.teamCount
+                  ? `Ahora sobran ${meeting - data.teamCount}: esta opción se aplica.`
+                  : 'Ahora no sobra nadie: esta opción no cambia nada, salvo que el ranking o la regla cambien.'}
+              </p>
+            ) : null}
+            <div className="grid gap-2 sm:grid-cols-2">
+              {(Object.keys(SURPLUS_INFO) as CriterionSurplus[]).map(
+                (surplus) => {
+                  const built = data?.surpluses.find(
+                    (entry) => entry.surplus === surplus,
+                  );
+                  return (
+                    <OptionCard
+                      active={config.criterionSurplus === surplus}
+                      disabled={disabled}
+                      key={surplus}
+                      onSelect={() => patch({ criterionSurplus: surplus })}
+                      title={SURPLUS_INFO[surplus].title}
+                    >
+                      <span>{SURPLUS_INFO[surplus].summary}</span>
+                      {built && meeting > (data?.teamCount ?? 0) ? (
+                        <GroupsPreview
+                          built={built}
+                          criterion={config.potCriterion}
+                          names={names}
+                        />
+                      ) : null}
+                    </OptionCard>
+                  );
+                },
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className={label}>
+              Si cumplen la regla menos que equipos hay
+            </span>
+            {data ? (
+              <p className="text-(--faded) text-xs">
+                {meeting < data.teamCount
+                  ? `Ahora faltan ${data.teamCount - meeting}: esta opción se aplica.`
+                  : 'Ahora no falta nadie: esta opción no cambia nada, salvo que el ranking o la regla cambien.'}
+              </p>
+            ) : null}
+            <div className="grid gap-2 sm:grid-cols-2">
+              {(Object.keys(SHORTAGE_INFO) as CriterionShortage[]).map(
+                (shortage) => {
+                  const built = data?.shortages.find(
+                    (entry) => entry.shortage === shortage,
+                  );
+                  return (
+                    <OptionCard
+                      active={config.criterionShortage === shortage}
+                      disabled={disabled}
+                      key={shortage}
+                      onSelect={() => patch({ criterionShortage: shortage })}
+                      title={SHORTAGE_INFO[shortage].title}
+                    >
+                      <span>{SHORTAGE_INFO[shortage].summary}</span>
+                      {built && meeting < (data?.teamCount ?? 0) ? (
+                        <GroupsPreview
+                          built={built}
+                          criterion={config.potCriterion}
+                          names={names}
+                        />
+                      ) : null}
+                    </OptionCard>
+                  );
+                },
+              )}
+            </div>
+          </div>
+        </>
+      ) : null}
+      {update.error ? (
+        <p className="text-(--ember) text-sm">{update.error.message}</p>
+      ) : null}
+    </div>
   );
 };
 
@@ -681,9 +988,45 @@ const CutTiesNotice = ({ state }: { state: LiveState }) => {
   );
 };
 
+/** Who left the rule's pot or was added to it, said in the open. */
+const CriterionMovesNotice = ({ state }: { state: LiveState }) => {
+  const moves = state.rankingMeta?.criterionMoves;
+  if (!moves || (moves.movedOut.length === 0 && moves.filledIn.length === 0)) {
+    return null;
+  }
+  const names = new Map(state.participants.map((p) => [p.id, p.name]));
+  const rule = CRITERION_TEXT[state.formationConfig.potCriterion].toLowerCase();
+  return (
+    <div className="flex flex-col gap-1 text-(--faded) text-sm">
+      {moves.movedOut.length > 0 ? (
+        <p>
+          Cumplen la regla ({rule}) pero no caben en su bombo, y pasan al resto
+          {moves.drawn ? ' por sorteo' : ''}:{' '}
+          <span className="text-(--parchment)">
+            {nameList(moves.movedOut, names)}
+          </span>
+          .
+        </p>
+      ) : null}
+      {moves.filledIn.length > 0 ? (
+        <p>
+          Faltaban jugadores {rule}, y completan el bombo los últimos del
+          ranking:{' '}
+          <span className="text-(--parchment)">
+            {nameList(moves.filledIn, names)}
+          </span>
+          .
+        </p>
+      ) : null}
+    </div>
+  );
+};
+
 export {
+  CriterionMovesNotice,
   CutTiesNotice,
   FormationOptionsSection,
+  PotLayoutSection,
   PotTiebreakSection,
   RecountPanel,
 };

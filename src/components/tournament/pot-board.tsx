@@ -6,9 +6,11 @@ type PotBoardProps = {
   pots: Pots;
   getPlayerName: (playerId: string) => string;
   onMove: (playerId: string, fromPotIndex: number, toPotIndex: number) => void;
+  /** Name and quota of each pot; plain numbers without them. */
+  labels?: { title: string; detail: string }[];
 };
 
-const PotBoard = ({ pots, getPlayerName, onMove }: PotBoardProps) => (
+const PotBoard = ({ pots, getPlayerName, onMove, labels }: PotBoardProps) => (
   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
     {pots.map((pot, potIndex) => (
       <div
@@ -17,8 +19,9 @@ const PotBoard = ({ pots, getPlayerName, onMove }: PotBoardProps) => (
         key={`pot-${potIndex}`}
       >
         <p className="font-bold font-mono text-(--faded) text-2xs uppercase tracking-widest">
-          Bombo {potIndex + 1}
-          {potIndex === 0 ? ' · Cabezas de serie' : ''}
+          {labels?.[potIndex]
+            ? `${labels[potIndex].title} · ${pot.length}${labels[potIndex].detail ? ` · ${labels[potIndex].detail}` : ''}`
+            : `Bombo ${potIndex + 1}${potIndex === 0 ? ' · Cabezas de serie' : ''}`}
         </p>
         <ul className="flex flex-col gap-1.5">
           {pot.map((playerId) => (

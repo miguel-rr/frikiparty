@@ -4,20 +4,29 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { env } from '@/env';
 import {
+  CRITERION_SHORTAGES,
+  CRITERION_SURPLUSES,
   type FormationConfig,
   formationConfigPatchSchema,
+  POT_CRITERIA,
+  POT_LAYOUTS,
   POT_TIEBREAKS,
   parseFormationConfig,
   type RankingMeta,
   VOTE_COUNTS,
 } from '@/lib/tournament/formation-config';
 import {
+  buildPotGroups,
+  meetsCriterion,
+  type PotLayoutOptions,
+  requota,
+} from '@/lib/tournament/pot-groups';
+import {
   breakTie,
   findCutTies,
   type PotTiebreak,
   resolveCutTies,
 } from '@/lib/tournament/pot-tiebreak';
-import { generatePots } from '@/lib/tournament/pots';
 import { keepContiguousTies } from '@/lib/tournament/ranking';
 import { teamsLayout } from '@/lib/tournament/teams-layout';
 import { getHistoricalRanking } from '@/server/api/routers/player';
@@ -912,7 +921,48 @@ const tournamentRouter = createTRPCRouter({
       const tieGroups =
         (reviewing ? current.rankingMeta?.tieGroups : null) ??
         historical.tieGroups;
+      const config = parseFormationConfig(current.formationConfig);
+      const teamSize = current.teamSize ?? 1;
+      const layoutWith = (patch: Partial<PotLayoutOptions>) =>
+        buildPotGroups({
+          order,
+          teamCount: teamsLayout(order.length, teamSize).teamCount,
+          teamSize,
+          rings: historical.rings,
+          layout: config.potLayout,
+          criterion: config.potCriterion,
+          surplus: config.criterionSurplus,
+          shortage: config.criterionShortage,
+          ...patch,
+        });
+      // The rule's options are shown on a layout that has the rule's pot.
+      const ruleLayout =
+        config.potLayout === 'criterion_market'
+          ? 'criterion_market'
+          : 'criterion_ranking';
+      const pots = {
+        teamCount: teamsLayout(order.length, teamSize).teamCount,
+        layouts: POT_LAYOUTS.map((layout) => ({
+          layout,
+          ...layoutWith({ layout }),
+        })),
+        criteria: POT_CRITERIA.map((criterion) => ({
+          criterion,
+          meeting: order.filter((id) =>
+            meetsCriterion(criterion, historical.rings[id]),
+          ),
+        })),
+        surpluses: CRITERION_SURPLUSES.map((surplus) => ({
+          surplus,
+          ...layoutWith({ layout: ruleLayout, surplus }),
+        })),
+        shortages: CRITERION_SHORTAGES.map((shortage) => ({
+          shortage,
+          ...layoutWith({ layout: ruleLayout, shortage }),
+        })),
+      };
       return {
+        pots,
         source,
         ballots: ballots.length,
         historical: {
@@ -1037,7 +1087,17 @@ const tournamentRouter = createTRPCRouter({
           ),
         },
       );
-      const { pots } = generatePots(dealt, current.teamSize ?? 1);
+      const built = buildPotGroups({
+        order: dealt,
+        teamCount: teamsLayout(dealt.length, current.teamSize ?? 1).teamCount,
+        teamSize: current.teamSize ?? 1,
+        rings: historical.rings,
+        layout: config.potLayout,
+        criterion: config.potCriterion,
+        surplus: config.criterionSurplus,
+        shortage: config.criterionShortage,
+      });
+      const { pots } = built;
       await runTournamentTx(
         ctx.db,
         input.tournamentId,
@@ -1050,7 +1110,19 @@ const tournamentRouter = createTRPCRouter({
               stage: 'pots_review',
               stageChangedAt: new Date(),
               teamRankingSnapshot: dealt,
-              rankingMeta: { ...meta, cutTies: resolutions },
+              ...(built.captainPotIndex === null
+                ? {}
+                : { captainPotIndex: built.captainPotIndex }),
+              rankingMeta: {
+                ...meta,
+                cutTies: resolutions,
+                groups: built.groups,
+                criterionMoves: {
+                  movedOut: built.movedOut,
+                  filledIn: built.filledIn,
+                  drawn: built.drawn,
+                },
+              },
             })
             .where(eq(tournament.id, input.tournamentId));
           await emit({
@@ -1068,7 +1140,14 @@ const tournamentRouter = createTRPCRouter({
           await emit({
             stream: 'admin',
             type: 'pots_generated',
-            payload: { pots },
+            payload: {
+              pots,
+              groups: built.groups,
+              layout: config.potLayout,
+              movedOut: built.movedOut,
+              filledIn: built.filledIn,
+              drawn: built.drawn,
+            },
           });
           await emit({
             stream: 'admin',
@@ -1113,6 +1192,21 @@ const tournamentRouter = createTRPCRouter({
         actorFromSession(ctx.session),
         async ({ tx, emit }) => {
           await writePots(tx, input.tournamentId, input.pots);
+          if (current.rankingMeta?.groups) {
+            await tx
+              .update(tournament)
+              .set({
+                rankingMeta: {
+                  ...current.rankingMeta,
+                  groups: requota(
+                    input.pots,
+                    current.rankingMeta.groups,
+                    teamsLayout(roster.length, current.teamSize ?? 1).teamCount,
+                  ),
+                },
+              })
+              .where(eq(tournament.id, input.tournamentId));
+          }
           await emit({
             stream: 'admin',
             type: 'pots_edited',

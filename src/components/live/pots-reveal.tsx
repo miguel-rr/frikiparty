@@ -2,7 +2,11 @@
 
 import Link from 'next/link';
 
-import { CutTiesNotice } from '@/components/live/setup/ranking-options';
+import { potLabels } from '@/components/live/setup/pot-labels';
+import {
+  CriterionMovesNotice,
+  CutTiesNotice,
+} from '@/components/live/setup/ranking-options';
 import { PortraitCard } from '@/components/tournament/portrait-card';
 import { cardSpecFor } from '@/lib/tournament/card-lore';
 import type { LiveState } from '@/server/live/state';
@@ -19,6 +23,12 @@ const CARD_DELAY_MS = 220;
 const PotsReveal = ({ state }: { state: LiveState }) => {
   const byId = new Map(state.participants.map((p) => [p.id, p]));
   const leaderId = state.ranking?.[0];
+  const labels = potLabels(
+    state.pots,
+    state.rankingMeta?.groups,
+    state.formationConfig.potCriterion,
+    state.captainPotIndex,
+  );
   return (
     <section className="flex flex-col gap-8">
       <style>{`
@@ -43,14 +53,14 @@ const PotsReveal = ({ state }: { state: LiveState }) => {
         >
           <div className="flex items-baseline justify-center gap-3">
             <span className="d-display font-bold text-(--parchment) text-xl uppercase">
-              Bombo {potIndex + 1}
+              {labels[potIndex]?.title ?? `Bombo ${potIndex + 1}`}
             </span>
             <span className="font-mono text-(--gold) text-2xs uppercase tracking-2xl">
               {potIndex === state.captainPotIndex
                 ? 'Capitanes · cabezas de serie'
                 : potIndex === 0
                   ? 'Cabezas de serie'
-                  : ''}
+                  : (labels[potIndex]?.detail ?? '')}
             </span>
           </div>
           <ul className="d-roster flex w-full flex-wrap justify-center gap-x-3 gap-y-5 sm:gap-x-5">
@@ -94,6 +104,7 @@ const PotsReveal = ({ state }: { state: LiveState }) => {
         </div>
       ))}
       <div className="mx-auto max-w-2xl text-center">
+        <CriterionMovesNotice state={state} />
         <CutTiesNotice state={state} />
       </div>
     </section>
