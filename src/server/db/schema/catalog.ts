@@ -10,7 +10,12 @@ import {
   unique,
   uuid,
 } from 'drizzle-orm/pg-core';
-import type { BoardHalves, BoardRing } from '@/lib/live/map-board';
+import type {
+  BoardHalves,
+  BoardRing,
+  MapOrigin,
+  MapSizeBand,
+} from '@/lib/live/map-board';
 import type {
   Ability,
   CounterTag,
@@ -286,6 +291,12 @@ const gameMapBoard = createTable('game_map_board', {
   rings: jsonb('rings').notNull().$type<BoardRing[]>(),
   // Ring indexes of each side, before the draw says which team gets which.
   halves: jsonb('halves').notNull().$type<BoardHalves>(),
+  // What the booklet says of the map: who made it, its size band and its
+  // playable size in cells ("Mediano · 500 × 500").
+  origin: text('origin').$type<MapOrigin>(),
+  sizeBand: text('size_band').$type<MapSizeBand>(),
+  cellsWidth: integer('cells_width'),
+  cellsHeight: integer('cells_height'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

@@ -10,7 +10,12 @@ import { LineupEditor } from '@/components/live/match/lineup-editor';
 import { MapBoardView, type RingView } from '@/components/live/match/map-board';
 import { ReplayBox } from '@/components/live/match/replay-box';
 import { btn, input, panel, panelGold } from '@/components/theme/primitives';
-import type { RingSides } from '@/lib/live/map-board';
+import {
+  type MapFacts,
+  ORIGIN_LABEL,
+  type RingSides,
+  SIZE_BAND_LABEL,
+} from '@/lib/live/map-board';
 import { teamLabel } from '@/lib/live/team-label';
 import type { LiveGame, LiveMatch } from '@/server/live/phases';
 import type { LiveState } from '@/server/live/state';
@@ -238,6 +243,16 @@ const TeamBlock = ({
  * (`game` null) picking it opens the next game, since it comes before
  * "Listos".
  */
+/** "Bosque Gris · Oficial · Mediano", so the list tells maps apart at a glance. */
+const mapOptionLabel = (name: string, facts: MapFacts | null) =>
+  [
+    name,
+    facts?.origin ? ORIGIN_LABEL[facts.origin] : null,
+    facts?.sizeBand ? SIZE_BAND_LABEL[facts.sizeBand] : null,
+  ]
+    .filter(Boolean)
+    .join(' · ');
+
 const MapField = ({
   state,
   matchId,
@@ -286,7 +301,7 @@ const MapField = ({
       <label htmlFor={fieldId}>Mapa</label>
       {boardMaps.length > 0 ? (
         <select
-          className={`${input} max-w-64 py-1 text-xs normal-case tracking-normal`}
+          className={`${input} max-w-80 py-1 text-xs normal-case tracking-normal`}
           disabled={setMap.isPending}
           id={fieldId}
           onChange={(e) => {
@@ -300,7 +315,7 @@ const MapField = ({
           </option>
           {boardMaps.map((m) => (
             <option key={m.id} value={m.name}>
-              {m.name}
+              {mapOptionLabel(m.name, m.board?.facts ?? null)}
             </option>
           ))}
         </select>
@@ -561,7 +576,10 @@ const GameCard = ({
         </span>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      {/* A captain placing the team gets the whole width for the map. */}
+      <div
+        className={`grid gap-6 ${game.status === 'factions_drawn' && viewer.captainOf ? '' : 'sm:grid-cols-2'}`}
+      >
         <TeamBlock
           factions={factions}
           game={game}

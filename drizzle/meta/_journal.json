@@ -225,6 +225,20 @@
       "when": 1794259261131,
       "tag": "0031_map_boards_data",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1794319898060,
+      "tag": "0032_map_board_facts",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1794319911003,
+      "tag": "0033_booklet_maps_86",
+      "breakpoints": true
     }
   ]
 }

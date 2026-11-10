@@ -11,12 +11,38 @@ type BoardHalves = [number[], number[]];
 /** Which rings each team of a game may use (ring indexes into the board). */
 type RingSides = { A: number[]; B: number[] };
 
+/** Who made the map, as the booklet tells it: the mod, a fan, or an AI. */
+type MapOrigin = 'official' | 'custom' | 'ai';
+
+/** The booklet's size band, from the playable area in cells. */
+type MapSizeBand = 'small' | 'medium' | 'large';
+
+/** The booklet's data line of a map; null where a map lacks it. */
+type MapFacts = {
+  origin: MapOrigin | null;
+  sizeBand: MapSizeBand | null;
+  cells: { width: number; height: number } | null;
+};
+
 type MapBoard = {
   imageUrl: string;
   width: number;
   height: number;
   rings: BoardRing[];
   halves: BoardHalves;
+  facts: MapFacts;
+};
+
+const ORIGIN_LABEL: Record<MapOrigin, string> = {
+  official: 'Oficial',
+  custom: 'Custom',
+  ai: 'IA',
+};
+
+const SIZE_BAND_LABEL: Record<MapSizeBand, string> = {
+  small: 'Pequeño',
+  medium: 'Mediano',
+  large: 'Grande',
 };
 
 /** Halves handed to the teams; `swap` gives team A the second half. */
@@ -51,8 +77,13 @@ export {
   type BoardHalves,
   type BoardRing,
   type MapBoard,
+  type MapFacts,
+  type MapOrigin,
+  type MapSizeBand,
+  ORIGIN_LABEL,
   type RingSides,
   ringSidesProblem,
+  SIZE_BAND_LABEL,
   sameRings,
   sidesFromHalves,
 };

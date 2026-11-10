@@ -242,6 +242,10 @@ const getLiveState = async (
             height: gameMapBoard.height,
             rings: gameMapBoard.rings,
             halves: gameMapBoard.halves,
+            origin: gameMapBoard.origin,
+            sizeBand: gameMapBoard.sizeBand,
+            cellsWidth: gameMapBoard.cellsWidth,
+            cellsHeight: gameMapBoard.cellsHeight,
           })
           .from(gameMap)
           .leftJoin(gameMapBoard, eq(gameMapBoard.gameMapId, gameMap.id))
@@ -249,7 +253,19 @@ const getLiveState = async (
           .orderBy(asc(gameMap.name))
           .then((rows) =>
             rows.map(
-              ({ id, name, imageUrl, width, height, rings, halves }) => ({
+              ({
+                id,
+                name,
+                imageUrl,
+                width,
+                height,
+                rings,
+                halves,
+                origin,
+                sizeBand,
+                cellsWidth,
+                cellsHeight,
+              }) => ({
                 id,
                 name,
                 // The illustrated sheet, for maps the captains place players on.
@@ -261,6 +277,14 @@ const getLiveState = async (
                         height,
                         rings,
                         halves,
+                        facts: {
+                          origin,
+                          sizeBand,
+                          cells:
+                            cellsWidth && cellsHeight
+                              ? { width: cellsWidth, height: cellsHeight }
+                              : null,
+                        },
                       } satisfies MapBoard)
                     : null,
               }),
