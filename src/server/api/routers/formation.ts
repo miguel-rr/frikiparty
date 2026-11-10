@@ -30,6 +30,7 @@ import {
   type MarketConfig,
   type MarketState,
   marketBid,
+  draftPick as marketDraftPick,
   marketNext,
   maxBidFor,
   nominate,
@@ -112,6 +113,8 @@ const loadFormationState = async (
 };
 
 const marketConfigSchema = z.object({
+  mode: z.enum(['auction', 'draft']).default('auction'),
+  draftOrder: z.enum(['linear', 'snake']).default('snake'),
   bidding: z.enum(['open', 'sealed']),
   sealedPrice: z.enum(['own', 'second_plus_one']),
   reveal: z.enum(['all', 'winner', 'end']),
@@ -236,6 +239,7 @@ const formationRouter = createTRPCRouter({
           'draft',
           'auction',
           'market_auction',
+          'market_draft',
         ]),
       }),
     )
@@ -652,7 +656,8 @@ const formationRouter = createTRPCRouter({
       const kind =
         state.formationMethod === 'auction'
           ? 'auction'
-          : state.formationMethod === 'market_auction'
+          : state.formationMethod === 'market_auction' ||
+              state.formationMethod === 'market_draft'
             ? 'market'
             : 'draft';
       await runTournamentTx(
@@ -785,6 +790,7 @@ const formationRouter = createTRPCRouter({
       const config: MarketConfig = {
         ...DEFAULT_MARKET_CONFIG,
         ...input.config,
+        mode: state.formationMethod === 'market_draft' ? 'draft' : 'auction',
       };
       await applyRoomCommand(
         ctx.db,
@@ -853,6 +859,42 @@ const formationRouter = createTRPCRouter({
             input.amount,
             Date.now(),
           ),
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * Free draft: the captain on turn takes a player of the group on the
+   * table (the organiser can pick for them). The next turn opens by itself.
+   */
+  marketPick: protectedProcedure
+    .input(z.object({ tournamentId: id, playerId: id }))
+    .mutation(async ({ ctx, input }) => {
+      const state = await loadFormationState(ctx.db, input.tournamentId);
+      const captainId = await actingCaptain(ctx, state, null);
+      const actor = actorFromSession(ctx.session);
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actor,
+        'market',
+        (room) =>
+          marketDraftPick(
+            room,
+            captainId ?? room.nominatorId ?? '',
+            input.playerId,
+            Date.now(),
+          ),
+      );
+      await applyRoomCommand(
+        ctx.db,
+        input.tournamentId,
+        actor,
+        'market',
+        (room) =>
+          room.phase === 'idle' && room.config.mode === 'draft'
+            ? marketNext(room, Date.now())
+            : { events: [] },
       );
       return { ok: true };
     }),

@@ -82,6 +82,21 @@ const TURN_ORDER: Choice<'turnOrder'>[] = [
   },
 ];
 
+const DRAFT_ORDER: Choice<'draftOrder'>[] = [
+  {
+    value: 'snake',
+    title: 'Serpiente',
+    summary:
+      'El orden se invierte en cada vuelta: quien elige último en una vuelta elige primero en la siguiente. Compensa elegir tarde.',
+  },
+  {
+    value: 'linear',
+    title: 'Siempre igual',
+    summary:
+      'Cada vuelta empieza el mismo capitán. Premia mucho al primero del orden.',
+  },
+];
+
 const RESERVE: Choice<'reserve'>[] = [
   {
     value: 'one',
@@ -369,6 +384,119 @@ const MarketStart = ({
   );
 };
 
+/** Captain ids in ranking order (best first). */
+const captainsByRank = (state: LiveState) => {
+  const place = new Map((state.ranking ?? []).map((id, index) => [id, index]));
+  return state.teams
+    .map((t) => t.members.find((m) => m.isCaptain)?.playerId)
+    .filter((id): id is string => Boolean(id))
+    .sort((a, b) => (place.get(a) ?? 0) - (place.get(b) ?? 0));
+};
+
+/**
+ * The free draft's options: turn order and snake or linear, with the
+ * first rounds of turns shown as they would run.
+ */
+const DraftMarketStart = ({
+  state,
+  onStarted,
+}: {
+  state: LiveState;
+  onStarted: () => void;
+}) => {
+  const labels = potLabels(
+    state.pots,
+    state.rankingMeta?.groups,
+    state.formationConfig.potCriterion,
+    state.captainPotIndex,
+  );
+  const picked = state.pots
+    .map((_, index) => index)
+    .filter((index) => index !== state.captainPotIndex);
+  const [config, setConfig] = useState<MarketConfig>(() => ({
+    ...DEFAULT_MARKET_CONFIG,
+    mode: 'draft',
+    lotOrder: 'nomination',
+    turnOrder: 'inverse_ranking',
+    minBids: state.pots.map(() => 0),
+  }));
+  const set = <K extends keyof MarketConfig>(key: K, value: MarketConfig[K]) =>
+    setConfig((current) => ({ ...current, [key]: value }));
+  const start = api.formation.startMarket.useMutation({ onSuccess: onStarted });
+  const names = new Map(state.participants.map((p) => [p.id, p.name]));
+  const byRank = captainsByRank(state);
+  const order =
+    config.turnOrder === 'ranking'
+      ? byRank
+      : config.turnOrder === 'inverse_ranking'
+        ? [...byRank].reverse()
+        : null;
+  const rounds = [1, 2, 3].map((number) => ({
+    number,
+    order:
+      order && config.draftOrder === 'snake' && number % 2 === 0
+        ? [...order].reverse()
+        : order,
+  }));
+  return (
+    <div className="flex flex-col gap-5">
+      <p className="text-(--faded) text-sm">
+        Sin dinero: en su turno cada capitán elige a un jugador del grupo que
+        está en la mesa, respetando el cupo de cada grupo. Orden de los grupos:{' '}
+        {picked
+          .map((index) => `${labels[index]?.title} (${labels[index]?.detail})`)
+          .join(' → ')}
+        . Quien ya tiene su cupo de un grupo se salta el turno.
+      </p>
+      <Choices
+        columns={3}
+        onChange={(value) => set('turnOrder', value)}
+        options={TURN_ORDER}
+        title="Quién empieza"
+        value={config.turnOrder}
+      />
+      <Choices
+        onChange={(value) => set('draftOrder', value)}
+        options={DRAFT_ORDER}
+        title="Cómo siguen las vueltas"
+        value={config.draftOrder}
+      />
+      <div className="flex flex-col gap-1 text-sm">
+        <span className={label}>Así irían las primeras vueltas</span>
+        {rounds.map((round) => (
+          <span className="text-(--parchment)" key={round.number}>
+            Vuelta {round.number}:{' '}
+            {round.order
+              ? round.order.map((id) => names.get(id) ?? '…').join(' → ')
+              : round.number === 1
+                ? 'orden sorteado al empezar'
+                : config.draftOrder === 'snake'
+                  ? 'la anterior al revés'
+                  : 'igual que la primera'}
+          </span>
+        ))}
+        <span className="text-(--faded) text-xs">
+          Los turnos siguen contando al cambiar de grupo: la serpiente no se
+          reinicia.
+        </span>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          className={btn.primary}
+          disabled={start.isPending}
+          onClick={() => start.mutate({ tournamentId: state.id, config })}
+          type="button"
+        >
+          {start.isPending ? 'Abriendo…' : 'Iniciar el draft libre'}
+        </button>
+        {start.error ? (
+          <span className="text-(--ember) text-xs">{start.error.message}</span>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+
 /** The organiser's levers while the general auction runs. */
 const MarketControls = ({
   state,
@@ -390,7 +518,10 @@ const MarketControls = ({
   const error = next.error ?? pause.error ?? resume.error ?? finish.error;
   const PHASE_TEXT = {
     idle: 'entre lotes',
-    nominating: 'un capitán está nominando',
+    nominating:
+      market.config.mode === 'draft'
+        ? 'un capitán está eligiendo'
+        : 'un capitán está nominando',
     lot: 'lote abierto',
     paused: 'en pausa',
     closed: 'terminada',
@@ -398,7 +529,7 @@ const MarketControls = ({
   return (
     <div className="flex flex-col gap-3">
       <p className="text-(--faded) text-sm">
-        Subasta general ·{' '}
+        {market.config.mode === 'draft' ? 'Draft libre' : 'Subasta general'} ·{' '}
         <strong className="text-(--parchment)">
           {PHASE_TEXT[market.phase]}
         </strong>{' '}
@@ -447,13 +578,13 @@ const MarketControls = ({
         ) : null}
       </div>
       <span className="text-(--faded) text-xs">
-        «Siguiente» abre el grupo, el lote o el turno que toque. Si un capitán
-        no tiene el móvil, puedes nominar y pujar por él desde su pantalla de
-        capitán entrando como él.
+        {market.config.mode === 'draft'
+          ? '«Siguiente» abre el grupo o el turno que toque; tras cada elección el siguiente turno se abre solo. Si un capitán no tiene el móvil, puedes elegir por él desde la sala.'
+          : '«Siguiente» abre el grupo, el lote o el turno que toque. Si un capitán no tiene el móvil, puedes nominar y pujar por él desde su pantalla de capitán entrando como él.'}
       </span>
       {error ? <p className="text-(--ember) text-sm">{error.message}</p> : null}
     </div>
   );
 };
 
-export { MarketControls, MarketStart };
+export { DraftMarketStart, MarketControls, MarketStart };

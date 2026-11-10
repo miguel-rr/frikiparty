@@ -3,6 +3,7 @@ import { describe, it } from 'node:test';
 
 import {
   DEFAULT_MARKET_CONFIG,
+  draftPick,
   eligibleFor,
   foldMarket,
   type MarketConfig,
@@ -194,5 +195,34 @@ describe('market auction', () => {
     let s = r.run(marketNext(r.state(), r.now(), r.random));
     s = r.run(marketBid(s, 'c1', 9, r.now()));
     assert.equal(publicMarket(s).lot?.bids[0]?.amount, -1);
+  });
+});
+
+describe('market draft', () => {
+  it('drafts in a snake to full teams', () => {
+    const r = room({
+      mode: 'draft',
+      draftOrder: 'snake',
+      turnOrder: 'ranking',
+    });
+    const turns: string[] = [];
+    for (let guard = 0; guard < 100; guard += 1) {
+      const s = r.state();
+      if (s.phase === 'closed') break;
+      if (s.phase === 'idle') {
+        r.run(marketNext(s, r.now(), r.random));
+        continue;
+      }
+      const group = s.walk[s.walkCursor] ?? 0;
+      turns.push(s.nominatorId ?? '');
+      r.run(
+        draftPick(s, s.nominatorId ?? '', unsoldIn(s, group)[0] ?? '', r.now()),
+      );
+    }
+    const s = r.state();
+    assert.equal(s.phase, 'closed');
+    checkTeams(s);
+    // Rule pot: c1 c2 c3, then the market starts the reversed round.
+    assert.deepEqual(turns.slice(0, 6), ['c1', 'c2', 'c3', 'c3', 'c2', 'c1']);
   });
 });

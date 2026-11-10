@@ -45,16 +45,20 @@ const PRICE_TEXT = {
 const SaleLine = ({
   sale,
   name,
+  money,
 }: {
   sale: MarketSale;
   name: (id: string) => string;
+  money: boolean;
 }) => (
   <span className="flex flex-col gap-0.5">
     <span className="text-(--parchment)">
       {name(sale.playerId)} → {name(sale.captainId)}
-      {sale.amount >= 0 ? ` por ${sale.amount}` : ''}
+      {money && sale.amount >= 0 ? ` por ${sale.amount}` : ''}
       {sale.kind === 'auto'
-        ? ' (era el único que podía llevárselo)'
+        ? money
+          ? ' (era el único que podía llevárselo)'
+          : ' (era el único que podía elegirlo)'
         : sale.kind === 'raffle'
           ? ' (sorteo: nadie pujó)'
           : ''}
@@ -104,7 +108,8 @@ const MarketStage = ({
   );
   const group = currentGroup(market);
   const lot = market.lot;
-  const sealed = market.config.bidding === 'sealed';
+  const drafting = market.config.mode === 'draft';
+  const sealed = !drafting && market.config.bidding === 'sealed';
   const running = market.phase === 'lot';
   const now = useNow(running);
   const base = lot ? Math.max(0, lot.deadlineAt - now) : null;
@@ -127,6 +132,12 @@ const MarketStage = ({
       setAmount('');
       refresh();
       mine.refetch();
+    },
+  });
+  const pick = api.formation.marketPick.useMutation({
+    onSuccess: () => {
+      setNominee(null);
+      refresh();
     },
   });
   const nominate = api.formation.marketNominate.useMutation({
@@ -158,17 +169,24 @@ const MarketStage = ({
           <span className="font-mono text-(--gold) text-2xs uppercase tracking-2xl">
             {group !== null
               ? `${labels[group]?.title ?? 'Grupo'} · ${labels[group]?.detail ?? ''}`
-              : 'Subasta general'}
+              : drafting
+                ? 'Draft libre'
+                : 'Subasta general'}
           </span>
           <span className="font-mono text-(--faded) text-2xs uppercase tracking-2xl">
-            {sealed ? 'Sobre cerrado' : 'Puja abierta'}
-            {sealed ? ` · ${PRICE_TEXT[market.config.sealedPrice]}` : ''}
+            {drafting
+              ? market.config.draftOrder === 'snake'
+                ? 'Draft en serpiente'
+                : 'Draft en orden fijo'
+              : sealed
+                ? `Sobre cerrado · ${PRICE_TEXT[market.config.sealedPrice]}`
+                : 'Puja abierta'}
           </span>
         </div>
 
         {market.phase === 'closed' ? (
           <p className="d-display text-(--parchment) text-2xl uppercase">
-            Subasta terminada
+            {drafting ? 'Draft terminado' : 'Subasta terminada'}
           </p>
         ) : market.phase === 'paused' ? (
           <p className="d-display text-(--parchment) text-2xl uppercase">
@@ -176,8 +194,10 @@ const MarketStage = ({
           </p>
         ) : market.phase === 'nominating' ? (
           <p className="text-(--parchment) text-lg">
-            Turno de <strong>{name(market.nominatorId ?? '')}</strong>: elige a
-            quién subasta y abre con su puja.
+            Turno de <strong>{name(market.nominatorId ?? '')}</strong>:{' '}
+            {drafting
+              ? 'elige a un jugador.'
+              : 'elige a quién subasta y abre con su puja.'}
           </p>
         ) : lot ? (
           <div className="flex flex-col items-center gap-2 text-center">
@@ -225,13 +245,14 @@ const MarketStage = ({
           </div>
         ) : (
           <p className="text-(--faded) text-sm">
-            Esperando al organizador para el siguiente lote.
+            Esperando al organizador para{' '}
+            {drafting ? 'el siguiente turno' : 'el siguiente lote'}.
           </p>
         )}
 
         {market.lastSale ? (
           <div className="border-(--hair) border-t pt-3 text-sm">
-            <SaleLine name={name} sale={market.lastSale} />
+            <SaleLine money={!drafting} name={name} sale={market.lastSale} />
           </div>
         ) : market.lastUnsold ? (
           <p className="border-(--hair) border-t pt-3 text-(--faded) text-sm">
@@ -241,7 +262,44 @@ const MarketStage = ({
         ) : null}
       </section>
 
-      {myTurn && group !== null ? (
+      {myTurn && drafting && group !== null ? (
+        <section className={`${panel} flex flex-col gap-3 p-5`}>
+          <span className={label}>Tu turno: elige jugador</span>
+          <div className="flex flex-wrap gap-2">
+            {unsoldIn(market, group).map((id) => (
+              <button
+                aria-pressed={nominee === id}
+                className={`rounded-full border px-3 py-1 text-sm ${
+                  nominee === id
+                    ? 'border-(--gold) text-(--gold-hi)'
+                    : 'border-(--hair) text-(--parchment)'
+                }`}
+                key={id}
+                onClick={() => setNominee(id)}
+                type="button"
+              >
+                {name(id)}
+              </button>
+            ))}
+          </div>
+          <button
+            className={`${btn.primary} self-start`}
+            disabled={!nominee || pick.isPending}
+            onClick={() =>
+              nominee &&
+              pick.mutate({ tournamentId: live.id, playerId: nominee })
+            }
+            type="button"
+          >
+            {nominee ? `Elegir a ${name(nominee)}` : 'Elige a alguien'}
+          </button>
+          {pick.error ? (
+            <span className="text-(--ember) text-xs">{pick.error.message}</span>
+          ) : null}
+        </section>
+      ) : null}
+
+      {myTurn && !drafting && group !== null ? (
         <section className={`${panel} flex flex-col gap-3 p-5`}>
           <span className={label}>Tu turno: elige jugador y puja inicial</span>
           <div className="flex flex-wrap gap-2">
@@ -359,9 +417,11 @@ const MarketStage = ({
           <div className="flex flex-col gap-1 text-sm" key={id}>
             <span className="flex items-baseline justify-between gap-2">
               <span className="font-bold text-(--parchment)">{name(id)}</span>
-              <span className="font-mono text-(--gold)">
-                {(market.budgets[id] ?? 0) >= 0 ? market.budgets[id] : '?'}
-              </span>
+              {drafting ? null : (
+                <span className="font-mono text-(--gold)">
+                  {(market.budgets[id] ?? 0) >= 0 ? market.budgets[id] : '?'}
+                </span>
+              )}
             </span>
             <span className="text-(--faded) text-xs">
               {(market.rosters[id] ?? []).map(name).join(', ') ||

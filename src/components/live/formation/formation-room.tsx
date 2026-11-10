@@ -43,7 +43,8 @@ const FormationRoom = ({ live, tv }: { live: LiveState; tv?: boolean }) => {
           {live.formationMethod === 'random' ||
           live.formationMethod === 'pots_random'
             ? 'El sorteo está a punto'
-            : live.formationMethod === 'draft'
+            : live.formationMethod === 'draft' ||
+                live.formationMethod === 'market_draft'
               ? 'El draft está a punto'
               : live.formationMethod === 'auction' ||
                   live.formationMethod === 'market_auction'

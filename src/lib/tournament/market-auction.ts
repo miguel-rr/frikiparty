@@ -24,7 +24,17 @@ type TurnOrder = 'draw' | 'ranking' | 'inverse_ranking';
 /** Money kept back for each seat still to fill after this one. */
 type Reserve = 'none' | 'one' | 'minimum';
 
+/**
+ * `auction`: players are bought. `draft`: on their turn each captain just
+ * picks one (no money), from the group on the table.
+ */
+type MarketMode = 'auction' | 'draft';
+/** Draft turns: the same order every round, or reversed every other one. */
+type DraftOrder = 'linear' | 'snake';
+
 type MarketConfig = {
+  mode: MarketMode;
+  draftOrder: DraftOrder;
   bidding: BiddingMode;
   sealedPrice: SealedPrice;
   reveal: BidReveal;
@@ -45,6 +55,8 @@ type MarketConfig = {
 };
 
 const DEFAULT_MARKET_CONFIG: MarketConfig = {
+  mode: 'auction',
+  draftOrder: 'snake',
   bidding: 'sealed',
   sealedPrice: 'second_plus_one',
   reveal: 'all',
@@ -83,7 +95,7 @@ type MarketSale = {
   groupIndex: number;
   captainId: string;
   amount: number;
-  kind: 'sold' | 'auto' | 'raffle';
+  kind: 'sold' | 'auto' | 'raffle' | 'pick';
   /** Every bid of the lot (sealed), best first. */
   bids: { captainId: string; amount: number }[];
   /** How a tie at the top was settled, if there was one. */
@@ -114,6 +126,8 @@ type MarketState = {
   passSales: number;
   turnOrder: string[];
   turnCursor: number;
+  /** Draft: turns taken so far (decides the snake's direction). */
+  turnCount: number;
   nominatorId: string | null;
   lot: MarketLot | null;
   phase: MarketPhase;
@@ -276,6 +290,7 @@ const emptyMarket = (): MarketState => ({
   passSales: 0,
   turnOrder: [],
   turnCursor: 0,
+  turnCount: 0,
   nominatorId: null,
   lot: null,
   phase: 'idle',
@@ -398,6 +413,7 @@ const foldMarket = (events: MarketEvent[]): MarketState => {
       case 'turn_started': {
         state.nominatorId = str(p.captainId);
         state.turnCursor = num(p.turnCursor);
+        state.turnCount = num(p.turnCount, state.turnCount);
         state.phase = 'nominating';
         state.lastSale = null;
         state.lastUnsold = null;
@@ -453,6 +469,12 @@ const foldMarket = (events: MarketEvent[]): MarketState => {
         state.nominatorId = null;
         state.phase = 'idle';
         state.deadlineAt = null;
+        break;
+      }
+      case 'player_picked': {
+        settleSale(state, { ...event, payload: { ...p, amount: 0 } }, 'pick');
+        state.nominatorId = null;
+        state.phase = 'idle';
         break;
       }
       case 'lot_unsold': {
@@ -603,6 +625,59 @@ const nextNominator = (state: MarketState, groupIndex: number) => {
   return null;
 };
 
+/**
+ * Draft: whose turn it is. Turn n of a round of n captains; the snake
+ * reverses the order every other round. Captains who can't take anyone
+ * from the group lose that turn.
+ */
+const nextDrafter = (state: MarketState, groupIndex: number) => {
+  const count = state.turnOrder.length;
+  if (count === 0) return null;
+  for (let step = 0; step < 2 * count; step += 1) {
+    const turn = state.turnCount + step;
+    const round = Math.floor(turn / count);
+    const position = turn % count;
+    const index =
+      state.config.draftOrder === 'snake' && round % 2 === 1
+        ? count - 1 - position
+        : position;
+    const captainId = state.turnOrder[index];
+    if (captainId && canTake(state, captainId, groupIndex)) {
+      return { captainId, turnCount: turn + 1 };
+    }
+  }
+  return null;
+};
+
+/** Draft: the captain on turn picks a player of the group on the table. */
+const draftPick = (
+  state: MarketState,
+  captainId: string,
+  playerId: string,
+  now: number,
+): CommandResult => {
+  if (
+    state.config.mode !== 'draft' ||
+    state.phase !== 'nominating' ||
+    state.nominatorId !== captainId
+  ) {
+    return { error: 'No es tu turno de elegir.' };
+  }
+  const groupIndex = currentGroup(state);
+  if (groupIndex === null || !unsoldIn(state, groupIndex).includes(playerId)) {
+    return { error: 'Ese jugador no está disponible ahora.' };
+  }
+  return {
+    events: [
+      {
+        type: 'player_picked',
+        at: now,
+        payload: { playerId, groupIndex, captainId },
+      },
+    ],
+  };
+};
+
 const openLotEvent = (
   state: MarketState,
   playerId: string,
@@ -682,6 +757,23 @@ const marketNext = (
             groupIndex,
             captainId,
             amount: floorFor(state, captainId, groupIndex),
+          },
+        },
+      ],
+    };
+  }
+  if (state.config.mode === 'draft') {
+    const next = nextDrafter(state, groupIndex);
+    if (!next) return { events: [closeEvent(state, now)] };
+    return {
+      events: [
+        {
+          type: 'turn_started',
+          at: now,
+          payload: {
+            captainId: next.captainId,
+            turnCursor: state.turnCursor,
+            turnCount: next.turnCount,
           },
         },
       ],
@@ -1143,6 +1235,8 @@ export {
   changeMarketConfig,
   currentGroup,
   DEFAULT_MARKET_CONFIG,
+  type DraftOrder,
+  draftPick,
   type EventDraft as MarketEventDraft,
   eligibleFor,
   floorFor,
@@ -1151,6 +1245,7 @@ export {
   type LotOrder,
   type MarketConfig,
   type MarketEvent,
+  type MarketMode,
   type MarketPhase,
   type MarketSale,
   type MarketState,

@@ -29,7 +29,8 @@ type FormationMethod =
   | 'pots_random'
   | 'draft'
   | 'auction'
-  | 'market_auction';
+  | 'market_auction'
+  | 'market_draft';
 
 export {
   type FormationMethod,

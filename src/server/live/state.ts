@@ -303,7 +303,10 @@ const getLiveState = async (
   // The formation room, if one runs. Mid-lot, the high bidder's identity is
   // nobody's business (core-logic): only the amount leaves the server.
   const roomKind =
-    head.formationMethod === 'market_auction' ? 'market' : head.formationMethod;
+    head.formationMethod === 'market_auction' ||
+    head.formationMethod === 'market_draft'
+      ? 'market'
+      : head.formationMethod;
   const roomRow = rooms.find((row) => row.kind === roomKind);
   const room: LiveRoom | null = roomRow
     ? roomRow.kind === 'auction'
