@@ -1,11 +1,16 @@
 import {
   boolean,
   integer,
+  jsonb,
   text,
   timestamp,
   unique,
   uuid,
 } from 'drizzle-orm/pg-core';
+import type {
+  FormationConfig,
+  RankingMeta,
+} from '@/lib/tournament/formation-config';
 import {
   type FormationMethod,
   type RankingSource,
@@ -57,6 +62,12 @@ const tournament = createTable('tournament', {
   formationMethod: text('formation_method').$type<FormationMethod>(),
   // Which pot the captains come from (0 = cabezas de serie).
   captainPotIndex: integer('captain_pot_index').notNull().default(0),
+  // Every later formation option (vote count, tie-breaks, captains, auction
+  // rules…) in one value; missing keys mean the original behaviour. Read it
+  // through parseFormationConfig.
+  formationConfig: jsonb('formation_config').$type<Partial<FormationConfig>>(),
+  // Ties and count details of teamRankingSnapshot, for the review and reveal.
+  rankingMeta: jsonb('ranking_meta').$type<RankingMeta>(),
   createdByUserId: text('created_by_user_id').references(() => user.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

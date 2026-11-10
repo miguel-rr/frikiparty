@@ -3,11 +3,22 @@ import { asc, eq, inArray, sql } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { env } from '@/env';
-import { generatePots } from '@/lib/tournament/pots';
 import {
-  combineBallotsToRanking,
-  combineRankings,
-} from '@/lib/tournament/ranking';
+  type FormationConfig,
+  formationConfigPatchSchema,
+  POT_TIEBREAKS,
+  parseFormationConfig,
+  type RankingMeta,
+  VOTE_COUNTS,
+} from '@/lib/tournament/formation-config';
+import {
+  breakTie,
+  findCutTies,
+  type PotTiebreak,
+  resolveCutTies,
+} from '@/lib/tournament/pot-tiebreak';
+import { generatePots } from '@/lib/tournament/pots';
+import { keepContiguousTies } from '@/lib/tournament/ranking';
 import { teamsLayout } from '@/lib/tournament/teams-layout';
 import { getHistoricalRanking } from '@/server/api/routers/player';
 import {
@@ -41,6 +52,11 @@ import {
   tournamentSwissConfig,
   tournamentVote,
 } from '@/server/db/schema';
+import {
+  computeRanking,
+  loadHistoricalRanking,
+  loadLatestRingYears,
+} from '@/server/live/ranking-count';
 import {
   getLiveState,
   listParticipantCandidates,
@@ -310,6 +326,75 @@ const writePots = async (tx: Tx, tournamentId: string, pots: string[][]) => {
   }
 };
 
+/** Pot size the ranking is cut at: as many players per pot as teams. */
+const potSizeFor = (playerCount: number, teamSize: number | null) =>
+  Math.ceil(playerCount / Math.max(1, teamSize ?? 1));
+
+const voteOptionsSchema = z.object({
+  voteCount: formationConfigPatchSchema.shape.voteCount.unwrap(),
+  voteOutlierThreshold: z.number().min(0).max(100).nullable(),
+  historicalWeightPercent: z.number().int().min(0).max(100).nullable(),
+});
+
+/** Stages where the formation options can still change. */
+const CONFIG_EDITABLE: TournamentStage[] = [
+  'setup',
+  'voting',
+  'ranking_review',
+  'pots_review',
+];
+
+/** Each tie-break option applied to the ties the pot cuts run through. */
+const previewCutTies = async (
+  db: TRPCContext['db'],
+  order: string[],
+  tieGroups: string[][],
+  potSize: number,
+  names: Record<string, string>,
+) => {
+  const ties = findCutTies(order, tieGroups, potSize);
+  if (ties.length === 0) return [];
+  const latestRingYear = await loadLatestRingYears(
+    db,
+    ties.flatMap((tie) => tie.players),
+  );
+  const context = { names, latestRingYear };
+  return ties.map((tie) => ({
+    ...tie,
+    latestRingYear: Object.fromEntries(
+      tie.players.map((id) => [id, latestRingYear[id] ?? null]),
+    ),
+    options: POT_TIEBREAKS.map((method: PotTiebreak) => ({
+      method,
+      ...breakTie(tie.players, method, context),
+    })),
+  }));
+};
+
+/** Ranking from the stored ballots for a source and a set of options. */
+const rankFromBallots = async (
+  db: TRPCContext['db'],
+  tournamentId: string,
+  source: 'historical' | 'vote' | 'combined',
+  options: z.infer<typeof voteOptionsSchema>,
+) => {
+  const [historical, ballots] = await Promise.all([
+    loadHistoricalRanking(db, tournamentId),
+    loadBallots(db, tournamentId),
+  ]);
+  return {
+    historical,
+    ballots,
+    outcome: computeRanking({
+      source,
+      historical,
+      ballots,
+      historicalWeightPercent: options.historicalWeightPercent,
+      config: options,
+    }),
+  };
+};
+
 const tournamentRouter = createTRPCRouter({
   /** Games and versions to pick from when creating a tournament. */
   catalog: adminProcedure.query(async ({ ctx }) => {
@@ -491,7 +576,7 @@ const tournamentRouter = createTRPCRouter({
             .where(eq(teamFormationPotPlayer.tournamentId, input.tournamentId));
           await tx
             .update(tournament)
-            .set({ teamRankingSnapshot: null })
+            .set({ teamRankingSnapshot: null, rankingMeta: null })
             .where(eq(tournament.id, input.tournamentId));
           await emit({
             stream: 'admin',
@@ -533,13 +618,16 @@ const tournamentRouter = createTRPCRouter({
         current.rankingSource === 'historical' ? 'ranking_review' : 'voting';
       if (next === 'ranking_review') {
         // No vote: the tournament ranking opens as the historical one.
-        const historical = await loadHistoricalOrder(
+        const historical = await loadHistoricalRanking(
           ctx.db,
           input.tournamentId,
         );
         await ctx.db
           .update(tournament)
-          .set({ teamRankingSnapshot: historical })
+          .set({
+            teamRankingSnapshot: historical.order,
+            rankingMeta: { tieGroups: historical.tieGroups },
+          })
           .where(eq(tournament.id, input.tournamentId));
       }
       await changeStage(ctx, input.tournamentId, current.stage, next);
@@ -574,9 +662,9 @@ const tournamentRouter = createTRPCRouter({
     }),
 
   /**
-   * Closes the vote: Borda count over the ballots, blended with the
-   * historical order when the source is `combined`, becomes the working
-   * ranking the admin then reviews.
+   * Closes the vote: the ballots, counted with the configured method
+   * (Borda by default) and blended with the historical order when the
+   * source is `combined`, become the working ranking the admin reviews.
    */
   closeVoting: adminProcedure
     .input(z.object({ tournamentId: z.string().uuid() }))
@@ -588,25 +676,21 @@ const tournamentRouter = createTRPCRouter({
           message: 'La votación no está abierta.',
         });
       }
-      const [historical, ballots] = await Promise.all([
-        loadHistoricalOrder(ctx.db, input.tournamentId),
-        loadBallots(ctx.db, input.tournamentId),
-      ]);
+      const config = parseFormationConfig(current.formationConfig);
+      const { historical, ballots, outcome } = await rankFromBallots(
+        ctx.db,
+        input.tournamentId,
+        current.rankingSource ?? 'vote',
+        { ...config, historicalWeightPercent: current.historicalWeightPercent },
+      );
       if (ballots.length === 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'Nadie ha votado todavía.',
         });
       }
-      const voteRanking = combineBallotsToRanking(ballots, historical);
-      const ranking =
-        current.rankingSource === 'combined'
-          ? combineRankings(
-              historical,
-              voteRanking,
-              current.historicalWeightPercent ?? 50,
-            )
-          : voteRanking;
+      const ranking = outcome.order;
+      const voteRanking = outcome.vote?.order ?? [];
       await runTournamentTx(
         ctx.db,
         input.tournamentId,
@@ -616,6 +700,7 @@ const tournamentRouter = createTRPCRouter({
             .update(tournament)
             .set({
               teamRankingSnapshot: ranking,
+              rankingMeta: outcome.meta,
               stage: 'ranking_review',
               stageChangedAt: new Date(),
             })
@@ -626,9 +711,12 @@ const tournamentRouter = createTRPCRouter({
             payload: {
               ballots: ballots.length,
               voteRanking,
-              historical,
+              historical: historical.order,
               ranking,
               historicalWeightPercent: current.historicalWeightPercent,
+              voteCount: config.voteCount,
+              ballotsDiscarded: outcome.meta.ballotsDiscarded ?? 0,
+              tieGroups: outcome.meta.tieGroups,
             },
           });
           await emit({
@@ -686,14 +774,233 @@ const tournamentRouter = createTRPCRouter({
         input.tournamentId,
         actorFromSession(ctx.session),
         async ({ tx, emit }) => {
+          const meta: RankingMeta = current.rankingMeta ?? { tieGroups: [] };
           await tx
             .update(tournament)
-            .set({ teamRankingSnapshot: input.order })
+            .set({
+              teamRankingSnapshot: input.order,
+              rankingMeta: {
+                ...meta,
+                tieGroups: keepContiguousTies(input.order, meta.tieGroups),
+              },
+            })
             .where(eq(tournament.id, input.tournamentId));
           await emit({
             stream: 'admin',
             type: 'ranking_edited',
             payload: { order: input.order },
+          });
+        },
+      );
+      return { ok: true };
+    }),
+
+  /**
+   * Formation options, while they can still change. A change to how the
+   * vote is counted after it closed goes through `applyRankingOptions`.
+   */
+  updateFormationConfig: adminProcedure
+    .input(
+      z.object({
+        tournamentId: z.string().uuid(),
+        patch: formationConfigPatchSchema,
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (!CONFIG_EDITABLE.includes(current.stage)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Los equipos ya se están formando: las opciones no cambian.',
+        });
+      }
+      const config: FormationConfig = {
+        ...parseFormationConfig(current.formationConfig),
+        ...Object.fromEntries(
+          Object.entries(input.patch).filter(
+            ([, value]) => value !== undefined,
+          ),
+        ),
+      };
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          await tx
+            .update(tournament)
+            .set({ formationConfig: config })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'formation_config_changed',
+            payload: { patch: input.patch },
+          });
+        },
+      );
+      return config;
+    }),
+
+  /**
+   * What each counting option would give, side by side, so the admin can
+   * see the effect before choosing: every method with the given discard
+   * threshold and weight, the anonymous distance of each ballot to the
+   * rest, and how each tie-break would settle the ties at the pot cuts of
+   * the current ranking (the historical one before the review).
+   */
+  rankingPreview: adminProcedure
+    .input(
+      z.object({
+        tournamentId: z.string().uuid(),
+        voteOutlierThreshold: z.number().min(0).max(100).nullable(),
+        historicalWeightPercent: z.number().int().min(0).max(100).nullable(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (!['setup', 'voting', 'ranking_review'].includes(current.stage)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Los bombos ya están hechos: no hay nada que previsualizar.',
+        });
+      }
+      const source = current.rankingSource ?? 'historical';
+      // The vote only enters the preview once it's closed: a partial tally
+      // would leak how it's going.
+      const counted =
+        current.stage === 'ranking_review' && source !== 'historical';
+      const [historical, ballots] = await Promise.all([
+        loadHistoricalRanking(ctx.db, input.tournamentId),
+        counted ? loadBallots(ctx.db, input.tournamentId) : Promise.resolve([]),
+      ]);
+      const methods =
+        ballots.length === 0
+          ? []
+          : VOTE_COUNTS.map((voteCount) => {
+              const outcome = computeRanking({
+                source,
+                historical,
+                ballots,
+                historicalWeightPercent: input.historicalWeightPercent,
+                config: {
+                  voteCount,
+                  voteOutlierThreshold: input.voteOutlierThreshold,
+                },
+              });
+              return {
+                voteCount,
+                order: outcome.order,
+                tieGroups: outcome.meta.tieGroups,
+                voteOrder: outcome.vote?.order ?? [],
+                ballotsUsed: outcome.meta.ballotsUsed ?? 0,
+                ballotsDiscarded: outcome.meta.ballotsDiscarded ?? 0,
+              };
+            });
+      const distances =
+        ballots.length === 0
+          ? []
+          : (computeRanking({
+              source: 'vote',
+              historical,
+              ballots,
+              historicalWeightPercent: null,
+              config: { voteCount: 'borda', voteOutlierThreshold: null },
+            }).vote?.distances ?? []);
+      const reviewing = current.stage === 'ranking_review';
+      const order =
+        (reviewing ? current.teamRankingSnapshot : null) ?? historical.order;
+      const tieGroups =
+        (reviewing ? current.rankingMeta?.tieGroups : null) ??
+        historical.tieGroups;
+      return {
+        source,
+        ballots: ballots.length,
+        historical: {
+          order: historical.order,
+          tieGroups: historical.tieGroups,
+        },
+        /** Which ranking the cut ties come from. */
+        cutSource: reviewing ? ('current' as const) : ('historical' as const),
+        methods,
+        distances,
+        potSize: potSizeFor(order.length, current.teamSize),
+        cutTies: await previewCutTies(
+          ctx.db,
+          order,
+          tieGroups,
+          potSizeFor(order.length, current.teamSize),
+          historical.names,
+        ),
+      };
+    }),
+
+  /**
+   * Recounts the closed vote with other options and makes the result the
+   * working ranking (hand edits are replaced, as the screen warns).
+   */
+  applyRankingOptions: adminProcedure
+    .input(voteOptionsSchema.extend({ tournamentId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const current = await loadTournament(ctx.db, input.tournamentId);
+      if (current.stage !== 'ranking_review') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message:
+            'El recuento sólo se cambia durante la revisión del ranking.',
+        });
+      }
+      const source = current.rankingSource ?? 'historical';
+      if (source === 'historical') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Este torneo no tiene votación que recontar.',
+        });
+      }
+      const { ballots, outcome } = await rankFromBallots(
+        ctx.db,
+        input.tournamentId,
+        source,
+        input,
+      );
+      if (ballots.length === 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'No hay papeletas que recontar.',
+        });
+      }
+      const config: FormationConfig = {
+        ...parseFormationConfig(current.formationConfig),
+        voteCount: input.voteCount,
+        voteOutlierThreshold: input.voteOutlierThreshold,
+      };
+      await runTournamentTx(
+        ctx.db,
+        input.tournamentId,
+        actorFromSession(ctx.session),
+        async ({ tx, emit }) => {
+          await tx
+            .update(tournament)
+            .set({
+              formationConfig: config,
+              historicalWeightPercent:
+                source === 'combined'
+                  ? input.historicalWeightPercent
+                  : current.historicalWeightPercent,
+              teamRankingSnapshot: outcome.order,
+              rankingMeta: outcome.meta,
+            })
+            .where(eq(tournament.id, input.tournamentId));
+          await emit({
+            stream: 'admin',
+            type: 'ranking_recounted',
+            payload: {
+              voteCount: input.voteCount,
+              voteOutlierThreshold: input.voteOutlierThreshold,
+              historicalWeightPercent: input.historicalWeightPercent,
+              ranking: outcome.order,
+              tieGroups: outcome.meta.tieGroups,
+              ballotsDiscarded: outcome.meta.ballotsDiscarded ?? 0,
+            },
           });
         },
       );
@@ -711,10 +1018,26 @@ const tournamentRouter = createTRPCRouter({
           message: 'No hay ranking que confirmar.',
         });
       }
-      const { pots } = generatePots(
-        current.teamRankingSnapshot,
-        current.teamSize ?? 1,
+      const config = parseFormationConfig(current.formationConfig);
+      const meta: RankingMeta = current.rankingMeta ?? { tieGroups: [] };
+      const historical = await loadHistoricalRanking(
+        ctx.db,
+        input.tournamentId,
       );
+      const { order: dealt, resolutions } = resolveCutTies(
+        current.teamRankingSnapshot,
+        meta.tieGroups,
+        potSizeFor(current.teamRankingSnapshot.length, current.teamSize),
+        config.potTiebreak,
+        {
+          names: historical.names,
+          latestRingYear: await loadLatestRingYears(
+            ctx.db,
+            current.teamRankingSnapshot,
+          ),
+        },
+      );
+      const { pots } = generatePots(dealt, current.teamSize ?? 1);
       await runTournamentTx(
         ctx.db,
         input.tournamentId,
@@ -723,13 +1046,25 @@ const tournamentRouter = createTRPCRouter({
           await writePots(tx, input.tournamentId, pots);
           await tx
             .update(tournament)
-            .set({ stage: 'pots_review', stageChangedAt: new Date() })
+            .set({
+              stage: 'pots_review',
+              stageChangedAt: new Date(),
+              teamRankingSnapshot: dealt,
+              rankingMeta: { ...meta, cutTies: resolutions },
+            })
             .where(eq(tournament.id, input.tournamentId));
           await emit({
             stream: 'admin',
             type: 'ranking_confirmed',
-            payload: { order: current.teamRankingSnapshot },
+            payload: { order: dealt },
           });
+          for (const resolution of resolutions) {
+            await emit({
+              stream: 'admin',
+              type: 'pot_tiebreak',
+              payload: resolution,
+            });
+          }
           await emit({
             stream: 'admin',
             type: 'pots_generated',

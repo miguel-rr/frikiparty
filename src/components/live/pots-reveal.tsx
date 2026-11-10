@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 
+import { CutTiesNotice } from '@/components/live/setup/ranking-options';
 import { PortraitCard } from '@/components/tournament/portrait-card';
 import { cardSpecFor } from '@/lib/tournament/card-lore';
 import type { LiveState } from '@/server/live/state';
@@ -92,6 +93,9 @@ const PotsReveal = ({ state }: { state: LiveState }) => {
           </ul>
         </div>
       ))}
+      <div className="mx-auto max-w-2xl text-center">
+        <CutTiesNotice state={state} />
+      </div>
     </section>
   );
 };

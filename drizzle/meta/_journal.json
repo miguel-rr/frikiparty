@@ -239,6 +239,13 @@
       "when": 1794319911003,
       "tag": "0033_booklet_maps_86",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1794342096982,
+      "tag": "0034_formation_config",
+      "breakpoints": true
     }
   ]
 }

@@ -3,8 +3,9 @@ import { and, asc, desc, eq, gte, isNotNull, ne, sql } from 'drizzle-orm';
 import type { MapBoard } from '@/lib/live/map-board';
 import type { AuctionLiveState } from '@/lib/tournament/auction-live';
 import type { DraftLiveState } from '@/lib/tournament/draft-live';
-import { combineBallotsToRanking } from '@/lib/tournament/ranking';
+import { parseFormationConfig } from '@/lib/tournament/formation-config';
 import { stageIndex, type TournamentStage } from '@/lib/tournament/stages';
+import { countVotes } from '@/lib/tournament/vote-count';
 import type { db as Db } from '@/server/db';
 import {
   edition,
@@ -134,6 +135,8 @@ const getLiveState = async (
       formationMethod: tournament.formationMethod,
       captainPotIndex: tournament.captainPotIndex,
       teamRankingSnapshot: tournament.teamRankingSnapshot,
+      formationConfig: tournament.formationConfig,
+      rankingMeta: tournament.rankingMeta,
       gameId: tournament.gameId,
       gameVersionId: tournament.gameVersionId,
       gameName: game.name,
@@ -366,15 +369,22 @@ const getLiveState = async (
   // partial tally would leak how the vote is going.
   const votingClosed = stageIndex(stage) > stageIndex('voting');
   const participantIds = participants.map((row) => row.id);
+  const formationConfig = parseFormationConfig(head.formationConfig);
   const voteRanking =
     reveal && votingClosed && head.rankingSource !== 'historical'
-      ? combineBallotsToRanking(
-          await loadBallots(db, tournamentId),
-          participantIds,
-        )
+      ? countVotes(await loadBallots(db, tournamentId), participantIds, {
+          method: formationConfig.voteCount,
+          outlierThreshold: formationConfig.voteOutlierThreshold,
+        }).order
       : null;
 
-  const { editionOrder, editionYear, teamRankingSnapshot, ...rest } = head;
+  const {
+    editionOrder,
+    editionYear,
+    teamRankingSnapshot,
+    rankingMeta,
+    ...rest
+  } = head;
   return {
     ...rest,
     stage,
@@ -389,6 +399,9 @@ const getLiveState = async (
     },
     /** Tournament ranking (best first); null until computed or while private. */
     ranking: reveal ? (teamRankingSnapshot ?? null) : null,
+    /** Ties in the ranking and how the cuts were settled; private like it. */
+    rankingMeta: reveal ? (rankingMeta ?? null) : null,
+    formationConfig,
     voteRanking,
     pots: reveal ? pots : [],
     room,

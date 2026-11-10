@@ -3,8 +3,14 @@
 import { useState } from 'react';
 
 import { ReorderList } from '@/components/live/reorder-list';
+import {
+  CutTiesNotice,
+  PotTiebreakSection,
+  RecountPanel,
+} from '@/components/live/setup/ranking-options';
 import { btn, panel, panelGold } from '@/components/theme/primitives';
 import { PotBoard } from '@/components/tournament/pot-board';
+import { keepContiguousTies, sharedPlaces } from '@/lib/tournament/ranking';
 import type { LiveState } from '@/server/live/state';
 import { api } from '@/trpc/react';
 
@@ -100,6 +106,7 @@ const RankingReviewPanel = ({ state, onDone }: PanelProps) => {
     onSuccess: () => {
       setOrder(null);
       utils.tournament.setup.invalidate({ tournamentId: state.id });
+      utils.tournament.rankingPreview.invalidate();
     },
   });
   const confirm = api.tournament.confirmRanking.useMutation({
@@ -112,6 +119,15 @@ const RankingReviewPanel = ({ state, onDone }: PanelProps) => {
   const current = order ?? state.ranking ?? [];
   const dirty = order !== null;
   const error = save.error ?? confirm.error;
+  // Ties survive hand edits only while their players stay together.
+  const tieGroups = keepContiguousTies(
+    current,
+    state.rankingMeta?.tieGroups ?? [],
+  );
+  const places = sharedPlaces(current, tieGroups);
+  const tied = new Set(tieGroups.flat());
+  const potSize = Math.ceil(current.length / Math.max(1, state.teamSize ?? 1));
+  const meta = state.rankingMeta;
   return (
     <section className={`${panelGold} flex flex-col gap-4 p-5 sm:p-7`}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -126,25 +142,40 @@ const RankingReviewPanel = ({ state, onDone }: PanelProps) => {
               : `Combinado · ${state.historicalWeightPercent ?? 50}% histórico`}
         </span>
       </div>
+      {meta?.ballotsUsed !== undefined ? (
+        <p className="text-(--faded) text-xs">
+          {meta.ballotsUsed} papeletas contadas
+          {meta.ballotsDiscarded
+            ? `, ${meta.ballotsDiscarded} descartadas por alejarse del resto`
+            : ''}
+          . Los empatados comparten puesto (=N).
+        </p>
+      ) : null}
+      {state.rankingSource !== 'historical' ? (
+        <RecountPanel current={current} state={state} />
+      ) : null}
       <ReorderList
         disabled={save.isPending || confirm.isPending}
         ids={current}
         onChange={setOrder}
-        renderItem={(id) => {
+        renderItem={(id, index) => {
           const participant = byId.get(id);
           return (
-            <span className="flex items-baseline gap-3">
+            <span className="flex flex-wrap items-baseline gap-x-3">
               <span className="truncate font-semibold text-(--parchment) text-sm">
                 {participant?.name ?? '…'}
               </span>
               <span className="shrink-0 font-mono text-(--faded) text-2xs uppercase tracking-wider">
-                hist. {participant?.position ?? '—'}
+                bombo {Math.floor(index / potSize) + 1}
+                {tied.has(id) ? ` · empate =${places.get(id)}` : ''} · hist.{' '}
+                {participant?.position ?? '—'}
                 {state.voteRanking ? ` · voto ${votePos.get(id) ?? '—'}` : ''}
               </span>
             </span>
           );
         }}
       />
+      <PotTiebreakSection editable={!confirm.isPending} state={state} />
       <div className="flex flex-wrap items-center gap-3">
         <button
           className={btn.secondary}
@@ -216,6 +247,7 @@ const PotsReviewPanel = ({ state, onDone }: PanelProps) => {
         }}
         pots={current}
       />
+      <CutTiesNotice state={state} />
       <div className="flex flex-wrap items-center gap-3">
         <button
           className={btn.secondary}

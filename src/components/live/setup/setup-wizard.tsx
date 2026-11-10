@@ -10,6 +10,7 @@ import {
 } from '@/components/live/setup/deliberation-panels';
 import { FormationPanel } from '@/components/live/setup/formation-panel';
 import { PhasesPanel } from '@/components/live/setup/phases-panel';
+import { FormationOptionsSection } from '@/components/live/setup/ranking-options';
 import {
   btn,
   input,
@@ -554,6 +555,10 @@ const SetupPanel = ({
           </select>
         </div>
       </section>
+
+      {state.stage === 'setup' || state.stage === 'voting' ? (
+        <FormationOptionsSection state={state} />
+      ) : null}
 
       <section className={`${panel} flex flex-col gap-4 p-5 sm:p-7`}>
         <div className="flex flex-wrap items-baseline justify-between gap-2">

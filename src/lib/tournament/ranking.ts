@@ -113,12 +113,143 @@ const combineRankings = (
   return [...historical].sort((a, b) => score(a) - score(b));
 };
 
+/** Each id's 0-based index, tied runs sharing the mean of their places. */
+const averagePositions = (
+  order: string[],
+  tieGroups: string[][] = [],
+): Map<string, number> => {
+  const positions = toPositionMap(order);
+  for (const group of tieGroups) {
+    const indices = group.map((id) => positions.get(id) ?? 0);
+    const mean = indices.reduce((sum, i) => sum + i, 0) / indices.length;
+    for (const id of group) positions.set(id, mean);
+  }
+  return positions;
+};
+
+/**
+ * Display places ("1224" style): tied runs share the place of their first
+ * member. 1-based.
+ */
+const sharedPlaces = (
+  order: string[],
+  tieGroups: string[][] = [],
+): Map<string, number> => {
+  const places = new Map(order.map((id, index) => [id, index + 1]));
+  for (const group of tieGroups) {
+    const first = Math.min(...group.map((id) => places.get(id) ?? 0));
+    for (const id of group) places.set(id, first);
+  }
+  return places;
+};
+
+/** Runs of players level on rings and individual rings, in order. */
+const historicalTieGroups = (
+  order: string[],
+  counts: Map<string, RingCounts>,
+): string[][] => {
+  const groups: string[][] = [];
+  let run: string[] = [];
+  const same = (a: string, b: string) => {
+    const x = counts.get(a);
+    const y = counts.get(b);
+    return (
+      x !== undefined &&
+      y !== undefined &&
+      x.rings === y.rings &&
+      x.individualRings === y.individualRings
+    );
+  };
+  for (const id of order) {
+    const last = run[run.length - 1];
+    if (last !== undefined && same(last, id)) {
+      run.push(id);
+    } else {
+      if (run.length > 1) groups.push(run);
+      run = [id];
+    }
+  }
+  if (run.length > 1) groups.push(run);
+  return groups;
+};
+
+/**
+ * `combineRankings` with ties: tied players count with the mean of their
+ * places on both sides, and players whose blended score comes out equal
+ * are reported as tied.
+ */
+const combineRankingsWithTies = (
+  historical: { order: string[]; tieGroups: string[][] },
+  voting: { order: string[]; tieGroups: string[][] },
+  historicalWeightPercent: number,
+): {
+  order: string[];
+  tieGroups: string[][];
+  scores: Record<string, number>;
+} => {
+  const historicalPos = averagePositions(
+    historical.order,
+    historical.tieGroups,
+  );
+  const votingPos = averagePositions(voting.order, voting.tieGroups);
+  const weight = Math.min(100, Math.max(0, historicalWeightPercent)) / 100;
+  const scores: Record<string, number> = {};
+  for (const id of historical.order) {
+    // Rounded so float noise doesn't split a genuine tie.
+    scores[id] =
+      Math.round(
+        (weight * (historicalPos.get(id) ?? 0) +
+          (1 - weight) * (votingPos.get(id) ?? 0)) *
+          1000,
+      ) / 1000;
+  }
+  const order = [...historical.order].sort(
+    (a, b) => (scores[a] ?? 0) - (scores[b] ?? 0),
+  );
+  const tieGroups: string[][] = [];
+  let run: string[] = [];
+  for (const id of order) {
+    const last = run[run.length - 1];
+    if (last !== undefined && scores[last] === scores[id]) {
+      run.push(id);
+    } else {
+      if (run.length > 1) tieGroups.push(run);
+      run = [id];
+    }
+  }
+  if (run.length > 1) tieGroups.push(run);
+  return { order, tieGroups, scores };
+};
+
+/**
+ * Keeps the tied runs that are still contiguous in `order` (a hand edit
+ * may have split some): the admin has ordered the rest by hand.
+ */
+const keepContiguousTies = (order: string[], tieGroups: string[][]) => {
+  const position = new Map(order.map((id, index) => [id, index]));
+  return tieGroups.filter((group) => {
+    const indices = group
+      .map((id) => position.get(id))
+      .filter((i): i is number => i !== undefined)
+      .sort((a, b) => a - b);
+    if (indices.length !== group.length || indices.length < 2) return false;
+    return indices.every(
+      (value, i) => i === 0 || value === (indices[i - 1] ?? 0) + 1,
+    );
+  });
+};
+
 export {
+  averagePositions,
   combineBallotsToRanking,
   combineRankings,
+  combineRankingsWithTies,
   competitionPositions,
+  historicalTieGroups,
+  keepContiguousTies,
   outranks,
   type RankedPlayer,
+  sharedPlaces,
   shuffle,
   simulateVoting,
   sortByHistoricalRanking,
