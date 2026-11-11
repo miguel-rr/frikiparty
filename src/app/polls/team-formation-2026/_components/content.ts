@@ -156,12 +156,89 @@ type Question = { question: string; answer: string };
 
 type Step = {
   title: string;
-  text: string;
+  paragraphs: string[];
   list?: string[];
-  annexes?: AnnexId[];
-  /** Questions and answers shown under the step, in place of annexes. */
+  /** A boxed subsection inside the step, for the parts worth a closer look. */
+  aside?: { title: string; paragraphs: string[] };
+  /** Extra questions under the step. */
   questions?: Question[];
 };
+
+const TIES_QUESTION: Question = {
+  question: '¿Y si dos jugadores empatan en el ranking?',
+  answer:
+    'Desempatan los anillos individuales y, si siguen igual, se sortea entre ellos.',
+};
+
+/** Shared by every proposal: same ranking, same money, same auction. */
+const RANKING_STEP: Step = {
+  title: 'El ranking',
+  paragraphs: [
+    'Se usa el ranking histórico de la Frikiparty, que ordena a los jugadores por anillos de equipo ganados.',
+  ],
+  questions: [TIES_QUESTION],
+};
+
+const MONEY_STEP: Step = {
+  title: 'El dinero',
+  paragraphs: [
+    'Cada capitán empieza con 100 monedas. Es todo su presupuesto para completar el equipo: no hay más dinero ni se recarga por el camino.',
+    'La única condición es la reserva: nadie puede pujar tanto que se quede sin una moneda por cada plaza que le falte por llenar. Así ningún equipo se queda cojo.',
+  ],
+  questions: [
+    {
+      question: '¿Cuánto vale un jugador?',
+      answer:
+        'Lo que los capitanes estén dispuestos a pagar por él. No hay precios fijos ni de salida, más allá del mínimo de 1.',
+    },
+    {
+      question: '¿Para qué sirve lo que me sobre?',
+      answer: 'Para nada. Al terminar no vale nada, así que conviene gastarlo.',
+    },
+  ],
+};
+
+const AUCTION_PARAGRAPHS = [
+  'Los jugadores no salen en un orden fijo: los saca un capitán. Los capitanes nominan por turnos y, en cada ronda de cinco jugadores, el orden se sortea de nuevo. En su turno, el capitán elige a quién se subasta y está obligado a pujar al menos 1, así que ningún jugador se queda sin equipo.',
+  'Cada jugador tiene un tiempo de puja. Mientras corre, cada capitán que todavía puede llevárselo escribe su puja en secreto. Al cerrar, se ven todas las pujas y gana la más alta.',
+];
+
+const SECOND_PRICE: Step['aside'] = {
+  title: 'Quien gana paga la segunda puja más una moneda',
+  paragraphs: [
+    'Quien gana no paga lo que escribió, sino la segunda puja más alta más una moneda, y nunca más de lo que escribió. Si escribes 30 por un jugador y la siguiente puja más alta es 18, te lo llevas por 19.',
+    'Por qué así: si cada uno pagara lo que escribe, todos intentaríamos adivinar cuánto van a pujar los demás para poner solo un poco más. Ganaría quien mejor adivina, no quien más valora al jugador, y quien se pasa pagaría de más.',
+    'Con la segunda puja más una moneda ese juego desaparece. Pujar alto no te hace pagar más: solo te asegura ganar si nadie lo valora tanto como tú. Pujar bajo solo te hace perder jugadores que sí querías. Lo mejor que puedes hacer es escribir exactamente lo que ese jugador vale para ti.',
+    'El resultado es el mismo que en una subasta a viva voz, donde las pujas suben hasta que solo queda uno y el ganador acaba pagando poco más de lo que estaba dispuesto a pagar el segundo. Pero sin pasarnos la tarde pujando de una en una.',
+  ],
+};
+
+const AUCTION_QUESTIONS: Question[] = [
+  {
+    question: '¿Y si nadie más puja?',
+    answer: 'Se lo lleva quien lo nominó, por 1.',
+  },
+  {
+    question: '¿Y si empatan las pujas más altas?',
+    answer:
+      'Gana quien tiene más dinero y paga lo que escribió. Si también empatan en eso, se sortea.',
+  },
+  {
+    question: '¿Y si ya tengo el equipo completo?',
+    answer: 'Pasas tu turno de nominar y no pujas más.',
+  },
+];
+
+const auctionStep = (
+  title: string,
+  intro: string[],
+  questions: Question[] = [],
+): Step => ({
+  title,
+  paragraphs: [...intro, ...AUCTION_PARAGRAPHS],
+  aside: SECOND_PRICE,
+  questions: [...questions, ...AUCTION_QUESTIONS],
+});
 
 type Proposal = {
   key: ProposalKey;
@@ -211,18 +288,20 @@ const PROPOSALS: Proposal[] = [
     steps: [
       {
         title: 'La votación de capitanes',
-        text: 'Se abre en la web antes del torneo y tiene una hora límite. Cada confirmado responde sí o no a ser capitán y, hasta esa hora, puede cambiar su respuesta las veces que quiera. Nadie ve las respuestas de los demás hasta el cierre.',
+        paragraphs: [
+          'Antes del torneo se abre en la web una votación con hora límite. Cada jugador confirmado responde a una sola pregunta: ¿quieres ser capitán?',
+          'Hasta la hora límite puedes cambiar tu respuesta las veces que quieras. Nadie ve las respuestas de los demás hasta el cierre, así que cada uno decide sin saber qué han dicho los otros.',
+        ],
         questions: [
           { question: '¿Y si no respondo?', answer: 'Cuenta como un no.' },
-          {
-            question: '¿Puedo ver quién se ha ofrecido antes de decidir?',
-            answer: 'No. Las respuestas solo se ven al cerrar.',
-          },
         ],
       },
       {
         title: 'Los capitanes',
-        text: 'Son capitanes los cinco voluntarios mejor situados en el ranking histórico.',
+        paragraphs: [
+          'Al cerrar la votación, son capitanes los cinco voluntarios mejor situados en el ranking histórico de anillos de equipo. El ranking solo sirve para eso: ordenar a los voluntarios.',
+          'Quien no se ofrece, o se ofrece y no entra entre los cinco, va a la subasta como un jugador más.',
+        ],
         questions: [
           {
             question: '¿Y si se ofrecen más de cinco?',
@@ -239,70 +318,18 @@ const PROPOSALS: Proposal[] = [
             answer:
               'No te ofreces y vas a la subasta. Solo te tocaría si faltan voluntarios.',
           },
-          {
-            question: '¿Y si dos empatan en el ranking?',
-            answer:
-              'Desempatan los anillos individuales y, si siguen igual, se sortea.',
-          },
+          TIES_QUESTION,
         ],
       },
-      {
-        title: 'El dinero',
-        text: 'Cada capitán empieza con 100 monedas.',
-        questions: [
-          {
-            question: '¿Puedo gastarlo todo en un jugador?',
-            answer:
-              'No. Siempre tienes que guardar una moneda por cada plaza que te falte por llenar.',
-          },
-          {
-            question: '¿Para qué sirve lo que me sobre?',
-            answer:
-              'Para nada. Al terminar no vale nada, así que conviene gastarlo.',
-          },
-        ],
-      },
-      {
-        title: 'La subasta',
-        text: 'Los quince jugadores restantes salen todos en la misma subasta, sin bombos. Cada equipo se lleva tres.',
-        questions: [
-          {
-            question: '¿Quién decide qué jugador sale?',
-            answer:
-              'Los capitanes, por turnos, y el orden se sortea de nuevo en cada ronda de cinco.',
-          },
-          {
-            question: '¿Cómo se puja?',
-            answer:
-              'En secreto y con tiempo por lote. Quien nomina está obligado a pujar al menos 1.',
-          },
-          {
-            question: '¿Cuánto pago si gano?',
-            answer:
-              'La segunda puja más alta más una moneda, nunca más de lo que escribiste. Por eso conviene escribir lo que de verdad vale para ti.',
-          },
-          {
-            question: '¿Y si nadie más puja?',
-            answer: 'Se lo lleva quien lo nominó, por 1.',
-          },
-          {
-            question: '¿Y si empatan las pujas más altas?',
-            answer:
-              'Gana quien tiene más dinero y paga lo que escribió. Si también empatan en eso, se sortea.',
-          },
-          {
-            question: '¿Se ven las pujas de los demás?',
-            answer: 'Sí, todas, al cerrar el lote.',
-          },
-          {
-            question: '¿Y si ya tengo el equipo completo?',
-            answer: 'Pasas turno y no pujas más.',
-          },
-        ],
-      },
+      MONEY_STEP,
+      auctionStep('La subasta', [
+        'Los quince jugadores restantes salen todos en la misma subasta, sin bombos. Cada equipo se lleva tres.',
+      ]),
       {
         title: 'Los equipos',
-        text: 'Al terminar, cada equipo tiene un capitán y tres jugadores que él mismo compró.',
+        paragraphs: [
+          'Al terminar, cada equipo tiene un capitán y tres jugadores que él mismo compró.',
+        ],
       },
     ],
     good: 'los capitanes, salvo que falten voluntarios, son quienes quieren serlo; nadie cae en un bombo que no le corresponde y cada jugador cuesta lo que vale.',
@@ -326,29 +353,38 @@ const PROPOSALS: Proposal[] = [
     ],
     lead: 'Un nuevo portador garantizado y, para todo lo demás, mercado libre.',
     steps: [
-      {
-        title: 'El ranking',
-        text: 'Se usa el ranking histórico de anillos de equipo.',
-        annexes: ['annex-ties'],
-      },
+      RANKING_STEP,
       {
         title: 'Los capitanes',
-        text: 'Los cinco del bombo 1: Richard, Juanillo, White, Arri y Cañete. Cada uno empieza con 100 monedas.',
-        annexes: ['annex-money'],
+        paragraphs: [
+          'Los cinco del bombo 1: Richard, Juanillo, White, Arri y Cañete. Son capitanes por estar arriba en el ranking.',
+        ],
       },
-      {
-        title: 'La subasta de los sin anillo',
-        text: 'Se subastan Guille, Armonds, Ita, Perico y el Jugador Misterioso, uno para cada equipo.',
-        annexes: ['annex-ringless', 'annex-bidding'],
-      },
-      {
-        title: 'La subasta del resto',
-        text: 'Los diez jugadores restantes salen juntos, sin bombos. Cada equipo se lleva dos.',
-        annexes: ['annex-nomination'],
-      },
+      MONEY_STEP,
+      auctionStep(
+        'La subasta',
+        [
+          'Hay dos subastas seguidas. Primero, los cinco jugadores sin anillo de equipo (Guille, Armonds, Ita, Perico y el Jugador Misterioso), uno para cada equipo.',
+          'Después, los diez jugadores restantes salen juntos, sin bombos. Cada equipo se lleva dos.',
+        ],
+        [
+          {
+            question: '¿Por qué una subasta aparte para los sin anillo?',
+            answer:
+              'Para que el campeón de este año tenga al menos un nuevo portador. Si alguno de ellos es de los mejores, quien lo quiera tendrá que pagarlo.',
+          },
+          {
+            question: '¿Puedo llevarme dos sin anillo?',
+            answer:
+              'No en esa subasta: quien ya tiene uno no puja más en ella, y el último va al único capitán que queda, por 1.',
+          },
+        ],
+      ),
       {
         title: 'Los equipos',
-        text: 'Al terminar, cada equipo tiene su capitán, un jugador sin anillo y dos del mercado libre.',
+        paragraphs: [
+          'Al terminar, cada equipo tiene su capitán, un jugador sin anillo y dos del mercado libre.',
+        ],
       },
     ],
     good: 'el campeón de 2026 tendrá al menos un nuevo portador, y la mayor parte del equipo se elige libremente.',
@@ -375,25 +411,35 @@ const PROPOSALS: Proposal[] = [
     ],
     lead: 'Lo que ya conocemos, con una sola diferencia: en vez de un draft, una subasta por bombo.',
     steps: [
+      RANKING_STEP,
       {
-        title: 'El ranking',
-        text: 'Se usa el ranking histórico de anillos de equipo.',
-        annexes: ['annex-ties'],
+        title: 'Los bombos',
+        paragraphs: ['Son los que publicó Armonds:'],
+        list: POTS,
       },
-      { title: 'Los bombos', text: 'Son los que publicó Armonds:', list: POTS },
       {
         title: 'Los capitanes',
-        text: 'Los cinco del bombo 1. Cada uno empieza con 100 monedas.',
-        annexes: ['annex-money'],
+        paragraphs: ['Los cinco del bombo 1.'],
       },
-      {
-        title: 'La subasta',
-        text: 'Se subasta el bombo 2, luego el 3 y luego el 4. En cada bombo, cada capitán se lleva exactamente un jugador.',
-        annexes: ['annex-pots', 'annex-bidding', 'annex-nomination'],
-      },
+      MONEY_STEP,
+      auctionStep(
+        'La subasta',
+        [
+          'Se subasta el bombo 2, luego el 3 y luego el 4. En cada bombo, cada capitán se lleva exactamente un jugador.',
+        ],
+        [
+          {
+            question: '¿Puedo llevarme dos del mismo bombo?',
+            answer:
+              'No: quien ya tiene jugador de ese bombo no puja más en él. El último de cada bombo va al único capitán que queda, por 1.',
+          },
+        ],
+      ),
       {
         title: 'Los equipos',
-        text: 'Al terminar, cada equipo tiene un capitán del bombo 1 y un jugador de cada uno de los bombos 2, 3 y 4.',
+        paragraphs: [
+          'Al terminar, cada equipo tiene un capitán del bombo 1 y un jugador de cada uno de los bombos 2, 3 y 4.',
+        ],
       },
     ],
     good: 'es el cambio más pequeño y garantiza equipos equilibrados por bombo.',

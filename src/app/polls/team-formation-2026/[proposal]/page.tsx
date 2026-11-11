@@ -5,11 +5,7 @@ import { notFound } from 'next/navigation';
 import { SiteShell } from '@/components/layout/site-shell';
 import { linkGold, pageWidth, panel, tag } from '@/components/theme/primitives';
 
-import { AnnexLink } from '../_components/annex-link';
-import { AnnexCard } from '../_components/blocks';
 import {
-  type AnnexId,
-  annexById,
   DEPARTMENT,
   PAGE_PATH,
   PROPOSALS,
@@ -35,14 +31,10 @@ export const generateMetadata = async ({
   };
 };
 
-/**
- * One proposal from start to end. Each annex sits under the first step
- * that names it; later mentions link back to it.
- */
+/** One proposal from start to end, with its questions under each step. */
 const ProposalPage = async ({ params }: { params: Promise<Params> }) => {
   const proposal = proposalByKey((await params).proposal);
   if (!proposal) notFound();
-  const shown = new Set<AnnexId>();
   const others = PROPOSALS.filter((other) => other.key !== proposal.key);
   return (
     <SiteShell>
@@ -65,66 +57,55 @@ const ProposalPage = async ({ params }: { params: Promise<Params> }) => {
           <p className="text-(--faded) text-lg">{proposal.lead}</p>
         </header>
 
-        <ol className="flex flex-col gap-8">
-          {proposal.steps.map((step, index) => {
-            const fresh = (step.annexes ?? []).filter((id) => !shown.has(id));
-            const repeated = (step.annexes ?? []).filter((id) => shown.has(id));
-            for (const id of fresh) shown.add(id);
-            return (
-              <li className="flex flex-col gap-3" key={step.title}>
-                <div className="flex gap-4">
-                  <span className="grid size-9 flex-none place-items-center rounded-full border border-(--gold)/60 font-bold font-mono text-(--gold)">
-                    {index + 1}
-                  </span>
-                  <div className="flex flex-col gap-2 pt-1">
-                    <h2 className="d-display font-bold text-(--parchment) text-xl uppercase">
-                      {step.title}
-                    </h2>
-                    <p className="text-(--parchment)">{step.text}</p>
-                    {step.list ? (
-                      <ul className="flex flex-col gap-1 text-(--faded) text-sm">
-                        {step.list.map((line) => (
-                          <li key={line}>{line}</li>
-                        ))}
-                      </ul>
-                    ) : null}
-                    {step.questions ? (
-                      <dl className="mt-2 flex flex-col gap-4 border-(--gold)/40 border-l-2 pl-5">
-                        {step.questions.map((item) => (
-                          <div
-                            className="flex flex-col gap-1"
-                            key={item.question}
-                          >
-                            <dt className="font-bold text-(--gold-hi)">
-                              {item.question}
-                            </dt>
-                            <dd className="text-(--faded)">{item.answer}</dd>
-                          </div>
-                        ))}
-                      </dl>
-                    ) : null}
-                    {repeated.length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {repeated.map((id) => (
-                          <AnnexLink key={id} target={id}>
-                            {annexById(id)?.title}
-                          </AnnexLink>
-                        ))}
+        <ol className="flex flex-col gap-10">
+          {proposal.steps.map((step, index) => (
+            <li className="flex gap-4" key={step.title}>
+              <span className="grid size-9 flex-none place-items-center rounded-full border border-(--gold)/60 font-bold font-mono text-(--gold)">
+                {index + 1}
+              </span>
+              <div className="flex min-w-0 flex-1 flex-col gap-3 pt-1">
+                <h2 className="d-display font-bold text-(--parchment) text-xl uppercase">
+                  {step.title}
+                </h2>
+                {step.paragraphs.map((paragraph) => (
+                  <p className="text-(--parchment)" key={paragraph}>
+                    {paragraph}
+                  </p>
+                ))}
+                {step.list ? (
+                  <ul className="flex flex-col gap-1 text-(--faded) text-sm">
+                    {step.list.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                ) : null}
+                {step.aside ? (
+                  <section className={`${panel} mt-2 flex flex-col gap-3 p-5`}>
+                    <h3 className="d-display font-bold text-(--gold-hi) uppercase">
+                      {step.aside.title}
+                    </h3>
+                    {step.aside.paragraphs.map((paragraph) => (
+                      <p className="text-(--faded)" key={paragraph}>
+                        {paragraph}
+                      </p>
+                    ))}
+                  </section>
+                ) : null}
+                {step.questions ? (
+                  <dl className="mt-2 flex flex-col gap-4 border-(--gold)/40 border-l-2 pl-5">
+                    {step.questions.map((item) => (
+                      <div className="flex flex-col gap-1" key={item.question}>
+                        <dt className="font-bold text-(--gold-hi)">
+                          {item.question}
+                        </dt>
+                        <dd className="text-(--faded)">{item.answer}</dd>
                       </div>
-                    ) : null}
-                  </div>
-                </div>
-                {fresh.map((id) => {
-                  const annex = annexById(id);
-                  return annex ? (
-                    <div className="sm:ml-13" key={id}>
-                      <AnnexCard annex={annex} inline />
-                    </div>
-                  ) : null;
-                })}
-              </li>
-            );
-          })}
+                    ))}
+                  </dl>
+                ) : null}
+              </div>
+            </li>
+          ))}
         </ol>
 
         <div className={`${panel} flex flex-col gap-2 p-5`}>
