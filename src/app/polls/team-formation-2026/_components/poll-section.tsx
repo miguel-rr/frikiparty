@@ -106,7 +106,7 @@ const VoteForm = ({
   const vote = api.poll.vote.useMutation({ onSuccess: onVoted });
   return (
     <div className="flex flex-1 flex-col gap-4">
-      <div className="flex flex-1 flex-col justify-center gap-2">
+      <div className="flex flex-1 flex-col justify-center gap-2 py-4">
         {poll.options.map((option) => (
           <button
             aria-pressed={chosen === option.key}
