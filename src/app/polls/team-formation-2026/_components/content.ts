@@ -30,9 +30,13 @@ const AUCTION = {
   title: 'El centro: la subasta',
   paragraphs: [
     'Cada capitán empieza con 100 monedas. Los jugadores salen a subasta uno a uno y los capitanes pujan en sobre cerrado: cada uno escribe en secreto lo máximo que pagaría. Gana la puja más alta, y el ganador paga la segunda puja más una moneda. Al terminar cada lote se abren todos los sobres.',
+    'Los propios capitanes deciden quién sale a subasta: por turnos, cada uno nomina a un jugador, y el orden se sortea en cada ronda.',
     'Las tres propuestas acaban en esta subasta. Lo que cambia entre ellas es el paso previo: qué ranking usamos, si hay bombos y quién es capitán. Para eso traemos tres opciones.',
   ],
-  annex: { id: 'annex-bidding', label: 'Cómo se puja' },
+  annexes: [
+    { id: 'annex-bidding', label: 'Cómo se puja' },
+    { id: 'annex-nomination', label: 'Quién saca a cada jugador' },
+  ],
 } as const;
 
 type Advantage = { title: string; before: string; after: string };
@@ -90,13 +94,13 @@ const ANNEXES: Annex[] = [
     id: 'annex-bidding',
     title: 'Cómo se puja',
     scope: null,
-    text: 'Sale un jugador y cada capitán que todavía puede llevárselo escribe su puja en secreto. Hay un tiempo por lote. Gana la puja más alta y paga la segunda más una moneda: así conviene escribir lo que de verdad vale para ti, porque pujar de más no te hace pagar más. Si dos pujas empatan, gana quien tiene más dinero; si también en eso empatan, sorteo. Al cerrar el lote se ven todas las pujas.',
+    text: 'Sale un jugador y cada capitán que todavía puede llevárselo escribe su puja en secreto. Hay un tiempo por lote. El capitán que lo ha nominado está obligado a pujar al menos 1; los demás pueden pasar. Gana la puja más alta y paga la segunda más una moneda, nunca más de lo que escribió: así conviene escribir lo que de verdad vale para ti, porque pujar de más no te hace pagar más. Si solo puja quien nominó, se lo lleva por 1. Si las pujas más altas empatan (por ejemplo, todos escriben 1), gana quien tiene más dinero y paga lo que escribió; si también en eso empatan, sorteo. Al cerrar el lote se ven todas las pujas.',
   },
   {
     id: 'annex-nomination',
     title: 'Quién saca a cada jugador',
     scope: null,
-    text: 'Los capitanes nominan por turnos, en un orden que se sortea una vez y se repite en cada vuelta. En su turno, el capitán elige a quién se subasta y abre con al menos el mínimo, así que ningún lote se queda sin dueño. Quien ya tiene el equipo completo pasa turno.',
+    text: 'No hay orden de salida fijo: los jugadores salen a subasta cuando un capitán los nomina. Los capitanes nominan por turnos, y en cada ronda completa (cinco jugadores subastados, uno por capitán) el orden de nominación se vuelve a sortear. En su turno, el capitán elige a quién se subasta y abre con al menos 1, así que ningún lote se queda sin dueño. Quien ya tiene el equipo completo pasa turno.',
   },
   {
     id: 'annex-money',

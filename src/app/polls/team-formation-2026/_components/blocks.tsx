@@ -89,7 +89,13 @@ const AuctionIntro = () => (
         {paragraph}
       </p>
     ))}
-    <AnnexLink target={AUCTION.annex.id}>{AUCTION.annex.label}</AnnexLink>
+    <div className="flex flex-wrap justify-center gap-2">
+      {AUCTION.annexes.map((annex) => (
+        <AnnexLink key={annex.id} target={annex.id}>
+          {annex.label}
+        </AnnexLink>
+      ))}
+    </div>
   </div>
 );
 
