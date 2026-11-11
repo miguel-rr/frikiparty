@@ -88,6 +88,21 @@ const ProposalPage = async ({ params }: { params: Promise<Params> }) => {
                         ))}
                       </ul>
                     ) : null}
+                    {step.questions ? (
+                      <dl className="mt-2 flex flex-col gap-4 border-(--gold)/40 border-l-2 pl-5">
+                        {step.questions.map((item) => (
+                          <div
+                            className="flex flex-col gap-1"
+                            key={item.question}
+                          >
+                            <dt className="font-bold text-(--gold-hi)">
+                              {item.question}
+                            </dt>
+                            <dd className="text-(--faded)">{item.answer}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    ) : null}
                     {repeated.length > 0 ? (
                       <div className="flex flex-wrap gap-2">
                         {repeated.map((id) => (

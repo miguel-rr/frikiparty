@@ -152,11 +152,15 @@ const ANNEXES: Annex[] = [
   },
 ];
 
+type Question = { question: string; answer: string };
+
 type Step = {
   title: string;
   text: string;
   list?: string[];
   annexes?: AnnexId[];
+  /** Questions and answers shown under the step, in place of annexes. */
+  questions?: Question[];
 };
 
 type Proposal = {
@@ -207,22 +211,94 @@ const PROPOSALS: Proposal[] = [
     steps: [
       {
         title: 'La votación de capitanes',
-        text: 'Se abre en la web antes del torneo. Cada confirmado responde sí o no a ser capitán. Nadie ve las respuestas de los demás hasta el cierre.',
+        text: 'Se abre en la web antes del torneo y tiene una hora límite. Cada confirmado responde sí o no a ser capitán y, hasta esa hora, puede cambiar su respuesta las veces que quiera. Nadie ve las respuestas de los demás hasta el cierre.',
+        questions: [
+          { question: '¿Y si no respondo?', answer: 'Cuenta como un no.' },
+          {
+            question: '¿Puedo ver quién se ha ofrecido antes de decidir?',
+            answer: 'No. Las respuestas solo se ven al cerrar.',
+          },
+        ],
       },
       {
         title: 'Los capitanes',
         text: 'Son capitanes los cinco voluntarios mejor situados en el ranking histórico.',
-        annexes: ['annex-ties', 'annex-volunteers'],
+        questions: [
+          {
+            question: '¿Y si se ofrecen más de cinco?',
+            answer:
+              'Son capitanes los cinco mejor situados en el ranking. El resto va a la subasta como uno más.',
+          },
+          {
+            question: '¿Y si se ofrecen menos de cinco?',
+            answer:
+              'Se completa con los mejor situados de quienes no se ofrecieron.',
+          },
+          {
+            question: 'Estoy arriba en el ranking y no quiero ser capitán.',
+            answer:
+              'No te ofreces y vas a la subasta. Solo te tocaría si faltan voluntarios.',
+          },
+          {
+            question: '¿Y si dos empatan en el ranking?',
+            answer:
+              'Desempatan los anillos individuales y, si siguen igual, se sortea.',
+          },
+        ],
       },
       {
         title: 'El dinero',
         text: 'Cada capitán empieza con 100 monedas.',
-        annexes: ['annex-money'],
+        questions: [
+          {
+            question: '¿Puedo gastarlo todo en un jugador?',
+            answer:
+              'No. Siempre tienes que guardar una moneda por cada plaza que te falte por llenar.',
+          },
+          {
+            question: '¿Para qué sirve lo que me sobre?',
+            answer:
+              'Para nada. Al terminar no vale nada, así que conviene gastarlo.',
+          },
+        ],
       },
       {
         title: 'La subasta',
         text: 'Los quince jugadores restantes salen todos en la misma subasta, sin bombos. Cada equipo se lleva tres.',
-        annexes: ['annex-bidding', 'annex-nomination'],
+        questions: [
+          {
+            question: '¿Quién decide qué jugador sale?',
+            answer:
+              'Los capitanes, por turnos, y el orden se sortea de nuevo en cada ronda de cinco.',
+          },
+          {
+            question: '¿Cómo se puja?',
+            answer:
+              'En secreto y con tiempo por lote. Quien nomina está obligado a pujar al menos 1.',
+          },
+          {
+            question: '¿Cuánto pago si gano?',
+            answer:
+              'La segunda puja más alta más una moneda, nunca más de lo que escribiste. Por eso conviene escribir lo que de verdad vale para ti.',
+          },
+          {
+            question: '¿Y si nadie más puja?',
+            answer: 'Se lo lleva quien lo nominó, por 1.',
+          },
+          {
+            question: '¿Y si empatan las pujas más altas?',
+            answer:
+              'Gana quien tiene más dinero y paga lo que escribió. Si también empatan en eso, se sortea.',
+          },
+          {
+            question: '¿Se ven las pujas de los demás?',
+            answer: 'Sí, todas, al cerrar el lote.',
+          },
+          {
+            question: '¿Y si ya tengo el equipo completo?',
+            answer: 'Pasas turno y no pujas más.',
+          },
+        ],
       },
       {
         title: 'Los equipos',
