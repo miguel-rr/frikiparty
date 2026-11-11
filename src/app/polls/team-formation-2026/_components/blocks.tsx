@@ -76,15 +76,15 @@ const Opening = () => (
 
 const AuctionIntro = () => (
   <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+    <h2 className="d-display font-bold text-3xl uppercase sm:text-4xl">
+      {AUCTION.title}
+    </h2>
     <span className="flex items-center gap-3">
       <CoinStack value={100} />
       <span className="font-mono text-(--faded) text-2xs uppercase tracking-xl">
         monedas por capitán
       </span>
     </span>
-    <h2 className="d-display font-bold text-3xl uppercase sm:text-4xl">
-      {AUCTION.title}
-    </h2>
     {AUCTION.paragraphs.map((paragraph) => (
       <p className="max-w-[60ch] text-(--faded)" key={paragraph.slice(0, 24)}>
         {paragraph}
