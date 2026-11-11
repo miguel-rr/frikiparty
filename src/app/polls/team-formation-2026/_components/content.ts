@@ -41,7 +41,7 @@ const AUCTION = {
     {
       annex: 'annex-nomination',
       title: 'Orden de subasta',
-      text: 'Lo deciden los capitanes: por turnos, cada uno nomina a un jugador y abre con al menos 1. El orden de turnos se sortea en cada ronda.',
+      text: 'Lo deciden los capitanes. Por turnos, cada uno elige qué jugador sale a subasta, y quien lo elige queda obligado a pujar por él al menos 1 moneda: si nadie puja más, se lo lleva. El orden de turnos se sortea en cada ronda.',
     },
   ],
 } as const;
