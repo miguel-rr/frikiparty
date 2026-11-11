@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   jsonb,
   text,
@@ -16,7 +17,8 @@ type PollOption = { key: string; label: string };
 /**
  * One question of a polls page. A page (`page`) groups its polls in
  * `position` order. Only players confirmed for `editionId` vote; results
- * open once half of them plus one have voted (see src/lib/polls).
+ * open once half of them plus one have voted (see src/lib/polls). The
+ * admin desk (/admin/polls) shows, hides, opens and closes them.
  */
 const poll = createTable('poll', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -28,7 +30,13 @@ const poll = createTable('poll', {
   editionId: uuid('edition_id')
     .notNull()
     .references(() => edition.id, { onDelete: 'cascade' }),
-  closesAt: timestamp('closes_at', { withTimezone: true }).notNull(),
+  /** Hidden polls are left out of their page altogether. */
+  visible: boolean('visible').notNull().default(true),
+  /** Opened by hand; `opensAt` opens it on its own at that time. */
+  votingOpen: boolean('voting_open').notNull().default(true),
+  opensAt: timestamp('opens_at', { withTimezone: true }),
+  /** No closing time yet: it stays open until one is set. */
+  closesAt: timestamp('closes_at', { withTimezone: true }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

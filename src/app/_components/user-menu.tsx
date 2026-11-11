@@ -250,6 +250,16 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   Juegos
                 </Link>
               ) : null}
+              {isAdmin({ role }) ? (
+                <Link
+                  className={item}
+                  href="/admin/polls"
+                  onClick={() => setOpen(false)}
+                  role="menuitem"
+                >
+                  Gestionar encuestas
+                </Link>
+              ) : null}
               {canTranslate({ role }) ? (
                 <Link
                   className={item}

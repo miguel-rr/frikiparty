@@ -16,4 +16,28 @@ type ResultsAccess = {
 const resultsVisible = ({ closed, votes, quorum, hasVoted }: ResultsAccess) =>
   votes >= quorum && (closed || hasVoted);
 
-export { quorumFor, resultsVisible };
+type PollPhase = 'waiting' | 'open' | 'closed';
+
+type PhaseInput = {
+  votingOpen: boolean;
+  opensAt: Date | null;
+  closesAt: Date | null;
+  now: number;
+};
+
+/**
+ * Where a poll stands: closed once its closing time has passed, open when
+ * opened by hand or its opening time has come, otherwise still waiting.
+ */
+const pollPhase = ({
+  votingOpen,
+  opensAt,
+  closesAt,
+  now,
+}: PhaseInput): PollPhase => {
+  if (closesAt && closesAt.getTime() <= now) return 'closed';
+  if (votingOpen || (opensAt && opensAt.getTime() <= now)) return 'open';
+  return 'waiting';
+};
+
+export { type PollPhase, pollPhase, quorumFor, resultsVisible };

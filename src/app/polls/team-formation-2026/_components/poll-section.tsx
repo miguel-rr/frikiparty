@@ -11,14 +11,22 @@ import { PAGE, PAGE_PATH } from './content';
 
 type PagePoll = PollPage['polls'][number];
 
-const deadlineText = (closesAt: Date) =>
+const dateText = (date: Date) =>
   new Intl.DateTimeFormat('es-ES', {
     weekday: 'long',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
     timeZone: 'Europe/Madrid',
-  }).format(closesAt);
+  }).format(date);
+
+const statusText = (poll: PagePoll) => {
+  if (poll.phase === 'closed') return 'cerrada';
+  if (poll.phase === 'waiting') return 'aún no abierta';
+  return poll.closesAt
+    ? `cierra el ${dateText(poll.closesAt)}`
+    : 'abierta, sin hora de cierre todavía';
+};
 
 /** Votes so far, and how many it takes to open the results. */
 const Turnout = ({ poll }: { poll: PagePoll }) => {
@@ -165,6 +173,26 @@ const PollCard = ({
   )?.label;
   const noQuorum = poll.closed && poll.votes < poll.quorum;
   const body = (() => {
+    if (poll.phase === 'waiting') {
+      return (
+        <div className="flex flex-1 flex-col justify-center gap-4 py-4">
+          <p className="rounded-lg border border-(--hair-gold) border-dashed px-4 py-3 text-center text-(--parchment)">
+            La votación aún no se ha abierto
+            {poll.opensAt ? `: se abre el ${dateText(poll.opensAt)}.` : '.'}
+          </p>
+          <ul className="flex flex-col gap-2 opacity-50">
+            {poll.options.map((option) => (
+              <li
+                className="rounded-lg border border-(--hair) px-4 py-3 text-(--parchment)"
+                key={option.key}
+              >
+                {option.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
     if (poll.closed) {
       if (noQuorum) {
         return (
@@ -246,15 +274,16 @@ const PollCard = ({
       <span className="d-corner-b" />
       <div className="flex flex-col gap-1">
         <span className="font-mono text-(--gold) text-2xs uppercase tracking-2xl">
-          Votación ·{' '}
-          {poll.closed ? 'cerrada' : `cierra el ${deadlineText(poll.closesAt)}`}
+          Votación · {statusText(poll)}
         </span>
         <h3 className="d-display font-bold text-(--parchment) text-xl uppercase">
           {poll.question}
         </h3>
       </div>
       <div className="flex flex-1 flex-col">{body}</div>
-      {signedIn || poll.closed ? <Turnout poll={poll} /> : null}
+      {poll.phase !== 'waiting' && (signedIn || poll.closed) ? (
+        <Turnout poll={poll} />
+      ) : null}
     </div>
   );
 };

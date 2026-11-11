@@ -2,9 +2,10 @@ import { TRPCError } from '@trpc/server';
 import { and, asc, count, eq, inArray } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { quorumFor, resultsVisible } from '@/lib/polls/rules';
+import { pollPhase, quorumFor, resultsVisible } from '@/lib/polls/rules';
 import { getPlayerForUser } from '@/server/api/routers/player';
 import {
+  adminProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
@@ -45,7 +46,7 @@ const loadPollPage = async (
   const polls = await db
     .select()
     .from(poll)
-    .where(eq(poll.page, page))
+    .where(and(eq(poll.page, page), eq(poll.visible, true)))
     .orderBy(asc(poll.position));
   if (polls.length === 0) return null;
   const ids = polls.map((row) => row.id);
@@ -94,7 +95,8 @@ const loadPollPage = async (
       const votes = [...counts.values()].reduce((sum, n) => sum + n, 0);
       const eligible = eligibleBy.get(row.editionId) ?? 0;
       const quorum = quorumFor(eligible);
-      const closed = row.closesAt.getTime() <= now;
+      const phase = pollPhase({ ...row, now });
+      const closed = phase === 'closed';
       const mineKey = myVote.get(row.id) ?? null;
       const visible = resultsVisible({
         closed,
@@ -107,7 +109,9 @@ const loadPollPage = async (
         slug: row.slug,
         question: row.question,
         options: row.options,
+        opensAt: row.opensAt,
         closesAt: row.closesAt,
+        phase,
         closed,
         eligible,
         quorum,
@@ -147,10 +151,14 @@ const pollRouter = createTRPCRouter({
       if (!row) {
         throw new TRPCError({ code: 'NOT_FOUND', message: 'No existe.' });
       }
-      if (row.closesAt.getTime() <= Date.now()) {
+      const phase = pollPhase({ ...row, now: Date.now() });
+      if (phase !== 'open') {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: 'La votación ya está cerrada.',
+          message:
+            phase === 'closed'
+              ? 'La votación ya está cerrada.'
+              : 'La votación aún no se ha abierto.',
         });
       }
       if (!row.options.some((option) => option.key === input.optionKey)) {
@@ -177,6 +185,127 @@ const pollRouter = createTRPCRouter({
     }),
 });
 
+/** Every poll with its settings and turnout; never who voted what. */
+const loadAdminPolls = async (db: TRPCContext['db']) => {
+  const [polls, turnout, eligibleRows] = await Promise.all([
+    db.select().from(poll).orderBy(asc(poll.page), asc(poll.position)),
+    db
+      .select({ pollId: pollVote.pollId, votes: count() })
+      .from(pollVote)
+      .groupBy(pollVote.pollId),
+    db
+      .select({ editionId: editionPlayer.editionId, players: count() })
+      .from(editionPlayer)
+      .groupBy(editionPlayer.editionId),
+  ]);
+  const votesBy = new Map(turnout.map((row) => [row.pollId, row.votes]));
+  const eligibleBy = new Map(
+    eligibleRows.map((row) => [row.editionId, row.players]),
+  );
+  const now = Date.now();
+  return polls.map((row) => {
+    const eligible = eligibleBy.get(row.editionId) ?? 0;
+    return {
+      id: row.id,
+      page: row.page,
+      question: row.question,
+      options: row.options,
+      visible: row.visible,
+      votingOpen: row.votingOpen,
+      opensAt: row.opensAt,
+      closesAt: row.closesAt,
+      phase: pollPhase({ ...row, now }),
+      votes: votesBy.get(row.id) ?? 0,
+      eligible,
+      quorum: quorumFor(eligible),
+    };
+  });
+};
+
+const pollVotes = async (db: TRPCContext['db'], pollId: string) => {
+  const [row] = await db
+    .select({ votes: count() })
+    .from(pollVote)
+    .where(eq(pollVote.pollId, pollId));
+  return row?.votes ?? 0;
+};
+
+const pollAdminRouter = createTRPCRouter({
+  list: adminProcedure.query(({ ctx }) => loadAdminPolls(ctx.db)),
+
+  /** Visibility, opening and closing; `null` clears a time. */
+  update: adminProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        visible: z.boolean().optional(),
+        votingOpen: z.boolean().optional(),
+        opensAt: z.date().nullable().optional(),
+        closesAt: z.date().nullable().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...changes } = input;
+      // Pausing also drops an opening time already passed, or it would
+      // keep the poll open.
+      const pausing =
+        changes.votingOpen === false && changes.opensAt === undefined;
+      await ctx.db
+        .update(poll)
+        .set(pausing ? { ...changes, opensAt: null } : changes)
+        .where(eq(poll.id, id));
+      return { ok: true };
+    }),
+
+  closeNow: adminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(poll)
+        .set({ closesAt: new Date() })
+        .where(eq(poll.id, input.id));
+      return { ok: true };
+    }),
+
+  /** The wording, only while nobody has voted: a vote is for a text. */
+  editText: adminProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        question: z.string().trim().min(1).max(300),
+        labels: z.record(z.string(), z.string().trim().min(1).max(120)),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const [row] = await ctx.db
+        .select()
+        .from(poll)
+        .where(eq(poll.id, input.id));
+      if (!row) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'No existe.' });
+      }
+      if ((await pollVotes(ctx.db, row.id)) > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Ya hay votos: el texto no se puede cambiar.',
+        });
+      }
+      await ctx.db
+        .update(poll)
+        .set({
+          question: input.question,
+          options: row.options.map((option) => ({
+            key: option.key,
+            label: input.labels[option.key] ?? option.label,
+          })),
+        })
+        .where(eq(poll.id, row.id));
+      return { ok: true };
+    }),
+});
+
 type PollPage = NonNullable<Awaited<ReturnType<typeof loadPollPage>>>;
 
-export { type PollPage, pollRouter };
+type AdminPoll = Awaited<ReturnType<typeof loadAdminPolls>>[number];
+
+export { type AdminPoll, type PollPage, pollAdminRouter, pollRouter };
