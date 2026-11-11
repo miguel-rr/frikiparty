@@ -20,48 +20,28 @@ const deadlineText = (closesAt: Date) =>
     timeZone: 'Europe/Madrid',
   }).format(closesAt);
 
-/** Votes so far against everyone who can vote, with the quorum flag. */
-const TurnoutBar = ({ poll }: { poll: PagePoll }) => {
-  const total = Math.max(poll.eligible, 1);
-  const missing = Math.max(0, poll.quorum - poll.votes);
-  const at = (poll.quorum / total) * 100;
+/** Votes so far, and how many it takes to open the results. */
+const Turnout = ({ poll }: { poll: PagePoll }) => {
+  const reached = poll.votes >= poll.quorum;
   return (
-    <div className="flex items-center gap-4">
-      {/* Fixed width so the bar never moves as the count grows. */}
-      <div className="flex w-20 flex-none items-baseline justify-end gap-1 tabular-nums">
-        <span className="d-display font-black text-(--parchment) text-3xl">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-(--hair-gold) border-t pt-4">
+      <span className="text-(--faded) text-sm">
+        <strong className="d-display text-(--parchment) text-xl tabular-nums">
           {poll.votes}
-        </span>
-        <span className="font-mono text-(--faded) text-sm">
-          /{poll.eligible}
-        </span>
-      </div>
-      <div className="flex flex-1 flex-col gap-1.5 pt-4">
-        <div className="relative h-1.5 rounded-full bg-(--night-2)">
-          <div
-            className={`h-full rounded-full ${missing === 0 ? 'bg-(--gold-hi)' : 'bg-(--gold)'}`}
-            style={{ width: `${Math.min(100, (poll.votes / total) * 100)}%` }}
-          />
-          <span
-            className="absolute -top-5 -translate-x-1/2 font-mono text-(--parchment) text-2xs"
-            style={{ left: `${at}%` }}
-          >
-            ◆ {poll.quorum}
-          </span>
-          <span
-            aria-hidden
-            className="absolute -top-1 h-3.5 w-px -translate-x-1/2 bg-(--parchment)"
-            style={{ left: `${at}%` }}
-          />
-        </div>
-        <span
-          className={`font-mono text-2xs uppercase tracking-xl ${missing === 0 ? 'text-(--gold-hi)' : 'text-(--faded)'}`}
-        >
-          {missing === 0
-            ? 'Resultados abiertos'
-            : `Faltan ${missing} para ver resultados`}
-        </span>
-      </div>
+        </strong>{' '}
+        {poll.votes === 1 ? 'voto' : 'votos'}
+      </span>
+      <span
+        className={`rounded-full border px-3 py-1 font-mono text-2xs uppercase tracking-xl ${
+          reached
+            ? 'border-(--gold) bg-(--gold)/10 text-(--gold-hi)'
+            : 'border-(--hair-gold) text-(--faded)'
+        }`}
+      >
+        {reached
+          ? 'Resultados abiertos'
+          : `Hacen falta ${poll.quorum} para ver los resultados`}
+      </span>
     </div>
   );
 };
@@ -280,7 +260,7 @@ const PollCard = ({
         </h3>
       </div>
       <div className="flex flex-1 flex-col">{body}</div>
-      {signedIn || poll.closed ? <TurnoutBar poll={poll} /> : null}
+      {signedIn || poll.closed ? <Turnout poll={poll} /> : null}
     </div>
   );
 };
