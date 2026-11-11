@@ -210,6 +210,14 @@ const UserMenu = ({ label, role }: UserMenuProps) => {
                   {attendanceError.message}
                 </p>
               ) : null}
+              <Link
+                className={item}
+                href="/polls"
+                onClick={() => setOpen(false)}
+                role="menuitem"
+              >
+                Encuestas
+              </Link>
               {/* The library, for whoever may enter it: a claimed player,
                   an editor, an admin. */}
               {canModerate({ role }) || mine.data ? (
