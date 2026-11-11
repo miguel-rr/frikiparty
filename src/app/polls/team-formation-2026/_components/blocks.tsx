@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import {
+  btn,
   CoinStack,
   linkGold,
   panel,
@@ -89,11 +90,21 @@ const AuctionIntro = () => (
         {paragraph}
       </p>
     ))}
-    <div className="flex flex-wrap justify-center gap-2">
-      {AUCTION.annexes.map((annex) => (
-        <AnnexLink key={annex.id} target={annex.id}>
-          {annex.label}
-        </AnnexLink>
+    <div className="grid w-full gap-4 pt-2 text-left sm:grid-cols-2">
+      {AUCTION.summaries.map((summary) => (
+        <div className={`${panel} flex flex-col gap-3 p-5`} key={summary.annex}>
+          <h3 className="d-display font-bold text-(--gold-hi) text-lg uppercase">
+            {summary.title}
+          </h3>
+          <p className="text-(--faded) text-sm">{summary.text}</p>
+          <AnnexLink
+            bare
+            className={`${btn.secondary} mt-auto self-start px-4 py-1.5 text-sm`}
+            target={summary.annex}
+          >
+            Explicación completa ↓
+          </AnnexLink>
+        </div>
       ))}
     </div>
   </div>

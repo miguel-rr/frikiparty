@@ -29,13 +29,20 @@ const OPENING = {
 const AUCTION = {
   title: 'El centro: la subasta',
   paragraphs: [
-    'Cada capitán empieza con 100 monedas. Los jugadores salen a subasta uno a uno y los capitanes pujan en sobre cerrado: cada uno escribe en secreto lo máximo que pagaría. Gana la puja más alta, y el ganador paga la segunda puja más una moneda. Al terminar cada lote se abren todos los sobres.',
-    'Los propios capitanes deciden quién sale a subasta: por turnos, cada uno nomina a un jugador, y el orden se sortea en cada ronda.',
+    'Cada capitán empieza con 100 monedas y construye su equipo pujando por los jugadores, uno a uno.',
     'Las tres propuestas acaban en esta subasta. Lo que cambia entre ellas es el paso previo: qué ranking usamos, si hay bombos y quién es capitán. Para eso traemos tres opciones.',
   ],
-  annexes: [
-    { id: 'annex-bidding', label: 'Cómo se puja' },
-    { id: 'annex-nomination', label: 'Quién saca a cada jugador' },
+  summaries: [
+    {
+      annex: 'annex-bidding',
+      title: 'Cómo se puja',
+      text: 'En sobre cerrado: cada capitán escribe en secreto lo máximo que pagaría. Gana la puja más alta y paga la segunda más una moneda. Al cerrar el lote se ven todos los sobres.',
+    },
+    {
+      annex: 'annex-nomination',
+      title: 'Orden de subasta',
+      text: 'Lo deciden los capitanes: por turnos, cada uno nomina a un jugador y abre con al menos 1. El orden de turnos se sortea en cada ronda.',
+    },
   ],
 } as const;
 
@@ -98,7 +105,7 @@ const ANNEXES: Annex[] = [
   },
   {
     id: 'annex-nomination',
-    title: 'Quién saca a cada jugador',
+    title: 'Orden de subasta',
     scope: null,
     text: 'No hay orden de salida fijo: los jugadores salen a subasta cuando un capitán los nomina. Los capitanes nominan por turnos, y en cada ronda completa (cinco jugadores subastados, uno por capitán) el orden de nominación se vuelve a sortear. En su turno, el capitán elige a quién se subasta y abre con al menos 1, así que ningún lote se queda sin dueño. Quien ya tiene el equipo completo pasa turno.',
   },
