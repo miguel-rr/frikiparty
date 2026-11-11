@@ -73,11 +73,11 @@ const ADVANTAGES: Advantage[] = [
   },
   {
     problem: 'Medio equipo, a suerte',
-    title: 'Decide el capitán, no la suerte',
+    title: 'Decide el equipo, no la suerte',
     before:
       'El sorteo y el orden del draft decidían medio equipo, y las quejas llegaban después.',
     after:
-      'Cada capitán decide en quién gasta y en quién no. Si su equipo no le gusta, la culpa es suya.',
+      'El capitán, y con él cada jugador que ya ha fichado, decide en quién gastar y en quién no. Si el equipo no os gusta, no hay sorteo al que echarle la culpa.',
   },
   {
     problem: 'Equipos con varias estrellas',
