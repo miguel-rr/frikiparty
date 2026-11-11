@@ -9,6 +9,7 @@ import {
   AuctionIntro,
   Opening,
   Proposals,
+  WhyCaptain,
   WhyFree,
 } from './_components/blocks';
 import { DEPARTMENT, POLLS_INTRO } from './_components/content';
@@ -44,6 +45,9 @@ const TeamFormationPollPage = () => (
     </Section>
     <Section id="why-free">
       <WhyFree />
+    </Section>
+    <Section id="why-captain">
+      <WhyCaptain />
     </Section>
     <Divider />
     <Section id="polls">

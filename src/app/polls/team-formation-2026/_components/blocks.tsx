@@ -21,6 +21,7 @@ import {
   PAGE_PATH,
   PROPOSALS,
   type Proposal,
+  WHY_CAPTAIN,
   WHY_FREE,
 } from './content';
 
@@ -250,16 +251,8 @@ const WhyFree = () => (
       {WHY_FREE.title}
     </h2>
     <p className="text-(--faded)">{WHY_FREE.lead}</p>
-    <div className="grid gap-4 sm:grid-cols-2">
-      {WHY_FREE.captain.map((reason) => (
-        <div className="flex flex-col gap-1" key={reason.title}>
-          <span className="font-bold text-(--gold-hi)">{reason.title}</span>
-          <span className="text-(--faded) text-sm">{reason.text}</span>
-        </div>
-      ))}
-    </div>
-    <ul className="flex flex-col gap-1.5 border-(--hair-gold) border-t pt-4 text-(--faded) text-sm">
-      {WHY_FREE.everyone.map((line) => (
+    <ul className="flex flex-col gap-2.5 text-(--faded)">
+      {WHY_FREE.reasons.map((line) => (
         <li className="flex gap-2" key={line}>
           <span aria-hidden className="text-(--gold)">
             ✦
@@ -268,6 +261,24 @@ const WhyFree = () => (
         </li>
       ))}
     </ul>
+  </div>
+);
+
+const WhyCaptain = () => (
+  <div className={`${panel} mx-auto flex max-w-3xl flex-col gap-5 p-6 sm:p-8`}>
+    <span className={`${tag} self-start`}>{WHY_CAPTAIN.tag}</span>
+    <h2 className="d-display font-bold text-(--parchment) text-2xl uppercase">
+      {WHY_CAPTAIN.title}
+    </h2>
+    <p className="text-(--faded)">{WHY_CAPTAIN.lead}</p>
+    <div className="grid gap-4 sm:grid-cols-2">
+      {WHY_CAPTAIN.reasons.map((reason) => (
+        <div className="flex flex-col gap-1" key={reason.title}>
+          <span className="font-bold text-(--gold-hi)">{reason.title}</span>
+          <span className="text-(--faded) text-sm">{reason.text}</span>
+        </div>
+      ))}
+    </div>
   </div>
 );
 
@@ -332,5 +343,6 @@ export {
   Opening,
   Proposals,
   SCOPE_NAMES,
+  WhyCaptain,
   WhyFree,
 };

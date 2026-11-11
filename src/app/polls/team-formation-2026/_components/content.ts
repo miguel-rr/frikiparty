@@ -226,10 +226,10 @@ const PROPOSALS: Proposal[] = [
       },
       {
         title: 'Los equipos',
-        text: 'Al terminar, cada equipo tiene un capitán que eligió serlo y tres jugadores que él mismo compró.',
+        text: 'Al terminar, cada equipo tiene un capitán y tres jugadores que él mismo compró.',
       },
     ],
-    good: 'nadie es capitán a la fuerza, nadie cae en un bombo que no le corresponde y cada jugador cuesta lo que vale.',
+    good: 'los capitanes, salvo que falten voluntarios, son quienes quieren serlo; nadie cae en un bombo que no le corresponde y cada jugador cuesta lo que vale.',
     caveatLabel: 'Lo que hay que aceptar',
     caveat:
       'no hay un nuevo portador garantizado; si lo queréis, se puede añadir el bombo sin anillo de la Intermedia.',
@@ -328,10 +328,22 @@ const PROPOSALS: Proposal[] = [
 ];
 
 const WHY_FREE = {
-  tag: 'Por qué la libre',
+  tag: 'La que defendemos',
+  title: 'Por qué defendemos la libre',
+  lead: 'La subasta funciona mejor cuando nada llega decidido de antemano: ni quién es capitán ni en qué bombo cae cada uno.',
+  reasons: [
+    'Capitán, en principio, solo quien quiera serlo. Solo si se ofrecen menos de cinco se completa con los mejor situados del ranking.',
+    'Sin bombos, nadie cae donde no le toca: un buen jugador sin anillos ya no es un regalo en el bombo 4.',
+    'Cada jugador cuesta lo que el grupo cree que vale, no lo que dice una etiqueta.',
+    'La votación es ciega: nadie espera a ver qué hacen los demás para decidir.',
+  ],
+} as const;
+
+const WHY_CAPTAIN = {
+  tag: 'Para los indecisos',
   title: '¿Por qué querrías ser capitán?',
-  lead: 'En el departamento defendemos la propuesta libre. La subasta brilla más cuando nadie llega con el papel asignado: capitán es quien quiere serlo.',
-  captain: [
+  lead: 'Si sale la libre, los capitanes saldrán de quienes se ofrezcan. Estas son las razones para dar el paso.',
+  reasons: [
     {
       title: 'Tu equipo es tu obra',
       text: 'Nadie te lo reparte: lo montas tú, jugador a jugador.',
@@ -348,11 +360,6 @@ const WHY_FREE = {
       title: 'Si eres de los buenos, es tu sitio',
       text: 'Ser capitán es la única forma de no acabar siendo el fichaje caro de otro.',
     },
-  ],
-  everyone: [
-    'Nadie es capitán a la fuerza: quien no quiere esa responsabilidad, no la tiene.',
-    'Sin bombos, nadie cae donde no le toca: un buen jugador sin anillos ya no es un regalo en el bombo 4.',
-    'La votación es ciega: nadie espera a ver qué hacen los demás para decidir.',
   ],
 } as const;
 
@@ -382,5 +389,6 @@ export {
   type Proposal,
   type ProposalKey,
   proposalByKey,
+  WHY_CAPTAIN,
   WHY_FREE,
 };
