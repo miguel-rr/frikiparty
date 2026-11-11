@@ -57,11 +57,11 @@ const ADVANTAGES: Advantage[] = [
       'Nadie cae en ningún bombo por accidente. Si un jugador es muy bueno, costará caro.',
   },
   {
-    title: 'El ranking deja de ser un campo de batalla',
+    title: 'El equipo juega desde el primer minuto',
     before:
-      'Con la votación secreta hubo quien votó para hundirse y caer en un bombo más cómodo. «Aquí vale todo por un anillo.»',
+      'Cada jugador esperaba a que lo eligieran y miraba el draft desde fuera.',
     after:
-      'El ranking pesa mucho menos. Lo que decide el equipo es lo que cada capitán paga.',
+      'En cuanto un jugador es subastado, pasa a ser del equipo y ayuda a su capitán con la estrategia el resto de la subasta. Las pujas se deciden en equipo.',
   },
   {
     title: 'Decide el capitán, no la suerte',
@@ -71,10 +71,11 @@ const ADVANTAGES: Advantage[] = [
       'Cada capitán decide en quién gasta y en quién no. Si su equipo no le gusta, la culpa es suya.',
   },
   {
-    title: 'La mejor noche de la Frikiparty',
-    before: 'Un trámite antes de jugar.',
+    title: 'Imposible juntar a todos los buenos',
+    before:
+      'Con suerte en el sorteo y en los bombos, un equipo podía reunir a varios de los mejores.',
     after:
-      'Sobres, faroles, piques y algún capitán arruinado. El espectáculo empieza antes del primer partido.',
+      'Cada jugador bueno cuesta caro. Quien gasta en dos o tres estrellas se queda sin dinero para el resto: el presupuesto obliga a repartir el talento.',
   },
 ];
 
