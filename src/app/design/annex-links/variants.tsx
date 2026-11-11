@@ -14,6 +14,10 @@ import {
 import { linkGold, panel, panelGold } from '@/components/theme/primitives';
 
 /** Which annex each summary step leans on. */
+const annexesOf = (proposal: Proposal) => [
+  ...new Set(proposal.summary.flatMap((step) => step.annexes ?? [])),
+];
+
 const STEP_ANNEXES: Record<Proposal['key'], Record<string, AnnexId[]>> = {
   free: { Ranking: ['annex-ties'], Capitanes: ['annex-volunteers'] },
   intermediate: { Ranking: ['annex-ties'], Subasta: ['annex-ringless'] },
@@ -124,7 +128,7 @@ const FinePrintCard = ({ proposal }: { proposal: Proposal }) => (
     footer={
       <p className="border-(--hair) border-t pt-3 text-(--faded) text-xs">
         <span className="font-mono uppercase tracking-xl">Letra pequeña: </span>
-        {proposal.annexes.map((id, index) => (
+        {annexesOf(proposal).map((id, index) => (
           <span key={id}>
             {index > 0 ? ' · ' : ''}
             <AnnexLink
@@ -230,7 +234,7 @@ const FoldCard = ({ proposal }: { proposal: Proposal }) => (
     footer={
       <details className="group rounded-lg border border-(--hair) bg-(--night-2)/60 px-4 py-2.5">
         <summary className="flex cursor-pointer list-none items-center justify-between font-mono text-(--gold) text-2xs uppercase tracking-xl">
-          Casos especiales ({proposal.annexes.length})
+          Casos especiales ({annexesOf(proposal).length})
           <span
             aria-hidden
             className="transition-transform group-open:rotate-180"
@@ -239,7 +243,7 @@ const FoldCard = ({ proposal }: { proposal: Proposal }) => (
           </span>
         </summary>
         <div className="flex flex-col gap-3 pt-3">
-          {proposal.annexes.map((id) => {
+          {annexesOf(proposal).map((id) => {
             const annex = annexById(id);
             return annex ? (
               <div className="flex flex-col gap-0.5 text-xs" key={id}>

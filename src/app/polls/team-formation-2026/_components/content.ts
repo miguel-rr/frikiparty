@@ -164,8 +164,8 @@ type Proposal = {
   name: string;
   motto: string;
   recommended: boolean;
-  summary: { title: string; text: string }[];
-  annexes: AnnexId[];
+  /** Card steps; their annexes become the card's footnotes. */
+  summary: { title: string; text: string; annexes?: AnnexId[] }[];
   lead: string;
   steps: Step[];
   good: string;
@@ -191,17 +191,18 @@ const PROPOSALS: Proposal[] = [
       {
         title: 'Ranking',
         text: 'El histórico, solo para ordenar a los voluntarios.',
+        annexes: ['annex-ties'],
       },
       {
         title: 'Capitanes',
         text: 'Votación ciega en la web: cada confirmado dice sí o no a ser capitán sin saber qué han dicho los demás. Son capitanes los cinco voluntarios mejor situados en el ranking.',
+        annexes: ['annex-volunteers'],
       },
       {
         title: 'Subasta',
         text: 'Los quince jugadores restantes, todos en la misma subasta, sin bombos.',
       },
     ],
-    annexes: ['annex-ties', 'annex-volunteers'],
     lead: 'Capitán quien quiera serlo, y todo lo demás, en la subasta.',
     steps: [
       {
@@ -239,14 +240,14 @@ const PROPOSALS: Proposal[] = [
     motto: 'Un nuevo portador garantizado y el resto, libre.',
     recommended: false,
     summary: [
-      { title: 'Ranking', text: 'El histórico.' },
+      { title: 'Ranking', text: 'El histórico.', annexes: ['annex-ties'] },
       { title: 'Capitanes', text: 'Los cinco del bombo 1.' },
       {
         title: 'Subasta',
         text: 'Una subasta para los cinco sin anillo, para garantizar un nuevo portador. Después, los diez restantes juntos, sin bombos.',
+        annexes: ['annex-ringless'],
       },
     ],
-    annexes: ['annex-ties', 'annex-ringless'],
     lead: 'Un nuevo portador garantizado y, para todo lo demás, mercado libre.',
     steps: [
       {
@@ -287,14 +288,15 @@ const PROPOSALS: Proposal[] = [
       {
         title: 'Ranking',
         text: 'El histórico, con los bombos que ya publicó Armonds.',
+        annexes: ['annex-ties'],
       },
       { title: 'Capitanes', text: 'Los cinco del bombo 1.' },
       {
         title: 'Subasta',
         text: 'Una subasta por bombo, del 2 al 4. Cada equipo se lleva un jugador de cada bombo.',
+        annexes: ['annex-pots'],
       },
     ],
-    annexes: ['annex-ties', 'annex-pots'],
     lead: 'Lo que ya conocemos, con una sola diferencia: en vez de un draft, una subasta por bombo.',
     steps: [
       {

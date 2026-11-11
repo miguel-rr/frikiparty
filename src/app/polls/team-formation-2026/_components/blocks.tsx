@@ -14,6 +14,7 @@ import {
   ADVANTAGES,
   ANNEXES,
   type Annex,
+  type AnnexId,
   AUCTION,
   annexById,
   OPENING,
@@ -151,50 +152,85 @@ const Advantages = () => (
   </div>
 );
 
-const ProposalCard = ({ proposal }: { proposal: Proposal }) => (
-  <div
-    className={`${
-      proposal.recommended
-        ? `${panelGold} lg:-translate-y-3 lg:shadow-[0_0_40px_rgba(201,165,87,0.18)]`
-        : panel
-    } relative flex flex-col gap-4 p-5`}
-  >
-    {proposal.recommended ? (
-      <span className="absolute -top-3 left-5 rounded-full bg-(--gold) px-3 py-0.5 font-bold font-mono text-(--night) text-2xs uppercase tracking-xl">
-        La que defendemos
-      </span>
-    ) : null}
-    <h3 className="d-display font-black text-(--parchment) text-2xl uppercase">
-      {proposal.name}
-    </h3>
-    <p className="text-(--parchment) italic">{proposal.motto}</p>
-    <ol className="flex flex-col gap-3">
-      {proposal.summary.map((step, index) => (
-        <li className="flex gap-3" key={step.title}>
-          <span className="grid size-7 flex-none place-items-center rounded-full border border-(--gold)/60 font-bold font-mono text-(--gold) text-xs">
-            {index + 1}
-          </span>
-          <span className="text-sm">
-            <strong className="text-(--parchment)">{step.title}.</strong>{' '}
-            <span className="text-(--faded)">{step.text}</span>
-          </span>
-        </li>
-      ))}
-    </ol>
-    <div className="mt-auto flex flex-col gap-3">
-      <div className="flex flex-wrap gap-2">
-        {proposal.annexes.map((id) => (
-          <AnnexLink key={id} target={id}>
-            {annexById(id)?.title}
-          </AnnexLink>
+/** Numbers each step's annexes in reading order: the card's footnotes. */
+const footnotesOf = (proposal: Proposal) => {
+  const notes: AnnexId[] = [];
+  const steps = proposal.summary.map((step) => ({
+    ...step,
+    marks: (step.annexes ?? []).map((id) => {
+      if (!notes.includes(id)) notes.push(id);
+      return { id, n: notes.indexOf(id) + 1 };
+    }),
+  }));
+  return { notes, steps };
+};
+
+const ProposalCard = ({ proposal }: { proposal: Proposal }) => {
+  const { notes, steps } = footnotesOf(proposal);
+  return (
+    <div
+      className={`${
+        proposal.recommended
+          ? `${panelGold} lg:-translate-y-3 lg:shadow-[0_0_40px_rgba(201,165,87,0.18)]`
+          : panel
+      } relative flex flex-col gap-4 p-5`}
+    >
+      {proposal.recommended ? (
+        <span className="absolute -top-3 left-5 rounded-full bg-(--gold) px-3 py-0.5 font-bold font-mono text-(--night) text-2xs uppercase tracking-xl">
+          La que defendemos
+        </span>
+      ) : null}
+      <h3 className="d-display font-black text-(--parchment) text-2xl uppercase">
+        {proposal.name}
+      </h3>
+      <p className="text-(--parchment) italic">{proposal.motto}</p>
+      <ol className="flex flex-col gap-3">
+        {steps.map((step, index) => (
+          <li className="flex gap-3" key={step.title}>
+            <span className="grid size-7 flex-none place-items-center rounded-full border border-(--gold)/60 font-bold font-mono text-(--gold) text-xs">
+              {index + 1}
+            </span>
+            <span className="text-sm">
+              <strong className="text-(--parchment)">{step.title}.</strong>{' '}
+              <span className="text-(--faded)">{step.text}</span>
+              {step.marks.map((mark) => (
+                <AnnexLink
+                  bare
+                  className="ml-0.5 align-super font-bold font-mono text-(--gold) text-2xs hover:text-(--gold-hi)"
+                  key={mark.id}
+                  target={mark.id}
+                >
+                  {mark.n}
+                </AnnexLink>
+              ))}
+            </span>
+          </li>
         ))}
+      </ol>
+      <div className="mt-auto flex flex-col gap-3">
+        {notes.length > 0 ? (
+          <ol className="flex flex-col gap-1 border-(--hair) border-t pt-3 text-xs">
+            {notes.map((id, index) => (
+              <li className="flex gap-2" key={id}>
+                <span className="font-mono text-(--gold)">{index + 1}</span>
+                <AnnexLink
+                  bare
+                  className="text-(--faded) underline decoration-(--hair-gold) underline-offset-2 hover:text-(--gold-hi)"
+                  target={id}
+                >
+                  {annexById(id)?.title}
+                </AnnexLink>
+              </li>
+            ))}
+          </ol>
+        ) : null}
+        <Link className={linkGold} href={`${PAGE_PATH}/${proposal.key}`}>
+          Leer la propuesta completa →
+        </Link>
       </div>
-      <Link className={linkGold} href={`${PAGE_PATH}/${proposal.key}`}>
-        Leer la propuesta completa →
-      </Link>
     </div>
-  </div>
-);
+  );
+};
 
 const Proposals = () => (
   <div className="grid gap-6 pt-3 lg:grid-cols-3 lg:gap-4">
