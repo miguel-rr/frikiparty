@@ -41,7 +41,7 @@ const ADVANTAGES: Advantage[] = [
   {
     title: 'Cada jugador vale lo que los capitanes creen que vale',
     before:
-      'Guille, para muchos el mejor de la mesa, acabó en el bombo 4 porque no tiene anillos de equipo. Quien lo sacó se llevó un regalo.',
+      'Los anillos decidían el bombo, no el nivel. Jugadores de los mejores de la mesa acababan en el bombo 4 por no tener anillos de equipo, y quien los sacaba se llevaba un regalo.',
     after:
       'Nadie cae en ningún bombo por accidente. Si un jugador es muy bueno, costará caro.',
   },
@@ -120,7 +120,7 @@ const ANNEXES: Annex[] = [
     id: 'annex-ringless',
     title: 'El bombo sin anillo',
     scope: 'intermediate',
-    text: 'Son los cinco jugadores sin anillo de equipo: Guille, Armonds, Ita, Perico y el Jugador Misterioso. Se subastan primero, uno por equipo, para que el campeón de este año tenga al menos un nuevo portador. Guille está aquí: quien lo quiera tendrá que pagarlo.',
+    text: 'Son los cinco jugadores sin anillo de equipo: Guille, Armonds, Ita, Perico y el Jugador Misterioso. Se subastan primero, uno por equipo, para que el campeón de este año tenga al menos un nuevo portador. Si alguno de ellos es de los mejores, quien lo quiera tendrá que pagarlo.',
   },
   {
     id: 'annex-pots',
@@ -299,7 +299,7 @@ const PROPOSALS: Proposal[] = [
     good: 'es el cambio más pequeño y garantiza equipos equilibrados por bombo.',
     caveatLabel: 'Lo que no arregla',
     caveat:
-      'el bombo en el que cae cada uno sigue dependiendo de los anillos, y Guille sigue en el 4.',
+      'el bombo en el que cae cada uno sigue dependiendo de los anillos, no del nivel.',
   },
 ];
 
@@ -327,7 +327,7 @@ const WHY_FREE = {
   ],
   everyone: [
     'Nadie es capitán a la fuerza: quien no quiere esa responsabilidad, no la tiene.',
-    'Sin bombos, nadie cae donde no le toca. El caso Guille no se repite.',
+    'Sin bombos, nadie cae donde no le toca: un buen jugador sin anillos ya no es un regalo en el bombo 4.',
     'La votación es ciega: nadie espera a ver qué hacen los demás para decidir.',
   ],
 } as const;
