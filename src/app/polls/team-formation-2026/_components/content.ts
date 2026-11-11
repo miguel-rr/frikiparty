@@ -343,11 +343,12 @@ const PROPOSALS: Proposal[] = [
     motto: 'Un nuevo portador garantizado y el resto, libre.',
     recommended: false,
     summary: [
-      { title: 'Ranking', text: 'El histórico.' },
       {
-        title: 'Capitanes',
-        text: 'Los cuatro primeros del ranking y un quinto sorteado entre Cañete y Arsuaga, que empatan.',
+        title: 'Ranking',
+        text: 'El histórico, con su desempate.',
+        annexes: ['annex-ties'],
       },
+      { title: 'Capitanes', text: 'Los cinco primeros del ranking.' },
       {
         title: 'Subasta',
         text: 'Una subasta para los cinco sin anillo, para garantizar un nuevo portador. Después, los diez restantes juntos, sin bombos.',
@@ -356,11 +357,12 @@ const PROPOSALS: Proposal[] = [
     ],
     lead: 'Un nuevo portador garantizado y, para todo lo demás, mercado libre.',
     steps: [
+      RANKING_STEP,
       {
         title: 'Los capitanes',
         paragraphs: [
-          'Son capitanes los cinco primeros del ranking histórico de anillos de equipo. Los cuatro primeros están claros: Richard, Juanillo, White y Arri.',
-          'Para el quinto puesto empatan Cañete y Arsuaga, así que se sortea entre los dos. Quien no salga capitán va a la subasta como uno más. El resto de jugadores no va por bombos.',
+          'Son capitanes los cinco primeros del ranking. Los cuatro primeros están claros: Richard, Juanillo, White y Arri.',
+          'Para el quinto puesto empatan a anillos de equipo Cañete y Arsuaga, así que decide el desempate. Quien no salga capitán va a la subasta como uno más. El resto de jugadores no va por bombos.',
         ],
       },
       MONEY_STEP,
@@ -392,7 +394,8 @@ const PROPOSALS: Proposal[] = [
     ],
     good: 'el campeón de 2026 tendrá al menos un nuevo portador, y la mayor parte del equipo se elige libremente.',
     caveatLabel: 'Lo que no arregla',
-    caveat: 'los capitanes siguen siendo los de arriba del ranking, quieran o no.',
+    caveat:
+      'los capitanes siguen siendo los de arriba del ranking, quieran o no.',
   },
   {
     key: 'strict',
