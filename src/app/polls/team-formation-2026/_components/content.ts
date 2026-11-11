@@ -392,7 +392,7 @@ const PROPOSALS: Proposal[] = [
     ],
     good: 'el campeón de 2026 tendrá al menos un nuevo portador, y la mayor parte del equipo se elige libremente.',
     caveatLabel: 'Lo que no arregla',
-    caveat: 'los capitanes siguen siendo los del bombo 1, quieran o no.',
+    caveat: 'los capitanes siguen siendo los de arriba del ranking, quieran o no.',
   },
   {
     key: 'strict',
