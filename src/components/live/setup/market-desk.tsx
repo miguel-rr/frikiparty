@@ -71,6 +71,12 @@ const TURN_ORDER: Choice<'turnOrder'>[] = [
     summary: 'Se sortea al empezar y se repite igual en cada vuelta.',
   },
   {
+    value: 'draw_each_round',
+    title: 'Sorteado cada ronda',
+    summary:
+      'Se vuelve a sortear cada vez que todos los capitanes han nominado una vez.',
+  },
+  {
     value: 'inverse_ranking',
     title: 'Del peor al mejor capitán',
     summary: 'Empieza el capitán peor situado en el ranking.',
@@ -273,7 +279,6 @@ const MarketStart = ({
       />
       {config.lotOrder === 'nomination' ? (
         <Choices
-          columns={3}
           onChange={(value) => set('turnOrder', value)}
           options={TURN_ORDER}
           title="Orden de turnos"
@@ -449,9 +454,10 @@ const DraftMarketStart = ({
         . Quien ya tiene su cupo de un grupo se salta el turno.
       </p>
       <Choices
-        columns={3}
         onChange={(value) => set('turnOrder', value)}
-        options={TURN_ORDER}
+        options={TURN_ORDER.filter(
+          (option) => option.value !== 'draw_each_round',
+        )}
         title="Quién empieza"
         value={config.turnOrder}
       />

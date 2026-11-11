@@ -119,7 +119,7 @@ const marketConfigSchema = z.object({
   sealedPrice: z.enum(['own', 'second_plus_one']),
   reveal: z.enum(['all', 'winner', 'end']),
   lotOrder: z.enum(['random', 'nomination']),
-  turnOrder: z.enum(['draw', 'ranking', 'inverse_ranking']),
+  turnOrder: z.enum(['draw', 'draw_each_round', 'ranking', 'inverse_ranking']),
   budget: z.number().int().min(1).max(100_000),
   compensationPerPlace: z.number().int().min(0).max(10_000),
   minBids: z.array(z.number().int().min(0)),

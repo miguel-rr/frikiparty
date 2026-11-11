@@ -226,3 +226,43 @@ describe('market draft', () => {
     assert.deepEqual(turns.slice(0, 6), ['c1', 'c2', 'c3', 'c3', 'c2', 'c1']);
   });
 });
+
+describe('market turn order', () => {
+  const orders = (turnOrder: MarketConfig['turnOrder'], seed: number) => {
+    const r = room({ lotOrder: 'nomination', turnOrder }, seed);
+    const seen: string[] = [];
+    for (let guard = 0; guard < 300; guard += 1) {
+      const s = r.state();
+      if (s.phase === 'closed') break;
+      if (s.phase === 'idle') {
+        r.run(marketNext(s, r.now(), r.random));
+      } else if (s.phase === 'nominating') {
+        seen.push(s.turnOrder.join(','));
+        const group = s.walk[s.walkCursor] ?? 0;
+        r.run(
+          nominate(
+            s,
+            s.nominatorId ?? '',
+            unsoldIn(s, group)[0] ?? '',
+            1,
+            r.now(),
+          ),
+        );
+      } else {
+        r.tick(60_000);
+      }
+    }
+    assert.equal(r.state().phase, 'closed');
+    return new Set(seen);
+  };
+
+  it('keeps one drawn order, or draws again each round', () => {
+    for (let seed = 1; seed <= 5; seed += 1) {
+      assert.equal(orders('draw', seed).size, 1);
+    }
+    const redraws = [1, 2, 3, 4, 5].map((seed) =>
+      orders('draw_each_round', seed),
+    );
+    assert.ok(redraws.some((set) => set.size > 1));
+  });
+});

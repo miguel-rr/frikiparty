@@ -20,7 +20,11 @@ type SealedPrice = 'own' | 'second_plus_one';
 type BidReveal = 'all' | 'winner' | 'end';
 type LotOrder = 'random' | 'nomination';
 /** Turn order for nominating, set once and repeated every round. */
-type TurnOrder = 'draw' | 'ranking' | 'inverse_ranking';
+/**
+ * Who nominates first. `draw_each_round` draws again every time all
+ * captains have had their turn.
+ */
+type TurnOrder = 'draw' | 'draw_each_round' | 'ranking' | 'inverse_ranking';
 /** Money kept back for each seat still to fill after this one. */
 type Reserve = 'none' | 'one' | 'minimum';
 
@@ -414,6 +418,7 @@ const foldMarket = (events: MarketEvent[]): MarketState => {
         state.nominatorId = str(p.captainId);
         state.turnCursor = num(p.turnCursor);
         state.turnCount = num(p.turnCount, state.turnCount);
+        if (Array.isArray(p.turnOrder)) state.turnOrder = strList(p.turnOrder);
         state.phase = 'nominating';
         state.lastSale = null;
         state.lastUnsold = null;
@@ -576,7 +581,8 @@ const startMarketEvents = (input: {
     (a, b) => (place.get(a) ?? 0) - (place.get(b) ?? 0),
   );
   const turnOrder =
-    input.config.turnOrder === 'draw'
+    input.config.turnOrder === 'draw' ||
+    input.config.turnOrder === 'draw_each_round'
       ? shuffleWith(input.captainIds, random)
       : input.config.turnOrder === 'ranking'
         ? byRank
@@ -780,8 +786,22 @@ const marketNext = (
     };
   }
   if (state.config.lotOrder === 'nomination') {
-    const next = nextNominator(state, groupIndex);
+    let next = nextNominator(state, groupIndex);
     if (!next) return { events: [closeEvent(state, now)] };
+    // A full round has gone by (the turn wraps to the start): new draw.
+    const roundOver =
+      state.turnCount > 0 &&
+      (state.turnCursor === 0 || next.cursor < state.turnCursor);
+    let redrawn: string[] | null = null;
+    if (state.config.turnOrder === 'draw_each_round' && roundOver) {
+      redrawn = shuffleWith(state.turnOrder, random);
+      next =
+        nextNominator(
+          { ...state, turnOrder: redrawn, turnCursor: 0 },
+          groupIndex,
+        ) ?? next;
+    }
+    const order = redrawn ?? state.turnOrder;
     return {
       events: [
         {
@@ -789,7 +809,9 @@ const marketNext = (
           at: now,
           payload: {
             captainId: next.captainId,
-            turnCursor: (next.cursor + 1) % Math.max(1, state.turnOrder.length),
+            turnCursor: (next.cursor + 1) % Math.max(1, order.length),
+            turnCount: state.turnCount + 1,
+            ...(redrawn ? { turnOrder: redrawn } : {}),
           },
         },
       ],
