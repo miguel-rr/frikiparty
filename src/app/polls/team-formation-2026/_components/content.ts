@@ -343,11 +343,11 @@ const PROPOSALS: Proposal[] = [
     motto: 'Un nuevo portador garantizado y el resto, libre.',
     recommended: false,
     summary: [
+      { title: 'Ranking', text: 'El histórico.' },
       {
-        title: 'Ranking',
-        text: 'El histórico, con el bombo 1 que ya publicó Armonds.',
+        title: 'Capitanes',
+        text: 'Los cuatro primeros del ranking y un quinto sorteado entre Cañete y Arsuaga, que empatan.',
       },
-      { title: 'Capitanes', text: 'Los cinco del bombo 1.' },
       {
         title: 'Subasta',
         text: 'Una subasta para los cinco sin anillo, para garantizar un nuevo portador. Después, los diez restantes juntos, sin bombos.',
@@ -359,8 +359,8 @@ const PROPOSALS: Proposal[] = [
       {
         title: 'Los capitanes',
         paragraphs: [
-          'Son los cinco del bombo 1 que ya publicó Armonds a partir del ranking histórico de anillos de equipo: Richard, Juanillo, White, Arri y Cañete.',
-          'Cañete y Arsuaga empataban a anillos y Armonds ya desempató a favor de Cañete, así que ese bombo queda tal cual. De los bombos de Armonds solo se usa el 1: el resto de jugadores no va por bombos.',
+          'Son capitanes los cinco primeros del ranking histórico de anillos de equipo. Los cuatro primeros están claros: Richard, Juanillo, White y Arri.',
+          'Para el quinto puesto empatan Cañete y Arsuaga, así que se sortea entre los dos. Quien no salga capitán va a la subasta como uno más. El resto de jugadores no va por bombos.',
         ],
       },
       MONEY_STEP,
