@@ -105,8 +105,8 @@ const VoteForm = ({
   const [chosen, setChosen] = useState<string | null>(poll.myVote);
   const vote = api.poll.vote.useMutation({ onSuccess: onVoted });
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-1 flex-col justify-center gap-2">
         {poll.options.map((option) => (
           <button
             aria-pressed={chosen === option.key}
@@ -234,7 +234,7 @@ const PollCard = ({
       );
     }
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4">
         {poll.results ? (
           <ResultBars poll={poll} />
         ) : (
@@ -244,7 +244,7 @@ const PollCard = ({
           </p>
         )}
         <button
-          className="self-start font-bold text-(--gold) text-sm hover:text-(--gold-hi)"
+          className="mt-auto self-start font-bold text-(--gold) text-sm hover:text-(--gold-hi)"
           onClick={() => setEditing(true)}
           type="button"
         >
@@ -265,7 +265,7 @@ const PollCard = ({
           {poll.question}
         </h3>
       </div>
-      {body}
+      <div className="flex flex-1 flex-col">{body}</div>
       {signedIn || poll.closed ? <TurnoutBar poll={poll} /> : null}
     </div>
   );
