@@ -172,7 +172,7 @@ const ProposalCard = ({ proposal }: { proposal: Proposal }) => {
     <div
       className={`${
         proposal.recommended
-          ? `${panelGold} lg:-translate-y-3 lg:shadow-[0_0_40px_rgba(201,165,87,0.18)]`
+          ? `${panelGold} lg:shadow-[0_0_40px_rgba(201,165,87,0.18)]`
           : panel
       } relative flex flex-col gap-4 p-5`}
     >
