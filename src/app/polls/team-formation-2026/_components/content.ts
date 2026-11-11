@@ -46,10 +46,17 @@ const AUCTION = {
   ],
 } as const;
 
-type Advantage = { title: string; before: string; after: string };
+type Advantage = {
+  /** The problem, over the left column. */
+  problem: string;
+  title: string;
+  before: string;
+  after: string;
+};
 
 const ADVANTAGES: Advantage[] = [
   {
+    problem: 'El bombo lo decidían los anillos',
     title: 'Cada jugador vale lo que los capitanes creen que vale',
     before:
       'Los anillos decidían el bombo, no el nivel. Jugadores de los mejores de la mesa acababan en el bombo 4 por no tener anillos de equipo, y quien los sacaba se llevaba un regalo.',
@@ -57,6 +64,7 @@ const ADVANTAGES: Advantage[] = [
       'Nadie cae en ningún bombo por accidente. Si un jugador es muy bueno, costará caro.',
   },
   {
+    problem: 'Esperar a que te elijan',
     title: 'El equipo juega desde el primer minuto',
     before:
       'Cada jugador esperaba a que lo eligieran y miraba el draft desde fuera.',
@@ -64,6 +72,7 @@ const ADVANTAGES: Advantage[] = [
       'En cuanto un jugador es subastado, pasa a ser del equipo y ayuda a su capitán con la estrategia el resto de la subasta. Las pujas se deciden en equipo.',
   },
   {
+    problem: 'Medio equipo, a suerte',
     title: 'Decide el capitán, no la suerte',
     before:
       'El sorteo y el orden del draft decidían medio equipo, y las quejas llegaban después.',
@@ -71,6 +80,7 @@ const ADVANTAGES: Advantage[] = [
       'Cada capitán decide en quién gasta y en quién no. Si su equipo no le gusta, la culpa es suya.',
   },
   {
+    problem: 'Equipos con varias estrellas',
     title: 'Imposible juntar a todos los buenos',
     before:
       'Con suerte en el sorteo y en los bombos, un equipo podía reunir a varios de los mejores.',

@@ -124,21 +124,27 @@ const Advantages = () => (
       </span>
     </div>
     {ADVANTAGES.map((advantage) => (
-      <div className="flex flex-col gap-2 px-5 py-4" key={advantage.title}>
-        <h3 className="font-bold text-(--gold-hi)">{advantage.title}</h3>
-        <div className="grid gap-2 sm:grid-cols-[1fr_1fr] sm:gap-6">
-          <p className="text-(--faded) text-sm">
+      <div
+        className="grid gap-3 px-5 py-4 sm:grid-cols-[1fr_1fr] sm:gap-6"
+        key={advantage.title}
+      >
+        <div className="flex flex-col gap-1">
+          <h3 className="font-bold text-(--ember)">
             <span className="mr-2 font-mono text-2xs uppercase tracking-xl sm:hidden">
               Antes ·
             </span>
-            {advantage.before}
-          </p>
-          <p className="text-(--parchment) text-sm">
-            <span className="mr-2 font-mono text-(--gold) text-2xs uppercase tracking-xl sm:hidden">
+            {advantage.problem}
+          </h3>
+          <p className="text-(--faded) text-sm">{advantage.before}</p>
+        </div>
+        <div className="flex flex-col gap-1">
+          <h3 className="font-bold text-(--gold-hi)">
+            <span className="mr-2 font-mono text-2xs uppercase tracking-xl sm:hidden">
               Ahora ·
             </span>
-            {advantage.after}
-          </p>
+            {advantage.title}
+          </h3>
+          <p className="text-(--parchment) text-sm">{advantage.after}</p>
         </div>
       </div>
     ))}
