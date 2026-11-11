@@ -50,7 +50,7 @@ const CountBar = ({ turnout }: { turnout: Turnout }) => {
   const at = (turnout.quorum / turnout.eligible) * 100;
   return (
     <div className="flex items-center gap-4">
-      <div className="flex flex-none items-baseline gap-1">
+      <div className="flex w-20 flex-none items-baseline justify-end gap-1 tabular-nums">
         <span className="d-display font-black text-(--parchment) text-3xl">
           {turnout.votes}
         </span>

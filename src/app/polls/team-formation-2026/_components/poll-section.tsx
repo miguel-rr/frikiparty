@@ -20,32 +20,46 @@ const deadlineText = (closesAt: Date) =>
     timeZone: 'Europe/Madrid',
   }).format(closesAt);
 
-/** Votes so far against everyone who can vote, with the quorum notch. */
+/** Votes so far against everyone who can vote, with the quorum flag. */
 const TurnoutBar = ({ poll }: { poll: PagePoll }) => {
   const total = Math.max(poll.eligible, 1);
-  const reached = poll.votes >= poll.quorum;
+  const missing = Math.max(0, poll.quorum - poll.votes);
+  const at = (poll.quorum / total) * 100;
   return (
-    <div className="flex flex-col gap-1.5">
-      <div className="relative h-2.5 rounded-full bg-(--night-2) shadow-[inset_0_0_0_1px_var(--hair)]">
-        <div
-          className={`h-full rounded-full ${reached ? 'bg-linear-to-r from-(--gold) to-(--gold-hi)' : 'bg-(--gold)/55'}`}
-          style={{ width: `${Math.min(100, (poll.votes / total) * 100)}%` }}
-        />
-        <span
-          aria-hidden
-          className="absolute -top-1.5 h-5.5 w-0.5 rounded bg-(--parchment)"
-          style={{ left: `${(poll.quorum / total) * 100}%` }}
-        />
-      </div>
-      <div className="flex flex-wrap justify-between gap-x-3 font-mono text-(--faded) text-2xs uppercase tracking-xl">
-        <span>
-          <strong className="text-(--parchment)">{poll.votes}</strong> de{' '}
-          {poll.eligible} han votado
+    <div className="flex items-center gap-4">
+      {/* Fixed width so the bar never moves as the count grows. */}
+      <div className="flex w-20 flex-none items-baseline justify-end gap-1 tabular-nums">
+        <span className="d-display font-black text-(--parchment) text-3xl">
+          {poll.votes}
         </span>
-        <span>
-          {reached
-            ? 'Quórum alcanzado'
-            : `Resultados con ${poll.quorum} · faltan ${poll.quorum - poll.votes}`}
+        <span className="font-mono text-(--faded) text-sm">
+          /{poll.eligible}
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col gap-1.5 pt-4">
+        <div className="relative h-1.5 rounded-full bg-(--night-2)">
+          <div
+            className={`h-full rounded-full ${missing === 0 ? 'bg-(--gold-hi)' : 'bg-(--gold)'}`}
+            style={{ width: `${Math.min(100, (poll.votes / total) * 100)}%` }}
+          />
+          <span
+            className="absolute -top-5 -translate-x-1/2 font-mono text-(--parchment) text-2xs"
+            style={{ left: `${at}%` }}
+          >
+            ◆ {poll.quorum}
+          </span>
+          <span
+            aria-hidden
+            className="absolute -top-1 h-3.5 w-px -translate-x-1/2 bg-(--parchment)"
+            style={{ left: `${at}%` }}
+          />
+        </div>
+        <span
+          className={`font-mono text-2xs uppercase tracking-xl ${missing === 0 ? 'text-(--gold-hi)' : 'text-(--faded)'}`}
+        >
+          {missing === 0
+            ? 'Resultados abiertos'
+            : `Faltan ${missing} para ver resultados`}
         </span>
       </div>
     </div>
