@@ -59,7 +59,7 @@ const ADVANTAGES: Advantage[] = [
     problem: 'El bombo lo decidían los anillos',
     title: 'Cada jugador vale lo que los capitanes creen que vale',
     before:
-      'Los anillos decidían el bombo, no el nivel. Jugadores de los mejores de la mesa acababan en el bombo 4 por no tener anillos de equipo, y quien los sacaba se llevaba un regalo.',
+      'Los bombos se decidían por anillos o votaciones cutres, no por el nivel real. Jugadores de los mejores de la mesa acababan en el bombo 4 por no tener anillos de equipo, y quien los sacaba se llevaba un regalo.',
     after:
       'Nadie cae en ningún bombo por accidente. Si un jugador es muy bueno, costará caro.',
   },
