@@ -185,7 +185,7 @@ const PROPOSALS: Proposal[] = [
   {
     key: 'free',
     name: 'Libre',
-    motto: 'Capitán quien quiera serlo.',
+    motto: 'Capitán quien quiera serlo. Sin bombos.',
     recommended: true,
     summary: [
       {
