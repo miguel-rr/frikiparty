@@ -334,6 +334,7 @@ const WHY_FREE = {
   reasons: [
     'Capitán, en principio, solo quien quiera serlo. Solo si se ofrecen menos de cinco se completa con los mejor situados del ranking.',
     'Sin bombos, nadie cae donde no le toca: un buen jugador sin anillos ya no es un regalo en el bombo 4.',
+    'Estar arriba en el ranking no te condena a ser capitán: si crees que te perjudica, no te ofreces y pasas a la subasta como uno más.',
     'Cada jugador cuesta lo que el grupo cree que vale, no lo que dice una etiqueta.',
     'La votación es ciega: nadie espera a ver qué hacen los demás para decidir.',
   ],
