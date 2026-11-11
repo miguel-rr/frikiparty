@@ -31,17 +31,11 @@ const Turnout = ({ poll }: { poll: PagePoll }) => {
         </strong>{' '}
         {poll.votes === 1 ? 'voto' : 'votos'}
       </span>
-      <span
-        className={`rounded-full border px-3 py-1 font-mono text-2xs uppercase tracking-xl ${
-          reached
-            ? 'border-(--gold) bg-(--gold)/10 text-(--gold-hi)'
-            : 'border-(--hair-gold) text-(--faded)'
-        }`}
-      >
-        {reached
-          ? 'Resultados abiertos'
-          : `Hacen falta ${poll.quorum} para ver los resultados`}
-      </span>
+      {reached ? null : (
+        <span className="rounded-full border border-(--hair-gold) px-3 py-1 font-mono text-(--faded) text-2xs uppercase tracking-xl">
+          Hacen falta {poll.quorum} para ver los resultados
+        </span>
+      )}
     </div>
   );
 };
