@@ -19,6 +19,7 @@ import {
   annexById,
   OPENING,
   PAGE_PATH,
+  POLLS_INTRO,
   PROPOSALS,
   type Proposal,
   WHY_CAPTAIN,
@@ -282,6 +283,23 @@ const WhyCaptain = () => (
   </div>
 );
 
+/** The polls are only a sounding: a stamp so nobody misses it. */
+const NonBindingNotice = () => (
+  <div className="mx-auto flex max-w-2xl flex-col items-center gap-5 pt-8 pb-4 sm:flex-row sm:gap-8">
+    <div className="flex-none -rotate-6 rounded-md border-(--ember) border-4 border-double px-5 py-3 text-center text-(--ember)">
+      <div className="d-display font-black text-3xl uppercase leading-none tracking-wide">
+        {POLLS_INTRO.stamp}
+      </div>
+      <div className="mt-1 font-mono text-2xs uppercase tracking-2xl">
+        {POLLS_INTRO.stampNote}
+      </div>
+    </div>
+    <p className="text-center text-(--parchment) text-lg sm:text-left">
+      {POLLS_INTRO.notice}
+    </p>
+  </div>
+);
+
 const AnnexCard = ({ annex, inline }: { annex: Annex; inline?: boolean }) => (
   <div
     className={`${
@@ -340,6 +358,7 @@ export {
   AnnexCard,
   Annexes,
   AuctionIntro,
+  NonBindingNotice,
   Opening,
   Proposals,
   SCOPE_NAMES,

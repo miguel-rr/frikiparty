@@ -7,6 +7,7 @@ import {
   Advantages,
   Annexes,
   AuctionIntro,
+  NonBindingNotice,
   Opening,
   Proposals,
   WhyCaptain,
@@ -56,6 +57,7 @@ const TeamFormationPollPage = () => (
         lead={POLLS_INTRO.lead}
         title={POLLS_INTRO.title}
       />
+      <NonBindingNotice />
       <PollSection />
     </Section>
     <Divider />

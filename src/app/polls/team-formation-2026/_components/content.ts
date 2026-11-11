@@ -494,7 +494,11 @@ const WHY_CAPTAIN = {
 
 const POLLS_INTRO = {
   title: 'Ahora te toca a ti',
-  lead: 'Dos preguntas. Votan los confirmados para la Frikiparty 2026. El voto es anónimo y puedes cambiarlo hasta el cierre. Los resultados se abren cuando haya votado la mitad más uno, y solo para quien ya ha votado. La votación no es vinculante: es orientativa, para saber qué piensa el grupo.',
+  lead: 'Dos preguntas. Votan los confirmados para la Frikiparty 2026. El voto es anónimo y puedes cambiarlo hasta el cierre. Los resultados se abren cuando haya votado la mitad más uno, y solo para quien ya ha votado.',
+  stamp: 'No vinculante',
+  stampNote: 'Votación orientativa',
+  notice:
+    'Estas votaciones no deciden nada por sí solas. Son orientativas: sirven para saber qué piensa el grupo antes de cerrar el formato.',
 } as const;
 
 const annexById = (id: AnnexId) => ANNEXES.find((annex) => annex.id === id);
