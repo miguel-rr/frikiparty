@@ -85,7 +85,7 @@ const ADVANTAGES: Advantage[] = [
     before:
       'Con suerte en el sorteo y en los bombos, un equipo podía reunir a varios de los mejores.',
     after:
-      'Cada jugador bueno cuesta caro. Quien gasta en dos o tres estrellas se queda sin dinero para el resto: el presupuesto obliga a repartir el talento.',
+      'Cada jugador bueno cuesta caro. Quien se lo gasta casi todo en una segunda estrella llega sin dinero al resto de la subasta, y los demás se reparten a los buenos que quedan: el presupuesto obliga a repartir el talento.',
   },
 ];
 
