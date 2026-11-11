@@ -96,10 +96,12 @@ const VoteForm = ({
   onVoted,
 }: {
   poll: PagePoll;
-  onVoted: () => void;
+  onVoted: () => Promise<unknown>;
 }) => {
   const [chosen, setChosen] = useState<string | null>(poll.myVote);
-  const vote = api.poll.vote.useMutation({ onSuccess: onVoted });
+  // The mutation stays pending until the page has refetched, so the form
+  // never flashes back before the new state arrives.
+  const vote = api.poll.vote.useMutation({ onSuccess: () => onVoted() });
   return (
     <div className="flex flex-1 flex-col gap-4">
       <div className="flex flex-1 flex-col justify-center gap-2 py-4">
@@ -165,7 +167,7 @@ const PollCard = ({
   poll: PagePoll;
   signedIn: boolean;
   canVote: boolean;
-  onVoted: () => void;
+  onVoted: () => Promise<unknown>;
 }) => {
   const [editing, setEditing] = useState(false);
   const label = poll.options.find(
@@ -241,9 +243,9 @@ const PollCard = ({
     if (!poll.myVote || editing) {
       return (
         <VoteForm
-          onVoted={() => {
+          onVoted={async () => {
+            await onVoted();
             setEditing(false);
-            onVoted();
           }}
           poll={poll}
         />
