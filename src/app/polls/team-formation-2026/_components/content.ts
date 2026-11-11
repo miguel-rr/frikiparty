@@ -142,7 +142,7 @@ const ANNEXES: Annex[] = [
     id: 'annex-ringless',
     title: 'El bombo sin anillo',
     scope: 'intermediate',
-    text: 'Son los cinco jugadores sin anillo de equipo: Guille, Armonds, Ita, Perico y el Jugador Misterioso. Se subastan primero, uno por equipo, para que el campeón de este año tenga al menos un nuevo portador. Si alguno de ellos es de los mejores, quien lo quiera tendrá que pagarlo.',
+    text: 'Son los cinco jugadores sin anillo de equipo: Guille, Armonds, Ita, Perico y el Jugador Misterioso. Se subastan aparte, uno por equipo, para que el campeón de este año tenga al menos un nuevo portador. Si alguno de ellos es de los mejores, quien lo quiera tendrá que pagarlo.',
   },
   {
     id: 'annex-pots',
@@ -243,7 +243,7 @@ const PROPOSALS: Proposal[] = [
       { title: 'Capitanes', text: 'Los cinco del bombo 1.' },
       {
         title: 'Subasta',
-        text: 'Primero los cinco sin anillo de equipo, uno para cada equipo, para garantizar un nuevo portador. Después, los diez restantes juntos, sin bombos.',
+        text: 'Una subasta para los cinco sin anillo, para garantizar un nuevo portador. Después, los diez restantes juntos, sin bombos.',
       },
     ],
     annexes: ['annex-ties', 'annex-ringless'],
@@ -260,12 +260,12 @@ const PROPOSALS: Proposal[] = [
         annexes: ['annex-money'],
       },
       {
-        title: 'Primera subasta: los sin anillo',
+        title: 'La subasta de los sin anillo',
         text: 'Se subastan Guille, Armonds, Ita, Perico y el Jugador Misterioso, uno para cada equipo.',
         annexes: ['annex-ringless', 'annex-bidding'],
       },
       {
-        title: 'Segunda subasta: el resto',
+        title: 'La subasta del resto',
         text: 'Los diez jugadores restantes salen juntos, sin bombos. Cada equipo se lleva dos.',
         annexes: ['annex-nomination'],
       },
